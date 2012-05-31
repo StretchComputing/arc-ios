@@ -48,7 +48,7 @@
         float cost = [self.totalCost floatValue];
         float tip = [self.tipField.text floatValue];
         
-        int total = tip + cost;
+        float total = tip + cost;
         
         self.totalPlusTip.text = [NSString stringWithFormat:@"%f", total];
         

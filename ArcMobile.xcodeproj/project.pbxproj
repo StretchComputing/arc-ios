@@ -32,9 +32,9 @@
 		9082EBE8157707BE00A33A15 /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9082EBE7157707BE00A33A15 /* UIDevice-Hardware.m */; };
 		9082EBEB157707D700A33A15 /* rSkybox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9082EBEA157707D700A33A15 /* rSkybox.m */; };
 		9082EBEF157707E800A33A15 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9082EBEE157707E800A33A15 /* CrashReporter.framework */; };
-		9082EBF115770A3C00A33A15 /* libCrashReporter-iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9082EBF015770A3C00A33A15 /* libCrashReporter-iphonesimulator.a */; };
 		9082EBF41577145B00A33A15 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9082EBF21577145A00A33A15 /* Icon@2x.png */; };
 		9082EBF51577145B00A33A15 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9082EBF31577145B00A33A15 /* Icon.png */; };
+		9082EBFE157718BC00A33A15 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9082EBFD157718BC00A33A15 /* libCrashReporter-iphoneos.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,9 +82,9 @@
 		9082EBE9157707D700A33A15 /* rSkybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rSkybox.h; sourceTree = "<group>"; };
 		9082EBEA157707D700A33A15 /* rSkybox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rSkybox.m; sourceTree = "<group>"; };
 		9082EBEE157707E800A33A15 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
-		9082EBF015770A3C00A33A15 /* libCrashReporter-iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphonesimulator.a"; sourceTree = "<group>"; };
 		9082EBF21577145A00A33A15 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		9082EBF31577145B00A33A15 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		9082EBFD157718BC00A33A15 /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9082EBF115770A3C00A33A15 /* libCrashReporter-iphonesimulator.a in Frameworks */,
+				9082EBFE157718BC00A33A15 /* libCrashReporter-iphoneos.a in Frameworks */,
 				9082EB9C1576F33200A33A15 /* UIKit.framework in Frameworks */,
 				9082EB9E1576F33200A33A15 /* Foundation.framework in Frameworks */,
 				9082EBA01576F33200A33A15 /* CoreGraphics.framework in Frameworks */,
@@ -106,7 +106,7 @@
 		9082EB8C1576F33200A33A15 = {
 			isa = PBXGroup;
 			children = (
-				9082EBF015770A3C00A33A15 /* libCrashReporter-iphonesimulator.a */,
+				9082EBFD157718BC00A33A15 /* libCrashReporter-iphoneos.a */,
 				9082EBEE157707E800A33A15 /* CrashReporter.framework */,
 				9082EBA11576F33200A33A15 /* ArcMobile */,
 				9082EB9A1576F33200A33A15 /* Frameworks */,
@@ -302,7 +302,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Wroblewski (X5X79Y3ZRE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Wroblewski (X5X79Y3ZRE)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -317,6 +318,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PROVISIONING_PROFILE = "513517EA-D3F5-46D7-BB0C-EB68005EEDB5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "513517EA-D3F5-46D7-BB0C-EB68005EEDB5";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -327,7 +330,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Stretch Computing,Incorporated";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Stretch Computing,Incorporated";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -336,6 +340,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "0E49364C-1997-4730-9FE7-66BE503612DD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0E49364C-1997-4730-9FE7-66BE503612DD";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -379,6 +385,48 @@
 			};
 			name = Release;
 		};
+		9082EBFA1577186A00A33A15 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Stretch Computing,Incorporated";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Stretch Computing,Incorporated";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "0E49364C-1997-4730-9FE7-66BE503612DD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0E49364C-1997-4730-9FE7-66BE503612DD";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = AdHoc;
+		};
+		9082EBFB1577186A00A33A15 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ArcMobile/ArcMobile-Prefix.pch";
+				INFOPLIST_FILE = "ArcMobile/ArcMobile-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AdHoc;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -387,6 +435,7 @@
 			buildConfigurations = (
 				9082EBB31576F33200A33A15 /* Debug */,
 				9082EBB41576F33200A33A15 /* Release */,
+				9082EBFA1577186A00A33A15 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -396,8 +445,10 @@
 			buildConfigurations = (
 				9082EBB61576F33200A33A15 /* Debug */,
 				9082EBB71576F33200A33A15 /* Release */,
+				9082EBFB1577186A00A33A15 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
