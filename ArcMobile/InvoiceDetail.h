@@ -15,5 +15,9 @@
 @property (nonatomic, strong) NSString *totalCost;
 
 @property (nonatomic, strong) IBOutlet UILabel *displayCost;
+@property (nonatomic, strong) IBOutlet UITextField *tipField;
+@property (nonatomic, strong) IBOutlet UILabel *totalPlusTip;
+-(IBAction)submitPayment;
 
+-(IBAction)endText;
 @end

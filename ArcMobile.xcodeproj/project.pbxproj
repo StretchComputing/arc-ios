@@ -33,6 +33,8 @@
 		9082EBEB157707D700A33A15 /* rSkybox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9082EBEA157707D700A33A15 /* rSkybox.m */; };
 		9082EBEF157707E800A33A15 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9082EBEE157707E800A33A15 /* CrashReporter.framework */; };
 		9082EBF115770A3C00A33A15 /* libCrashReporter-iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9082EBF015770A3C00A33A15 /* libCrashReporter-iphonesimulator.a */; };
+		9082EBF41577145B00A33A15 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9082EBF21577145A00A33A15 /* Icon@2x.png */; };
+		9082EBF51577145B00A33A15 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9082EBF31577145B00A33A15 /* Icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,8 @@
 		9082EBEA157707D700A33A15 /* rSkybox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rSkybox.m; sourceTree = "<group>"; };
 		9082EBEE157707E800A33A15 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
 		9082EBF015770A3C00A33A15 /* libCrashReporter-iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphonesimulator.a"; sourceTree = "<group>"; };
+		9082EBF21577145A00A33A15 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		9082EBF31577145B00A33A15 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +170,8 @@
 				9082EBE4157706AE00A33A15 /* Encoder.c */,
 				9082EBE6157707BE00A33A15 /* UIDevice-Hardware.h */,
 				9082EBE7157707BE00A33A15 /* UIDevice-Hardware.m */,
+				9082EBF21577145A00A33A15 /* Icon@2x.png */,
+				9082EBF31577145B00A33A15 /* Icon.png */,
 				9082EBA21576F33200A33A15 /* Supporting Files */,
 			);
 			path = ArcMobile;
@@ -237,6 +243,8 @@
 				9082EBBC1576F37C00A33A15 /* Home.xib in Resources */,
 				9082EBC11576F77D00A33A15 /* Restaurant.xib in Resources */,
 				9082EBC61576F7FE00A33A15 /* InvoiceDetail.xib in Resources */,
+				9082EBF41577145B00A33A15 /* Icon@2x.png in Resources */,
+				9082EBF51577145B00A33A15 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

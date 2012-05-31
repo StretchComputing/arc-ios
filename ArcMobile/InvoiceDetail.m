@@ -7,13 +7,15 @@
 //
 
 #import "InvoiceDetail.h"
+#import "ServerAPI.h"
+#import "AppDelegate.h"
 
 @interface InvoiceDetail ()
 
 @end
 
 @implementation InvoiceDetail
-@synthesize invoiceId, merchantId, totalCost, displayCost;
+@synthesize invoiceId, merchantId, totalCost, displayCost, tipField, totalPlusTip;
 
 
 
@@ -32,7 +34,30 @@
 }
 
 -(void)submitPayment{
+ 
+    AppDelegate *mainDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
+    [ServerAPI updateInvoiceWithId:self.invoiceId andRestaurantId:merchantId gratuity:self.tipField.text paymentMethod:@"Dwolla" percentage:@"100" invoiceStatus:@"paid" userToken:mainDelegate.token];
+}
+
+-(void)endText{
+    
+    @try {
+        [self.tipField resignFirstResponder];
+        
+        float cost = [self.totalCost floatValue];
+        float tip = [self.tipField.text floatValue];
+        
+        int total = tip + cost;
+        
+        self.totalPlusTip.text = [NSString stringWithFormat:@"%f", total];
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+ 
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
