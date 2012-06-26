@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Home : UIViewController
+@interface Home : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+
+@property (weak, nonatomic) IBOutlet UIView *activityView;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (nonatomic, strong) NSMutableData *serverData;
+@property (nonatomic, strong) NSMutableArray *allMerchants;
+@property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @end

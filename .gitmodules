@@ -1,0 +1,3 @@
+[submodule "DwollaOAuth"]
+	path = DwollaOAuth
+	url = git@github.com:Dwolla/dwolla-sdk-ios.git

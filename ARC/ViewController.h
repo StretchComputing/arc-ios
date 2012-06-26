@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
 @property (nonatomic, strong) UITextField *username;
 @property (nonatomic, strong) UITextField *password;

@@ -14,9 +14,14 @@
 @end
 
 @implementation ViewController
+@synthesize navBar;
 @synthesize signInButton;
 @synthesize myTableView, username, password;
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    [self.username becomeFirstResponder];
+}
 
 -(void)selectPassword{
     [self.password becomeFirstResponder];
@@ -48,12 +53,14 @@
     self.username.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.password.clearButtonMode = UITextFieldViewModeWhileEditing;
     
+    self.navBar.tintColor = [UIColor colorWithRed:0.0427221 green:0.380456 blue:0.785953 alpha:1.0];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
 -(void)signIn{
     
+    // - 0.0427221 0.380456 0.785953 1
     //[self.signInButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     
     //HomeNavigationController *tmp = [[HomeNavigationController alloc] init];
@@ -134,4 +141,8 @@
     return 35;
 }
 
+- (void)viewDidUnload {
+    [self setNavBar:nil];
+    [super viewDidUnload];
+}
 @end

@@ -1,23 +1,24 @@
 //
-//  HomeNavigationController.m
+//  ContactUsView.m
 //  ARC
 //
-//  Created by Nick Wroblewski on 6/24/12.
+//  Created by Nick Wroblewski on 6/26/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "HomeNavigationController.h"
+#import "ContactUsView.h"
 
-@interface HomeNavigationController ()
+@interface ContactUsView ()
 
 @end
 
-@implementation HomeNavigationController
+@implementation ContactUsView
+
 
 
 - (void)viewDidLoad
 {
-     self.navigationBar.tintColor = [UIColor colorWithRed:0.0427221 green:0.380456 blue:0.785953 alpha:1.0];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.0427221 green:0.380456 blue:0.785953 alpha:1.0];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -33,4 +34,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)cancel:(id)sender {
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
 @end
