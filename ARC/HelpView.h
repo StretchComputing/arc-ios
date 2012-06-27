@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HelpView : UIViewController
+@interface HelpView : UITableViewController
 - (IBAction)cancel:(id)sender;
 
 @end

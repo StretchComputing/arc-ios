@@ -116,7 +116,7 @@
     NSData *returnData = [NSData dataWithData:self.serverData];
     
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-
+    
     NewSBJSON *jsonParser = [NewSBJSON new];
     NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
     

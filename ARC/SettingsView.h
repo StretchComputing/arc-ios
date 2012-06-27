@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsView : UIViewController
+@interface SettingsView : UITableViewController
 - (IBAction)cancel:(id)sender;
 
 @end

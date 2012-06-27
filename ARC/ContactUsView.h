@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface ContactUsView : UIViewController
+
+@interface ContactUsView : UIViewController <MFMailComposeViewControllerDelegate>
 - (IBAction)cancel:(id)sender;
+- (IBAction)call;
+- (IBAction)email;
 
 @end

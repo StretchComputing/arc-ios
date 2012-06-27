@@ -82,6 +82,10 @@
 		90FBDA5F159A63CB0051609A /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDA5E159A63CB0051609A /* SettingsView.m */; };
 		90FBDA62159A63D50051609A /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDA61159A63D50051609A /* HelpView.m */; };
 		90FBDA65159A63E40051609A /* ContactUsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDA64159A63E40051609A /* ContactUsView.m */; };
+		90FBDA74159A70E50051609A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FBDA73159A70E50051609A /* MessageUI.framework */; };
+		90FBDA78159A77180051609A /* foursquareconnect.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 90FBDA75159A77180051609A /* foursquareconnect.jpeg */; };
+		90FBDA79159A77180051609A /* twitterconnect.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 90FBDA76159A77180051609A /* twitterconnect.jpeg */; };
+		90FBDA7A159A77180051609A /* facebookconnect.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 90FBDA77159A77180051609A /* facebookconnect.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -238,6 +242,10 @@
 		90FBDA61159A63D50051609A /* HelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpView.m; sourceTree = "<group>"; };
 		90FBDA63159A63E40051609A /* ContactUsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUsView.h; sourceTree = "<group>"; };
 		90FBDA64159A63E40051609A /* ContactUsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsView.m; sourceTree = "<group>"; };
+		90FBDA73159A70E50051609A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		90FBDA75159A77180051609A /* foursquareconnect.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = foursquareconnect.jpeg; sourceTree = "<group>"; };
+		90FBDA76159A77180051609A /* twitterconnect.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = twitterconnect.jpeg; sourceTree = "<group>"; };
+		90FBDA77159A77180051609A /* facebookconnect.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = facebookconnect.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +253,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90FBDA74159A70E50051609A /* MessageUI.framework in Frameworks */,
 				90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */,
 				90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */,
 				90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */,
@@ -257,6 +266,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				90FBDA73159A70E50051609A /* MessageUI.framework */,
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
 				90993F581597782100FC1D49 /* Default@2x.png */,
@@ -264,6 +274,9 @@
 				90BFD0921597943600F5285E /* rowButton.png */,
 				90B6B0D61599F121005E4BCB /* plainArc.png */,
 				90FBDA5B159A5FDF0051609A /* receiptBack.png */,
+				90FBDA75159A77180051609A /* foursquareconnect.jpeg */,
+				90FBDA76159A77180051609A /* twitterconnect.jpeg */,
+				90FBDA77159A77180051609A /* facebookconnect.jpeg */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
 				90993F32159777BC00FC1D49 /* Products */,
@@ -570,6 +583,9 @@
 				90B6B0D51599EF26005E4BCB /* Icon@2x.png in Resources */,
 				90B6B0D71599F121005E4BCB /* plainArc.png in Resources */,
 				90FBDA5C159A5FDF0051609A /* receiptBack.png in Resources */,
+				90FBDA78159A77180051609A /* foursquareconnect.jpeg in Resources */,
+				90FBDA79159A77180051609A /* twitterconnect.jpeg in Resources */,
+				90FBDA7A159A77180051609A /* facebookconnect.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

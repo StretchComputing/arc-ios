@@ -7,6 +7,7 @@
 //
 
 #import "SettingsView.h"
+#import "AppDelegate.h"
 
 @interface SettingsView ()
 
@@ -24,10 +25,19 @@
 	// Do any additional setup after loading the view.
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    NSUInteger row = [indexPath row];
+    NSUInteger section = [indexPath section];
+
+    
+    if ((section == 1) && (row == 3)) {
+       
+        AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+        mainDelegate.logout = @"true";
+        [self.navigationController dismissModalViewControllerAnimated:NO];
+    }
 }
 
 - (IBAction)cancel:(id)sender {

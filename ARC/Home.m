@@ -10,6 +10,7 @@
 #import "NewJSON.h"
 #import "Merchant.h"
 #import "Restaurant.h"
+#import "AppDelegate.h"
 
 @interface Home ()
 
@@ -22,6 +23,14 @@
 @synthesize errorLabel;
 @synthesize toolbar, serverData, allMerchants, myTableView;
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    if ([mainDelegate.logout isEqualToString:@"true"]) {
+        mainDelegate.logout = @"false";
+        [self.navigationController dismissModalViewControllerAnimated:NO];
+    }
+}
 
 - (void)viewDidLoad
 {
