@@ -7,18 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DwollaOAuthEngine.h"
-#import "DwollaAuthorizationController.h"
 
-@interface RegisterView : UITableViewController <DwollaOAuthEngineDelegate, DwollaAuthorizationControllerDelegate>
+
+@interface RegisterView : UITableViewController 
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 - (IBAction)login:(UIBarButtonItem *)sender;
 - (IBAction)registerNow:(id)sender;
 - (IBAction)endText;
 
-@property (nonatomic, strong) DwollaOAuthEngine *authEngine;
-@property (nonatomic, strong) UIViewController *dwollaView;
 
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameText;

@@ -8,7 +8,7 @@
 
 #import "RegisterView.h"
 #import "NewJSON.h"
-
+#import "AppDelegate.h"
 @interface RegisterView ()
 
 -(void)runRegister;
@@ -23,12 +23,23 @@
 @synthesize passwordText;
 @synthesize genderSegment;
 @synthesize activityView;
-@synthesize dwollaView, authEngine, serverData;
+@synthesize serverData;
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    if ([mainDelegate.logout isEqualToString:@"true"]) {
+        [self.navigationController dismissModalViewControllerAnimated:NO];
+    }
+    
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+   
+    
 }
 - (void)viewDidLoad
 {
@@ -50,24 +61,13 @@
 
 - (IBAction)login:(UIBarButtonItem *)sender {
     
+
     [self.navigationController dismissModalViewControllerAnimated:YES];
+
 }
 
 - (IBAction)registerNow:(id)sender {
     
-    /*
-    self.authEngine = [DwollaOAuthEngine 
-                  engineWithConsumerKey:@"KEY" 
-                  consumerSecret:@"SECRET"
-                  scope: @"AccountAPI:AccountInfoFull|AccountAPI:Send|AccountAPI:Contacts|AccountAPI:Transactions|AccountAPI:Balance"
-                  callback: @"http://www.google.com/" //Needs 'http://' and also trailing '/'
-                  delegate:self];  
-    
-    
-    self.dwollaView = [DwollaAuthorizationController authorizationControllerWithEngine:self.authEngine delegate:self];
-    if( self.dwollaView ) {
-        [self presentModalViewController:self.dwollaView animated:YES];
-    }*/
     
     if ([self.firstNameText.text isEqualToString:@""] || [self.lastNameText.text isEqualToString:@""] || [self.emailText.text isEqualToString:@""] || [self.passwordText.text isEqualToString:@""]){
         
@@ -93,8 +93,9 @@
 -(void)runRegister{
     
     @try{
+      
         
-        
+        /*
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
         
@@ -125,15 +126,17 @@
                         
 		NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *tmpUrl = [NSString stringWithString:@"https://68.57.205.193:8700/rest/v1/customers"];
+        NSString *tmpUrl = [NSString stringWithString:@"http://68.57.205.193:8700/rest/v1/customers"];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
         [request setHTTPMethod: @"POST"];
 		[request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        
+        self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
+         
+         */
                 
     }
     @catch (NSException *e) {
@@ -155,19 +158,32 @@
     NSData *returnData = [NSData dataWithData:self.serverData];
     
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-          
-    
+              
     NewSBJSON *jsonParser = [NewSBJSON new];
     NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
     
     BOOL success = [[response valueForKey:@"Success"] boolValue];
     
-    success = NO;
     if (success){
         
-        self.activityView.hidden = YES;
+        //self.activityView.hidden = YES;
         CGPoint top = CGPointMake(0, 40);
         [self.tableView setContentOffset:top animated:YES];
+        
+        NSDictionary *customer = [response valueForKey:@"Customer"];
+        
+        NSString *customerId = [customer valueForKey:@"Id"];
+        NSString *customerToken = [customer valueForKey:@"Token"];
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        [prefs setObject:customerId forKey:@"customerId"];
+        [prefs setObject:customerToken forKey:@"customerToken"];
+       
+        [prefs synchronize];
+        
+        
+        //[self performSegueWithIdentifier:@"registerHome" sender:self];
         
         //Do the next thing (go home?)
         
@@ -191,70 +207,18 @@
 }
 
 
-//Dwolla Delegates
 
-//Is called  the AccessToken for storing. Tokens can store themselves with "storeInUserDefaultsWithServiceProviderName:prefix:"
-- (void)dwollaEngineAccessToken:(DwollaOAuthEngine *)engine setAccessToken:(DwollaToken *)token{
+
+
+
+-(void)goHome{
+    [self performSegueWithIdentifier:@"registerHome" sender:self];
     
-    NSLog(@"Dwolla - 1");
-}
-
-//Is called when the DwollaEngine needs the AccessToken out of the data store. Tokens can be recalled with: "initWithUserDefaultsUsingServiceProviderName:prefix:"
-- (OAToken *)dwollaEngineAccessToken:(DwollaOAuthEngine *)engine{
-    
-    NSLog(@"Dwolla - 2");
-
-    OAToken *tmp;
-    
-    return tmp;
-}
-
-//Is called  results from OAuth REST calls. 'results' returns as an NSDictionary with the same structure as the JSON returned from Dwolla.
-- (void)dwollaEngine:(DwollaOAuthEngine *)engine requestSucceeded:(DwollaConnectionID *)identifier withResults:(id)results{
-    NSLog(@"Dwolla - 3");
 
 }
-
-//Is called  the error to you if a problem occured with a Rest call within the Engine.
-- (void)dwollaEngine:(DwollaOAuthEngine *)engine requestFailed:(DwollaConnectionID *)identifier withError:(NSError *)error{
-    
-    NSLog(@"Dwolla - 4");
-
-}
-
-//Is called if the user is successfully Authorized.
-- (void)dwollaAuthorizationControllerSucceeded:(DwollaAuthorizationController *)controller{
-    
-    NSLog(@"Dwolla - 5");
-
-}
-
-//Is called if the user's authroization Fails.
-- (void)dwollaAuthorizationControllerFailed:(DwollaAuthorizationController *)controller{
-    
-    NSLog(@"Dwolla - 6");
-
-}
-
-//Is called if the user cancels the Authorization.
-- (void)dwollaAuthorizationControllerCanceled:(DwollaAuthorizationController *)controller{
-    
-    NSLog(@"Dwolla - 7");
-
-}
-
 
 -(void)endText{
     
 }
-- (void)viewDidUnload {
-    [self setFirstNameText:nil];
-    [self setLastNameText:nil];
-    [self setEmailText:nil];
-    [self setPasswordText:nil];
-    [self setGenderSegment:nil];
-    [self setActivityView:nil];
-    [self setErrorLabel:nil];
-    [super viewDidUnload];
-}
+
 @end

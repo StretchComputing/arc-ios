@@ -139,7 +139,24 @@
 
 
 - (IBAction)payNow:(id)sender {
+    
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Back" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", @"PayPal", @"Credit Card *7837", nil];
+    
+    action.actionSheetStyle = UIActionSheetStyleDefault;
+    [action showInView:self.view];
+    
 }
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 0) {
+        //Dwolla
+        
+        [self performSegueWithIdentifier:@"goPayDwolla" sender:self];
+    }
+    
+}
+
 - (IBAction)editBegin:(id)sender {
     
     [UIView beginAnimations:nil context:NULL];

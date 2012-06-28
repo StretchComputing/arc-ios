@@ -25,9 +25,16 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
+    for (int i = 0; i < [self.allMerchants count]; i++) {
+        
+        NSIndexPath *myPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [self.myTableView deselectRowAtIndexPath:myPath animated:NO];
+    }
+    
     AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
-        mainDelegate.logout = @"false";
+        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
         [self.navigationController dismissModalViewControllerAnimated:NO];
     }
 }
@@ -57,7 +64,7 @@
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
         [request setHTTPMethod: @"GET"];
         
-        
+        self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
         
     }

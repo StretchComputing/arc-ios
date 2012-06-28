@@ -91,6 +91,7 @@
             [request setHTTPMethod: @"GET"];
             
             [self.activity startAnimating];
+            self.serverData = [NSMutableData data];
             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
             
         }

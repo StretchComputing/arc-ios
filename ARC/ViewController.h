@@ -17,6 +17,12 @@
 
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 
+@property (nonatomic, strong) NSMutableData *serverData;
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+
+
 -(IBAction)signIn;
 
 
