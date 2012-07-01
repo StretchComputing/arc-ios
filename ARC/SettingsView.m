@@ -7,7 +7,7 @@
 //
 
 #import "SettingsView.h"
-#import "AppDelegate.h"
+#import "ArcAppDelegate.h"
 #import "NewJSON.h"
 
 @interface SettingsView ()
@@ -39,9 +39,9 @@
     NSUInteger section = [indexPath section];
 
     
-    if ((section == 1) && (row == 3)) {
+    if ((section == 1) && (row == 2)) {
        
-        AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+        ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
         mainDelegate.logout = @"true";
         [self.navigationController dismissModalViewControllerAnimated:NO];
     }
@@ -96,7 +96,7 @@
        
         int balance = [[response valueForKey:@"balance"] intValue];
         
-        self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Points Earned: %d", balance];
+        self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
         
         self.pointsProgressView.progress = (float)balance/900.00;
     }

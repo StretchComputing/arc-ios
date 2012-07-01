@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RegisterView : UITableViewController 
+@interface RegisterView : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 - (IBAction)login:(UIBarButtonItem *)sender;
@@ -26,5 +26,13 @@
 @property (weak, nonatomic) IBOutlet UIView *activityView;
 
 @property (nonatomic, strong) NSMutableData *serverData;
+
+@property BOOL dwollaSuccess;
+@property BOOL registerSuccess;
+@property BOOL fromDwolla;
+
+
+
+
 
 @end

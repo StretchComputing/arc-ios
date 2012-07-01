@@ -21,6 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 
+- (IBAction)checkNumberHelp;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;

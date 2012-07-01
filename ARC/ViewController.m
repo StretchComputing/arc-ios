@@ -10,7 +10,7 @@
 #import "Home.h"
 #import "HomeNavigationController.h"
 #import "NewJSON.h"
-#import "AppDelegate.h"
+#import "ArcAppDelegate.h"
 
 @interface ViewController ()
 
@@ -18,7 +18,6 @@
 
 @implementation ViewController
 @synthesize navBar;
-@synthesize signInButton;
 @synthesize myTableView, username, password, serverData, errorLabel, activity;
 
 
@@ -41,10 +40,12 @@
     
 }
 -(void)viewWillAppear:(BOOL)animated{
+        
+    [self.myTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO];
     self.errorLabel.text = @"";
     [self.username becomeFirstResponder];
     
-    AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
        
         mainDelegate.logout = @"false";
@@ -98,10 +99,17 @@
    
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
 	
-	return 2;
+    if (section == 0) {
+        return 2;
+    }
+	return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -133,33 +141,50 @@
 	
 	UILabel *fieldLabel = (UILabel *)[cell.contentView viewWithTag:fieldTag];
 	
-	fieldLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
 	fieldLabel.textColor = [UIColor blackColor];
 	fieldLabel.backgroundColor = [UIColor clearColor];
 	NSUInteger row = [indexPath row];
+    NSUInteger section = [indexPath section];
     
+    if (section == 0) {
+        
+        fieldLabel.frame = CGRectMake(10, 6, 80, 22);
+        fieldLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+        fieldLabel.textAlignment = UITextAlignmentLeft;
+
+        if (row == 0) {
+            fieldLabel.text = @"Email";
+            
+            [cell.contentView addSubview:self.username];
+            
+            cell.isAccessibilityElement = YES;
+            cell.accessibilityLabel = @"user name";
+        }else if (row == 1){
+            fieldLabel.text = @"Password";
+            [cell.contentView addSubview:self.password];
+            
+            cell.isAccessibilityElement = YES;
+            cell.accessibilityLabel = @"pass word";
+        }
+        
+        [self.username becomeFirstResponder];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+
+    }else{
+        
+        fieldLabel.frame = CGRectMake(0, 6, 298, 22);
+        fieldLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];
+        fieldLabel.textAlignment = UITextAlignmentCenter;
+        
+        fieldLabel.text = @"How ARC Works";
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    }
     
-	if (row == 0) {
-		fieldLabel.text = @"Email";
+    return cell;
+
 		
-		[cell.contentView addSubview:self.username];
-        
-        cell.isAccessibilityElement = YES;
-        cell.accessibilityLabel = @"user name";
-	}else if (row == 1){
-		fieldLabel.text = @"Password";
-		[cell.contentView addSubview:self.password];
-        
-        cell.isAccessibilityElement = YES;
-        cell.accessibilityLabel = @"pass word";
-	}
-    
-	[self.username becomeFirstResponder];
-    
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	
-	return cell;
-	
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -250,11 +275,26 @@
    	
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([indexPath section] == 1) {
+        //Go to "How it works"
+        [self performSegueWithIdentifier:@"howItWorks" sender:self];
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    if (section == 1) {
+        return 20;
+    }
+    return 0;
+}
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
     [self.activity stopAnimating];
     self.errorLabel.text = @"*Error logging, please try again.";
 }
+
 
 
 @end

@@ -8,7 +8,7 @@
 
 #import "RegisterView.h"
 #import "NewJSON.h"
-#import "AppDelegate.h"
+#import "ArcAppDelegate.h"
 @interface RegisterView ()
 
 -(void)runRegister;
@@ -23,14 +23,36 @@
 @synthesize passwordText;
 @synthesize genderSegment;
 @synthesize activityView;
-@synthesize serverData;
+@synthesize serverData, dwollaSuccess, registerSuccess, fromDwolla;
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
         [self.navigationController dismissModalViewControllerAnimated:NO];
     }
+    
+    
+    if (self.fromDwolla) {
+        self.fromDwolla = NO;
+        if (self.dwollaSuccess) {
+            if (self.registerSuccess) {
+                self.dwollaSuccess = NO;
+                self.registerSuccess = NO;
+                [self goHome];
+            }else{
+                self.activityView.hidden = NO;
+                CGPoint top = CGPointMake(0, -13);
+                [self.tableView setContentOffset:top animated:YES];
+            }
+        }else{
+            self.activityView.hidden = NO;
+            CGPoint top = CGPointMake(0, -13);
+            [self.tableView setContentOffset:top animated:YES];
+            self.errorLabel.text = @"Failed to confirm Dwolla credentials.";
+        }
+    }
+    
     
 }
 
@@ -61,7 +83,7 @@
 
 - (IBAction)login:(UIBarButtonItem *)sender {
     
-
+ 
     [self.navigationController dismissModalViewControllerAnimated:YES];
 
 }
@@ -94,8 +116,12 @@
     
     @try{
       
+        [self.firstNameText resignFirstResponder];
+        [self.lastNameText resignFirstResponder];
+        [self.emailText resignFirstResponder];
+        [self.passwordText resignFirstResponder];
+ 
         
-        /*
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
         
@@ -136,7 +162,8 @@
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
          
-         */
+        [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+
                 
     }
     @catch (NSException *e) {
@@ -183,16 +210,14 @@
         [prefs synchronize];
         
         
-        //[self performSegueWithIdentifier:@"registerHome" sender:self];
-        
-        //Do the next thing (go home?)
+        self.registerSuccess = YES;
         
     }else{
         
         self.activityView.hidden = NO;
         self.errorLabel.hidden = NO;
         self.errorLabel.text = @"*Error registering, please try again.";
-        
+        self.registerSuccess = NO;
     }
     
    
@@ -204,6 +229,7 @@
     self.activityView.hidden = NO;
     self.errorLabel.hidden = NO;
     self.errorLabel.text = @"*Error registering, please try again.";
+    self.registerSuccess = NO;
 }
 
 
@@ -216,6 +242,8 @@
     
 
 }
+
+
 
 -(void)endText{
     

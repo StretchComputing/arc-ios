@@ -14,8 +14,11 @@
 @property double amountDue;
 - (IBAction)payNow:(id)sender;
 @property (strong, nonatomic) Invoice *myInvoice;
+@property (weak, nonatomic) IBOutlet UIView *bottomHalfView;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
+@property (weak, nonatomic) IBOutlet UILabel *dividerLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *subLabel;
 @property (weak, nonatomic) IBOutlet UILabel *taxLabel;
@@ -26,6 +29,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *discNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *tipText;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *tipSegment;
+- (IBAction)segmentSelect;
+@property (weak, nonatomic) IBOutlet UILabel *amountNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *gratNameLabel;
 @property (weak, nonatomic) IBOutlet UIView *dividerView;

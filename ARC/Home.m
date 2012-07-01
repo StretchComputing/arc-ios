@@ -10,7 +10,7 @@
 #import "NewJSON.h"
 #import "Merchant.h"
 #import "Restaurant.h"
-#import "AppDelegate.h"
+#import "ArcAppDelegate.h"
 
 @interface Home ()
 
@@ -31,7 +31,7 @@
         [self.myTableView deselectRowAtIndexPath:myPath animated:NO];
     }
     
-    AppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];

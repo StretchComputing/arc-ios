@@ -30,19 +30,45 @@
 
 }
 
+
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    if ([textField.text length] == 1) {
+        
+    if ([textField.text isEqualToString:@" "]) {
+        
         if ([string isEqualToString:@""]) {
-            return TRUE;
+            
+            [self performSelector:@selector(previousField) withObject:nil afterDelay:0.1];
+
+        }else{
+            textField.text = string;
+            [self performSelector:@selector(nextField) withObject:nil afterDelay:0.1];
         }
-        return FALSE;
     }else{
-        [self performSelector:@selector(nextField) withObject:nil afterDelay:0.1];
-        return TRUE;
+        
+        if ([string isEqualToString:@""]) {
+            textField.text = @" ";
+        }
     }
+ 
+    return FALSE;
+}
+
+
+-(void)previousField{
     
-    return TRUE;
+    if ([self.checkNumFour isFirstResponder]) {
+        [self.checkNumThree becomeFirstResponder];
+        self.checkNumThree.text = @" ";
+    }else if ([self.checkNumThree isFirstResponder]){
+        [self.checkNumTwo becomeFirstResponder];
+        self.checkNumTwo.text = @" ";
+
+    }else if ([self.checkNumTwo isFirstResponder]){
+        [self.checkNumOne becomeFirstResponder];
+        self.checkNumOne.text = @" ";
+
+    }
 }
 
 -(void)nextField{
@@ -62,11 +88,16 @@
     self.checkNumThree.delegate = self;
     self.checkNumFour.delegate = self;
     
-    self.checkNumOne.text = @"";
-    self.checkNumTwo.text = @"";
-    self.checkNumThree.text = @"";
-    self.checkNumFour.text = @"";
+    self.checkNumOne.text = @" ";
+    self.checkNumTwo.text = @" ";
+    self.checkNumThree.text = @" ";
+    self.checkNumFour.text = @" ";
     
+    self.checkNumOne.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+    self.checkNumTwo.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+    self.checkNumThree.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+    self.checkNumFour.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+
     
     self.nameDisplay.text = [NSString stringWithFormat:@"%@, Chicago", self.name];
     [super viewDidLoad];
@@ -128,7 +159,7 @@
         self.myInvoice = [[Invoice alloc] init];
         
         NSDictionary *theInvoice = [response valueForKey:@"Invoice"];
-        
+                
         self.myInvoice.invoiceId = [[theInvoice valueForKey:@"Id"] intValue];
         self.myInvoice.status = [theInvoice valueForKey:@"Status"];
         self.myInvoice.number = [theInvoice valueForKey:@"Number"];
@@ -173,10 +204,12 @@
         
         InvoiceView *nextView = [segue destinationViewController];
         nextView.myInvoice = self.myInvoice;
-        
+                
         
     } 
 }
 
 
+- (IBAction)checkNumberHelp {
+}
 @end

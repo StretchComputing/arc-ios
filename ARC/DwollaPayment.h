@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DwollaAPI.h"
 
-@interface DwollaPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate>
+@interface DwollaPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
+
+@property int invoiceId;
+@property double totalAmount;
+@property double gratuity;
 
 @property (nonatomic, strong) NSMutableData *serverData;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFour;
@@ -20,5 +25,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *notesText;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+
+@property (nonatomic, strong) NSMutableArray *fundingSources;
+@property (strong, nonatomic) NSString *fundingSourceStatus;
+@property (nonatomic, strong) NSString *selectedFundingSourceId;
 
 @end

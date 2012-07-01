@@ -8,6 +8,7 @@
 
 #import "DwollaPayment.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NewJSON.h"
 
 @interface DwollaPayment ()
 
@@ -18,10 +19,14 @@
 @synthesize checkNumFour;
 @synthesize checkNumThree;
 @synthesize checkNumTwo;
-@synthesize checkNumOne, serverData, errorLabel, activity;
+@synthesize checkNumOne, serverData, errorLabel, activity, fundingSources, fundingSourceStatus, selectedFundingSourceId, gratuity, totalAmount, invoiceId;
+
 
 - (void)viewDidLoad
 {
+
+    
+    self.fundingSourceStatus = @"";
     self.serverData = [NSMutableData data];
     
     self.notesText.delegate = self;
@@ -30,17 +35,40 @@
     self.checkNumThree.delegate = self;
     self.checkNumFour.delegate = self;
     
-    self.checkNumOne.text = @"";
-    self.checkNumTwo.text = @"";
-    self.checkNumThree.text = @"";
-    self.checkNumFour.text = @"";
+    self.checkNumOne.text = @" ";
+    self.checkNumTwo.text = @" ";
+    self.checkNumThree.text = @" ";
+    self.checkNumFour.text = @" ";
     
+    self.checkNumOne.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+    self.checkNumTwo.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+    self.checkNumThree.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+    self.checkNumFour.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
     self.notesText.text = @"Transaction Notes (*optional):";
     
     self.notesText.layer.masksToBounds = YES;
     self.notesText.layer.cornerRadius = 5.0;
-    
         
+      
+    dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
+    
+    dispatch_async(queue,^{
+        
+        @try {
+            DwollaFundingSources* sources = [DwollaAPI getFundingSources];
+            
+            //An array of DwollaFundingSource* objects
+            self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
+            self.fundingSourceStatus = @"success";
+        }
+        @catch (NSException *exception) {
+            self.fundingSourceStatus = @"failed";
+        }
+        
+        
+        
+    });
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -52,19 +80,44 @@
     
 }
 
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    if ([textField.text length] == 1) {
+    if ([textField.text isEqualToString:@" "]) {
+        
         if ([string isEqualToString:@""]) {
-            return TRUE;
+            
+            [self performSelector:@selector(previousField) withObject:nil afterDelay:0.1];
+            
+        }else{
+            textField.text = string;
+            [self performSelector:@selector(nextField) withObject:nil afterDelay:0.1];
         }
-        return FALSE;
     }else{
-        [self performSelector:@selector(nextField) withObject:nil afterDelay:0.1];
-        return TRUE;
+        
+        if ([string isEqualToString:@""]) {
+            textField.text = @" ";
+        }
     }
     
-    return TRUE;
+    return FALSE;
+}
+
+
+-(void)previousField{
+    
+    if ([self.checkNumFour isFirstResponder]) {
+        [self.checkNumThree becomeFirstResponder];
+        self.checkNumThree.text = @" ";
+    }else if ([self.checkNumThree isFirstResponder]){
+        [self.checkNumTwo becomeFirstResponder];
+        self.checkNumTwo.text = @" ";
+        
+    }else if ([self.checkNumTwo isFirstResponder]){
+        [self.checkNumOne becomeFirstResponder];
+        self.checkNumOne.text = @" ";
+        
+    }
 }
 
 -(void)nextField{
@@ -89,46 +142,201 @@
 
 - (IBAction)submit:(id)sender {
     
-    self.errorLabel.text = @"";
     
-    if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
-        
-        self.errorLabel.text = @"*Please enter your full pin number.";
+     NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
+    
+    if ([pinNumber isEqualToString:@"0000"]) {
+        [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
+
     }else{
         
-        @try{
+        self.errorLabel.text = @"";
+        
+        
+        if ([self.fundingSourceStatus isEqualToString:@"success"]) {
             
-            NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
+            if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
+                
+                self.errorLabel.text = @"*Please enter your full pin number.";
+            }else{
+                if ([self.fundingSources count] == 0) {
+                    
+                }else if ([self.fundingSources count] == 1){
+                    
+                    DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:0];
+                    self.selectedFundingSourceId = [tmp getSourceID];
+                    [self performSelector:@selector(createPayment)];
+                    
+                }else{
+                    //display funding sources
+                    
+                    UIActionSheet *fundingAction = [[UIActionSheet alloc] initWithTitle:@"Select A Funding Source" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                    
+                    for (int i = 0; i < [self.fundingSources count]; i++) {
+                        DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:i];
+                        
+                        [fundingAction addButtonWithTitle:[tmp getName]];
+                    }
+                    [fundingAction addButtonWithTitle:@"Cancel"];
+                    
+                    [fundingAction setCancelButtonIndex: [self.fundingSources count]];
+                    
+                    [fundingAction showInView:self.view];
+                    
+                    
+                }
+                
+            }
             
-            /*
-            NSString *tmpUrl = [NSString stringWithFormat:@"http://68.57.205.193:8700/rest/v1/Invoices/%@", invoiceNumber];
-            
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
-            [request setHTTPMethod: @"GET"];
-            
-            [self.activity startAnimating];
-             self.serverData = [NSMutableData data];
-            NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
-             */
-            
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dwolla Error" message:@"Unable to obtain Dwolla Funding Sources" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
         }
-        @catch (NSException *e) {
-            
-            //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-            
+
+        
+    }
+           
+
+    
+}
+
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == [self.fundingSources count]) {
+        //Cancel
+    }else{
+        
+        DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:buttonIndex];
+        self.selectedFundingSourceId = [tmp getSourceID];
+        [self performSelector:@selector(createPayment)];
+    }
+    
+}
+-(void)createPayment{
+    
+    @try{        
+        [self.activity startAnimating];
+        
+         NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
+        
+        NSString *dwollaToken = [DwollaAPI getAccessToken];
+        
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+		NSDictionary *loginDict = [[NSDictionary alloc] init];
+        
+        //*Testing Only*
+        NSNumber *amount = [NSNumber numberWithDouble:1.0];
+        //NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
+        [ tempDictionary setObject:amount forKey:@"Amount"];
+        
+        [ tempDictionary setObject:dwollaToken forKey:@"AuthenticationToken"];
+        [ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
+
+        double gratDouble = self.gratuity/self.totalAmount;
+        
+        //*Testing Only* -------- SEND EMPTY STRINGS for OPTIONAL PARAMETERS
+        //NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
+        NSNumber *grat = [NSNumber numberWithDouble:0.0];
+        [ tempDictionary setObject:grat forKey:@"Gratuity"];
+        
+        if (![self.notesText.text isEqualToString:@""] && ![self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
+            [ tempDictionary setObject:self.notesText.text forKey:@"Notes"];
+        }else{
+            [ tempDictionary setObject:@"" forKey:@"Notes"];
         }
+        
+                
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        NSString *customerId = [prefs valueForKey:@"customerId"];
+        
+        NSNumber *tmpId = [NSNumber numberWithInt:[customerId intValue]];
+        [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
+        
+        [ tempDictionary setObject:@"" forKey:@"Tag"];
+        [ tempDictionary setObject:@"" forKey:@"Expiration"];
+		
+        NSNumber *invoice = [NSNumber numberWithInt:self.invoiceId];
+        [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
+
+        [ tempDictionary setObject:pinNumber forKey:@"Pin"];
+        [ tempDictionary setObject:@"DWOLLA" forKey:@"Type"];
+
+        
+  
+        
+        
+		loginDict = tempDictionary;
+
+		NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONFragment], nil];
+        
+        NSLog(@"RequestString: %@", requestString);
+        
+		NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *tmpUrl = [NSString stringWithString:@"http://68.57.205.193:8700/rest/v1/payments"];
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
+        [request setHTTPMethod: @"POST"];
+		[request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        self.serverData = [NSMutableData data];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
+        
         
         
     }
-    
-
+    @catch (NSException *e) {
+        
+        //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+    }
     
 }
 
 
-
-- (void)viewDidUnload {
-    [self setNotesText:nil];
-    [super viewDidUnload];
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
+    [self.serverData appendData:mdata]; 
 }
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    
+    [self.activity stopAnimating];
+    
+    NSData *returnData = [NSData dataWithData:self.serverData];
+    
+    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"ReturnString: %@", returnString);
+    
+    NewSBJSON *jsonParser = [NewSBJSON new];
+    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+    
+    BOOL success = [[response valueForKey:@"Success"] boolValue];
+    
+    if (success) {
+        
+        self.errorLabel.text = @"";
+
+        [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
+        
+        
+    }else{
+        self.errorLabel.text = @"*Error submitting payment.";
+    }
+    
+    
+   	
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    
+    self.errorLabel.text = @"*Internet connection error.";
+    [self.activity stopAnimating];
+}
+
+
 @end

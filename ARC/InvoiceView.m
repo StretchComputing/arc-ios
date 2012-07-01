@@ -7,12 +7,16 @@
 //
 
 #import "InvoiceView.h"
+#import "DwollaPayment.h"
 
 @interface InvoiceView ()
 
 @end
 
 @implementation InvoiceView
+@synthesize bottomHalfView;
+@synthesize scrollView;
+@synthesize dividerLabel;
 @synthesize subLabel;
 @synthesize taxLabel;
 @synthesize gratLabel;
@@ -21,6 +25,8 @@
 @synthesize totalLabel;
 @synthesize discNameLabel;
 @synthesize tipText;
+@synthesize tipSegment;
+@synthesize amountNameLabel;
 @synthesize gratNameLabel;
 @synthesize dividerView;
 @synthesize myInvoice, myTableView, amountDue;
@@ -30,6 +36,8 @@
 {
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
+    
+
     
     double serviceCharge = (self.myInvoice.baseAmount * self.myInvoice.serviceCharge);
     double tax = (self.myInvoice.baseAmount * self.myInvoice.tax);
@@ -54,6 +62,54 @@
     
     [self.myTableView reloadData];
 	// Do any additional setup after loading the view.
+    
+    //Set up scroll view sizes
+    
+    int tableCount = [self.myInvoice.items count];
+    
+    int tableHeight = tableCount * 24 + tableCount + 10;
+    
+    self.myTableView.frame = CGRectMake(0, 20, 300, tableHeight);
+    
+    self.dividerLabel.frame = CGRectMake(0, tableHeight + 10, 300, 21);
+    int bottomViewY = tableHeight + 20;
+    
+    if (bottomViewY < 120) {
+        bottomViewY = 120;
+        int height = (120 - tableHeight)/2 + tableHeight;
+        self.dividerLabel.frame = CGRectMake(0, height, 300, 21);
+    }
+    
+    self.bottomHalfView.frame = CGRectMake(0, bottomViewY, 300, 134);
+    
+    [self.scrollView setContentSize:CGSizeMake(300, bottomViewY + 140)];
+    
+    
+    //bottom view
+    int movedown = 0;
+    if (self.myInvoice.serviceCharge == 0.0) {
+        self.gratLabel.hidden = YES;
+        self.gratNameLabel.hidden = YES;
+        movedown += 15;
+    }
+    
+    if (self.myInvoice.discount == 0.0) {
+        self.discLabel.hidden = YES;
+        self.discNameLabel.hidden = YES;
+        movedown +=15;
+    }else{
+        
+        if (self.myInvoice.serviceCharge == 0.0) {
+            self.discNameLabel.frame = CGRectMake(10, 52, 95, 21);
+            self.discLabel.frame = CGRectMake(219, 52, 71, 21);
+        }
+    }
+    
+    CGRect frame = self.bottomHalfView.frame;
+    frame.origin.y += movedown;
+    frame.size.height -= movedown;
+    self.bottomHalfView.frame = frame;
+    
 }
 
 
@@ -83,15 +139,15 @@
 		
 	
 		
-		UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 2, 185, 20)];
+		UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 2, 207, 20)];
 		itemLabel.tag = itemTag;
 		[cell.contentView addSubview:itemLabel];
         
-        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(187, 2, 60, 20)];
+        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(234, 2, 60, 20)];
 		priceLabel.tag = priceTag;
 		[cell.contentView addSubview:priceLabel];
         
-        UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(251, 2, 25, 20)];
+        UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 2, 20, 20)];
 		numberLabel.tag = numberTag;
 		[cell.contentView addSubview:numberLabel];
         
@@ -113,8 +169,8 @@
     numberLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
     priceLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
 
-    priceLabel.textAlignment = UITextAlignmentCenter;
-    numberLabel.textAlignment = UITextAlignmentCenter;
+    priceLabel.textAlignment = UITextAlignmentRight;
+    numberLabel.textAlignment = UITextAlignmentLeft;
 
 	NSUInteger row = [indexPath row];
     
@@ -140,7 +196,9 @@
 
 - (IBAction)payNow:(id)sender {
     
-    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Back" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", @"PayPal", @"Credit Card *7837", nil];
+    [self.tipText resignFirstResponder];
+    
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", @"PayPal", @"Credit Card *7837", nil];
     
     action.actionSheetStyle = UIActionSheetStyleDefault;
     [action showInView:self.view];
@@ -162,7 +220,7 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
     
-    self.view.frame = CGRectMake(0, -200, 320, 416);
+    self.view.frame = CGRectMake(0, -165, 320, 416);
     
     
     [UIView commitAnimations];
@@ -171,6 +229,10 @@
 - (IBAction)editEnd:(id)sender {
     
     double tip = [self.tipText.text doubleValue];
+    
+    if (tip < 0.0) {
+        tip = 0.0;
+    }
   
     self.tipText.text = [NSString stringWithFormat:@"%.2f", tip];
    
@@ -189,8 +251,63 @@
     
 
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    
+    if ([[segue identifier] isEqualToString:@"goPayDwolla"]) {
+                
+        DwollaPayment *controller = [segue destinationViewController];
+        controller.totalAmount = [[NSString stringWithFormat:@"%f", self.amountDue] doubleValue];
+        controller.gratuity = [self.tipText.text doubleValue];
+        controller.invoiceId = self.myInvoice.invoiceId;
+  
+       
+    } 
+}
+
+
+- (IBAction)segmentSelect {
+    
+    [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
+
+    double tipPercent = 0.0;
+    if (self.tipSegment.selectedSegmentIndex == 0) {
+        tipPercent = .10;
+    }else if (self.tipSegment.selectedSegmentIndex == 1){
+        tipPercent = .15;
+    }else{
+        tipPercent = .20;
+    }
+    
+    double tipAmount = tipPercent * self.amountDue;
+        
+    self.tipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
+    
+    self.totalLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.amountDue + tipAmount];
+    
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.2];
+    
+    self.view.frame = CGRectMake(0, 0, 320, 416);
+    [self.tipText resignFirstResponder];
+    
+    
+    [UIView commitAnimations];
+    
+    
+    
+}
+
+-(void)resetSegment{
+    self.tipSegment.selectedSegmentIndex = -1;
+}
 - (void)viewDidUnload {
-    [self setTipText:nil];
+    [self setBottomHalfView:nil];
+    [self setScrollView:nil];
+    [self setDividerLabel:nil];
+    [self setAmountNameLabel:nil];
     [super viewDidUnload];
 }
 @end
