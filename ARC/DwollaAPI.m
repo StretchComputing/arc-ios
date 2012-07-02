@@ -7,13 +7,19 @@
 //
 
 #import "DwollaAPI.h"
+#import "FBEncryptorAES.h"
+
 static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
 
 @implementation DwollaAPI
 
 +(BOOL)hasToken
 {
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     
     if(token == nil)
     {
@@ -32,19 +38,39 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
         @throw [NSException exceptionWithName:@"INVALID_TOKEN_EXCEPTION" 
                                        reason:@"oauth_token is invalid" userInfo:nil];
     }
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
+
+    
+    NSString *encryptedToken = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    
+    NSString *token = [FBEncryptorAES decryptBase64String:encryptedToken keyString:customerToken];
+
     return token;
 }
 
 +(void)setAccessToken:(NSString*) token
 {
-    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
+    
+    NSString *encryptedToken = [FBEncryptorAES encryptBase64String:token
+                                                    keyString:customerToken
+                                                separateLines:NO];
+
+    [[NSUserDefaults standardUserDefaults] setObject:encryptedToken forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 +(void)clearAccessToken
 {
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"token"];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:key];
 }
 
 +(NSString*)sendMoneyWithPIN:(NSString*)pin 
@@ -940,7 +966,15 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
 
 +(NSMutableURLRequest*)generateRequestWithString:(NSString*)string
 {
-    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    //NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
+    
+    NSString *encryptedToken = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    
+    NSString *token = [FBEncryptorAES decryptBase64String:encryptedToken keyString:customerToken];
     
     
     NSString* url = [dwollaAPIBaseURL stringByAppendingString:string];

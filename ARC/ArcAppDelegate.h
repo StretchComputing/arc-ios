@@ -13,5 +13,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) NSString *logout;
 
+-(NSString *)getCustomerId;
+-(NSString *)getCustomerToken;
 
 @end

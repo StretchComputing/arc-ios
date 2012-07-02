@@ -8,12 +8,15 @@
 
 #import "RegisterDwollaView.h"
 #import "RegisterView.h"
+#import "DwollaPayment.h"
+#import "SettingsView.h"
 
 @interface RegisterDwollaView ()
 
 @end
 
 @implementation RegisterDwollaView
+@synthesize fromRegister, fromSettings;
 
 -(void)viewDidLoad{
     
@@ -30,11 +33,28 @@
 -(void)successfulLogin
 {
     
-    RegisterView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
-    tmp.fromDwolla = YES;
-    tmp.dwollaSuccess = YES;
-    
-    [self.navigationController popViewControllerAnimated:NO];
+    if (self.fromRegister) {
+        RegisterView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+        tmp.fromDwolla = YES;
+        tmp.dwollaSuccess = YES;
+        
+        [self.navigationController popViewControllerAnimated:NO];
+    }else if (self.fromSettings){
+        
+        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+        tmp.fromDwolla = YES;
+        tmp.dwollaSuccess = YES;
+        
+        [self.navigationController popViewControllerAnimated:NO];
+    }else{
+        
+        DwollaPayment *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+        tmp.fromDwolla = YES;
+        tmp.dwollaSuccess = YES;
+        
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+   
      
     
   
@@ -43,12 +63,30 @@
 
 -(void)failedLogin:(NSArray*)errors
 {
-    
-    RegisterView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
-    tmp.fromDwolla = YES;
-    tmp.dwollaSuccess = NO;
-    
-    [self.navigationController popViewControllerAnimated:NO];
+    if (self.fromRegister) {
+        RegisterView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+        tmp.fromDwolla = YES;
+        tmp.dwollaSuccess = NO;
+        
+        [self.navigationController popViewControllerAnimated:NO];
+    }else if (self.fromSettings){
+        
+        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+        tmp.fromDwolla = YES;
+        tmp.dwollaSuccess = NO;
+        
+        [self.navigationController popViewControllerAnimated:NO];
+        
+    }else {
+        
+        DwollaPayment *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+        tmp.fromDwolla = YES;
+        tmp.dwollaSuccess = NO;
+        
+        [self.navigationController popViewControllerAnimated:NO];
+        
+    }
+ 
 
     
 }

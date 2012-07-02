@@ -9,17 +9,20 @@
 #import "DwollaPayment.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NewJSON.h"
+#import "ReviewTransaction.h"
+#import "ArcAppDelegate.h"
 
 @interface DwollaPayment ()
 
 @end
 
 @implementation DwollaPayment
+@synthesize submitButton;
 @synthesize notesText;
 @synthesize checkNumFour;
 @synthesize checkNumThree;
 @synthesize checkNumTwo;
-@synthesize checkNumOne, serverData, errorLabel, activity, fundingSources, fundingSourceStatus, selectedFundingSourceId, gratuity, totalAmount, invoiceId;
+@synthesize checkNumOne, serverData, errorLabel, activity, fundingSources, fundingSourceStatus, selectedFundingSourceId, gratuity, totalAmount, invoiceId, fromDwolla, dwollaSuccess;
 
 
 - (void)viewDidLoad
@@ -66,7 +69,6 @@
         }
         
         
-        
     });
     
     [super viewDidLoad];
@@ -77,6 +79,45 @@
 -(void)viewWillAppear:(BOOL)animated{
     [self.checkNumOne becomeFirstResponder];
     self.serverData = [NSMutableData data];
+    
+    if (self.fromDwolla) {
+        self.fromDwolla = NO;
+        
+        if (self.dwollaSuccess) {
+            
+            //Get the Funding Sources
+            
+            dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
+            dispatch_queue_t main = dispatch_get_main_queue();
+            
+            dispatch_async(queue,^{
+                
+                @try {
+                    DwollaFundingSources* sources = [DwollaAPI getFundingSources];
+                    
+                    //An array of DwollaFundingSource* objects
+                    self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
+                    self.fundingSourceStatus = @"success";
+                }
+                @catch (NSException *exception) {
+                    self.fundingSourceStatus = @"failed";
+                    
+                }
+                
+                dispatch_async(main,^{
+                    [self submit:nil];
+                });
+
+                
+                
+            });
+    
+            
+        }else{
+            
+            [self.activity stopAnimating];
+        }
+    }
     
 }
 
@@ -142,62 +183,75 @@
 
 - (IBAction)submit:(id)sender {
     
-    
-     NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
-    
-    if ([pinNumber isEqualToString:@"0000"]) {
-        [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
-
-    }else{
+    self.errorLabel.text = @"";    
         
-        self.errorLabel.text = @"";
-        
-        
-        if ([self.fundingSourceStatus isEqualToString:@"success"]) {
+        if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
             
-            if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
+            self.errorLabel.text = @"*Please enter your full pin number.";
+        }else{
+            
+            NSString *token = @"";
+            @try {
+                token = [DwollaAPI getAccessToken];
+            }
+            @catch (NSException *exception) {
+                token = nil;
+            }
+          
+            
+            if ((token == nil) || [token isEqualToString:@""]) {
+                //get the token
+                [self.activity startAnimating];
                 
-                self.errorLabel.text = @"*Please enter your full pin number.";
+  
+                
+                [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+
+                
             }else{
-                if ([self.fundingSources count] == 0) {
-                    
-                }else if ([self.fundingSources count] == 1){
-                    
-                    DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:0];
-                    self.selectedFundingSourceId = [tmp getSourceID];
-                    [self performSelector:@selector(createPayment)];
+                
+                
+                if ([self.fundingSourceStatus isEqualToString:@"success"]) {
+
+                    if ([self.fundingSources count] == 0) {
+                        
+                    }else if ([self.fundingSources count] == 1){
+                        
+                        DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:0];
+                        self.selectedFundingSourceId = [tmp getSourceID];
+                        [self performSelector:@selector(createPayment)];
+                        
+                    }else{
+                        //display funding sources
+                        
+                        UIActionSheet *fundingAction = [[UIActionSheet alloc] initWithTitle:@"Select A Funding Source" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                        
+                        for (int i = 0; i < [self.fundingSources count]; i++) {
+                            DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:i];
+                            
+                            [fundingAction addButtonWithTitle:[tmp getName]];
+                        }
+                        [fundingAction addButtonWithTitle:@"Cancel"];
+                        
+                        [fundingAction setCancelButtonIndex: [self.fundingSources count]];
+                        
+                        [fundingAction showInView:self.view];
+                        
+                        
+                    }
+                   
                     
                 }else{
-                    //display funding sources
-                    
-                    UIActionSheet *fundingAction = [[UIActionSheet alloc] initWithTitle:@"Select A Funding Source" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-                    
-                    for (int i = 0; i < [self.fundingSources count]; i++) {
-                        DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:i];
-                        
-                        [fundingAction addButtonWithTitle:[tmp getName]];
-                    }
-                    [fundingAction addButtonWithTitle:@"Cancel"];
-                    
-                    [fundingAction setCancelButtonIndex: [self.fundingSources count]];
-                    
-                    [fundingAction showInView:self.view];
-                    
-                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dwolla Error" message:@"Unable to obtain Dwolla Funding Sources" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
                 }
+
+
                 
             }
-            
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dwolla Error" message:@"Unable to obtain Dwolla Funding Sources" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+                        
         }
 
-        
-    }
-           
-
-    
 }
 
 
@@ -248,10 +302,8 @@
         }
         
                 
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        NSString *customerId = [prefs valueForKey:@"customerId"];
-        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        NSString *customerId = [mainDelegate getCustomerId];
         NSNumber *tmpId = [NSNumber numberWithInt:[customerId intValue]];
         [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
         
@@ -338,5 +390,14 @@
     [self.activity stopAnimating];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    
+    if ([[segue identifier] isEqualToString:@"reviewTransaction"]) {
+        
+        ReviewTransaction *next = [segue destinationViewController];
+        next.invoiceId = self.invoiceId;
+    } 
+}
 
 @end

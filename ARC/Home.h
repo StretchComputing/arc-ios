@@ -10,6 +10,9 @@
 
 @interface Home : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property BOOL successReview;
+@property BOOL skipReview;
+
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @property (weak, nonatomic) IBOutlet UIView *activityView;

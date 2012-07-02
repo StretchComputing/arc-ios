@@ -440,7 +440,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1123" y="-629"/>
+            <point key="canvasLocation" x="1191" y="-577"/>
         </scene>
         <!--Register Navigation-->
         <scene sceneID="Vml-P4-38c">
@@ -937,7 +937,9 @@
                         <outlet property="checkNumTwo" destination="INN-2s-4d3" id="q1P-50-8tY"/>
                         <outlet property="errorLabel" destination="iJR-Lq-0kR" id="y0H-c4-3v3"/>
                         <outlet property="notesText" destination="7p4-QF-C9c" id="2eC-fQ-ALX"/>
+                        <outlet property="submitButton" destination="xdi-GR-MCb" id="Nxh-o4-o5a"/>
                         <segue destination="3la-xy-Mwg" kind="push" identifier="reviewTransaction" id="ZLN-Za-qGr"/>
+                        <segue destination="bX5-5s-ZOq" kind="custom" identifier="confirmDwolla" customClass="PushSegueNoAnimation" id="yIh-pn-HeY"/>
                     </connections>
                 </viewController>
             </objects>
@@ -1435,6 +1437,17 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lao-ux-FuJ">
+                                <rect key="frame" x="0.0" y="213" width="320" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="VLq-A9-s5J">
+                                <rect key="frame" x="148" y="214" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -1451,6 +1464,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activity" destination="VLq-A9-s5J" id="ZQP-Kh-6Lb"/>
                         <outlet property="atmosphere1" destination="AL0-NF-4Vi" id="AIt-Gk-6Ml"/>
                         <outlet property="atmosphere2" destination="lwh-Bv-Iwc" id="jix-N2-Y2z"/>
                         <outlet property="atmosphere3" destination="0Bi-pe-YFh" id="Jkv-Gc-S9Q"/>
@@ -1462,6 +1476,7 @@
                         <outlet property="drinks3" destination="X6t-yH-nsS" id="LeF-rg-XtY"/>
                         <outlet property="drinks4" destination="KG7-nw-Unv" id="YQf-tb-WT8"/>
                         <outlet property="drinks5" destination="p2r-8Z-GVB" id="Rws-ax-RQS"/>
+                        <outlet property="errorLabel" destination="Lao-ux-FuJ" id="aau-7e-Gtl"/>
                         <outlet property="food1" destination="CwO-T4-G30" id="b5L-PH-a3C"/>
                         <outlet property="food2" destination="pof-VM-GdK" id="6fg-cd-e8d"/>
                         <outlet property="food3" destination="KdJ-6o-ckt" id="gT7-5R-cO2"/>
@@ -1799,7 +1814,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="197" y="1192"/>
+            <point key="canvasLocation" x="105" y="808"/>
         </scene>
         <!--Settings View - Profile-->
         <scene sceneID="0hj-Wu-SB3">
@@ -1993,14 +2008,61 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="tQd-jg-ewj">
-                                        <rect key="frame" x="0.0" y="445" width="320" height="45"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="tQd-jg-ewj">
+                                        <rect key="frame" x="0.0" y="445" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Log Out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Oal-5A-CxE">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dwolla Authorization" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Oal-5A-CxE">
+                                                    <rect key="frame" x="11" y="11" width="279" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="V8y-gF-rH0">
+                                                    <rect key="frame" x="211" y="8" width="79" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="dwollaAuthSwitchSelected" destination="Nzl-ql-1I6" eventType="valueChanged" id="jpY-Gw-Vpu"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Fnx-KD-eRz">
+                                        <rect key="frame" x="0.0" y="489" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="PayPal Authorization" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Q6n-5B-wlt">
+                                                    <rect key="frame" x="11" y="11" width="279" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="0Nd-3y-yjo">
+                                                    <rect key="frame" x="211" y="8" width="79" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="sSz-BZ-Zln">
+                                        <rect key="frame" x="0.0" y="533" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Log Out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="8GL-dT-naI">
                                                     <rect key="frame" x="11" y="11" width="279" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -2028,12 +2090,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activity" destination="gDv-AY-ZZx" id="L3w-x3-BlI"/>
+                        <outlet property="dwollaAuthSwitch" destination="V8y-gF-rH0" id="pOt-JM-RDP"/>
                         <outlet property="pointsDisplayLabel" destination="mtn-1p-4FP" id="ZKz-0g-lEV"/>
                         <outlet property="pointsProgressView" destination="77B-FM-W98" id="7mn-MM-jFe"/>
+                        <segue destination="bX5-5s-ZOq" kind="custom" identifier="confirmDwolla" customClass="PushSegueNoAnimation" id="8zb-Bv-gLK"/>
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="707" y="1198"/>
+            <point key="canvasLocation" x="563" y="800"/>
         </scene>
     </scenes>
     <resources>
@@ -2045,160 +2109,6 @@
         <image name="receiptBack.png" width="640" height="832"/>
         <image name="twittetrconnect.png" width="80" height="80"/>
     </resources>
-    <classes>
-        <class className="ContactUsView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactUsView.h"/>
-            <relationships>
-                <relationship kind="action" name="call"/>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="action" name="email"/>
-            </relationships>
-        </class>
-        <class className="DwollaPayment" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
-            <relationships>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="HelpView" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpView.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-            </relationships>
-        </class>
-        <class className="Home" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Home.h"/>
-            <relationships>
-                <relationship kind="outlet" name="activityView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="HomeNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeNavigationController.h"/>
-        </class>
-        <class className="InvoiceView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceView.h"/>
-            <relationships>
-                <relationship kind="action" name="editBegin:"/>
-                <relationship kind="action" name="editEnd:"/>
-                <relationship kind="action" name="payNow:"/>
-                <relationship kind="action" name="segmentSelect"/>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="amountNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="bottomHalfView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="discLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="discNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dividerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="gratLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="gratNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="subLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="taxLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tipText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="RegisterDwollaView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
-        </class>
-        <class className="RegisterNavigation" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterNavigation.h"/>
-        </class>
-        <class className="RegisterView" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterView.h"/>
-            <relationships>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="login:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="registerNow:"/>
-                <relationship kind="outlet" name="activityView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="firstNameText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="genderSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="lastNameText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordText" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="Restaurant" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Restaurant.h"/>
-            <relationships>
-                <relationship kind="action" name="checkNumberHelp"/>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameDisplay" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ReviewTransaction" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReviewTransaction.h"/>
-            <relationships>
-                <relationship kind="action" name="skipReview:"/>
-                <relationship kind="action" name="starClicked:"/>
-                <relationship kind="action" name="submitReview:"/>
-                <relationship kind="outlet" name="atmosphere1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="commentsText" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="drinks1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value5" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SettingsView" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsView.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="pointsDisplayLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="pointsProgressView" candidateClass="UIProgressView"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="signIn"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
@@ -2207,5 +2117,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="UAW-Ie-qgs"/>
         <segue reference="NwH-xf-Eq4"/>
+        <segue reference="8zb-Bv-gLK"/>
     </inferredMetricsTieBreakers>
 </document>

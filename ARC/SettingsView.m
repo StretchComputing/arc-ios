@@ -9,6 +9,9 @@
 #import "SettingsView.h"
 #import "ArcAppDelegate.h"
 #import "NewJSON.h"
+#import "ArcAppDelegate.h"
+#import "DwollaAPI.h"
+#import "RegisterDwollaView.h"
 
 @interface SettingsView ()
 
@@ -19,9 +22,45 @@
 @synthesize pointsDisplayLabel;
 @synthesize pointsProgressView;
 @synthesize activity;
+@synthesize dwollaAuthSwitch, fromDwolla, dwollaSuccess;
 
 -(void)viewWillAppear:(BOOL)animated{
     [self performSelector:@selector(getPointsBalance)];
+    
+    NSString *dwollaAuthToken = @"";
+    @try {
+        dwollaAuthToken = [DwollaAPI getAccessToken];
+    }
+    @catch (NSException *exception) {
+        dwollaAuthToken = nil;
+    }
+    
+    if ((dwollaAuthToken == nil) || [dwollaAuthToken isEqualToString:@""]) {
+        self.dwollaAuthSwitch.on = NO;
+    }else{
+        self.dwollaAuthSwitch.on = YES;
+    }
+    
+    if (self.fromDwolla) {
+        self.fromDwolla = NO;
+        
+        NSString *title = @"";
+        NSString *message = @"";
+        if (self.dwollaSuccess) {
+            
+            title = @"Success!";
+            message = @"Congratulations! You are now authorized for Dwolla!";
+            
+        }else{
+            
+            title = @"Authorization Error";
+            message = @"You were not successfully authorized for Dwolla.  Please try again";
+        }
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+    
 }
 - (void)viewDidLoad
 {
@@ -39,7 +78,7 @@
     NSUInteger section = [indexPath section];
 
     
-    if ((section == 1) && (row == 2)) {
+    if ((section == 1) && (row == 4)) {
        
         ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
         mainDelegate.logout = @"true";
@@ -51,9 +90,9 @@
 -(void)getPointsBalance{
     
     @try{
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString *customerId = [prefs valueForKey:@"customerId"];
+                
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        NSString *customerId = [mainDelegate getCustomerId];
         
         NSString *tmpUrl = [NSString stringWithFormat:@"http://68.57.205.193:8700/rest/v1/points/%@/balance", customerId];
                 
@@ -117,10 +156,28 @@
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
-- (void)viewDidUnload {
-    [self setPointsDisplayLabel:nil];
-    [self setPointsProgressView:nil];
-    [self setActivity:nil];
-    [super viewDidUnload];
+
+- (IBAction)dwollaAuthSwitchSelected {
+    
+    if (self.dwollaAuthSwitch.on) {
+       
+        [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+        
+    }else{
+       
+        [DwollaAPI clearAccessToken];
+    }
 }
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    
+    if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
+        
+        RegisterDwollaView *detailViewController = [segue destinationViewController];
+        detailViewController.fromRegister = YES;
+    } 
+}
+
 @end

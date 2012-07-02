@@ -21,6 +21,8 @@
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
 		90B01D07159E3E61005FCCCF /* fullStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D06159E3E61005FCCCF /* fullStar.png */; };
 		90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D09159E3E92005FCCCF /* ReviewTransaction.m */; };
+		90B01D1915A1308E005FCCCF /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D1615A1308E005FCCCF /* FBEncryptorAES.m */; };
+		90B01D1A15A1308E005FCCCF /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D1815A1308E005FCCCF /* NSData+Base64.m */; };
 		90B6B0B715994A0B005E4BCB /* RegisterNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */; };
 		90B6B0BA15994A1B005E4BCB /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0B915994A1B005E4BCB /* RegisterView.m */; };
 		90B6B0D31599EF22005E4BCB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B6B0D21599EF22005E4BCB /* Icon.png */; };
@@ -104,6 +106,10 @@
 		90B01D06159E3E61005FCCCF /* fullStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullStar.png; sourceTree = "<group>"; };
 		90B01D08159E3E92005FCCCF /* ReviewTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTransaction.h; sourceTree = "<group>"; };
 		90B01D09159E3E92005FCCCF /* ReviewTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewTransaction.m; sourceTree = "<group>"; };
+		90B01D1515A1308E005FCCCF /* FBEncryptorAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
+		90B01D1615A1308E005FCCCF /* FBEncryptorAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
+		90B01D1715A1308E005FCCCF /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		90B01D1815A1308E005FCCCF /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		90B6B0B515994A0B005E4BCB /* RegisterNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterNavigation.h; sourceTree = "<group>"; };
 		90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigation.m; sourceTree = "<group>"; };
 		90B6B0B815994A1B005E4BCB /* RegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterView.h; sourceTree = "<group>"; };
@@ -282,6 +288,10 @@
 			children = (
 				90993F44159777BC00FC1D49 /* ArcAppDelegate.h */,
 				90993F45159777BC00FC1D49 /* ArcAppDelegate.m */,
+				90B01D1515A1308E005FCCCF /* FBEncryptorAES.h */,
+				90B01D1615A1308E005FCCCF /* FBEncryptorAES.m */,
+				90B01D1715A1308E005FCCCF /* NSData+Base64.h */,
+				90B01D1815A1308E005FCCCF /* NSData+Base64.m */,
 				90FBDBED159CDD2E0051609A /* DwollaAPI */,
 				90FBDC0E159CDD980051609A /* Classes */,
 				90993F47159777BC00FC1D49 /* MainStoryboard.storyboard */,
@@ -539,6 +549,8 @@
 				90FBDC45159CE2E80051609A /* RegisterDwollaView.m in Sources */,
 				90FBDC48159CE4FA0051609A /* PushSegueNoAnimation.m in Sources */,
 				90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */,
+				90B01D1915A1308E005FCCCF /* FBEncryptorAES.m in Sources */,
+				90B01D1A15A1308E005FCCCF /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

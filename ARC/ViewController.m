@@ -257,7 +257,7 @@
         
         [prefs setObject:customerId forKey:@"customerId"];
         [prefs setObject:customerToken forKey:@"customerToken"];
-        
+
         [prefs synchronize];
         
         

@@ -21,7 +21,8 @@
 @implementation Home
 @synthesize activityView;
 @synthesize errorLabel;
-@synthesize toolbar, serverData, allMerchants, myTableView;
+@synthesize toolbar, serverData, allMerchants, myTableView, successReview, skipReview;
+
 
 -(void)viewDidAppear:(BOOL)animated{
     
@@ -33,9 +34,27 @@
     
     ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
-        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
+        [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
+
         [self.navigationController dismissModalViewControllerAnimated:NO];
+    }
+    
+    if (self.skipReview || self.successReview) {
+        
+        NSString *message = @"";
+        
+        if (self.successReview) {
+            message = @"Your transaction has completed successfully!  Check out your profile to see the points you earned for your review!";
+        }else{
+            message = @"Your transaction has completed successfully!  Check out your profile to see the points you have earned!";
+        }
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank You!" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+        self.skipReview = NO;
+        self.successReview = NO;
     }
 }
 

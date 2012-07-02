@@ -9,6 +9,7 @@
 #import "RegisterView.h"
 #import "NewJSON.h"
 #import "ArcAppDelegate.h"
+#import "RegisterDwollaView.h"
 @interface RegisterView ()
 
 -(void)runRegister;
@@ -206,7 +207,7 @@
         
         [prefs setObject:customerId forKey:@"customerId"];
         [prefs setObject:customerToken forKey:@"customerToken"];
-       
+
         [prefs synchronize];
         
         
@@ -247,6 +248,16 @@
 
 -(void)endText{
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    
+    if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
+        
+        RegisterDwollaView *detailViewController = [segue destinationViewController];
+        detailViewController.fromRegister = YES;
+    } 
 }
 
 @end

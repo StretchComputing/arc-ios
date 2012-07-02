@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingsView : UITableViewController
+
+@property BOOL fromDwolla;
+@property BOOL dwollaSuccess;
+
 - (IBAction)cancel:(id)sender;
 
 @property (nonatomic, strong) NSMutableData *serverData;
@@ -16,4 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *pointsProgressView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 
+@property (weak, nonatomic) IBOutlet UISwitch *dwollaAuthSwitch;
+- (IBAction)dwollaAuthSwitchSelected;
 @end

@@ -11,10 +11,11 @@
 #import "IDwollaMessages.h"
 @interface RegisterDwollaView : UIViewController  <IDwollaMessages>
 
+@property BOOL fromRegister;
+@property BOOL fromSettings;
 
 //Dwolla
 -(void)successfulLogin;
-
 -(void)failedLogin:(NSArray*)errors;
 
 @end

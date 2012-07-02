@@ -12,6 +12,12 @@
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
+@property (nonatomic, strong) NSNumber *foodInt;
+@property (nonatomic, strong) NSNumber *drinksInt;
+@property (nonatomic, strong) NSNumber *priceInt;
+@property (nonatomic, strong) NSNumber *serviceInt;
+
+@property int invoiceId;
 
 @property (nonatomic, strong) IBOutlet UIButton *food1;
 @property (nonatomic, strong) IBOutlet UIButton *food2;
@@ -45,5 +51,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *commentsText;
 -(IBAction)starClicked:(id)sender;
 
+@property (nonatomic, strong) NSMutableData *serverData;
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
   
   @end
