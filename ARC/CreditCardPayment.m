@@ -1,33 +1,34 @@
 //
-//  DwollaPayment.m
+//  CreditCardPayment.m
 //  ARC
 //
-//  Created by Nick Wroblewski on 6/27/12.
+//  Created by Nick Wroblewski on 7/4/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DwollaPayment.h"
+#import "CreditCardPayment.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NewJSON.h"
 #import "ReviewTransaction.h"
 #import "ArcAppDelegate.h"
+#import "FBEncryptorAES.h"
 
-@interface DwollaPayment ()
+@interface CreditCardPayment ()
 
 @end
 
-@implementation DwollaPayment
+@implementation CreditCardPayment
 @synthesize submitButton;
 @synthesize notesText;
 @synthesize checkNumFour;
 @synthesize checkNumThree;
 @synthesize checkNumTwo;
-@synthesize checkNumOne, serverData, errorLabel, activity, fundingSources, fundingSourceStatus, selectedFundingSourceId, gratuity, totalAmount, invoiceId, fromDwolla, dwollaSuccess;
+@synthesize checkNumOne, serverData, errorLabel, activity, fundingSources, fundingSourceStatus, selectedFundingSourceId, gratuity, totalAmount, invoiceId, fromDwolla, dwollaSuccess, creditCardNumber, creditCardSample, creditCardExpiration, creditCardSecurityCode;
 
 
 - (void)viewDidLoad
 {
-
+    
     
     self.fundingSourceStatus = @"";
     self.serverData = [NSMutableData data];
@@ -51,25 +52,7 @@
     
     self.notesText.layer.masksToBounds = YES;
     self.notesText.layer.cornerRadius = 5.0;
-        
-      
-    dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
-    
-    dispatch_async(queue,^{
-        
-        @try {
-            DwollaFundingSources* sources = [DwollaAPI getFundingSources];
-            
-            //An array of DwollaFundingSource* objects
-            self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
-            self.fundingSourceStatus = @"success";
-        }
-        @catch (NSException *exception) {
-            self.fundingSourceStatus = @"failed";
-        }
-        
-        
-    });
+
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -79,46 +62,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [self.checkNumOne becomeFirstResponder];
     self.serverData = [NSMutableData data];
-    
-    if (self.fromDwolla) {
-        self.fromDwolla = NO;
-        
-        if (self.dwollaSuccess) {
-            
-            //Get the Funding Sources
-            
-            dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
-            dispatch_queue_t main = dispatch_get_main_queue();
-            
-            dispatch_async(queue,^{
-                
-                @try {
-                    DwollaFundingSources* sources = [DwollaAPI getFundingSources];
-                    
-                    //An array of DwollaFundingSource* objects
-                    self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
-                    self.fundingSourceStatus = @"success";
-                }
-                @catch (NSException *exception) {
-                    self.fundingSourceStatus = @"failed";
-                    
-                }
-                
-                dispatch_async(main,^{
-                    [self submit:nil];
-                });
-
-                
-                
-            });
-    
-            
-        }else{
-            
-            [self.activity stopAnimating];
-        }
-    }
-    
 }
 
 
@@ -184,110 +127,46 @@
 - (IBAction)submit:(id)sender {
     
     self.errorLabel.text = @"";    
-        
-        if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
-            
-            self.errorLabel.text = @"*Please enter your full pin number.";
-        }else{
-            
-            NSString *token = @"";
-            @try {
-                token = [DwollaAPI getAccessToken];
-            }
-            @catch (NSException *exception) {
-                token = nil;
-            }
-          
-            
-            if ((token == nil) || [token isEqualToString:@""]) {
-                //get the token
-                [self.activity startAnimating];
-                
-  
-                
-                [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
-
-                
-            }else{
-                
-                
-                if ([self.fundingSourceStatus isEqualToString:@"success"]) {
-
-                    if ([self.fundingSources count] == 0) {
-                        
-                    }else if ([self.fundingSources count] == 1){
-                        
-                        DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:0];
-                        self.selectedFundingSourceId = [tmp getSourceID];
-                        [self performSelector:@selector(createPayment)];
-                        
-                    }else{
-                        //display funding sources
-                        
-                        UIActionSheet *fundingAction = [[UIActionSheet alloc] initWithTitle:@"Select A Funding Source" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-                        
-                        for (int i = 0; i < [self.fundingSources count]; i++) {
-                            DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:i];
-                            
-                            [fundingAction addButtonWithTitle:[tmp getName]];
-                        }
-                        [fundingAction addButtonWithTitle:@"Cancel"];
-                        
-                        [fundingAction setCancelButtonIndex: [self.fundingSources count]];
-                        
-                        [fundingAction showInView:self.view];
-                        
-                        
-                    }
-                   
-                    
-                }else{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dwolla Error" message:@"Unable to obtain Dwolla Funding Sources" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                    [alert show];
-                }
-
-
-                
-            }
-                        
-        }
-
-}
-
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if (buttonIndex == [self.fundingSources count]) {
-        //Cancel
+    if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
+        
+        self.errorLabel.text = @"*Please enter your full pin number.";
     }else{
         
-        DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:buttonIndex];
-        self.selectedFundingSourceId = [tmp getSourceID];
         [self performSelector:@selector(createPayment)];
+
     }
     
 }
+
+
+
 -(void)createPayment{
     
     @try{        
         [self.activity startAnimating];
         
-         NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
+        NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
         
-        NSString *dwollaToken = [DwollaAPI getAccessToken];
+        
+        
+        NSString *ccNumber = [FBEncryptorAES decryptBase64String:self.creditCardNumber keyString:pinNumber];
+        
+        NSString *ccSecurityCode = [FBEncryptorAES decryptBase64String:self.creditCardSecurityCode keyString:pinNumber];
         
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
+        
         
         //*Testing Only*
         NSNumber *amount = [NSNumber numberWithDouble:1.0];
         //NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
         [ tempDictionary setObject:amount forKey:@"Amount"];
         
-        [ tempDictionary setObject:dwollaToken forKey:@"AuthenticationToken"];
-        [ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
-
+        [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
+        [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
+        
         double gratDouble = self.gratuity/self.totalAmount;
         
         //*Testing Only* -------- SEND EMPTY STRINGS for OPTIONAL PARAMETERS
@@ -301,25 +180,28 @@
             [ tempDictionary setObject:@"" forKey:@"Notes"];
         }
         
-                
+        
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
         NSNumber *tmpId = [NSNumber numberWithInt:[customerId intValue]];
         [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
         
         [ tempDictionary setObject:@"" forKey:@"Tag"];
-        [ tempDictionary setObject:@"" forKey:@"Expiration"];
+        
+        [ tempDictionary setObject:self.creditCardExpiration forKey:@"Expiration"];
 		
         NSNumber *invoice = [NSNumber numberWithInt:self.invoiceId];
         [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
-
-        [ tempDictionary setObject:pinNumber forKey:@"Pin"];
-        [ tempDictionary setObject:@"DWOLLA" forKey:@"Type"];
-
         
-    
+        [ tempDictionary setObject:ccSecurityCode forKey:@"Pin"];
+        [ tempDictionary setObject:@"CREDIT" forKey:@"Type"];
+        
+        
+        
+        
+        
 		loginDict = tempDictionary;
-
+        
 		NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONFragment], nil];
         
         NSLog(@"RequestString: %@", requestString);
@@ -370,7 +252,7 @@
     if (success) {
         
         self.errorLabel.text = @"";
-
+        
         [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
         
         

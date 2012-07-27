@@ -23,20 +23,14 @@
 
 -(void)viewDidAppear:(BOOL)animated{
 
-   
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSString *customerId = [prefs stringForKey:@"customerId"];
     NSString *customerToken = [prefs stringForKey:@"customerToken"];
         
     if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
-
         [self performSegueWithIdentifier: @"signIn" sender: self];
-
     }
-    
-    
-
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -204,7 +198,7 @@
         
         @try{
             
-            NSString *tmpUrl = [NSString stringWithFormat:@"http://68.57.205.193:8700/rest/v1/customers?login=%@&password=%@", self.username.text, self.password.text];
+            NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/customers?login=%@&password=%@", self.username.text, self.password.text];
             
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
             [request setHTTPMethod: @"GET"];
@@ -250,7 +244,7 @@
         
         NSDictionary *customer = [response valueForKey:@"Customer"];
         
-        NSString *customerId = [customer valueForKey:@"Id"];
+        NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
         NSString *customerToken = [customer valueForKey:@"Token"];
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -260,6 +254,8 @@
 
         [prefs synchronize];
         
+        //Add this customer to the DB
+        [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
         
         [self performSegueWithIdentifier: @"signIn" sender: self];
         
@@ -273,6 +269,16 @@
     
     
    	
+}
+
+-(void)addToDatabase{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    NSString *customerId = [prefs valueForKey:@"customerId"];
+    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

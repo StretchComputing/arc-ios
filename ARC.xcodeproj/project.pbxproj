@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
+		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
+		907A406615A9CE2500090452 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406515A9CE2500090452 /* CreditCard.m */; };
+		907A406915A9CE2500090452 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406815A9CE2500090452 /* Customer.m */; };
+		907A406C15AA072300090452 /* ViewCreditCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406B15AA072200090452 /* ViewCreditCards.m */; };
+		907A406F15AA072F00090452 /* EditCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406E15AA072F00090452 /* EditCreditCard.m */; };
+		907A407215AA073C00090452 /* AddCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A407115AA073C00090452 /* AddCreditCard.m */; };
+		907A407515AA08B200090452 /* addCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407315AA08B200090452 /* addCard.png */; };
+		907A407615AA08B200090452 /* addCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407415AA08B200090452 /* addCard@2x.png */; };
 		90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F35159777BC00FC1D49 /* UIKit.framework */; };
 		90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F37159777BC00FC1D49 /* Foundation.framework */; };
 		90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F39159777BC00FC1D49 /* CoreGraphics.framework */; };
@@ -23,6 +32,8 @@
 		90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D09159E3E92005FCCCF /* ReviewTransaction.m */; };
 		90B01D1915A1308E005FCCCF /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D1615A1308E005FCCCF /* FBEncryptorAES.m */; };
 		90B01D1A15A1308E005FCCCF /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D1815A1308E005FCCCF /* NSData+Base64.m */; };
+		90B01D1F15A33A3E005FCCCF /* checkNumberHelp.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D1E15A33A3E005FCCCF /* checkNumberHelp.png */; };
+		90B01D2215A4CB95005FCCCF /* CreditCardPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D2115A4CB94005FCCCF /* CreditCardPayment.m */; };
 		90B6B0B715994A0B005E4BCB /* RegisterNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */; };
 		90B6B0BA15994A1B005E4BCB /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0B915994A1B005E4BCB /* RegisterView.m */; };
 		90B6B0D31599EF22005E4BCB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B6B0D21599EF22005E4BCB /* Icon.png */; };
@@ -40,6 +51,7 @@
 		90B6B111159A4F95005E4BCB /* Invoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B110159A4F95005E4BCB /* Invoice.m */; };
 		90BFD0901597928D00F5285E /* HomeNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BFD08F1597928D00F5285E /* HomeNavigationController.m */; };
 		90BFD0931597943600F5285E /* rowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BFD0921597943600F5285E /* rowButton.png */; };
+		90C9736A15A8CC4B00667FF8 /* ArcData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 90C9736815A8CC4B00667FF8 /* ArcData.xcdatamodeld */; };
 		90D25B84159E065A00192F6E /* qmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B83159E065A00192F6E /* qmark.png */; };
 		90D25B87159E0C0600192F6E /* twittetrconnect.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B86159E0C0600192F6E /* twittetrconnect.png */; };
 		90D25B89159E0C3A00192F6E /* facebookconnect.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B88159E0C3A00192F6E /* facebookconnect.jpg */; };
@@ -85,6 +97,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
+		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
+		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		907A406415A9CE2500090452 /* CreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreditCard.h; path = ../CreditCard.h; sourceTree = "<group>"; };
+		907A406515A9CE2500090452 /* CreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreditCard.m; path = ../CreditCard.m; sourceTree = "<group>"; };
+		907A406715A9CE2500090452 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Customer.h; path = ../Customer.h; sourceTree = "<group>"; };
+		907A406815A9CE2500090452 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Customer.m; path = ../Customer.m; sourceTree = "<group>"; };
+		907A406A15AA072200090452 /* ViewCreditCards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewCreditCards.h; sourceTree = "<group>"; };
+		907A406B15AA072200090452 /* ViewCreditCards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewCreditCards.m; sourceTree = "<group>"; };
+		907A406D15AA072F00090452 /* EditCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCreditCard.h; sourceTree = "<group>"; };
+		907A406E15AA072F00090452 /* EditCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCreditCard.m; sourceTree = "<group>"; };
+		907A407015AA073C00090452 /* AddCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCreditCard.h; sourceTree = "<group>"; };
+		907A407115AA073C00090452 /* AddCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCard.m; sourceTree = "<group>"; };
+		907A407315AA08B200090452 /* addCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addCard.png; sourceTree = "<group>"; };
+		907A407415AA08B200090452 /* addCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addCard@2x.png"; sourceTree = "<group>"; };
 		90993F31159777BC00FC1D49 /* ARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90993F35159777BC00FC1D49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90993F37159777BC00FC1D49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -110,6 +137,9 @@
 		90B01D1615A1308E005FCCCF /* FBEncryptorAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
 		90B01D1715A1308E005FCCCF /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		90B01D1815A1308E005FCCCF /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		90B01D1E15A33A3E005FCCCF /* checkNumberHelp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkNumberHelp.png; sourceTree = "<group>"; };
+		90B01D2015A4CB93005FCCCF /* CreditCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCardPayment.h; sourceTree = "<group>"; };
+		90B01D2115A4CB94005FCCCF /* CreditCardPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditCardPayment.m; sourceTree = "<group>"; };
 		90B6B0B515994A0B005E4BCB /* RegisterNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterNavigation.h; sourceTree = "<group>"; };
 		90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigation.m; sourceTree = "<group>"; };
 		90B6B0B815994A1B005E4BCB /* RegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterView.h; sourceTree = "<group>"; };
@@ -141,6 +171,7 @@
 		90BFD08E1597928D00F5285E /* HomeNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeNavigationController.h; sourceTree = "<group>"; };
 		90BFD08F1597928D00F5285E /* HomeNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeNavigationController.m; sourceTree = "<group>"; };
 		90BFD0921597943600F5285E /* rowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rowButton.png; sourceTree = "<group>"; };
+		90C9736915A8CC4B00667FF8 /* ArcData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArcData.xcdatamodel; sourceTree = "<group>"; };
 		90D25B83159E065A00192F6E /* qmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qmark.png; sourceTree = "<group>"; };
 		90D25B86159E0C0600192F6E /* twittetrconnect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twittetrconnect.png; sourceTree = "<group>"; };
 		90D25B88159E0C3A00192F6E /* facebookconnect.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = facebookconnect.jpg; sourceTree = "<group>"; };
@@ -224,6 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */,
 				90FBDBA2159CB73F0051609A /* SenTestingKit.framework in Frameworks */,
 				90FBDABF159C91D60051609A /* Security.framework in Frameworks */,
 				90FBDABD159C91D00051609A /* libxml2.dylib in Frameworks */,
@@ -241,6 +273,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				907A405915A8D9C400090452 /* CoreData.framework */,
 				90FBDBA1159CB73F0051609A /* SenTestingKit.framework */,
 				90FBDABE159C91D60051609A /* Security.framework */,
 				90FBDABC159C91CF0051609A /* libxml2.dylib */,
@@ -259,6 +292,9 @@
 				90D25B83159E065A00192F6E /* qmark.png */,
 				90B01D03159E3CF1005FCCCF /* emptyStar.png */,
 				90B01D06159E3E61005FCCCF /* fullStar.png */,
+				90B01D1E15A33A3E005FCCCF /* checkNumberHelp.png */,
+				907A407315AA08B200090452 /* addCard.png */,
+				907A407415AA08B200090452 /* addCard@2x.png */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
 				90993F32159777BC00FC1D49 /* Products */,
@@ -295,6 +331,13 @@
 				90FBDBED159CDD2E0051609A /* DwollaAPI */,
 				90FBDC0E159CDD980051609A /* Classes */,
 				90993F47159777BC00FC1D49 /* MainStoryboard.storyboard */,
+				90C9736815A8CC4B00667FF8 /* ArcData.xcdatamodeld */,
+				907A406715A9CE2500090452 /* Customer.h */,
+				907A406815A9CE2500090452 /* Customer.m */,
+				907A406415A9CE2500090452 /* CreditCard.h */,
+				907A406515A9CE2500090452 /* CreditCard.m */,
+				907A404315A8CFE900090452 /* AccessData.h */,
+				907A404415A8CFE900090452 /* AccessData.m */,
 				90993F4A159777BC00FC1D49 /* ViewController.h */,
 				90993F4B159777BC00FC1D49 /* ViewController.m */,
 				90FBDC46159CE4F90051609A /* PushSegueNoAnimation.h */,
@@ -319,6 +362,8 @@
 				90B6B10D159A4F86005E4BCB /* InvoiceView.m */,
 				90FBDAA2159B46760051609A /* DwollaPayment.h */,
 				90FBDAA3159B46760051609A /* DwollaPayment.m */,
+				90B01D2015A4CB93005FCCCF /* CreditCardPayment.h */,
+				90B01D2115A4CB94005FCCCF /* CreditCardPayment.m */,
 				90B01D08159E3E92005FCCCF /* ReviewTransaction.h */,
 				90B01D09159E3E92005FCCCF /* ReviewTransaction.m */,
 				90B6B0B515994A0B005E4BCB /* RegisterNavigation.h */,
@@ -327,6 +372,12 @@
 				90B6B0B915994A1B005E4BCB /* RegisterView.m */,
 				90FBDC43159CE2E80051609A /* RegisterDwollaView.h */,
 				90FBDC44159CE2E80051609A /* RegisterDwollaView.m */,
+				907A406A15AA072200090452 /* ViewCreditCards.h */,
+				907A406B15AA072200090452 /* ViewCreditCards.m */,
+				907A406D15AA072F00090452 /* EditCreditCard.h */,
+				907A406E15AA072F00090452 /* EditCreditCard.m */,
+				907A407015AA073C00090452 /* AddCreditCard.h */,
+				907A407115AA073C00090452 /* AddCreditCard.m */,
 				90B6B0E0159A04E5005E4BCB /* NewJSON.h */,
 				90B6B0E1159A04E5005E4BCB /* NewNSObject+SBJSON.h */,
 				90B6B0E2159A04E6005E4BCB /* NewNSObject+SBJSON.m */,
@@ -489,6 +540,9 @@
 				90D25B89159E0C3A00192F6E /* facebookconnect.jpg in Resources */,
 				90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */,
 				90B01D07159E3E61005FCCCF /* fullStar.png in Resources */,
+				90B01D1F15A33A3E005FCCCF /* checkNumberHelp.png in Resources */,
+				907A407515AA08B200090452 /* addCard.png in Resources */,
+				907A407615AA08B200090452 /* addCard@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +605,14 @@
 				90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */,
 				90B01D1915A1308E005FCCCF /* FBEncryptorAES.m in Sources */,
 				90B01D1A15A1308E005FCCCF /* NSData+Base64.m in Sources */,
+				90B01D2215A4CB95005FCCCF /* CreditCardPayment.m in Sources */,
+				90C9736A15A8CC4B00667FF8 /* ArcData.xcdatamodeld in Sources */,
+				907A404515A8CFE900090452 /* AccessData.m in Sources */,
+				907A406615A9CE2500090452 /* CreditCard.m in Sources */,
+				907A406915A9CE2500090452 /* Customer.m in Sources */,
+				907A406C15AA072300090452 /* ViewCreditCards.m in Sources */,
+				907A406F15AA072F00090452 /* EditCreditCard.m in Sources */,
+				907A407215AA073C00090452 /* AddCreditCard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +784,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		90C9736815A8CC4B00667FF8 /* ArcData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				90C9736915A8CC4B00667FF8 /* ArcData.xcdatamodel */,
+			);
+			currentVersion = 90C9736915A8CC4B00667FF8 /* ArcData.xcdatamodel */;
+			path = ArcData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 90993F28159777BB00FC1D49 /* Project object */;
 }

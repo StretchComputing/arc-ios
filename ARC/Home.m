@@ -11,6 +11,7 @@
 #import "Merchant.h"
 #import "Restaurant.h"
 #import "ArcAppDelegate.h"
+#import "CreditCard.h"
 
 @interface Home ()
 
@@ -20,8 +21,8 @@
 
 @implementation Home
 @synthesize activityView;
-@synthesize errorLabel;
-@synthesize toolbar, serverData, allMerchants, myTableView, successReview, skipReview;
+@synthesize errorLabel, matchingMerchants;
+@synthesize toolbar, serverData, allMerchants, myTableView, successReview, skipReview, searchTextField;
 
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -34,8 +35,10 @@
     
     ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
+        
         [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
         [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
 
         [self.navigationController dismissModalViewControllerAnimated:NO];
     }
@@ -60,6 +63,8 @@
 
 - (void)viewDidLoad
 {
+    self.matchingMerchants = [NSMutableArray array];
+    self.searchTextField.delegate = self;
     self.toolbar.tintColor = [UIColor colorWithRed:0.0427221 green:0.380456 blue:0.785953 alpha:1.0];
     self.serverData = [NSMutableData data];
     self.allMerchants = [NSMutableArray array];
@@ -72,13 +77,39 @@
     [self getMerchantList];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self.searchTextField addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
+
 }
 
+-(void)textFieldDidChange{
+    
+    self.matchingMerchants = [NSMutableArray array];
+    if ((self.searchTextField.text == nil) || [self.searchTextField.text isEqualToString:@""]) {
+        self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
+    }else{
+        
+        NSString *currentStringToMatch = [self.searchTextField.text lowercaseString];
+        
+        for (int i = 0; i < [self.allMerchants count]; i++) {
+            Merchant *tmpMerchant = [self.allMerchants objectAtIndex:i];
+            NSString *merchantName = [tmpMerchant.name lowercaseString];
+            
+            if ([merchantName rangeOfString:currentStringToMatch].location != NSNotFound) {
+                [self.matchingMerchants addObject:tmpMerchant];
+            }
+        }
+    }
+    
+    
+    [self.myTableView reloadData];
+    
+}
 -(void)getMerchantList{
     
     @try{
         
-        NSString *tmpUrl = [NSString stringWithString:@"http://68.57.205.193:8700/rest/v1/merchants"];
+        NSString *tmpUrl = [NSString stringWithString:@"http://arc-stage.dagher.mobi/rest/v1/merchants"];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
         [request setHTTPMethod: @"GET"];
@@ -126,6 +157,7 @@
             tmpMerchant.merchantId = [[theMerchant valueForKey:@"Id"] intValue];
             
             [self.allMerchants addObject:tmpMerchant];
+            [self.matchingMerchants addObject:tmpMerchant];
             
             
         }
@@ -153,11 +185,12 @@
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
 	
-	if ([self.allMerchants count] == 0) {
-        self.myTableView.hidden = YES;
+	if ([self.matchingMerchants count] == 0) {
+        //self.myTableView.hidden = YES;
         return 0;
     }else {
-        return [self.allMerchants count];
+        self.myTableView.hidden = NO;
+        return [self.matchingMerchants count];
     }
 }
 
@@ -179,7 +212,7 @@
 	//Configure the cell
 	NSUInteger row = [indexPath row];
 	
-    Merchant *tmpMerchant = [self.allMerchants objectAtIndex:row];
+    Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:row];
         
     cell.textLabel.text = tmpMerchant.name;
  
@@ -187,16 +220,18 @@
 
 }
 
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 40;
+}
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 
 {
     return @"Select a restaurant:";
 }
 
-
+*/
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
     
     if ([[segue identifier] isEqualToString:@"goRestaurant"]) {
         
@@ -207,5 +242,13 @@
         
         detailViewController.name = tmpMerchant.name;
     } 
+}
+
+-(void)endText{
+    
+    if ([self.matchingMerchants count] == 0) {
+        self.myTableView.hidden = YES;
+        self.errorLabel.text = @"*No matches found.";
+    }
 }
 @end

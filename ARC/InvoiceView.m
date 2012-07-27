@@ -8,6 +8,9 @@
 
 #import "InvoiceView.h"
 #import "DwollaPayment.h"
+#import "CreditCardPayment.h"
+#import "ArcAppDelegate.h"
+#import "CreditCard.h"
 
 @interface InvoiceView ()
 
@@ -28,8 +31,8 @@
 @synthesize tipSegment;
 @synthesize amountNameLabel;
 @synthesize gratNameLabel;
-@synthesize dividerView;
-@synthesize myInvoice, myTableView, amountDue;
+@synthesize dividerView, creditCardSample, creditCardExpiration, creditCardSecurityCode, creditCardNumber;
+@synthesize myInvoice, myTableView, amountDue, creditCards;
 
 
 - (void)viewDidLoad
@@ -197,8 +200,30 @@
 - (IBAction)payNow:(id)sender {
     
     [self.tipText resignFirstResponder];
+    UIActionSheet *action;
     
-    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", @"PayPal", @"Credit Card *7837", nil];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+    
+    if ([self.creditCards count] > 0) {
+        
+        action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        
+        [action addButtonWithTitle:@"Dwolla"];
+        [action addButtonWithTitle:@"PayPal"];
+
+        for (int i = 0; i < [self.creditCards count]; i++) {
+            CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+            [action addButtonWithTitle:[NSString stringWithFormat:@"Credit Card  %@", tmpCard.sample]];
+            
+        }
+        [action addButtonWithTitle:@"Cancel"];
+        action.cancelButtonIndex = [self.creditCards count] + 2;
+        
+    }else {
+        action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", @"PayPal", nil];
+    }
+    
     
     action.actionSheetStyle = UIActionSheetStyleDefault;
     [action showInView:self.view];
@@ -211,6 +236,28 @@
         //Dwolla
         
         [self performSegueWithIdentifier:@"goPayDwolla" sender:self];
+    }else {
+              
+        if ([self.creditCards count] > 0) {
+            if (buttonIndex == [self.creditCards count] + 2) {
+                //Cancel
+            }else{
+                //1 is paypal, 2 is first credit card
+                if (buttonIndex > 1) {
+                    CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - 2];
+                    
+                    self.creditCardNumber = selectedCard.number;
+                    self.creditCardSecurityCode = selectedCard.securityCode;
+                    self.creditCardExpiration = selectedCard.expiration;
+                    self.creditCardSample = selectedCard.sample;
+                    
+                    [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
+                }                
+            }
+        }else{
+            
+        }
+       
     }
     
 }
@@ -263,6 +310,20 @@
         controller.invoiceId = self.myInvoice.invoiceId;
   
        
+    }else if ([[segue identifier] isEqualToString:@"goPayCreditCard"]) {
+        
+        CreditCardPayment *controller = [segue destinationViewController];
+        controller.totalAmount = [[NSString stringWithFormat:@"%f", self.amountDue] doubleValue];
+        controller.gratuity = [self.tipText.text doubleValue];
+        controller.invoiceId = self.myInvoice.invoiceId;
+        
+        controller.creditCardSample = self.creditCardSample;
+        controller.creditCardNumber = self.creditCardNumber;
+        controller.creditCardExpiration = self.creditCardExpiration;
+        controller.creditCardSecurityCode = self.creditCardSecurityCode;
+
+        
+        
     } 
 }
 
@@ -303,11 +364,5 @@
 -(void)resetSegment{
     self.tipSegment.selectedSegmentIndex = -1;
 }
-- (void)viewDidUnload {
-    [self setBottomHalfView:nil];
-    [self setScrollView:nil];
-    [self setDividerLabel:nil];
-    [self setAmountNameLabel:nil];
-    [super viewDidUnload];
-}
+
 @end

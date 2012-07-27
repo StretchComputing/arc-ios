@@ -37,4 +37,11 @@
 @property (weak, nonatomic) IBOutlet UIView *dividerView;
 - (IBAction)editBegin:(id)sender;
 - (IBAction)editEnd:(id)sender;
+
+@property (nonatomic, strong) NSArray *creditCards;
+@property (nonatomic, strong) NSString *creditCardNumber;
+@property (nonatomic, strong) NSString *creditCardSecurityCode;
+@property (nonatomic, strong) NSString *creditCardExpiration;
+@property (nonatomic, strong) NSString *creditCardSample;
+
 @end

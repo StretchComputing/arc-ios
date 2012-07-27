@@ -15,14 +15,16 @@
 @end
 
 @implementation Restaurant
+@synthesize submitButton;
 @synthesize nameDisplay, name, myInvoice;
+@synthesize checkHelpImageView;
 @synthesize checkNumFour;
 @synthesize checkNumThree;
 @synthesize checkNumTwo;
 @synthesize checkNumOne;
 @synthesize activity;
 @synthesize errorLabel;
-@synthesize serverData;
+@synthesize serverData, helpShowing;
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.checkNumOne becomeFirstResponder];
@@ -83,6 +85,8 @@
 }
 - (void)viewDidLoad
 {
+    self.checkHelpImageView.hidden = YES;
+    
     self.checkNumOne.delegate = self;
     self.checkNumTwo.delegate = self;
     self.checkNumThree.delegate = self;
@@ -108,7 +112,7 @@
     
     self.errorLabel.text = @"";
     
-    if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
+    if ([self.checkNumOne.text isEqualToString:@" "] || [self.checkNumTwo.text isEqualToString:@" "] || [self.checkNumThree.text isEqualToString:@" "] || [self.checkNumFour.text isEqualToString:@" "]) {
         
         self.errorLabel.text = @"*Please enter the full check number";
     }else{
@@ -116,7 +120,7 @@
         @try{
             
             NSString *invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
-            NSString *tmpUrl = [NSString stringWithFormat:@"http://68.57.205.193:8700/rest/v1/Invoices/%@", invoiceNumber];
+            NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/Invoices/%@", invoiceNumber];
                         
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
             [request setHTTPMethod: @"GET"];
@@ -209,7 +213,51 @@
     } 
 }
 
-
 - (IBAction)checkNumberHelp {
+    
+    self.helpShowing = YES;
+    
+    self.checkHelpImageView.hidden = NO;
+    [self.checkNumOne resignFirstResponder];
+    [self.checkNumTwo resignFirstResponder];
+    [self.checkNumThree resignFirstResponder];
+    [self.checkNumFour resignFirstResponder];
+    
+    self.checkNumOne.enabled = NO;
+    self.checkNumTwo.enabled = NO;
+    self.checkNumThree.enabled = NO;
+    self.checkNumFour.enabled = NO;
+    
+    self.submitButton.enabled = NO;
+    self.nameDisplay.hidden = YES;
+
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+    if (self.helpShowing) {
+        self.helpShowing = NO;
+        self.checkHelpImageView.hidden = YES;
+        
+        self.checkNumOne.enabled = YES;
+        self.checkNumTwo.enabled = YES;
+        self.checkNumThree.enabled = YES;
+        self.checkNumFour.enabled = YES;
+        
+        [self.checkNumOne becomeFirstResponder];
+        
+        self.nameDisplay.hidden = NO;
+        self.submitButton.enabled = YES;
+
+
+    }
+   
+    
+}
+
+- (void)viewDidUnload {
+    [self setSubmitButton:nil];
+    [super viewDidUnload];
 }
 @end

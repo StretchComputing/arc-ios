@@ -12,6 +12,8 @@
 
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
+@property BOOL creditCardAdded;
+@property BOOL creditCardDeleted;
 
 - (IBAction)cancel:(id)sender;
 

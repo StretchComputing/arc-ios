@@ -368,7 +368,7 @@
         
 		NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *tmpUrl = [NSString stringWithString:@"http://68.57.205.193:8700/rest/v1/reviews"];
+        NSString *tmpUrl = [NSString stringWithString:@"http://arc-stage.dagher.mobi/rest/v1/reviews"];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
         [request setHTTPMethod: @"POST"];

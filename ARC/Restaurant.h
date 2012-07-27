@@ -10,11 +10,15 @@
 #import "Invoice.h"
 
 @interface Restaurant : UIViewController <UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
+
+@property BOOL helpShowing;
 - (IBAction)submit:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *nameDisplay;
 
 @property (nonatomic, strong) NSString *name;
 
+@property (weak, nonatomic) IBOutlet UIImageView *checkHelpImageView;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFour;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumThree;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;

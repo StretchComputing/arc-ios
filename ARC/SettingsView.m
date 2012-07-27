@@ -22,7 +22,7 @@
 @synthesize pointsDisplayLabel;
 @synthesize pointsProgressView;
 @synthesize activity;
-@synthesize dwollaAuthSwitch, fromDwolla, dwollaSuccess;
+@synthesize dwollaAuthSwitch, fromDwolla, dwollaSuccess, creditCardAdded, creditCardDeleted;
 
 -(void)viewWillAppear:(BOOL)animated{
     [self performSelector:@selector(getPointsBalance)];
@@ -61,6 +61,20 @@
         [alert show];
     }
     
+    if (self.creditCardAdded){
+        self.creditCardAdded = NO;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was added successfully!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+    
+    if (self.creditCardDeleted){
+        self.creditCardDeleted = NO;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was deleted successfully!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+    
+
+    
 }
 - (void)viewDidLoad
 {
@@ -73,12 +87,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     NSUInteger row = [indexPath row];
     NSUInteger section = [indexPath section];
-
     
-    if ((section == 1) && (row == 4)) {
+    if ((section == 2) && (row == 2)) {
        
         ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
         mainDelegate.logout = @"true";
@@ -94,7 +106,7 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
         
-        NSString *tmpUrl = [NSString stringWithFormat:@"http://68.57.205.193:8700/rest/v1/points/%@/balance", customerId];
+        NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/points/%@/balance", customerId];
                 
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
         [request setHTTPMethod: @"GET"];
