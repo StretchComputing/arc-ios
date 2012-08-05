@@ -8,6 +8,7 @@
 
 #import "ArcClient.h"
 #import "NewJSON.h"
+#import "ArcAppDelegate.h"
 
 static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
 
@@ -52,8 +53,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     if (success){
         
         //self.activityView.hidden = YES;
-        CGPoint top = CGPointMake(0, 40);
-        [self.tableView setContentOffset:top animated:YES];
+
         
         NSDictionary *customer = [response valueForKey:@"Customer"];
         
@@ -70,22 +70,15 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
         
-        if ([[self creditCardStatus] isEqualToString:@"valid"]) {
+       // if ([[self creditCardStatus] isEqualToString:@"valid"]) {
             //Save credit card info
             [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:1.0];
             
-        }
+        //}
         
-        self.registerSuccess = YES;
-        
-        if (self.dwollaSegControl.selectedSegmentIndex == 1) {
-            [self goHome];
-        }
+   
     }else{
-        self.activityView.hidden = NO;
-        self.errorLabel.hidden = NO;
-        self.errorLabel.text = @"*Error registering, please try again.";
-        self.registerSuccess = NO;
+
     }
 }
 

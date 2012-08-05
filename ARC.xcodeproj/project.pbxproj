@@ -65,7 +65,6 @@
 		90FBDAB0159B49FF0051609A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FBDAAF159B49FF0051609A /* QuartzCore.framework */; };
 		90FBDABD159C91D00051609A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FBDABC159C91CF0051609A /* libxml2.dylib */; };
 		90FBDABF159C91D60051609A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FBDABE159C91D60051609A /* Security.framework */; };
-		90FBDBA2159CB73F0051609A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FBDBA1159CB73F0051609A /* SenTestingKit.framework */; };
 		90FBDC04159CDD550051609A /* DwollaOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDBF0159CDD550051609A /* DwollaOAuth2Client.m */; };
 		90FBDC05159CDD550051609A /* DwollaAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDBF2159CDD550051609A /* DwollaAPI.m */; };
 		90FBDC06159CDD550051609A /* DwollaContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDBF5159CDD550051609A /* DwollaContacts.m */; };
@@ -259,7 +258,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */,
-				90FBDBA2159CB73F0051609A /* SenTestingKit.framework in Frameworks */,
 				90FBDABF159C91D60051609A /* Security.framework in Frameworks */,
 				90FBDABD159C91D00051609A /* libxml2.dylib in Frameworks */,
 				90FBDAB0159B49FF0051609A /* QuartzCore.framework in Frameworks */,
@@ -650,8 +648,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Wroblewski (X5X79Y3ZRE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Wroblewski (X5X79Y3ZRE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -666,8 +664,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "09A9DD8C-E7B6-49B2-9D74-A90FF843C4B9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "09A9DD8C-E7B6-49B2-9D74-A90FF843C4B9";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -743,8 +741,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "22618962-2320-4DC5-AAA9-36329F00BCBC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "22618962-2320-4DC5-AAA9-36329F00BCBC";
+				PROVISIONING_PROFILE = "F2DFA185-794E-4E98-805E-7E3355DFA2C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F2DFA185-794E-4E98-805E-7E3355DFA2C0";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

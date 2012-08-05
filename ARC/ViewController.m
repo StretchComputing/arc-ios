@@ -199,7 +199,7 @@
         @try{
             
             NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/customers?login=%@&password=%@", self.username.text, self.password.text];
-            
+                        
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
             [request setHTTPMethod: @"GET"];
             
@@ -233,6 +233,8 @@
     
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
+    NSLog(@"Return: %@", returnString);
+    
     NewSBJSON *jsonParser = [NewSBJSON new];
     NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
     
