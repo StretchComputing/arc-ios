@@ -12,6 +12,7 @@
 #import "RegisterDwollaView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FBEncryptorAES.h"
+#import "ArcClient.h"
 
 @interface RegisterView ()
 
@@ -75,8 +76,38 @@
    
     
 }
+
+-(void)registerComplete:(NSNotification *)notification{
+    
+    NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
+        
+    NSString *status = [userInfo valueForKey:@"status"];
+    
+    if ([status isEqualToString:@"1"]) {
+        //success
+        CGPoint top = CGPointMake(0, 40);
+        [self.tableView setContentOffset:top animated:YES];
+        
+        if ([[self creditCardStatus] isEqualToString:@"valid"]) {
+            //Save credit card info
+            [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:1.0];
+            
+        }
+    }else{
+        
+        self.activityView.hidden = NO;
+        self.errorLabel.hidden = NO;
+        self.errorLabel.text = @"*Error registering, please try again.";
+        self.registerSuccess = NO;
+        
+    }
+}
+
 - (void)viewDidLoad
 {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerComplete:) name:@"registerNotification" object:nil];
+
     
     self.creditCardNumberText.text = @"";
     self.creditCardPinText.text = @"";
@@ -181,21 +212,11 @@
                 
 		loginDict = tempDictionary;
         
-		NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONFragment], nil];
-                        
-		NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *tmpUrl = [NSString stringWithString:@"http://arc-stage.dagher.mobi/rest/v1/customers"];
+        ArcClient *client = [[ArcClient alloc] init];
         
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
-        [request setHTTPMethod: @"POST"];
-		[request setHTTPBody: requestData];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        self.serverData = [NSMutableData data];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
-         
-        
+        [client createCustomer:loginDict];
+
        
         if (self.dwollaSegControl.selectedSegmentIndex == 0) {
             [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
@@ -212,7 +233,7 @@
     
 }
 
-
+/*
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     [self.serverData appendData:mdata]; 
 }
@@ -274,6 +295,17 @@
    
    	
 }
+ 
+ - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+ 
+ self.activityView.hidden = NO;
+ self.errorLabel.hidden = NO;
+ self.errorLabel.text = @"*Error registering, please try again.";
+ self.registerSuccess = NO;
+ }
+ 
+ 
+*/
 
 -(void)addCreditCard{
     
@@ -282,13 +314,7 @@
     [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text];
     
 }
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-    self.activityView.hidden = NO;
-    self.errorLabel.hidden = NO;
-    self.errorLabel.text = @"*Error registering, please try again.";
-    self.registerSuccess = NO;
-}
+
 
 
 

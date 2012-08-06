@@ -11,6 +11,6 @@
 @interface ArcClient : NSObject
 @property (nonatomic, strong) NSMutableData *serverData;
 
--(void)createCustomer:(NSDictionary *)pairs error:(NSError **)error;
+-(void)createCustomer:(NSDictionary *)pairs;
 
 @end

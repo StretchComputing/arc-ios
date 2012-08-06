@@ -223,8 +223,8 @@
 
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata]; 
-}
+    [self.serverData appendData:mdata];
+    }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     

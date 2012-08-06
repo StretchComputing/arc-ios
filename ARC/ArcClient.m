@@ -15,7 +15,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
 @implementation ArcClient
 @synthesize serverData;
 
--(void)createCustomer:(NSDictionary *)pairs error:(NSError **)error{
+-(void)createCustomer:(NSDictionary *)pairs{
     @try {
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
@@ -45,6 +45,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     NSData *returnData = [NSData dataWithData:self.serverData];
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
     
+    NSLog(@"ReturnString: %@", returnString);
+    
     NewSBJSON *jsonParser = [NewSBJSON new];
     NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
     
@@ -66,21 +68,39 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         [prefs setObject:customerToken forKey:@"customerToken"];
         [prefs synchronize];
         
-        
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
         
-       // if ([[self creditCardStatus] isEqualToString:@"valid"]) {
-            //Save credit card info
-            [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:1.0];
-            
-        //}
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  @"success", @"status",
+                                  nil];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:userInfo];
    
     }else{
 
+        NSString *message = [response valueForKey:@"Message"];
+        //NSString *message = @"Internal Server Error";
+        NSString *status = @"0";
+        
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  status, @"status",
+                                  message, @"error",
+                                  nil];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:userInfo];
+        
     }
 }
 
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"fail", @"status",
+                              error, @"error",
+                              nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:userInfo];
+}
 
 @end
