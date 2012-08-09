@@ -17,10 +17,12 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
 
 -(void)createCustomer:(NSDictionary *)pairs{
     @try {
+        api = CreateCustomer;
+        
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *createUrl = [NSString stringWithFormat:@"%@%@", _arcUrl, @"customers", nil];
+        NSString *createUrl = [NSString stringWithFormat:@"%@customers", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
         [request setHTTPMethod: @"POST"];
         [request setHTTPBody: requestData];
@@ -28,9 +30,76 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *exception) {
+        // TODO add in rSkybox call
+    }
+}
+
+-(void)getCustomerToken:(NSDictionary *)pairs{
+    @try {
+        api = GetCustomerToken;
         
-        // TODO
-        // add in error handling so it can be returned to calling routing
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString * login = [ pairs objectForKey:@"userName"];
+        NSString * password = [ pairs objectForKey:@"password"];
+        
+        NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getCustomerTokenUrl]];
+        [request setHTTPMethod: @"GET"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        self.serverData = [NSMutableData data];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *exception) {
+        // TODO add in rSkybox call
+    }
+}
+
+-(void)getMerchantList:(NSDictionary *)pairs{
+    @try {
+        api = GetMerchantList;
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
+        [request setHTTPMethod: @"GET"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        self.serverData = [NSMutableData data];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *exception) {
+        // TODO add in rSkybox call
+    }
+}
+
+-(void)getInvoice:(NSDictionary *)pairs{
+    @try {
+        api = GetInvoice;
+        
+        //NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/Invoices/%@", invoiceNumber];
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        NSString * invoiceNumber = [ pairs objectForKey:@"userName"];
+        
+        NSString *getInvoiceUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/Invoices/%@", invoiceNumber];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceUrl]];
+        [request setHTTPMethod: @"GET"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        self.serverData = [NSMutableData data];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *exception) {
         // TODO add in rSkybox call
@@ -41,24 +110,57 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     [self.serverData appendData:mdata];
 }
 
+// ::NICK ok that this one method handles all cases?  I don't think there should be any threading
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     NSData *returnData = [NSData dataWithData:self.serverData];
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    
     NSLog(@"ReturnString: %@", returnString);
     
     NewSBJSON *jsonParser = [NewSBJSON new];
     NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
     
+    NSDictionary *responseInfo;
+    NSString *notificationType;
+    if(api == CreateCustomer) {
+        responseInfo = [self createCustomerResponse:response];
+        notificationType = @"registerNotification";
+    } else if(api == GetCustomerToken) {
+        responseInfo = [self getCustomerTokenResponse:response];
+        notificationType = @"signInNotification";
+    } else if(api == GetMerchantList) {
+        responseInfo = [self getMerchantListResponse:response];
+        notificationType = @"merchantListNotification";
+    } else if(api == GetInvoice) {
+        responseInfo = [self getMerchantListResponse:response];
+        notificationType = @"invoiceNotification";
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    NSDictionary *responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"fail", @"status",
+                              error, @"error",
+                              nil];
+    NSString *notificationType;
+    if(api == CreateCustomer) {
+        notificationType = @"registerNotification";
+    } else if(api == GetCustomerToken) {
+        notificationType = @"signInNotification";
+    } else if(api == GetMerchantList) {
+        notificationType = @"merchantListNotification";
+    } else if(api == GetInvoice) {
+        notificationType = @"invoiceNotification";
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+}
+
+-(NSDictionary *) createCustomerResponse:(NSDictionary *)response {
     BOOL success = [[response valueForKey:@"Success"] boolValue];
     
+    NSDictionary *responseInfo;
     if (success){
-        
-        //self.activityView.hidden = YES;
-
-        
         NSDictionary *customer = [response valueForKey:@"Customer"];
-        
         NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
         NSString *customerToken = [customer valueForKey:@"Token"];
         
@@ -68,39 +170,117 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         [prefs setObject:customerToken forKey:@"customerToken"];
         [prefs synchronize];
         
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
+        // NICK:: called addToDatabase instead like for getTokenResponse() below -- is this a better way to do it?
+        //ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        //[mainDelegate insertCustomerWithId:customerId andToken:customerToken];
+        //Add this customer to the DB
+        [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
         
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  @"success", @"status",
-                                  nil];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:userInfo];
-   
-    }else{
-
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                    @"success", @"status",
+                    nil];
+    } else {
         NSString *message = [response valueForKey:@"Message"];
         //NSString *message = @"Internal Server Error";
         NSString *status = @"0";
         
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  status, @"status",
-                                  message, @"error",
-                                  nil];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:userInfo];
-        
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                    status, @"status",
+                    message, @"error",
+                    nil];
     }
+    return responseInfo;
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"fail", @"status",
-                              error, @"error",
-                              nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:userInfo];
+-(NSDictionary *) getCustomerTokenResponse:(NSDictionary *)response {
+    BOOL success = [[response valueForKey:@"Success"] boolValue];
+     
+    NSDictionary *responseInfo;
+     if (success){
+         NSDictionary *customer = [response valueForKey:@"Customer"];
+         NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
+         NSString *customerToken = [customer valueForKey:@"Token"];
+     
+         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+     
+         [prefs setObject:customerId forKey:@"customerId"];
+         [prefs setObject:customerToken forKey:@"customerToken"];
+         [prefs synchronize];
+     
+         //Add this customer to the DB
+         [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
+         
+         responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                     @"success", @"status",
+                     nil];
+     } else {
+         NSString *message = [response valueForKey:@"Message"];
+         //NSString *message = @"Internal Server Error";
+         NSString *status = @"0";
+         
+         responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                     status, @"status",
+                     message, @"error",
+                     nil];
+     }
+    return responseInfo;
 }
+
+-(NSDictionary *) getMerchantListResponse:(NSDictionary *)response {
+    BOOL success = [[response valueForKey:@"Success"] boolValue];
+    
+    NSDictionary *responseInfo;
+    if (success){
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                    @"success", @"status",
+                    response, @"apiResponse",
+                    nil];
+    } else {
+        NSString *message = [response valueForKey:@"Message"];
+        NSString *status = @"0";
+        
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                    status, @"status",
+                    message, @"error",
+                    nil];
+    }
+    return responseInfo;
+}
+
+-(NSString *) authHeader {
+    NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
+    NSString *authentication = [self encodeBase64:stringToEncode];
+    return authentication;
+}
+
+-(void) addToDatabase {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *customerId = [prefs valueForKey:@"customerId"];
+    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
+}
+
+-(NSString *) customerToken {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    return customerToken;
+}
+
+-(NSString *)encodeBase64:(NSString *)stringToEncode{	
+	NSData *encodeData = [stringToEncode dataUsingEncoding:NSUTF8StringEncoding];
+	char encodeArray[512];
+	memset(encodeArray, '\0', sizeof(encodeArray));
+	
+	// Base64 Encode username and password
+	encode([encodeData length], (char *)[encodeData bytes], sizeof(encodeArray), encodeArray);
+	NSString *dataStr = [NSString stringWithCString:encodeArray length:strlen(encodeArray)];
+	NSString *encodedString =[@"" stringByAppendingFormat:@"Basic %@", dataStr];
+	
+	return encodedString;
+}
+
+
 
 @end

@@ -94,6 +94,7 @@
 		90FBDC45159CE2E80051609A /* RegisterDwollaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC44159CE2E80051609A /* RegisterDwollaView.m */; };
 		90FBDC48159CE4FA0051609A /* PushSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */; };
 		9F34F57315CF0CE30084184B /* ArcClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F34F57215CF0CE30084184B /* ArcClient.m */; };
+		9F45D81F15D33F3300682F19 /* Encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F45D81D15D33F3300682F19 /* Encoder.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -250,6 +251,8 @@
 		90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSegueNoAnimation.m; sourceTree = "<group>"; };
 		9F34F57115CF0CE30084184B /* ArcClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcClient.h; sourceTree = "<group>"; };
 		9F34F57215CF0CE30084184B /* ArcClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcClient.m; sourceTree = "<group>"; };
+		9F45D81D15D33F3300682F19 /* Encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Encoder.c; path = ARC/Encoder.c; sourceTree = "<group>"; };
+		9F45D81E15D33F3300682F19 /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Encoder.h; path = ARC/Encoder.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +277,8 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				9F45D81D15D33F3300682F19 /* Encoder.c */,
+				9F45D81E15D33F3300682F19 /* Encoder.h */,
 				907A405915A8D9C400090452 /* CoreData.framework */,
 				90FBDBA1159CB73F0051609A /* SenTestingKit.framework */,
 				90FBDABE159C91D60051609A /* Security.framework */,
@@ -617,6 +622,7 @@
 				907A406F15AA072F00090452 /* EditCreditCard.m in Sources */,
 				907A407215AA073C00090452 /* AddCreditCard.m in Sources */,
 				9F34F57315CF0CE30084184B /* ArcClient.m in Sources */,
+				9F45D81F15D33F3300682F19 /* Encoder.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

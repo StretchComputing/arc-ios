@@ -78,10 +78,8 @@
 }
 
 -(void)registerComplete:(NSNotification *)notification{
-    
-    NSDictionary *userInfo = [notification valueForKey:@"userInfo"];
-        
-    NSString *status = [userInfo valueForKey:@"status"];
+    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+    NSString *status = [responseInfo valueForKey:@"status"];
     
     if ([status isEqualToString:@"1"]) {
         //success
@@ -94,12 +92,10 @@
             
         }
     }else{
-        
         self.activityView.hidden = NO;
         self.errorLabel.hidden = NO;
         self.errorLabel.text = @"*Error registering, please try again.";
         self.registerSuccess = NO;
-        
     }
 }
 
@@ -169,23 +165,15 @@
         self.errorLabel.hidden = YES;
         [self runRegister];
     }
-    
-    
-    
-
-    
 }
 
 -(void)runRegister{
-    
     @try{
-      
         [self.firstNameText resignFirstResponder];
         [self.lastNameText resignFirstResponder];
         [self.emailText resignFirstResponder];
         [self.passwordText resignFirstResponder];
  
-        
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
         
@@ -193,12 +181,6 @@
 		[ tempDictionary setObject:self.lastNameText.text forKey:@"LastName"];
 		[ tempDictionary setObject:self.emailText.text forKey:@"eMail"];
 		[ tempDictionary setObject:self.passwordText.text forKey:@"Password"];
-        [ tempDictionary setObject:@"1955-05-10" forKey:@"BirthDate"];
-
-
-        NSNumber *boolAccept = [NSNumber numberWithBool:YES];
-        [ tempDictionary setObject:boolAccept forKey:@"AcceptTerms"];
-
         
         NSString *genderString = @"";
         if (self.genderSegment.selectedSegmentIndex == 0) {
@@ -206,31 +188,27 @@
         }else{
             genderString = @"F";
         }
-        
         [ tempDictionary setObject:genderString forKey:@"Gender"];
+        
+        // TODO hard coded for now
+        [ tempDictionary setObject:@"123" forKey:@"PassPhrase"];
+        [ tempDictionary setObject:@"1955-05-10" forKey:@"BirthDate"];
+        [ tempDictionary setObject:[NSNumber numberWithBool:YES] forKey:@"AcceptTerms"];
+        [ tempDictionary setObject:[NSNumber numberWithBool:YES] forKey:@"Notifications"];
+        [ tempDictionary setObject:[NSNumber numberWithBool:NO] forKey:@"Facebook"];
+        [ tempDictionary setObject:[NSNumber numberWithBool:NO] forKey:@"Twitter"];
 
-                
 		loginDict = tempDictionary;
-        
-        
         ArcClient *client = [[ArcClient alloc] init];
-        
         [client createCustomer:loginDict];
 
-       
         if (self.dwollaSegControl.selectedSegmentIndex == 0) {
             [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
         }
-
-                
     }
     @catch (NSException *e) {
-        
         //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        
     }
-    
-    
 }
 
 /*

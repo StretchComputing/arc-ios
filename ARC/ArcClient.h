@@ -8,9 +8,29 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ArcClient : NSObject
+typedef enum {
+    CreateCustomer=1,
+    GetCustomerToken=2,
+    GetMerchantList=3,
+    GetInvoice=4
+} APIS;
+
+@interface ArcClient : NSObject {
+    APIS api;
+}
 @property (nonatomic, strong) NSMutableData *serverData;
 
 -(void)createCustomer:(NSDictionary *)pairs;
+-(NSDictionary *) createCustomerResponse;
+
+-(void)getCustomerToken:(NSDictionary *)pairs;
+-(NSDictionary *) getCustomerTokenResponse;
+
+-(void)getMerchantList:(NSDictionary *)pairs;
+-(NSDictionary *) getMerchantListResponse;
+
+-(void)getInvoice:(NSDictionary *)pairs;
+-(NSDictionary *) getInvoiceResponse;
 
 @end
+

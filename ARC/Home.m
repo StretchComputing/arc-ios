@@ -12,6 +12,8 @@
 #import "Restaurant.h"
 #import "ArcAppDelegate.h"
 #import "CreditCard.h"
+#import "ArcClient.h"
+
 
 @interface Home ()
 
@@ -63,6 +65,8 @@
 
 - (void)viewDidLoad
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
+    
     self.matchingMerchants = [NSMutableArray array];
     self.searchTextField.delegate = self;
     self.toolbar.tintColor = [UIColor colorWithRed:0.0427221 green:0.380456 blue:0.785953 alpha:1.0];
@@ -106,48 +110,27 @@
     
 }
 -(void)getMerchantList{
-    
     @try{
-        
-        NSString *tmpUrl = [NSString stringWithString:@"http://arc-stage.dagher.mobi/rest/v1/merchants"];
-        
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
-        [request setHTTPMethod: @"GET"];
-        
-        self.serverData = [NSMutableData data];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
-        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+		NSDictionary *loginDict = [[NSDictionary alloc] init];
+		loginDict = tempDictionary;
+        ArcClient *client = [[ArcClient alloc] init];
+        [client getMerchantList:loginDict];
     }
     @catch (NSException *e) {
-        
         //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        
     }
-    
-    
 }
 
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata]; 
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+-(void)merchantListComplete:(NSNotification *)notification{
+    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+    NSString *status = [responseInfo valueForKey:@"status"];
+    NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
     
     self.activityView.hidden = YES;
-
-    NSData *returnData = [NSData dataWithData:self.serverData];
-    
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    
-    NewSBJSON *jsonParser = [NewSBJSON new];
-    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-    
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    if (success) {
-        NSArray *merchants = [response valueForKey:@"Merchants"];
-        
+    if ([status isEqualToString:@"1"]) {
+        //success
+        NSArray *merchants = [apiResponse valueForKey:@"Merchants"];
         for (int i = 0; i < [merchants count]; i++) {
             
             Merchant *tmpMerchant = [[Merchant alloc] init];
@@ -158,29 +141,19 @@
             
             [self.allMerchants addObject:tmpMerchant];
             [self.matchingMerchants addObject:tmpMerchant];
-            
-            
         }
     }else{
+        // failure
         self.errorLabel.text = @"*Error finding restaurants";
     }
-
+    
     if ([self.allMerchants count] == 0) {
         self.errorLabel.text = @"*No nearbly restaurants found";
     }else{
         self.myTableView.hidden = NO;
         [self.myTableView reloadData];
     }
-   	
 }
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-   self.errorLabel.text = @"*Error finding restaurants";
-    self.activityView.hidden = YES;
-}
-
-
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {

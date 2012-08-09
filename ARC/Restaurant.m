@@ -9,6 +9,8 @@
 #import "Restaurant.h"
 #import "NewJSON.h"
 #import "InvoiceView.h"
+#import "ArcClient.h"
+
 
 @interface Restaurant ()
 
@@ -85,6 +87,8 @@
 }
 - (void)viewDidLoad
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
+    
     self.checkHelpImageView.hidden = YES;
     
     self.checkNumOne.delegate = self;
@@ -117,18 +121,20 @@
         self.errorLabel.text = @"*Please enter the full check number";
     }else{
         
-        @try{
+        @try{            
+            [self.activity startAnimating];
+            NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+            
             
             NSString *invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
-            NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/Invoices/%@", invoiceNumber];
-                        
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
-            [request setHTTPMethod: @"GET"];
             
-            [self.activity startAnimating];
-            self.serverData = [NSMutableData data];
-            NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
             
+            // JPW TODO ** add to dictionary **
+            
+            NSDictionary *loginDict = [[NSDictionary alloc] init];
+            loginDict = tempDictionary;
+            ArcClient *client = [[ArcClient alloc] init];
+            [client getInvoice:loginDict];
         }
         @catch (NSException *e) {
             
@@ -140,6 +146,17 @@
     }
        
 }
+
+-(void)invoiceComplete:(NSNotification *)notification{
+    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+    NSString *status = [responseInfo valueForKey:@"status"];
+    
+    if ([status isEqualToString:@"1"]) {
+        //success
+    }else{
+    }
+}
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     [self.serverData appendData:mdata]; 

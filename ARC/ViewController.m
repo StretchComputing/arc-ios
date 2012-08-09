@@ -11,6 +11,7 @@
 #import "HomeNavigationController.h"
 #import "NewJSON.h"
 #import "ArcAppDelegate.h"
+#import "ArcClient.h"
 
 @interface ViewController ()
 
@@ -55,6 +56,8 @@
 
 - (void)viewDidLoad
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
+
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
     
@@ -88,7 +91,7 @@
 
 -(void)signIn{
     
-    [self performSelector:@selector(runRegister)];
+    [self performSelector:@selector(runSignIn)];
    
    
 }
@@ -186,101 +189,44 @@
     return 35;
 }
 
-
-
--(void)runRegister{
+-(void)runSignIn{
     
     self.errorLabel.text = @"";
     
     if ([self.username.text isEqualToString:@""] || [self.password.text isEqualToString:@""]) {
         self.errorLabel.text = @"*Please enter your email and password.";
     }else{
-        
-        @try{
-            
-            NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/customers?login=%@&password=%@", self.username.text, self.password.text];
-                        
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
-            [request setHTTPMethod: @"GET"];
+        @try {
+            NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+            NSDictionary *loginDict = [[NSDictionary alloc] init];
+            [ tempDictionary setObject:self.username.text forKey:@"userName"];
+            [ tempDictionary setObject:self.password.text forKey:@"password"];
             
             [self.activity startAnimating];
-            self.serverData = [NSMutableData data];
-            NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
             
+            loginDict = tempDictionary;
+            ArcClient *client = [[ArcClient alloc] init];
+            [client getCustomerToken:loginDict];
         }
         @catch (NSException *e) {
-            
             //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-            
         }
-
-        
     }
-    
-       
-    
 }
 
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata];
-    }
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+-(void)signInComplete:(NSNotification *)notification{
+    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+    NSString *status = [responseInfo valueForKey:@"status"];
     
     [self.activity stopAnimating];
-    NSData *returnData = [NSData dataWithData:self.serverData];
-    
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-        
-    NSLog(@"Return: %@", returnString);
-    
-    NewSBJSON *jsonParser = [NewSBJSON new];
-    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-    
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    if (success){
-        
-    
-        
-        NSDictionary *customer = [response valueForKey:@"Customer"];
-        
-        NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
-        NSString *customerToken = [customer valueForKey:@"Token"];
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        [prefs setObject:customerId forKey:@"customerId"];
-        [prefs setObject:customerToken forKey:@"customerToken"];
-
-        [prefs synchronize];
-        
-        //Add this customer to the DB
-        [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
-        
+    if ([status isEqualToString:@"1"]) {
+        //success
         [self performSegueWithIdentifier: @"signIn" sender: self];
-        
         //Do the next thing (go home?)
-        
-    }else{
-        
-        self.errorLabel.text = @"*Invalid email/password.";
-        
+    } else {
+        self.errorLabel.text = @"*Invalid credentials, please try again.";
     }
-    
-    
-   	
-}
-
--(void)addToDatabase{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
-    NSString *customerId = [prefs valueForKey:@"customerId"];
-    NSString *customerToken = [prefs valueForKey:@"customerToken"];
-    
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -297,12 +243,5 @@
     }
     return 0;
 }
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-    [self.activity stopAnimating];
-    self.errorLabel.text = @"*Error logging, please try again.";
-}
-
-
 
 @end
