@@ -83,6 +83,15 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.searchTextField addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
+    
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
+    footer.backgroundColor = [UIColor clearColor];
+    
+    self.myTableView.tableFooterView = footer;
+    self.myTableView.backgroundColor = [UIColor clearColor];
+    self.myTableView.backgroundView.backgroundColor = [UIColor clearColor];
+    
+    myTableView.separatorColor = [UIColor lightGrayColor];
 
 }
 
@@ -171,6 +180,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
 		 cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
+    NSUInteger row = [indexPath row];
     static NSString *FirstLevelCell=@"FirstLevelCell";
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FirstLevelCell];
@@ -181,20 +191,21 @@
                 reuseIdentifier: FirstLevelCell];
 	}
     
-	
-	//Configure the cell
-	NSUInteger row = [indexPath row];
-	
     Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:row];
-        
-    cell.textLabel.text = tmpMerchant.name;
+
+    UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
+    UILabel *adrLabel = (UILabel *)[cell.contentView viewWithTag:2];
+	
+    nameLabel.text = tmpMerchant.name;
+    adrLabel.text = @"201 North Ave, Chicago, IL";
+    
  
 	return cell;
 
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 40;
+    return 50;
 }
 /*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
