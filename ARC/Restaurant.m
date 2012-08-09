@@ -148,13 +148,18 @@
 }
 
 -(void)invoiceComplete:(NSNotification *)notification{
+    
+    [self.activity stopAnimating];
+
     NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
     NSString *status = [responseInfo valueForKey:@"status"];
     
     if ([status isEqualToString:@"1"]) {
         //success
-        NSDictionary *theInvoice = [responseInfo valueForKey:@"apiResponse"];
-        
+            
+        NSDictionary *theInvoice = [[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Invoice"];
+                
+        self.myInvoice = [[Invoice alloc] init];
         self.myInvoice.invoiceId = [[theInvoice valueForKey:@"Id"] intValue];
         self.myInvoice.status = [theInvoice valueForKey:@"Status"];
         self.myInvoice.number = [theInvoice valueForKey:@"Number"];
@@ -178,7 +183,6 @@
     }else{
         
         self.errorLabel.text = @"*Internet connection error.";
-        [self.activity stopAnimating];
     }
 }
 

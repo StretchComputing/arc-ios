@@ -317,7 +317,7 @@
 
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];
-        [client getMerchantList:loginDict];
+        [client createPayment:loginDict];
     }
     @catch (NSException *e) {
         //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
