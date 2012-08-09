@@ -107,6 +107,28 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     }
 }
 
+-(void)createPayment:(NSDictionary *)pairs{
+    @try {
+        api = CreatePayment;
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *createPaymentUrl = [NSString stringWithFormat:@"%@payments", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createPaymentUrl]];
+        [request setHTTPMethod: @"POST"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        self.serverData = [NSMutableData data];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *exception) {
+        // TODO add in rSkybox call
+    }
+}
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     [self.serverData appendData:mdata];
 }
@@ -135,6 +157,9 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     } else if(api == GetInvoice) {
         responseInfo = [self getInvoiceResponse:response];
         notificationType = @"invoiceNotification";
+    } else if(api == CreatePayment) {
+        responseInfo = [self createPaymentResponse:response];
+        notificationType = @"createPaymentNotification";
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
 }
@@ -156,6 +181,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         notificationType = @"merchantListNotification";
     } else if(api == GetInvoice) {
         notificationType = @"invoiceNotification";
+    } else if(api == CreatePayment) {
+        notificationType = @"createPaymentNotification";
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
 }
@@ -253,6 +280,27 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
 }
 
 -(NSDictionary *) getInvoiceResponse:(NSDictionary *)response {
+    BOOL success = [[response valueForKey:@"Success"] boolValue];
+    
+    NSDictionary *responseInfo;
+    if (success){
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"1", @"status",
+                        response, @"apiResponse",
+                        nil];
+    } else {
+        NSString *message = [response valueForKey:@"Message"];
+        NSString *status = @"0";
+        
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                        status, @"status",
+                        message, @"error",
+                        nil];
+    }
+    return responseInfo;
+}
+
+-(NSDictionary *) createPaymentResponse:(NSDictionary *)response {
     BOOL success = [[response valueForKey:@"Success"] boolValue];
     
     NSDictionary *responseInfo;
