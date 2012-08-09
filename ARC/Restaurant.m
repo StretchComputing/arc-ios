@@ -129,7 +129,7 @@
             NSString *invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
             
             
-            // JPW TODO ** add to dictionary **
+            [tempDictionary setValue:invoiceNumber forKey:@"invoiceNumber"];
             
             NSDictionary *loginDict = [[NSDictionary alloc] init];
             loginDict = tempDictionary;
@@ -153,34 +153,8 @@
     
     if ([status isEqualToString:@"1"]) {
         //success
-    }else{
-    }
-}
-
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata]; 
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
-    [self.activity stopAnimating];
-    
-    NSData *returnData = [NSData dataWithData:self.serverData];
-    
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    
-    NewSBJSON *jsonParser = [NewSBJSON new];
-    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-    
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    if (success) {
-       
-        self.myInvoice = [[Invoice alloc] init];
+        NSDictionary *theInvoice = [responseInfo valueForKey:@"apiResponse"];
         
-        NSDictionary *theInvoice = [response valueForKey:@"Invoice"];
-                
         self.myInvoice.invoiceId = [[theInvoice valueForKey:@"Id"] intValue];
         self.myInvoice.status = [theInvoice valueForKey:@"Status"];
         self.myInvoice.number = [theInvoice valueForKey:@"Number"];
@@ -198,24 +172,16 @@
         
         self.myInvoice.tags = [NSArray arrayWithArray:[theInvoice valueForKey:@"Tags"]];
         self.myInvoice.items = [NSArray arrayWithArray:[theInvoice valueForKey:@"Items"]];
-
-
         
         [self performSegueWithIdentifier:@"goInvoice" sender:self];
         
     }else{
-        self.errorLabel.text = @"*Error finding invoice.";
+        
+        self.errorLabel.text = @"*Internet connection error.";
+        [self.activity stopAnimating];
     }
-    
-   
-   	
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-    self.errorLabel.text = @"*Internet connection error.";
-    [self.activity stopAnimating];
-}
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

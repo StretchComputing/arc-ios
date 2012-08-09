@@ -216,7 +216,12 @@
 
 
 -(void)signInComplete:(NSNotification *)notification{
+    
+    
     NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+    
+    NSLog(@"Response Info: %@", responseInfo);
+    
     NSString *status = [responseInfo valueForKey:@"status"];
     
     [self.activity stopAnimating];

@@ -11,6 +11,7 @@
 #import "ArcAppDelegate.h"
 
 static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
+//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
 
 @implementation ArcClient
 @synthesize serverData;
@@ -47,9 +48,10 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         NSString * password = [ pairs objectForKey:@"password"];
         
         NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
+                
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getCustomerTokenUrl]];
         [request setHTTPMethod: @"GET"];
-        [request setHTTPBody: requestData];
+        //[request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         self.serverData = [NSMutableData data];
@@ -70,7 +72,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
         [request setHTTPMethod: @"GET"];
-        [request setHTTPBody: requestData];
+        //[request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
@@ -86,17 +88,16 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     @try {
         api = GetInvoice;
         
-        //NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/Invoices/%@", invoiceNumber];
-        
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
-        NSString * invoiceNumber = [ pairs objectForKey:@"userName"];
+        NSString * invoiceNumber = [pairs valueForKey:@"invoiceNumber"];
         
-        NSString *getInvoiceUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/Invoices/%@", invoiceNumber];
+        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@Invoices/%@", _arcUrl, invoiceNumber];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceUrl]];
         [request setHTTPMethod: @"GET"];
-        [request setHTTPBody: requestData];
+        //[request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -114,6 +115,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     NSData *returnData = [NSData dataWithData:self.serverData];
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    
     NSLog(@"ReturnString: %@", returnString);
     
     NewSBJSON *jsonParser = [NewSBJSON new];
@@ -131,13 +133,16 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         responseInfo = [self getMerchantListResponse:response];
         notificationType = @"merchantListNotification";
     } else if(api == GetInvoice) {
-        responseInfo = [self getMerchantListResponse:response];
+        responseInfo = [self getInvoiceResponse:response];
         notificationType = @"invoiceNotification";
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    
+    NSLog(@"Error: %@", error);
+    
     NSDictionary *responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                               @"fail", @"status",
                               error, @"error",
@@ -177,7 +182,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
         
         responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                    @"success", @"status",
+                    @"1", @"status",
                     nil];
     } else {
         NSString *message = [response valueForKey:@"Message"];
@@ -211,7 +216,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
          [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
          
          responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                     @"success", @"status",
+                     @"1", @"status",
                      nil];
      } else {
          NSString *message = [response valueForKey:@"Message"];
@@ -232,7 +237,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     NSDictionary *responseInfo;
     if (success){
         responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                    @"success", @"status",
+                    @"1", @"status",
                     response, @"apiResponse",
                     nil];
     } else {
@@ -246,6 +251,28 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     }
     return responseInfo;
 }
+
+-(NSDictionary *) getInvoiceResponse:(NSDictionary *)response {
+    BOOL success = [[response valueForKey:@"Success"] boolValue];
+    
+    NSDictionary *responseInfo;
+    if (success){
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"1", @"status",
+                        response, @"apiResponse",
+                        nil];
+    } else {
+        NSString *message = [response valueForKey:@"Message"];
+        NSString *status = @"0";
+        
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                        status, @"status",
+                        message, @"error",
+                        nil];
+    }
+    return responseInfo;
+}
+
 
 -(NSString *) authHeader {
     NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];

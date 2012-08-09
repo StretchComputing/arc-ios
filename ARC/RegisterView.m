@@ -78,9 +78,11 @@
 }
 
 -(void)registerComplete:(NSNotification *)notification{
+        
     NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
     NSString *status = [responseInfo valueForKey:@"status"];
-    
+        
     if ([status isEqualToString:@"1"]) {
         //success
         CGPoint top = CGPointMake(0, 40);
@@ -89,8 +91,12 @@
         if ([[self creditCardStatus] isEqualToString:@"valid"]) {
             //Save credit card info
             [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:1.0];
-            
         }
+        
+        if (self.dwollaSegControl.selectedSegmentIndex == 1) {
+            [self goHome];
+        }
+        
     }else{
         self.activityView.hidden = NO;
         self.errorLabel.hidden = NO;
@@ -211,79 +217,6 @@
     }
 }
 
-/*
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata]; 
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
-    NSData *returnData = [NSData dataWithData:self.serverData];
-    
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-              
-    NewSBJSON *jsonParser = [NewSBJSON new];
-    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-    
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    if (success){
-        
-        //self.activityView.hidden = YES;
-        CGPoint top = CGPointMake(0, 40);
-        [self.tableView setContentOffset:top animated:YES];
-        
-        NSDictionary *customer = [response valueForKey:@"Customer"];
-        
-        NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
-        NSString *customerToken = [customer valueForKey:@"Token"];
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        [prefs setObject:customerId forKey:@"customerId"];
-        [prefs setObject:customerToken forKey:@"customerToken"];
-        [prefs synchronize];
-
-        
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
-
-        if ([[self creditCardStatus] isEqualToString:@"valid"]) {
-            //Save credit card info
-            [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:1.0];
-            
-        }
-        
-        
-        
-        self.registerSuccess = YES;
-        
-        if (self.dwollaSegControl.selectedSegmentIndex == 1) {
-            [self goHome];
-        }
-        
-    }else{
-        
-        self.activityView.hidden = NO;
-        self.errorLabel.hidden = NO;
-        self.errorLabel.text = @"*Error registering, please try again.";
-        self.registerSuccess = NO;
-    }
-    
-   
-   	
-}
- 
- - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
- 
- self.activityView.hidden = NO;
- self.errorLabel.hidden = NO;
- self.errorLabel.text = @"*Error registering, please try again.";
- self.registerSuccess = NO;
- }
- 
- 
-*/
 
 -(void)addCreditCard{
     
@@ -292,11 +225,6 @@
     [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text];
     
 }
-
-
-
-
-
 
 
 -(void)goHome{
