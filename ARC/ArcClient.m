@@ -92,7 +92,12 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         NSString * invoiceNumber = [pairs valueForKey:@"invoiceNumber"];
         
-        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@Invoices/%@", _arcUrl, invoiceNumber];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *merchantId = [NSString stringWithFormat:@"%d",[prefs valueForKey:@"merchantId"]];
+        
+        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@Invoices/%@/get/%@", _arcUrl, merchantId, invoiceNumber];
+        NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
+
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceUrl]];
         [request setHTTPMethod: @"GET"];
         //[request setHTTPBody: requestData];
