@@ -11,6 +11,7 @@
 #import "NewJSON.h"
 #import "Home.h"
 #import "ArcAppDelegate.h"
+#import "ArcClient.h"
 
 @interface ReviewTransaction ()
 
@@ -26,7 +27,7 @@
 @synthesize food1, food2, food3, food4, food5, service1, service2, service3, service4, service5, drinks1, drinks2, drinks3, drinks4, drinks5, atmosphere1, atmosphere2, atmosphere3, atmosphere4, atmosphere5, value1, value2, value3, value4, value5, serverData;
 
 -(void)viewDidLoad{
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
     
     self.priceInt = [NSNumber numberWithInt:1];
     self.foodInt = [NSNumber numberWithInt:1];
@@ -340,7 +341,6 @@
         }else {
             commentsString = self.commentsText.text;
         }
-   
         [ tempDictionary setObject:commentsString forKey:@"Comments"];
 
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -348,90 +348,42 @@
         NSNumber *tmpId = [NSNumber numberWithInt:[customerId intValue]];
         [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
         
-        
         NSNumber *invoice = [NSNumber numberWithInt:self.invoiceId];
         
         [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
-
-        
         [ tempDictionary setObject:self.drinksInt forKey:@"Drinks"];
         [ tempDictionary setObject:self.foodInt forKey:@"Food"];
         [ tempDictionary setObject:self.priceInt forKey:@"Price"];
         [ tempDictionary setObject:self.serviceInt forKey:@"Service"];
 
-        
 		loginDict = tempDictionary;
-        
-		NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONFragment], nil];
-        
-        NSLog(@"RequestString: %@", requestString);
-        
-		NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
-        
-        NSString *tmpUrl = [NSString stringWithString:@"http://arc-stage.dagher.mobi/rest/v1/reviews"];
-        
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
-        [request setHTTPMethod: @"POST"];
-		[request setHTTPBody: requestData];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        self.serverData = [NSMutableData data];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
-        
-        
-        
+        ArcClient *client = [[ArcClient alloc] init];
+        [client createReview:loginDict];
     }
     @catch (NSException *e) {
-        
         //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        
     }
     
 }
 
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata]; 
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+-(void)reviewComplete:(NSNotification *)notification{
+    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+    
+    NSString *status = [responseInfo valueForKey:@"status"];
     
     [self.activity stopAnimating];
     
-    NSData *returnData = [NSData dataWithData:self.serverData];
-    
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"ReturnString: %@", returnString);
-    
-    NewSBJSON *jsonParser = [NewSBJSON new];
-    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-    
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    if (success) {
-        
+    if ([status isEqualToString:@"1"]) {
+        //success
         self.errorLabel.text = @"";
         
         Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
         tmp.successReview = YES;
         [self.navigationController popToRootViewControllerAnimated:NO];
-
-        
     }else{
-        self.errorLabel.text = @"*Error submitting payment.";
+        self.errorLabel.text = @"*Error submitting review.";
     }
-    
-    
-   	
 }
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-    self.errorLabel.text = @"*Internet connection error.";
-    [self.activity stopAnimating];
-}
-
 
 
 - (IBAction)skipReview:(id)sender {

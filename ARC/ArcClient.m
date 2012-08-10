@@ -10,8 +10,8 @@
 #import "NewJSON.h"
 #import "ArcAppDelegate.h"
 
-static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
-//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
+static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
+//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
 
 @implementation ArcClient
 @synthesize serverData;
@@ -129,11 +129,55 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     }
 }
 
+-(void)createReview:(NSDictionary *)pairs{
+    @try {
+        api = CreateReview;
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@reviews", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
+        [request setHTTPMethod: @"POST"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        self.serverData = [NSMutableData data];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *exception) {
+        // TODO add in rSkybox call
+    }
+}
+
+-(void)getPointBalance:(NSDictionary *)pairs{
+    @try {
+        api = GetPointBalance;
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        NSString * customerId = [pairs valueForKey:@"customerId"];
+        
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@points/%@/balance", _arcUrl, customerId, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
+        [request setHTTPMethod: @"GET"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        self.serverData = [NSMutableData data];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *exception) {
+        // TODO add in rSkybox call
+    }
+}
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     [self.serverData appendData:mdata];
 }
 
-// ::NICK ok that this one method handles all cases?  I don't think there should be any threading
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     NSData *returnData = [NSData dataWithData:self.serverData];
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
@@ -160,6 +204,12 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
     } else if(api == CreatePayment) {
         responseInfo = [self createPaymentResponse:response];
         notificationType = @"createPaymentNotification";
+    } else if(api == CreateReview) {
+        responseInfo = [self createReviewResponse:response];
+        notificationType = @"createReviewNotification";
+    } else if(api == GetPointBalance) {
+        responseInfo = [self getPointBalanceResponse:response];
+        notificationType = @"getPointBalanceNotification";
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
 }
@@ -183,6 +233,10 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
         notificationType = @"invoiceNotification";
     } else if(api == CreatePayment) {
         notificationType = @"createPaymentNotification";
+    } else if(api == CreatePayment) {
+        notificationType = @"createReviewNotification";
+    } else if(api == GetPointBalance) {
+        notificationType = @"getPointBalanceNotification";
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
 }
@@ -301,6 +355,48 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";
 }
 
 -(NSDictionary *) createPaymentResponse:(NSDictionary *)response {
+    BOOL success = [[response valueForKey:@"Success"] boolValue];
+    
+    NSDictionary *responseInfo;
+    if (success){
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"1", @"status",
+                        response, @"apiResponse",
+                        nil];
+    } else {
+        NSString *message = [response valueForKey:@"Message"];
+        NSString *status = @"0";
+        
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                        status, @"status",
+                        message, @"error",
+                        nil];
+    }
+    return responseInfo;
+}
+
+-(NSDictionary *) createReviewResponse:(NSDictionary *)response {
+    BOOL success = [[response valueForKey:@"Success"] boolValue];
+    
+    NSDictionary *responseInfo;
+    if (success){
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"1", @"status",
+                        response, @"apiResponse",
+                        nil];
+    } else {
+        NSString *message = [response valueForKey:@"Message"];
+        NSString *status = @"0";
+        
+        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                        status, @"status",
+                        message, @"error",
+                        nil];
+    }
+    return responseInfo;
+}
+
+-(NSDictionary *) getPointBalanceResponse:(NSDictionary *)response {
     BOOL success = [[response valueForKey:@"Success"] boolValue];
     
     NSDictionary *responseInfo;

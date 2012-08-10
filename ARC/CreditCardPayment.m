@@ -12,6 +12,7 @@
 #import "ReviewTransaction.h"
 #import "ArcAppDelegate.h"
 #import "FBEncryptorAES.h"
+#import "ArcClient.h"
 
 @interface CreditCardPayment ()
 
@@ -28,7 +29,7 @@
 
 - (void)viewDidLoad
 {
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
     
     self.fundingSourceStatus = @"";
     self.serverData = [NSMutableData data];
@@ -142,13 +143,10 @@
 
 
 -(void)createPayment{
-    
     @try{        
         [self.activity startAnimating];
         
         NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
-        
-        
         
         NSString *ccNumber = [FBEncryptorAES decryptBase64String:self.creditCardNumber keyString:pinNumber];
         
@@ -197,77 +195,30 @@
         [ tempDictionary setObject:@"CREDIT" forKey:@"Type"];
         
         
-        
-        
-        
 		loginDict = tempDictionary;
-        
-		NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONFragment], nil];
-        
-        NSLog(@"RequestString: %@", requestString);
-        
-		NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
-        
-        NSString *tmpUrl = [NSString stringWithString:@"http://arc-stage.dagher.mobi/rest/v1/payments"];
-        
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
-        [request setHTTPMethod: @"POST"];
-		[request setHTTPBody: requestData];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        self.serverData = [NSMutableData data];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
-        
-        
-        
+        ArcClient *client = [[ArcClient alloc] init];
+        [client createPayment:loginDict];
     }
     @catch (NSException *e) {
-        
         //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        
     }
+}
+
+-(void)paymentComplete:(NSNotification *)notification{
+    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
     
-}
-
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata]; 
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSString *status = [responseInfo valueForKey:@"status"];
     
     [self.activity stopAnimating];
     
-    NSData *returnData = [NSData dataWithData:self.serverData];
-    
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"ReturnString: %@", returnString);
-    
-    NewSBJSON *jsonParser = [NewSBJSON new];
-    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-    
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    if (success) {
-        
+    if ([status isEqualToString:@"1"]) {
+        //success
         self.errorLabel.text = @"";
         
         [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
-        
-        
     }else{
         self.errorLabel.text = @"*Error submitting payment.";
     }
-    
-    
-   	
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-    self.errorLabel.text = @"*Internet connection error.";
-    [self.activity stopAnimating];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

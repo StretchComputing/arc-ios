@@ -12,6 +12,7 @@
 #import "ArcAppDelegate.h"
 #import "DwollaAPI.h"
 #import "RegisterDwollaView.h"
+#import "ArcClient.h"
 
 @interface SettingsView ()
 
@@ -78,6 +79,8 @@
 }
 - (void)viewDidLoad
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointBalanceComplete:) name:@"getPointBalanceNotification" object:nil];
+    
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.0427221 green:0.380456 blue:0.785953 alpha:1.0];
 
     self.serverData = [NSMutableData data];
@@ -102,66 +105,42 @@
 -(void)getPointsBalance{
     
     @try{
-                
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
         
-        NSString *tmpUrl = [NSString stringWithFormat:@"http://arc-stage.dagher.mobi/rest/v1/points/%@/balance", customerId];
-                
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
-        [request setHTTPMethod: @"GET"];
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+		NSDictionary *loginDict = [[NSDictionary alloc] init];
+        [ tempDictionary setObject:customerId forKey:@"customerId"];
         
-        self.serverData = [NSMutableData data];
+		loginDict = tempDictionary;
+        ArcClient *client = [[ArcClient alloc] init];
+        [client getPointBalance:loginDict];
+        
         [self.activity startAnimating];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate: self startImmediately: YES];
-        
     }
     @catch (NSException *e) {
-        
         //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        
     }
-    
-    
 }
 
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata]; 
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-        
+-(void)pointBalanceComplete:(NSNotification *)notification{
+    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+    
+    NSString *status = [responseInfo valueForKey:@"status"];
+    
     [self.activity stopAnimating];
-    NSData *returnData = [NSData dataWithData:self.serverData];
     
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    
-    
-    NewSBJSON *jsonParser = [NewSBJSON new];
-    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-    
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    if (success) {
-       
-        int balance = [[response valueForKey:@"balance"] intValue];
+    if ([status isEqualToString:@"1"]) {
+        //success
+        int balance = [[responseInfo valueForKey:@"balance"] intValue];
         
         self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
         
         self.pointsProgressView.progress = (float)balance/900.00;
+    }else{
+        //self.errorLabel.text = @"*Error getting point balance payment.";
     }
-   	
 }
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-    [self.activity stopAnimating];
-    //self.errorLabel.text = @"*Error finding restaurants";
-    //self.activityView.hidden = YES;
-}
-
-
 
 
 - (IBAction)cancel:(id)sender {
