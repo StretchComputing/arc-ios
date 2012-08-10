@@ -225,9 +225,9 @@
         Merchant *tmpMerchant = [self.allMerchants objectAtIndex:[selectedRowIndex row]];
         
         //::NICK:: needed to store merchant ID temporarily -- I know this is not a good way to do it
-        int merchantId = tmpMerchant.merchantId;
+        NSString * merchantId = [NSString stringWithFormat:@"%d",tmpMerchant.merchantId];
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        [prefs setInteger:merchantId forKey:@"merchantId"];
+        [prefs setObject:merchantId forKey:@"merchantId"];
         
         detailViewController.name = tmpMerchant.name;
     } 
