@@ -17,16 +17,7 @@
 @end
 
 @implementation Restaurant
-@synthesize submitButton;
-@synthesize nameDisplay, name, myInvoice;
-@synthesize checkHelpImageView;
-@synthesize checkNumFour;
-@synthesize checkNumThree;
-@synthesize checkNumTwo;
-@synthesize checkNumOne;
-@synthesize activity;
-@synthesize errorLabel;
-@synthesize serverData, helpShowing;
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.checkNumOne becomeFirstResponder];
@@ -130,6 +121,7 @@
             
             
             [tempDictionary setValue:invoiceNumber forKey:@"invoiceNumber"];
+            [tempDictionary setValue:self.merchantId forKey:@"merchantId"];
             
             NSDictionary *loginDict = [[NSDictionary alloc] init];
             loginDict = tempDictionary;

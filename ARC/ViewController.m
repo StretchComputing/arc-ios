@@ -18,8 +18,6 @@
 @end
 
 @implementation ViewController
-@synthesize navBar;
-@synthesize myTableView, username, password, serverData, errorLabel, activity;
 
 
 -(void)viewDidAppear:(BOOL)animated{

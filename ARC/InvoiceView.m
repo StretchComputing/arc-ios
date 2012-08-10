@@ -17,22 +17,7 @@
 @end
 
 @implementation InvoiceView
-@synthesize bottomHalfView;
-@synthesize scrollView;
-@synthesize dividerLabel;
-@synthesize subLabel;
-@synthesize taxLabel;
-@synthesize gratLabel;
-@synthesize discLabel;
-@synthesize amountLabel;
-@synthesize totalLabel;
-@synthesize discNameLabel;
-@synthesize tipText;
-@synthesize tipSegment;
-@synthesize amountNameLabel;
-@synthesize gratNameLabel;
-@synthesize dividerView, creditCardSample, creditCardExpiration, creditCardSecurityCode, creditCardNumber;
-@synthesize myInvoice, myTableView, amountDue, creditCards;
+
 
 
 - (void)viewDidLoad

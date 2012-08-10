@@ -23,20 +23,6 @@
 @end
 
 @implementation RegisterView
-@synthesize dwollaSegControl;
-@synthesize creditCardSecurityCodeText;
-@synthesize creditCardPinText;
-@synthesize creditCardNumberText;
-@synthesize creditCardExpirationMonthLabel;
-@synthesize creditCardExpirationYearLabel;
-@synthesize errorLabel;
-@synthesize firstNameText;
-@synthesize lastNameText;
-@synthesize emailText;
-@synthesize passwordText;
-@synthesize genderSegment;
-@synthesize activityView, months, years;
-@synthesize serverData, dwollaSuccess, registerSuccess, fromDwolla, hideKeyboardView, pickerView, isExpirationMonth, expirationYear, expirationMonth;
 
 -(void)viewDidAppear:(BOOL)animated{
     
@@ -115,9 +101,9 @@
     self.creditCardPinText.text = @"";
     self.creditCardSecurityCodeText.text = @"";
     
-    self.months = [NSArray arrayWithObjects:@"01 - Jan", @"02 - Feb", @"03 - March", @"04 - April", @"05 - May", @"06 - June", @"07 - July", @"08 - Aug", @"09 - Sept", @"10 - Oct", @"11 - Nov", @"12 - Dec", nil];
+    self.months = @[@"01 - Jan", @"02 - Feb", @"03 - March", @"04 - April", @"05 - May", @"06 - June", @"07 - July", @"08 - Aug", @"09 - Sept", @"10 - Oct", @"11 - Nov", @"12 - Dec"];
     
-    self.years = [NSArray arrayWithObjects:@"2012", @"2013", @"2014", @"2015", @"2016", @"2017", @"2018", @"2019", @"2020", @"2021", @"2022", @"2023", @"2024", @"2025", @"2026", @"2027", @"2028", @"2029", @"2030", nil];
+    self.years = @[@"2012", @"2013", @"2014", @"2015", @"2016", @"2017", @"2018", @"2019", @"2020", @"2021", @"2022", @"2023", @"2024", @"2025", @"2026", @"2027", @"2028", @"2029", @"2030"];
     
     self.firstNameText.text = @"";
     self.lastNameText.text = @"";
@@ -199,10 +185,10 @@
         // TODO hard coded for now
         [ tempDictionary setObject:@"123" forKey:@"PassPhrase"];
         [ tempDictionary setObject:@"1955-05-10" forKey:@"BirthDate"];
-        [ tempDictionary setObject:[NSNumber numberWithBool:YES] forKey:@"AcceptTerms"];
-        [ tempDictionary setObject:[NSNumber numberWithBool:YES] forKey:@"Notifications"];
-        [ tempDictionary setObject:[NSNumber numberWithBool:NO] forKey:@"Facebook"];
-        [ tempDictionary setObject:[NSNumber numberWithBool:NO] forKey:@"Twitter"];
+        [ tempDictionary setObject:@(YES) forKey:@"AcceptTerms"];
+        [ tempDictionary setObject:@(YES) forKey:@"Notifications"];
+        [ tempDictionary setObject:@(NO) forKey:@"Facebook"];
+        [ tempDictionary setObject:@(NO) forKey:@"Twitter"];
 
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];

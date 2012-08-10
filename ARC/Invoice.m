@@ -9,6 +9,6 @@
 #import "Invoice.h"
 
 @implementation Invoice
-@synthesize invoiceId, merchantId, customerId, status, number, posi, dateCreated, baseAmount, serviceCharge, tax, discount, additionalCharge, tags, items;
+
 
 @end

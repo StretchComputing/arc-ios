@@ -16,7 +16,6 @@
 @end
 
 @implementation ViewCreditCards
-@synthesize creditCards, myTableView, creditCardNumber, creditCardSample, creditCardExpiration, creditCardSecurityCode;
 
 -(void)viewWillAppear:(BOOL)animated{
     

@@ -19,11 +19,7 @@
 @end
 
 @implementation SettingsView
-@synthesize serverData;
-@synthesize pointsDisplayLabel;
-@synthesize pointsProgressView;
-@synthesize activity;
-@synthesize dwollaAuthSwitch, fromDwolla, dwollaSuccess, creditCardAdded, creditCardDeleted;
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [self performSelector:@selector(getPointsBalance)];
@@ -132,7 +128,8 @@
     
     if ([status isEqualToString:@"1"]) {
         //success
-        int balance = [[responseInfo valueForKey:@"balance"] intValue];
+        NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
+        int balance = [[apiResponse valueForKey:@"Balance"] intValue];
         
         self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
         

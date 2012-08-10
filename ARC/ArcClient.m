@@ -14,7 +14,6 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 //static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
 
 @implementation ArcClient
-@synthesize serverData;
 
 -(void)createCustomer:(NSDictionary *)pairs{
     @try {
@@ -41,8 +40,6 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     @try {
         api = GetCustomerToken;
         
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
-        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString * login = [ pairs objectForKey:@"userName"];
         NSString * password = [ pairs objectForKey:@"password"];
@@ -66,8 +63,6 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     @try {
         api = GetMerchantList;
         
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
-        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
@@ -88,19 +83,14 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     @try {
         api = GetInvoice;
         
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
-        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         NSString * invoiceNumber = [pairs valueForKey:@"invoiceNumber"];
-        
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString *merchantId = [prefs valueForKey:@"merchantId"];
+        NSString *merchantId = [pairs valueForKey:@"merchantId"];
         
         NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@Invoices/%@/get/%@", _arcUrl, merchantId, invoiceNumber];
-        NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
+        //NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
 
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceUrl]];
         [request setHTTPMethod: @"GET"];
-        //[request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
@@ -160,14 +150,11 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     @try {
         api = GetPointBalance;
         
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
-        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         NSString * customerId = [pairs valueForKey:@"customerId"];
         
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@points/%@/balance", _arcUrl, customerId, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
         [request setHTTPMethod: @"GET"];
-        [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
@@ -187,7 +174,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     NSData *returnData = [NSData dataWithData:self.serverData];
     NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
     
-    NSLog(@"ReturnString: %@", returnString);
+    //NSLog(@"ReturnString: %@", returnString);
     
     NewSBJSON *jsonParser = [NewSBJSON new];
     NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -223,10 +210,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     
     NSLog(@"Error: %@", error);
     
-    NSDictionary *responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"fail", @"status",
-                              error, @"error",
-                              nil];
+    NSDictionary *responseInfo = @{@"status": @"fail",
+                              @"error": error};
     NSString *notificationType;
     if(api == CreateCustomer) {
         notificationType = @"registerNotification";
@@ -267,18 +252,14 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         //Add this customer to the DB
         [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
         
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                    @"1", @"status",
-                    nil];
+        responseInfo = @{@"status": @"1"};
     } else {
         NSString *message = [response valueForKey:@"Message"];
         //NSString *message = @"Internal Server Error";
         NSString *status = @"0";
         
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                    status, @"status",
-                    message, @"error",
-                    nil];
+        responseInfo = @{@"status": status,
+                    @"error": message};
     }
     return responseInfo;
 }
@@ -301,18 +282,14 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
          //Add this customer to the DB
          [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
          
-         responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                     @"1", @"status",
-                     nil];
+         responseInfo = @{@"status": @"1"};
      } else {
          NSString *message = [response valueForKey:@"Message"];
          //NSString *message = @"Internal Server Error";
          NSString *status = @"0";
          
-         responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                     status, @"status",
-                     message, @"error",
-                     nil];
+         responseInfo = @{@"status": status,
+                     @"error": message};
      }
     return responseInfo;
 }
@@ -322,18 +299,14 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     
     NSDictionary *responseInfo;
     if (success){
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                    @"1", @"status",
-                    response, @"apiResponse",
-                    nil];
+        responseInfo = @{@"status": @"1",
+                    @"apiResponse": response};
     } else {
         NSString *message = [response valueForKey:@"Message"];
         NSString *status = @"0";
         
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                    status, @"status",
-                    message, @"error",
-                    nil];
+        responseInfo = @{@"status": status,
+                    @"error": message};
     }
     return responseInfo;
 }
@@ -343,18 +316,14 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     
     NSDictionary *responseInfo;
     if (success){
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                        @"1", @"status",
-                        response, @"apiResponse",
-                        nil];
+        responseInfo = @{@"status": @"1",
+                        @"apiResponse": response};
     } else {
         NSString *message = [response valueForKey:@"Message"];
         NSString *status = @"0";
         
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                        status, @"status",
-                        message, @"error",
-                        nil];
+        responseInfo = @{@"status": status,
+                        @"error": message};
     }
     return responseInfo;
 }
@@ -364,18 +333,14 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     
     NSDictionary *responseInfo;
     if (success){
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                        @"1", @"status",
-                        response, @"apiResponse",
-                        nil];
+        responseInfo = @{@"status": @"1",
+                        @"apiResponse": response};
     } else {
         NSString *message = [response valueForKey:@"Message"];
         NSString *status = @"0";
         
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                        status, @"status",
-                        message, @"error",
-                        nil];
+        responseInfo = @{@"status": status,
+                        @"error": message};
     }
     return responseInfo;
 }
@@ -385,18 +350,14 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     
     NSDictionary *responseInfo;
     if (success){
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                        @"1", @"status",
-                        response, @"apiResponse",
-                        nil];
+        responseInfo = @{@"status": @"1",
+                        @"apiResponse": response};
     } else {
         NSString *message = [response valueForKey:@"Message"];
         NSString *status = @"0";
         
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                        status, @"status",
-                        message, @"error",
-                        nil];
+        responseInfo = @{@"status": status,
+                        @"error": message};
     }
     return responseInfo;
 }
@@ -406,18 +367,14 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     
     NSDictionary *responseInfo;
     if (success){
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                        @"1", @"status",
-                        response, @"apiResponse",
-                        nil];
+        responseInfo = @{@"status": @"1",
+                        @"apiResponse": response};
     } else {
         NSString *message = [response valueForKey:@"Message"];
         NSString *status = @"0";
         
-        responseInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                        status, @"status",
-                        message, @"error",
-                        nil];
+        responseInfo = @{@"status": status,
+                        @"error": message};
     }
     return responseInfo;
 }

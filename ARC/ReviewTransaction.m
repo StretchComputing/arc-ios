@@ -21,18 +21,15 @@
 @end
 
 @implementation ReviewTransaction
-@synthesize activity;
-@synthesize errorLabel;
-@synthesize commentsText, foodInt, drinksInt, priceInt, serviceInt, invoiceId;
-@synthesize food1, food2, food3, food4, food5, service1, service2, service3, service4, service5, drinks1, drinks2, drinks3, drinks4, drinks5, atmosphere1, atmosphere2, atmosphere3, atmosphere4, atmosphere5, value1, value2, value3, value4, value5, serverData;
+
 
 -(void)viewDidLoad{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
     
-    self.priceInt = [NSNumber numberWithInt:1];
-    self.foodInt = [NSNumber numberWithInt:1];
-    self.drinksInt = [NSNumber numberWithInt:1];
-    self.serviceInt = [NSNumber numberWithInt:1];
+    self.priceInt = @1;
+    self.foodInt = @1;
+    self.drinksInt = @1;
+    self.serviceInt = @1;
 
 
     [self.navigationItem setHidesBackButton:YES];
@@ -95,28 +92,28 @@
         [self.food2 setImage:full forState:UIControlStateNormal];
         [self.food1 setImage:full forState:UIControlStateNormal];
         
-        self.foodInt = [NSNumber numberWithInt:5];
+        self.foodInt = @5;
         
         if (selected == 4){
-            self.foodInt = [NSNumber numberWithInt:4];
+            self.foodInt = @4;
 
             [self.food5 setImage:empty forState:UIControlStateNormal];
 
         }else if (selected == 3){
-            self.foodInt = [NSNumber numberWithInt:3];
+            self.foodInt = @3;
 
             [self.food5 setImage:empty forState:UIControlStateNormal];
             [self.food4 setImage:empty forState:UIControlStateNormal];
         }else if (selected == 2){
             
-            self.foodInt = [NSNumber numberWithInt:2];
+            self.foodInt = @2;
 
             [self.food5 setImage:empty forState:UIControlStateNormal];
             [self.food4 setImage:empty forState:UIControlStateNormal];
             [self.food3 setImage:empty forState:UIControlStateNormal];
         }else if (selected == 1){
             
-            self.foodInt = [NSNumber numberWithInt:1];
+            self.foodInt = @1;
 
             [self.food5 setImage:empty forState:UIControlStateNormal];
             [self.food4 setImage:empty forState:UIControlStateNormal];
@@ -133,30 +130,30 @@
         [self.service2 setImage:full forState:UIControlStateNormal];
         [self.service1 setImage:full forState:UIControlStateNormal];
         
-        self.serviceInt = [NSNumber numberWithInt:5];
+        self.serviceInt = @5;
 
         
         if (selected == 4){
-            self.serviceInt = [NSNumber numberWithInt:4];
+            self.serviceInt = @4;
 
             [self.service5 setImage:empty forState:UIControlStateNormal];
             
         }else if (selected == 3){
         
-            self.serviceInt = [NSNumber numberWithInt:3];
+            self.serviceInt = @3;
 
             [self.service5 setImage:empty forState:UIControlStateNormal];
             [self.service4 setImage:empty forState:UIControlStateNormal];
         }else if (selected == 2){
             
-            self.serviceInt = [NSNumber numberWithInt:2];
+            self.serviceInt = @2;
 
             [self.service5 setImage:empty forState:UIControlStateNormal];
             [self.service4 setImage:empty forState:UIControlStateNormal];
             [self.service3 setImage:empty forState:UIControlStateNormal];
         }else if (selected == 1){
             
-            self.serviceInt = [NSNumber numberWithInt:1];
+            self.serviceInt = @1;
 
             [self.service5 setImage:empty forState:UIControlStateNormal];
             [self.service4 setImage:empty forState:UIControlStateNormal];
@@ -172,30 +169,30 @@
         [self.drinks2 setImage:full forState:UIControlStateNormal];
         [self.drinks1 setImage:full forState:UIControlStateNormal];
         
-        self.drinksInt = [NSNumber numberWithInt:5];
+        self.drinksInt = @5;
 
         if (selected == 4){
             
-            self.drinksInt = [NSNumber numberWithInt:4];
+            self.drinksInt = @4;
 
             [self.drinks5 setImage:empty forState:UIControlStateNormal];
             
         }else if (selected == 3){
             
-            self.drinksInt = [NSNumber numberWithInt:3];
+            self.drinksInt = @3;
 
             [self.drinks5 setImage:empty forState:UIControlStateNormal];
             [self.drinks4 setImage:empty forState:UIControlStateNormal];
         }else if (selected == 2){
             
-            self.drinksInt = [NSNumber numberWithInt:2];
+            self.drinksInt = @2;
 
             [self.drinks5 setImage:empty forState:UIControlStateNormal];
             [self.drinks4 setImage:empty forState:UIControlStateNormal];
             [self.drinks3 setImage:empty forState:UIControlStateNormal];
         }else if (selected == 1){
             
-            self.drinksInt = [NSNumber numberWithInt:1];
+            self.drinksInt = @1;
 
             [self.drinks5 setImage:empty forState:UIControlStateNormal];
             [self.drinks4 setImage:empty forState:UIControlStateNormal];
@@ -240,30 +237,30 @@
         [self.value2 setImage:full forState:UIControlStateNormal];
         [self.value1 setImage:full forState:UIControlStateNormal];
         
-        self.priceInt = [NSNumber numberWithInt:5];
+        self.priceInt = @5;
 
         if (selected == 4){
             
-            self.priceInt = [NSNumber numberWithInt:4];
+            self.priceInt = @4;
 
             [self.value5 setImage:empty forState:UIControlStateNormal];
             
         }else if (selected == 3){
             
-            self.priceInt = [NSNumber numberWithInt:3];
+            self.priceInt = @3;
             
             [self.value5 setImage:empty forState:UIControlStateNormal];
             [self.value4 setImage:empty forState:UIControlStateNormal];
         }else if (selected == 2){
             
-            self.priceInt = [NSNumber numberWithInt:2];
+            self.priceInt = @2;
 
             [self.value5 setImage:empty forState:UIControlStateNormal];
             [self.value4 setImage:empty forState:UIControlStateNormal];
             [self.value3 setImage:empty forState:UIControlStateNormal];
         }else if (selected == 1){
             
-            self.priceInt = [NSNumber numberWithInt:1];
+            self.priceInt = @1;
 
             [self.value5 setImage:empty forState:UIControlStateNormal];
             [self.value4 setImage:empty forState:UIControlStateNormal];
@@ -345,10 +342,10 @@
 
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
-        NSNumber *tmpId = [NSNumber numberWithInt:[customerId intValue]];
+        NSNumber *tmpId = @([customerId intValue]);
         [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
         
-        NSNumber *invoice = [NSNumber numberWithInt:self.invoiceId];
+        NSNumber *invoice = @(self.invoiceId);
         
         [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
         [ tempDictionary setObject:self.drinksInt forKey:@"Drinks"];

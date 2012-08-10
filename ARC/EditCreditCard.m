@@ -15,8 +15,6 @@
 @end
 
 @implementation EditCreditCard
-@synthesize deleteCardButton;
-@synthesize creditCardExpiration, creditCardSecurityCode, creditCardNumber, creditCardSample;
 
 -(void)viewDidLoad{
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];

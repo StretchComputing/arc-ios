@@ -22,9 +22,7 @@
 @end
 
 @implementation Home
-@synthesize activityView;
-@synthesize errorLabel, matchingMerchants;
-@synthesize toolbar, serverData, allMerchants, myTableView, successReview, skipReview, searchTextField;
+
 
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -70,6 +68,7 @@
     self.matchingMerchants = [NSMutableArray array];
     self.searchTextField.delegate = self;
     self.toolbar.tintColor = [UIColor colorWithRed:0.0427221 green:0.380456 blue:0.785953 alpha:1.0];
+    //self.toolbar.tintColor = [UIColor colorWithRed:0.4 green:0.43 blue:0.6 alpha:1.0];
     self.serverData = [NSMutableData data];
     self.allMerchants = [NSMutableArray array];
     self.myTableView.delegate = self;
@@ -91,7 +90,7 @@
     self.myTableView.backgroundColor = [UIColor clearColor];
     self.myTableView.backgroundView.backgroundColor = [UIColor clearColor];
     
-    myTableView.separatorColor = [UIColor lightGrayColor];
+    self.myTableView.separatorColor = [UIColor lightGrayColor];
 
 }
 
@@ -223,12 +222,8 @@
         Restaurant *detailViewController = [segue destinationViewController];
         
         Merchant *tmpMerchant = [self.allMerchants objectAtIndex:[selectedRowIndex row]];
-        
-        //::NICK:: needed to store merchant ID temporarily -- I know this is not a good way to do it
-        NSString * merchantId = [NSString stringWithFormat:@"%d",tmpMerchant.merchantId];
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        [prefs setObject:merchantId forKey:@"merchantId"];
-        
+
+        detailViewController.merchantId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
         detailViewController.name = tmpMerchant.name;
     } 
 }

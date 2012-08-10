@@ -9,6 +9,6 @@
 #import "Merchant.h"
 
 @implementation Merchant
-@synthesize name, email, ein, address, city, state, zipCode, password, dateCreated, lastUpdated, invoiceExpirationUnit, merchantId, typeId, invoiceExpiration, acceptTerms, latitude, longitude;
+
 
 @end

@@ -12,8 +12,6 @@
 
 @implementation ArcAppDelegate
 
-@synthesize window = _window, logout, managedDocument, managedObjectContext;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
    
@@ -197,7 +195,7 @@
         }
     }
     @catch (NSException *exception) {
-        return [NSArray array];
+        return @[];
     }
    
     
@@ -233,7 +231,7 @@
         
     }
     @catch (NSException *exception) {
-        return [NSArray array];
+        return @[];
     }
    
     
@@ -263,7 +261,7 @@
         
     }
     @catch (NSException *exception) {
-        return [NSArray array];
+        return @[];
     }
     
 }

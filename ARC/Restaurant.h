@@ -25,6 +25,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 
+@property (nonatomic, strong) NSString *merchantId;
+
 - (IBAction)checkNumberHelp;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;

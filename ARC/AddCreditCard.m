@@ -19,7 +19,7 @@
 @end
 
 @implementation AddCreditCard
-@synthesize expirationYear, expirationMonth, months, years, pickerView, isExpirationMonth, creditCardExpirationYearLabel, creditCardExpirationMonthLabel, creditCardNumberText, creditCardPinText, creditCardSecurityCodeText, hideKeyboardView;
+
 
 
 -(void)viewDidLoad{
@@ -28,9 +28,9 @@
     self.creditCardPinText.text = @"";
     self.creditCardSecurityCodeText.text = @"";
     
-    self.months = [NSArray arrayWithObjects:@"01 - Jan", @"02 - Feb", @"03 - March", @"04 - April", @"05 - May", @"06 - June", @"07 - July", @"08 - Aug", @"09 - Sept", @"10 - Oct", @"11 - Nov", @"12 - Dec", nil];
+    self.months = @[@"01 - Jan", @"02 - Feb", @"03 - March", @"04 - April", @"05 - May", @"06 - June", @"07 - July", @"08 - Aug", @"09 - Sept", @"10 - Oct", @"11 - Nov", @"12 - Dec"];
     
-    self.years = [NSArray arrayWithObjects:@"2012", @"2013", @"2014", @"2015", @"2016", @"2017", @"2018", @"2019", @"2020", @"2021", @"2022", @"2023", @"2024", @"2025", @"2026", @"2027", @"2028", @"2029", @"2030", nil];
+    self.years = @[@"2012", @"2013", @"2014", @"2015", @"2016", @"2017", @"2018", @"2019", @"2020", @"2021", @"2022", @"2023", @"2024", @"2025", @"2026", @"2027", @"2028", @"2029", @"2030"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];

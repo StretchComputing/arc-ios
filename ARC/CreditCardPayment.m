@@ -19,12 +19,7 @@
 @end
 
 @implementation CreditCardPayment
-@synthesize submitButton;
-@synthesize notesText;
-@synthesize checkNumFour;
-@synthesize checkNumThree;
-@synthesize checkNumTwo;
-@synthesize checkNumOne, serverData, errorLabel, activity, fundingSources, fundingSourceStatus, selectedFundingSourceId, gratuity, totalAmount, invoiceId, fromDwolla, dwollaSuccess, creditCardNumber, creditCardSample, creditCardExpiration, creditCardSecurityCode;
+
 
 
 - (void)viewDidLoad
@@ -158,7 +153,7 @@
         
         
         //*Testing Only*
-        NSNumber *amount = [NSNumber numberWithDouble:1.0];
+        NSNumber *amount = @1.0;
         //NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
         [ tempDictionary setObject:amount forKey:@"Amount"];
         
@@ -169,7 +164,7 @@
         
         //*Testing Only* -------- SEND EMPTY STRINGS for OPTIONAL PARAMETERS
         //NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
-        NSNumber *grat = [NSNumber numberWithDouble:0.0];
+        NSNumber *grat = @0.0;
         [ tempDictionary setObject:grat forKey:@"Gratuity"];
         
         if (![self.notesText.text isEqualToString:@""] && ![self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
@@ -181,14 +176,14 @@
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
-        NSNumber *tmpId = [NSNumber numberWithInt:[customerId intValue]];
+        NSNumber *tmpId = @([customerId intValue]);
         [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
         
         [ tempDictionary setObject:@"" forKey:@"Tag"];
         
         [ tempDictionary setObject:self.creditCardExpiration forKey:@"Expiration"];
 		
-        NSNumber *invoice = [NSNumber numberWithInt:self.invoiceId];
+        NSNumber *invoice = @(self.invoiceId);
         [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
         
         [ tempDictionary setObject:ccSecurityCode forKey:@"Pin"];
