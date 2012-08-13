@@ -9,16 +9,16 @@
 #import "ViewController.h"
 #import "Home.h"
 #import "HomeNavigationController.h"
-#import "NewJSON.h"
+#import "NewJSON.h"How ARC
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
-
 
 -(void)viewDidAppear:(BOOL)animated{
 
@@ -28,7 +28,8 @@
     NSString *customerToken = [prefs stringForKey:@"customerToken"];
         
     if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
-        [self performSegueWithIdentifier: @"signIn" sender: self];
+        [self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
+        self.autoSignIn = YES;
     }
     
 }
@@ -81,10 +82,19 @@
     self.username.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.password.clearButtonMode = UITextFieldViewModeWhileEditing;
    
-    
-    self.navBar.tintColor = [UIColor colorWithRed:0.0427221 green:0.380456 blue:0.785953 alpha:1.0];
+        
+     self.navBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.view.bounds;
+    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+    [self.view.layer insertSublayer:gradient atIndex:0];
+    
+    
 }
 
 -(void)signIn{
@@ -174,7 +184,7 @@
         fieldLabel.textAlignment = UITextAlignmentCenter;
         
         fieldLabel.text = @"How ARC Works";
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;

@@ -49,9 +49,11 @@
     self.notesText.layer.masksToBounds = YES;
     self.notesText.layer.cornerRadius = 5.0;
         
+    self.fundingSourceStatus = @"";
       
     dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
-    
+    dispatch_queue_t main = dispatch_get_main_queue();
+
     dispatch_async(queue,^{
         
         @try {
@@ -60,6 +62,14 @@
             //An array of DwollaFundingSource* objects
             self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
             self.fundingSourceStatus = @"success";
+            
+            if (self.waitingSources) {
+                self.waitingSources = NO;
+                
+                dispatch_async(main,^{
+                    [self submit:nil];
+                });
+            }
         }
         @catch (NSException *exception) {
             self.fundingSourceStatus = @"failed";
@@ -70,6 +80,12 @@
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.view.bounds;
+    self.view.backgroundColor = [UIColor clearColor];
+    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+    [self.view.layer insertSublayer:gradient atIndex:0];
 }
 
 
@@ -95,6 +111,8 @@
                     //An array of DwollaFundingSource* objects
                     self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
                     self.fundingSourceStatus = @"success";
+                    
+                    
                 }
                 @catch (NSException *exception) {
                     self.fundingSourceStatus = @"failed";
@@ -182,7 +200,7 @@
     
     self.errorLabel.text = @"";    
         
-        if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
+        if ([self.checkNumOne.text isEqualToString:@" "] || [self.checkNumTwo.text isEqualToString:@" "] || [self.checkNumThree.text isEqualToString:@" "] || [self.checkNumFour.text isEqualToString:@" "]) {
             
             self.errorLabel.text = @"*Please enter your full pin number.";
         }else{
@@ -238,9 +256,15 @@
                     }
                    
                     
-                }else{
+                }else if ([self.fundingSourceStatus isEqualToString:@"failure"]){
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dwolla Error" message:@"Unable to obtain Dwolla Funding Sources" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                     [alert show];
+                }else{
+                    
+                    self.waitingSources = YES;
+                    
+                    [self.activity startAnimating];
+                    
                 }
 
 
@@ -265,6 +289,7 @@
     
 }
 -(void)createPayment{
+    
     @try{        
         [self.activity startAnimating];
         
@@ -315,11 +340,13 @@
         [client createPayment:loginDict];
     }
     @catch (NSException *e) {
+        
         //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 -(void)paymentComplete:(NSNotification *)notification{
+    
     NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
     
     NSString *status = [responseInfo valueForKey:@"status"];

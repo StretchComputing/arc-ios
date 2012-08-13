@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
-
+@property BOOL autoSignIn;
 -(IBAction)signIn;
 
 

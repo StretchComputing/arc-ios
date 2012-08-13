@@ -19,6 +19,8 @@
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
 
+@property BOOL waitingSources;
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (nonatomic, strong) NSMutableData *serverData;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFour;

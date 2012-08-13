@@ -16,6 +16,9 @@
 		907A407215AA073C00090452 /* AddCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A407115AA073C00090452 /* AddCreditCard.m */; };
 		907A407515AA08B200090452 /* addCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407315AA08B200090452 /* addCard.png */; };
 		907A407615AA08B200090452 /* addCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407415AA08B200090452 /* addCard@2x.png */; };
+		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
+		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
+		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
 		90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F35159777BC00FC1D49 /* UIKit.framework */; };
 		90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F37159777BC00FC1D49 /* Foundation.framework */; };
 		90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F39159777BC00FC1D49 /* CoreGraphics.framework */; };
@@ -114,6 +117,10 @@
 		907A407115AA073C00090452 /* AddCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCard.m; sourceTree = "<group>"; };
 		907A407315AA08B200090452 /* addCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addCard.png; sourceTree = "<group>"; };
 		907A407415AA08B200090452 /* addCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addCard@2x.png"; sourceTree = "<group>"; };
+		9094250215D86E2500CB052D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
+		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
+		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
+		9094250815D8729400CB052D /* untitledLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = untitledLogo.png; sourceTree = "<group>"; };
 		90993F31159777BC00FC1D49 /* ARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90993F35159777BC00FC1D49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90993F37159777BC00FC1D49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -304,6 +311,8 @@
 				907A407315AA08B200090452 /* addCard.png */,
 				907A407415AA08B200090452 /* addCard@2x.png */,
 				90CCF7D915D3688600360DE7 /* search.jpeg */,
+				9094250215D86E2500CB052D /* arcLogo.png */,
+				9094250815D8729400CB052D /* untitledLogo.png */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
 				90993F32159777BC00FC1D49 /* Products */,
@@ -351,6 +360,8 @@
 				90993F4B159777BC00FC1D49 /* ViewController.m */,
 				90FBDC46159CE4F90051609A /* PushSegueNoAnimation.h */,
 				90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */,
+				9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */,
+				9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */,
 				90BFD08E1597928D00F5285E /* HomeNavigationController.h */,
 				90BFD08F1597928D00F5285E /* HomeNavigationController.m */,
 				90FBDA5D159A63CB0051609A /* SettingsView.h */,
@@ -555,6 +566,8 @@
 				907A407515AA08B200090452 /* addCard.png in Resources */,
 				907A407615AA08B200090452 /* addCard@2x.png in Resources */,
 				90CCF7DA15D3688600360DE7 /* search.jpeg in Resources */,
+				9094250315D86E2500CB052D /* arcLogo.png in Resources */,
+				9094250915D8729400CB052D /* untitledLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +640,7 @@
 				907A407215AA073C00090452 /* AddCreditCard.m in Sources */,
 				9F34F57315CF0CE30084184B /* ArcClient.m in Sources */,
 				9F45D81F15D33F3300682F19 /* Encoder.c in Sources */,
+				9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

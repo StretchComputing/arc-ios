@@ -11,6 +11,7 @@
 #import "CreditCardPayment.h"
 #import "ArcAppDelegate.h"
 #import "CreditCard.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface InvoiceView ()
 
@@ -97,6 +98,13 @@
     frame.origin.y += movedown;
     frame.size.height -= movedown;
     self.bottomHalfView.frame = frame;
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.view.bounds;
+    self.view.backgroundColor = [UIColor clearColor];
+    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+    [self.view.layer insertSublayer:gradient atIndex:0];
     
 }
 
@@ -195,7 +203,6 @@
         action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
         
         [action addButtonWithTitle:@"Dwolla"];
-        [action addButtonWithTitle:@"PayPal"];
 
         for (int i = 0; i < [self.creditCards count]; i++) {
             CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
@@ -206,7 +213,7 @@
         action.cancelButtonIndex = [self.creditCards count] + 2;
         
     }else {
-        action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", @"PayPal", nil];
+        action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
     }
     
     

@@ -118,6 +118,17 @@
  
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = backView.bounds;
+    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+    [backView.layer insertSublayer:gradient atIndex:0];
+    
+    self.tableView.backgroundView = backView;
+    
+    [self.tableView setContentSize:CGSizeMake(320, 100)];
 }
 
 
@@ -256,17 +267,17 @@
     
     if (selectedField.tag == 10) {
         //CC #
-        myPoint = CGPointMake(0, 525);
+        myPoint = CGPointMake(0, 405);
         
     }else if (selectedField.tag == 11){
         //security code
         
-        myPoint = CGPointMake(0, 525);
+        myPoint = CGPointMake(0, 405);
         
     }else if (selectedField.tag == 12){
         //pin
         
-        myPoint = CGPointMake(0, 650);
+        myPoint = CGPointMake(0, 540);
         
     }
 
