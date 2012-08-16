@@ -612,6 +612,7 @@
                         <outlet property="errorLabel" destination="UMV-BT-7Ub" id="ier-9h-JQB"/>
                         <outlet property="myTableView" destination="aTB-3e-tu0" id="19d-Ck-57P"/>
                         <outlet property="searchTextField" destination="jMB-Dt-8Hm" id="Q4Q-4K-lxt"/>
+                        <outlet property="sloganLabel" destination="fVr-Hq-ar9" id="kLf-EV-Hsa"/>
                         <outlet property="toolbar" destination="cwA-xc-5pS" id="qs7-TA-WNZ"/>
                     </connections>
                 </viewController>
@@ -1923,7 +1924,7 @@
                                     <action selector="email" destination="rSD-qn-2eF" eventType="touchUpInside" id="Nrj-Ld-FLl"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="No Cash.  No Card.  No Problem" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="rC3-Ik-t0B">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="rC3-Ik-t0B">
                                 <rect key="frame" x="35" y="375" width="250" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>

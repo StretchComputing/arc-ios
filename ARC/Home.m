@@ -23,6 +23,7 @@
 @end
 
 @implementation Home
+@synthesize sloganLabel;
 
 
 
@@ -100,6 +101,8 @@
     UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
     [self.view.layer insertSublayer:gradient atIndex:0];
+    
+    self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
     
 }
 
@@ -243,5 +246,9 @@
         self.myTableView.hidden = YES;
         self.errorLabel.text = @"*No matches found.";
     }
+}
+- (void)viewDidUnload {
+    [self setSloganLabel:nil];
+    [super viewDidUnload];
 }
 @end

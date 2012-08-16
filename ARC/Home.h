@@ -14,6 +14,7 @@
 @property BOOL skipReview;
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UILabel *sloganLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *activityView;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;

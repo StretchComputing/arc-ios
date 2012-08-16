@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumThree;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 
+@property BOOL wentInvoice;
+
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 
 @property (nonatomic, strong) NSString *merchantId;

@@ -36,6 +36,10 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>CHATOKYO_0.TTF</string>
+	</array>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>

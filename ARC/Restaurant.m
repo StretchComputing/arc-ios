@@ -20,7 +20,15 @@
 
 
 -(void)viewWillAppear:(BOOL)animated{
-    [self.checkNumOne becomeFirstResponder];
+    
+    if (self.wentInvoice) {
+        self.wentInvoice = NO;
+        [self.checkNumFour becomeFirstResponder];
+    }else{
+        [self.checkNumOne becomeFirstResponder];
+
+    }
+    
     self.serverData = [NSMutableData data];
 
 }
@@ -178,6 +186,7 @@
         self.myInvoice.tags = [NSArray arrayWithArray:[theInvoice valueForKey:@"Tags"]];
         self.myInvoice.items = [NSArray arrayWithArray:[theInvoice valueForKey:@"Items"]];
         
+        self.wentInvoice = YES;
         [self performSegueWithIdentifier:@"goInvoice" sender:self];
         
     }else{

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
 		907A406615A9CE2500090452 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406515A9CE2500090452 /* CreditCard.m */; };
@@ -102,6 +103,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CHATOKYO_0.TTF; sourceTree = "<group>"; };
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -313,6 +315,7 @@
 				90CCF7D915D3688600360DE7 /* search.jpeg */,
 				9094250215D86E2500CB052D /* arcLogo.png */,
 				9094250815D8729400CB052D /* untitledLogo.png */,
+				905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
 				90993F32159777BC00FC1D49 /* Products */,
@@ -568,6 +571,7 @@
 				90CCF7DA15D3688600360DE7 /* search.jpeg in Resources */,
 				9094250315D86E2500CB052D /* arcLogo.png in Resources */,
 				9094250915D8729400CB052D /* untitledLogo.png in Resources */,
+				905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

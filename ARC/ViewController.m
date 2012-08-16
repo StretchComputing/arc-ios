@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "Home.h"
 #import "HomeNavigationController.h"
-#import "NewJSON.h"How ARC
+#import "NewJSON.h"
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
