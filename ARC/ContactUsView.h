@@ -14,5 +14,6 @@
 - (IBAction)cancel:(id)sender;
 - (IBAction)call;
 - (IBAction)email;
+@property (nonatomic, weak) IBOutlet UILabel *sloganLabel;
 
 @end

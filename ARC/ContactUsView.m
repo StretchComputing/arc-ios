@@ -30,6 +30,8 @@
     [self.view.layer insertSublayer:gradient atIndex:0];
     
 	// Do any additional setup after loading the view.
+    self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
+
 }
 
 

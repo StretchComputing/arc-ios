@@ -15,6 +15,7 @@
 - (IBAction)payNow:(id)sender;
 @property (strong, nonatomic) Invoice *myInvoice;
 @property (weak, nonatomic) IBOutlet UIView *bottomHalfView;
+- (IBAction)splitCheckAction:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;

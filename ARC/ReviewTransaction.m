@@ -22,6 +22,16 @@
 
 @implementation ReviewTransaction
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    NSString *payAmount = [NSString stringWithFormat:@"%.2f", self.totalAmount];
+    
+    NSString *payString = [NSString stringWithFormat:@"Congratulations, your payment of $%@ was successfully processed!", payAmount];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    
+    [alert show];
+}
 
 -(void)viewDidLoad{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];

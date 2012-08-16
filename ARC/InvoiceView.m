@@ -210,7 +210,7 @@
             
         }
         [action addButtonWithTitle:@"Cancel"];
-        action.cancelButtonIndex = [self.creditCards count] + 2;
+        action.cancelButtonIndex = [self.creditCards count] + 1;
         
     }else {
         action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
@@ -231,12 +231,11 @@
     }else {
               
         if ([self.creditCards count] > 0) {
-            if (buttonIndex == [self.creditCards count] + 2) {
+            if (buttonIndex == [self.creditCards count] + 1) {
                 //Cancel
             }else{
                 //1 is paypal, 2 is first credit card
-                if (buttonIndex > 1) {
-                    CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - 2];
+                    CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - 1];
                     
                     self.creditCardNumber = selectedCard.number;
                     self.creditCardSecurityCode = selectedCard.securityCode;
@@ -244,7 +243,7 @@
                     self.creditCardSample = selectedCard.sample;
                     
                     [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
-                }                
+                             
             }
         }else{
             
@@ -357,4 +356,8 @@
     self.tipSegment.selectedSegmentIndex = -1;
 }
 
+- (IBAction)splitCheckAction:(id)sender {
+    [self performSegueWithIdentifier:@"goSplitCheck" sender:self];
+
+}
 @end

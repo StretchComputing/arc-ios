@@ -142,10 +142,12 @@
     if ([status isEqualToString:@"1"]) {
         //success
         NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
-        int balance = [[apiResponse valueForKey:@"Balance"] intValue];
+        int balance = [[apiResponse valueForKey:@"Current"] intValue];
+        int lifetime = [[apiResponse valueForKey:@"Lifetime"] intValue];
         
         self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
         
+        self.lifetimePointsLabel.text = [NSString stringWithFormat:@"Lifetime Points: %d", lifetime];
         self.pointsProgressView.progress = (float)balance/900.00;
     }else{
         //self.errorLabel.text = @"*Error getting point balance payment.";
@@ -180,5 +182,6 @@
         detailViewController.fromRegister = YES;
     } 
 }
+
 
 @end

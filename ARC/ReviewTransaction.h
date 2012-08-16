@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSNumber *priceInt;
 @property (nonatomic, strong) NSNumber *serviceInt;
 
+@property double totalAmount;
 @property int invoiceId;
 
 @property (nonatomic, strong) IBOutlet UIButton *food1;

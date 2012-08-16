@@ -41,11 +41,11 @@
         
         if ([string isEqualToString:@""]) {
             
-            [self performSelector:@selector(previousField) withObject:nil afterDelay:0.1];
+            [self performSelector:@selector(previousField) withObject:nil afterDelay:0.0];
 
         }else{
             textField.text = string;
-            [self performSelector:@selector(nextField) withObject:nil afterDelay:0.1];
+            [self performSelector:@selector(nextField) withObject:nil afterDelay:0.0];
         }
     }else{
         

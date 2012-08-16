@@ -230,6 +230,7 @@
         
         ReviewTransaction *next = [segue destinationViewController];
         next.invoiceId = self.invoiceId;
+        next.totalAmount = self.totalAmount;
     } 
 }
 
