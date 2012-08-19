@@ -19,145 +19,184 @@
 @implementation ViewCreditCards
 
 -(void)viewWillAppear:(BOOL)animated{
-    
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+    @try {
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewCreditCards.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(void)viewDidLoad{
-    [rSkybox addEventToSession:@"viewCreditCardScreen"];
-    
-    self.myTableView.delegate = self;
-    self.myTableView.dataSource = self;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
-	
-	if ([self.creditCards count] == 0) {
-        return 2;
-    }else{
-        return [self.creditCards count] + 1;
+    @try {
+        
+        [rSkybox addEventToSession:@"viewCreditCardScreen"];
+        
+        self.myTableView.delegate = self;
+        self.myTableView.dataSource = self;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewCreditCards.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-		 cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-    static NSString *creditCardCell=@"creditCardCell";
-    static NSString *newCardCell=@"newCardCell";
-
-    NSUInteger row = [indexPath row];
-    
-    int lastRow = 0;
-    if ([self.creditCards count] == 0) {
-        lastRow = 1;
-    }else{
-        lastRow = [self.creditCards count];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    @try {
+        
+        if ([self.creditCards count] == 0) {
+            return 2;
+        }else{
+            return [self.creditCards count] + 1;
+        }
     }
-	
-    UITableViewCell *cell;
-    
-    if (row == lastRow) {
-        cell = [tableView dequeueReusableCellWithIdentifier:newCardCell];
-    }else{
-        cell = [tableView dequeueReusableCellWithIdentifier:creditCardCell];
-
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewCreditCards.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-	
-	if (cell == nil) {
-		
+    
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        
+        static NSString *creditCardCell=@"creditCardCell";
+        static NSString *newCardCell=@"newCardCell";
+        
+        NSUInteger row = [indexPath row];
+        
+        int lastRow = 0;
+        if ([self.creditCards count] == 0) {
+            lastRow = 1;
+        }else{
+            lastRow = [self.creditCards count];
+        }
+        
+        UITableViewCell *cell;
         
         if (row == lastRow) {
-            cell = [[UITableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier: newCardCell];
+            cell = [tableView dequeueReusableCellWithIdentifier:newCardCell];
         }else{
-            cell = [[UITableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier: creditCardCell];
+            cell = [tableView dequeueReusableCellWithIdentifier:creditCardCell];
             
         }
         
-	}
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-    UILabel *displayLabel = (UILabel *)[cell.contentView viewWithTag:3];
-	
-	if (row != lastRow) {
-        
-        if ([self.creditCards count] == 0) {
-            displayLabel.text = @"- No Cards Found -";
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.accessoryType = UITableViewCellAccessoryNone;
-
-        }else{
-            CreditCard *tmp = [self.creditCards objectAtIndex:row];
-            displayLabel.text = [NSString stringWithFormat:@"Credit Card:  %@", tmp.sample];
+        if (cell == nil) {
+            
+            
+            if (row == lastRow) {
+                cell = [[UITableViewCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault
+                        reuseIdentifier: newCardCell];
+            }else{
+                cell = [[UITableViewCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault
+                        reuseIdentifier: creditCardCell];
+                
+            }
+            
         }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        UILabel *displayLabel = (UILabel *)[cell.contentView viewWithTag:3];
+        
+        if (row != lastRow) {
+            
+            if ([self.creditCards count] == 0) {
+                displayLabel.text = @"- No Cards Found -";
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                
+            }else{
+                CreditCard *tmp = [self.creditCards objectAtIndex:row];
+                displayLabel.text = [NSString stringWithFormat:@"Credit Card:  %@", tmp.sample];
+            }
+        }
+        
+        return cell;
+        
     }
-    
-	return cell;
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewCreditCards.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
     
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSUInteger row = [indexPath row];
-    
-    int lastRow = 0;
-    if ([self.creditCards count] == 0) {
-        lastRow = 1;
-    }else{
-        lastRow = [self.creditCards count];
-    }
-    
-    if (row == lastRow) {
-        [self performSegueWithIdentifier:@"addCard" sender:self];
-    }else{
-        if ([self.creditCards count] != 0) {
-            
-            CreditCard *selectedCard = [self.creditCards objectAtIndex:row];
-            
-            self.creditCardNumber = selectedCard.number;
-            self.creditCardSecurityCode = selectedCard.securityCode;
-            self.creditCardExpiration = selectedCard.expiration;
-            self.creditCardSample = selectedCard.sample;
-            
-            [self performSegueWithIdentifier:@"editCard" sender:self];
+    @try {
+        
+        NSUInteger row = [indexPath row];
+        
+        int lastRow = 0;
+        if ([self.creditCards count] == 0) {
+            lastRow = 1;
+        }else{
+            lastRow = [self.creditCards count];
         }
+        
+        if (row == lastRow) {
+            [self performSegueWithIdentifier:@"addCard" sender:self];
+        }else{
+            if ([self.creditCards count] != 0) {
+                
+                CreditCard *selectedCard = [self.creditCards objectAtIndex:row];
+                
+                self.creditCardNumber = selectedCard.number;
+                self.creditCardSecurityCode = selectedCard.securityCode;
+                self.creditCardExpiration = selectedCard.expiration;
+                self.creditCardSample = selectedCard.sample;
+                
+                [self performSegueWithIdentifier:@"editCard" sender:self];
+            }
+        }
+        
+        [self performSelector:@selector(deselectRow:) withObject:indexPath afterDelay:0.5];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewCreditCards.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
-    [self performSelector:@selector(deselectRow:) withObject:indexPath afterDelay:0.5];
 }
 
 -(void)deselectRow:(NSIndexPath *)indexPath{
-    [self.myTableView deselectRowAtIndexPath:indexPath animated:NO];
+    @try {
+        
+        [self.myTableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewCreditCards.deselectRow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return @"Credit Cards";
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    @try {
+        
+        if ([[segue identifier] isEqualToString:@"editCard"]) {
+            
+            EditCreditCard *controller = [segue destinationViewController];
+            
+            controller.creditCardSample = self.creditCardSample;
+            controller.creditCardNumber = self.creditCardNumber;
+            controller.creditCardExpiration = self.creditCardExpiration;
+            controller.creditCardSecurityCode = self.creditCardSecurityCode;
+            
+        } 
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewCreditCards.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
     
-    if ([[segue identifier] isEqualToString:@"editCard"]) {
-        
-        EditCreditCard *controller = [segue destinationViewController];
-        
-        controller.creditCardSample = self.creditCardSample;
-        controller.creditCardNumber = self.creditCardNumber;
-        controller.creditCardExpiration = self.creditCardExpiration;
-        controller.creditCardSecurityCode = self.creditCardSecurityCode;
-
-    } 
 }
 
 

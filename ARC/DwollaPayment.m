@@ -23,184 +23,222 @@
 
 - (void)viewDidLoad
 {
-    [rSkybox addEventToSession:@"viewDwollaPaymentScreen"];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
-    
-    self.fundingSourceStatus = @"";
-    self.serverData = [NSMutableData data];
-    
-    self.notesText.delegate = self;
-    self.checkNumOne.delegate = self;
-    self.checkNumTwo.delegate = self;
-    self.checkNumThree.delegate = self;
-    self.checkNumFour.delegate = self;
-    
-    self.checkNumOne.text = @" ";
-    self.checkNumTwo.text = @" ";
-    self.checkNumThree.text = @" ";
-    self.checkNumFour.text = @" ";
-    
-    self.checkNumOne.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-    self.checkNumTwo.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-    self.checkNumThree.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-    self.checkNumFour.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-    self.notesText.text = @"Transaction Notes (*optional):";
-    
-    self.notesText.layer.masksToBounds = YES;
-    self.notesText.layer.cornerRadius = 5.0;
+    @try {
         
-    self.fundingSourceStatus = @"";
-      
-    dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
-    dispatch_queue_t main = dispatch_get_main_queue();
-
-    dispatch_async(queue,^{
+        [rSkybox addEventToSession:@"viewDwollaPaymentScreen"];
         
-        @try {
-            DwollaFundingSources* sources = [DwollaAPI getFundingSources];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
+        
+        self.fundingSourceStatus = @"";
+        self.serverData = [NSMutableData data];
+        
+        self.notesText.delegate = self;
+        self.checkNumOne.delegate = self;
+        self.checkNumTwo.delegate = self;
+        self.checkNumThree.delegate = self;
+        self.checkNumFour.delegate = self;
+        
+        self.checkNumOne.text = @" ";
+        self.checkNumTwo.text = @" ";
+        self.checkNumThree.text = @" ";
+        self.checkNumFour.text = @" ";
+        
+        self.checkNumOne.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+        self.checkNumTwo.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+        self.checkNumThree.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+        self.checkNumFour.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+        self.notesText.text = @"Transaction Notes (*optional):";
+        
+        self.notesText.layer.masksToBounds = YES;
+        self.notesText.layer.cornerRadius = 5.0;
+        
+        self.fundingSourceStatus = @"";
+        
+        dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
+        dispatch_queue_t main = dispatch_get_main_queue();
+        
+        dispatch_async(queue,^{
             
-            //An array of DwollaFundingSource* objects
-            self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
-            self.fundingSourceStatus = @"success";
-            
-            if (self.waitingSources) {
-                self.waitingSources = NO;
+            @try {
+                DwollaFundingSources* sources = [DwollaAPI getFundingSources];
                 
-                dispatch_async(main,^{
-                    [self submit:nil];
-                });
+                //An array of DwollaFundingSource* objects
+                self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
+                self.fundingSourceStatus = @"success";
+                
+                if (self.waitingSources) {
+                    self.waitingSources = NO;
+                    
+                    dispatch_async(main,^{
+                        [self submit:nil];
+                    });
+                }
             }
-        }
-        @catch (NSException *exception) {
-            self.fundingSourceStatus = @"failed";
-        }
+            @catch (NSException *exception) {
+                self.fundingSourceStatus = @"failed";
+            }
+            
+            
+        });
         
-        
-    });
-    
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    self.view.backgroundColor = [UIColor clearColor];
-    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = self.view.bounds;
+        self.view.backgroundColor = [UIColor clearColor];
+        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+        [self.view.layer insertSublayer:gradient atIndex:0];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 
 -(void)viewWillAppear:(BOOL)animated{
-    [self.checkNumOne becomeFirstResponder];
-    self.serverData = [NSMutableData data];
-    
-    if (self.fromDwolla) {
-        self.fromDwolla = NO;
+    @try {
         
-        if (self.dwollaSuccess) {
+        [self.checkNumOne becomeFirstResponder];
+        self.serverData = [NSMutableData data];
+        
+        if (self.fromDwolla) {
+            self.fromDwolla = NO;
             
-            //Get the Funding Sources
-            
-            dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
-            dispatch_queue_t main = dispatch_get_main_queue();
-            
-            dispatch_async(queue,^{
+            if (self.dwollaSuccess) {
                 
-                @try {
-                    DwollaFundingSources* sources = [DwollaAPI getFundingSources];
-                    
-                    //An array of DwollaFundingSource* objects
-                    self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
-                    self.fundingSourceStatus = @"success";
-                    
-                    
-                }
-                @catch (NSException *exception) {
-                    self.fundingSourceStatus = @"failed";
-                    
-                }
+                //Get the Funding Sources
                 
-                dispatch_async(main,^{
-                    [self submit:nil];
+                dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
+                dispatch_queue_t main = dispatch_get_main_queue();
+                
+                dispatch_async(queue,^{
+                    
+                    @try {
+                        DwollaFundingSources* sources = [DwollaAPI getFundingSources];
+                        
+                        //An array of DwollaFundingSource* objects
+                        self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
+                        self.fundingSourceStatus = @"success";
+                        
+                        
+                    }
+                    @catch (NSException *exception) {
+                        self.fundingSourceStatus = @"failed";
+                        
+                    }
+                    
+                    dispatch_async(main,^{
+                        [self submit:nil];
+                    });
+                    
+                    
+                    
                 });
-
                 
                 
-            });
-    
-            
-        }else{
-            
-            [self.activity stopAnimating];
+            }else{
+                
+                [self.activity stopAnimating];
+            }
         }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    if ([textField.text isEqualToString:@" "]) {
+    @try {
         
-        if ([string isEqualToString:@""]) {
+        if ([textField.text isEqualToString:@" "]) {
             
-            [self performSelector:@selector(previousField) withObject:nil afterDelay:0.0];
-            
+            if ([string isEqualToString:@""]) {
+                
+                [self performSelector:@selector(previousField) withObject:nil afterDelay:0.0];
+                
+            }else{
+                textField.text = string;
+                [self performSelector:@selector(nextField) withObject:nil afterDelay:0.0];
+            }
         }else{
-            textField.text = string;
-            [self performSelector:@selector(nextField) withObject:nil afterDelay:0.0];
+            
+            if ([string isEqualToString:@""]) {
+                textField.text = @" ";
+            }
         }
-    }else{
         
-        if ([string isEqualToString:@""]) {
-            textField.text = @" ";
-        }
+        return FALSE;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.textField" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
-    return FALSE;
 }
 
 
 -(void)previousField{
-    
-    if ([self.checkNumFour isFirstResponder]) {
-        [self.checkNumThree becomeFirstResponder];
-        self.checkNumThree.text = @" ";
-    }else if ([self.checkNumThree isFirstResponder]){
-        [self.checkNumTwo becomeFirstResponder];
-        self.checkNumTwo.text = @" ";
+    @try {
         
-    }else if ([self.checkNumTwo isFirstResponder]){
-        [self.checkNumOne becomeFirstResponder];
-        self.checkNumOne.text = @" ";
-        
+        if ([self.checkNumFour isFirstResponder]) {
+            [self.checkNumThree becomeFirstResponder];
+            self.checkNumThree.text = @" ";
+        }else if ([self.checkNumThree isFirstResponder]){
+            [self.checkNumTwo becomeFirstResponder];
+            self.checkNumTwo.text = @" ";
+            
+        }else if ([self.checkNumTwo isFirstResponder]){
+            [self.checkNumOne becomeFirstResponder];
+            self.checkNumOne.text = @" ";
+            
+        }
     }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.previousField" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 -(void)nextField{
-    
-    if ([self.checkNumOne isFirstResponder]) {
-        [self.checkNumTwo becomeFirstResponder];
-    }else if ([self.checkNumTwo isFirstResponder]){
-        [self.checkNumThree becomeFirstResponder];
-    }else if ([self.checkNumThree isFirstResponder]){
-        [self.checkNumFour becomeFirstResponder];
+    @try {
+        
+        if ([self.checkNumOne isFirstResponder]) {
+            [self.checkNumTwo becomeFirstResponder];
+        }else if ([self.checkNumTwo isFirstResponder]){
+            [self.checkNumThree becomeFirstResponder];
+        }else if ([self.checkNumThree isFirstResponder]){
+            [self.checkNumFour becomeFirstResponder];
+        }
     }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.nextField" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]){
-		self.notesText.text = @"";
-	}
+    @try {
+        
+        if ([self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]){
+            self.notesText.text = @"";
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.textViewDidBeginEditing" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 
 
 - (IBAction)submit:(id)sender {
-    [rSkybox addEventToSession:@"submitForDwollaPayment"];
-    
-    self.errorLabel.text = @"";    
+    @try {
+        
+        [rSkybox addEventToSession:@"submitForDwollaPayment"];
+        
+        self.errorLabel.text = @"";
         
         if ([self.checkNumOne.text isEqualToString:@" "] || [self.checkNumTwo.text isEqualToString:@" "] || [self.checkNumThree.text isEqualToString:@" "] || [self.checkNumFour.text isEqualToString:@" "]) {
             
@@ -214,22 +252,22 @@
             @catch (NSException *exception) {
                 token = nil;
             }
-          
+            
             
             if ((token == nil) || [token isEqualToString:@""]) {
                 //get the token
                 [self.activity startAnimating];
                 
-  
+                
                 
                 [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
-
+                
                 
             }else{
                 
                 
                 if ([self.fundingSourceStatus isEqualToString:@"success"]) {
-
+                    
                     if ([self.fundingSources count] == 0) {
                         
                     }else if ([self.fundingSources count] == 1){
@@ -256,7 +294,7 @@
                         
                         
                     }
-                   
+                    
                     
                 }else if ([self.fundingSourceStatus isEqualToString:@"failure"]){
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dwolla Error" message:@"Unable to obtain Dwolla Funding Sources" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -268,25 +306,35 @@
                     [self.activity startAnimating];
                     
                 }
-
-
+                
+                
                 
             }
-                        
+            
         }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.submit" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 
 }
 
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex == [self.fundingSources count]) {
-        //Cancel
-    }else{
+    @try {
         
-        DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:buttonIndex];
-        self.selectedFundingSourceId = [tmp getSourceID];
-        [self performSelector:@selector(createPayment)];
+        if (buttonIndex == [self.fundingSources count]) {
+            //Cancel
+        }else{
+            
+            DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:buttonIndex];
+            self.selectedFundingSourceId = [tmp getSourceID];
+            [self performSelector:@selector(createPayment)];
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
@@ -343,39 +391,51 @@
     }
     @catch (NSException *e) {
         
-        //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"DwollaPayment.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 -(void)paymentComplete:(NSNotification *)notification{
-    [rSkybox addEventToSession:@"DwollaPaymentComplete"];
-    
-    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
-    
-    NSString *status = [responseInfo valueForKey:@"status"];
-    
-    [self.activity stopAnimating];
-    
-    if ([status isEqualToString:@"1"]) {
-        //success
-        self.errorLabel.text = @"";
+    @try {
         
-        [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
-    }else{
-        self.errorLabel.text = @"*Error submitting payment.";
+        [rSkybox addEventToSession:@"DwollaPaymentComplete"];
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        [self.activity stopAnimating];
+        
+        if ([status isEqualToString:@"1"]) {
+            //success
+            self.errorLabel.text = @"";
+            
+            [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
+        }else{
+            self.errorLabel.text = @"*Error submitting payment.";
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
-    if ([[segue identifier] isEqualToString:@"reviewTransaction"]) {
+    @try {
         
-        ReviewTransaction *next = [segue destinationViewController];
-        next.invoiceId = self.invoiceId;
-        next.totalAmount = self.totalAmount;
-    } 
+        if ([[segue identifier] isEqualToString:@"reviewTransaction"]) {
+            
+            ReviewTransaction *next = [segue destinationViewController];
+            next.invoiceId = self.invoiceId;
+            next.totalAmount = self.totalAmount;
+        } 
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"DwollaPayment.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+    
 }
 
 - (void)viewDidUnload {

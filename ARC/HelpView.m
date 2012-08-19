@@ -18,20 +18,25 @@
 
 - (void)viewDidLoad
 {
-    [rSkybox addEventToSession:@"viewHelpPage"];
-     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
-    
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = backView.bounds;
-    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [backView.layer insertSublayer:gradient atIndex:0];
-    
-    self.tableView.backgroundView = backView;
-    
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    @try {
+        [rSkybox addEventToSession:@"viewHelpPage"];
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+        
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = backView.bounds;
+        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+        [backView.layer insertSublayer:gradient atIndex:0];
+        
+        self.tableView.backgroundView = backView;
+        
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"HelpView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 - (void)viewDidUnload

@@ -7,6 +7,7 @@
 //
 
 #import "RegisterNavigation.h"
+#import "rSkybox.h"
 
 @interface RegisterNavigation ()
 
@@ -18,21 +19,38 @@
 
 - (void)viewDidLoad
 {
-
-    self.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    @try {
+        
+        self.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"RegisterNavigation.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    @try {
+        
+        [super viewDidUnload];
+        // Release any retained subviews of the main view.
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"RegisterNavigation.viewDidUnload" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    @try {
+        
+        return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"RegisterNavigation.shouldAutorotateToInterfaceOrientation" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 @end

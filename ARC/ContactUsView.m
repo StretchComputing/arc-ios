@@ -20,22 +20,27 @@
 
 - (void)viewDidLoad
 {
-    [rSkybox addEventToSession:@"viewContactUsPage"];
-     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
-    [super viewDidLoad];
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    self.view.backgroundColor = [UIColor clearColor];
-    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
-    
-	// Do any additional setup after loading the view.
-    self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
+    @try {
+        
+        [rSkybox addEventToSession:@"viewContactUsPage"];
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+        [super viewDidLoad];
+        
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = self.view.bounds;
+        self.view.backgroundColor = [UIColor clearColor];
+        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+        [self.view.layer insertSublayer:gradient atIndex:0];
+        
+        // Do any additional setup after loading the view.
+        self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ContactUsView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 
 }
-
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -49,70 +54,87 @@
 }
 
 - (IBAction)call {
-    [rSkybox addEventToSession:@"phoneCallToArc"];
-    
-    if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]){
+    @try {
         
-       
-        NSString *url = [@"tel://" stringByAppendingString:@"3125555555"];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-          
+        [rSkybox addEventToSession:@"phoneCallToArc"];
         
-        
-    }else {
-        
-        NSString *message1 = @"You cannot make calls from this device.";
-        UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:message1 delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert1 show];
+        if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]){
+            
+            
+            NSString *url = [@"tel://" stringByAppendingString:@"3125555555"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            
+            
+            
+        }else {
+            
+            NSString *message1 = @"You cannot make calls from this device.";
+            UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:message1 delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert1 show];
+            
+        }
         
     }
-
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ContactUsView.call" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
     
 }
 
 - (IBAction)email {
-    [rSkybox addEventToSession:@"emailToArc"];
-    
-    if ([MFMailComposeViewController canSendMail]) {
+    @try {
         
-        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-        mailViewController.mailComposeDelegate = self;
-        [mailViewController setToRecipients:@[@"info@arc.com"]];
+        [rSkybox addEventToSession:@"emailToArc"];
         
-        [self presentModalViewController:mailViewController animated:YES];
+        if ([MFMailComposeViewController canSendMail]) {
+            
+            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+            mailViewController.mailComposeDelegate = self;
+            [mailViewController setToRecipients:@[@"info@arc.com"]];
+            
+            [self presentModalViewController:mailViewController animated:YES];
+            
+        }else {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
         
-    }else {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
     }
-    
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ContactUsView.email" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	
-	switch (result)
-	{
-		case MFMailComposeResultCancelled:
-			break;
-		case MFMailComposeResultSent:
-            
-			break;
-		case MFMailComposeResultFailed:
-            
-			break;
-			
-		case MFMailComposeResultSaved:
-            
-			break;
-		default:
-			
-			break;
-	}
-	
-	
-	[self dismissModalViewControllerAnimated:YES];
-	
+    @try {
+        
+        switch (result)
+        {
+            case MFMailComposeResultCancelled:
+                break;
+            case MFMailComposeResultSent:
+                
+                break;
+            case MFMailComposeResultFailed:
+                
+                break;
+                
+            case MFMailComposeResultSaved:
+                
+                break;
+            default:
+                
+                break;
+        }
+        
+        
+        [self dismissModalViewControllerAnimated:YES];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ContactUsView.mailComposeController" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 @end

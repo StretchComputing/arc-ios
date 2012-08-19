@@ -21,93 +21,109 @@
 
 @implementation SettingsView
 
-
 -(void)viewWillAppear:(BOOL)animated{
-    [self performSelector:@selector(getPointsBalance)];
-    
-    NSString *dwollaAuthToken = @"";
     @try {
-        dwollaAuthToken = [DwollaAPI getAccessToken];
-    }
-    @catch (NSException *exception) {
-        dwollaAuthToken = nil;
-    }
-    
-    if ((dwollaAuthToken == nil) || [dwollaAuthToken isEqualToString:@""]) {
-        self.dwollaAuthSwitch.on = NO;
-    }else{
-        self.dwollaAuthSwitch.on = YES;
-    }
-    
-    if (self.fromDwolla) {
-        self.fromDwolla = NO;
         
-        NSString *title = @"";
-        NSString *message = @"";
-        if (self.dwollaSuccess) {
-            
-            title = @"Success!";
-            message = @"Congratulations! You are now authorized for Dwolla!";
-            
-        }else{
-            
-            title = @"Authorization Error";
-            message = @"You were not successfully authorized for Dwolla.  Please try again";
+        [self performSelector:@selector(getPointsBalance)];
+        
+        NSString *dwollaAuthToken = @"";
+        @try {
+            dwollaAuthToken = [DwollaAPI getAccessToken];
+        }
+        @catch (NSException *exception) {
+            dwollaAuthToken = nil;
         }
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
+        if ((dwollaAuthToken == nil) || [dwollaAuthToken isEqualToString:@""]) {
+            self.dwollaAuthSwitch.on = NO;
+        }else{
+            self.dwollaAuthSwitch.on = YES;
+        }
+        
+        if (self.fromDwolla) {
+            self.fromDwolla = NO;
+            
+            NSString *title = @"";
+            NSString *message = @"";
+            if (self.dwollaSuccess) {
+                
+                title = @"Success!";
+                message = @"Congratulations! You are now authorized for Dwolla!";
+                
+            }else{
+                
+                title = @"Authorization Error";
+                message = @"You were not successfully authorized for Dwolla.  Please try again";
+            }
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+        if (self.creditCardAdded){
+            self.creditCardAdded = NO;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was added successfully!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+        if (self.creditCardDeleted){
+            self.creditCardDeleted = NO;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was deleted successfully!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
     }
-    
-    if (self.creditCardAdded){
-        self.creditCardAdded = NO;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was added successfully!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SettingsView:viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    
-    if (self.creditCardDeleted){
-        self.creditCardDeleted = NO;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was deleted successfully!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-    }
-    
 
-    
 }
+
 - (void)viewDidLoad
 {
-    [rSkybox addEventToSession:@"viewSettingsPage"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointBalanceComplete:) name:@"getPointBalanceNotification" object:nil];
-    
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+    @try {
+        [rSkybox addEventToSession:@"viewSettingsPage"];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointBalanceComplete:) name:@"getPointBalanceNotification" object:nil];
+        
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+        
+        
+        
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = backView.bounds;
+        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+        [backView.layer insertSublayer:gradient atIndex:0];
+        
+        self.tableView.backgroundView = backView;
+        
+        
+        self.serverData = [NSMutableData data];
+        [super viewDidLoad];
+        // Do any additional setup after loading the view.
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SettingsView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 
-
-    
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = backView.bounds;
-    UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [backView.layer insertSublayer:gradient atIndex:0];
-    
-    self.tableView.backgroundView = backView;
-    
-
-    self.serverData = [NSMutableData data];
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSUInteger row = [indexPath row];
-    NSUInteger section = [indexPath section];
-    
-    if ((section == 2) && (row == 2)) {
-       
-        ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
-        mainDelegate.logout = @"true";
-        [self.navigationController dismissModalViewControllerAnimated:NO];
+    @try {
+        
+        NSUInteger row = [indexPath row];
+        NSUInteger section = [indexPath section];
+        
+        if ((section == 2) && (row == 2)) {
+            
+            ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+            mainDelegate.logout = @"true";
+            [self.navigationController dismissModalViewControllerAnimated:NO];
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SettingsView.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -129,30 +145,36 @@
         [self.activity startAnimating];
     }
     @catch (NSException *e) {
-        //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"SettingsView.getPointsBalance" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 -(void)pointBalanceComplete:(NSNotification *)notification{
-    [rSkybox addEventToSession:@"pointBalanceComplete"];
-    NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
-    
-    NSString *status = [responseInfo valueForKey:@"status"];
-    
-    [self.activity stopAnimating];
-    
-    if ([status isEqualToString:@"1"]) {
-        //success
-        NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
-        int balance = [[apiResponse valueForKey:@"Current"] intValue];
-        int lifetime = [[apiResponse valueForKey:@"Lifetime"] intValue];
+    @try {
         
-        self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
+        [rSkybox addEventToSession:@"pointBalanceComplete"];
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-        self.lifetimePointsLabel.text = [NSString stringWithFormat:@"Lifetime Points: %d", lifetime];
-        self.pointsProgressView.progress = (float)balance/900.00;
-    }else{
-        //self.errorLabel.text = @"*Error getting point balance payment.";
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        [self.activity stopAnimating];
+        
+        if ([status isEqualToString:@"1"]) {
+            //success
+            NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
+            int balance = [[apiResponse valueForKey:@"Current"] intValue];
+            int lifetime = [[apiResponse valueForKey:@"Lifetime"] intValue];
+            
+            self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
+            
+            self.lifetimePointsLabel.text = [NSString stringWithFormat:@"Lifetime Points: %d", lifetime];
+            self.pointsProgressView.progress = (float)balance/900.00;
+        }else{
+            //self.errorLabel.text = @"*Error getting point balance payment.";
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SettingsView.pointBalanceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -163,26 +185,36 @@
 }
 
 - (IBAction)dwollaAuthSwitchSelected {
-    
-    if (self.dwollaAuthSwitch.on) {
-       
-        [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+    @try {
         
-    }else{
-       
-        [DwollaAPI clearAccessToken];
+        if (self.dwollaAuthSwitch.on) {
+            
+            [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+            
+        }else{
+            
+            [DwollaAPI clearAccessToken];
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SettingsView.dwollaAuthSwitchSelected" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
-    if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
+    @try {
         
-        RegisterDwollaView *detailViewController = [segue destinationViewController];
-        detailViewController.fromRegister = YES;
-    } 
+        if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
+            
+            RegisterDwollaView *detailViewController = [segue destinationViewController];
+            detailViewController.fromRegister = YES;
+        } 
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SettingsView.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 

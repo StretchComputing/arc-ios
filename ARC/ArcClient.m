@@ -33,8 +33,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
-    @catch (NSException *exception) {
-        // TODO add in rSkybox call
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -57,8 +57,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
-    @catch (NSException *exception) {
-        // TODO add in rSkybox call
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getCustomerToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -79,8 +79,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
-    @catch (NSException *exception) {
-        // TODO add in rSkybox call
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getMerchantList" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -103,8 +103,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
-    @catch (NSException *exception) {
-        // TODO add in rSkybox call
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getInvoice" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -127,8 +127,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
-    @catch (NSException *exception) {
-        // TODO add in rSkybox call
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -150,8 +150,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
-    @catch (NSException *exception) {
-        // TODO add in rSkybox call
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -172,254 +172,338 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         self.serverData = [NSMutableData data];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
-    @catch (NSException *exception) {
-        // TODO add in rSkybox call
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getPointBalance" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
-    [self.serverData appendData:mdata];
+    @try {
+        
+        [self.serverData appendData:mdata];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.connection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSData *returnData = [NSData dataWithData:self.serverData];
-    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-    
-   // NSLog(@"ReturnString: %@", returnString);
-    
-    SBJsonParser *jsonParser = [SBJsonParser new];
-    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-    
-    NSDictionary *responseInfo;
-    NSString *notificationType;
-    if(api == CreateCustomer) {
-        responseInfo = [self createCustomerResponse:response];
-        notificationType = @"registerNotification";
-    } else if(api == GetCustomerToken) {
-        responseInfo = [self getCustomerTokenResponse:response];
-        notificationType = @"signInNotification";
-    } else if(api == GetMerchantList) {
-        responseInfo = [self getMerchantListResponse:response];
-        notificationType = @"merchantListNotification";
-    } else if(api == GetInvoice) {
-        responseInfo = [self getInvoiceResponse:response];
-        notificationType = @"invoiceNotification";
-    } else if(api == CreatePayment) {
-        responseInfo = [self createPaymentResponse:response];
-        notificationType = @"createPaymentNotification";
-    } else if(api == CreateReview) {
-        responseInfo = [self createReviewResponse:response];
-        notificationType = @"createReviewNotification";
-    } else if(api == GetPointBalance) {
-        responseInfo = [self getPointBalanceResponse:response];
-        notificationType = @"getPointBalanceNotification";
+    @try {
+        
+        NSData *returnData = [NSData dataWithData:self.serverData];
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        
+        // NSLog(@"ReturnString: %@", returnString);
+        
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+        
+        NSDictionary *responseInfo;
+        NSString *notificationType;
+        if(api == CreateCustomer) {
+            responseInfo = [self createCustomerResponse:response];
+            notificationType = @"registerNotification";
+        } else if(api == GetCustomerToken) {
+            responseInfo = [self getCustomerTokenResponse:response];
+            notificationType = @"signInNotification";
+        } else if(api == GetMerchantList) {
+            responseInfo = [self getMerchantListResponse:response];
+            notificationType = @"merchantListNotification";
+        } else if(api == GetInvoice) {
+            responseInfo = [self getInvoiceResponse:response];
+            notificationType = @"invoiceNotification";
+        } else if(api == CreatePayment) {
+            responseInfo = [self createPaymentResponse:response];
+            notificationType = @"createPaymentNotification";
+        } else if(api == CreateReview) {
+            responseInfo = [self createReviewResponse:response];
+            notificationType = @"createReviewNotification";
+        } else if(api == GetPointBalance) {
+            responseInfo = [self getPointBalanceResponse:response];
+            notificationType = @"getPointBalanceNotification";
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    
-    NSLog(@"Error: %@", error);
-    
-    NSDictionary *responseInfo = @{@"status": @"fail",
-                              @"error": error};
-    NSString *notificationType;
-    if(api == CreateCustomer) {
-        notificationType = @"registerNotification";
-    } else if(api == GetCustomerToken) {
-        notificationType = @"signInNotification";
-    } else if(api == GetMerchantList) {
-        notificationType = @"merchantListNotification";
-    } else if(api == GetInvoice) {
-        notificationType = @"invoiceNotification";
-    } else if(api == CreatePayment) {
-        notificationType = @"createPaymentNotification";
-    } else if(api == CreatePayment) {
-        notificationType = @"createReviewNotification";
-    } else if(api == GetPointBalance) {
-        notificationType = @"getPointBalanceNotification";
+    @try {
+        
+        NSLog(@"Error: %@", error);
+        
+        NSDictionary *responseInfo = @{@"status": @"fail",
+        @"error": error};
+        NSString *notificationType;
+        if(api == CreateCustomer) {
+            notificationType = @"registerNotification";
+        } else if(api == GetCustomerToken) {
+            notificationType = @"signInNotification";
+        } else if(api == GetMerchantList) {
+            notificationType = @"merchantListNotification";
+        } else if(api == GetInvoice) {
+            notificationType = @"invoiceNotification";
+        } else if(api == CreatePayment) {
+            notificationType = @"createPaymentNotification";
+        } else if(api == CreatePayment) {
+            notificationType = @"createReviewNotification";
+        } else if(api == GetPointBalance) {
+            notificationType = @"getPointBalanceNotification";
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.connection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 -(NSDictionary *) createCustomerResponse:(NSDictionary *)response {
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    NSDictionary *responseInfo;
-    if (success){
-        NSDictionary *customer = [response valueForKey:@"Customer"];
-        NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
-        NSString *customerToken = [customer valueForKey:@"Token"];
+    @try {
         
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
         
-        [prefs setObject:customerId forKey:@"customerId"];
-        [prefs setObject:customerToken forKey:@"customerToken"];
-        [prefs synchronize];
-        
-        //Add this customer to the DB
-        [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
-        
-        responseInfo = @{@"status": @"1"};
-    } else {
-        NSString *message = [response valueForKey:@"Message"];
-        //NSString *message = @"Internal Server Error";
-        NSString *status = @"0";
-        
-        responseInfo = @{@"status": status,
-                    @"error": message};
+        NSDictionary *responseInfo;
+        if (success){
+            NSDictionary *customer = [response valueForKey:@"Customer"];
+            NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
+            NSString *customerToken = [customer valueForKey:@"Token"];
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            [prefs setObject:customerId forKey:@"customerId"];
+            [prefs setObject:customerToken forKey:@"customerToken"];
+            [prefs synchronize];
+            
+            //Add this customer to the DB
+            [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
+            
+            responseInfo = @{@"status": @"1"};
+        } else {
+            NSString *message = [response valueForKey:@"Message"];
+            //NSString *message = @"Internal Server Error";
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
     }
-    return responseInfo;
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createCustomerResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(NSDictionary *) getCustomerTokenResponse:(NSDictionary *)response {
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-     
-    NSDictionary *responseInfo;
-     if (success){
-         NSDictionary *customer = [response valueForKey:@"Customer"];
-         NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
-         NSString *customerToken = [customer valueForKey:@"Token"];
-     
-         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-     
-         [prefs setObject:customerId forKey:@"customerId"];
-         [prefs setObject:customerToken forKey:@"customerToken"];
-         [prefs synchronize];
-     
-         //Add this customer to the DB
-         [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
-         
-         responseInfo = @{@"status": @"1"};
-     } else {
-         NSString *message = [response valueForKey:@"Message"];
-         //NSString *message = @"Internal Server Error";
-         NSString *status = @"0";
-         
-         responseInfo = @{@"status": status,
-                     @"error": message};
-     }
-    return responseInfo;
+    @try {
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            NSDictionary *customer = [response valueForKey:@"Customer"];
+            NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
+            NSString *customerToken = [customer valueForKey:@"Token"];
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            [prefs setObject:customerId forKey:@"customerId"];
+            [prefs setObject:customerToken forKey:@"customerToken"];
+            [prefs synchronize];
+            
+            //Add this customer to the DB
+            [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
+            
+            responseInfo = @{@"status": @"1"};
+        } else {
+            NSString *message = [response valueForKey:@"Message"];
+            //NSString *message = @"Internal Server Error";
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getCustomerTokenResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(NSDictionary *) getMerchantListResponse:(NSDictionary *)response {
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    NSDictionary *responseInfo;
-    if (success){
-        responseInfo = @{@"status": @"1",
-                    @"apiResponse": response};
-    } else {
-        NSString *message = [response valueForKey:@"Message"];
-        NSString *status = @"0";
+    @try {
         
-        responseInfo = @{@"status": status,
-                    @"error": message};
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"1",
+            @"apiResponse": response};
+        } else {
+            NSString *message = [response valueForKey:@"Message"];
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
     }
-    return responseInfo;
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getMerchantListResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(NSDictionary *) getInvoiceResponse:(NSDictionary *)response {
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    NSDictionary *responseInfo;
-    if (success){
-        responseInfo = @{@"status": @"1",
-                        @"apiResponse": response};
-    } else {
-        NSString *message = [response valueForKey:@"Message"];
-        NSString *status = @"0";
+    @try {
         
-        responseInfo = @{@"status": status,
-                        @"error": message};
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"1",
+            @"apiResponse": response};
+        } else {
+            NSString *message = [response valueForKey:@"Message"];
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
     }
-    return responseInfo;
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getInvoiceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(NSDictionary *) createPaymentResponse:(NSDictionary *)response {
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    NSDictionary *responseInfo;
-    if (success){
-        responseInfo = @{@"status": @"1",
-                        @"apiResponse": response};
-    } else {
-        NSString *message = [response valueForKey:@"Message"];
-        NSString *status = @"0";
+    @try {
         
-        responseInfo = @{@"status": status,
-                        @"error": message};
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"1",
+            @"apiResponse": response};
+        } else {
+            NSString *message = [response valueForKey:@"Message"];
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
     }
-    return responseInfo;
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createPaymentResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(NSDictionary *) createReviewResponse:(NSDictionary *)response {
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    NSDictionary *responseInfo;
-    if (success){
-        responseInfo = @{@"status": @"1",
-                        @"apiResponse": response};
-    } else {
-        NSString *message = [response valueForKey:@"Message"];
-        NSString *status = @"0";
+    @try {
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
         
-        responseInfo = @{@"status": status,
-                        @"error": message};
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"1",
+            @"apiResponse": response};
+        } else {
+            NSString *message = [response valueForKey:@"Message"];
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
     }
-    return responseInfo;
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createReviewResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 -(NSDictionary *) getPointBalanceResponse:(NSDictionary *)response {
-    BOOL success = [[response valueForKey:@"Success"] boolValue];
-    
-    NSDictionary *responseInfo;
-    if (success){
-        responseInfo = @{@"status": @"1",
-                        @"apiResponse": response};
-    } else {
-        NSString *message = [response valueForKey:@"Message"];
-        NSString *status = @"0";
+    @try {
         
-        responseInfo = @{@"status": status,
-                        @"error": message};
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"1",
+            @"apiResponse": response};
+        } else {
+            NSString *message = [response valueForKey:@"Message"];
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
     }
-    return responseInfo;
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getPointBalanceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 
 -(NSString *) authHeader {
-    NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
-    NSString *authentication = [self encodeBase64:stringToEncode];
-    return authentication;
+    @try {
+        
+        NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
+        NSString *authentication = [self encodeBase64:stringToEncode];
+        return authentication;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.authHeader" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(void) addToDatabase {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *customerId = [prefs valueForKey:@"customerId"];
-    NSString *customerToken = [prefs valueForKey:@"customerToken"];
-    
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
+    @try {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *customerId = [prefs valueForKey:@"customerId"];
+        NSString *customerToken = [prefs valueForKey:@"customerToken"];
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [mainDelegate insertCustomerWithId:customerId andToken:customerToken];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.addToDatabase" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(NSString *) customerToken {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *customerToken = [prefs valueForKey:@"customerToken"];
-    return customerToken;
+    @try {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *customerToken = [prefs valueForKey:@"customerToken"];
+        return customerToken;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.customerToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(NSString *)encodeBase64:(NSString *)stringToEncode{	
-	NSData *encodeData = [stringToEncode dataUsingEncoding:NSUTF8StringEncoding];
-	char encodeArray[512];
-	memset(encodeArray, '\0', sizeof(encodeArray));
-	
-	// Base64 Encode username and password
-	encode([encodeData length], (char *)[encodeData bytes], sizeof(encodeArray), encodeArray);
-	NSString *dataStr = [NSString stringWithCString:encodeArray length:strlen(encodeArray)];
-	NSString *encodedString =[@"" stringByAppendingFormat:@"Basic %@", dataStr];
-	
-	return encodedString;
+    @try {
+        
+        NSData *encodeData = [stringToEncode dataUsingEncoding:NSUTF8StringEncoding];
+        char encodeArray[512];
+        memset(encodeArray, '\0', sizeof(encodeArray));
+        
+        // Base64 Encode username and password
+        encode([encodeData length], (char *)[encodeData bytes], sizeof(encodeArray), encodeArray);
+        NSString *dataStr = [NSString stringWithCString:encodeArray length:strlen(encodeArray)];
+        NSString *encodedString =[@"" stringByAppendingFormat:@"Basic %@", dataStr];
+        
+        return encodedString;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.encodeBase64" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 
