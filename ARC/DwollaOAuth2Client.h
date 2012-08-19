@@ -3,7 +3,7 @@
 //  DwollaOAuth
 //
 //  Created by Nick Schulze on 6/6/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 //  A class used to obtain an access token for accessing the
 //  Dwolla API

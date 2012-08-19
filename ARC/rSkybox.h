@@ -3,8 +3,17 @@
 //  rTeam
 //
 //  Created by Nick Wroblewski on 4/30/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
+
+/*
+ @try {
+ }
+ @catch (NSException *e) {
+ [rSkybox sendClientLog:@"initManagedDocument" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+ }
+
+ */
 
 #import <Foundation/Foundation.h>
 

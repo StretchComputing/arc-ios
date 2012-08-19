@@ -3,7 +3,7 @@
 //  DwollaSDK
 //
 //  Created by Nick Schulze on 6/4/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 //  A class used to access the Dwolla API, must have an oauth 
 //  token for most of the methods

@@ -3,7 +3,7 @@
 //  ARC
 //
 //  Created by Nick Wroblewski on 7/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 
 #import "AddCreditCard.h"
@@ -261,8 +261,6 @@
 
 
 -(void)addCard{
-    [rSkybox addEventToSession:@"clickAddCreditCardButton"];
-    
     if ([[self creditCardStatus] isEqualToString:@"valid"]) {
         
         NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];

@@ -3,7 +3,7 @@
 //  ARC
 //
 //  Created by Nick Wroblewski on 6/25/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 
 #import "RegisterView.h"
@@ -217,7 +217,6 @@
 
 
 -(void)addCreditCard{
-    [rSkybox addEventToSession:@"addCreditCard"];
     
     NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];

@@ -3,7 +3,7 @@
 //  ARC
 //
 //  Created by Nick Wroblewski on 6/24/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 
 #import "ArcAppDelegate.h"
@@ -146,66 +146,85 @@
 
 
 -(void)initManagedDocument{
-    
-    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:@"DataBase"];
-    
-    self.managedDocument = [[UIManagedDocument alloc] initWithFileURL:url];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]){
+    @try {
+        NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        url = [url URLByAppendingPathComponent:@"DataBase"];
         
-        [self.managedDocument openWithCompletionHandler:^(BOOL success){
-            if (success) {
-                [self documentIsReady];
-            }else{
-                NSLog(@"Could not open document");
-            }
-        }];
+        self.managedDocument = [[UIManagedDocument alloc] initWithFileURL:url];
         
-    }else{
-        
-        [self.managedDocument saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
-           
-            if (success) {
-                [self documentIsReady];
-            }else{
-                NSLog(@"Could not create document");
-            }
-        }];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]){
+            
+            [self.managedDocument openWithCompletionHandler:^(BOOL success){
+                if (success) {
+                    [self documentIsReady];
+                }else{
+                    NSLog(@"Could not open document");
+                }
+            }];
+            
+        }else{
+            
+            [self.managedDocument saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
+                
+                if (success) {
+                    [self documentIsReady];
+                }else{
+                    NSLog(@"Could not create document");
+                }
+            }];
+        }
     }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.initManagedDocument" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 -(void)documentIsReady{
-    
-    NSLog(@"Document is ready!!");
-    
-    if (self.managedDocument.documentState == UIDocumentStateNormal) {
-        self.managedObjectContext = self.managedDocument.managedObjectContext;
+    @try {
+        NSLog(@"Document is ready!!");
+        
+        if (self.managedDocument.documentState == UIDocumentStateNormal) {
+            self.managedObjectContext = self.managedDocument.managedObjectContext;
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.documentIsReady" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
 
 -(void)saveDocument{
+    @try {
+        [self.managedDocument saveToURL:self.managedDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
+            
+            if (!success) {
+                NSLog(@"Failed to save");
+            }else{
+                NSLog(@"Saved Document Successfully");
+            }
+        }];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.saveDocument" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
     
-    [self.managedDocument saveToURL:self.managedDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
-        
-        if (!success) {
-            NSLog(@"Failed to save");
-        }else{
-            NSLog(@"Saved Document Successfully");
-        }
-    }];
 }
 
 -(void)closeDocument{
-    [self.managedDocument closeWithCompletionHandler:^(BOOL success){
-       
-        if (!success) {
-            NSLog(@"Failed to close");
-        }else{
-            NSLog(@"Closed Document");
-        }
-    }];
+    @try {
+        [self.managedDocument closeWithCompletionHandler:^(BOOL success){
+            
+            if (!success) {
+                NSLog(@"Failed to close");
+            }else{
+                NSLog(@"Closed Document");
+            }
+        }];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.closeDocument" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 
@@ -229,20 +248,19 @@
             NSLog(@"Customer Already Exists");
         }
     }
-    @catch (NSException *exception) {
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.insertCustomerWithId" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
     }
   
-  
-    
-    
 }
 
 -(void)insertCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration andPin:(NSString *)pin{
     
 
     @try {
-        
+        [rSkybox addEventToSession:@"insertCreditCardWithNumber"];
+                
         Customer *customer = [self getCurrentCustomer];
         
         CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
@@ -257,12 +275,10 @@
         
         [self saveDocument];
     }
-    @catch (NSException *exception) {
-
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.insertCustomerWithId" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
   
-    
-    
 }
 
 -(Customer *)getCurrentCustomer{
@@ -291,7 +307,8 @@
             return (Customer *)[returnedArray objectAtIndex:0];
         }
     }
-    @catch (NSException *exception) {
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.getCurrentCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @[];
     }
    
@@ -327,7 +344,8 @@
         }
         
     }
-    @catch (NSException *exception) {
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.getAllCreditCardsForCurrentCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @[];
     }
    
@@ -357,7 +375,8 @@
         }
         
     }
-    @catch (NSException *exception) {
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.getCreditCardWithNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @[];
     }
     
@@ -367,6 +386,8 @@
 -(void)deleteCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration{
     
     @try {
+        [rSkybox addEventToSession:@"deleteCreditCardWithNumber"];
+
         NSArray *tmp = [self getCreditCardWithNumber:number andSecurityCode:securityCode andExpiration:expiration];
         
         if ([tmp count] > 0){
@@ -378,25 +399,36 @@
             [self saveDocument];
         }
     }
-    @catch (NSException *exception) {
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.deleteCreditCardWithNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
     }
   
 }
 
 -(NSString *)getCustomerId{
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    return [prefs valueForKey:@"customerId"];
+    @try {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
+        return [prefs valueForKey:@"customerId"];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.getCustomerId" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+    }
+    
 }
 
 -(NSString *)getCustomerToken{
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    return [prefs valueForKey:@"customerToken"];
+    @try {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        return [prefs valueForKey:@"customerToken"];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.getCustomerId" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+    }
     
 }
 

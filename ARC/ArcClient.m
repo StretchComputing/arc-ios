@@ -67,7 +67,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         [rSkybox addEventToSession:@"getMerchantList"];
         api = GetMerchantList;
         
-        [rSkybox sendClientLog:@"getMerchantList" logMessage:@"jpw testing rSkybox in Arc" logLevel:@"error" exception:nil];
+        //[rSkybox sendClientLog:@"getMerchantList" logMessage:@"jpw testing rSkybox in Arc" logLevel:@"error" exception:nil];
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
@@ -257,9 +257,6 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         [prefs setObject:customerToken forKey:@"customerToken"];
         [prefs synchronize];
         
-        // NICK:: called addToDatabase instead like for getTokenResponse() below -- is this a better way to do it?
-        //ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        //[mainDelegate insertCustomerWithId:customerId andToken:customerToken];
         //Add this customer to the DB
         [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
         
