@@ -8,12 +8,12 @@
 
 #import "SettingsView.h"
 #import "ArcAppDelegate.h"
-#import "NewJSON.h"
 #import "ArcAppDelegate.h"
 #import "DwollaAPI.h"
 #import "RegisterDwollaView.h"
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
+#import "rSkybox.h"
 
 @interface SettingsView ()
 
@@ -76,6 +76,7 @@
 }
 - (void)viewDidLoad
 {
+    [rSkybox addEventToSession:@"viewSettingsPage"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointBalanceComplete:) name:@"getPointBalanceNotification" object:nil];
     
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
@@ -133,6 +134,7 @@
 }
 
 -(void)pointBalanceComplete:(NSNotification *)notification{
+    [rSkybox addEventToSession:@"pointBalanceComplete"];
     NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
     
     NSString *status = [responseInfo valueForKey:@"status"];

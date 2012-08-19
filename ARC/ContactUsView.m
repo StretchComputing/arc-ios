@@ -8,6 +8,7 @@
 
 #import "ContactUsView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "rSkybox.h"
 
 @interface ContactUsView ()
 
@@ -19,6 +20,7 @@
 
 - (void)viewDidLoad
 {
+    [rSkybox addEventToSession:@"viewContactUsPage"];
      self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
     [super viewDidLoad];
     
@@ -47,6 +49,7 @@
 }
 
 - (IBAction)call {
+    [rSkybox addEventToSession:@"phoneCallToArc"];
     
     if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]){
         
@@ -68,6 +71,7 @@
 }
 
 - (IBAction)email {
+    [rSkybox addEventToSession:@"emailToArc"];
     
     if ([MFMailComposeViewController canSendMail]) {
         

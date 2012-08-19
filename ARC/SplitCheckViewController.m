@@ -8,6 +8,7 @@
 
 #import "SplitCheckViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "rSkybox.h"
 
 @interface SplitCheckViewController ()
 
@@ -97,6 +98,7 @@
 }
 
 - (IBAction)dollarTipDidBegin {
+    [rSkybox addEventToSession:@"dollarTipDidBegin"];
     
     [UIView animateWithDuration:0.3 animations:^{
        
@@ -105,6 +107,7 @@
 }
 
 - (IBAction)percentTipDidBegin {
+    [rSkybox addEventToSession:@"percentTipDidBegin"];
     
     [UIView animateWithDuration:0.3 animations:^{
         

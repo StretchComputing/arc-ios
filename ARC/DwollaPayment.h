@@ -37,5 +37,4 @@
 @property (strong, nonatomic) NSString *fundingSourceStatus;
 @property (nonatomic, strong) NSString *selectedFundingSourceId;
 
-
 @end

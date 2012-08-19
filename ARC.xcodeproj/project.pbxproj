@@ -43,12 +43,6 @@
 		90B6B0D31599EF22005E4BCB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B6B0D21599EF22005E4BCB /* Icon.png */; };
 		90B6B0D51599EF26005E4BCB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B6B0D41599EF26005E4BCB /* Icon@2x.png */; };
 		90B6B0D71599F121005E4BCB /* plainArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B6B0D61599F121005E4BCB /* plainArc.png */; };
-		90B6B0ED159A04E6005E4BCB /* NewNSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0E2159A04E6005E4BCB /* NewNSObject+SBJSON.m */; };
-		90B6B0EE159A04E6005E4BCB /* NewNSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0E4159A04E6005E4BCB /* NewNSString+SBJSON.m */; };
-		90B6B0EF159A04E6005E4BCB /* NewSBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0E6159A04E6005E4BCB /* NewSBJSON.m */; };
-		90B6B0F0159A04E6005E4BCB /* NewSBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0E8159A04E6005E4BCB /* NewSBJsonBase.m */; };
-		90B6B0F1159A04E6005E4BCB /* NewSBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0EA159A04E6005E4BCB /* NewSBJsonParser.m */; };
-		90B6B0F2159A04E6005E4BCB /* NewSBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0EC159A04E6005E4BCB /* NewSBJsonWriter.m */; };
 		90B6B0FD159A1D6C005E4BCB /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0FC159A1D6C005E4BCB /* Merchant.m */; };
 		90B6B104159A3FFA005E4BCB /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B103159A3FFA005E4BCB /* Restaurant.m */; };
 		90B6B10E159A4F87005E4BCB /* InvoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B10D159A4F86005E4BCB /* InvoiceView.m */; };
@@ -101,6 +95,10 @@
 		90FBDC48159CE4FA0051609A /* PushSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */; };
 		9F34F57315CF0CE30084184B /* ArcClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F34F57215CF0CE30084184B /* ArcClient.m */; };
 		9F45D81F15D33F3300682F19 /* Encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F45D81D15D33F3300682F19 /* Encoder.c */; };
+		9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68CFA15E083750048789D /* UIDevice-Hardware.m */; };
+		9FA68D0615E083BB0048789D /* rSkybox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68D0515E083BB0048789D /* rSkybox.m */; };
+		9FA68D0815E087020048789D /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA68D0715E087020048789D /* libCrashReporter-iphoneos.a */; };
+		9FA68D0A15E0880B0048789D /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA68D0915E0880B0048789D /* CrashReporter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,19 +157,6 @@
 		90B6B0D21599EF22005E4BCB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		90B6B0D41599EF26005E4BCB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		90B6B0D61599F121005E4BCB /* plainArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plainArc.png; sourceTree = "<group>"; };
-		90B6B0E0159A04E5005E4BCB /* NewJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewJSON.h; sourceTree = "<group>"; };
-		90B6B0E1159A04E5005E4BCB /* NewNSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NewNSObject+SBJSON.h"; sourceTree = "<group>"; };
-		90B6B0E2159A04E6005E4BCB /* NewNSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NewNSObject+SBJSON.m"; sourceTree = "<group>"; };
-		90B6B0E3159A04E6005E4BCB /* NewNSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NewNSString+SBJSON.h"; sourceTree = "<group>"; };
-		90B6B0E4159A04E6005E4BCB /* NewNSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NewNSString+SBJSON.m"; sourceTree = "<group>"; };
-		90B6B0E5159A04E6005E4BCB /* NewSBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSBJSON.h; sourceTree = "<group>"; };
-		90B6B0E6159A04E6005E4BCB /* NewSBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSBJSON.m; sourceTree = "<group>"; };
-		90B6B0E7159A04E6005E4BCB /* NewSBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSBJsonBase.h; sourceTree = "<group>"; };
-		90B6B0E8159A04E6005E4BCB /* NewSBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSBJsonBase.m; sourceTree = "<group>"; };
-		90B6B0EA159A04E6005E4BCB /* NewSBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSBJsonParser.m; sourceTree = "<group>"; };
-		90B6B0EB159A04E6005E4BCB /* NewSBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSBJsonWriter.h; sourceTree = "<group>"; };
-		90B6B0EC159A04E6005E4BCB /* NewSBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewSBJsonWriter.m; sourceTree = "<group>"; };
-		90B6B0F3159A06E9005E4BCB /* NewSBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewSBJsonParser.h; sourceTree = "<group>"; };
 		90B6B0FB159A1D6B005E4BCB /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
 		90B6B0FC159A1D6C005E4BCB /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
 		90B6B102159A3FFA005E4BCB /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
@@ -267,6 +252,12 @@
 		9F34F57215CF0CE30084184B /* ArcClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcClient.m; sourceTree = "<group>"; };
 		9F45D81D15D33F3300682F19 /* Encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Encoder.c; path = ARC/Encoder.c; sourceTree = "<group>"; };
 		9F45D81E15D33F3300682F19 /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Encoder.h; path = ARC/Encoder.h; sourceTree = "<group>"; };
+		9FA68CF915E083750048789D /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
+		9FA68CFA15E083750048789D /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
+		9FA68D0415E083BB0048789D /* rSkybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rSkybox.h; sourceTree = "<group>"; };
+		9FA68D0515E083BB0048789D /* rSkybox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rSkybox.m; sourceTree = "<group>"; };
+		9FA68D0715E087020048789D /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
+		9FA68D0915E0880B0048789D /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +273,8 @@
 				90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */,
 				90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */,
 				90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */,
+				9FA68D0815E087020048789D /* libCrashReporter-iphoneos.a in Frameworks */,
+				9FA68D0A15E0880B0048789D /* CrashReporter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +286,8 @@
 			children = (
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
+				9FA68D0915E0880B0048789D /* CrashReporter.framework */,
+				9FA68D0715E087020048789D /* libCrashReporter-iphoneos.a */,
 				907A405915A8D9C400090452 /* CoreData.framework */,
 				90FBDBA1159CB73F0051609A /* SenTestingKit.framework */,
 				90FBDABE159C91D60051609A /* Security.framework */,
@@ -346,6 +341,9 @@
 		90993F3B159777BC00FC1D49 /* ARC */ = {
 			isa = PBXGroup;
 			children = (
+				9FA68D0415E083BB0048789D /* rSkybox.h */,
+				9FA68D0515E083BB0048789D /* rSkybox.m */,
+				9FA68CE915E083750048789D /* rSkyboxHelpers */,
 				90993F44159777BC00FC1D49 /* ArcAppDelegate.h */,
 				90993F45159777BC00FC1D49 /* ArcAppDelegate.m */,
 				90B01D1515A1308E005FCCCF /* FBEncryptorAES.h */,
@@ -406,19 +404,6 @@
 				907A406E15AA072F00090452 /* EditCreditCard.m */,
 				907A407015AA073C00090452 /* AddCreditCard.h */,
 				907A407115AA073C00090452 /* AddCreditCard.m */,
-				90B6B0E0159A04E5005E4BCB /* NewJSON.h */,
-				90B6B0E1159A04E5005E4BCB /* NewNSObject+SBJSON.h */,
-				90B6B0E2159A04E6005E4BCB /* NewNSObject+SBJSON.m */,
-				90B6B0E3159A04E6005E4BCB /* NewNSString+SBJSON.h */,
-				90B6B0E4159A04E6005E4BCB /* NewNSString+SBJSON.m */,
-				90B6B0E5159A04E6005E4BCB /* NewSBJSON.h */,
-				90B6B0E6159A04E6005E4BCB /* NewSBJSON.m */,
-				90B6B0E7159A04E6005E4BCB /* NewSBJsonBase.h */,
-				90B6B0E8159A04E6005E4BCB /* NewSBJsonBase.m */,
-				90B6B0F3159A06E9005E4BCB /* NewSBJsonParser.h */,
-				90B6B0EA159A04E6005E4BCB /* NewSBJsonParser.m */,
-				90B6B0EB159A04E6005E4BCB /* NewSBJsonWriter.h */,
-				90B6B0EC159A04E6005E4BCB /* NewSBJsonWriter.m */,
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
@@ -503,6 +488,15 @@
 				90FBDC2D159CDDB60051609A /* SBJsonWriter.m */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		9FA68CE915E083750048789D /* rSkyboxHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				9FA68CF915E083750048789D /* UIDevice-Hardware.h */,
+				9FA68CFA15E083750048789D /* UIDevice-Hardware.m */,
+			);
+			path = rSkyboxHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -594,12 +588,6 @@
 				90BFD0901597928D00F5285E /* HomeNavigationController.m in Sources */,
 				90B6B0B715994A0B005E4BCB /* RegisterNavigation.m in Sources */,
 				90B6B0BA15994A1B005E4BCB /* RegisterView.m in Sources */,
-				90B6B0ED159A04E6005E4BCB /* NewNSObject+SBJSON.m in Sources */,
-				90B6B0EE159A04E6005E4BCB /* NewNSString+SBJSON.m in Sources */,
-				90B6B0EF159A04E6005E4BCB /* NewSBJSON.m in Sources */,
-				90B6B0F0159A04E6005E4BCB /* NewSBJsonBase.m in Sources */,
-				90B6B0F1159A04E6005E4BCB /* NewSBJsonParser.m in Sources */,
-				90B6B0F2159A04E6005E4BCB /* NewSBJsonWriter.m in Sources */,
 				90B6B0FD159A1D6C005E4BCB /* Merchant.m in Sources */,
 				90B6B104159A3FFA005E4BCB /* Restaurant.m in Sources */,
 				90B6B10E159A4F87005E4BCB /* InvoiceView.m in Sources */,
@@ -651,6 +639,8 @@
 				9F45D81F15D33F3300682F19 /* Encoder.c in Sources */,
 				9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */,
 				90CDF7C915DC91ED00EBF15B /* SplitCheckViewController.m in Sources */,
+				9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */,
+				9FA68D0615E083BB0048789D /* rSkybox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,11 +721,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -747,11 +742,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -786,11 +786,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

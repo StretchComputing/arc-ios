@@ -12,6 +12,7 @@
 #import "ArcAppDelegate.h"
 #import "CreditCard.h"
 #import <QuartzCore/QuartzCore.h>
+#import "rSkybox.h"
 
 @interface InvoiceView ()
 
@@ -191,6 +192,7 @@
 
 
 - (IBAction)payNow:(id)sender {
+    [rSkybox addEventToSession:@"clickedPayButton"];
     
     [self.tipText resignFirstResponder];
     UIActionSheet *action;
@@ -226,9 +228,11 @@
     
     if (buttonIndex == 0) {
         //Dwolla
+        [rSkybox addEventToSession:@"selectedDwollaForPayment"];
         
         [self performSegueWithIdentifier:@"goPayDwolla" sender:self];
     }else {
+        [rSkybox addEventToSession:@"selectedCreditCardForPayment"];
               
         if ([self.creditCards count] > 0) {
             if (buttonIndex == [self.creditCards count] + 1) {

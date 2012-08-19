@@ -7,8 +7,9 @@
 //
 
 #import "ArcClient.h"
-#import "NewJSON.h"
+#import "SBJson.h"
 #import "ArcAppDelegate.h"
+#import "rSkybox.h"
 
 static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
 //static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
@@ -17,9 +18,10 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 
 -(void)createCustomer:(NSDictionary *)pairs{
     @try {
+        [rSkybox addEventToSession:@"createCustomer"];
         api = CreateCustomer;
         
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createUrl = [NSString stringWithFormat:@"%@customers", _arcUrl, nil];
@@ -38,6 +40,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 
 -(void)getCustomerToken:(NSDictionary *)pairs{
     @try {
+        [rSkybox addEventToSession:@"getCustomerToken"];
         api = GetCustomerToken;
         
         
@@ -61,8 +64,10 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 
 -(void)getMerchantList:(NSDictionary *)pairs{
     @try {
+        [rSkybox addEventToSession:@"getMerchantList"];
         api = GetMerchantList;
         
+        [rSkybox sendClientLog:@"getMerchantList" logMessage:@"jpw testing rSkybox in Arc" logLevel:@"error" exception:nil];
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
@@ -81,6 +86,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 
 -(void)getInvoice:(NSDictionary *)pairs{
     @try {
+        [rSkybox addEventToSession:@"getInvoice"];
         api = GetInvoice;
         
         NSString * invoiceNumber = [pairs valueForKey:@"invoiceNumber"];
@@ -104,9 +110,10 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 
 -(void)createPayment:(NSDictionary *)pairs{
     @try {
+        [rSkybox addEventToSession:@"createPayment"];
         api = CreatePayment;
         
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
@@ -127,9 +134,10 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 
 -(void)createReview:(NSDictionary *)pairs{
     @try {
+        [rSkybox addEventToSession:@"createReview"];
         api = CreateReview;
         
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONFragment], nil];
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@reviews", _arcUrl, nil];
@@ -149,6 +157,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 
 -(void)getPointBalance:(NSDictionary *)pairs{
     @try {
+        [rSkybox addEventToSession:@"getPointBalance"];
         api = GetPointBalance;
         
         NSString * customerId = [pairs valueForKey:@"customerId"];
@@ -178,7 +187,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     
    // NSLog(@"ReturnString: %@", returnString);
     
-    NewSBJSON *jsonParser = [NewSBJSON new];
+    SBJsonParser *jsonParser = [SBJsonParser new];
     NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
     
     NSDictionary *responseInfo;

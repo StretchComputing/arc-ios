@@ -8,10 +8,10 @@
 
 #import "ReviewTransaction.h"
 #import <QuartzCore/QuartzCore.h>
-#import "NewJSON.h"
 #import "Home.h"
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
+#import "rSkybox.h"
 
 @interface ReviewTransaction ()
 
@@ -34,6 +34,7 @@
 }
 
 -(void)viewDidLoad{
+    [rSkybox addEventToSession:@"viewReviewScreen"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
     
     self.priceInt = @1;
@@ -335,6 +336,7 @@
 
 
 - (IBAction)submitReview:(id)sender {
+    [rSkybox addEventToSession:@"submitReview"];
     
     [self createPayment];
 }
@@ -381,6 +383,7 @@
 }
 
 -(void)reviewComplete:(NSNotification *)notification{
+    [rSkybox addEventToSession:@"reviewComplete"];
     NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
     
     NSString *status = [responseInfo valueForKey:@"status"];
@@ -401,6 +404,7 @@
 
 
 - (IBAction)skipReview:(id)sender {
+    [rSkybox addEventToSession:@"skipReview"];
     
     Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
     tmp.skipReview = YES;

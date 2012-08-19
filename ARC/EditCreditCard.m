@@ -10,6 +10,8 @@
 #import "CreditCard.h"
 #import "ArcAppDelegate.h"
 #import "SettingsView.h"
+#import "rSkybox.h"
+
 @interface EditCreditCard ()
 
 @end
@@ -17,6 +19,8 @@
 @implementation EditCreditCard
 
 -(void)viewDidLoad{
+    [rSkybox addEventToSession:@"viewEditCreditCardScreen"];
+    
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     NSArray *cards = [mainDelegate getCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
     

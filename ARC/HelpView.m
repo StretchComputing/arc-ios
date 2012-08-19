@@ -8,6 +8,7 @@
 
 #import "HelpView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "rSkybox.h"
 
 @interface HelpView ()
 
@@ -17,6 +18,7 @@
 
 - (void)viewDidLoad
 {
+    [rSkybox addEventToSession:@"viewHelpPage"];
      self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
     
     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];

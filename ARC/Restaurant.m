@@ -7,7 +7,6 @@
 //
 
 #import "Restaurant.h"
-#import "NewJSON.h"
 #import "InvoiceView.h"
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>

@@ -7,12 +7,12 @@
 //
 
 #import "RegisterView.h"
-#import "NewJSON.h"
 #import "ArcAppDelegate.h"
 #import "RegisterDwollaView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "FBEncryptorAES.h"
 #import "ArcClient.h"
+#import "rSkybox.h"
 
 @interface RegisterView ()
 
@@ -93,6 +93,7 @@
 
 - (void)viewDidLoad
 {
+    [rSkybox addEventToSession:@"viewRegisterScreen"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerComplete:) name:@"registerNotification" object:nil];
 
@@ -135,13 +136,13 @@
 
 
 - (IBAction)login:(UIBarButtonItem *)sender {
-    
  
     [self.navigationController dismissModalViewControllerAnimated:YES];
 
 }
 
 - (IBAction)registerNow:(id)sender {
+    [rSkybox addEventToSession:@"initiateRegister"];
     
     
     if ([self.firstNameText.text isEqualToString:@""] || [self.lastNameText.text isEqualToString:@""] || [self.emailText.text isEqualToString:@""] || [self.passwordText.text isEqualToString:@""]){
@@ -216,6 +217,7 @@
 
 
 -(void)addCreditCard{
+    [rSkybox addEventToSession:@"addCreditCard"];
     
     NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];

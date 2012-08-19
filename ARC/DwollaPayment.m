@@ -8,10 +8,10 @@
 
 #import "DwollaPayment.h"
 #import <QuartzCore/QuartzCore.h>
-#import "NewJSON.h"
 #import "ReviewTransaction.h"
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
+#import "rSkybox.h"
 
 
 @interface DwollaPayment ()
@@ -21,9 +21,10 @@
 @implementation DwollaPayment
 
 
-
 - (void)viewDidLoad
 {
+    [rSkybox addEventToSession:@"viewDwollaPaymentScreen"];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
     
     self.fundingSourceStatus = @"";
@@ -143,11 +144,11 @@
         
         if ([string isEqualToString:@""]) {
             
-            [self performSelector:@selector(previousField) withObject:nil afterDelay:0.1];
+            [self performSelector:@selector(previousField) withObject:nil afterDelay:0.0];
             
         }else{
             textField.text = string;
-            [self performSelector:@selector(nextField) withObject:nil afterDelay:0.1];
+            [self performSelector:@selector(nextField) withObject:nil afterDelay:0.0];
         }
     }else{
         
@@ -197,6 +198,7 @@
 
 
 - (IBAction)submit:(id)sender {
+    [rSkybox addEventToSession:@"submitForDwollaPayment"];
     
     self.errorLabel.text = @"";    
         
@@ -346,6 +348,7 @@
 }
 
 -(void)paymentComplete:(NSNotification *)notification{
+    [rSkybox addEventToSession:@"DwollaPaymentComplete"];
     
     NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
     
@@ -375,4 +378,7 @@
     } 
 }
 
+- (void)viewDidUnload {
+    [super viewDidUnload];
+}
 @end

@@ -10,6 +10,7 @@
 #import "ArcAppDelegate.h"
 #import "CreditCard.h"
 #import "EditCreditCard.h"
+#import "rSkybox.h"
 
 @interface ViewCreditCards ()
 
@@ -24,6 +25,7 @@
 }
 
 -(void)viewDidLoad{
+    [rSkybox addEventToSession:@"viewCreditCardScreen"];
     
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;

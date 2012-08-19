@@ -39,4 +39,16 @@
 -(NSArray *)getCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration;
 -(void)deleteCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration;
 
+// *** copied in for rSkybox
+@property (nonatomic, strong) NSString *appActions;
+@property (nonatomic, strong) NSString *appActionsTime;
+@property (nonatomic, strong) NSString *crashSummary;
+@property (nonatomic, strong) NSString *crashUserName;
+@property (nonatomic, strong) NSDate *crashDetectDate;
+@property (nonatomic, strong) NSData *crashStackData;
+@property (nonatomic, strong) NSString *crashInstanceUrl;
+-(void)saveUserInfo;
+-(void)handleCrashReport;
+// ***
+
 @end

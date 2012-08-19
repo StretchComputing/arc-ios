@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ArcAppDelegate.h"
 #import "SettingsView.h"
+#import "rSkybox.h"
 
 @interface AddCreditCard ()
 
@@ -23,6 +24,7 @@
 
 
 -(void)viewDidLoad{
+    [rSkybox addEventToSession:@"viewAddCreditCardScreen"];
     
     self.creditCardNumberText.text = @"";
     self.creditCardPinText.text = @"";
@@ -259,6 +261,7 @@
 
 
 -(void)addCard{
+    [rSkybox addEventToSession:@"clickAddCreditCardButton"];
     
     if ([[self creditCardStatus] isEqualToString:@"valid"]) {
         

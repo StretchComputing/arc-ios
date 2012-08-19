@@ -9,10 +9,10 @@
 #import "ViewController.h"
 #import "Home.h"
 #import "HomeNavigationController.h"
-#import "NewJSON.h"
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
+#import "rSkybox.h"
 
 @interface ViewController ()
 
@@ -98,6 +98,7 @@
 }
 
 -(void)signIn{
+    [rSkybox addEventToSession:@"initiateSignIn"];
     
     [self performSelector:@selector(runSignIn)];
    
@@ -224,7 +225,7 @@
 
 
 -(void)signInComplete:(NSNotification *)notification{
-    
+    [rSkybox addEventToSession:@"signInComplete"];
     
     NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
     
