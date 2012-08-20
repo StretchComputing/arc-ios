@@ -42,6 +42,21 @@
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
         
+        double amountPaid = [self calculateAmountPaid];
+        double amountDue = self.myInvoice.baseAmount - amountPaid;
+        self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
+        self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", amountDue];
+        
+        //@property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillNameLabel;
+        //@property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillLabel;
+        //@property (weak, nonatomic) IBOutlet UILabel *dollarAmountPaidNameLabel;
+        //@property (weak, nonatomic) IBOutlet UILabel *dollarAmountPaidLabel;
+        //@property (weak, nonatomic) IBOutlet UILabel *dollarAmountDueNameLabel;
+        //@property (weak, nonatomic) IBOutlet UILabel *dollarAmountDueLabel;
+
+
+        
         [super viewDidLoad];
         // Do any additional setup after loading the view.
         
@@ -63,6 +78,17 @@
     [self setItemView:nil];
     [self setTypeSegment:nil];
     [self setTypeSegment:nil];
+    [self setDollarTotalBillNameLabel:nil];
+    [self setDollarTotalBillLabel:nil];
+    [self setDollarAmountPaidNameLabel:nil];
+    [self setDollarAmountPaidLabel:nil];
+    [self setDollarAmountDueNameLabel:nil];
+    [self setDollarAmountDueLabel:nil];
+    [self setDollarYourPaymentNameLabel:nil];
+    [self setDollarYourPaymentText:nil];
+    [self setDollarTipText:nil];
+    [self setDollarTipSegment:nil];
+    [self setDollarYourTotalPaymentLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -128,4 +154,68 @@
         self.percentView.frame = CGRectMake(0, -120, 320, 328);
     }];
 }
+- (IBAction)dollarEditBegin:(id)sender {
+}
+
+- (IBAction)dollarEditEnd:(id)sender {
+}
+
+- (IBAction)dollarTipSegmentSelect:(id)sender {
+}
+
+- (IBAction)dollarPayNow:(id)sender {
+}
+
+//::nick::todo what happens if Amount cannot be converted to a float?
+- (double)calculateAmountPaid {
+    double amountPaid = 0.0;
+    double paymentAmount = 0.0;
+    for (int i = 0; i < [self.myInvoice.payments count]; i++) {
+        NSDictionary *paymentDictionary = [self.myInvoice.payments objectAtIndex:i];
+        paymentAmount = [[paymentDictionary valueForKey:@"Amount"] doubleValue];
+        amountPaid += paymentAmount;
+    }
+    return amountPaid;
+}
+
+- (IBAction)dollarTipSegmentSelect {
+    @try {
+        //::nick -- what does this do?
+        [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
+        
+        double tipPercent = 0.0;
+        if (self.dollarTipSegment.selectedSegmentIndex == 0) {
+            tipPercent = .10;
+        }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
+            tipPercent = .15;
+        }else{
+            tipPercent = .20;
+        }
+        
+        double yourPayment = [self.dollarYourPaymentText.text doubleValue];
+        double tipAmount = tipPercent * yourPayment;
+        self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", yourPayment + tipAmount];
+        
+        //::nick?
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.2];
+        
+        //::nick?
+        self.view.frame = CGRectMake(0, 0, 320, 416);
+        [self.dollarTipText resignFirstResponder];
+        
+        [UIView commitAnimations];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceView.segmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+-(void)resetSegment{
+    self.dollarTipSegment.selectedSegmentIndex = -1;
+}
+
 @end

@@ -13,5 +13,5 @@
 @property int invoiceId, merchantId, customerId;
 @property (strong, nonatomic) NSString *status, *number, *posi, *dateCreated;
 @property double baseAmount, serviceCharge, tax, discount, additionalCharge;
-@property (strong, nonatomic) NSArray *tags, *items;
+@property (strong, nonatomic) NSArray *tags, *items, *payments;
 @end

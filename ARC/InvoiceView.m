@@ -13,6 +13,7 @@
 #import "CreditCard.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
+#import "SplitCheckViewController.h":
 
 @interface InvoiceView ()
 
@@ -346,9 +347,12 @@
             controller.creditCardExpiration = self.creditCardExpiration;
             controller.creditCardSecurityCode = self.creditCardSecurityCode;
             
+        }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
+            SplitCheckViewController *controller = [segue destinationViewController];
+            controller.myInvoice = self.myInvoice;
             
+        }
             
-        } 
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
