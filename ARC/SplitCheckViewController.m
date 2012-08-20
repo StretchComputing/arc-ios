@@ -161,24 +161,6 @@
 }
 
 - (IBAction)dollarTipSegmentSelect:(id)sender {
-}
-
-- (IBAction)dollarPayNow:(id)sender {
-}
-
-//::nick::todo what happens if Amount cannot be converted to a float?
-- (double)calculateAmountPaid {
-    double amountPaid = 0.0;
-    double paymentAmount = 0.0;
-    for (int i = 0; i < [self.myInvoice.payments count]; i++) {
-        NSDictionary *paymentDictionary = [self.myInvoice.payments objectAtIndex:i];
-        paymentAmount = [[paymentDictionary valueForKey:@"Amount"] doubleValue];
-        amountPaid += paymentAmount;
-    }
-    return amountPaid;
-}
-
-- (IBAction)dollarTipSegmentSelect {
     @try {
         //::nick -- what does this do?
         [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
@@ -211,7 +193,27 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.segmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+
+}
+
+- (IBAction)dollarPayNow:(id)sender {
+}
+
+//::nick::todo what happens if Amount cannot be converted to a float?
+- (double)calculateAmountPaid {
+    double amountPaid = 0.0;
+    double paymentAmount = 0.0;
+    for (int i = 0; i < [self.myInvoice.payments count]; i++) {
+        NSDictionary *paymentDictionary = [self.myInvoice.payments objectAtIndex:i];
+        paymentAmount = [[paymentDictionary valueForKey:@"Amount"] doubleValue];
+        amountPaid += paymentAmount;
+    }
+    return amountPaid;
+}
+
+- (IBAction)dollarTipSegmentSelect {
     
+       
 }
 
 -(void)resetSegment{
