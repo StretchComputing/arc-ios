@@ -17,7 +17,6 @@
 		907A407215AA073C00090452 /* AddCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A407115AA073C00090452 /* AddCreditCard.m */; };
 		907A407515AA08B200090452 /* addCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407315AA08B200090452 /* addCard.png */; };
 		907A407615AA08B200090452 /* addCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407415AA08B200090452 /* addCard@2x.png */; };
-		9083967A15E2E0EF00012E87 /* libCrashReporter-iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9083967915E2E0EF00012E87 /* libCrashReporter-iphonesimulator.a */; };
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
@@ -99,6 +98,7 @@
 		9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68CFA15E083750048789D /* UIDevice-Hardware.m */; };
 		9FA68D0615E083BB0048789D /* rSkybox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68D0515E083BB0048789D /* rSkybox.m */; };
 		9FA68D0A15E0880B0048789D /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA68D0915E0880B0048789D /* CrashReporter.framework */; };
+		9FCF0DBC15E3E58C00732D6E /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCF0DBB15E3E58C00732D6E /* libCrashReporter-iphoneos.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,7 +118,6 @@
 		907A407115AA073C00090452 /* AddCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCard.m; sourceTree = "<group>"; };
 		907A407315AA08B200090452 /* addCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addCard.png; sourceTree = "<group>"; };
 		907A407415AA08B200090452 /* addCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addCard@2x.png"; sourceTree = "<group>"; };
-		9083967915E2E0EF00012E87 /* libCrashReporter-iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphonesimulator.a"; sourceTree = "<group>"; };
 		9094250215D86E2500CB052D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
 		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
@@ -258,6 +257,7 @@
 		9FA68D0415E083BB0048789D /* rSkybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rSkybox.h; sourceTree = "<group>"; };
 		9FA68D0515E083BB0048789D /* rSkybox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rSkybox.m; sourceTree = "<group>"; };
 		9FA68D0915E0880B0048789D /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
+		9FCF0DBB15E3E58C00732D6E /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,7 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9083967A15E2E0EF00012E87 /* libCrashReporter-iphonesimulator.a in Frameworks */,
+				9FCF0DBC15E3E58C00732D6E /* libCrashReporter-iphoneos.a in Frameworks */,
 				907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */,
 				90FBDABF159C91D60051609A /* Security.framework in Frameworks */,
 				90FBDABD159C91D00051609A /* libxml2.dylib in Frameworks */,
@@ -284,7 +284,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
-				9083967915E2E0EF00012E87 /* libCrashReporter-iphonesimulator.a */,
+				9FCF0DBB15E3E58C00732D6E /* libCrashReporter-iphoneos.a */,
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
 				9FA68D0915E0880B0048789D /* CrashReporter.framework */,
