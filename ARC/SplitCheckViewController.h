@@ -15,6 +15,8 @@
 @property double yourTotalPayment;
 @property double yourPayment;
 
+@property double totalBill;
+
 @property (weak, nonatomic) IBOutlet UIView *percentView;
 @property (weak, nonatomic) IBOutlet UIView *dollarView;
 @property (weak, nonatomic) IBOutlet UIView *itemView;
@@ -35,7 +37,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *dollarYourPaymentNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *dollarYourPaymentText;
 @property (weak, nonatomic) IBOutlet UITextField *dollarTipText;
-- (IBAction)dollarEditBegin:(id)sender;
 - (IBAction)dollarEditEnd:(id)sender;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *dollarTipSegment;
 @property (weak, nonatomic) IBOutlet UILabel *dollarYourTotalPaymentLabel;
@@ -50,7 +51,24 @@
 
 
 
+//Percent
+@property (weak, nonatomic) IBOutlet UILabel *percentTotalBillNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentTotalBillLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentAmountPaidNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentAmountPaidLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentAmountDueNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentAmountDueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentYourPaymentNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentYourTotalPaymentLabel;
+@property (weak, nonatomic) IBOutlet UITextField *percentYourPaymentText;
+@property (weak, nonatomic) IBOutlet UITextField *percentTipText;
+@property (weak, nonatomic) IBOutlet UILabel *percentYourPaymentDollarAmount;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *percentTipSegment;
 
+- (IBAction)percentTipDidBegin;
+- (IBAction)percentYourPercentDidEnd;
+- (IBAction)percentTipEditEnd;
+- (IBAction)percentTipSegmentSelect;
 
 
 

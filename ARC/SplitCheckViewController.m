@@ -21,6 +21,8 @@
 @end
 
 @implementation SplitCheckViewController
+@synthesize percentYourPaymentDollarAmount;
+@synthesize percentTipSegment;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,14 +54,19 @@
         double serviceCharge = (self.myInvoice.baseAmount * self.myInvoice.serviceCharge);
         double tax = (self.myInvoice.baseAmount * self.myInvoice.tax);
         double discount = (self.myInvoice.baseAmount * self.myInvoice.discount);
-        self.amountDue = self.myInvoice.baseAmount + serviceCharge + tax - discount;
+        self.totalBill = self.myInvoice.baseAmount + serviceCharge + tax - discount;
         double amountPaid = [self calculateAmountPaid];
-        self.amountDue -= amountPaid;
+        self.amountDue = self.totalBill - amountPaid;
         
         self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
         self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
         self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", 0.0];
+        
+        self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
+        self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", 0.0];
         
         [super viewDidLoad];
         // Do any additional setup after loading the view.
@@ -93,6 +100,8 @@
     [self setDollarTipText:nil];
     [self setDollarTipSegment:nil];
     [self setDollarYourTotalPaymentLabel:nil];
+    [self setPercentYourPaymentDollarAmount:nil];
+    [self setPercentTipSegment:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -160,8 +169,8 @@
 }
 
 - (IBAction)dollarTipSegmentSelect:(id)sender {
+    
     @try {
-        //::nick -- what does this do?
         [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
         
         double tipPercent = 0.0;
@@ -179,15 +188,16 @@
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
         
-        //::nick?
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.2];
         
-        //::nick?
-        self.view.frame = CGRectMake(0, 0, 320, 416);
-        [self.dollarTipText resignFirstResponder];
         
-        [UIView commitAnimations];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.dollarTipText resignFirstResponder];
+            self.dollarView.frame = CGRectMake(0, 44, 320, 416);
+        }];
+        
+        
+  
+      
         
     }
     @catch (NSException *e) {
@@ -218,21 +228,6 @@
 }
 
 
-- (IBAction)dollarEditBegin:(id)sender {
-    @try {
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
-        
-        self.view.frame = CGRectMake(0, 0, 320, 416);
-        
-        [UIView commitAnimations];
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"SplitCheckViewController.dollarEditBegin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-    
-}
 
 - (IBAction)dollarEditEnd:(id)sender {
     @try {
@@ -247,13 +242,7 @@
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tip];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
         
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.2];
-        
-        self.view.frame = CGRectMake(0, 0, 320, 416);
-        
-        [UIView commitAnimations];
-        
+                
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SplitCheckViewController.dollarEditEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -350,7 +339,6 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    
 }
 
 
@@ -384,4 +372,89 @@
     }
 }
 
+- (IBAction)percentYourPercentDidEnd {
+    
+    double tip = [self.percentTipText.text doubleValue];
+    
+    double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
+    self.yourPayment = percentYourPayment * self.totalBill;
+    
+    self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", self.yourPayment];
+    
+    if (self.yourPayment < 0.0) {
+        self.yourPayment = 0.0;
+    }
+    self.yourTotalPayment = self.yourPayment + tip;
+    
+    //self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
+    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+    
+    
+}
+
+
+- (IBAction)percentTipSegmentSelect{
+    
+    @try {
+        [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
+        
+        double tipPercent = 0.0;
+        if (self.percentTipSegment.selectedSegmentIndex == 0) {
+            tipPercent = .10;
+        }else if (self.percentTipSegment.selectedSegmentIndex == 1){
+            tipPercent = .15;
+        }else{
+            tipPercent = .20;
+        }
+        
+        double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
+        self.yourPayment = percentYourPayment * self.totalBill;
+        
+        double tipAmount = tipPercent * self.yourPayment;
+        self.yourTotalPayment = self.yourPayment + tipAmount;
+        self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+        
+        
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.percentTipText resignFirstResponder];
+            self.percentView.frame = CGRectMake(0, 44, 320, 416);
+        }];
+        
+        
+        
+        
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.percentTipSegmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+
+    
+    
+}
+
+- (IBAction)percentTipEditEnd{
+    
+    @try {
+        
+    
+        double tip = [self.percentTipText.text doubleValue];
+        if (tip < 0.0) {
+            tip = 0.0;
+        }
+        self.yourPayment = [self.percentYourPaymentText.text doubleValue];
+        self.yourTotalPayment = self.yourPayment + tip;
+        
+        self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tip];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+        
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.percentTipEditEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
 @end
