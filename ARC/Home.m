@@ -26,6 +26,10 @@
 @synthesize sloganLabel;
 
 
+-(void)appActive{
+    [self getMerchantList];
+
+}
 
 -(void)viewDidAppear:(BOOL)animated{
     @try {
@@ -73,6 +77,8 @@
     @try {
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActive) name:@"appActive" object:nil];
         
         self.matchingMerchants = [NSMutableArray array];
         self.searchTextField.delegate = self;
@@ -168,10 +174,17 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
         
+        
         self.activityView.hidden = YES;
         if ([status isEqualToString:@"1"]) {
             //success
             NSArray *merchants = [apiResponse valueForKey:@"Merchants"];
+            
+            if ([merchants count] > 0) {
+                self.allMerchants = [NSMutableArray array];
+                self.matchingMerchants = [NSMutableArray array];
+            }
+            
             for (int i = 0; i < [merchants count]; i++) {
                 
                 Merchant *tmpMerchant = [[Merchant alloc] init];
@@ -179,6 +192,14 @@
                 
                 tmpMerchant.name = [theMerchant valueForKey:@"Name"];
                 tmpMerchant.merchantId = [[theMerchant valueForKey:@"Id"] intValue];
+                
+                tmpMerchant.address = [theMerchant valueForKey:@"Address"];
+                tmpMerchant.city = [theMerchant valueForKey:@"City"];
+                tmpMerchant.state = [theMerchant valueForKey:@"State"];
+                tmpMerchant.zipCode = [theMerchant valueForKey:@"ZipCode"];
+                
+                tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
+                
                 
                 [self.allMerchants addObject:tmpMerchant];
                 [self.matchingMerchants addObject:tmpMerchant];
@@ -237,7 +258,12 @@
         UILabel *adrLabel = (UILabel *)[cell.contentView viewWithTag:2];
         
         nameLabel.text = tmpMerchant.name;
-        adrLabel.text = @"201 North Ave, Chicago, IL";
+        
+        if (tmpMerchant.address) {
+            adrLabel = [NSString stringWithFormat:@"%@, %@, %@ %@", tmpMerchant.address, tmpMerchant.city, tmpMerchant.state, tmpMerchant.zipCode];
+        }else{
+            adrLabel.text = @"201 North Ave, Chicago, IL";
+        }
         
         
         return cell;

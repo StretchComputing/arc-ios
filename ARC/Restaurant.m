@@ -17,6 +17,8 @@
 @end
 
 @implementation Restaurant
+@synthesize checkNumFive;
+@synthesize checkNumSix;
 
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -70,9 +72,16 @@
 
 
 -(void)previousField{
+
     @try {
         
-        if ([self.checkNumFour isFirstResponder]) {
+        if ([self.checkNumSix isFirstResponder]) {
+            [self.checkNumFive becomeFirstResponder];
+            self.checkNumFive.text = @" ";
+        }else if ([self.checkNumFive isFirstResponder]) {
+            [self.checkNumFour becomeFirstResponder];
+            self.checkNumFour.text = @" ";
+        }if ([self.checkNumFour isFirstResponder]) {
             [self.checkNumThree becomeFirstResponder];
             self.checkNumThree.text = @" ";
         }else if ([self.checkNumThree isFirstResponder]){
@@ -100,6 +109,10 @@
             [self.checkNumThree becomeFirstResponder];
         }else if ([self.checkNumThree isFirstResponder]){
             [self.checkNumFour becomeFirstResponder];
+        }else if ([self.checkNumFour isFirstResponder]){
+            [self.checkNumFive becomeFirstResponder];
+        }else if ([self.checkNumFive isFirstResponder]){
+            [self.checkNumSix becomeFirstResponder];
         }
     }
     @catch (NSException *e) {
@@ -120,17 +133,25 @@
         self.checkNumTwo.delegate = self;
         self.checkNumThree.delegate = self;
         self.checkNumFour.delegate = self;
+        self.checkNumFive.delegate = self;
+        self.checkNumSix.delegate = self;
+
         
         self.checkNumOne.text = @" ";
         self.checkNumTwo.text = @" ";
         self.checkNumThree.text = @" ";
         self.checkNumFour.text = @" ";
+        self.checkNumFive.text = @" ";
+        self.checkNumSix.text = @" ";
+
         
         self.checkNumOne.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
         self.checkNumTwo.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
         self.checkNumThree.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
         self.checkNumFour.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-        
+        self.checkNumFive.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+        self.checkNumSix.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+
         
         self.nameDisplay.text = [NSString stringWithFormat:@"%@", self.name];
         [super viewDidLoad];
@@ -163,8 +184,17 @@
                 [self.activity startAnimating];
                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
                 
+                NSString *invoiceNumber = @"";
                 
-                NSString *invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
+                if ([self.checkNumFive.text isEqualToString:@" "]) {
+                       invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
+                }else if ([self.checkNumSix.text isEqualToString:@" "]){
+                    invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text, self.checkNumFive.text];
+                }else{
+                    invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text, self.checkNumFive.text, self.checkNumSix.text];
+                }
+                
+             
                 
                 
                 [tempDictionary setValue:invoiceNumber forKey:@"invoiceNumber"];
@@ -314,6 +344,8 @@
 }
 
 - (void)viewDidUnload {
+    [self setCheckNumSix:nil];
+    [self setCheckNumFive:nil];
     @try {
         
         [self setSubmitButton:nil];

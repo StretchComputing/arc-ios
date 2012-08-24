@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "Customer.h"
+#import "Reachability.h"
 
 @interface ArcAppDelegate : UIResponder <UIApplicationDelegate>
+{
+    
+    Reachability* hostReach;
+    Reachability* internetReach;
+    Reachability* wifiReach;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) NSString *logout;

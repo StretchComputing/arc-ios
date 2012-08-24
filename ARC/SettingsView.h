@@ -17,6 +17,7 @@
 
 - (IBAction)cancel:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lifetimePointsLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *lifetimePointsProgressView;
 
 @property (nonatomic, strong) NSMutableData *serverData;
 @property (weak, nonatomic) IBOutlet UILabel *pointsDisplayLabel;

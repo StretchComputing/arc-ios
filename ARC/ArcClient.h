@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
+    GetServer = 0,
     CreateCustomer=1,
     GetCustomerToken=2,
     GetMerchantList=3,
@@ -43,6 +44,8 @@ typedef enum {
 
 -(void)getPointBalance:(NSDictionary *)pairs;
 -(NSDictionary *) getPointBalanceResponse:(NSDictionary *)response;
+
+-(void)getServer;
 
 @end
 

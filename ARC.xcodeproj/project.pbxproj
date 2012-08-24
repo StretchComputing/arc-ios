@@ -18,6 +18,10 @@
 		907A407515AA08B200090452 /* addCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407315AA08B200090452 /* addCard.png */; };
 		907A407615AA08B200090452 /* addCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407415AA08B200090452 /* addCard@2x.png */; };
 		9081520D15E7B2DC00211C37 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081520C15E7B2DC00211C37 /* libCrashReporter-iphoneos.a */; };
+		9081521515E7D10900211C37 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081521315E7D10900211C37 /* Reachability.m */; };
+		9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081521615E7D26500211C37 /* SystemConfiguration.framework */; };
+		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
+		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
@@ -119,6 +123,13 @@
 		907A407315AA08B200090452 /* addCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addCard.png; sourceTree = "<group>"; };
 		907A407415AA08B200090452 /* addCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addCard@2x.png"; sourceTree = "<group>"; };
 		9081520C15E7B2DC00211C37 /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
+		9081521315E7D10900211C37 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		9081521415E7D10900211C37 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		9081521615E7D26500211C37 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9081522015E7D77900211C37 /* InitialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialController.h; sourceTree = "<group>"; };
+		9081522115E7D77900211C37 /* InitialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialController.m; sourceTree = "<group>"; };
+		9081522315E817E700211C37 /* RegisterViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewNew.h; sourceTree = "<group>"; };
+		9081522415E817E700211C37 /* RegisterViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewNew.m; sourceTree = "<group>"; };
 		9094250215D86E2500CB052D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
 		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
@@ -265,6 +276,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9081520D15E7B2DC00211C37 /* libCrashReporter-iphoneos.a in Frameworks */,
+				9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */,
 				907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */,
 				90FBDABF159C91D60051609A /* Security.framework in Frameworks */,
 				90FBDABD159C91D00051609A /* libxml2.dylib in Frameworks */,
@@ -274,7 +287,6 @@
 				90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */,
 				90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */,
 				9FA68D0A15E0880B0048789D /* CrashReporter.framework in Frameworks */,
-				9081520D15E7B2DC00211C37 /* libCrashReporter-iphoneos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +296,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				9081521615E7D26500211C37 /* SystemConfiguration.framework */,
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
 				9081520C15E7B2DC00211C37 /* libCrashReporter-iphoneos.a */,
@@ -341,8 +354,12 @@
 		90993F3B159777BC00FC1D49 /* ARC */ = {
 			isa = PBXGroup;
 			children = (
+				9081521315E7D10900211C37 /* Reachability.m */,
+				9081521415E7D10900211C37 /* Reachability.h */,
 				9FA68D0415E083BB0048789D /* rSkybox.h */,
 				9FA68D0515E083BB0048789D /* rSkybox.m */,
+				9081522015E7D77900211C37 /* InitialController.h */,
+				9081522115E7D77900211C37 /* InitialController.m */,
 				9FA68CE915E083750048789D /* rSkyboxHelpers */,
 				90993F44159777BC00FC1D49 /* ArcAppDelegate.h */,
 				90993F45159777BC00FC1D49 /* ArcAppDelegate.m */,
@@ -396,6 +413,8 @@
 				90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */,
 				90B6B0B815994A1B005E4BCB /* RegisterView.h */,
 				90B6B0B915994A1B005E4BCB /* RegisterView.m */,
+				9081522315E817E700211C37 /* RegisterViewNew.h */,
+				9081522415E817E700211C37 /* RegisterViewNew.m */,
 				90FBDC43159CE2E80051609A /* RegisterDwollaView.h */,
 				90FBDC44159CE2E80051609A /* RegisterDwollaView.m */,
 				907A406A15AA072200090452 /* ViewCreditCards.h */,
@@ -641,6 +660,9 @@
 				90CDF7C915DC91ED00EBF15B /* SplitCheckViewController.m in Sources */,
 				9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */,
 				9FA68D0615E083BB0048789D /* rSkybox.m in Sources */,
+				9081521515E7D10900211C37 /* Reachability.m in Sources */,
+				9081522215E7D77900211C37 /* InitialController.m in Sources */,
+				9081522515E817E700211C37 /* RegisterViewNew.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

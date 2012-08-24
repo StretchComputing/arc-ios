@@ -11,10 +11,32 @@
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
 
-static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
-//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
+//static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
+static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
 
 @implementation ArcClient
+
+
+-(void)getServer{
+    @try {
+        [rSkybox addEventToSession:@"getServer"];
+        api = GetServer;
+        
+        
+        NSString *createUrl = [NSString stringWithFormat:@"%@server/%@", _arcUrl, [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"], nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
+        
+        [request setHTTPMethod: @"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        self.serverData = [NSMutableData data];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 
 -(void)createCustomer:(NSDictionary *)pairs{
     @try {
@@ -193,35 +215,55 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        //NSLog(@"ReturnString: %@", returnString);
+       // NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
         
         NSDictionary *responseInfo;
         NSString *notificationType;
+        
+        
         if(api == CreateCustomer) {
-            responseInfo = [self createCustomerResponse:response];
+            if (response) {
+                responseInfo = [self createCustomerResponse:response];
+            }
             notificationType = @"registerNotification";
         } else if(api == GetCustomerToken) {
-            responseInfo = [self getCustomerTokenResponse:response];
+            if (response) {
+                responseInfo = [self getCustomerTokenResponse:response];
+            }
             notificationType = @"signInNotification";
         } else if(api == GetMerchantList) {
-            responseInfo = [self getMerchantListResponse:response];
+            if (response) {
+                responseInfo = [self getMerchantListResponse:response];
+            }
             notificationType = @"merchantListNotification";
         } else if(api == GetInvoice) {
-            responseInfo = [self getInvoiceResponse:response];
+            if (response) {
+                responseInfo = [self getInvoiceResponse:response];
+            }
             notificationType = @"invoiceNotification";
         } else if(api == CreatePayment) {
-            responseInfo = [self createPaymentResponse:response];
+            if (response) {
+                responseInfo = [self createPaymentResponse:response];
+            }
             notificationType = @"createPaymentNotification";
         } else if(api == CreateReview) {
-            responseInfo = [self createReviewResponse:response];
+            if (response) {
+                responseInfo = [self createReviewResponse:response];
+            }
             notificationType = @"createReviewNotification";
         } else if(api == GetPointBalance) {
-            responseInfo = [self getPointBalanceResponse:response];
+            if (response) {
+                responseInfo = [self getPointBalanceResponse:response];
+            }
             notificationType = @"getPointBalanceNotification";
         }
+
+            
+        
+       
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
     }
     @catch (NSException *e) {
@@ -425,6 +467,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 }
 
 -(NSDictionary *) getPointBalanceResponse:(NSDictionary *)response {
+    
     @try {
         
         BOOL success = [[response valueForKey:@"Success"] boolValue];
@@ -445,6 +488,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getPointBalanceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+    
+ 
 }
 
 

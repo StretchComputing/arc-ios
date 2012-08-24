@@ -21,21 +21,7 @@
 @implementation ViewController
 
 -(void)viewDidAppear:(BOOL)animated{
-    @try {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
-        NSString *customerId = [prefs stringForKey:@"customerId"];
-        NSString *customerToken = [prefs stringForKey:@"customerToken"];
-        
-        if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
-            [self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
-            self.autoSignIn = YES;
-        }
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ViewController.viewDidAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        
-    }
+
 
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -52,6 +38,10 @@
             self.password.text = @"";
             
         }
+        
+  
+        
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -59,6 +49,7 @@
     }
         
 }
+
 
 -(void)selectPassword{
     [self.password becomeFirstResponder];

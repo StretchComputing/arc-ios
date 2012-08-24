@@ -20,6 +20,7 @@
 @end
 
 @implementation SettingsView
+@synthesize lifetimePointsProgressView;
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {
@@ -138,11 +139,12 @@
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
         [ tempDictionary setObject:customerId forKey:@"customerId"];
         
+        [self.activity startAnimating];
+
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];
         [client getPointBalance:loginDict];
         
-        [self.activity startAnimating];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SettingsView.getPointsBalance" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -169,7 +171,21 @@
             
             self.lifetimePointsLabel.text = [NSString stringWithFormat:@"Lifetime Points: %d", lifetime];
             self.pointsProgressView.progress = (float)balance/900.00;
+            self.lifetimePointsProgressView.progress = (float)lifetime/100000.0;
         }else{
+            
+            int balance = 0;
+            int lifetime = 0;
+            
+            self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
+            
+            self.lifetimePointsLabel.text = [NSString stringWithFormat:@"Lifetime Points: %d", lifetime];
+            self.pointsProgressView.progress = 0.0/900.00;
+            self.lifetimePointsProgressView.progress = 0.0/100000.0;
+
+            
+            
+            
             //self.errorLabel.text = @"*Error getting point balance payment.";
         }
     }
@@ -218,4 +234,8 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setLifetimePointsProgressView:nil];
+    [super viewDidUnload];
+}
 @end

@@ -11,6 +11,8 @@
 
 @interface Restaurant : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
+@property (weak, nonatomic) IBOutlet UITextField *checkNumFive;
+@property (weak, nonatomic) IBOutlet UITextField *checkNumSix;
 
 @property BOOL helpShowing;
 - (IBAction)submit:(id)sender;

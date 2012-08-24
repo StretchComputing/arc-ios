@@ -12,11 +12,83 @@
 #import <CrashReporter/CrashReporter.h>
 #import "UIDevice-Hardware.h"
 #import "rSkybox.h"
+#import "Reachability.h"
 
 @implementation ArcAppDelegate
 
+//Reachability
+- (void) reachabilityChanged: (NSNotification* )note
+{
+	Reachability* curReach = [note object];
+    [self updateInterfaceWithReachability:curReach];
+	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+}
+
+- (void) updateInterfaceWithReachability: (Reachability*) curReach
+{
+    if(curReach == internetReach)
+	{
+        NetworkStatus netStatus = [curReach currentReachabilityStatus];
+        //BOOL connectionRequired= [curReach connectionRequired];
+		
+		switch (netStatus)
+		{
+			case NotReachable:
+			{
+                
+                NSString *message = @"An internet connection is required for this app.  Please make sure you are connected to the internet to continue.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Lost" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                //[alert show];
+                
+				break;
+			}
+				
+			case ReachableViaWWAN:
+			{
+                
+				break;
+			}
+			case ReachableViaWiFi:
+			{
+				
+				break;
+			}
+		}
+	}
+
+    
+	if(curReach == internetReach)
+	{
+		
+	}
+	if(curReach == wifiReach)
+	{
+		
+	}
+	
+}
+
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //Reachability
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name:kReachabilityChangedNotification object: nil];
+    
+    //::Change to ARC Server
+    hostReach = [Reachability reachabilityWithHostName: @"arc-stage.dagher.mobi"];
+	[hostReach startNotifier];
+	[self updateInterfaceWithReachability: hostReach];
+	
+    internetReach = [Reachability reachabilityForInternetConnection];
+	[internetReach startNotifier];
+	[self updateInterfaceWithReachability: internetReach];
+    
+    wifiReach = [Reachability reachabilityForLocalWiFi];
+	[wifiReach startNotifier];
+	[self updateInterfaceWithReachability: wifiReach];
+    
+    
     // *** for rSkybox
     PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter]; NSError *error;
     /* Check if we previously crashed */
@@ -46,6 +118,8 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"appActive" object:self userInfo:nil];
+
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
