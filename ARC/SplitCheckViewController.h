@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
 
-@interface SplitCheckViewController : UIViewController
+@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (strong, nonatomic) Invoice *myInvoice;
+@property double amountDue;
+@property double yourTotalPayment;
+@property double yourPayment;
 
 @property (weak, nonatomic) IBOutlet UIView *percentView;
 @property (weak, nonatomic) IBOutlet UIView *dollarView;
@@ -38,6 +41,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *dollarYourTotalPaymentLabel;
 - (IBAction)dollarTipSegmentSelect:(id)sender;
 - (IBAction)dollarPayNow:(id)sender;
+- (IBAction)dollarYourPaymentEditEnd:(id)sender;
+@property (nonatomic, strong) NSArray *creditCards;
+@property (nonatomic, strong) NSString *creditCardNumber;
+@property (nonatomic, strong) NSString *creditCardSecurityCode;
+@property (nonatomic, strong) NSString *creditCardExpiration;
+@property (nonatomic, strong) NSString *creditCardSample;
 
 
 

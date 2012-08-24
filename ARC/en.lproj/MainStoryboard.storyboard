@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
@@ -1004,7 +1003,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2631" y="-586"/>
+            <point key="canvasLocation" x="2583" y="-838"/>
         </scene>
         <!--Dwolla Payment - Dwolla Payment-->
         <scene sceneID="JkZ-WE-dxq">
@@ -1129,7 +1128,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2631" y="14"/>
+            <point key="canvasLocation" x="2911" y="-111"/>
         </scene>
         <!--Split Check View Controller - Split Check-->
         <scene sceneID="bLB-mJ-0fJ">
@@ -1148,6 +1147,7 @@
                                     <barButtonItem title="Pay Bill" width="90" id="lID-Qr-UBN">
                                         <connections>
                                             <action selector="dollarPayNow:" destination="Txq-fd-JyS" id="iv0-r1-VHx"/>
+                                            <segue destination="hyn-k9-9Hu" kind="push" identifier="dollarGoPayDwolla" id="2br-61-MHh"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="tO5-aA-JZl"/>
@@ -1386,6 +1386,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
                                         <connections>
+                                            <action selector="dollarYourPaymentEditEnd:" destination="Txq-fd-JyS" eventType="editingDidEnd" id="pHt-7f-0Sl"/>
                                             <action selector="endText" destination="Txq-fd-JyS" eventType="editingDidEndOnExit" id="2h4-uR-Ff1"/>
                                         </connections>
                                     </textField>
@@ -1433,10 +1434,11 @@
                         <outlet property="itemView" destination="yrF-J2-Kid" id="a9h-l8-8Hw"/>
                         <outlet property="percentView" destination="Hsd-eA-Nsi" id="h1r-f5-TTr"/>
                         <outlet property="typeSegment" destination="j2p-Qr-B4H" id="Aij-Ed-6bH"/>
+                        <segue destination="zZz-LI-SJ8" kind="push" identifier="dollarGoPayCreditCard" id="co8-nZ-5K2"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2616" y="627"/>
+            <point key="canvasLocation" x="2542" y="687"/>
         </scene>
         <!--Review Transaction - Review-->
         <scene sceneID="UFY-bh-2hJ">
@@ -1989,7 +1991,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3074" y="7"/>
+            <point key="canvasLocation" x="3400" y="-393"/>
         </scene>
         <!--Invoice View - Invoice-->
         <scene sceneID="FhH-CO-O8h">
@@ -3304,6 +3306,7 @@
                 <relationship kind="action" name="dollarPayNow:"/>
                 <relationship kind="action" name="dollarTipDidBegin"/>
                 <relationship kind="action" name="dollarTipSegmentSelect:"/>
+                <relationship kind="action" name="dollarYourPaymentEditEnd:"/>
                 <relationship kind="action" name="endText"/>
                 <relationship kind="action" name="percentTipDidBegin"/>
                 <relationship kind="action" name="typeSegmentChanged"/>
@@ -3347,9 +3350,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="co8-nZ-5K2"/>
         <segue reference="o7u-Lj-dwT"/>
         <segue reference="A7t-ff-FTj"/>
+        <segue reference="2br-61-MHh"/>
         <segue reference="yIh-pn-HeY"/>
-        <segue reference="ZLN-Za-qGr"/>
+        <segue reference="Jnw-fa-EbX"/>
     </inferredMetricsTieBreakers>
 </document>

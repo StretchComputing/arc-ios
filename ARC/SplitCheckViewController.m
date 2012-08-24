@@ -9,6 +9,12 @@
 #import "SplitCheckViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
+#import "ArcAppDelegate.h"
+#import "CreditCard.h"
+#import "DwollaPayment.h"
+#import "CreditCardPayment.h"
+
+
 
 @interface SplitCheckViewController ()
 
@@ -42,20 +48,18 @@
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
         
+        // *** TODO get Jim to change API and/or put this calculation inside of the Invoice class ****
+        double serviceCharge = (self.myInvoice.baseAmount * self.myInvoice.serviceCharge);
+        double tax = (self.myInvoice.baseAmount * self.myInvoice.tax);
+        double discount = (self.myInvoice.baseAmount * self.myInvoice.discount);
+        self.amountDue = self.myInvoice.baseAmount + serviceCharge + tax - discount;
         double amountPaid = [self calculateAmountPaid];
-        double amountDue = self.myInvoice.baseAmount - amountPaid;
+        self.amountDue -= amountPaid;
+        
         self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
         self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
-        self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", amountDue];
-        
-        //@property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillNameLabel;
-        //@property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillLabel;
-        //@property (weak, nonatomic) IBOutlet UILabel *dollarAmountPaidNameLabel;
-        //@property (weak, nonatomic) IBOutlet UILabel *dollarAmountPaidLabel;
-        //@property (weak, nonatomic) IBOutlet UILabel *dollarAmountDueNameLabel;
-        //@property (weak, nonatomic) IBOutlet UILabel *dollarAmountDueLabel;
-
-
+        self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", 0.0];
         
         [super viewDidLoad];
         // Do any additional setup after loading the view.
@@ -154,11 +158,6 @@
         self.percentView.frame = CGRectMake(0, -120, 320, 328);
     }];
 }
-- (IBAction)dollarEditBegin:(id)sender {
-}
-
-- (IBAction)dollarEditEnd:(id)sender {
-}
 
 - (IBAction)dollarTipSegmentSelect:(id)sender {
     @try {
@@ -174,10 +173,11 @@
             tipPercent = .20;
         }
         
-        double yourPayment = [self.dollarYourPaymentText.text doubleValue];
-        double tipAmount = tipPercent * yourPayment;
+        self.yourPayment = [self.dollarYourPaymentText.text doubleValue];
+        double tipAmount = tipPercent * self.yourPayment;
+        self.yourTotalPayment = self.yourPayment + tipAmount;
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", yourPayment + tipAmount];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
         
         //::nick?
         [UIView beginAnimations:nil context:NULL];
@@ -191,12 +191,9 @@
         
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"InvoiceView.segmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"SplitCheckViewController.dollarTipSegmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 
-}
-
-- (IBAction)dollarPayNow:(id)sender {
 }
 
 //::nick::todo what happens if Amount cannot be converted to a float?
@@ -218,6 +215,173 @@
 
 -(void)resetSegment{
     self.dollarTipSegment.selectedSegmentIndex = -1;
+}
+
+
+- (IBAction)dollarEditBegin:(id)sender {
+    @try {
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.3];
+        
+        self.view.frame = CGRectMake(0, 0, 320, 416);
+        
+        [UIView commitAnimations];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.dollarEditBegin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+- (IBAction)dollarEditEnd:(id)sender {
+    @try {
+        
+        double tip = [self.dollarTipText.text doubleValue];
+        if (tip < 0.0) {
+            tip = 0.0;
+        }
+        self.yourPayment = [self.dollarYourPaymentText.text doubleValue];
+        self.yourTotalPayment = self.yourPayment + tip;
+        
+        self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tip];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.2];
+        
+        self.view.frame = CGRectMake(0, 0, 320, 416);
+        
+        [UIView commitAnimations];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.dollarEditEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+- (IBAction)dollarYourPaymentEditEnd:(id)sender {
+    double tip = [self.dollarTipText.text doubleValue];
+    self.yourPayment = [self.dollarYourPaymentText.text doubleValue];
+    
+    if (self.yourPayment < 0.0) {
+        self.yourPayment = 0.0;
+    }
+    self.yourTotalPayment = self.yourPayment + tip;
+    
+    self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
+    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+}
+
+- (IBAction)dollarPayNow:(id)sender {
+    @try {
+        
+        [rSkybox addEventToSession:@"clickedDollarPayButton"];
+        
+        [self.dollarTipText resignFirstResponder];
+        UIActionSheet *action;
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+        
+        if ([self.creditCards count] > 0) {
+            
+            action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            
+            [action addButtonWithTitle:@"Dwolla"];
+            
+            for (int i = 0; i < [self.creditCards count]; i++) {
+                CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+                [action addButtonWithTitle:[NSString stringWithFormat:@"Credit Card  %@", tmpCard.sample]];
+                
+            }
+            [action addButtonWithTitle:@"Cancel"];
+            action.cancelButtonIndex = [self.creditCards count] + 1;
+            
+        }else {
+            action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+        }
+        
+        
+        action.actionSheetStyle = UIActionSheetStyleDefault;
+        [action showInView:self.view];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.dollarPayNow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    @try {
+        
+        if (buttonIndex == 0) {
+            //Dwolla
+            [rSkybox addEventToSession:@"selectedDwollaForPayment"];
+            
+            [self performSegueWithIdentifier:@"dollarGoPayDwolla" sender:self];
+        }else {
+            [rSkybox addEventToSession:@"selectedCreditCardForPayment"];
+            
+            if ([self.creditCards count] > 0) {
+                if (buttonIndex == [self.creditCards count] + 1) {
+                    //Cancel
+                    //::todo::nick
+                }else{
+                    //1 is paypal, 2 is first credit card
+                    CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - 1];
+                    
+                    self.creditCardNumber = selectedCard.number;
+                    self.creditCardSecurityCode = selectedCard.securityCode;
+                    self.creditCardExpiration = selectedCard.expiration;
+                    self.creditCardSample = selectedCard.sample;
+                    
+                    [self performSegueWithIdentifier:@"dollarGoPayCreditCard" sender:self];
+                    
+                }
+            }else{
+                
+            }
+            
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceView.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    @try {
+        
+        if ([[segue identifier] isEqualToString:@"dollarGoPayDwolla"]) {
+            
+            DwollaPayment *controller = [segue destinationViewController];
+            controller.totalAmount = [[NSString stringWithFormat:@"%f", self.yourPayment] doubleValue];
+            controller.gratuity = [self.dollarTipText.text doubleValue];
+            controller.invoiceId = self.myInvoice.invoiceId;
+            
+        }else if ([[segue identifier] isEqualToString:@"dollarGoPayCreditCard"]) {
+            
+            CreditCardPayment *controller = [segue destinationViewController];
+            controller.totalAmount = [[NSString stringWithFormat:@"%f", self.yourPayment] doubleValue];
+            controller.gratuity = [self.dollarTipText.text doubleValue];
+            controller.invoiceId = self.myInvoice.invoiceId;
+            
+            controller.creditCardSample = self.creditCardSample;
+            controller.creditCardNumber = self.creditCardNumber;
+            controller.creditCardExpiration = self.creditCardExpiration;
+            controller.creditCardSecurityCode = self.creditCardSecurityCode;
+            
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceView.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 @end
