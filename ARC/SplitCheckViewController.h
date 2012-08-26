@@ -28,6 +28,7 @@
 - (IBAction)dollarTipDidBegin;
 - (IBAction)percentTipDidBegin;
 
+
 @property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dollarAmountPaidNameLabel;
@@ -72,7 +73,18 @@
 
 
 
+//Itemized
+@property (weak, nonatomic) IBOutlet UILabel *itemYourTotalPaymentLabel;
+@property (nonatomic, strong) NSMutableArray *itemArray;
+@property (weak, nonatomic) IBOutlet UITableView *itemTableView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *itemTipSegment;
+@property (weak, nonatomic) IBOutlet UITextField *itemTipText;
 
+@property double itemTotal;
+
+- (IBAction)itemTipDidBegin;
+- (IBAction)itemTipEditEnd;
+- (IBAction)itemTipSegmentSelect;
 
 
 

@@ -206,9 +206,7 @@
                 [client getInvoice:loginDict];
             }
             @catch (NSException *e) {
-                
-                //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-                
+                //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];                
             }
             
             

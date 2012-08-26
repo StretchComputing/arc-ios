@@ -767,10 +767,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="checkNumberHelp.png" id="TiP-i5-v6U">
-                                <rect key="frame" x="5" y="8" width="310" height="325"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mercadito" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="PDt-M0-NEP">
                                 <rect key="frame" x="95" y="8" width="225" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -869,6 +865,10 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="untitledLogo.png" id="AFA-cp-JD7">
                                 <rect key="frame" x="5" y="1" width="82" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="checkNumberHelp.png" id="TiP-i5-v6U">
+                                <rect key="frame" x="5" y="8" width="310" height="325"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -1309,11 +1309,6 @@
                                 </items>
                                 <color key="tintColor" red="0.082352941176470587" green="0.31372549019607843" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <view contentMode="scaleToFill" id="yrF-J2-Kid">
-                                <rect key="frame" x="0.0" y="44" width="320" height="328"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" id="T8l-yt-cdp">
                                 <rect key="frame" x="0.0" y="44" width="320" height="328"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1557,6 +1552,90 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" id="yrF-J2-Kid">
+                                <rect key="frame" x="0.0" y="44" width="320" height="328"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your Total Payment: $0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sUL-AT-aII">
+                                        <rect key="frame" x="-3" y="285" width="326" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="0B1-KH-Tlh">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemCell" id="tiu-On-LVL">
+                                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Xzm-Kr-AAJ">
+                                                            <rect key="frame" x="11" y="11" width="193" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="uGx-b7-fZH">
+                                                            <rect key="frame" x="236" y="11" width="64" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tip Amount" minimumFontSize="17" clearButtonMode="whileEditing" id="YDe-sY-QSd">
+                                        <rect key="frame" x="21" y="246" width="134" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                        <connections>
+                                            <action selector="editBegin:" destination="286-cg-SXD" eventType="editingDidBegin" id="B2w-35-V0w"/>
+                                            <action selector="editEnd:" destination="286-cg-SXD" eventType="editingDidEndOnExit" id="Hxq-pw-GSq"/>
+                                            <action selector="editEnd:" destination="286-cg-SXD" eventType="editingDidEnd" id="Y6V-56-61G"/>
+                                            <action selector="endText" destination="Txq-fd-JyS" eventType="editingDidEndOnExit" id="0B7-QH-Ryk"/>
+                                            <action selector="itemTipDidBegin" destination="Txq-fd-JyS" eventType="editingDidBegin" id="nCm-ET-eyh"/>
+                                            <action selector="itemTipEditEnd" destination="Txq-fd-JyS" eventType="editingDidEnd" id="iYu-Mm-tf6"/>
+                                            <action selector="percentTipDidBegin" destination="Txq-fd-JyS" eventType="editingDidBegin" id="TL6-3M-l9Y"/>
+                                            <action selector="percentTipEditEnd" destination="Txq-fd-JyS" eventType="editingDidEnd" id="cax-TG-kSq"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="LdF-ab-rnt">
+                                        <rect key="frame" x="10" y="250" width="28" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="Hpu-GS-xtL">
+                                        <rect key="frame" x="163" y="247" width="147" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="10%"/>
+                                            <segment title="15%"/>
+                                            <segment title="20%"/>
+                                        </segments>
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="itemTipSegmentSelect" destination="Txq-fd-JyS" eventType="valueChanged" id="kj0-nx-MWI"/>
+                                            <action selector="percentTipSegmentSelect" destination="Txq-fd-JyS" eventType="valueChanged" id="PQd-rJ-01m"/>
+                                            <action selector="segmentSelect" destination="286-cg-SXD" eventType="valueChanged" id="vdJ-34-tbd"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kPC-e0-AGP">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -1581,7 +1660,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Split Check" id="EmQ-QU-5ja"/>
+                    <navigationItem key="navigationItem" title="Split Check" id="EmQ-QU-5ja">
+                        <barButtonItem key="rightBarButtonItem" title="Help" id="6Ip-Th-kMi"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="dollarAmountDueLabel" destination="2V9-UU-Pl7" id="W3m-dJ-AIc"/>
                         <outlet property="dollarAmountDueNameLabel" destination="pzJ-Ib-bIm" id="FU6-tA-WfK"/>
@@ -1595,7 +1676,11 @@
                         <outlet property="dollarYourPaymentNameLabel" destination="6CL-ES-dXA" id="1ZY-tp-GkP"/>
                         <outlet property="dollarYourPaymentText" destination="Gko-fJ-B2q" id="OXM-hR-fpi"/>
                         <outlet property="dollarYourTotalPaymentLabel" destination="Itq-6n-RHY" id="gz6-pz-hvx"/>
+                        <outlet property="itemTableView" destination="0B1-KH-Tlh" id="nTc-Mi-LRi"/>
+                        <outlet property="itemTipSegment" destination="Hpu-GS-xtL" id="G7w-q7-Rdo"/>
+                        <outlet property="itemTipText" destination="YDe-sY-QSd" id="JRu-UM-sFE"/>
                         <outlet property="itemView" destination="yrF-J2-Kid" id="a9h-l8-8Hw"/>
+                        <outlet property="itemYourTotalPaymentLabel" destination="sUL-AT-aII" id="8i1-Vf-XW4"/>
                         <outlet property="percentAmountDueLabel" destination="0b6-P3-GWi" id="ak0-th-RN9"/>
                         <outlet property="percentAmountDueNameLabel" destination="7So-Zu-Jm4" id="kHI-B2-ihh"/>
                         <outlet property="percentAmountPaidLabel" destination="kkN-tR-8Li" id="ndG-7d-JbR"/>
@@ -2087,6 +2172,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="postTwitter" destination="3la-xy-Mwg" eventType="touchUpInside" id="OZ3-3d-3f2"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Share:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pO6-IO-ZXL">
                                 <rect key="frame" x="10" y="375" width="64" height="31"/>
@@ -3276,284 +3364,6 @@
         <image name="twittetrconnect.png" width="80" height="80"/>
         <image name="untitledLogo.png" width="300" height="175"/>
     </resources>
-    <classes>
-        <class className="AddCreditCard" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddCreditCard.h"/>
-            <relationships>
-                <relationship kind="action" name="addCard"/>
-                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
-                <relationship kind="action" name="editBegin:"/>
-                <relationship kind="action" name="editEnd:"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardNumberText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditCardPinText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="ContactUsView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactUsView.h"/>
-            <relationships>
-                <relationship kind="action" name="call"/>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="action" name="email"/>
-                <relationship kind="outlet" name="sloganLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CreditCardPayment" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreditCardPayment.h"/>
-            <relationships>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="DwollaPayment" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
-            <relationships>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="EditCreditCard" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditCreditCard.h"/>
-            <relationships>
-                <relationship kind="action" name="deleteCardAction"/>
-                <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="HelpView" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpView.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-            </relationships>
-        </class>
-        <class className="Home" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Home.h"/>
-            <relationships>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="outlet" name="activityView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="sloganLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="HomeNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeNavigationController.h"/>
-        </class>
-        <class className="InitialController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialController.h"/>
-        </class>
-        <class className="InvoiceView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceView.h"/>
-            <relationships>
-                <relationship kind="action" name="editBegin:"/>
-                <relationship kind="action" name="editEnd:"/>
-                <relationship kind="action" name="payNow:"/>
-                <relationship kind="action" name="segmentSelect"/>
-                <relationship kind="action" name="splitCheckAction:"/>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="amountNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="bottomHalfView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="discLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="discNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dividerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="gratLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="gratNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="subLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="taxLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tipText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="RegisterDwollaView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
-        </class>
-        <class className="RegisterNavigation" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterNavigation.h"/>
-        </class>
-        <class className="RegisterView" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterView.h"/>
-            <relationships>
-                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
-                <relationship kind="action" name="editBegin:"/>
-                <relationship kind="action" name="editEnd:"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="login:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="registerNow:"/>
-                <relationship kind="outlet" name="activityView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardNumberText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditCardPinText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dwollaSegControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="firstNameText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="genderSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="lastNameText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordText" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="RegisterViewNew" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewNew.h"/>
-            <relationships>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="login:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="registerNow:"/>
-                <relationship kind="outlet" name="dwollaSegControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="Restaurant" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Restaurant.h"/>
-            <relationships>
-                <relationship kind="action" name="checkNumberHelp"/>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkHelpImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="checkNumFive" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumSix" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameDisplay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="ReviewTransaction" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReviewTransaction.h"/>
-            <relationships>
-                <relationship kind="action" name="skipReview:"/>
-                <relationship kind="action" name="starClicked:"/>
-                <relationship kind="action" name="submitReview:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="atmosphere1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="commentsText" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="drinks1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="food1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value5" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SettingsView" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsView.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="action" name="dwollaAuthSwitchSelected"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="dwollaAuthSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="lifetimePointsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lifetimePointsProgressView" candidateClass="UIProgressView"/>
-                <relationship kind="outlet" name="pointsDisplayLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="pointsProgressView" candidateClass="UIProgressView"/>
-            </relationships>
-        </class>
-        <class className="SplitCheckViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplitCheckViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dollarEditEnd:"/>
-                <relationship kind="action" name="dollarPayNow:"/>
-                <relationship kind="action" name="dollarTipDidBegin"/>
-                <relationship kind="action" name="dollarTipSegmentSelect:"/>
-                <relationship kind="action" name="dollarYourPaymentEditEnd:"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="percentTipDidBegin"/>
-                <relationship kind="action" name="percentTipEditEnd"/>
-                <relationship kind="action" name="percentTipSegmentSelect"/>
-                <relationship kind="action" name="percentYourPercentDidEnd"/>
-                <relationship kind="action" name="typeSegmentChanged"/>
-                <relationship kind="outlet" name="dollarAmountDueLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dollarAmountDueNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dollarAmountPaidLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dollarAmountPaidNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dollarTipSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="dollarTipText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dollarTotalBillLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dollarTotalBillNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dollarView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="dollarYourPaymentNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dollarYourPaymentText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dollarYourTotalPaymentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="percentAmountDueLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="percentAmountDueNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="percentAmountPaidLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="percentAmountPaidNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="percentTipSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="percentTipText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="percentTotalBillLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="percentTotalBillNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="percentView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="percentYourPaymentDollarAmount" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="percentYourPaymentNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="percentYourPaymentText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="percentYourTotalPaymentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="typeSegment" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="signIn"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
-            </relationships>
-        </class>
-        <class className="ViewCreditCards" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewCreditCards.h"/>
-            <relationships>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
