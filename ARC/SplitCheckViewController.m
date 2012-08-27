@@ -181,6 +181,10 @@
 
 -(void)endText{
     
+    [self.dollarTipText resignFirstResponder];
+    [self.itemTipText resignFirstResponder];
+    [self.percentTipText resignFirstResponder];
+
     [UIView animateWithDuration:0.3 animations:^{
         
         self.dollarView.frame = CGRectMake(0, 44, 320, 328);
@@ -230,10 +234,7 @@
         
         
         
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.dollarTipText resignFirstResponder];
-            self.dollarView.frame = CGRectMake(0, 44, 320, 416);
-        }];
+        [self endText];
         
         
   
@@ -457,10 +458,8 @@
         
         
         
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.percentTipText resignFirstResponder];
-            self.percentView.frame = CGRectMake(0, 44, 320, 416);
-        }];
+        [self endText];
+
         
         
         
@@ -609,10 +608,8 @@
         [self showItemTotal];
         
         
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.itemTipText resignFirstResponder];
-            self.itemView.frame = CGRectMake(0, 44, 320, 416);
-        }];
+        [self endText];
+
         
         
         
