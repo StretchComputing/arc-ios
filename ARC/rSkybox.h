@@ -25,7 +25,8 @@
 +(void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData;
 +(void)sendFeedback:(NSData *)recordedData;
 
-
++(void)startThreshold:(NSString *)logName;
++(void)endThreshold:(NSString *)logName logMessage:(NSString *)logMessage maxValue:(double)maxValue;
 
 
 //App Actions Methods

@@ -19,7 +19,7 @@ typedef enum {
     GetPointBalance=7
 } APIS;
 
-@interface ArcClient : NSObject {
+@interface ArcClient : NSObject <NSURLConnectionDelegate> {
     APIS api;
 }
 @property (nonatomic, strong) NSMutableData *serverData;

@@ -25,6 +25,8 @@ static NSString *applicationId = @"ahRzfnJza3lib3gtc3RyZXRjaGNvbXITCxILQXBwbGljY
 
 static NSMutableArray *traceSession;
 static NSMutableArray *traceTimeStamps;
+static NSDate *startTime;
+static NSString *logNameBeingTimed;
 
 @implementation rSkybox
 
@@ -87,6 +89,21 @@ static NSMutableArray *traceTimeStamps;
     }
 }
 
+
++(void)startThreshold:(NSString *)logName {
+    startTime = [NSDate date];
+    logNameBeingTimed = logName;
+}
+
++(void)endThreshold:(NSString *)logName logMessage:(NSString *)logMessage maxValue:(double)maxValue {
+    NSTimeInterval milliseconds = [[NSDate date] timeIntervalSinceDate:startTime] * 1000;
+    
+    if(milliseconds > maxValue && ![logName isEqualToString:@"ErrorEncountered"]) {
+        NSString *logMessage = [NSString stringWithFormat:@"threshold: %0.0f ms latency: %0.0f ms", maxValue, milliseconds];
+        [rSkybox sendClientLog:logName logMessage:logMessage logLevel:@"error" exception:nil];
+    }
+    NSLog(@"Duration of %@: %0.1f", logName, milliseconds);
+}
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     

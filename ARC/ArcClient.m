@@ -13,6 +13,7 @@
 
 //static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
 static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
+//static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";  // Server at Jim's Place
 
 @implementation ArcClient
 
@@ -30,10 +31,11 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"GetServer"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.createCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.getServer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -53,6 +55,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"CreateCusotmer"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -77,6 +80,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"GetCusotmerToken"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -99,6 +103,8 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"GetMerchantList"];
+        [rSkybox startThreshold:@"GetMerchantList"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -123,6 +129,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"GetInvoice"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -147,6 +154,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"CreatePayment"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -170,6 +178,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"GetReview"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -192,6 +201,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"GetPointBalance"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -212,6 +222,9 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     @try {
         
+        NSString *logName = [NSString stringWithFormat:@"api.%@.threshold", [self apiToString]];
+        [rSkybox endThreshold:logName logMessage:@"fake logMessage" maxValue:3000.00];
+        
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
@@ -222,7 +235,6 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         
         NSDictionary *responseInfo;
         NSString *notificationType;
-        
         
         if(api == CreateCustomer) {
             if (response) {
@@ -261,9 +273,6 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
             notificationType = @"getPointBalanceNotification";
         }
 
-            
-        
-       
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
     }
     @catch (NSException *e) {
@@ -273,11 +282,17 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     @try {
+        [rSkybox endThreshold:@"ErrorEncountered" logMessage:@"NA" maxValue:0.00];
         
-        NSLog(@"Error: %@", error);
-        
-        NSDictionary *responseInfo = @{@"status": @"fail",
-        @"error": error};
+        //NSLog(@"Error: %@", error);
+        NSLog(@"Code: %i", error.code);
+        NSLog(@"Description: %@", error.localizedDescription);
+
+        // TODO make logType a function of the restaurant/location -- not sure the best way to do this yet
+        NSString *logName = [NSString stringWithFormat:@"api.%@.%@", [self apiToString], [self readableErrorCode:error]];
+        [rSkybox sendClientLog:logName logMessage:error.localizedDescription logLevel:@"error" exception:nil];
+
+        NSDictionary *responseInfo = @{@"status": @"fail", @"error": error};
         NSString *notificationType;
         if(api == CreateCustomer) {
             notificationType = @"registerNotification";
@@ -294,12 +309,64 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         } else if(api == GetPointBalance) {
             notificationType = @"getPointBalanceNotification";
         }
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.connection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
+}
+
+-(NSString *)readableErrorCode:(NSError *)error {
+    int errorCode = error.code;
+    if(errorCode == -1000) return @"NSURLErrorBadURL";
+    else if(errorCode == -1001) return @"TimedOut";
+    else if(errorCode == -1002) return @"UnsupportedURL";
+    else if(errorCode == -1003) return @"CannotFindHost";
+    else if(errorCode == -1004) return @"CannotConnectToHost";
+    else if(errorCode == -1005) return @"NetworkConnectionLost";
+    else if(errorCode == -1006) return @"DNSLookupFailed";
+    else if(errorCode == -1007) return @"HTTPTooManyRedirects";
+    else if(errorCode == -1008) return @"ResourceUnavailable";
+    else if(errorCode == -1009) return @"NotConnectedToInternet";
+    else if(errorCode == -1011) return @"BadServerResponse";
+    else return [NSString stringWithFormat:@"%i", error.code];
+}
+
+- (NSString*)apiToString {
+    NSString *result = nil;
+    
+    switch(api) {
+        case GetServer:
+            result = @"GetServer";
+            break;
+        case CreateCustomer:
+            result = @"CreateCustomer";
+            break;
+        case GetCustomerToken:
+            result = @"GetCustomerToken";
+            break;
+        case GetMerchantList:
+            result = @"GetMerchantList";
+            break;
+        case GetInvoice:
+            result = @"GetInvoice";
+            break;
+        case CreatePayment:
+            result = @"CreatePayment";
+            break;
+        case CreateReview:
+            result = @"CreateReview";
+            break;
+        case GetPointBalance:
+            result = @"GetPointBalance";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+    
+    return result;
 }
 
 -(NSDictionary *) createCustomerResponse:(NSDictionary *)response {
@@ -324,6 +391,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
             
             responseInfo = @{@"status": @"1"};
         } else {
+            // TODO:: need to pass the Arc Application error to the calling method
             NSString *message = [response valueForKey:@"Message"];
             //NSString *message = @"Internal Server Error";
             NSString *status = @"0";
@@ -360,6 +428,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
             
             responseInfo = @{@"status": @"1"};
         } else {
+            // TODO:: need to pass the Arc Application error to the calling method
             NSString *message = [response valueForKey:@"Message"];
             //NSString *message = @"Internal Server Error";
             NSString *status = @"0";
@@ -384,6 +453,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
             responseInfo = @{@"status": @"1",
             @"apiResponse": response};
         } else {
+            // TODO:: need to pass the Arc Application error to the calling method
             NSString *message = [response valueForKey:@"Message"];
             NSString *status = @"0";
             
@@ -407,6 +477,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
             responseInfo = @{@"status": @"1",
             @"apiResponse": response};
         } else {
+            // TODO:: need to pass the Arc Application error to the calling method
             NSString *message = [response valueForKey:@"Message"];
             NSString *status = @"0";
             
@@ -430,6 +501,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
             responseInfo = @{@"status": @"1",
             @"apiResponse": response};
         } else {
+            // TODO:: need to pass the Arc Application error to the calling method
             NSString *message = [response valueForKey:@"Message"];
             NSString *status = @"0";
             
@@ -452,6 +524,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
             responseInfo = @{@"status": @"1",
             @"apiResponse": response};
         } else {
+            // TODO:: need to pass the Arc Application error to the calling method
             NSString *message = [response valueForKey:@"Message"];
             NSString *status = @"0";
             
@@ -477,6 +550,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
             responseInfo = @{@"status": @"1",
             @"apiResponse": response};
         } else {
+            // TODO:: need to pass the Arc Application error to the calling method
             NSString *message = [response valueForKey:@"Message"];
             NSString *status = @"0";
             
