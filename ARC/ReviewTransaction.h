@@ -25,6 +25,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *food3;
 @property (nonatomic, strong) IBOutlet UIButton *food4;
 @property (nonatomic, strong) IBOutlet UIButton *food5;
+- (IBAction)postTwitter;
 
 @property (nonatomic, strong) IBOutlet UIButton *service1;
 @property (nonatomic, strong) IBOutlet UIButton *service2;

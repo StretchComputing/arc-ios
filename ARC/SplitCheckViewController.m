@@ -21,6 +21,8 @@
 @end
 
 @implementation SplitCheckViewController
+@synthesize itemYourTotalPaymentLabel;
+@synthesize itemTableView;
 @synthesize percentYourPaymentDollarAmount;
 @synthesize percentTipSegment;
 
@@ -42,6 +44,13 @@
         self.dollarView.hidden = NO;
         self.percentView.hidden = YES;
         self.itemView.hidden = YES;
+        
+        self.itemTableView.delegate = self;
+        self.itemTableView.dataSource = self;
+        self.itemTableView.backgroundColor = [UIColor clearColor];
+        UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+        tmpView.backgroundColor = [UIColor clearColor];
+        self.itemTableView.tableFooterView = tmpView;
         
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = self.view.bounds;
@@ -68,12 +77,40 @@
         self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", 0.0];
         
+        self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", 0.0];
+
         [super viewDidLoad];
         // Do any additional setup after loading the view.
         
         self.dollarView.backgroundColor = [UIColor clearColor];
         self.percentView.backgroundColor = [UIColor clearColor];
         self.itemView.backgroundColor = [UIColor clearColor];
+        
+        self.itemArray = [NSMutableArray array];
+        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+            
+            NSDictionary *oldItem = [self.myInvoice.items objectAtIndex:i];
+            
+            int number = [[oldItem valueForKey:@"Amount"] intValue];
+            
+            [oldItem setValue:@"no" forKey:@"selected"];
+            [oldItem setValue:@"1" forKey:@"Amount"];
+            
+            double price = [[oldItem valueForKey:@"Value"] doubleValue];
+            
+            price  = price / (double)number;
+            
+            [oldItem setValue:[NSString stringWithFormat:@"%f", price] forKey:@"Value"];
+            
+            for (int j = 0; j < number; j++) {
+                
+                NSMutableDictionary *newItem = [NSMutableDictionary dictionaryWithDictionary:oldItem];
+                [self.itemArray addObject:newItem];
+            }
+            
+        }
+        
+        [self.itemTableView reloadData];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SplitCheckViewController.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -102,6 +139,8 @@
     [self setDollarYourTotalPaymentLabel:nil];
     [self setPercentYourPaymentDollarAmount:nil];
     [self setPercentTipSegment:nil];
+    [self setItemTableView:nil];
+    [self setItemYourTotalPaymentLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -142,10 +181,15 @@
 
 -(void)endText{
     
+    [self.dollarTipText resignFirstResponder];
+    [self.itemTipText resignFirstResponder];
+    [self.percentTipText resignFirstResponder];
+
     [UIView animateWithDuration:0.3 animations:^{
         
         self.dollarView.frame = CGRectMake(0, 44, 320, 328);
         self.percentView.frame = CGRectMake(0, 44, 320, 328);
+        self.itemView.frame = CGRectMake(0, 44, 320, 328);
     }];
     
 }
@@ -190,10 +234,7 @@
         
         
         
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.dollarTipText resignFirstResponder];
-            self.dollarView.frame = CGRectMake(0, 44, 320, 416);
-        }];
+        [self endText];
         
         
   
@@ -417,10 +458,8 @@
         
         
         
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.percentTipText resignFirstResponder];
-            self.percentView.frame = CGRectMake(0, 44, 320, 416);
-        }];
+        [self endText];
+
         
         
         
@@ -455,6 +494,132 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SplitCheckViewController.percentTipEditEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    @try {
+        
+        return [self.itemArray count];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"Home.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        
+        NSUInteger row = [indexPath row];
+        static NSString *itemCell=@"itemCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCell];
+    
+        
+        NSDictionary *tmpItem = [self.itemArray objectAtIndex:row];
+        
+        UILabel *itemlabel = (UILabel *)[cell.contentView viewWithTag:1];
+        UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:2];
+        
+        itemlabel.text = [tmpItem valueForKey:@"Description"];
+        
+        double price = [[tmpItem valueForKey:@"Value"] doubleValue];
+        
+        priceLabel.text = [NSString stringWithFormat:@"$%.2f", price];
+        
+        if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"yes"]) {
+            cell.contentView.backgroundColor = [UIColor greenColor];
+        }else{
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"Home.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *tmp = [self.itemArray objectAtIndex:indexPath.row];
+    
+    double value = [[tmp valueForKey:@"Value"] doubleValue];
+    
+    if ([[tmp valueForKey:@"selected"] isEqualToString:@"yes"]) {
+        [tmp setValue:@"no" forKey:@"selected"];
+        self.itemTotal -= value;
+    }else{
+        [tmp setValue:@"yes" forKey:@"selected"];
+        self.itemTotal += value;
+    }
+    
+    [self showItemTotal];
+    [self.itemTableView reloadData];
+}
+
+-(void)showItemTotal{
+    
+    double tipTotal = [self.itemTipText.text doubleValue];
+    
+    double total = tipTotal + self.itemTotal;
+    
+    self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", total];
+}
+
+- (IBAction)itemTipDidBegin{
+    [rSkybox addEventToSession:@"itemTipDidBegin"];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.itemView.frame = CGRectMake(0, -120, 320, 328);
+    }];
+}
+
+- (IBAction)itemTipEditEnd{
+    
+    [self showItemTotal];
+}
+- (IBAction)itemTipSegmentSelect{
+    
+    @try {
+        [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
+        
+        double tipPercent = 0.0;
+        if (self.itemTipSegment.selectedSegmentIndex == 0) {
+            tipPercent = .10;
+        }else if (self.itemTipSegment.selectedSegmentIndex == 1){
+            tipPercent = .15;
+        }else{
+            tipPercent = .20;
+        }
+        
+        double tipAmount = tipPercent * self.itemTotal;
+        
+        self.itemTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
+
+        [self showItemTotal];
+        
+        
+        [self endText];
+
+        
+        
+        
+        
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.itemTipSegmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+
     
 }
 @end

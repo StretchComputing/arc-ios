@@ -12,6 +12,7 @@
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
 #import "rSkybox.h"
+#import <Twitter/Twitter.h>
 
 @interface ReviewTransaction ()
 
@@ -472,5 +473,27 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ReviewTransaction.viewDidUnload" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+- (IBAction)postTwitter {
+    
+    TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
+    [twitter setInitialText:@"I just made a purchase with ARC Mobile!"];
+    [self presentModalViewController:twitter animated:YES];
+    
+    twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
+        NSString *title = @"Tweet";
+        NSString *msg;
+        
+        if (result == TWTweetComposeViewControllerResultCancelled)
+            msg = @"You bailed on your tweet...";
+        else if (result == TWTweetComposeViewControllerResultDone)
+            msg = @"Hurray! Your tweet was tweeted!";
+        
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alertView show];
+        
+        [self dismissModalViewControllerAnimated:YES];
+    };
+    
 }
 @end
