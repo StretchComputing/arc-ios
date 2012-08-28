@@ -193,10 +193,10 @@
                 tmpMerchant.name = [theMerchant valueForKey:@"Name"];
                 tmpMerchant.merchantId = [[theMerchant valueForKey:@"Id"] intValue];
                 
-                tmpMerchant.address = [theMerchant valueForKey:@"Address"];
+                tmpMerchant.address = [theMerchant valueForKey:@"Street"];
                 tmpMerchant.city = [theMerchant valueForKey:@"City"];
                 tmpMerchant.state = [theMerchant valueForKey:@"State"];
-                tmpMerchant.zipCode = [theMerchant valueForKey:@"ZipCode"];
+                tmpMerchant.zipCode = [theMerchant valueForKey:@"Zipcode"];
                 
                 tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
                 
@@ -260,7 +260,7 @@
         nameLabel.text = tmpMerchant.name;
         
         if (tmpMerchant.address) {
-            adrLabel = [NSString stringWithFormat:@"%@, %@, %@ %@", tmpMerchant.address, tmpMerchant.city, tmpMerchant.state, tmpMerchant.zipCode];
+            adrLabel.text = [NSString stringWithFormat:@"%@, %@, %@ %@", tmpMerchant.address, tmpMerchant.city, tmpMerchant.state, tmpMerchant.zipCode];
         }else{
             adrLabel.text = @"201 North Ave, Chicago, IL";
         }

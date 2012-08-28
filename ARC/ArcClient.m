@@ -215,7 +215,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-       // NSLog(@"ReturnString: %@", returnString);
+        //NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
