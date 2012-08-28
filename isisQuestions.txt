@@ -1,0 +1,29 @@
+0. Do you consider this a REST API?
+0. Do you use all HTTP methods (get, post, put delete) or just get?
+0. Do you ues HTTP or HTTPS?
+1. Which ISIS server do we use for Untitled?
+1.5 How is the server tied into Untitled? Is it possible for Untitled to be up and running and yet we cannot access this API?
+2. If we add more restaurants, would they be on the same server?
+3. Which server should we use for testing?
+4. API Key: is this restaurant specific or is it good for all restaurants?
+5. Two API docs we received do not jibe (one shows more XML elements) -- is one more recent than the other?
+6. Get Token API
+   - how long does a token last?  how long should we use it for?
+   - is the token restaraunt specific?
+7. Get Business Date API
+   - when should we use this?
+8. Get List of Open Checks API
+   - call this to get invoice and then match invoice numbers?
+9. Get Transactional Data for a Particular Check API
+   - called to get invoice details.  LineItem for @ line item on check -- correct?
+   - is this same API called to pay via "tray" -- example of what that looks like?
+   - when paying, are multiple LineItems needed or just one?
+   - assuming we can make multiple partial payments for the same check via multiple API calls - correct?
+   - after paying, do we call this API again to verify credit card approval?
+   - what actually closes a check?
+   - we see payment 'type' in DTD -- where is ths placed in API call?
+   - are all payment types in DTD supported?  especially CreditVoidSale, Cancel
+10. Any other APIs we should call/use?
+11. Who will be our technical contact for questions, testing and issue resolution?
+12. 
+
