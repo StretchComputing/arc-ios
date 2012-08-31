@@ -134,22 +134,29 @@
         self.itemView.backgroundColor = [UIColor clearColor];
         
         self.itemArray = [NSMutableArray array];
-        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+        
+
+    
+        NSMutableArray *invoiceItems= [[NSMutableArray alloc]initWithArray:self.myInvoice.items];
+
+        
+        for (int i = 0; i < [invoiceItems count]; i++) {
             
-            NSDictionary *oldItem = [self.myInvoice.items objectAtIndex:i];
+            NSDictionary *oldItem = [invoiceItems objectAtIndex:i];
             
             int number = [[oldItem valueForKey:@"Amount"] intValue];
             
             [oldItem setValue:@"no" forKey:@"selected"];
             [oldItem setValue:@"0" forKey:@"myAmount"];
 
-            [oldItem setValue:@"1" forKey:@"Amount"];
+            [oldItem setValue:@"1" forKey:@"splitAmount"];
             
             double price = [[oldItem valueForKey:@"Value"] doubleValue];
             
             price  = price / (double)number;
             
-            [oldItem setValue:[NSString stringWithFormat:@"%f", price] forKey:@"Value"];
+            [oldItem setValue:[NSString stringWithFormat:@"%f", price] forKey:@"splitValue"];
+            
             
             for (int j = 0; j < number; j++) {
                 
@@ -595,7 +602,7 @@
         
         itemlabel.text = [tmpItem valueForKey:@"Description"];
         
-        double price = [[tmpItem valueForKey:@"Value"] doubleValue];
+        double price = [[tmpItem valueForKey:@"splitValue"] doubleValue];
         
         priceLabel.text = [NSString stringWithFormat:@"$%.2f", price];
         
@@ -637,7 +644,7 @@
     gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor1 CGColor], nil];
     [self.itemSplitItemView.layer insertSublayer:gradient1 atIndex:0];
     
-    double theTotal = [[[self.itemArray objectAtIndex:myPress.selectedCell] valueForKey:@"Value"] doubleValue];
+    double theTotal = [[[self.itemArray objectAtIndex:myPress.selectedCell] valueForKey:@"splitValue"] doubleValue];
     
     self.itemSplitItemIndex = myPress.selectedCell;
     
@@ -663,7 +670,7 @@
     
     NSDictionary *tmp = [self.itemArray objectAtIndex:indexPath.row];
     
-    double value = [[tmp valueForKey:@"Value"] doubleValue];
+    double value = [[tmp valueForKey:@"splitValue"] doubleValue];
     
     if ([[tmp valueForKey:@"selected"] isEqualToString:@"yes"]) {
         [tmp setValue:@"no" forKey:@"selected"];
@@ -769,7 +776,7 @@
     NSDictionary *tmp = [self.itemArray objectAtIndex:self.itemSplitItemIndex];
 
     
-    double initValue = [[tmp valueForKey:@"Value"] doubleValue];
+    double initValue = [[tmp valueForKey:@"splitValue"] doubleValue];
     double value = [self.itemSplitItemYourAmount.text doubleValue];
     
     [tmp setValue:[NSString stringWithFormat:@"%f", value] forKey:@"myAmount"];
@@ -807,7 +814,7 @@
 }
 - (IBAction)itemSplitItemSegmentSelect {
     
-    double amount = [[[self.itemArray objectAtIndex:self.itemSplitItemIndex] valueForKey:@"Value"] doubleValue];
+    double amount = [[[self.itemArray objectAtIndex:self.itemSplitItemIndex] valueForKey:@"splitValue"] doubleValue];
     double percent = 0.0;
     
     if (self.itemSplitItemSegControl.selectedSegmentIndex == 0) {
