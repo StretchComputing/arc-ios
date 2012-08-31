@@ -239,13 +239,16 @@
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-        NSLog(@"Response Info: %@", responseInfo);
+        //NSLog(@"Response Info: %@", responseInfo);
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
         [self.activity stopAnimating];
         if ([status isEqualToString:@"1"]) {
             //success
+            [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:@"customerEmail"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             [self performSegueWithIdentifier: @"signIn" sender: self];
             //Do the next thing (go home?)
         } else {

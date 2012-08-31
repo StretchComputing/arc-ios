@@ -40,4 +40,7 @@
 @property (nonatomic, strong) NSString *creditCardExpiration;
 @property (nonatomic, strong) NSString *creditCardSample;
 
+@property (nonatomic, strong) IBOutlet UITextField *hiddenText;
+
+
 @end

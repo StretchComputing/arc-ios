@@ -13,7 +13,7 @@
 #import "CreditCard.h"
 #import "DwollaPayment.h"
 #import "CreditCardPayment.h"
-
+#import "MyGestureRecognizer.h"
 
 
 @interface SplitCheckViewController ()
@@ -21,6 +21,19 @@
 @end
 
 @implementation SplitCheckViewController
+@synthesize itemSplitItemSegControl;
+@synthesize itemSplitItemItemTotal;
+@synthesize itemSplitItemYourAmount;
+@synthesize itemSplitItemView;
+@synthesize itemTaxLabel;
+@synthesize itemServiceChargeLabel;
+@synthesize percentFoodBevLabel;
+@synthesize percentServiceChargeLabel;
+@synthesize percentTaxLabel;
+@synthesize dollarFoodBevLabel;
+@synthesize dollarServiceChargeLabel;
+@synthesize dollarTaxLabel;
+@synthesize percentYourPercentSegControl;
 @synthesize itemYourTotalPaymentLabel;
 @synthesize itemTableView;
 @synthesize percentYourPaymentDollarAmount;
@@ -41,6 +54,35 @@
     @try {
         [rSkybox addEventToSession:@"signInComplete"];
         
+        
+        [[self.itemSplitItemView layer] setBorderColor:[[UIColor blackColor] CGColor]];
+        [[self.itemSplitItemView layer] setBorderWidth:1.0];
+        [[self.itemSplitItemView layer] setCornerRadius:5];
+        [self.itemSplitItemView setClipsToBounds: YES];
+        
+
+        self.itemSplitItemView.hidden = YES;
+        
+        //self.myInvoice.tax = 0.11;
+        //self.myInvoice.serviceCharge = 0.20;
+        
+        //Calculate tax and service charage for % and $$
+        
+        self.baseDollarValue = self.myInvoice.baseAmount;
+        self.taxDollarValue = self.baseDollarValue * self.myInvoice.tax;
+        self.serviceChargeDollarValue = self.baseDollarValue * self.myInvoice.serviceCharge;
+        
+        //set labels
+        
+        self.percentFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.baseDollarValue];
+        self.percentTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.taxDollarValue];
+        self.percentServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.serviceChargeDollarValue];
+        
+        self.dollarFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.baseDollarValue];
+        self.dollarTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.taxDollarValue];
+        self.dollarServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.serviceChargeDollarValue];
+        
+        
         self.dollarView.hidden = NO;
         self.percentView.hidden = YES;
         self.itemView.hidden = YES;
@@ -59,6 +101,10 @@
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
         
+        
+        
+     
+        
         // *** TODO get Jim to change API and/or put this calculation inside of the Invoice class ****
         double serviceCharge = (self.myInvoice.baseAmount * self.myInvoice.serviceCharge);
         double tax = (self.myInvoice.baseAmount * self.myInvoice.tax);
@@ -67,17 +113,18 @@
         double amountPaid = [self calculateAmountPaid];
         self.amountDue = self.totalBill - amountPaid;
         
-        self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        
+        self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalBill];
         self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
         self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", 0.0];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", 0.0];
         
-        self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalBill];
         self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
         self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", 0.0];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", 0.0];
         
-        self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", 0.0];
+        self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", 0.0];
 
         [super viewDidLoad];
         // Do any additional setup after loading the view.
@@ -94,6 +141,8 @@
             int number = [[oldItem valueForKey:@"Amount"] intValue];
             
             [oldItem setValue:@"no" forKey:@"selected"];
+            [oldItem setValue:@"0" forKey:@"myAmount"];
+
             [oldItem setValue:@"1" forKey:@"Amount"];
             
             double price = [[oldItem valueForKey:@"Value"] doubleValue];
@@ -111,38 +160,16 @@
         }
         
         [self.itemTableView reloadData];
+        
+        
+      
+
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SplitCheckViewController.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
     }
 
-}
-
-- (void)viewDidUnload
-{
-    [self setPercentView:nil];
-    [self setDollarView:nil];
-    [self setItemView:nil];
-    [self setTypeSegment:nil];
-    [self setTypeSegment:nil];
-    [self setDollarTotalBillNameLabel:nil];
-    [self setDollarTotalBillLabel:nil];
-    [self setDollarAmountPaidNameLabel:nil];
-    [self setDollarAmountPaidLabel:nil];
-    [self setDollarAmountDueNameLabel:nil];
-    [self setDollarAmountDueLabel:nil];
-    [self setDollarYourPaymentNameLabel:nil];
-    [self setDollarYourPaymentText:nil];
-    [self setDollarTipText:nil];
-    [self setDollarTipSegment:nil];
-    [self setDollarYourTotalPaymentLabel:nil];
-    [self setPercentYourPaymentDollarAmount:nil];
-    [self setPercentTipSegment:nil];
-    [self setItemTableView:nil];
-    [self setItemYourTotalPaymentLabel:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -170,6 +197,14 @@
             self.percentView.hidden = YES;
             self.itemView.hidden = NO;
             
+            if (![[NSUserDefaults standardUserDefaults] valueForKey:@"didShowItemBeta"]) {
+                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowItemBeta"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                UIAlertView *betaAlert = [[UIAlertView alloc] initWithTitle:@"Beta Version" message:@"Itemized check splitting is currently in beta.  Please be sure that multiple people do not select and pay for the same item!  ARC will verify for you that this does not happen in the next release.  Thank you!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [betaAlert show];
+            }
+            
         }
     }
     @catch (NSException *e) {
@@ -181,6 +216,7 @@
 
 -(void)endText{
     
+    [self.percentYourPaymentText resignFirstResponder];
     [self.dollarTipText resignFirstResponder];
     [self.itemTipText resignFirstResponder];
     [self.percentTipText resignFirstResponder];
@@ -230,7 +266,7 @@
         double tipAmount = tipPercent * self.yourPayment;
         self.yourTotalPayment = self.yourPayment + tipAmount;
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
         
         
         
@@ -281,7 +317,7 @@
         self.yourTotalPayment = self.yourPayment + tip;
         
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tip];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
         
                 
     }
@@ -300,7 +336,7 @@
     self.yourTotalPayment = self.yourPayment + tip;
     
     self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
-    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
 }
 
 - (IBAction)dollarPayNow:(id)sender {
@@ -384,20 +420,30 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    double gratuity = 0.0;
+    
+    if (self.itemView.hidden == NO) {
+        gratuity = [self.itemTipText.text doubleValue];
+    }else if (self.percentView.hidden == NO){
+        gratuity = [self.percentTipText.text doubleValue];
+    }else{
+        gratuity = [self.dollarTipText.text doubleValue];
+    }
     @try {
         
         if ([[segue identifier] isEqualToString:@"dollarGoPayDwolla"]) {
             
             DwollaPayment *controller = [segue destinationViewController];
             controller.totalAmount = [[NSString stringWithFormat:@"%f", self.yourPayment] doubleValue];
-            controller.gratuity = [self.dollarTipText.text doubleValue];
+            controller.gratuity = gratuity;
             controller.invoiceId = self.myInvoice.invoiceId;
             
         }else if ([[segue identifier] isEqualToString:@"dollarGoPayCreditCard"]) {
             
             CreditCardPayment *controller = [segue destinationViewController];
             controller.totalAmount = [[NSString stringWithFormat:@"%f", self.yourPayment] doubleValue];
-            controller.gratuity = [self.dollarTipText.text doubleValue];
+            controller.gratuity = gratuity;
             controller.invoiceId = self.myInvoice.invoiceId;
             
             controller.creditCardSample = self.creditCardSample;
@@ -411,6 +457,31 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+
+-(void)percentYourPercentSegmentSelect{
+    
+    if (self.percentYourPercentSegControl.selectedSegmentIndex == 0) {
+        self.percentYourPaymentText.text = @"25";
+    }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 1){
+        self.percentYourPaymentText.text = @"33.333333";
+
+    }else{
+        self.percentYourPaymentText.text = @"50";
+
+    }
+    
+    //[self percentYourPercentDidEnd];
+   // [self.percentYourPaymentText resignFirstResponder];
+    
+    if ([self.percentYourPaymentText isFirstResponder]) {
+        [self endText];
+
+    }else{
+        [self percentYourPercentDidEnd];
+    }
+
 }
 
 - (IBAction)percentYourPercentDidEnd {
@@ -428,7 +499,7 @@
     self.yourTotalPayment = self.yourPayment + tip;
     
     //self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
-    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
     
     
 }
@@ -454,7 +525,7 @@
         double tipAmount = tipPercent * self.yourPayment;
         self.yourTotalPayment = self.yourPayment + tipAmount;
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
         
         
         
@@ -487,7 +558,7 @@
         self.yourTotalPayment = self.yourPayment + tip;
         
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tip];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", self.yourTotalPayment];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
         
         
     }
@@ -530,10 +601,22 @@
         
         if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"yes"]) {
             cell.contentView.backgroundColor = [UIColor greenColor];
+        }else if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"maybe"]){
+            cell.contentView.backgroundColor = [UIColor yellowColor];
         }else{
             cell.contentView.backgroundColor = [UIColor whiteColor];
+
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+        MyGestureRecognizer *lpgr = [[MyGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+		lpgr.minimumPressDuration = 0.5f; //seconds
+		lpgr.delegate = self;
+        lpgr.selectedCell = row;
+		[cell addGestureRecognizer:lpgr];
+        
+        
         return cell;
         
     }
@@ -542,6 +625,35 @@
     }
 }
 
+
+-(void)longPress:(id)sender{
+    
+    MyGestureRecognizer *myPress = (MyGestureRecognizer *)sender;
+    
+    CAGradientLayer *gradient1 = [CAGradientLayer layer];
+    gradient1.frame = self.itemSplitItemView.bounds;
+    self.itemSplitItemView.backgroundColor = [UIColor clearColor];
+    UIColor *myColor1 = [UIColor colorWithRed:114.0*1.1/255.0 green:168.0*1.1/255.0 blue:192.0*1.1/255.0 alpha:1.0];
+    gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor1 CGColor], nil];
+    [self.itemSplitItemView.layer insertSublayer:gradient1 atIndex:0];
+    
+    double theTotal = [[[self.itemArray objectAtIndex:myPress.selectedCell] valueForKey:@"Value"] doubleValue];
+    
+    self.itemSplitItemIndex = myPress.selectedCell;
+    
+    self.itemSplitItemItemTotal.text = [NSString stringWithFormat:@"$%.2f", theTotal];
+    self.itemSplitItemView.hidden = NO;
+    
+    double myAmount = [[[self.itemArray objectAtIndex:myPress.selectedCell] valueForKey:@"myAmount"] doubleValue];
+    
+    if (myAmount > 0) {
+        
+        self.itemSplitItemYourAmount.text = [NSString stringWithFormat:@"%.2f", myAmount];
+    }else{
+        self.itemSplitItemYourAmount.text = @"";
+    }
+    
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44;
 }
@@ -556,22 +668,37 @@
     if ([[tmp valueForKey:@"selected"] isEqualToString:@"yes"]) {
         [tmp setValue:@"no" forKey:@"selected"];
         self.itemTotal -= value;
+    }else if ([[tmp valueForKey:@"selected"] isEqualToString:@"maybe"]){
+        [tmp setValue:@"no" forKey:@"selected"];
+        
+        double myValue = [[tmp valueForKey:@"myAmount"] doubleValue];
+        self.itemTotal -= myValue;
+
     }else{
         [tmp setValue:@"yes" forKey:@"selected"];
         self.itemTotal += value;
     }
     
+    
+    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.itemTotal * self.myInvoice.tax];
+    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.itemTotal * self.myInvoice.serviceCharge];
+
     [self showItemTotal];
     [self.itemTableView reloadData];
 }
 
 -(void)showItemTotal{
     
+    double taxTotal = self.itemTotal * self.myInvoice.tax;
+    double serviceTotal = self.itemTotal * self.myInvoice.serviceCharge;
+    
     double tipTotal = [self.itemTipText.text doubleValue];
     
-    double total = tipTotal + self.itemTotal;
+    double total = tipTotal + self.itemTotal + taxTotal + serviceTotal;
     
-    self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Your Total Payment: $%.2f", total];
+    self.yourPayment = total;
+    
+    self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", total];
 }
 
 - (IBAction)itemTipDidBegin{
@@ -621,5 +748,81 @@
     }
 
     
+}
+- (void)viewDidUnload {
+    [self setItemTaxLabel:nil];
+    [self setItemServiceChargeLabel:nil];
+    [self setItemSplitItemView:nil];
+    [self setItemSplitItemItemTotal:nil];
+    [self setItemSplitItemYourAmount:nil];
+    [self setItemSplitItemSegControl:nil];
+    [super viewDidUnload];
+}
+- (IBAction)itemSplitItemCancel {
+    
+    self.itemSplitItemView.hidden = YES;
+}
+
+- (IBAction)itemSplitItemSave {
+    
+    self.itemSplitItemView.hidden = YES;
+    NSDictionary *tmp = [self.itemArray objectAtIndex:self.itemSplitItemIndex];
+
+    
+    double initValue = [[tmp valueForKey:@"Value"] doubleValue];
+    double value = [self.itemSplitItemYourAmount.text doubleValue];
+    
+    [tmp setValue:[NSString stringWithFormat:@"%f", value] forKey:@"myAmount"];
+    
+    if ([[tmp valueForKey:@"selected"] isEqualToString:@"yes"]) {
+        [tmp setValue:@"maybe" forKey:@"selected"];
+        self.itemTotal -= initValue;
+        self.itemTotal += value;
+        
+    }else{
+        [tmp setValue:@"maybe" forKey:@"selected"];
+        self.itemTotal += value;
+    }
+    
+    
+    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.itemTotal * self.myInvoice.tax];
+    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.itemTotal * self.myInvoice.serviceCharge];
+    
+    [self showItemTotal];
+    [self.itemTableView reloadData];
+    
+
+}
+- (IBAction)itemSplitItemYourAmountTextEnd {
+    
+    double yourPay = [self.itemSplitItemYourAmount.text doubleValue];
+    
+    if (self.yourPayment < 0.0) {
+        self.yourPayment = 0.0;
+    }
+    
+    self.itemSplitItemYourAmount.text = [NSString stringWithFormat:@"%.2f", yourPay];
+    
+    
+}
+- (IBAction)itemSplitItemSegmentSelect {
+    
+    double amount = [[[self.itemArray objectAtIndex:self.itemSplitItemIndex] valueForKey:@"Value"] doubleValue];
+    double percent = 0.0;
+    
+    if (self.itemSplitItemSegControl.selectedSegmentIndex == 0) {
+        percent = 0.20;
+    }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 1){
+        percent = 0.25;
+
+    }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 2){
+        percent = 0.33333333;
+
+    }else{
+        percent = 0.5;
+
+    }
+    
+    self.itemSplitItemYourAmount.text = [NSString stringWithFormat:@"%.2f", amount * percent];
 }
 @end

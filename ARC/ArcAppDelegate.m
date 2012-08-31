@@ -73,7 +73,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[UIApplication sharedApplication]
-     setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:NO];
+     setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:NO];
     
     //Reachability
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name:kReachabilityChangedNotification object: nil];

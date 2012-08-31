@@ -22,8 +22,12 @@
 
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+   
+    
     @try {
         
+        /*
         if (self.wentInvoice) {
             self.wentInvoice = NO;
             [self.checkNumFour becomeFirstResponder];
@@ -31,6 +35,8 @@
             [self.checkNumOne becomeFirstResponder];
             
         }
+         */
+        [self.hiddenText becomeFirstResponder];
         
         self.serverData = [NSMutableData data];
         
@@ -41,11 +47,77 @@
 }
 
 
+-(void)setValues:(NSString *)newString{
 
+    NSLog(@"NewString: %@", newString);
+    
+    if ([newString length] < 7) {
+        
+        @try {
+            self.checkNumOne.text = [newString substringWithRange:NSMakeRange(0, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumOne.text = @"";
+        }
+        
+        @try {
+            self.checkNumTwo.text = [newString substringWithRange:NSMakeRange(1, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumTwo.text = @"";
+        }
+        
+        @try {
+            self.checkNumThree.text = [newString substringWithRange:NSMakeRange(2, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumThree.text = @"";
+        }
+        
+        @try {
+            self.checkNumFour.text = [newString substringWithRange:NSMakeRange(3, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumFour.text = @"";
+        }
+        
+        @try {
+            self.checkNumFive.text = [newString substringWithRange:NSMakeRange(4, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumFive.text = @"";
+        }
+        
+        @try {
+            self.checkNumSix.text = [newString substringWithRange:NSMakeRange(5, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumSix.text = @"";
+        }
+       
+        
+    }
+}
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
         
+   // NSLog(@"NewString: %@", string);
+    //NSLog(@"RangeLength: %d", range.length);
+    //NSLog(@"RangeLoc: %d", range.location);
+    
+    NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
+    
     @try {
         
+   
+        if (newLength > 6) {
+            return FALSE;
+        }else{
+            
+            [self setValues:[self.hiddenText.text stringByReplacingCharactersInRange:range withString:string]];
+            return TRUE;
+
+        }
+        /*
         if ([textField.text isEqualToString:@" "]) {
             
             if ([string isEqualToString:@""]) {
@@ -64,6 +136,7 @@
         }
         
         return FALSE;
+         */
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Restaurant.testField" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -135,14 +208,18 @@
         self.checkNumFour.delegate = self;
         self.checkNumFive.delegate = self;
         self.checkNumSix.delegate = self;
+        
+        self.hiddenText.text = @"";
+        self.hiddenText.delegate = self;
+        
 
         
-        self.checkNumOne.text = @" ";
-        self.checkNumTwo.text = @" ";
-        self.checkNumThree.text = @" ";
-        self.checkNumFour.text = @" ";
-        self.checkNumFive.text = @" ";
-        self.checkNumSix.text = @" ";
+        self.checkNumOne.text = @"";
+        self.checkNumTwo.text = @"";
+        self.checkNumThree.text = @"";
+        self.checkNumFour.text = @"";
+        self.checkNumFive.text = @"";
+        self.checkNumSix.text = @"";
 
         
         self.checkNumOne.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
@@ -296,6 +373,7 @@
         [self.checkNumTwo resignFirstResponder];
         [self.checkNumThree resignFirstResponder];
         [self.checkNumFour resignFirstResponder];
+        [self.hiddenText resignFirstResponder];
         
         self.checkNumOne.enabled = NO;
         self.checkNumTwo.enabled = NO;
@@ -326,6 +404,7 @@
             self.checkNumFour.enabled = YES;
             
             [self.checkNumOne becomeFirstResponder];
+            [self.hiddenText becomeFirstResponder];
             
             self.nameDisplay.hidden = NO;
             self.submitButton.enabled = YES;
@@ -341,16 +420,5 @@
     
 }
 
-- (void)viewDidUnload {
-    [self setCheckNumSix:nil];
-    [self setCheckNumFive:nil];
-    @try {
-        
-        [self setSubmitButton:nil];
-        [super viewDidUnload];
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"Restaurant.viewDidUnload" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-}
+
 @end

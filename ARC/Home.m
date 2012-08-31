@@ -300,6 +300,9 @@
             
             detailViewController.merchantId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
             detailViewController.name = tmpMerchant.name;
+            
+            [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"selectedRestaurant"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         } 
     }
     @catch (NSException *e) {

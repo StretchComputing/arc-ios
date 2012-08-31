@@ -65,6 +65,10 @@
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
+        
+        [[NSUserDefaults standardUserDefaults] setValue:self.emailText.text forKey:@"customerEmail"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         if ([status isEqualToString:@"1"]) {
             //success
             
