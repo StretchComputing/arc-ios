@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
 
+
+
 @interface Restaurant : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFive;
@@ -39,4 +41,7 @@
 @property (strong, nonatomic) NSMutableData *serverData;
 
 @property (strong, nonatomic) Invoice *myInvoice;
+
+@property (nonatomic, strong) IBOutlet UITextField *hiddenText;
+
 @end

@@ -38,6 +38,9 @@
         self.checkNumThree.delegate = self;
         self.checkNumFour.delegate = self;
         
+        self.hiddenText.delegate = self;
+        self.hiddenText.text = @"";
+        
         self.checkNumOne.text = @" ";
         self.checkNumTwo.text = @" ";
         self.checkNumThree.text = @" ";
@@ -99,7 +102,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     @try {
         
-        [self.checkNumOne becomeFirstResponder];
+        [self.hiddenText becomeFirstResponder];
         self.serverData = [NSMutableData data];
         
         if (self.fromDwolla) {
@@ -150,32 +153,86 @@
 }
 
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    @try {
+-(void)setValues:(NSString *)newString{
+    
+    
+    if ([newString length] < 5) {
         
-        if ([textField.text isEqualToString:@" "]) {
-            
-            if ([string isEqualToString:@""]) {
-                
-                [self performSelector:@selector(previousField) withObject:nil afterDelay:0.0];
-                
-            }else{
-                textField.text = string;
-                [self performSelector:@selector(nextField) withObject:nil afterDelay:0.0];
-            }
-        }else{
-            
-            if ([string isEqualToString:@""]) {
-                textField.text = @" ";
-            }
+        @try {
+            self.checkNumOne.text = [newString substringWithRange:NSMakeRange(0, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumOne.text = @"";
         }
         
-        return FALSE;
+        @try {
+            self.checkNumTwo.text = [newString substringWithRange:NSMakeRange(1, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumTwo.text = @"";
+        }
+        
+        @try {
+            self.checkNumThree.text = [newString substringWithRange:NSMakeRange(2, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumThree.text = @"";
+        }
+        
+        @try {
+            self.checkNumFour.text = [newString substringWithRange:NSMakeRange(3, 1)];
+        }
+        @catch (NSException *exception) {
+            self.checkNumFour.text = @"";
+        }
+        
+        
+        
+    }
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    // NSLog(@"NewString: %@", string);
+    //NSLog(@"RangeLength: %d", range.length);
+    //NSLog(@"RangeLoc: %d", range.location);
+    
+    NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
+    
+    @try {
+        
+        
+        if (newLength > 4) {
+            return FALSE;
+        }else{
+            
+            [self setValues:[self.hiddenText.text stringByReplacingCharactersInRange:range withString:string]];
+            return TRUE;
+            
+        }
+        /*
+         if ([textField.text isEqualToString:@" "]) {
+         
+         if ([string isEqualToString:@""]) {
+         
+         [self performSelector:@selector(previousField) withObject:nil afterDelay:0.0];
+         
+         }else{
+         textField.text = string;
+         [self performSelector:@selector(nextField) withObject:nil afterDelay:0.0];
+         }
+         }else{
+         
+         if ([string isEqualToString:@""]) {
+         textField.text = @" ";
+         }
+         }
+         
+         return FALSE;
+         */
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"DwollaPayment.textField" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-    
 }
 
 

@@ -32,7 +32,7 @@ static NSString *logNameBeingTimed;
 
 + (NSString *)getUserId{
     //TODO: rSkybox userId - return instead a uniqiue identifier for this user
-    return @"replaceWithRealUserId";
+    return [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"];
 }
 
 + (NSDictionary *)createEndUser{

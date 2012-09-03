@@ -12,11 +12,19 @@
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
+-(IBAction)sliderValueChanged:(UISlider *)sender;
+
 @property (nonatomic, strong) NSNumber *foodInt;
 @property (nonatomic, strong) NSNumber *drinksInt;
 @property (nonatomic, strong) NSNumber *priceInt;
 @property (nonatomic, strong) NSNumber *serviceInt;
+@property (weak, nonatomic) IBOutlet UISlider *serviceSlider;
+@property (weak, nonatomic) IBOutlet UISlider *drinksSlider;
+@property (weak, nonatomic) IBOutlet UISlider *moodSlider;
+@property (weak, nonatomic) IBOutlet UISlider *valueSlider;
 
+@property (weak, nonatomic) IBOutlet UILabel *earnMoreLabel;
+@property (weak, nonatomic) IBOutlet UISlider *foodSlider;
 @property double totalAmount;
 @property int invoiceId;
 

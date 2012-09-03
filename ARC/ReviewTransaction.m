@@ -22,6 +22,7 @@
 @end
 
 @implementation ReviewTransaction
+@synthesize earnMoreLabel;
 
 -(void)viewDidAppear:(BOOL)animated{
     @try {
@@ -39,8 +40,35 @@
     }
 }
 
+-(void)sliderValueChanged:(UISlider *)sender{
+    
+    
+    if (sender.value < 0.30) {
+        [sender setMinimumTrackTintColor:[UIColor redColor]];
+    }else if (sender.value < 0.67){
+        [sender setMinimumTrackTintColor:[UIColor yellowColor]];
+
+    }else{
+        [sender setMinimumTrackTintColor:[UIColor greenColor]];
+    }
+    
+    self.foodInt = [NSNumber numberWithInt:self.foodSlider.value * 10];
+    self.drinksInt = [NSNumber numberWithInt:self.drinksSlider.value * 10];
+    self.priceInt = [NSNumber numberWithInt:self.valueSlider.value * 10];
+    self.serviceInt = [NSNumber numberWithInt:self.serviceSlider.value * 10];
+    //self.moodInt = [NSNumber numberWithInt:self.moodSlider.value * 10];
+
+    
+    
+    
+    
+    
+}
 -(void)viewDidLoad{
     @try {
+        
+        
+        self.earnMoreLabel.text = [NSString stringWithFormat:@"Earn more by giving %@ feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
         
         [rSkybox addEventToSession:@"viewReviewScreen"];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
@@ -54,8 +82,18 @@
         [self.navigationItem setHidesBackButton:YES];
         self.commentsText.delegate = self;
         
-        self.commentsText.layer.masksToBounds = YES;
+        /*
+        self.commentsText.clipsToBounds = YES;
         self.commentsText.layer.cornerRadius = 5.0;
+        
+        self.commentsText.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.commentsText.layer.borderWidth = 3.0;
+         */
+        
+        [[self.commentsText layer] setBorderColor:[[UIColor blackColor] CGColor]];
+        [[self.commentsText layer] setBorderWidth:1.0];
+        [[self.commentsText layer] setCornerRadius:7];
+        [self.commentsText setClipsToBounds: YES];
         
         [self.food1 setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
         [self.service1 setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
@@ -315,17 +353,16 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     @try {
         
-        if ([self.commentsText.text isEqualToString:@"Additional Comments: (+5pts)"]){
+        if ([self.commentsText.text isEqualToString:@"Earn +5 pts for an in depth review:"]){
             self.commentsText.text = @"";
         }
         
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
         
-        self.view.frame = CGRectMake(0, -165, 320, 416);
+        [UIView animateWithDuration:0.3 animations:^{
+            self.view.frame = CGRectMake(0, -165, 320, 416);
+        }];
         
-        
-        [UIView commitAnimations];
+     
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ReviewTransaction.textViewDidBeginEditing" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -346,7 +383,7 @@
             [textView resignFirstResponder];
             
             if ([self.commentsText.text isEqualToString:@""]){
-                self.commentsText.text = @"Additional Comments: (+5pts)";
+                self.commentsText.text = @"Earn +5 pts for an in depth review:";
             }
             
             [UIView beginAnimations:nil context:NULL];
@@ -464,6 +501,12 @@
     }
 }
 - (void)viewDidUnload {
+    [self setEarnMoreLabel:nil];
+    [self setValueSlider:nil];
+    [self setMoodSlider:nil];
+    [self setDrinksSlider:nil];
+    [self setServiceSlider:nil];
+    [self setFoodSlider:nil];
     @try {
         
         [self setErrorLabel:nil];

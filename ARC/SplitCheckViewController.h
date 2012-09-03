@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
 
-@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
+@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate>
+
+//bill division
+@property double baseDollarValue;
+@property double taxDollarValue;
+@property double serviceChargeDollarValue;
+
+
+@property int itemSplitItemIndex;
+
 @property (strong, nonatomic) Invoice *myInvoice;
 @property double amountDue;
 @property double yourTotalPayment;
@@ -70,8 +79,15 @@
 - (IBAction)percentYourPercentDidEnd;
 - (IBAction)percentTipEditEnd;
 - (IBAction)percentTipSegmentSelect;
+-(IBAction)percentYourPercentSegmentSelect;
 
-
+@property (weak, nonatomic) IBOutlet UILabel *percentFoodBevLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentServiceChargeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentTaxLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dollarFoodBevLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dollarServiceChargeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dollarTaxLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *percentYourPercentSegControl;
 
 //Itemized
 @property (weak, nonatomic) IBOutlet UILabel *itemYourTotalPaymentLabel;
@@ -81,11 +97,23 @@
 @property (weak, nonatomic) IBOutlet UITextField *itemTipText;
 
 @property double itemTotal;
+@property (weak, nonatomic) IBOutlet UILabel *itemTaxLabel;
+@property (weak, nonatomic) IBOutlet UILabel *itemServiceChargeLabel;
 
 - (IBAction)itemTipDidBegin;
 - (IBAction)itemTipEditEnd;
 - (IBAction)itemTipSegmentSelect;
 
+//ItemSplitItem
+@property (weak, nonatomic) IBOutlet UIView *itemSplitItemView;
+- (IBAction)itemSplitItemCancel;
+
+- (IBAction)itemSplitItemSave;
+@property (weak, nonatomic) IBOutlet UILabel *itemSplitItemItemTotal;
+@property (weak, nonatomic) IBOutlet UITextField *itemSplitItemYourAmount;
+- (IBAction)itemSplitItemYourAmountTextEnd;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *itemSplitItemSegControl;
+- (IBAction)itemSplitItemSegmentSelect;
 
 
 @end

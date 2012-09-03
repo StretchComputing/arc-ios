@@ -37,4 +37,7 @@
 @property (strong, nonatomic) NSString *fundingSourceStatus;
 @property (nonatomic, strong) NSString *selectedFundingSourceId;
 
+@property (nonatomic, strong) IBOutlet UITextField *hiddenText;
+
+
 @end
