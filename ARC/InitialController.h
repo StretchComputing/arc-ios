@@ -10,4 +10,6 @@
 
 @interface InitialController : UIViewController
 
+@property (nonatomic, weak) IBOutlet UILabel *mottoLabel;
+
 @end

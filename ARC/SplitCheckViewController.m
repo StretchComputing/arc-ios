@@ -117,14 +117,14 @@
         self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalBill];
         self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
         self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", 0.0];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
         
         self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalBill];
         self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
         self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", 0.0];
         
-        self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", 0.0];
+        self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
 
         [super viewDidLoad];
         // Do any additional setup after loading the view.
@@ -273,7 +273,7 @@
         double tipAmount = tipPercent * self.yourPayment;
         self.yourTotalPayment = self.yourPayment + tipAmount;
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
         
         
         
@@ -324,7 +324,7 @@
         self.yourTotalPayment = self.yourPayment + tip;
         
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tip];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
         
                 
     }
@@ -343,7 +343,7 @@
     self.yourTotalPayment = self.yourPayment + tip;
     
     self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
-    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
+    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
 }
 
 - (IBAction)dollarPayNow:(id)sender {
@@ -705,7 +705,7 @@
     
     self.yourPayment = total;
     
-    self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", total];
+    self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", total];
 }
 
 - (IBAction)itemTipDidBegin{
