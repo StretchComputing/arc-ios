@@ -52,13 +52,18 @@
         [sender setMinimumTrackTintColor:[UIColor greenColor]];
     }
     
-    self.foodInt = [NSNumber numberWithInt:self.foodSlider.value * 10];
-    self.drinksInt = [NSNumber numberWithInt:self.drinksSlider.value * 10];
-    self.priceInt = [NSNumber numberWithInt:self.valueSlider.value * 10];
-    self.serviceInt = [NSNumber numberWithInt:self.serviceSlider.value * 10];
+    self.foodInt = [NSNumber numberWithDouble:(self.foodSlider.value * 10)/2.0];
+    self.drinksInt = [NSNumber numberWithDouble:(self.drinksSlider.value * 10)/2.0];
+    self.priceInt = [NSNumber numberWithDouble:(self.valueSlider.value * 10)/2.0];
+    self.serviceInt = [NSNumber numberWithDouble:(self.serviceSlider.value * 10)/2.0];
     //self.moodInt = [NSNumber numberWithInt:self.moodSlider.value * 10];
 
     
+    int tag = sender.tag;
+    
+    UILabel *tmpLabel = (UILabel *)[self.view viewWithTag:tag+1];
+    
+    tmpLabel.text = [NSString stringWithFormat:@"%.1f", (sender.value * 10)/2.0];
     
     
     

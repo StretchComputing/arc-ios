@@ -122,7 +122,7 @@
         self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalBill];
         self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
         self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", 0.0];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
         
         self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
 
@@ -308,7 +308,7 @@
 }
 
 -(void)resetSegment{
-    self.dollarTipSegment.selectedSegmentIndex = -1;
+   // self.dollarTipSegment.selectedSegmentIndex = -1;
 }
 
 
@@ -506,7 +506,7 @@
     self.yourTotalPayment = self.yourPayment + tip;
     
     //self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
-    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
+    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
     
     
 }
@@ -532,7 +532,7 @@
         double tipAmount = tipPercent * self.yourPayment;
         self.yourTotalPayment = self.yourPayment + tipAmount;
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
         
         
         
@@ -565,7 +565,7 @@
         self.yourTotalPayment = self.yourPayment + tip;
         
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tip];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.yourTotalPayment];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
         
         
     }
