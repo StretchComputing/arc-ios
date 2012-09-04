@@ -57,19 +57,19 @@
                 message = @"You were not successfully authorized for Dwolla.  Please try again";
             }
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
         
         if (self.creditCardAdded){
             self.creditCardAdded = NO;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was added successfully!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was added successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
         
         if (self.creditCardDeleted){
             self.creditCardDeleted = NO;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was deleted successfully!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was deleted successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
         
@@ -209,7 +209,9 @@
             
         }else{
             
-            [DwollaAPI clearAccessToken];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Remove Dwolla?"  message:@"Are you sure you want to delete your Dwolla info from ARC?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+            [alert show];
+            
         }
     }
     @catch (NSException *e) {
@@ -217,6 +219,12 @@
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 1) {
+        [DwollaAPI clearAccessToken];
+    }
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {

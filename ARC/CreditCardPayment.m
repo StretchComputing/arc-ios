@@ -248,7 +248,6 @@
 
 -(void)createPayment{
     @try{        
-        [self.activity startAnimating];
         
         NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
         
@@ -256,54 +255,65 @@
         
         NSString *ccSecurityCode = [FBEncryptorAES decryptBase64String:self.creditCardSecurityCode keyString:pinNumber];
         
-        
-        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-		NSDictionary *loginDict = [[NSDictionary alloc] init];
-        
-        
-        //*Testing Only*
-        NSNumber *amount = @1.0;
-        //NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
-        [ tempDictionary setObject:amount forKey:@"Amount"];
-        
-        [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
-        [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
-        
-        double gratDouble = self.gratuity/self.totalAmount;
-        
-        //*Testing Only* -------- SEND EMPTY STRINGS for OPTIONAL PARAMETERS
-        //NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
-        NSNumber *grat = @0.0;
-        [ tempDictionary setObject:grat forKey:@"Gratuity"];
-        
-        if (![self.notesText.text isEqualToString:@""] && ![self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
-            [ tempDictionary setObject:self.notesText.text forKey:@"Notes"];
+      
+        if (ccNumber && ([ccNumber length] > 0)) {
+            
+            [self.activity startAnimating];
+
+            NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+            NSDictionary *loginDict = [[NSDictionary alloc] init];
+            
+            
+            //*Testing Only*
+            NSNumber *amount = @1.0;
+            //NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
+            [ tempDictionary setObject:amount forKey:@"Amount"];
+            
+            [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
+            [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
+            
+            double gratDouble = self.gratuity/self.totalAmount;
+            
+            //*Testing Only* -------- SEND EMPTY STRINGS for OPTIONAL PARAMETERS
+            //NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
+            NSNumber *grat = @0.0;
+            [ tempDictionary setObject:grat forKey:@"Gratuity"];
+            
+            if (![self.notesText.text isEqualToString:@""] && ![self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
+                [ tempDictionary setObject:self.notesText.text forKey:@"Notes"];
+            }else{
+                [ tempDictionary setObject:@"" forKey:@"Notes"];
+            }
+            
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            NSString *customerId = [mainDelegate getCustomerId];
+            NSNumber *tmpId = @([customerId intValue]);
+            [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
+            
+            [ tempDictionary setObject:@"" forKey:@"Tag"];
+            
+            [ tempDictionary setObject:self.creditCardExpiration forKey:@"Expiration"];
+            
+            NSNumber *invoice = @(self.invoiceId);
+            [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
+            
+            [ tempDictionary setObject:ccSecurityCode forKey:@"Pin"];
+            [ tempDictionary setObject:@"CREDIT" forKey:@"Type"];
+            
+            
+            loginDict = tempDictionary;
+            ArcClient *client = [[ArcClient alloc] init];
+            [client createPayment:loginDict];
+
         }else{
-            [ tempDictionary setObject:@"" forKey:@"Notes"];
+            self.errorLabel.text = @"*Invalid PIN.";
         }
         
-        
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        NSString *customerId = [mainDelegate getCustomerId];
-        NSNumber *tmpId = @([customerId intValue]);
-        [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
-        
-        [ tempDictionary setObject:@"" forKey:@"Tag"];
-        
-        [ tempDictionary setObject:self.creditCardExpiration forKey:@"Expiration"];
-		
-        NSNumber *invoice = @(self.invoiceId);
-        [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
-        
-        [ tempDictionary setObject:ccSecurityCode forKey:@"Pin"];
-        [ tempDictionary setObject:@"CREDIT" forKey:@"Type"];
-        
-        
-		loginDict = tempDictionary;
-        ArcClient *client = [[ArcClient alloc] init];
-        [client createPayment:loginDict];
     }
     @catch (NSException *e) {
+        self.errorLabel.text = @"*Error retreiving credit card.";
+
         [rSkybox sendClientLog:@"CreditCardPayment.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
