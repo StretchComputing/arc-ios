@@ -103,11 +103,43 @@
         self.serverData = [NSMutableData data];
         [super viewDidLoad];
         // Do any additional setup after loading the view.
-    }
+  }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SettingsView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 
+}
+
+- (void) trackEventViewSettingsPage
+{
+    @try{
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+		NSDictionary *trackEventDict = [[NSDictionary alloc] init];
+
+        [ tempDictionary setObject:@"Profile" forKey:@"Activity"];
+        [ tempDictionary setObject:@"Performance" forKey:@"ActivityType"];
+        [ tempDictionary setObject:@"Application" forKey:@"Arc Mobile"];
+        [ tempDictionary setObject:@"" forKey:@"Carrier"];
+        [ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"];
+        [ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"];
+        [ tempDictionary setObject:@0 forKey:@"EntityId"];
+        [ tempDictionary setObject:@"Screen" forKey:@"EntityType"];
+        [ tempDictionary setObject:@0.0 forKey:@"Latitude"];
+        [ tempDictionary setObject:@0.0 forKey:@"Longitude"];
+        [ tempDictionary setObject:@"clicks" forKey:@"MeasureType"];
+        [ tempDictionary setObject:@1.0 forKey:@"MeasureValue"];
+        [ tempDictionary setObject:@"phone OS" forKey:@"Source"];
+        [ tempDictionary setObject:@"phone" forKey:@"SourceType"];
+        [ tempDictionary setObject:@"untitiled" forKey:@"Version"];
+        
+		trackEventDict = tempDictionary;
+        ArcClient *client = [[ArcClient alloc] init];
+        [client trackEvent:trackEventDict];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SettingsView.trackEventViewSettingsPage" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -183,12 +215,11 @@
             self.pointsProgressView.progress = 0.0/900.00;
             self.lifetimePointsProgressView.progress = 0.0/100000.0;
 
-            
-            
-            
             //self.errorLabel.text = @"*Error getting point balance payment.";
         }
-    }
+        
+       // [self trackEventViewSettingsPage];
+}
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SettingsView.pointBalanceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }

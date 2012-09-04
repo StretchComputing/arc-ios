@@ -27,7 +27,7 @@
         
         
         NSArray *scopes = @[@"send", @"balance", @"accountinfofull", @"contacts", @"funding",  @"request", @"transactions"];
-        DwollaOAuth2Client *client = [[DwollaOAuth2Client alloc] initWithFrame:CGRectMake(0, 0, 320, 460) key:@"W3cjrotm6MNkwk2fW6BsHrE/F7mOr2NfCRljRh5Kj1G5jO+fAQ" secret:@"oC65p5DMOBYX6eOF2J7Q38pWWJT2BzuixQCVNq+eiAcEANRurZ" redirect:@"https://www.dwolla.com" response:@"code" scopes:scopes view:self.view reciever:self];
+        DwollaOAuth2Client *client = [[DwollaOAuth2Client alloc] initWithFrame:CGRectMake(0, 0, 320, 460) key:@"2iFSd6ifWh5KchAPbYQ7TWylQqs+c/xkT8ji5/GwYTx2BkImr3" secret:@"83wLV7XvDAq2VuYXt0l4vB98uo7KFeivHNi+y6yeCyOttbmmeH" redirect:@"https://www.dwolla.com" response:@"code" scopes:scopes view:self.view reciever:self];
         [client login];
         
     }

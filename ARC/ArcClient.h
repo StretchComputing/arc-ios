@@ -16,7 +16,8 @@ typedef enum {
     GetInvoice=4,
     CreatePayment=5,
     CreateReview=6,
-    GetPointBalance=7
+    GetPointBalance=7,
+    TrackEvent=8
 } APIS;
 
 @interface ArcClient : NSObject <NSURLConnectionDelegate> {
@@ -44,6 +45,9 @@ typedef enum {
 
 -(void)getPointBalance:(NSDictionary *)pairs;
 -(NSDictionary *) getPointBalanceResponse:(NSDictionary *)response;
+
+-(void)trackEvent:(NSDictionary *)pairs;
+-(NSDictionary *) trackEventResponse:(NSDictionary *)response;
 
 -(void)getServer;
 

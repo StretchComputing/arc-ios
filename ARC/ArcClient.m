@@ -209,6 +209,31 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     }
 }
 
+-(void)trackEvent:(NSDictionary *)pairs{
+    @try {
+        [rSkybox addEventToSession:@"trackEvent"];
+        api = TrackEvent;
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *trackEventUrl = [NSString stringWithFormat:@"%@analytics", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:trackEventUrl]];
+        [request setHTTPMethod: @"POST"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"TrackEvent"];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
         
@@ -223,7 +248,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     @try {
         
         NSString *logName = [NSString stringWithFormat:@"api.%@.threshold", [self apiToString]];
-        [rSkybox endThreshold:logName logMessage:@"fake logMessage" maxValue:3000.00];
+        [rSkybox endThreshold:logName logMessage:@"fake logMessage" maxValue:5000.00];
         
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
@@ -271,6 +296,11 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
                 responseInfo = [self getPointBalanceResponse:response];
             }
             notificationType = @"getPointBalanceNotification";
+        } else if(api == TrackEvent) {
+            if (response) {
+                responseInfo = [self trackEventResponse:response];
+            }
+            notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
         }
 
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
@@ -308,6 +338,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
             notificationType = @"createReviewNotification";
         } else if(api == GetPointBalance) {
             notificationType = @"getPointBalanceNotification";
+        } else if(api == TrackEvent) {
+            notificationType = @"trackEventNotification";   // posting notification for now, but nobody is listenting
         }
         
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
@@ -362,8 +394,12 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         case GetPointBalance:
             result = @"GetPointBalance";
             break;
+        case TrackEvent:
+            result = @"TrackEvent";
+            break;
         default:
-            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+            //[NSException raise:NSGenericException format:@"Unexpected FormatType."];
+            break;
     }
     
     return result;
@@ -564,6 +600,30 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
     }
     
  
+}
+
+-(NSDictionary *) trackEventResponse:(NSDictionary *)response {
+    @try {
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"1",
+            @"apiResponse": response};
+        } else {
+            // TODO:: need to pass the Arc Application error to the calling method
+            NSString *message = [response valueForKey:@"Message"];
+            NSString *status = @"0";
+            
+            responseInfo = @{@"status": status,
+            @"error": message};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.trackEventResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 
