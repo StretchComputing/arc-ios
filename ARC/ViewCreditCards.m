@@ -113,7 +113,7 @@
                 
             }else{
                 CreditCard *tmp = [self.creditCards objectAtIndex:row];
-                displayLabel.text = [NSString stringWithFormat:@"Credit Card:  %@", tmp.sample];
+                displayLabel.text = [NSString stringWithFormat:@"%@", tmp.sample];
             }
         }
         

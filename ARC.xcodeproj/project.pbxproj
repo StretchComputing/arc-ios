@@ -27,6 +27,12 @@
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
 		9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9095947A15EA652600F19DD2 /* Twitter.framework */; };
+		90964E1615F842A400676E0A /* CORBELB.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 90964E1415F842A300676E0A /* CORBELB.TTF */; };
+		90964E1715F842A400676E0A /* CORBEL.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 90964E1515F842A400676E0A /* CORBEL.TTF */; };
+		9096A0AC15F927EB00630AF6 /* CorbelRegularLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0AB15F927EB00630AF6 /* CorbelRegularLabel.m */; };
+		9096A0B015F927FA00630AF6 /* CorbelBoldLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0AF15F927FA00630AF6 /* CorbelBoldLabel.m */; };
+		9096A0B715F9347600630AF6 /* Lucida Grande Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096A0B515F9347600630AF6 /* Lucida Grande Bold.ttf */; };
+		9096A0B815F9347600630AF6 /* Lucida Grande.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9096A0B615F9347600630AF6 /* Lucida Grande.ttf */; };
 		90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F35159777BC00FC1D49 /* UIKit.framework */; };
 		90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F37159777BC00FC1D49 /* Foundation.framework */; };
 		90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F39159777BC00FC1D49 /* CoreGraphics.framework */; };
@@ -139,6 +145,14 @@
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
 		9094250815D8729400CB052D /* untitledLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = untitledLogo.png; sourceTree = "<group>"; };
 		9095947A15EA652600F19DD2 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		90964E1415F842A300676E0A /* CORBELB.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CORBELB.TTF; sourceTree = "<group>"; };
+		90964E1515F842A400676E0A /* CORBEL.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CORBEL.TTF; sourceTree = "<group>"; };
+		9096A0AA15F927EA00630AF6 /* CorbelRegularLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelRegularLabel.h; sourceTree = "<group>"; };
+		9096A0AB15F927EB00630AF6 /* CorbelRegularLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelRegularLabel.m; sourceTree = "<group>"; };
+		9096A0AE15F927FA00630AF6 /* CorbelBoldLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelBoldLabel.h; sourceTree = "<group>"; };
+		9096A0AF15F927FA00630AF6 /* CorbelBoldLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelBoldLabel.m; sourceTree = "<group>"; };
+		9096A0B515F9347600630AF6 /* Lucida Grande Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lucida Grande Bold.ttf"; sourceTree = "<group>"; };
+		9096A0B615F9347600630AF6 /* Lucida Grande.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lucida Grande.ttf"; sourceTree = "<group>"; };
 		90993F31159777BC00FC1D49 /* ARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90993F35159777BC00FC1D49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90993F37159777BC00FC1D49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -333,6 +347,10 @@
 				90CCF7D915D3688600360DE7 /* search.jpeg */,
 				9094250215D86E2500CB052D /* arcLogo.png */,
 				9094250815D8729400CB052D /* untitledLogo.png */,
+				9096A0B515F9347600630AF6 /* Lucida Grande Bold.ttf */,
+				9096A0B615F9347600630AF6 /* Lucida Grande.ttf */,
+				90964E1415F842A300676E0A /* CORBELB.TTF */,
+				90964E1515F842A400676E0A /* CORBEL.TTF */,
 				905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
@@ -432,6 +450,10 @@
 				907A407115AA073C00090452 /* AddCreditCard.m */,
 				9033272015F10ACD0084761D /* MyGestureRecognizer.h */,
 				9033272115F10ACD0084761D /* MyGestureRecognizer.m */,
+				9096A0AA15F927EA00630AF6 /* CorbelRegularLabel.h */,
+				9096A0AB15F927EB00630AF6 /* CorbelRegularLabel.m */,
+				9096A0AE15F927FA00630AF6 /* CorbelBoldLabel.h */,
+				9096A0AF15F927FA00630AF6 /* CorbelBoldLabel.m */,
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
@@ -599,6 +621,10 @@
 				9094250315D86E2500CB052D /* arcLogo.png in Resources */,
 				9094250915D8729400CB052D /* untitledLogo.png in Resources */,
 				905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */,
+				90964E1615F842A400676E0A /* CORBELB.TTF in Resources */,
+				90964E1715F842A400676E0A /* CORBEL.TTF in Resources */,
+				9096A0B715F9347600630AF6 /* Lucida Grande Bold.ttf in Resources */,
+				9096A0B815F9347600630AF6 /* Lucida Grande.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +699,8 @@
 				9081522215E7D77900211C37 /* InitialController.m in Sources */,
 				9081522515E817E700211C37 /* RegisterViewNew.m in Sources */,
 				9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */,
+				9096A0AC15F927EB00630AF6 /* CorbelRegularLabel.m in Sources */,
+				9096A0B015F927FA00630AF6 /* CorbelBoldLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

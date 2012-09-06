@@ -36,7 +36,7 @@
 
 -(void)insertCustomerWithId:(NSString *)customerId andToken:(NSString *)customerToken;
 
--(void)insertCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration andPin:(NSString *)pin;
+-(void)insertCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration andPin:(NSString *)pin andCreditDebit:(NSString *)andCreditDebit;
 
 -(Customer *)getCurrentCustomer;
 

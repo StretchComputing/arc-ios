@@ -250,9 +250,15 @@
 -(void)addCreditCard{
     @try {
         
+        NSString *creditDebitString = @"Credit";
+        
+        if (self.creditDebitSegment.selectedSegmentIndex == 1) {
+            creditDebitString = @"Debit";
+        }
+        
         NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text];
+        [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
         
     }
     @catch (NSException *e) {

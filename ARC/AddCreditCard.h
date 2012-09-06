@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *creditCardNumberText;
 @property (nonatomic, strong) UIView *hideKeyboardView;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *creditDebitSegment;
 
 - (IBAction)editBegin:(id)sender;
 - (IBAction)editEnd:(id)sender;

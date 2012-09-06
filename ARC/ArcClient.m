@@ -13,6 +13,10 @@
 
 static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
 //static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
+
+static NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; //Servers CLOUD
+//static NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; //Servers DEBUG
+
 //static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";  // Server at Jim's Place
 
 @implementation ArcClient
@@ -24,12 +28,19 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         api = GetServer;
         
         
-        NSString *createUrl = [NSString stringWithFormat:@"%@server/%@", _arcUrl, [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"], nil];
+        //NSString *createUrl = [NSString stringWithFormat:@"%@servers/%@", _arcUrl, [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"], nil];
+        
+        NSString *createUrl = [NSString stringWithFormat:@"%@servers/current", _arcServersUrl];
+        
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
         
         [request setHTTPMethod: @"GET"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
+        if (![[self authHeader] isEqualToString:@""]) {
+            [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        }
+
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -153,6 +164,8 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
+        NSLog(@"RequestString: %@", requestString);
+        
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"CreatePayment"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -228,7 +241,7 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        //NSLog(@"ReturnString: %@", returnString);
+        NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -570,11 +583,19 @@ static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           /
 -(NSString *) authHeader {
     @try {
         
-        NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
-        NSString *authentication = [self encodeBase64:stringToEncode];
-        return authentication;
+        
+        if ([self customerToken]) {
+            NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
+            NSString *authentication = [self encodeBase64:stringToEncode];
+            
+            return authentication;
+        }else{
+            return @"";
+        }
+        
     }
     @catch (NSException *e) {
+        return @"";
         [rSkybox sendClientLog:@"ArcClient.authHeader" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }

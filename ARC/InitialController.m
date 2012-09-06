@@ -29,7 +29,7 @@
         
         
         ArcClient *client = [[ArcClient alloc] init];
-        //[client getServer];
+        [client getServer];
         
         if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
             //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];

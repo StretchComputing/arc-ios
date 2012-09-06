@@ -332,7 +332,7 @@
   
 }
 
--(void)insertCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration andPin:(NSString *)pin{
+-(void)insertCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration andPin:(NSString *)pin andCreditDebit:(NSString *)andCreditDebit{
     
 
     @try {
@@ -342,7 +342,7 @@
         
         CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
         
-        NSString *sample = [NSString stringWithFormat:@"****%@", [number substringFromIndex:[number length]-4]];
+        NSString *sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
         
         creditCard.expiration = expiration;
         creditCard.sample = sample;

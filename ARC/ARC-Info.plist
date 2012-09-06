@@ -36,9 +36,15 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>CHATOKYO_0.TTF</string>
+		<string>CORBELB.TTF</string>
+		<string>CORBEL.TTF</string>
+		<string>Lucida Grande Bold.ttf</string>
+		<string>Lucida Grande.ttf</string>
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
