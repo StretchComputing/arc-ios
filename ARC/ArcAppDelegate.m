@@ -13,6 +13,7 @@
 #import "UIDevice-Hardware.h"
 #import "rSkybox.h"
 #import "Reachability.h"
+#import "ArcClient.h"
 
 @implementation ArcAppDelegate
 
@@ -128,6 +129,10 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    
+    ArcClient *client = [[ArcClient alloc] init];
+    [client getServer];
+    
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     // *** for rSkybox
     [self performSelectorInBackground:@selector(createEndUser) withObject:nil];
@@ -332,7 +337,7 @@
   
 }
 
--(void)insertCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration andPin:(NSString *)pin{
+-(void)insertCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration andPin:(NSString *)pin andCreditDebit:(NSString *)andCreditDebit{
     
 
     @try {
@@ -342,7 +347,7 @@
         
         CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
         
-        NSString *sample = [NSString stringWithFormat:@"****%@", [number substringFromIndex:[number length]-4]];
+        NSString *sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
         
         creditCard.expiration = expiration;
         creditCard.sample = sample;

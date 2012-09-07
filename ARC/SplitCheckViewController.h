@@ -17,6 +17,7 @@
 @property double serviceChargeDollarValue;
 
 
+@property (weak, nonatomic) IBOutlet UILabel *dollarAmountAlreadyPaidNameLabel;
 @property int itemSplitItemIndex;
 
 @property (strong, nonatomic) Invoice *myInvoice;

@@ -20,6 +20,7 @@
 @end
 
 @implementation AddCreditCard
+@synthesize creditDebitSegment;
 
 
 
@@ -31,6 +32,8 @@
         self.creditCardNumberText.text = @"";
         self.creditCardPinText.text = @"";
         self.creditCardSecurityCodeText.text = @"";
+        self.expirationMonth = @"01";
+        self.expirationYear = @"2012";
         
         self.months = @[@"01 - Jan", @"02 - Feb", @"03 - March", @"04 - April", @"05 - May", @"06 - June", @"07 - July", @"08 - Aug", @"09 - Sept", @"10 - Oct", @"11 - Nov", @"12 - Dec"];
         
@@ -64,7 +67,7 @@
         }else if (selectedField.tag == 12){
             //pin
             
-            myPoint = CGPointMake(0, 130);
+            myPoint = CGPointMake(0, 174);
             
         }
         
@@ -338,18 +341,36 @@
 -(void)addCard{
     @try {
         
-        if ([[self creditCardStatus] isEqualToString:@"valid"]) {
-            
-            NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-            [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text];
-            
-            [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-            
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        
+        if (self.creditDebitSegment.selectedSegmentIndex == -1) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit?" message:@"Please select whether this is a credit or debit card." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
+        }else{
+            
+            if ([[self creditCardStatus] isEqualToString:@"valid"]) {
+                
+                NSString *creditDebitString = @"";
+                
+                if (self.creditDebitSegment.selectedSegmentIndex == 0) {
+                    creditDebitString = @"Credit";
+                }else{
+                    creditDebitString = @"Debit";
+                }
+                
+                NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
+                ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
+                
+                [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
+                
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+
         }
+        
+     
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"AddCreditCard.addCard" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -367,5 +388,9 @@
         [rSkybox sendClientLog:@"AddCreditCard.popNow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
+}
+- (void)viewDidUnload {
+    [self setCreditDebitSegment:nil];
+    [super viewDidUnload];
 }
 @end
