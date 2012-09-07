@@ -53,9 +53,12 @@
 - (void)viewDidLoad
 {
     @try {
+        self.percentTipText.font = [UIFont fontWithName:@"LucidaGrande" size:self.dollarTipText.font.pointSize];
+        self.percentYourPaymentText.font = [UIFont fontWithName:@"LucidaGrande" size:self.dollarTipText.font.pointSize];
+
         
-        self.dollarTipText.font = [UIFont fontWithName:@"LucidaGrande" size:self.dollarTipText.font.pointSize];
-        self.dollarYourPaymentText.font = [UIFont fontWithName:@"LucidaGrande" size:self.dollarYourPaymentText.font.pointSize];
+        self.dollarTipText.font = [UIFont fontWithName:@"Corbel" size:self.dollarTipText.font.pointSize];
+        self.dollarYourPaymentText.font = [UIFont fontWithName:@"Corbel" size:self.dollarYourPaymentText.font.pointSize];
         /*
         self.dollarAmountAlreadyPaidNameLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:21];
         self.dollarAmountDueLabel.font = [UIFont fontWithName:@"Corbel Bold" size:21];

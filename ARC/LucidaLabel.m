@@ -1,20 +1,20 @@
 //
-//  CorbelBoldLabel.m
+//  LucidaLabel.m
 //  ARC
 //
 //  Created by Nick Wroblewski on 9/6/12.
 //
 //
 
-#import "CorbelBoldLabel.h"
+#import "LucidaLabel.h"
 
-@implementation CorbelBoldLabel
+@implementation LucidaLabel
 
 - (id)initWithCoder:(NSCoder *)decoder {
     
     if ((self = [super initWithCoder: decoder])) {
         
-        [self setFont: [UIFont fontWithName: @"Corbel-Bold" size: self.font.pointSize+3]];
+        [self setFont: [UIFont fontWithName: @"LucidaGrande" size: self.font.pointSize]];
     }
     return self;
 }

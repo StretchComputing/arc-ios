@@ -28,9 +28,6 @@
         NSString *customerToken = [prefs stringForKey:@"customerToken"];
         
         
-        ArcClient *client = [[ArcClient alloc] init];
-        [client getServer];
-        
         if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
             //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
             //self.autoSignIn = YES;

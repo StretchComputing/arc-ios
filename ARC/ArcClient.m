@@ -11,17 +11,28 @@
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
 
-static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
+
+NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
 //static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
 
-static NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; //Servers CLOUD
+
+
+NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; //Servers CLOUD
 //static NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; //Servers DEBUG
+
+
 
 //static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";  // Server at Jim's Place
 
 @implementation ArcClient
 
 
+- (id)init {
+    if (self = [super init]) {
+        NSLog(@"Initializing THE DEFAULT SERVER");
+    }
+    return self;
+}
 -(void)getServer{
     @try {
         [rSkybox addEventToSession:@"getServer"];
