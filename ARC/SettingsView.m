@@ -148,7 +148,7 @@
         NSUInteger row = [indexPath row];
         NSUInteger section = [indexPath section];
         
-        if ((section == 2) && (row == 2)) {
+        if ((section == 2) && (row == 0)) {
             
             ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
             mainDelegate.logout = @"true";
