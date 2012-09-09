@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSNumber *drinksInt;
 @property (nonatomic, strong) NSNumber *priceInt;
 @property (nonatomic, strong) NSNumber *serviceInt;
+@property (nonatomic, strong) NSNumber *moodInt;
 @property (weak, nonatomic) IBOutlet UISlider *serviceSlider;
 @property (weak, nonatomic) IBOutlet UISlider *drinksSlider;
 @property (weak, nonatomic) IBOutlet UISlider *moodSlider;

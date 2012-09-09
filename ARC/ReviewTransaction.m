@@ -33,6 +33,12 @@
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         
+        self.foodInt = @(0.0);
+        self.drinksInt = @(0.0);
+        self.priceInt = @(0.0);
+        self.serviceInt = @(0.0);
+        self.moodInt = @(0.0);
+
         [alert show];
     }
     @catch (NSException *e) {
@@ -56,7 +62,7 @@
     self.drinksInt = [NSNumber numberWithDouble:(self.drinksSlider.value * 10)/2.0];
     self.priceInt = [NSNumber numberWithDouble:(self.valueSlider.value * 10)/2.0];
     self.serviceInt = [NSNumber numberWithDouble:(self.serviceSlider.value * 10)/2.0];
-    //self.moodInt = [NSNumber numberWithInt:self.moodSlider.value * 10];
+    self.moodInt = [NSNumber numberWithInt:(self.moodSlider.value * 10)/2.0];
 
     
     int tag = sender.tag;
@@ -434,7 +440,7 @@
         
         NSString *commentsString = @"";
         
-        if ([self.commentsText.text isEqualToString:@"Additional Comments: (+5pts)"]){
+        if ([self.commentsText.text isEqualToString:@"Earn +5 pts for an in depth review:"]){
             self.commentsText.text = @"";
         }else {
             commentsString = self.commentsText.text;
@@ -453,6 +459,7 @@
         [ tempDictionary setObject:self.foodInt forKey:@"Food"];
         [ tempDictionary setObject:self.priceInt forKey:@"Price"];
         [ tempDictionary setObject:self.serviceInt forKey:@"Service"];
+        [ tempDictionary setObject:self.moodInt forKey:@"Mood"];
 
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];

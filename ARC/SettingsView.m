@@ -113,24 +113,26 @@
 - (void) trackEventViewSettingsPage
 {
     @try{
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        NSString *customerId = [mainDelegate getCustomerId];
+
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *trackEventDict = [[NSDictionary alloc] init];
 
-        [ tempDictionary setObject:@"Profile" forKey:@"Activity"];
-        [ tempDictionary setObject:@"Performance" forKey:@"ActivityType"];
-        [ tempDictionary setObject:@"Application" forKey:@"Arc Mobile"];
-        [ tempDictionary setObject:@"" forKey:@"Carrier"];
-        [ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"];
-        [ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"];
-        [ tempDictionary setObject:@0 forKey:@"EntityId"];
-        [ tempDictionary setObject:@"Screen" forKey:@"EntityType"];
-        [ tempDictionary setObject:@0.0 forKey:@"Latitude"];
-        [ tempDictionary setObject:@0.0 forKey:@"Longitude"];
-        [ tempDictionary setObject:@"clicks" forKey:@"MeasureType"];
-        [ tempDictionary setObject:@1.0 forKey:@"MeasureValue"];
-        [ tempDictionary setObject:@"phone OS" forKey:@"Source"];
-        [ tempDictionary setObject:@"phone" forKey:@"SourceType"];
-        [ tempDictionary setObject:@"untitiled" forKey:@"Version"];
+        [ tempDictionary setObject:@"Performance" forKey:@"ActivityType"]; //CATEGORY
+        [ tempDictionary setObject:@"Profile" forKey:@"Activity"]; //ACTION
+        [ tempDictionary setObject:@"Arc Mobile" forKey:@"Application"];
+        [ tempDictionary setObject:@"" forKey:@"Carrier"]; //remove
+        [ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"]; //remove
+        [ tempDictionary setObject:customerId forKey:@"EntityId"]; //get from auth header
+        [ tempDictionary setObject:@"Customer" forKey:@"EntityType"]; //get from auth header?
+        [ tempDictionary setObject:@0.0 forKey:@"Latitude"];//optional
+        [ tempDictionary setObject:@0.0 forKey:@"Longitude"];//optional
+        [ tempDictionary setObject:@"clicks" forKey:@"MeasureType"];//LABEL
+        [ tempDictionary setObject:@1.0 forKey:@"MeasureValue"];//VALUE
+        [ tempDictionary setObject:@"phone OS" forKey:@"Source"];//implicity
+        [ tempDictionary setObject:@"phone" forKey:@"SourceType"];//remove
+        [ tempDictionary setObject:@"0.1" forKey:@"Version"];
         
 		trackEventDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];
@@ -218,7 +220,7 @@
             //self.errorLabel.text = @"*Error getting point balance payment.";
         }
         
-       // [self trackEventViewSettingsPage];
+       [self trackEventViewSettingsPage];
 }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SettingsView.pointBalanceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

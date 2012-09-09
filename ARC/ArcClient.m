@@ -11,9 +11,11 @@
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
 
-static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
-//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
-//static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";  // Server at Jim's Place
+//static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
+//static NSString *_arcUrl = @"http://arc-servers.dagher.mobi/rest/v1/";         // CLOUD, getServer API
+static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";    // Server at Jim's Place
+//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/";  // Server at Jim's Place, for getServer API
+//static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";                          // BAD URL Server at Jim's Place
 
 @implementation ArcClient
 
