@@ -11,19 +11,11 @@
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
 
-//static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
-//static NSString *_arcUrl = @"http://arc-servers.dagher.mobi/rest/v1/";         // CLOUD, getServer API
-//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";    // Server at Jim's Place
-//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/";  // Server at Jim's Place, for getServer API
-//static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";                          // BAD URL Server at Jim's Place
-
 NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
-//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
+//NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
-NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; //Servers CLOUD
-//static NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; //Servers DEBUG
-
-//static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";  // Server at Jim's Place
+NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
+//NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; // Servers API: Jim's Place
 
 @implementation ArcClient
 
@@ -55,7 +47,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; //Servers
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         if (![[self authHeader] isEqualToString:@""]) {
-            [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+           [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         }
 
         self.serverData = [NSMutableData data];
