@@ -112,6 +112,9 @@
         self.creditCardPinText.text = @"";
         self.creditCardSecurityCodeText.text = @"";
         
+        self.expirationMonth = @"01";
+        self.expirationYear = @"2012";
+        
         self.months = @[@"01 - Jan", @"02 - Feb", @"03 - March", @"04 - April", @"05 - May", @"06 - June", @"07 - July", @"08 - Aug", @"09 - Sept", @"10 - Oct", @"11 - Nov", @"12 - Dec"];
         
         self.years = @[@"2012", @"2013", @"2014", @"2015", @"2016", @"2017", @"2018", @"2019", @"2020", @"2021", @"2022", @"2023", @"2024", @"2025", @"2026", @"2027", @"2028", @"2029", @"2030"];
@@ -183,6 +186,11 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Payment" message:@"You must choose at least 1 form of payment to continue" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
+        }else if ((self.dwollaSegControl.selectedSegmentIndex == 1) && (self.creditDebitSegment.selectedSegmentIndex == -1)) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit" message:@"Please select credit or debit for your card." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
         }else{
             
             self.activityView.hidden = NO;
@@ -243,9 +251,15 @@
 -(void)addCreditCard{
     @try {
         
+        NSString *creditDebitString = @"Credit";
+        
+        if (self.creditDebitSegment.selectedSegmentIndex == 1) {
+            creditDebitString = @"Debit";
+        }
+        
         NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text];
+        [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
         
     }
     @catch (NSException *e) {
@@ -331,7 +345,7 @@
             myPoint = CGPointMake(0, 420);
 
         }else if (self.creditCardPinText == sender){
-            myPoint = CGPointMake(0, 520);
+            myPoint = CGPointMake(0, 564);
 
         }
                 
@@ -658,6 +672,7 @@
         static NSString *textInputCell=@"textInputCell";
         static NSString *expirationCell=@"expirationCell";
         static NSString *paymentCell=@"paymentCell";
+        static NSString *cardTypeCell=@"cardTypeCell";
 
         UITableViewCell *cell;
 
@@ -666,6 +681,8 @@
         }else if ((section == 3) && ((row == 1) || (row == 2))){
             cell = [tableView dequeueReusableCellWithIdentifier:expirationCell];
 
+        }else if ((section == 3) && (row == 4)){
+            cell = [tableView dequeueReusableCellWithIdentifier:cardTypeCell];
         }else{
             cell = [tableView dequeueReusableCellWithIdentifier:textInputCell];
 
@@ -752,6 +769,9 @@
                     self.creditCardSecurityCodeText.placeholder = @"Security Code";
                      [self.creditCardSecurityCodeText addTarget:self action:@selector(editBeginSecurity) forControlEvents:UIControlEventEditingDidBegin];
                     
+                }else if (row == 4){
+                    self.creditDebitSegment = (UISegmentedControl *)[cell.contentView viewWithTag:1];
+
                 }
                 
             }else if (section == 4){
@@ -801,7 +821,7 @@
     }else if (section == 2){
         return 1;
     }else if (section == 3){
-        return 4;
+        return 5;
     }else{
         return 1;
     }

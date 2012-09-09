@@ -13,25 +13,51 @@
 
 //static NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
 //static NSString *_arcUrl = @"http://arc-servers.dagher.mobi/rest/v1/";         // CLOUD, getServer API
-static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";    // Server at Jim's Place
+//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";    // Server at Jim's Place
 //static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/";  // Server at Jim's Place, for getServer API
 //static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";                          // BAD URL Server at Jim's Place
+
+NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
+//static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Server at Jim's Place
+
+NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; //Servers CLOUD
+//static NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; //Servers DEBUG
+
+//static NSString *_arcUrl = @"http://BAD_URL/arc-dev/rest/v1/";  // Server at Jim's Place
 
 @implementation ArcClient
 
 
+- (id)init {
+    if (self = [super init]) {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
+            _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+        }
+        
+    }
+    return self;
+}
 -(void)getServer{
     @try {
         [rSkybox addEventToSession:@"getServer"];
         api = GetServer;
         
         
-        NSString *createUrl = [NSString stringWithFormat:@"%@server/%@", _arcUrl, [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"], nil];
+        //NSString *createUrl = [NSString stringWithFormat:@"%@servers/%@", _arcUrl, [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"], nil];
+        
+        NSString *createUrl = [NSString stringWithFormat:@"%@servers/current", _arcServersUrl];
+        
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
         
         [request setHTTPMethod: @"GET"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
+        if (![[self authHeader] isEqualToString:@""]) {
+            [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        }
+
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -76,6 +102,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         
         NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
                 
+
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getCustomerTokenUrl]];
         [request setHTTPMethod: @"GET"];
         //[request setHTTPBody: requestData];
@@ -101,11 +128,11 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
         [request setHTTPMethod: @"GET"];
         //[request setHTTPBody: requestData];
+                
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
-        [rSkybox startThreshold:@"GetMerchantList"];
         [rSkybox startThreshold:@"GetMerchantList"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
@@ -125,6 +152,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@Invoices/%@/get/%@", _arcUrl, merchantId, invoiceNumber];
         //NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
 
+        
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceUrl]];
         [request setHTTPMethod: @"GET"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -154,7 +182,7 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
-        
+                
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"CreatePayment"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -263,6 +291,8 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
         NSDictionary *responseInfo;
         NSString *notificationType;
         
+        BOOL postNotification = YES;
+        
         if(api == CreateCustomer) {
             if (response) {
                 responseInfo = [self createCustomerResponse:response];
@@ -303,9 +333,18 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
                 responseInfo = [self trackEventResponse:response];
             }
             notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
+        }else if (api == GetServer){
+            
+            postNotification = NO;
+            if (response) {
+                [self setUrl:response];
+            }
+            
         }
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+        if (postNotification) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -632,11 +671,19 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
 -(NSString *) authHeader {
     @try {
         
-        NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
-        NSString *authentication = [self encodeBase64:stringToEncode];
-        return authentication;
+        
+        if ([self customerToken]) {
+            NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
+            NSString *authentication = [self encodeBase64:stringToEncode];
+            
+            return authentication;
+        }else{
+            return @"";
+        }
+        
     }
     @catch (NSException *e) {
+        return @"";
         [rSkybox sendClientLog:@"ArcClient.authHeader" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
@@ -688,5 +735,17 @@ static NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";
 }
 
 
-
+-(void)setUrl:(NSDictionary *)response{
+    
+    if ([[response valueForKey:@"Success"] boolValue]) {
+        
+        NSString *serverName = [response valueForKey:@"ServerName"];
+        
+        if (serverName && ([serverName length] > 0)) {
+            [[NSUserDefaults standardUserDefaults] setValue:serverName forKey:@"arcUrl"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+    
+}
 @end

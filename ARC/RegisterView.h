@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UIView *hideKeyboardView;
 
 
+@property (nonatomic, weak) IBOutlet UISegmentedControl *creditDebitSegment;
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 - (IBAction)login:(UIBarButtonItem *)sender;

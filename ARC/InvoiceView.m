@@ -221,7 +221,7 @@
             
             for (int i = 0; i < [self.creditCards count]; i++) {
                 CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                [action addButtonWithTitle:[NSString stringWithFormat:@"Credit Card  %@", tmpCard.sample]];
+                [action addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
                 
             }
             [action addButtonWithTitle:@"Cancel"];

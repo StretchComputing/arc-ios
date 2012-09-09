@@ -286,6 +286,8 @@
             }
             
             
+            
+            
             ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
             NSString *customerId = [mainDelegate getCustomerId];
             NSNumber *tmpId = @([customerId intValue]);
@@ -299,7 +301,12 @@
             [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
             
             [ tempDictionary setObject:ccSecurityCode forKey:@"Pin"];
-            [ tempDictionary setObject:@"CREDIT" forKey:@"Type"];
+            
+            if ([[self.creditCardSample substringToIndex:1] isEqualToString:@"C"]) {
+                [ tempDictionary setObject:@"CREDIT" forKey:@"Type"];
+            }else{
+                [ tempDictionary setObject:@"DEBIT" forKey:@"Type"];
+            }
             
             
             loginDict = tempDictionary;

@@ -21,6 +21,7 @@
 @end
 
 @implementation SplitCheckViewController
+@synthesize dollarAmountAlreadyPaidNameLabel;
 @synthesize itemSplitItemSegControl;
 @synthesize itemSplitItemItemTotal;
 @synthesize itemSplitItemYourAmount;
@@ -52,6 +53,26 @@
 - (void)viewDidLoad
 {
     @try {
+        self.percentTipText.font = [UIFont fontWithName:@"LucidaGrande" size:self.dollarTipText.font.pointSize];
+        self.percentYourPaymentText.font = [UIFont fontWithName:@"LucidaGrande" size:self.dollarTipText.font.pointSize];
+
+        
+        self.dollarTipText.font = [UIFont fontWithName:@"Corbel" size:self.dollarTipText.font.pointSize];
+        self.dollarYourPaymentText.font = [UIFont fontWithName:@"Corbel" size:self.dollarYourPaymentText.font.pointSize];
+        /*
+        self.dollarAmountAlreadyPaidNameLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:21];
+        self.dollarAmountDueLabel.font = [UIFont fontWithName:@"Corbel Bold" size:21];
+        self.dollarAmountDueNameLabel.font = [UIFont fontWithName:@"Corbel" size:21];
+        self.dollarAmountPaidLabel.font = [UIFont fontWithName:@"Corbel" size:21];
+        self.dollarFoodBevLabel.font = [UIFont fontWithName:@"Corbel" size:21];
+        self.dollarServiceChargeLabel.font = [UIFont fontWithName:@"Corbel" size:21];
+        self.dollarTaxLabel.font = [UIFont fontWithName:@"Corbel Bold" size:21];
+        self.dollarTotalBillLabel.font = [UIFont fontWithName:@"Corbel" size:21];
+        self.dollarTotalBillNameLabel.font = [UIFont fontWithName:@"Corbel" size:21];
+        self.dollarYourPaymentNameLabel.font = [UIFont fontWithName:@"Corbel" size:21];
+        self.dollarYourTotalPaymentLabel.font = [UIFont fontWithName:@"Corbel Bold" size:21];
+         */
+        
         [rSkybox addEventToSession:@"signInComplete"];
         
         
@@ -365,7 +386,7 @@
             
             for (int i = 0; i < [self.creditCards count]; i++) {
                 CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                [action addButtonWithTitle:[NSString stringWithFormat:@"Credit Card  %@", tmpCard.sample]];
+                [action addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
                 
             }
             [action addButtonWithTitle:@"Cancel"];
@@ -763,6 +784,7 @@
     [self setItemSplitItemItemTotal:nil];
     [self setItemSplitItemYourAmount:nil];
     [self setItemSplitItemSegControl:nil];
+    [self setDollarAmountAlreadyPaidNameLabel:nil];
     [super viewDidUnload];
 }
 - (IBAction)itemSplitItemCancel {

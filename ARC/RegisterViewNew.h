@@ -37,6 +37,7 @@
 - (IBAction)login:(UIBarButtonItem *)sender;
 - (IBAction)registerNow:(id)sender;
 
+@property (nonatomic, weak) IBOutlet UISegmentedControl *creditDebitSegment;
 
 
 -(void)changeExpiration;
