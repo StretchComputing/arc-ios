@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
 		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
+		906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */; };
+		906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */; };
+		906C80F915FD5E290012AC9D /* CorbelTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F815FD5E290012AC9D /* CorbelTextField.m */; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
 		907A406615A9CE2500090452 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406515A9CE2500090452 /* CreditCard.m */; };
@@ -119,6 +122,12 @@
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
 		905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CHATOKYO_0.TTF; sourceTree = "<group>"; };
+		906C80F015FD582F0012AC9D /* CorbelSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelSegmentedControl.h; sourceTree = "<group>"; };
+		906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelSegmentedControl.m; sourceTree = "<group>"; };
+		906C80F415FD598A0012AC9D /* CorbelBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelBarButtonItem.h; sourceTree = "<group>"; };
+		906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelBarButtonItem.m; sourceTree = "<group>"; };
+		906C80F715FD5E290012AC9D /* CorbelTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTextField.h; sourceTree = "<group>"; };
+		906C80F815FD5E290012AC9D /* CorbelTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTextField.m; sourceTree = "<group>"; };
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -464,6 +473,12 @@
 				9096A0CC15F9421E00630AF6 /* LucidaLabel.m */,
 				9096A0CE15F9422B00630AF6 /* LucidaBoldLabel.h */,
 				9096A0CF15F9422B00630AF6 /* LucidaBoldLabel.m */,
+				906C80F015FD582F0012AC9D /* CorbelSegmentedControl.h */,
+				906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */,
+				906C80F415FD598A0012AC9D /* CorbelBarButtonItem.h */,
+				906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */,
+				906C80F715FD5E290012AC9D /* CorbelTextField.h */,
+				906C80F815FD5E290012AC9D /* CorbelTextField.m */,
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
@@ -713,6 +728,9 @@
 				9096A0CA15F940FE00630AF6 /* CorbelBoldLabel.m in Sources */,
 				9096A0CD15F9421E00630AF6 /* LucidaLabel.m in Sources */,
 				9096A0D015F9422B00630AF6 /* LucidaBoldLabel.m in Sources */,
+				906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */,
+				906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */,
+				906C80F915FD5E290012AC9D /* CorbelTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
