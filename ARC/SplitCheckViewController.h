@@ -38,6 +38,7 @@
 - (IBAction)dollarTipDidBegin;
 - (IBAction)percentTipDidBegin;
 
+@property (weak, nonatomic) IBOutlet UIToolbar *divisionTypeSegment;
 
 @property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillLabel;
