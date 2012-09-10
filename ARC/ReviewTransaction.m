@@ -38,6 +38,8 @@
         self.priceInt = @(0.0);
         self.serviceInt = @(0.0);
         self.moodInt = @(0.0);
+        self.twitterInt = @(0.0);
+        self.facebookInt = @(0.0);
 
         [alert show];
     }
@@ -62,7 +64,7 @@
     self.drinksInt = [NSNumber numberWithDouble:(self.drinksSlider.value * 10)/2.0];
     self.priceInt = [NSNumber numberWithDouble:(self.valueSlider.value * 10)/2.0];
     self.serviceInt = [NSNumber numberWithDouble:(self.serviceSlider.value * 10)/2.0];
-    self.moodInt = [NSNumber numberWithInt:(self.moodSlider.value * 10)/2.0];
+    self.moodInt = [NSNumber numberWithDouble:(self.moodSlider.value * 10)/2.0];
 
     
     int tag = sender.tag;
@@ -460,6 +462,8 @@
         [ tempDictionary setObject:self.priceInt forKey:@"Price"];
         [ tempDictionary setObject:self.serviceInt forKey:@"Service"];
         [ tempDictionary setObject:self.moodInt forKey:@"Mood"];
+        [ tempDictionary setObject:self.twitterInt forKey:@"Twitter"];
+        [ tempDictionary setObject:self.facebookInt forKey:@"Facebook"];
 
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];
@@ -532,17 +536,25 @@
 - (IBAction)postTwitter {
     
     TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
-    [twitter setInitialText:@"I just made a purchase with ARC Mobile!"];
+    NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+    NSNumber *avgRating = [self getAverageRating];
+    if([avgRating doubleValue] > 0) {
+        tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+    }
+    [twitter setInitialText:tweet];
     [self presentModalViewController:twitter animated:YES];
     
     twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
         NSString *title = @"Tweet";
         NSString *msg;
         
-        if (result == TWTweetComposeViewControllerResultCancelled)
+        if (result == TWTweetComposeViewControllerResultCancelled){
             msg = @"You bailed on your tweet...";
-        else if (result == TWTweetComposeViewControllerResultDone)
+        }
+        else if (result == TWTweetComposeViewControllerResultDone) {
             msg = @"Hurray! Your tweet was tweeted!";
+            self.twitterInt = @(5.0);
+        }
         
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [alertView show];
@@ -550,5 +562,15 @@
         [self dismissModalViewControllerAnimated:YES];
     };
     
+}
+
+- (NSNumber *)getAverageRating {
+    @try {
+        return [NSNumber numberWithDouble:([self.foodInt doubleValue] + [self.drinksInt doubleValue] + [self.priceInt doubleValue] +
+                                           [self.serviceInt doubleValue] + [self.moodInt doubleValue])/5.0];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ReviewTransaction.getAverageRating" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 @end
