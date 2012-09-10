@@ -12,6 +12,7 @@
 		906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */; };
 		906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */; };
 		906C80F915FD5E290012AC9D /* CorbelTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F815FD5E290012AC9D /* CorbelTextField.m */; };
+		906C818315FD76750012AC9D /* CorbelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C818215FD76750012AC9D /* CorbelButton.m */; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
 		907A406615A9CE2500090452 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406515A9CE2500090452 /* CreditCard.m */; };
@@ -128,6 +129,8 @@
 		906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelBarButtonItem.m; sourceTree = "<group>"; };
 		906C80F715FD5E290012AC9D /* CorbelTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTextField.h; sourceTree = "<group>"; };
 		906C80F815FD5E290012AC9D /* CorbelTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTextField.m; sourceTree = "<group>"; };
+		906C818115FD76750012AC9D /* CorbelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelButton.h; sourceTree = "<group>"; };
+		906C818215FD76750012AC9D /* CorbelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelButton.m; sourceTree = "<group>"; };
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -479,6 +482,8 @@
 				906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */,
 				906C80F715FD5E290012AC9D /* CorbelTextField.h */,
 				906C80F815FD5E290012AC9D /* CorbelTextField.m */,
+				906C818115FD76750012AC9D /* CorbelButton.h */,
+				906C818215FD76750012AC9D /* CorbelButton.m */,
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
@@ -731,6 +736,7 @@
 				906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */,
 				906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */,
 				906C80F915FD5E290012AC9D /* CorbelTextField.m in Sources */,
+				906C818315FD76750012AC9D /* CorbelButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
