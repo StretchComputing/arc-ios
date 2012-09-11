@@ -44,7 +44,7 @@
         
         self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
         
-        self.totalLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.amountDue];
+        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
         
         [super viewDidLoad];
         
@@ -168,9 +168,9 @@
         numberLabel.backgroundColor = [UIColor clearColor];
         priceLabel.backgroundColor = [UIColor clearColor];
         
-        itemLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-        numberLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-        priceLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        itemLabel.font = [UIFont fontWithName:@"Corbel" size:14];
+        numberLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+        priceLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
         
         priceLabel.textAlignment = UITextAlignmentRight;
         numberLabel.textAlignment = UITextAlignmentLeft;
@@ -308,7 +308,7 @@
         
         self.tipText.text = [NSString stringWithFormat:@"%.2f", tip];
         
-        self.totalLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.amountDue + tip];
+        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue + tip];
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
@@ -378,7 +378,7 @@
         
         self.tipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
         
-        self.totalLabel.text = [NSString stringWithFormat:@"Total: $%.2f", self.amountDue + tipAmount];
+        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue + tipAmount];
         
         
         [UIView beginAnimations:nil context:NULL];

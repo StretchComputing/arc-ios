@@ -13,6 +13,8 @@
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
+#import "LucidaBoldLabel.h"
+#import "CorbelTextField.h"
 
 @interface ViewController ()
 
@@ -63,19 +65,19 @@
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
         
-        self.username = [[UITextField alloc] initWithFrame:CGRectMake(95, 8, 205, 20)];
+        self.username = [[CorbelTextField alloc] initWithFrame:CGRectMake(95, 10, 205, 20)];
         self.username.autocorrectionType = UITextAutocorrectionTypeNo;
         self.username.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        self.username.font = [UIFont fontWithName:@"Helvetica" size:14];
+        self.username.font = [UIFont fontWithName:@"LucidaGrande" size:14];
         self.username.returnKeyType = UIReturnKeyNext;
         self.username.keyboardType = UIKeyboardTypeEmailAddress;
         [self.username addTarget:self action:@selector(selectPassword) forControlEvents:UIControlEventEditingDidEndOnExit];
         
-        self.password = [[UITextField alloc] initWithFrame:CGRectMake(95, 8, 205, 20)];
+        self.password = [[CorbelTextField alloc] initWithFrame:CGRectMake(95, 10, 205, 20)];
         self.password.autocorrectionType = UITextAutocorrectionTypeNo;
         self.password.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.password.secureTextEntry = YES;
-        self.password.font = [UIFont fontWithName:@"Helvetica" size:14];
+        self.password.font = [UIFont fontWithName:@"LucidaGrande" size:14];
         self.password.returnKeyType = UIReturnKeyGo;
         [self.password addTarget:self action:@selector(signIn) forControlEvents:UIControlEventEditingDidEndOnExit];
         
@@ -139,18 +141,18 @@
             
             CGRect frame;
             frame.origin.x = 10;
-            frame.origin.y = 6;
+            frame.origin.y = 8;
             frame.size.height = 22;
             frame.size.width = 80;
             
-            UILabel *fieldLabel = [[UILabel alloc] initWithFrame:frame];
+            LucidaBoldLabel *fieldLabel = [[LucidaBoldLabel alloc] initWithFrame:frame];
             fieldLabel.tag = fieldTag;
             [cell.contentView addSubview:fieldLabel];
             
             
         }
         
-        UILabel *fieldLabel = (UILabel *)[cell.contentView viewWithTag:fieldTag];
+        LucidaBoldLabel *fieldLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:fieldTag];
         
         fieldLabel.textColor = [UIColor blackColor];
         fieldLabel.backgroundColor = [UIColor clearColor];
@@ -159,8 +161,8 @@
         
         if (section == 0) {
             
-            fieldLabel.frame = CGRectMake(10, 6, 80, 22);
-            fieldLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+            fieldLabel.frame = CGRectMake(10, 8, 80, 22);
+            fieldLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:15];
             fieldLabel.textAlignment = UITextAlignmentLeft;
             
             if (row == 0) {

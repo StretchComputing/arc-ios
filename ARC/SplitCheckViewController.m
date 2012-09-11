@@ -22,6 +22,8 @@
 
 @implementation SplitCheckViewController
 @synthesize divisionTypeSegment;
+@synthesize splitSaveButton;
+@synthesize splitCancelButton;
 @synthesize dollarAmountAlreadyPaidNameLabel;
 @synthesize itemSplitItemSegControl;
 @synthesize itemSplitItemItemTotal;
@@ -786,6 +788,8 @@
     [self setItemSplitItemSegControl:nil];
     [self setDollarAmountAlreadyPaidNameLabel:nil];
     [self setDivisionTypeSegment:nil];
+    [self setSplitSaveButton:nil];
+    [self setSplitCancelButton:nil];
     [super viewDidUnload];
 }
 - (IBAction)itemSplitItemCancel {

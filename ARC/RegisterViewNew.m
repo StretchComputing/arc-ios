@@ -846,7 +846,7 @@
             UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
             tmpLabel.backgroundColor = [UIColor clearColor];
             tmpLabel.text = @"*An existing Dwolla account is required for this option";
-            tmpLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
+            tmpLabel.font = [UIFont fontWithName:@"LucidaGrande" size:11];
             tmpLabel.textAlignment = UITextAlignmentCenter;
             [tmp addSubview:tmpLabel];
             return tmp;
