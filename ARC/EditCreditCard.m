@@ -11,6 +11,7 @@
 #import "ArcAppDelegate.h"
 #import "SettingsView.h"
 #import "rSkybox.h"
+#import "ArcClient.h"
 
 @interface EditCreditCard ()
 
@@ -27,7 +28,7 @@
         NSArray *cards = [mainDelegate getCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"EditCreditCards.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"EditCreditCard.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
@@ -41,12 +42,30 @@
         SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
         tmp.creditCardDeleted = YES;
         [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        NSString *action = [NSString stringWithFormat:@"Delete %@ Card", [self getCardType]];
+        [ArcClient trackEvent:action];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"EditCreditCards.deleteCardAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"EditCreditCard.deleteCardAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
 
+- (NSString *)getCardType {
+    @try {
+        NSString *creditDebitString = @"";
+        NSString *sample = [self.creditCardSample lowercaseString];
+        if ([sample rangeOfString:@"credit"].location == NSNotFound) {
+            creditDebitString = @"Debit";
+        } else {
+            creditDebitString = @"Credit";
+        }
+        return creditDebitString;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"EditCreditCard.getCardType" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
 
 @end

@@ -51,5 +51,7 @@ typedef enum {
 
 -(void)getServer;
 
++(void)trackEvent:(NSString *)action;
+
 @end
 

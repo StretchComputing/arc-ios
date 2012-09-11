@@ -11,6 +11,7 @@
 #import "ArcAppDelegate.h"
 #import "SettingsView.h"
 #import "rSkybox.h"
+#import "ArcClient.h"
 
 @interface AddCreditCard ()
 
@@ -362,7 +363,9 @@
                 [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
                 
                 [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-                
+                NSString *action = [NSString stringWithFormat:@"Add %@ Card", creditDebitString];
+                [ArcClient trackEvent:action];
+
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];

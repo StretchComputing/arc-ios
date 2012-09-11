@@ -110,40 +110,6 @@
 
 }
 
-- (void) trackEventViewSettingsPage
-{
-    @try{
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        NSString *customerId = [mainDelegate getCustomerId];
-
-        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-		NSDictionary *trackEventDict = [[NSDictionary alloc] init];
-
-        [ tempDictionary setObject:@"Performance" forKey:@"ActivityType"]; //CATEGORY
-        [ tempDictionary setObject:@"View Profile" forKey:@"Activity"]; //ACTION
-        [ tempDictionary setObject:@"Arc Mobile" forKey:@"Application"];
-        [ tempDictionary setObject:@"AT&T" forKey:@"Carrier"]; //TODO add real carrier
-        //[ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"]; //Jim removed description
-        [ tempDictionary setObject:customerId forKey:@"EntityId"]; //get from auth header?
-        [ tempDictionary setObject:@"Customer" forKey:@"EntityType"]; //get from auth header?
-        [ tempDictionary setObject:@0.0 forKey:@"Latitude"];//optional
-        [ tempDictionary setObject:@0.0 forKey:@"Longitude"];//optional
-        [ tempDictionary setObject:@"clicks" forKey:@"MeasureType"];//LABEL
-        [ tempDictionary setObject:@1.0 forKey:@"MeasureValue"];//VALUE
-        [ tempDictionary setObject:@"phone OS" forKey:@"Source"];
-        [ tempDictionary setObject:@"phone" forKey:@"SourceType"];//remove
-        [ tempDictionary setObject:@"0.1" forKey:@"Version"];
-        
-		trackEventDict = tempDictionary;
-        ArcClient *client = [[ArcClient alloc] init];
-        [client trackEvent:trackEventDict];
-        
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"SettingsView.trackEventViewSettingsPage" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-}
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     @try {
         
@@ -220,7 +186,7 @@
             //self.errorLabel.text = @"*Error getting point balance payment.";
         }
         
-       [self trackEventViewSettingsPage];
+       [ArcClient trackEvent:@"View Profile"];
 }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SettingsView.pointBalanceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
