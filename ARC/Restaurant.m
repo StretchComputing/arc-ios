@@ -222,12 +222,12 @@
         self.checkNumSix.text = @"";
 
         
-        self.checkNumOne.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-        self.checkNumTwo.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-        self.checkNumThree.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-        self.checkNumFour.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-        self.checkNumFive.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
-        self.checkNumSix.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
+        self.checkNumOne.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
+        self.checkNumTwo.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
+        self.checkNumThree.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
+        self.checkNumFour.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
+        self.checkNumFive.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
+        self.checkNumSix.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
 
         
         self.nameDisplay.text = [NSString stringWithFormat:@"%@", self.name];
@@ -246,6 +246,10 @@
         [rSkybox sendClientLog:@"Restaurant.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+
+
+
 
 - (IBAction)submit:(id)sender {
     @try {

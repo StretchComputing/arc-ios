@@ -343,11 +343,45 @@
         }else{
             self.errorLabel.text = @"*Error submitting payment.";
         }
+        
+        [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
+
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"CreditCardPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
+ replacementText:(NSString *)text
+{
+    @try {
+        
+        // Any new character added is passed in as the "text" parameter
+        if ([text isEqualToString:@"\n"]) {
+            // Be sure to test for equality using the "isEqualToString" message
+            [textView resignFirstResponder];
+            
+            if ([self.notesText.text isEqualToString:@""]){
+                self.notesText.text = @"Transaction Notes (*optional):";
+            }
+            
+            [self.hiddenText becomeFirstResponder];
+
+            
+            
+            // Return FALSE so that the final '\n' character doesn't get added
+            return FALSE;
+        }
+        // For any other character return TRUE so that the text gets added to the view
+        return TRUE;
+    }
+    @catch (NSException *e) {
+        
+    }
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {

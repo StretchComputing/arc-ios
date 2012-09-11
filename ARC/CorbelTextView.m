@@ -1,14 +1,14 @@
 //
-//  CorbelTextField.m
+//  CorbelTextView.m
 //  ARC
 //
-//  Created by Nick Wroblewski on 9/9/12.
+//  Created by Nick Wroblewski on 9/10/12.
 //
 //
 
-#import "CorbelTextField.h"
+#import "CorbelTextView.h"
 
-@implementation CorbelTextField
+@implementation CorbelTextView
 
 - (id)initWithCoder:(NSCoder *)decoder {
     
@@ -16,10 +16,9 @@
         
         [self setFont: [UIFont fontWithName: @"LucidaGrande" size: self.font.pointSize]];
         
-
+        
     }
     return self;
 }
-
 
 @end

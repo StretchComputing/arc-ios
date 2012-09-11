@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
+#import "CorbelButton.h"
 
 @interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate>
 
@@ -39,6 +40,8 @@
 - (IBAction)percentTipDidBegin;
 
 @property (weak, nonatomic) IBOutlet UIToolbar *divisionTypeSegment;
+@property (weak, nonatomic) IBOutlet CorbelButton *splitSaveButton;
+@property (weak, nonatomic) IBOutlet CorbelButton *splitCancelButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dollarTotalBillLabel;

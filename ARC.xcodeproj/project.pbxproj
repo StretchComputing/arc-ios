@@ -30,6 +30,8 @@
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
+		909456B115FEBF690059E65C /* CorbelInputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 909456B015FEBF680059E65C /* CorbelInputTextField.m */; };
+		909456B515FEC0710059E65C /* CorbelTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909456B415FEC0710059E65C /* CorbelTextView.m */; };
 		9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9095947A15EA652600F19DD2 /* Twitter.framework */; };
 		90964E1615F842A400676E0A /* CORBELB.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 90964E1415F842A300676E0A /* CORBELB.TTF */; };
 		90964E1715F842A400676E0A /* CORBEL.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 90964E1515F842A400676E0A /* CORBEL.TTF */; };
@@ -158,6 +160,10 @@
 		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
 		9094250815D8729400CB052D /* untitledLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = untitledLogo.png; sourceTree = "<group>"; };
+		909456AF15FEBF680059E65C /* CorbelInputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelInputTextField.h; sourceTree = "<group>"; };
+		909456B015FEBF680059E65C /* CorbelInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelInputTextField.m; sourceTree = "<group>"; };
+		909456B315FEC0710059E65C /* CorbelTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTextView.h; sourceTree = "<group>"; };
+		909456B415FEC0710059E65C /* CorbelTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTextView.m; sourceTree = "<group>"; };
 		9095947A15EA652600F19DD2 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		90964E1415F842A300676E0A /* CORBELB.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CORBELB.TTF; sourceTree = "<group>"; };
 		90964E1515F842A400676E0A /* CORBEL.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CORBEL.TTF; sourceTree = "<group>"; };
@@ -482,8 +488,12 @@
 				906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */,
 				906C80F715FD5E290012AC9D /* CorbelTextField.h */,
 				906C80F815FD5E290012AC9D /* CorbelTextField.m */,
+				909456AF15FEBF680059E65C /* CorbelInputTextField.h */,
+				909456B015FEBF680059E65C /* CorbelInputTextField.m */,
 				906C818115FD76750012AC9D /* CorbelButton.h */,
 				906C818215FD76750012AC9D /* CorbelButton.m */,
+				909456B315FEC0710059E65C /* CorbelTextView.h */,
+				909456B415FEC0710059E65C /* CorbelTextView.m */,
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
@@ -737,6 +747,8 @@
 				906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */,
 				906C80F915FD5E290012AC9D /* CorbelTextField.m in Sources */,
 				906C818315FD76750012AC9D /* CorbelButton.m in Sources */,
+				909456B115FEBF690059E65C /* CorbelInputTextField.m in Sources */,
+				909456B515FEC0710059E65C /* CorbelTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
