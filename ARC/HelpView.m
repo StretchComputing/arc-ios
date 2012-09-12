@@ -9,6 +9,7 @@
 #import "HelpView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
+#import "ArcClient.h"
 
 @interface HelpView ()
 
@@ -33,6 +34,8 @@
         
         [super viewDidLoad];
         // Do any additional setup after loading the view.
+        
+        [ArcClient trackEvent:@"View Main Help"];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"HelpView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

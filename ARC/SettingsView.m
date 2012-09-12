@@ -222,6 +222,7 @@
     
     if (buttonIndex == 1) {
         [DwollaAPI clearAccessToken];
+        [ArcClient trackEvent:@"Dwolla Deactivated"];
     }
 }
 

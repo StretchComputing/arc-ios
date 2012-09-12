@@ -11,6 +11,7 @@
 #import "DwollaPayment.h"
 #import "SettingsView.h"
 #import "rSkybox.h"
+#import "ArcClient.h"
 
 @interface RegisterDwollaView ()
 
@@ -65,6 +66,8 @@
             [self.navigationController popViewControllerAnimated:NO];
         }
         
+        [ArcClient trackEvent:@"Dwolla Activated"];
+\
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterDwollaView.successfulLogin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

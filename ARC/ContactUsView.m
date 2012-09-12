@@ -9,6 +9,7 @@
 #import "ContactUsView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
+#import "ArcClient.h"
 
 @interface ContactUsView ()
 
@@ -35,6 +36,9 @@
         
         // Do any additional setup after loading the view.
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
+        
+        [ArcClient trackEvent:@"View Contact Us"];
+
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ContactUsView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
