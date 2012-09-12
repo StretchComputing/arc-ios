@@ -51,7 +51,7 @@
 		<string>Lucida Grande.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>MainStoryboard</string>
+	<string>ArcMainStoryboard</string>
 	<key>UIPrerenderedIcon</key>
 	<false/>
 	<key>UIRequiredDeviceCapabilities</key>
