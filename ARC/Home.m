@@ -14,7 +14,7 @@
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
-
+#import "HomeNavigationController.h"
 
 @interface Home ()
 
@@ -33,6 +33,9 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     @try {
+        
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Home"];
+        self.navigationItem.titleView = navLabel;
         
         for (int i = 0; i < [self.allMerchants count]; i++) {
             
@@ -75,6 +78,11 @@
 - (void)viewDidLoad
 {
     @try {
+        
+        
+      
+        
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
         
@@ -122,6 +130,9 @@
         [self.view.layer insertSublayer:gradient atIndex:0];
         
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
+        
+        
+     
         
     }
     @catch (NSException *e) {
@@ -303,6 +314,7 @@
             
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"selectedRestaurant"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            
         } 
     }
     @catch (NSException *e) {

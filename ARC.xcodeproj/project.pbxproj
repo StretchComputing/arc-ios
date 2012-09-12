@@ -27,6 +27,7 @@
 		9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081521615E7D26500211C37 /* SystemConfiguration.framework */; };
 		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
 		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
+		908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */; };
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
@@ -156,6 +157,8 @@
 		9081522115E7D77900211C37 /* InitialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialController.m; sourceTree = "<group>"; };
 		9081522315E817E700211C37 /* RegisterViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewNew.h; sourceTree = "<group>"; };
 		9081522415E817E700211C37 /* RegisterViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewNew.m; sourceTree = "<group>"; };
+		908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTitleLabel.h; sourceTree = "<group>"; };
+		908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTitleLabel.m; sourceTree = "<group>"; };
 		9094250215D86E2500CB052D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
 		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
@@ -494,6 +497,8 @@
 				906C818215FD76750012AC9D /* CorbelButton.m */,
 				909456B315FEC0710059E65C /* CorbelTextView.h */,
 				909456B415FEC0710059E65C /* CorbelTextView.m */,
+				908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */,
+				908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */,
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
@@ -749,6 +754,7 @@
 				906C818315FD76750012AC9D /* CorbelButton.m in Sources */,
 				909456B115FEBF690059E65C /* CorbelInputTextField.m in Sources */,
 				909456B515FEC0710059E65C /* CorbelTextView.m in Sources */,
+				908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

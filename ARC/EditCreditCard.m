@@ -21,7 +21,8 @@
 -(void)viewDidLoad{
     @try {
         
-        [rSkybox addEventToSession:@"viewEditCreditCardScreen"];
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Card"];
+        self.navigationItem.titleView = navLabel;
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSArray *cards = [mainDelegate getCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];

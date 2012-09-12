@@ -23,9 +23,16 @@
 
 - (void)viewDidLoad
 {
+    
+  
+    
+    
     @try {
         
         [rSkybox addEventToSession:@"viewDwollaPaymentScreen"];
+        
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Dwolla"];
+        self.navigationItem.titleView = navLabel;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
         
