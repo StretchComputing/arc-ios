@@ -12,6 +12,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 
+#import "HomeNavigationController.h"
+
 @interface Restaurant ()
 
 @end
@@ -49,7 +51,6 @@
 
 -(void)setValues:(NSString *)newString{
 
-    NSLog(@"NewString: %@", newString);
     
     if ([newString length] < 7) {
         
@@ -197,6 +198,11 @@
 - (void)viewDidLoad
 {
     @try {
+        
+       
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Invoice #"];
+        self.navigationItem.titleView = navLabel;
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
         

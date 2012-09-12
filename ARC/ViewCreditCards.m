@@ -32,6 +32,9 @@
 -(void)viewDidLoad{
     @try {
         
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Cards"];
+        self.navigationItem.titleView = navLabel;
+        
         [rSkybox addEventToSession:@"viewCreditCardScreen"];
         
         self.myTableView.delegate = self;

@@ -24,7 +24,8 @@
         
         [rSkybox addEventToSession:@"viewRegisterDwollaScreen"];
         
-        self.title = @"Dwolla Confirm";
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Dwolla Confirm"];
+        self.navigationItem.titleView = navLabel;
         
         
         NSArray *scopes = @[@"send", @"balance", @"accountinfofull", @"contacts", @"funding",  @"request", @"transactions"];

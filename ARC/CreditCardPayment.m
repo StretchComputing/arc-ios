@@ -26,6 +26,9 @@
 {
     @try {
         
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Card"];
+        self.navigationItem.titleView = navLabel;
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
         
         self.fundingSourceStatus = @"";
@@ -339,12 +342,11 @@
             //success
             self.errorLabel.text = @"";
             
-            [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
+            [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         }else{
             self.errorLabel.text = @"*Error submitting payment.";
         }
         
-        [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
 
     }
     @catch (NSException *e) {
@@ -386,7 +388,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {
         
-        if ([[segue identifier] isEqualToString:@"reviewTransaction"]) {
+        if ([[segue identifier] isEqualToString:@"reviewCreditCardTransaction"]) {
             
             ReviewTransaction *next = [segue destinationViewController];
             next.invoiceId = self.invoiceId;

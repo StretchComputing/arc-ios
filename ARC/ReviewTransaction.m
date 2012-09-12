@@ -80,6 +80,9 @@
 -(void)viewDidLoad{
     @try {
         
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Review"];
+        self.navigationItem.titleView = navLabel;
+        
         
         self.earnMoreLabel.text = [NSString stringWithFormat:@"Earn more by giving %@ feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
         
@@ -424,14 +427,14 @@
         
         [rSkybox addEventToSession:@"submitReview"];
         
-        [self createPayment];
+        [self createReview];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ReviewTransaction.submitReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
--(void)createPayment{
+-(void)createReview{
     
     @try{     
         

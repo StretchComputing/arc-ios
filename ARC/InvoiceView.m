@@ -13,7 +13,8 @@
 #import "CreditCard.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
-#import "SplitCheckViewController.h":
+#import "SplitCheckViewController.h"
+#import "HomeNavigationController.h"
 
 @interface InvoiceView ()
 
@@ -26,6 +27,12 @@
 - (void)viewDidLoad
 {
     @try {
+        
+        
+    
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Invoice"];
+        self.navigationItem.titleView = navLabel;
+  
         
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;

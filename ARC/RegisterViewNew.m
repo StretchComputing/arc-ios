@@ -100,6 +100,9 @@
         
         [rSkybox addEventToSession:@"viewRegisterScreen"];
         
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Register"];
+        self.navigationItem.titleView = navLabel;
+        
         self.isCreditCard = NO;
         
         self.myTableView.delegate = self;

@@ -21,9 +21,16 @@
 
 - (void)viewDidLoad
 {
+
     @try {
         
+        
         [rSkybox addEventToSession:@"viewContactUsPage"];
+        
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Contact Us"];
+        self.navigationItem.titleView = navLabel;
+        
+        
         self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
         [super viewDidLoad];
         

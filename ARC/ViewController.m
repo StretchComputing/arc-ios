@@ -60,6 +60,11 @@
 - (void)viewDidLoad
 {
     @try {
+        
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Sign In"];
+        self.navigationItem.titleView = navLabel;
+        
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
         
         self.myTableView.delegate = self;
