@@ -100,8 +100,7 @@
         
         [rSkybox addEventToSession:@"viewRegisterScreen"];
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Register"];
-        self.navigationItem.titleView = navLabel;
+  
         
         
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Register"];
@@ -152,6 +151,9 @@
         [self.view.layer insertSublayer:gradient atIndex:0];
         
         [self.myTableView reloadData];
+        
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Register"];
+        self.navigationItem.titleView = navLabel;
         
     }
     @catch (NSException *e) {

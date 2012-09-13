@@ -126,6 +126,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
+        NSString *header = [self authHeader];
+        
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -686,11 +688,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
 -(NSString *) authHeader {
     @try {
         
-        
         if ([self customerToken]) {
             NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
             NSString *authentication = [self encodeBase64:stringToEncode];
             
+            return [@"Basic " stringByAppendingString:[self customerToken]];
             return authentication;
         }else{
             return @"";
