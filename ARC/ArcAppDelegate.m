@@ -97,7 +97,10 @@
     PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter]; NSError *error;
     /* Check if we previously crashed */
     if ([crashReporter hasPendingCrashReport]) {
-        [self handleCrashReport]; }
+    
+        [self handleCrashReport];
+    }
+    
     if (![crashReporter enableCrashReporterAndReturnError: &error]){
         //NSLog(@"*************************Warning: Could not enable crash reporter: %@", error);
     }
@@ -213,7 +216,8 @@
         // send crash detect to GAE
         [rSkybox sendCrashDetect:self.crashSummary theStackData:self.crashStackData];
         PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-        [crashReporter purgePendingCrashReport]; }
+        [crashReporter purgePendingCrashReport];
+    }
 }
 
 -(void)saveUserInfo{

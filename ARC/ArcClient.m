@@ -25,7 +25,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-            _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+           // _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
         }
         
     }
@@ -117,12 +117,14 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         //[rSkybox sendClientLog:@"getMerchantList" logMessage:@"jpw testing rSkybox in Arc" logLevel:@"error" exception:nil];
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants", _arcUrl, nil];
+        
+        
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
         [request setHTTPMethod: @"GET"];
         //[request setHTTPBody: requestData];
                 
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+       // [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -266,6 +268,12 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
 }
 
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    
+    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+    self.httpStatusCode = [httpResponse statusCode];
+    
+}
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     @try {
         
@@ -324,7 +332,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
             if (response) {
                 responseInfo = [self trackEventResponse:response];
             }
-            notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
+            postNotification = NO;
+           // notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
         }else if (api == GetServer){
             
             postNotification = NO;
@@ -472,6 +481,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.createCustomerResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+
     }
 }
 
@@ -509,6 +520,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getCustomerTokenResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+
     }
 }
 
@@ -533,6 +546,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getMerchantListResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+
     }
 }
 
@@ -557,6 +572,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getInvoiceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+
     }
 }
 
@@ -581,6 +598,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.createPaymentResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+
     }
 }
 
@@ -604,6 +623,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.createReviewResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+
     }
     
 }
@@ -630,6 +651,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getPointBalanceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
     }
     
  
@@ -655,6 +677,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.trackEventResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
     }
     
 }
@@ -704,6 +727,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.customerToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @"";
     }
 }
 
@@ -723,6 +747,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.encodeBase64" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @"";
     }
 }
 

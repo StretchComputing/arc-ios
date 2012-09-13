@@ -24,6 +24,7 @@ typedef enum {
     APIS api;
 }
 @property (nonatomic, strong) NSMutableData *serverData;
+@property int httpStatusCode;
 
 -(void)createCustomer:(NSDictionary *)pairs;
 -(NSDictionary *) createCustomerResponse:(NSDictionary *)response;

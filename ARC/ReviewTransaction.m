@@ -466,7 +466,7 @@
         [ tempDictionary setObject:self.foodInt forKey:@"Food"];
         [ tempDictionary setObject:self.priceInt forKey:@"Price"];
         [ tempDictionary setObject:self.serviceInt forKey:@"Service"];
-        [ tempDictionary setObject:self.moodInt forKey:@"Mood"];
+        [ tempDictionary setObject:self.moodInt forKey:@"Mood"];        
         [ tempDictionary setObject:self.twitterInt forKey:@"Twitter"];
         [ tempDictionary setObject:self.facebookInt forKey:@"Facebook"];
 
@@ -521,23 +521,7 @@
         [rSkybox sendClientLog:@"ReviewTransaction.skipReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
-- (void)viewDidUnload {
-    [self setEarnMoreLabel:nil];
-    [self setValueSlider:nil];
-    [self setMoodSlider:nil];
-    [self setDrinksSlider:nil];
-    [self setServiceSlider:nil];
-    [self setFoodSlider:nil];
-    @try {
-        
-        [self setErrorLabel:nil];
-        [self setActivity:nil];
-        [super viewDidUnload];
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ReviewTransaction.viewDidUnload" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-}
+
 - (IBAction)postTwitter {
     
     TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
