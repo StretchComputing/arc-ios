@@ -319,7 +319,7 @@
         if ([status isEqualToString:@"1"]) {
             //success
             
-            NSDictionary *theInvoice = [[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Invoice"];
+            NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Invoices"] objectAtIndex:0];
             
             self.myInvoice = [[Invoice alloc] init];
             self.myInvoice.invoiceId = [[theInvoice valueForKey:@"Id"] intValue];
