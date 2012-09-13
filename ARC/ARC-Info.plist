@@ -25,7 +25,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.stretchcom.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.arcmobileapp.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -54,10 +54,7 @@
 	<string>ArcMainStoryboard</string>
 	<key>UIPrerenderedIcon</key>
 	<false/>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
+
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
 	<key>UISupportedInterfaceOrientations</key>

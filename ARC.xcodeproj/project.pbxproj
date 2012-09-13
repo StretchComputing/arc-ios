@@ -22,7 +22,6 @@
 		907A407215AA073C00090452 /* AddCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A407115AA073C00090452 /* AddCreditCard.m */; };
 		907A407515AA08B200090452 /* addCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407315AA08B200090452 /* addCard.png */; };
 		907A407615AA08B200090452 /* addCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407415AA08B200090452 /* addCard@2x.png */; };
-		9081520D15E7B2DC00211C37 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081520C15E7B2DC00211C37 /* libCrashReporter-iphoneos.a */; };
 		9081521515E7D10900211C37 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081521315E7D10900211C37 /* Reachability.m */; };
 		9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081521615E7D26500211C37 /* SystemConfiguration.framework */; };
 		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
@@ -115,6 +114,7 @@
 		90FBDC42159CE17D0051609A /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC41159CE17D0051609A /* OARequestParameter.m */; };
 		90FBDC45159CE2E80051609A /* RegisterDwollaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC44159CE2E80051609A /* RegisterDwollaView.m */; };
 		90FBDC48159CE4FA0051609A /* PushSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */; };
+		90FE9FA41601641400AB358C /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FE9FA31601641400AB358C /* libCrashReporter-iphoneos.a */; };
 		9F34F57315CF0CE30084184B /* ArcClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F34F57215CF0CE30084184B /* ArcClient.m */; };
 		9F45D81F15D33F3300682F19 /* Encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F45D81D15D33F3300682F19 /* Encoder.c */; };
 		9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68CFA15E083750048789D /* UIDevice-Hardware.m */; };
@@ -149,7 +149,6 @@
 		907A407115AA073C00090452 /* AddCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCard.m; sourceTree = "<group>"; };
 		907A407315AA08B200090452 /* addCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addCard.png; sourceTree = "<group>"; };
 		907A407415AA08B200090452 /* addCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addCard@2x.png"; sourceTree = "<group>"; };
-		9081520C15E7B2DC00211C37 /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 		9081521315E7D10900211C37 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9081521415E7D10900211C37 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9081521615E7D26500211C37 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -306,6 +305,7 @@
 		90FBDC44159CE2E80051609A /* RegisterDwollaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterDwollaView.m; sourceTree = "<group>"; };
 		90FBDC46159CE4F90051609A /* PushSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSegueNoAnimation.h; sourceTree = "<group>"; };
 		90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSegueNoAnimation.m; sourceTree = "<group>"; };
+		90FE9FA31601641400AB358C /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 		9F34F57115CF0CE30084184B /* ArcClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcClient.h; sourceTree = "<group>"; };
 		9F34F57215CF0CE30084184B /* ArcClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcClient.m; sourceTree = "<group>"; };
 		9F45D81D15D33F3300682F19 /* Encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Encoder.c; path = ARC/Encoder.c; sourceTree = "<group>"; };
@@ -322,8 +322,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90FE9FA41601641400AB358C /* libCrashReporter-iphoneos.a in Frameworks */,
 				9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */,
-				9081520D15E7B2DC00211C37 /* libCrashReporter-iphoneos.a in Frameworks */,
 				9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */,
 				907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */,
 				90FBDABF159C91D60051609A /* Security.framework in Frameworks */,
@@ -347,8 +347,8 @@
 				9081521615E7D26500211C37 /* SystemConfiguration.framework */,
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
+				90FE9FA31601641400AB358C /* libCrashReporter-iphoneos.a */,
 				908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */,
-				9081520C15E7B2DC00211C37 /* libCrashReporter-iphoneos.a */,
 				9FA68D0915E0880B0048789D /* CrashReporter.framework */,
 				907A405915A8D9C400090452 /* CoreData.framework */,
 				90FBDBA1159CB73F0051609A /* SenTestingKit.framework */,
@@ -769,7 +769,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-	
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -779,8 +778,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: tyler mendoza (8VDW7T8787)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tyler mendoza (8VDW7T8787)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -795,8 +794,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "E3E6C033-699F-4968-97FF-D447D8B01A6C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3E6C033-699F-4968-97FF-D447D8B01A6C";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -807,8 +806,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Stretch Computing,Incorporated";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Stretch Computing,Incorporated";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: tyler mendoza";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tyler mendoza";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -817,6 +816,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "6BFE4AC9-90C7-4C01-A942-C1EA87407FCE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6BFE4AC9-90C7-4C01-A942-C1EA87407FCE";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -870,8 +871,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Stretch Computing,Incorporated";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Stretch Computing,Incorporated";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: tyler mendoza";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tyler mendoza";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -880,8 +881,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "F2DFA185-794E-4E98-805E-7E3355DFA2C0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "423D63DE-8A8A-4B2C-9AE2-4089E50A0A33";
+				PROVISIONING_PROFILE = "6BFE4AC9-90C7-4C01-A942-C1EA87407FCE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6BFE4AC9-90C7-4C01-A942-C1EA87407FCE";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
