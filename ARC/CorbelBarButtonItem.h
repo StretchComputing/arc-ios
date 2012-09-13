@@ -10,4 +10,6 @@
 
 @interface CorbelBarButtonItem : UIBarButtonItem
 
+-(id)initWithTitleText:(NSString *)title;
+
 @end

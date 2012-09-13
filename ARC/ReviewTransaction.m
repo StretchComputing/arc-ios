@@ -83,6 +83,8 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Review"];
         self.navigationItem.titleView = navLabel;
         
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Review"];
+		self.navigationItem.backBarButtonItem = temp;
         
         self.earnMoreLabel.text = [NSString stringWithFormat:@"Earn more by giving %@ feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
         

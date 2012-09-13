@@ -62,6 +62,9 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Split Check"];
         self.navigationItem.titleView = navLabel;
         
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Split Check"];
+		self.navigationItem.backBarButtonItem = temp;
+        
         /*
         self.dollarAmountAlreadyPaidNameLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:21];
         self.dollarAmountDueLabel.font = [UIFont fontWithName:@"Corbel Bold" size:21];

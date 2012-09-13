@@ -25,6 +25,9 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Card"];
         self.navigationItem.titleView = navLabel;
         
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Edit Card"];
+		self.navigationItem.backBarButtonItem = temp;
+        
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSArray *cards = [mainDelegate getCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
     }

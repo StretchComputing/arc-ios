@@ -87,6 +87,8 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Profile"];
         self.navigationItem.titleView = navLabel;
         
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Profile"];
+		self.navigationItem.backBarButtonItem = temp;
         
         [rSkybox addEventToSession:@"viewSettingsPage"];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointBalanceComplete:) name:@"getPointBalanceNotification" object:nil];

@@ -37,6 +37,10 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Home"];
         self.navigationItem.titleView = navLabel;
         
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Home"];
+		self.navigationItem.backBarButtonItem = temp;
+        
+        
         for (int i = 0; i < [self.allMerchants count]; i++) {
             
             NSIndexPath *myPath = [NSIndexPath indexPathForRow:i inSection:0];

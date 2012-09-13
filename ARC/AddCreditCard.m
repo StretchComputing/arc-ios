@@ -31,6 +31,9 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Add Card"];
         self.navigationItem.titleView = navLabel;
         
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Add Card"];
+		self.navigationItem.backBarButtonItem = temp;
+        
         [rSkybox addEventToSession:@"viewAddCreditCardScreen"];
         
         self.creditCardNumberText.text = @"";

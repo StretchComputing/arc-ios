@@ -103,6 +103,10 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Register"];
         self.navigationItem.titleView = navLabel;
         
+        
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Register"];
+		self.navigationItem.backBarButtonItem = temp;
+        
         self.isCreditCard = NO;
         
         self.myTableView.delegate = self;

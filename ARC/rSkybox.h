@@ -17,6 +17,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CorbelTitleLabel.h"
+#import "CorbelBarButtonItem.h"
 
 @interface rSkybox : NSObject
 

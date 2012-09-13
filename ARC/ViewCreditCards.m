@@ -35,6 +35,9 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Cards"];
         self.navigationItem.titleView = navLabel;
         
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Credit Cards"];
+		self.navigationItem.backBarButtonItem = temp;
+        
         [rSkybox addEventToSession:@"viewCreditCardScreen"];
         
         self.myTableView.delegate = self;
