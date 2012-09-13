@@ -25,7 +25,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           // _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+            _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
         }
         
     }
@@ -124,7 +124,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         //[request setHTTPBody: requestData];
                 
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-       // [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
