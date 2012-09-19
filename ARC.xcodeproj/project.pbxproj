@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
+		9046C35B160A0579008BAE4D /* HelpViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9046C35A160A0579008BAE4D /* HelpViewNew.m */; };
 		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
 		906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */; };
 		906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */; };
@@ -126,6 +127,8 @@
 /* Begin PBXFileReference section */
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
+		9046C359160A0579008BAE4D /* HelpViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewNew.h; sourceTree = "<group>"; };
+		9046C35A160A0579008BAE4D /* HelpViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewNew.m; sourceTree = "<group>"; };
 		905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CHATOKYO_0.TTF; sourceTree = "<group>"; };
 		906C80F015FD582F0012AC9D /* CorbelSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelSegmentedControl.h; sourceTree = "<group>"; };
 		906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelSegmentedControl.m; sourceTree = "<group>"; };
@@ -448,6 +451,8 @@
 				90FBDA5E159A63CB0051609A /* SettingsView.m */,
 				90FBDA60159A63D50051609A /* HelpView.h */,
 				90FBDA61159A63D50051609A /* HelpView.m */,
+				9046C359160A0579008BAE4D /* HelpViewNew.h */,
+				9046C35A160A0579008BAE4D /* HelpViewNew.m */,
 				90FBDA63159A63E40051609A /* ContactUsView.h */,
 				90FBDA64159A63E40051609A /* ContactUsView.m */,
 				90993F5A1597795B00FC1D49 /* Home.h */,
@@ -761,6 +766,7 @@
 				909456B515FEC0710059E65C /* CorbelTextView.m in Sources */,
 				908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */,
 				90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */,
+				9046C35B160A0579008BAE4D /* HelpViewNew.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

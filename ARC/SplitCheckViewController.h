@@ -17,6 +17,9 @@
 @property double taxDollarValue;
 @property double serviceChargeDollarValue;
 
+@property double taxPercentage;
+@property double serviceChargePercentage;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *dollarAmountAlreadyPaidNameLabel;
 @property int itemSplitItemIndex;

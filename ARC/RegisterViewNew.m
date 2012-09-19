@@ -13,6 +13,7 @@
 #import "FBEncryptorAES.h"
 #import "ArcClient.h"
 #import "rSkybox.h"
+#import "NSString+CharArray.h"
 
 @interface RegisterViewNew ()
 
@@ -202,9 +203,25 @@
             
         }else{
             
-            self.activityView.hidden = NO;
-            self.errorLabel.hidden = YES;
-            [self runRegister];
+            
+            if ([self luhnCheck:self.creditCardNumberText.text]) {
+                
+                
+                self.activityView.hidden = NO;
+                self.errorLabel.hidden = YES;
+                [self runRegister];
+                
+                
+            }else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card" message:@"Please enter a valid card number." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                
+            }
+
+            
+            
+    
         }
     }
     @catch (NSException *e) {
@@ -354,7 +371,7 @@
             myPoint = CGPointMake(0, 420);
 
         }else if (self.creditCardPinText == sender){
-            myPoint = CGPointMake(0, 564);
+            myPoint = CGPointMake(0, 594);
 
         }
                 
@@ -424,7 +441,7 @@
     @try {
         CGPoint myPoint;
         
-        myPoint = CGPointMake(0, 510);
+        myPoint = CGPointMake(0, 540);
         
         [UIView animateWithDuration:0.3 animations:^{
             
@@ -906,4 +923,29 @@
     }
 
 }
+
+- (BOOL) luhnCheck:(NSString *)stringToTest {
+    
+	NSMutableArray *stringAsChars = [stringToTest toCharArray];
+    
+	BOOL isOdd = YES;
+	int oddSum = 0;
+	int evenSum = 0;
+    
+	for (int i = [stringToTest length] - 1; i >= 0; i--) {
+        
+		int digit = [(NSString *)[stringAsChars objectAtIndex:i] intValue];
+        
+		if (isOdd)
+			oddSum += digit;
+		else
+			evenSum += digit/5 + (2*digit) % 10;
+        
+		isOdd = !isOdd;
+	}
+    
+	return ((oddSum + evenSum) % 10 == 0);
+}
+
+
 @end
