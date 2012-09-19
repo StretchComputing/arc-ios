@@ -212,6 +212,7 @@
                 NSDictionary *theMerchant = [merchants objectAtIndex:i];
                 
                 tmpMerchant.name = [theMerchant valueForKey:@"Name"];
+       
                 tmpMerchant.merchantId = [[theMerchant valueForKey:@"Id"] intValue];
                 
                 tmpMerchant.address = [theMerchant valueForKey:@"Street"];
