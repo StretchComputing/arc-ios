@@ -316,7 +316,7 @@
             NSIndexPath *selectedRowIndex = [self.myTableView indexPathForSelectedRow];
             Restaurant *detailViewController = [segue destinationViewController];
             
-            Merchant *tmpMerchant = [self.allMerchants objectAtIndex:[selectedRowIndex row]];
+            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:[selectedRowIndex row]];
             
             detailViewController.merchantId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
             detailViewController.name = tmpMerchant.name;

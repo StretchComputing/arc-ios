@@ -21,27 +21,7 @@
 @end
 
 @implementation SplitCheckViewController
-@synthesize divisionTypeSegment;
-@synthesize splitSaveButton;
-@synthesize splitCancelButton;
-@synthesize dollarAmountAlreadyPaidNameLabel;
-@synthesize itemSplitItemSegControl;
-@synthesize itemSplitItemItemTotal;
-@synthesize itemSplitItemYourAmount;
-@synthesize itemSplitItemView;
-@synthesize itemTaxLabel;
-@synthesize itemServiceChargeLabel;
-@synthesize percentFoodBevLabel;
-@synthesize percentServiceChargeLabel;
-@synthesize percentTaxLabel;
-@synthesize dollarFoodBevLabel;
-@synthesize dollarServiceChargeLabel;
-@synthesize dollarTaxLabel;
-@synthesize percentYourPercentSegControl;
-@synthesize itemYourTotalPaymentLabel;
-@synthesize itemTableView;
-@synthesize percentYourPaymentDollarAmount;
-@synthesize percentTipSegment;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -62,7 +42,7 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Split Check"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Split Check"];
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Split"];
 		self.navigationItem.backBarButtonItem = temp;
         
         /*
@@ -89,6 +69,9 @@
         
 
         self.itemSplitItemView.hidden = YES;
+        
+        self.serviceChargePercentage = self.myInvoice.serviceCharge / self.myInvoice.baseAmount;
+        self.taxPercentage = self.myInvoice.tax / self.myInvoice.baseAmount;
         
         //self.myInvoice.tax = 0.11;
        // self.myInvoice.serviceCharge = 0.20;
@@ -232,11 +215,11 @@
             self.percentView.hidden = YES;
             self.itemView.hidden = NO;
             
-            if (![[NSUserDefaults standardUserDefaults] valueForKey:@"didShowItemBeta"]) {
-                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowItemBeta"];
+            if (![[NSUserDefaults standardUserDefaults] valueForKey:@"didShowItemAlert"]) {
+                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowItemAlert"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                UIAlertView *betaAlert = [[UIAlertView alloc] initWithTitle:@"Beta Version" message:@"Itemized check splitting is currently in beta.  Please be sure that multiple people do not select and pay for the same item!  ARC will verify for you that this does not happen in the next release.  Thank you!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *betaAlert = [[UIAlertView alloc] initWithTitle:@"Choose Your Items:" message:@"Itemized check splitting currently does not check which members of your party paid for each item .  Please be sure that multiple people do not select and pay for the same item!  ARC will verify for you that this does not happen in the next release.  Thank you!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [betaAlert show];
             }
             
@@ -721,8 +704,8 @@
     }
     
     
-    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
-    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
+    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.taxPercentage * self.itemTotal];
+    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.serviceChargePercentage * self.itemTotal];
 
     [self showItemTotal];
     [self.itemTableView reloadData];
@@ -730,8 +713,8 @@
 
 -(void)showItemTotal{
     
-    double taxTotal = self.myInvoice.tax;
-    double serviceTotal = self.myInvoice.serviceCharge;
+    double taxTotal = self.taxPercentage * self.itemTotal;
+    double serviceTotal = self.serviceChargePercentage * self.itemTotal;
     
     double tipTotal = [self.itemTipText.text doubleValue];
     
@@ -790,19 +773,7 @@
 
     
 }
-- (void)viewDidUnload {
-    [self setItemTaxLabel:nil];
-    [self setItemServiceChargeLabel:nil];
-    [self setItemSplitItemView:nil];
-    [self setItemSplitItemItemTotal:nil];
-    [self setItemSplitItemYourAmount:nil];
-    [self setItemSplitItemSegControl:nil];
-    [self setDollarAmountAlreadyPaidNameLabel:nil];
-    [self setDivisionTypeSegment:nil];
-    [self setSplitSaveButton:nil];
-    [self setSplitCancelButton:nil];
-    [super viewDidUnload];
-}
+
 - (IBAction)itemSplitItemCancel {
     
     self.itemSplitItemView.hidden = YES;
@@ -830,8 +801,8 @@
     }
     
     
-    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
-    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
+    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.taxPercentage * self.itemTotal];
+    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.serviceChargePercentage * self.itemTotal];
     
     [self showItemTotal];
     [self.itemTableView reloadData];
