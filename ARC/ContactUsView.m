@@ -75,7 +75,7 @@
         if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]){
             
             
-            NSString *url = [@"tel://" stringByAppendingString:@"3125555555"];
+            NSString *url = [@"tel://" stringByAppendingString:@"6302156979"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             
             
@@ -104,7 +104,7 @@
             
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.mailComposeDelegate = self;
-            [mailViewController setToRecipients:@[@"info@arc.com"]];
+            [mailViewController setToRecipients:@[@"tdoza33@gmail.com"]];
             
             [self presentModalViewController:mailViewController animated:YES];
             

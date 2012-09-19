@@ -170,7 +170,8 @@
         
         if ([status isEqualToString:@"1"]) {
             //success
-            NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
+            NSDictionary *apiResponse = [[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
+            
             int balance = [[apiResponse valueForKey:@"Current"] intValue];
             int lifetime = [[apiResponse valueForKey:@"Lifetime"] intValue];
             

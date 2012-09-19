@@ -91,13 +91,13 @@
         self.itemSplitItemView.hidden = YES;
         
         //self.myInvoice.tax = 0.11;
-        //self.myInvoice.serviceCharge = 0.20;
+       // self.myInvoice.serviceCharge = 0.20;
         
         //Calculate tax and service charage for % and $$
         
         self.baseDollarValue = self.myInvoice.baseAmount;
-        self.taxDollarValue = self.baseDollarValue * self.myInvoice.tax;
-        self.serviceChargeDollarValue = self.baseDollarValue * self.myInvoice.serviceCharge;
+        self.taxDollarValue = self.myInvoice.tax;
+        self.serviceChargeDollarValue = self.myInvoice.serviceCharge;
         
         //set labels
         
@@ -133,9 +133,10 @@
      
         
         // *** TODO get Jim to change API and/or put this calculation inside of the Invoice class ****
-        double serviceCharge = (self.myInvoice.baseAmount * self.myInvoice.serviceCharge);
-        double tax = (self.myInvoice.baseAmount * self.myInvoice.tax);
-        double discount = (self.myInvoice.baseAmount * self.myInvoice.discount);
+        double serviceCharge = self.myInvoice.serviceCharge;
+        double tax = self.myInvoice.tax;
+        double discount = self.myInvoice.discount;
+        
         self.totalBill = self.myInvoice.baseAmount + serviceCharge + tax - discount;
         double amountPaid = [self calculateAmountPaid];
         self.amountDue = self.totalBill - amountPaid;
@@ -180,7 +181,7 @@
             
             double price = [[oldItem valueForKey:@"Value"] doubleValue];
             
-            price  = price / (double)number;
+            //price  = price / (double)number;
             
             [oldItem setValue:[NSString stringWithFormat:@"%f", price] forKey:@"splitValue"];
             
@@ -252,6 +253,7 @@
     
     [self.percentYourPaymentText resignFirstResponder];
     [self.dollarTipText resignFirstResponder];
+    [self.dollarYourPaymentText resignFirstResponder];
     [self.itemTipText resignFirstResponder];
     [self.percentTipText resignFirstResponder];
 
@@ -459,6 +461,8 @@
     
     if (self.itemView.hidden == NO) {
         gratuity = [self.itemTipText.text doubleValue];
+        self.yourPayment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - gratuity;
+
     }else if (self.percentView.hidden == NO){
         gratuity = [self.percentTipText.text doubleValue];
     }else{
@@ -588,7 +592,10 @@
         if (tip < 0.0) {
             tip = 0.0;
         }
-        self.yourPayment = [self.percentYourPaymentText.text doubleValue];
+        
+        double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
+        self.yourPayment = percentYourPayment * self.totalBill;
+        
         self.yourTotalPayment = self.yourPayment + tip;
         
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tip];
@@ -714,8 +721,8 @@
     }
     
     
-    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.itemTotal * self.myInvoice.tax];
-    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.itemTotal * self.myInvoice.serviceCharge];
+    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
 
     [self showItemTotal];
     [self.itemTableView reloadData];
@@ -723,8 +730,8 @@
 
 -(void)showItemTotal{
     
-    double taxTotal = self.itemTotal * self.myInvoice.tax;
-    double serviceTotal = self.itemTotal * self.myInvoice.serviceCharge;
+    double taxTotal = self.myInvoice.tax;
+    double serviceTotal = self.myInvoice.serviceCharge;
     
     double tipTotal = [self.itemTipText.text doubleValue];
     
@@ -823,8 +830,8 @@
     }
     
     
-    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.itemTotal * self.myInvoice.tax];
-    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.itemTotal * self.myInvoice.serviceCharge];
+    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
     
     [self showItemTotal];
     [self.itemTableView reloadData];

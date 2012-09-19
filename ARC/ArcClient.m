@@ -11,6 +11,7 @@
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
 
+//NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
@@ -126,7 +127,6 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
-        NSString *header = [self authHeader];
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -274,6 +274,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
+    NSLog(@"Status Code: %d", self.httpStatusCode);
     
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -285,7 +286,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        //NSLog(@"ReturnString: %@", returnString);
+        NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -332,7 +333,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
             notificationType = @"getPointBalanceNotification";
         } else if(api == TrackEvent) {
             if (response) {
-                responseInfo = [self trackEventResponse:response];
+                //responseInfo = [self trackEventResponse:response];
             }
             postNotification = NO;
            // notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
@@ -456,7 +457,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            NSDictionary *customer = [response valueForKey:@"Customer"];
+            
+            NSDictionary *customer = [response valueForKey:@"Results"];
             NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
             NSString *customerToken = [customer valueForKey:@"Token"];
             
@@ -495,7 +497,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            NSDictionary *customer = [response valueForKey:@"Customer"];
+            
+            NSDictionary *customer = [response valueForKey:@"Results"];
             NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
             NSString *customerToken = [customer valueForKey:@"Token"];
             
@@ -759,7 +762,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         if ([[response valueForKey:@"Success"] boolValue]) {
             
-            NSString *serverName = [response valueForKey:@"ServerName"];
+            NSString *serverName = [response valueForKey:@"Results"];
             
             if (serverName && ([serverName length] > 0)) {
                 [[NSUserDefaults standardUserDefaults] setValue:serverName forKey:@"arcUrl"];

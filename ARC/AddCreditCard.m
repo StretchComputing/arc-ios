@@ -12,6 +12,7 @@
 #import "SettingsView.h"
 #import "rSkybox.h"
 #import "ArcClient.h"
+#import "NSString+CharArray.h"
 
 @interface AddCreditCard ()
 
@@ -356,21 +357,34 @@
             
             if ([[self creditCardStatus] isEqualToString:@"valid"]) {
                 
-                NSString *creditDebitString = @"";
                 
-                if (self.creditDebitSegment.selectedSegmentIndex == 0) {
-                    creditDebitString = @"Credit";
+                if ([self luhnCheck:self.creditCardNumberText.text]) {
+                    
+                
+                    NSString *creditDebitString = @"";
+                    
+                    if (self.creditDebitSegment.selectedSegmentIndex == 0) {
+                        creditDebitString = @"Credit";
+                    }else{
+                        creditDebitString = @"Debit";
+                    }
+                    
+                    NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
+                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                    [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
+                    
+                    [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
+                    NSString *action = [NSString stringWithFormat:@"Add %@ Card", creditDebitString];
+                    [ArcClient trackEvent:action];
+                    
+                    
                 }else{
-                    creditDebitString = @"Debit";
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card" message:@"Please enter a valid card number." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    
                 }
-                
-                NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-                ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
-                
-                [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-                NSString *action = [NSString stringWithFormat:@"Add %@ Card", creditDebitString];
-                [ArcClient trackEvent:action];
+             
 
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -398,8 +412,30 @@
     }
     
 }
-- (void)viewDidUnload {
-    [self setCreditDebitSegment:nil];
-    [super viewDidUnload];
+
+
+
+- (BOOL) luhnCheck:(NSString *)stringToTest {
+    
+	NSMutableArray *stringAsChars = [stringToTest toCharArray];
+    
+	BOOL isOdd = YES;
+	int oddSum = 0;
+	int evenSum = 0;
+    
+	for (int i = [stringToTest length] - 1; i >= 0; i--) {
+        
+		int digit = [(NSString *)[stringAsChars objectAtIndex:i] intValue];
+        
+		if (isOdd)
+			oddSum += digit;
+		else
+			evenSum += digit/5 + (2*digit) % 10;
+        
+		isOdd = !isOdd;
+	}
+    
+	return ((oddSum + evenSum) % 10 == 0);
 }
+
 @end

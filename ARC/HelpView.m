@@ -19,9 +19,7 @@
 
 - (void)viewDidLoad
 {
-    
-    
-    
+        
     @try {
         [rSkybox addEventToSession:@"viewHelpPage"];
         
@@ -47,10 +45,13 @@
         // Do any additional setup after loading the view.
         
         [ArcClient trackEvent:@"View Main Help"];
+       
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"HelpView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+
 }
 
 - (void)viewDidUnload
