@@ -270,9 +270,8 @@
             NSDictionary *loginDict = [[NSDictionary alloc] init];
             
             
-            //*Testing Only*
-            NSNumber *amount = @1.0;
-            //NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
+     
+            NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
             [ tempDictionary setObject:amount forKey:@"Amount"];
             
             [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
@@ -280,10 +279,9 @@
             
             double gratDouble = self.gratuity/self.totalAmount;
             
-            //*Testing Only* -------- SEND EMPTY STRINGS for OPTIONAL PARAMETERS
-            //NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
-            NSNumber *grat = @0.0;
-            [ tempDictionary setObject:grat forKey:@"Gratuity"];
+            NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
+
+            [tempDictionary setObject:grat forKey:@"Gratuity"];
             
             if (![self.notesText.text isEqualToString:@""] && ![self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
                 [ tempDictionary setObject:self.notesText.text forKey:@"Notes"];
@@ -395,7 +393,7 @@
             
             ReviewTransaction *next = [segue destinationViewController];
             next.invoiceId = self.invoiceId;
-            next.totalAmount = self.totalAmount;
+            next.totalAmount = self.totalAmount + self.gratuity;
         } 
     }
     @catch (NSException *e) {

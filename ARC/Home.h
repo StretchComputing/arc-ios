@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UILabel *sloganLabel;
 
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
+
 @property (weak, nonatomic) IBOutlet UIView *activityView;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (nonatomic, strong) NSMutableData *serverData;
@@ -24,6 +26,7 @@
 @property (nonatomic, strong) NSMutableArray *matchingMerchants;
 
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
+- (IBAction)refreshMerchants:(id)sender;
 
 -(IBAction)endText;
 @property (nonatomic, weak) IBOutlet UITextField *searchTextField;

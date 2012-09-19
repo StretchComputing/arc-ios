@@ -319,7 +319,7 @@
         if ([status isEqualToString:@"1"]) {
             //success
             
-            NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Invoices"] objectAtIndex:0];
+            NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] objectAtIndex:0];
             
             self.myInvoice = [[Invoice alloc] init];
             self.myInvoice.invoiceId = [[theInvoice valueForKey:@"Id"] intValue];
@@ -346,7 +346,7 @@
             
         }else{
             
-            self.errorLabel.text = @"*Internet connection error.";
+            self.errorLabel.text = @"*Invoice not found, please try again.";
         }
     }
     @catch (NSException *e) {

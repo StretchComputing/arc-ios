@@ -192,11 +192,14 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
         
+        [self.activity stopAnimating];
         
         self.activityView.hidden = YES;
         if ([status isEqualToString:@"1"]) {
             //success
-            NSArray *merchants = [apiResponse valueForKey:@"Merchants"];
+            self.errorLabel.text = @"";
+            
+            NSArray *merchants = [apiResponse valueForKey:@"Results"];
             
             if ([merchants count] > 0) {
                 self.allMerchants = [NSMutableArray array];
@@ -224,7 +227,9 @@
             }
         }else{
             // failure
-            self.errorLabel.text = @"*Error finding restaurants";
+            if ([self.allMerchants count] == 0) {
+                self.errorLabel.text = @"*Error finding restaurants";
+            }
         }
         
         if ([self.allMerchants count] == 0) {
@@ -324,6 +329,15 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+- (IBAction)refreshMerchants:(id)sender {
+    
+    [self.activity startAnimating];
+
+    [self getMerchantList];
+
+    
 }
 
 -(void)endText{

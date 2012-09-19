@@ -28,6 +28,7 @@
 		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
 		908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */; };
 		908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */; };
+		90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 90915A1F160952B100A9A070 /* NSString+CharArray.m */; };
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
@@ -159,6 +160,8 @@
 		908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTitleLabel.h; sourceTree = "<group>"; };
 		908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTitleLabel.m; sourceTree = "<group>"; };
 		908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboard.storyboard; sourceTree = "<group>"; };
+		90915A1E160952B100A9A070 /* NSString+CharArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CharArray.h"; sourceTree = "<group>"; };
+		90915A1F160952B100A9A070 /* NSString+CharArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CharArray.m"; sourceTree = "<group>"; };
 		9094250215D86E2500CB052D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
 		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
@@ -409,6 +412,8 @@
 			children = (
 				9081521315E7D10900211C37 /* Reachability.m */,
 				9081521415E7D10900211C37 /* Reachability.h */,
+				90915A1E160952B100A9A070 /* NSString+CharArray.h */,
+				90915A1F160952B100A9A070 /* NSString+CharArray.m */,
 				9FA68D0415E083BB0048789D /* rSkybox.h */,
 				9FA68D0515E083BB0048789D /* rSkybox.m */,
 				9081522015E7D77900211C37 /* InitialController.h */,
@@ -755,6 +760,7 @@
 				909456B115FEBF690059E65C /* CorbelInputTextField.m in Sources */,
 				909456B515FEC0710059E65C /* CorbelTextView.m in Sources */,
 				908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */,
+				90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

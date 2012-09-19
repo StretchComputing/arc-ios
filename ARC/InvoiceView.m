@@ -39,9 +39,9 @@
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
         
-        double serviceCharge = (self.myInvoice.baseAmount * self.myInvoice.serviceCharge);
-        double tax = (self.myInvoice.baseAmount * self.myInvoice.tax);
-        double discount = (self.myInvoice.baseAmount * self.myInvoice.discount);
+        double serviceCharge = self.myInvoice.serviceCharge;
+        double tax = self.myInvoice.tax;
+        double discount = self.myInvoice.discount;
         
         
         self.subLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
@@ -151,7 +151,7 @@
             
             
             
-            UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 2, 207, 20)];
+            UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 3, 207, 20)];
             itemLabel.tag = itemTag;
             [cell.contentView addSubview:itemLabel];
             
@@ -190,7 +190,8 @@
         
         itemLabel.text = [itemDictionary valueForKey:@"Description"];
         
-        double value = [[itemDictionary valueForKey:@"Value"] doubleValue];
+        int num = [[itemDictionary valueForKey:@"Amount"] intValue];
+        double value = [[itemDictionary valueForKey:@"Value"] doubleValue] * num;
         priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
         
         numberLabel.text = [NSString stringWithFormat:@"%d", [[itemDictionary valueForKey:@"Amount"] intValue]];
@@ -347,6 +348,7 @@
         }else if ([[segue identifier] isEqualToString:@"goPayCreditCard"]) {
             
             CreditCardPayment *controller = [segue destinationViewController];
+            
             controller.totalAmount = [[NSString stringWithFormat:@"%f", self.amountDue] doubleValue];
             controller.gratuity = [self.tipText.text doubleValue];
             controller.invoiceId = self.myInvoice.invoiceId;

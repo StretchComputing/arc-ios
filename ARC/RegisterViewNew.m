@@ -685,15 +685,52 @@
 
         UITableViewCell *cell;
 
-        if (section == 2) {
-            cell = [tableView dequeueReusableCellWithIdentifier:paymentCell];
-        }else if ((section == 3) && ((row == 1) || (row == 2))){
-            cell = [tableView dequeueReusableCellWithIdentifier:expirationCell];
+        if (section == 0) {
+            if (row == 0) {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"firstNameCell"];
 
-        }else if ((section == 3) && (row == 4)){
-            cell = [tableView dequeueReusableCellWithIdentifier:cardTypeCell];
-        }else{
-            cell = [tableView dequeueReusableCellWithIdentifier:textInputCell];
+            }else if (row == 1){
+                cell = [tableView dequeueReusableCellWithIdentifier:@"lastNameCell"];
+
+            }else{
+                cell = [tableView dequeueReusableCellWithIdentifier:@"birthDateCell"];
+
+            }
+        }else if (section == 1){
+            if (row == 0){
+                
+                cell = [tableView dequeueReusableCellWithIdentifier:@"emailCell"];
+
+            }else{
+                cell = [tableView dequeueReusableCellWithIdentifier:@"passwordCell"];
+
+            }
+        }else if (section == 2){
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"paymentCell"];
+
+        }else if (section == 3){
+            
+            if (row == 0) {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"cardNumberCell"];
+
+            }else if (row == 1){
+                
+                cell = [tableView dequeueReusableCellWithIdentifier:@"expirationMonthCell"];
+
+            }else if (row == 2){
+                cell = [tableView dequeueReusableCellWithIdentifier:@"expirationYearCell"];
+
+            }else if (row == 3){
+                cell = [tableView dequeueReusableCellWithIdentifier:@"securityCodeCell"];
+
+            }else{
+                cell = [tableView dequeueReusableCellWithIdentifier:@"cardTypeCell"];
+
+            }
+        }else if (section == 4){
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"pinCell"];
 
         }
         
