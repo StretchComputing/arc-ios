@@ -32,6 +32,9 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    
+
+    
     @try {
         
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Home"];
@@ -310,6 +313,8 @@
 
 */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    
     @try {
         
         if ([[segue identifier] isEqualToString:@"goRestaurant"]) {

@@ -1,7 +1,7 @@
 /*
  * Author: Landon Fuller <landonf@plausiblelabs.com>
  *
- * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008-2010 Plausible Labs Cooperative, Inc.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -28,11 +28,14 @@
 
 #import <Foundation/Foundation.h>
 #import "PLCrashReportSystemInfo.h"
+#import "PLCrashReportMachineInfo.h"
 #import "PLCrashReportApplicationInfo.h"
+#import "PLCrashReportProcessInfo.h"
 #import "PLCrashReportSignalInfo.h"
 #import "PLCrashReportThreadInfo.h"
 #import "PLCrashReportBinaryImageInfo.h"
 #import "PLCrashReportExceptionInfo.h"
+#import "PLCrashReportReportInfo.h"
 
 /** 
  * @ingroup constants
@@ -76,12 +79,21 @@ typedef struct _PLCrashReportDecoder _PLCrashReportDecoder;
 @private
     /** Private implementation variables (used to hide the underlying protobuf parser) */
     _PLCrashReportDecoder *_decoder;
+    
+    /** Report info (may be nil) */
+    PLCrashReportReportInfo *_reportInfo;
 
     /** System info */
     PLCrashReportSystemInfo *_systemInfo;
+    
+    /** Machine info */
+    PLCrashReportMachineInfo *_machineInfo;
 
     /** Application info */
     PLCrashReportApplicationInfo *_applicationInfo;
+    
+    /** Process info */
+    PLCrashReportProcessInfo *_processInfo;
 
     /** Signal info */
     PLCrashReportSignalInfo *_signalInfo;
@@ -106,13 +118,34 @@ typedef struct _PLCrashReportDecoder _PLCrashReportDecoder;
 @property(nonatomic, readonly) PLCrashReportSystemInfo *systemInfo;
 
 /**
+ * YES if machine information is available.
+ */
+@property(nonatomic, readonly) BOOL hasMachineInfo;
+
+/**
+ * Machine information. Only available in later (v1.1+) crash report format versions. If not available,
+ * will be nil.
+ */
+@property(nonatomic, readonly) PLCrashReportMachineInfo *machineInfo;
+
+/**
  * Application information.
  */
 @property(nonatomic, readonly) PLCrashReportApplicationInfo *applicationInfo;
 
 /**
- * Signal information. This provides the signal and signal code
- * of the fatal signal.
+ * YES if process information is available.
+ */
+@property(nonatomic, readonly) BOOL hasProcessInfo;
+
+/**
+ * Process information. Only available in later (v1.1+) crash report format versions. If not available,
+ * will be nil.
+ */
+@property(nonatomic, readonly) PLCrashReportProcessInfo *processInfo;
+
+/**
+ * Signal information. This provides the signal and signal code of the fatal signal.
  */
 @property(nonatomic, readonly) PLCrashReportSignalInfo *signalInfo;
 
@@ -136,5 +169,15 @@ typedef struct _PLCrashReportDecoder _PLCrashReportDecoder;
  * otherwise nil.
  */
 @property(nonatomic, readonly) PLCrashReportExceptionInfo *exceptionInfo;
+
+/**
+ * YES if report information is available.
+ */
+@property(nonatomic, readonly) BOOL hasReportInfo;
+
+/**
+ * Crash report information.
+ */
+@property(nonatomic, readonly) PLCrashReportReportInfo *reportInfo;
 
 @end

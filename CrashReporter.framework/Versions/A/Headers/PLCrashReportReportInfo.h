@@ -1,7 +1,8 @@
 /*
- * Author: Landon Fuller <landonf@plausiblelabs.com>
+ * Author: Andreas Linde <mail@andreaslinde.de>
  *
- * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2012 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2012 Andreas Linde
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -27,39 +28,18 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLCrashReportThreadInfo.h"
 
-
-@interface PLCrashReportExceptionInfo : NSObject {
+@interface PLCrashReportReportInfo : NSObject {
 @private
-    /** Name */
-    NSString *_name;
-
-    /** Reason */
-    NSString *_reason;
-
-    /** Ordered list of PLCrashReportStackFrame instances, or nil if unavailable. */
-    NSArray *_stackFrames;
+    /** Crash Report GUID */
+    NSString *_reportGUID;
 }
 
-- (id) initWithExceptionName: (NSString *) name reason: (NSString *) reason;
-
-- (id) initWithExceptionName: (NSString *) name 
-                      reason: (NSString *) reason
-                 stackFrames: (NSArray *) stackFrames;
+- (id) initWithReportGUID: (NSString *) reportGUID;
 
 /**
- * The exception name.
+ * The crash report GUID.
  */
-@property(nonatomic, readonly) NSString *exceptionName;
-
-/**
- * The exception reason.
- */
-@property(nonatomic, readonly) NSString *exceptionReason;
-
-/* The exception's original call stack, as an array of PLCrashReportStackFrameInfo instances, or nil if unavailable.
- * This may be preserved across rethrow of an exception, and can be used to determine the original call stack. */
-@property(nonatomic, readonly) NSArray *stackFrames;
+@property(nonatomic, readonly) NSString *reportGUID;
 
 @end

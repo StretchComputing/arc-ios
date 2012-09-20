@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90089F29160B71A7005C268D /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90089F28160B71A7005C268D /* libCrashReporter-iphoneos.a */; };
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
 		9046C35B160A0579008BAE4D /* HelpViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9046C35A160A0579008BAE4D /* HelpViewNew.m */; };
 		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
@@ -116,7 +117,6 @@
 		90FBDC42159CE17D0051609A /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC41159CE17D0051609A /* OARequestParameter.m */; };
 		90FBDC45159CE2E80051609A /* RegisterDwollaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC44159CE2E80051609A /* RegisterDwollaView.m */; };
 		90FBDC48159CE4FA0051609A /* PushSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */; };
-		90FE9FA41601641400AB358C /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90FE9FA31601641400AB358C /* libCrashReporter-iphoneos.a */; };
 		9F34F57315CF0CE30084184B /* ArcClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F34F57215CF0CE30084184B /* ArcClient.m */; };
 		9F45D81F15D33F3300682F19 /* Encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F45D81D15D33F3300682F19 /* Encoder.c */; };
 		9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68CFA15E083750048789D /* UIDevice-Hardware.m */; };
@@ -125,6 +125,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		90089F28160B71A7005C268D /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
 		9046C359160A0579008BAE4D /* HelpViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewNew.h; sourceTree = "<group>"; };
@@ -311,7 +312,6 @@
 		90FBDC44159CE2E80051609A /* RegisterDwollaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterDwollaView.m; sourceTree = "<group>"; };
 		90FBDC46159CE4F90051609A /* PushSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSegueNoAnimation.h; sourceTree = "<group>"; };
 		90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSegueNoAnimation.m; sourceTree = "<group>"; };
-		90FE9FA31601641400AB358C /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 		9F34F57115CF0CE30084184B /* ArcClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcClient.h; sourceTree = "<group>"; };
 		9F34F57215CF0CE30084184B /* ArcClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcClient.m; sourceTree = "<group>"; };
 		9F45D81D15D33F3300682F19 /* Encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Encoder.c; path = ARC/Encoder.c; sourceTree = "<group>"; };
@@ -328,7 +328,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90FE9FA41601641400AB358C /* libCrashReporter-iphoneos.a in Frameworks */,
+				90089F29160B71A7005C268D /* libCrashReporter-iphoneos.a in Frameworks */,
 				9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */,
 				9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */,
 				907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */,
@@ -353,8 +353,8 @@
 				9081521615E7D26500211C37 /* SystemConfiguration.framework */,
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
-				90FE9FA31601641400AB358C /* libCrashReporter-iphoneos.a */,
 				908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */,
+				90089F28160B71A7005C268D /* libCrashReporter-iphoneos.a */,
 				9FA68D0915E0880B0048789D /* CrashReporter.framework */,
 				907A405915A8D9C400090452 /* CoreData.framework */,
 				90FBDBA1159CB73F0051609A /* SenTestingKit.framework */,
@@ -847,6 +847,7 @@
 				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -868,6 +869,7 @@
 				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -912,6 +914,7 @@
 				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

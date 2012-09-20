@@ -217,7 +217,6 @@
 }
 
 -(void)runSignIn{
-    
     self.errorLabel.text = @"";
     
     if ([self.username.text isEqualToString:@""] || [self.password.text isEqualToString:@""]) {
@@ -239,6 +238,7 @@
             [rSkybox sendClientLog:@"viewController.runSignIn" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         }
     }
+
 }
 
 
