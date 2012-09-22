@@ -252,7 +252,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"TrackEvent"];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

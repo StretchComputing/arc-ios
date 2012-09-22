@@ -7,11 +7,11 @@
 //
 
 #import "RegisterDwollaView.h"
-#import "RegisterView.h"
 #import "DwollaPayment.h"
 #import "SettingsView.h"
 #import "rSkybox.h"
 #import "ArcClient.h"
+#import "RegisterViewNew.h"
 
 @interface RegisterDwollaView ()
 
@@ -46,7 +46,7 @@
         [rSkybox addEventToSession:@"successfulDwollaLogin"];
         
         if (self.fromRegister) {
-            RegisterView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+            RegisterViewNew *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
             tmp.fromDwolla = YES;
             tmp.dwollaSuccess = YES;
             
@@ -85,7 +85,7 @@
         
         [rSkybox addEventToSession:@"failedDwollaLogin"];
         if (self.fromRegister) {
-            RegisterView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+            RegisterViewNew *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
             tmp.fromDwolla = YES;
             tmp.dwollaSuccess = NO;
             

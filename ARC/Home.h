@@ -13,10 +13,17 @@
 @property BOOL successReview;
 @property BOOL skipReview;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UILabel *sloganLabel;
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
+
+@property BOOL isDragging;
+@property BOOL isLoading;
+@property BOOL shouldCallStop;
+@property BOOL isIos6;
+
 
 @property (weak, nonatomic) IBOutlet UIView *activityView;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
@@ -30,4 +37,15 @@
 
 -(IBAction)endText;
 @property (nonatomic, weak) IBOutlet UITextField *searchTextField;
+
+
+@property (nonatomic, strong) UIView *refreshHeaderView;
+@property (nonatomic, strong) UILabel *refreshLabel;
+@property (nonatomic, strong) UIImageView *refreshArrow;
+@property (nonatomic, strong) UIActivityIndicatorView *refreshSpinner;
+@property (nonatomic, strong) NSString *textPull;
+@property (nonatomic, strong) NSString *textRelease;
+@property (nonatomic, strong) NSString *textLoading;
+
+
 @end

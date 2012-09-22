@@ -1,7 +1,7 @@
 /*
  * Author: Landon Fuller <landonf@plausiblelabs.com>
  *
- * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2008-2010 Plausible Labs Cooperative, Inc.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -27,39 +27,25 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PLCrashReportThreadInfo.h"
 
-
-@interface PLCrashReportExceptionInfo : NSObject {
-@private
-    /** Name */
-    NSString *_name;
-
-    /** Reason */
-    NSString *_reason;
-
-    /** Ordered list of PLCrashReportStackFrame instances, or nil if unavailable. */
-    NSArray *_stackFrames;
-}
-
-- (id) initWithExceptionName: (NSString *) name reason: (NSString *) reason;
-
-- (id) initWithExceptionName: (NSString *) name 
-                      reason: (NSString *) reason
-                 stackFrames: (NSArray *) stackFrames;
+#import "PLCrashReport.h"
 
 /**
- * The exception name.
+ * A crash report formatter accepts a PLCrashReport instance, formats it according to implementation-specified rules,
+ * (such as implementing text output support), and returns the result.
  */
-@property(nonatomic, readonly) NSString *exceptionName;
+@protocol PLCrashReportFormatter
 
 /**
- * The exception reason.
+ * Format the provided @a report.
+ *
+ * @param report Report to be formatted.
+ * @param outError A pointer to an NSError object variable. If an error occurs, this pointer will contain an error
+ * object indicating why the pending crash report could not be formatted. If no error occurs, this parameter will
+ * be left unmodified. You may specify nil for this parameter, and no error information will be provided.
+ *
+ * @return Returns the formatted report data on success, or nil on failure.
  */
-@property(nonatomic, readonly) NSString *exceptionReason;
-
-/* The exception's original call stack, as an array of PLCrashReportStackFrameInfo instances, or nil if unavailable.
- * This may be preserved across rethrow of an exception, and can be used to determine the original call stack. */
-@property(nonatomic, readonly) NSArray *stackFrames;
+- (NSData *) formatReport: (PLCrashReport *) report error: (NSError **) outError;
 
 @end
