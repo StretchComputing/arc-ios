@@ -49,6 +49,15 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        
+        
+        if (self.view.frame.size.height > 500) {
+            self.isIphone5 = YES;
+        }else{
+            self.isIphone5 = NO;
+        }
+        
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"AddCreditCard.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -75,7 +84,11 @@
         }else if (selectedField.tag == 12){
             //pin
             
-            myPoint = CGPointMake(0, 174);
+            int y = 174;
+            if (self.isIphone5) {
+                y = 140;
+            }
+            myPoint = CGPointMake(0, y);
             
         }
         
@@ -101,7 +114,11 @@
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
         
-        self.tableView.frame = CGRectMake(0, 64, 320, 416);
+        int viewHeight = 416;
+        if (self.isIphone5) {
+            viewHeight = 503;
+        }
+        self.tableView.frame = CGRectMake(0, 64, 320, viewHeight);
         
         
         [UIView commitAnimations];
@@ -134,7 +151,11 @@
         [self.hideKeyboardView removeFromSuperview];
         self.hideKeyboardView = nil;
         
-        self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, 158, 85, 45)];
+        int keyHeight = 158;
+        if (self.isIphone5) {
+            keyHeight = 245;
+        }
+        self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, keyHeight, 85, 45)];
         self.hideKeyboardView .backgroundColor = [UIColor clearColor];
         self.hideKeyboardView.layer.masksToBounds = YES;
         self.hideKeyboardView.layer.cornerRadius = 3.0;
@@ -158,7 +179,11 @@
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.3];
         
-        self.tableView.frame = CGRectMake(0, 0, 320, 200);
+        int viewHeight = 200;
+        if (self.isIphone5) {
+            viewHeight = 287;
+        }
+        self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
         
         
         [UIView commitAnimations];
@@ -223,7 +248,11 @@
         [self.creditCardNumberText resignFirstResponder];
         [self.creditCardSecurityCodeText resignFirstResponder];
         
-        self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 315)];
+        int pickerY = 200;
+        if (self.isIphone5) {
+            pickerY = 287;
+        }
+        self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, pickerY, 320, 315)];
         self.pickerView.delegate = self;
         self.pickerView.showsSelectionIndicator = YES;
         
@@ -332,7 +361,11 @@
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.1];
         
-        self.tableView.frame = CGRectMake(0, 0, 320, 416);
+        int viewHeight = 416;
+        if (self.isIphone5) {
+            viewHeight = 503;
+        }
+        self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
         
         
         [UIView commitAnimations];

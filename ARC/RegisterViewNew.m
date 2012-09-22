@@ -155,6 +155,12 @@
         
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Register"];
         self.navigationItem.titleView = navLabel;
+                
+        if (self.view.frame.size.height > 500) {
+            self.isIphone5 = YES;
+        }else{
+            self.isIphone5 = NO;
+        }
         
     }
     @catch (NSException *e) {
@@ -317,7 +323,11 @@
         
         [UIView animateWithDuration:0.3 animations:^{
             
-            self.myTableView.frame = CGRectMake(0, 0, 320, 416);
+            int viewHeight = 416;
+            if (self.isIphone5) {
+                viewHeight = 503;
+            }
+            self.myTableView.frame = CGRectMake(0, 0, 320, viewHeight);
         }];
         
     }
@@ -346,44 +356,85 @@
 
 - (void)editBegin:(id)sender {
     @try {
-        CGPoint myPoint;
         
-        if (self.firstNameText == sender) {
+        if (self.isIphone5) {
             
-            myPoint = CGPointMake(0, 0);
+            CGPoint myPoint;
             
-        }else if (self.lastNameText == sender){
-            myPoint = CGPointMake(0, 0);
+            if (self.firstNameText == sender) {
+                
+                myPoint = CGPointMake(0, 0);
+                
+            }else if (self.lastNameText == sender){
+                myPoint = CGPointMake(0, 0);
+                
+            }else if (self.birthDateText == sender){
+                myPoint = CGPointMake(0, 0);
+                
+            }else if (self.emailText == sender){
+                myPoint = CGPointMake(0, 0);
+                
+            }else if (self.passwordText == sender){
+                myPoint = CGPointMake(0, 150);
+                
+            }else if (self.creditCardNumberText == sender){
+                myPoint = CGPointMake(0, 300);
+                
+            }else if (self.creditCardSecurityCodeText == sender){
+                myPoint = CGPointMake(0, 510);
+                
+            }else if (self.creditCardPinText == sender){
+                myPoint = CGPointMake(0, 520);
+                
+            }
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                self.myTableView.frame = CGRectMake(0, 0, 320, 287);
+                [self.myTableView setContentOffset:myPoint animated:YES];
+                
+            }];
 
-        }else if (self.birthDateText == sender){
-            myPoint = CGPointMake(0, 45);
-
-        }else if (self.emailText == sender){
-            myPoint = CGPointMake(0, 95);
-
-        }else if (self.passwordText == sender){
-            myPoint = CGPointMake(0, 200);
-
-        }else if (self.creditCardNumberText == sender){
-            myPoint = CGPointMake(0, 300);
-
-        }else if (self.creditCardSecurityCodeText == sender){
-            myPoint = CGPointMake(0, 510);
-
-        }else if (self.creditCardPinText == sender){
-            myPoint = CGPointMake(0, 540);
+            
+        }else{
+            CGPoint myPoint;
+            
+            if (self.firstNameText == sender) {
+                
+                myPoint = CGPointMake(0, 0);
+                
+            }else if (self.lastNameText == sender){
+                myPoint = CGPointMake(0, 0);
+                
+            }else if (self.birthDateText == sender){
+                myPoint = CGPointMake(0, 45);
+                
+            }else if (self.emailText == sender){
+                myPoint = CGPointMake(0, 95);
+                
+            }else if (self.passwordText == sender){
+                myPoint = CGPointMake(0, 200);
+                
+            }else if (self.creditCardNumberText == sender){
+                myPoint = CGPointMake(0, 300);
+                
+            }else if (self.creditCardSecurityCodeText == sender){
+                myPoint = CGPointMake(0, 510);
+                
+            }else if (self.creditCardPinText == sender){
+                myPoint = CGPointMake(0, 540);
+                
+            }
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                self.myTableView.frame = CGRectMake(0, 0, 320, 200);
+                [self.myTableView setContentOffset:myPoint animated:YES];
+                
+            }];
 
         }
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            
-            self.myTableView.frame = CGRectMake(0, 0, 320, 200);
-            [self.myTableView setContentOffset:myPoint animated:YES];
-            
-        }];
-        
-  
-       
+
         
     }
     @catch (NSException *e) {
@@ -420,7 +471,11 @@
         [self.hideKeyboardView removeFromSuperview];
         self.hideKeyboardView = nil;
         
-        self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, 158, 85, 45)];
+        int keyboardY = 158;
+        if (self.isIphone5) {
+            keyboardY = 245;
+        }
+        self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, keyboardY, 85, 45)];
         self.hideKeyboardView .backgroundColor = [UIColor clearColor];
         self.hideKeyboardView.layer.masksToBounds = YES;
         self.hideKeyboardView.layer.cornerRadius = 3.0;
@@ -517,7 +572,11 @@
         [self.creditCardNumberText resignFirstResponder];
         [self.creditCardSecurityCodeText resignFirstResponder];
         
-        self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 315)];
+        int pickerY = 200;
+        if (self.isIphone5) {
+            pickerY = 287;
+        }
+        self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, pickerY, 320, 315)];
         self.pickerView.delegate = self;
         self.pickerView.showsSelectionIndicator = YES;
         
@@ -658,11 +717,15 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        self.myTableView.frame = CGRectMake(0, 0, 320, 200);
-        [self.myTableView setContentOffset:CGPointMake(0, 0) animated:YES];
+        int viewHeight = 416;
+        if (self.isIphone5) {
+            viewHeight = 503;
+        }
+        
+        self.myTableView.frame = CGRectMake(0, 0, 320, viewHeight);
+        [self.myTableView setContentOffset:CGPointMake(0, 0) animated:NO];
         
     }];
-    [self endText];
     
 }
 

@@ -13,6 +13,7 @@
 
 
 @property BOOL isCreditCard;
+@property BOOL isIphone5;
 
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 
