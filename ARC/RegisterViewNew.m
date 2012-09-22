@@ -362,26 +362,27 @@
             myPoint = CGPointMake(0, 95);
 
         }else if (self.passwordText == sender){
-            myPoint = CGPointMake(0, 95);
+            myPoint = CGPointMake(0, 200);
 
         }else if (self.creditCardNumberText == sender){
-            myPoint = CGPointMake(0, 285);
+            myPoint = CGPointMake(0, 300);
 
         }else if (self.creditCardSecurityCodeText == sender){
-            myPoint = CGPointMake(0, 420);
+            myPoint = CGPointMake(0, 510);
 
         }else if (self.creditCardPinText == sender){
-            myPoint = CGPointMake(0, 594);
+            myPoint = CGPointMake(0, 540);
 
         }
-                
+        
         [UIView animateWithDuration:0.3 animations:^{
             
             self.myTableView.frame = CGRectMake(0, 0, 320, 200);
+            [self.myTableView setContentOffset:myPoint animated:YES];
+            
         }];
         
-        self.myTableView.contentOffset = myPoint;
-        [self.myTableView setContentOffset:myPoint animated:YES];
+  
        
         
     }
@@ -392,72 +393,12 @@
 }
 
 
-- (void)editBeginPassword {
-    @try {
-        CGPoint myPoint;
-  
-            myPoint = CGPointMake(0, 95);
-            
-        [UIView animateWithDuration:0.3 animations:^{
-            
-            self.myTableView.frame = CGRectMake(0, 0, 320, 200);
-        }];
-        
-        self.myTableView.contentOffset = myPoint;
-        [self.myTableView setContentOffset:myPoint animated:YES];
-        
-        
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"RegisterView.editBegin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-    
-}
 
 
-- (void)editBeginSecurity{
-    @try {
-        CGPoint myPoint;
-        
-        myPoint = CGPointMake(0, 510);
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            
-            self.myTableView.frame = CGRectMake(0, 0, 320, 200);
-        }];
-        
-        self.myTableView.contentOffset = myPoint;
-        [self.myTableView setContentOffset:myPoint animated:YES];
-        
-        
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"RegisterView.editBegin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-    
-}
 
-- (void)editBeginPin {
-    @try {
-        CGPoint myPoint;
-        
-        myPoint = CGPointMake(0, 540);
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            
-            self.myTableView.frame = CGRectMake(0, 0, 320, 200);
-        }];
-        
-        self.myTableView.contentOffset = myPoint;
-        [self.myTableView setContentOffset:myPoint animated:YES];
-        
-        
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"RegisterView.editBegin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-    
-}
+
+
+
 
 
 
@@ -682,11 +623,47 @@
 -(void)paymentChanged{
     if (self.dwollaSegControl.selectedSegmentIndex == 0) {
         self.isCreditCard = NO;
+        [self performSelector:@selector(choseDwolla) withObject:nil afterDelay:0.1];
+
     }else{
         self.isCreditCard = YES;
+        [self performSelector:@selector(choseCredit) withObject:nil afterDelay:0.1];
+
+        
     }
     
     [self.myTableView reloadData];
+
+
+}
+-(void)choseCredit{
+    [self.creditCardNumberText becomeFirstResponder];
+    self.pickerView.hidden = YES;
+
+}
+
+-(void)choseDwolla{
+    
+    [self.firstNameText resignFirstResponder];
+    [self.lastNameText resignFirstResponder];
+    [self.birthDateText resignFirstResponder];
+    [self.emailText resignFirstResponder];
+    [self.passwordText resignFirstResponder];
+    [self.creditCardPinText resignFirstResponder];
+    [self.creditCardNumberText resignFirstResponder];
+    [self.creditCardSecurityCodeText resignFirstResponder];
+    self.pickerView.hidden = YES;
+    [self.hideKeyboardView removeFromSuperview];
+    self.hideKeyboardView = nil;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.myTableView.frame = CGRectMake(0, 0, 320, 200);
+        [self.myTableView setContentOffset:CGPointMake(0, 0) animated:YES];
+        
+    }];
+    [self endText];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -694,11 +671,7 @@
 
         NSUInteger row = [indexPath row];
         NSUInteger section = [indexPath section];
-        
-        static NSString *textInputCell=@"textInputCell";
-        static NSString *expirationCell=@"expirationCell";
-        static NSString *paymentCell=@"paymentCell";
-        static NSString *cardTypeCell=@"cardTypeCell";
+
 
         UITableViewCell *cell;
 
@@ -815,7 +788,8 @@
 
                     self.passwordText = (UITextField *)[cell.contentView viewWithTag:1];
                     self.passwordText.placeholder = @"Choose A Password";
-                     [self.passwordText addTarget:self action:@selector(editBeginPassword) forControlEvents:UIControlEventEditingDidBegin];
+                     //[self.passwordText addTarget:self action:@selector(editBeginPassword) forControlEvents:UIControlEventEditingDidBegin];
+                    [self.passwordText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
                     
                 }
                 
@@ -830,7 +804,7 @@
                 }else if (row == 3){
                     self.creditCardSecurityCodeText = (UITextField *)[cell.contentView viewWithTag:1];
                     self.creditCardSecurityCodeText.placeholder = @"Security Code";
-                     [self.creditCardSecurityCodeText addTarget:self action:@selector(editBeginSecurity) forControlEvents:UIControlEventEditingDidBegin];
+                     [self.creditCardSecurityCodeText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
                     
                 }else if (row == 4){
                     self.creditDebitSegment = (UISegmentedControl *)[cell.contentView viewWithTag:1];
@@ -841,7 +815,7 @@
                 
                 self.creditCardPinText = (UITextField *)[cell.contentView viewWithTag:1];
                 self.creditCardPinText.placeholder = @"Credit Card Pin";
-                 [self.creditCardPinText addTarget:self action:@selector(editBeginPin) forControlEvents:UIControlEventEditingDidBegin];
+                 [self.creditCardPinText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
             }
             
         }
@@ -856,6 +830,10 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 2) {
+        return 30;
+    }
     return 44;
 }
 

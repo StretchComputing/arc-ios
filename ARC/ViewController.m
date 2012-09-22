@@ -86,7 +86,8 @@
         self.password.secureTextEntry = YES;
         self.password.font = [UIFont fontWithName:@"LucidaGrande" size:14];
         self.password.returnKeyType = UIReturnKeyGo;
-        [self.password addTarget:self action:@selector(signIn) forControlEvents:UIControlEventEditingDidEndOnExit];
+        self.password.delegate = self;
+       // [self.password addTarget:self action:@selector(signIn) forControlEvents:UIControlEventEditingDidEndOnExit];
         
         self.username.text = @"";
         self.password.text = @"";
@@ -112,6 +113,13 @@
     }
     
 }
+
+
+- (BOOL)textFieldShouldReturn:(UITextField*)textField {
+    [self performSelector:@selector(runSignIn)];
+    return NO;
+}
+
 
 -(void)signIn{
     
@@ -278,10 +286,17 @@
         [self performSegueWithIdentifier:@"howItWorks" sender:self];
     }
 }
+
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     if (section == 1) {
-        return 20;
+        if (self.view.frame.size.height > 500) {
+            return 50;
+        }else{
+            return 20;
+        }
     }
     return 0;
 }

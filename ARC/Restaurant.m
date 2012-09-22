@@ -217,8 +217,11 @@
         self.checkNumFive.delegate = self;
         self.checkNumSix.delegate = self;
         
-        self.hiddenText.text = @"";
+        self.hiddenText = [[UITextField alloc] init];
+        self.hiddenText.keyboardType = UIKeyboardTypeNumberPad;
         self.hiddenText.delegate = self;
+        self.hiddenText.text = @"";
+        [self.view addSubview:self.hiddenText];
         
 
         

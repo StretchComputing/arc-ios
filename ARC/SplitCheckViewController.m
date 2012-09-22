@@ -242,9 +242,9 @@
 
     [UIView animateWithDuration:0.3 animations:^{
         
-        self.dollarView.frame = CGRectMake(0, 44, 320, 328);
-        self.percentView.frame = CGRectMake(0, 44, 320, 328);
-        self.itemView.frame = CGRectMake(0, 44, 320, 328);
+        self.dollarView.frame = CGRectMake(0, 44, 320, self.view.frame.size.height - 88);
+        self.percentView.frame = CGRectMake(0, 44, 320, self.view.frame.size.height - 88);
+        self.itemView.frame = CGRectMake(0, 44, 320, self.view.frame.size.height - 88);
     }];
     
 }
@@ -254,7 +254,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
        
-        self.dollarView.frame = CGRectMake(0, -120, 320, 328);
+        self.dollarView.frame = CGRectMake(0, -120, 320, self.view.frame.size.height - 88);
     }];
 }
 
@@ -263,7 +263,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        self.percentView.frame = CGRectMake(0, -120, 320, 328);
+        self.percentView.frame = CGRectMake(0, -120, 320, self.view.frame.size.height - 88);
     }];
 }
 
@@ -730,7 +730,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        self.itemView.frame = CGRectMake(0, -120, 320, 328);
+        self.itemView.frame = CGRectMake(0, -120, 320, self.view.frame.size.height - 88);
     }];
 }
 

@@ -16,6 +16,10 @@
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
 
+
+#define REFRESH_HEADER_HEIGHT 52.0f
+
+
 @interface Home ()
 
 -(void)getMerchantList;
@@ -85,12 +89,7 @@
 - (void)viewDidLoad
 {
     @try {
-        
-        
-      
-        
-        
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActive) name:@"appActive" object:nil];
@@ -138,13 +137,34 @@
         
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
         
-        
+        //refresh controller
+        //check if refresh control is available
+        if(NSClassFromString(@"UIRefreshControl")) {
+            self.isIos6 = YES;
+        }else{
+            self.isIos6 = NO;
+        }
+
+        if (self.isIos6) {
+            self.refreshControl = [[UIRefreshControl alloc] init];
+            [self.refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+            [self.myTableView addSubview:self.refreshControl];
+        }else{
+            [self setupStrings];
+            [self addPullToRefreshHeader];
+        }
      
+
         
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+-(void)handleRefresh:(id)sender{
+    
+    [self getMerchantList];
 }
 
 -(void)textFieldDidChange{
@@ -196,6 +216,10 @@
         NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
         
         [self.activity stopAnimating];
+        [self.refreshControl endRefreshing];
+        if (self.shouldCallStop) {
+            [self stopLoading];
+        }
         
         self.activityView.hidden = YES;
         if ([status isEqualToString:@"1"]) {
@@ -369,4 +393,162 @@
         [rSkybox sendClientLog:@"Home.viewDidUnload" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+
+//iOS 5 pull to refresh code
+
+
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+    
+    if (!self.isIos6) {
+        if (self.isLoading) {
+            // Update the content inset, good for section headers
+            if (sender.contentOffset.y > 0)
+                self.myTableView.contentInset = UIEdgeInsetsZero;
+            else if (sender.contentOffset.y >= -REFRESH_HEADER_HEIGHT)
+                self.myTableView.contentInset = UIEdgeInsetsMake(-sender.contentOffset.y, 0, 0, 0);
+        } else if (self.isDragging && sender.contentOffset.y < 0) {
+            // Update the arrow direction and label
+            [UIView beginAnimations:nil context:NULL];
+            if (sender.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
+                // User is scrolling above the header
+                self.refreshLabel.text = self.textRelease;
+                [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+            } else { // User is scrolling somewhere within the header
+                self.refreshLabel.text = self.textPull;
+                [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+            }
+            [UIView commitAnimations];
+        }
+    }
+   
+
+}
+
+
+
+
+- (void)setupStrings{
+    self.textPull = @"Pull down to refresh...";
+    self.textRelease = @"Release to refresh...";
+    self.textLoading = @"Loading...";
+ 
+}
+
+
+//Scroll down to refresh method
+- (void)addPullToRefreshHeader {
+    
+    
+    self.refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
+    self.refreshHeaderView.backgroundColor = [UIColor clearColor];
+    
+    self.refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
+    self.refreshLabel.backgroundColor = [UIColor clearColor];
+    self.refreshLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    self.refreshLabel.textAlignment = UITextAlignmentCenter;
+    
+    self.refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
+    self.refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT - 27) / 2),
+                                    (floorf(REFRESH_HEADER_HEIGHT - 44) / 2),
+                                    27, 44);
+    
+    self.refreshSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT - 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
+    self.refreshSpinner.hidesWhenStopped = YES;
+    
+    [self.refreshHeaderView addSubview:self.refreshLabel];
+    [self.refreshHeaderView addSubview:self.refreshArrow];
+    [self.refreshHeaderView addSubview:self.refreshSpinner];
+    
+    [self.myTableView addSubview:self.refreshHeaderView];
+    
+      
+    
+    
+}
+
+//Scroll down to refresh method
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (self.isLoading) return;
+    self.isDragging = YES;
+}
+
+
+
+//Scroll down to refresh method
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    
+    if (self.isLoading) return;
+    self.isDragging = NO;
+    if (scrollView.contentOffset.y <= -REFRESH_HEADER_HEIGHT) {
+        // Released above the header
+        [self startLoading];
+    }
+
+    
+}
+
+//Scroll down to refresh method
+- (void)startLoading {
+    self.isLoading = YES;
+    
+    // Show the header
+    [UIView animateWithDuration:0.3 animations:^{
+        self.myTableView.contentInset = UIEdgeInsetsMake(REFRESH_HEADER_HEIGHT, 0, 0, 0);
+        
+        self.refreshLabel.text = self.textLoading;
+        self.refreshArrow.hidden = YES;
+        [self.refreshSpinner startAnimating];
+    }];
+
+    
+    // Refresh action!
+    [self refresh];
+}
+
+//Scroll down to refresh method
+- (void)stopLoading {
+    self.shouldCallStop = NO;
+    self.isLoading = NO;
+    
+    // Hide the header
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDidStopSelector:@selector(stopLoadingComplete:finished:context:)];
+    
+    self.myTableView.contentInset = UIEdgeInsetsZero;
+    [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+   
+    [UIView commitAnimations];
+}
+
+//Scroll down to refresh method
+- (void)stopLoadingComplete:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    // Reset the header
+    self.refreshLabel.text = self.textPull;
+    self.refreshArrow.hidden = NO;
+    [self.refreshSpinner stopAnimating];
+
+    self.refreshLabel.text = self.textPull;
+    self.refreshArrow.hidden = NO;
+    [self.refreshSpinner stopAnimating];
+        
+}
+
+//Scroll down to refresh method
+- (void)refresh {
+    // Don't forget to call stopLoading at the end.
+    self.shouldCallStop = YES;
+            
+    [self getMerchantList];
+        
+  
+}
+
+
+
 @end

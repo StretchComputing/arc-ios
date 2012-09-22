@@ -42,6 +42,6 @@
 
 @property (strong, nonatomic) Invoice *myInvoice;
 
-@property (nonatomic, strong) IBOutlet UITextField *hiddenText;
+@property (nonatomic, strong) UITextField *hiddenText;
 
 @end

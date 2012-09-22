@@ -15,6 +15,8 @@
 		906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */; };
 		906C80F915FD5E290012AC9D /* CorbelTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F815FD5E290012AC9D /* CorbelTextField.m */; };
 		906C818315FD76750012AC9D /* CorbelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C818215FD76750012AC9D /* CorbelButton.m */; };
+		906D106F160DF82000561C31 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 906D106E160DF82000561C31 /* arrow.png */; };
+		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
 		907A406615A9CE2500090452 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406515A9CE2500090452 /* CreditCard.m */; };
@@ -63,7 +65,6 @@
 		90B01D1F15A33A3E005FCCCF /* checkNumberHelp.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D1E15A33A3E005FCCCF /* checkNumberHelp.png */; };
 		90B01D2215A4CB95005FCCCF /* CreditCardPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D2115A4CB94005FCCCF /* CreditCardPayment.m */; };
 		90B6B0B715994A0B005E4BCB /* RegisterNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */; };
-		90B6B0BA15994A1B005E4BCB /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B0B915994A1B005E4BCB /* RegisterView.m */; };
 		90B6B0D31599EF22005E4BCB /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B6B0D21599EF22005E4BCB /* Icon.png */; };
 		90B6B0D51599EF26005E4BCB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B6B0D41599EF26005E4BCB /* Icon@2x.png */; };
 		90B6B0D71599F121005E4BCB /* plainArc.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B6B0D61599F121005E4BCB /* plainArc.png */; };
@@ -139,6 +140,8 @@
 		906C80F815FD5E290012AC9D /* CorbelTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTextField.m; sourceTree = "<group>"; };
 		906C818115FD76750012AC9D /* CorbelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelButton.h; sourceTree = "<group>"; };
 		906C818215FD76750012AC9D /* CorbelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelButton.m; sourceTree = "<group>"; };
+		906D106E160DF82000561C31 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone5.storyboard; sourceTree = "<group>"; };
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -216,8 +219,6 @@
 		90B01D2115A4CB94005FCCCF /* CreditCardPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditCardPayment.m; sourceTree = "<group>"; };
 		90B6B0B515994A0B005E4BCB /* RegisterNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterNavigation.h; sourceTree = "<group>"; };
 		90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigation.m; sourceTree = "<group>"; };
-		90B6B0B815994A1B005E4BCB /* RegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterView.h; sourceTree = "<group>"; };
-		90B6B0B915994A1B005E4BCB /* RegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterView.m; sourceTree = "<group>"; };
 		90B6B0D21599EF22005E4BCB /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		90B6B0D41599EF26005E4BCB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		90B6B0D61599F121005E4BCB /* plainArc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plainArc.png; sourceTree = "<group>"; };
@@ -354,6 +355,7 @@
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
 				908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */,
+				906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */,
 				90089F28160B71A7005C268D /* libCrashReporter-iphoneos.a */,
 				9FA68D0915E0880B0048789D /* CrashReporter.framework */,
 				907A405915A8D9C400090452 /* CoreData.framework */,
@@ -364,6 +366,7 @@
 				90FBDA73159A70E50051609A /* MessageUI.framework */,
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
+				906D106E160DF82000561C31 /* arrow.png */,
 				90993F581597782100FC1D49 /* Default@2x.png */,
 				90993F561597781400FC1D49 /* Default.png */,
 				90BFD0921597943600F5285E /* rowButton.png */,
@@ -473,8 +476,6 @@
 				90B01D09159E3E92005FCCCF /* ReviewTransaction.m */,
 				90B6B0B515994A0B005E4BCB /* RegisterNavigation.h */,
 				90B6B0B615994A0B005E4BCB /* RegisterNavigation.m */,
-				90B6B0B815994A1B005E4BCB /* RegisterView.h */,
-				90B6B0B915994A1B005E4BCB /* RegisterView.m */,
 				9081522315E817E700211C37 /* RegisterViewNew.h */,
 				9081522415E817E700211C37 /* RegisterViewNew.m */,
 				90FBDC43159CE2E80051609A /* RegisterDwollaView.h */,
@@ -680,6 +681,8 @@
 				9096A0B715F9347600630AF6 /* Lucida Grande Bold.ttf in Resources */,
 				9096A0B815F9347600630AF6 /* Lucida Grande.ttf in Resources */,
 				908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */,
+				906D106F160DF82000561C31 /* arrow.png in Resources */,
+				906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,7 +699,6 @@
 				90993F5D1597795B00FC1D49 /* Home.m in Sources */,
 				90BFD0901597928D00F5285E /* HomeNavigationController.m in Sources */,
 				90B6B0B715994A0B005E4BCB /* RegisterNavigation.m in Sources */,
-				90B6B0BA15994A1B005E4BCB /* RegisterView.m in Sources */,
 				90B6B0FD159A1D6C005E4BCB /* Merchant.m in Sources */,
 				90B6B104159A3FFA005E4BCB /* Restaurant.m in Sources */,
 				90B6B10E159A4F87005E4BCB /* InvoiceView.m in Sources */,

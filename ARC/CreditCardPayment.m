@@ -43,8 +43,11 @@
         self.checkNumThree.delegate = self;
         self.checkNumFour.delegate = self;
         
+        self.hiddenText = [[UITextField alloc] init];
+        self.hiddenText.keyboardType = UIKeyboardTypeNumberPad;
         self.hiddenText.delegate = self;
         self.hiddenText.text = @"";
+        [self.view addSubview:self.hiddenText];
         
         self.checkNumOne.text = @"";
         self.checkNumTwo.text = @"";
@@ -237,7 +240,7 @@
         
         if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
             
-            self.errorLabel.text = @"*Please enter your full pin number.";
+            self.errorLabel.text = @"*Please enter your full pin.";
         }else{
             
             [self performSelector:@selector(createPayment)];
