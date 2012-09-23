@@ -10,6 +10,8 @@
 
 @interface AddCreditCard : UITableViewController <UIPickerViewDelegate>
 
+@property BOOL isIphone5;
+
 @property (nonatomic, strong) NSString *expirationMonth;
 @property (nonatomic, strong) NSString *expirationYear;
 
