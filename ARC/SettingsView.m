@@ -14,6 +14,7 @@
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
+#import <Social/Social.h>
 
 @interface SettingsView ()
 
@@ -24,6 +25,21 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+            self.facebookSwitch.on = YES;
+        }else{
+            self.facebookSwitch.on = NO;
+        }
+        
+        if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+            self.twitterSwitch.on = YES;
+        }else{
+            self.twitterSwitch.on = NO;
+        }
+        
         
         [self performSelector:@selector(getPointsBalance)];
         
@@ -83,6 +99,13 @@
 - (void)viewDidLoad
 {
     @try {
+        
+        if(NSClassFromString(@"SLComposeViewController")) {
+            self.isIos6 = YES;
+        }else{
+            self.isIos6 = NO;
+
+        }
         
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Profile"];
         self.navigationItem.titleView = navLabel;
@@ -249,9 +272,72 @@
     
 }
 
-
-- (void)viewDidUnload {
-    [self setLifetimePointsProgressView:nil];
-    [super viewDidUnload];
+- (IBAction)facebookSwitchSelected{
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    if (self.isIos6) {
+        
+        if (self.facebookSwitch.on) {
+            
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                
+                [prefs setValue:@"yes" forKey:@"autoPostFacebook"];
+                
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign In Required" message:@"Please log into your Facebook account in your iPhone's settings to use this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+        
+        }else{
+            
+            [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+        }
+        
+        
+        [prefs synchronize];
+        
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"ARC only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+    
 }
+- (IBAction)twitterSwitchSelected{
+    
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    if (self.isIos6) {
+        
+        if (self.twitterSwitch.on) {
+            
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                
+                [prefs setValue:@"yes" forKey:@"autoPostTwitter"];
+                
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign In Required" message:@"Please log into your Twitter account in your iPhone's settings to use this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+            
+        }else{
+            
+            [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+        }
+        
+        
+        [prefs synchronize];
+        
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"ARC only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+    
+    
+    
+}
+
+
+
 @end

@@ -15,6 +15,8 @@
 @property BOOL creditCardAdded;
 @property BOOL creditCardDeleted;
 
+@property BOOL isIos6;
+
 - (IBAction)cancel:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lifetimePointsLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *lifetimePointsProgressView;
@@ -25,5 +27,12 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 
 @property (weak, nonatomic) IBOutlet UISwitch *dwollaAuthSwitch;
+
+@property (weak, nonatomic) IBOutlet UISwitch *facebookSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *twitterSwitch;
+- (IBAction)facebookSwitchSelected;
+- (IBAction)twitterSwitchSelected;
+
+
 - (IBAction)dwollaAuthSwitchSelected;
 @end

@@ -13,6 +13,8 @@
 #import "ArcClient.h"
 #import "rSkybox.h"
 #import <Twitter/Twitter.h>
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
 
 @interface ReviewTransaction ()
 
@@ -24,6 +26,40 @@
 @implementation ReviewTransaction
 @synthesize earnMoreLabel;
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+            self.postFacebookButton.hidden = YES;
+            self.postFacebookPoints.hidden  = YES;
+            //[self autoPostFacebook];
+            //self.facebookInt = @(5);
+        }
+    }else{
+        [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+        [prefs synchronize];
+    }
+    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+            self.postTwitterButton.hidden = YES;
+            self.postTwitterPoints.hidden  = YES;
+            //[self autPostTwitter];
+            //self.twitterInt = @(5);
+        }
+    }else{
+        [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+        [prefs synchronize];
+    }
+
+    if (self.postFacebookButton.hidden && self.postTwitterButton.hidden) {
+        self.shareLabel.hidden = YES;
+    }
+    
+}
 -(void)viewDidAppear:(BOOL)animated{
     @try {
         
@@ -79,6 +115,14 @@
 }
 -(void)viewDidLoad{
     @try {
+        
+        if(NSClassFromString(@"SLComposeViewController")) {
+            self.isIos6 = YES;
+        }else{
+            self.isIos6 = NO;
+            self.postFacebookButton.hidden = YES;
+            self.postFacebookPoints.hidden = YES;
+        }
         
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Review"];
         self.navigationItem.titleView = navLabel;
@@ -483,6 +527,7 @@
 -(void)reviewComplete:(NSNotification *)notification{
     @try {
         
+   
         [rSkybox addEventToSession:@"reviewComplete"];
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
@@ -494,6 +539,28 @@
             //success
             self.errorLabel.text = @"";
             
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+                    [self autoPostFacebook];
+                    self.facebookInt = @(5);
+                }
+            }else{
+                [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+                [prefs synchronize];
+            }
+            
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+                    [self autPostTwitter];
+                    self.twitterInt = @(5);
+                }
+            }else{
+                [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+                [prefs synchronize];
+            }
+     
             Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
             tmp.successReview = YES;
             [self.navigationController popToRootViewControllerAnimated:NO];
@@ -512,6 +579,29 @@
         
         [rSkybox addEventToSession:@"skipReview"];
         
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+            if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+                [self autoPostFacebook];
+                self.facebookInt = @(5);
+            }
+        }else{
+            [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+            [prefs synchronize];
+        }
+        
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+            if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+                [self autPostTwitter];
+                self.twitterInt = @(5);
+            }
+        }else{
+            [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+            [prefs synchronize];
+        }
+        
+        
         Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
         tmp.skipReview = YES;
         [self.navigationController popToRootViewControllerAnimated:NO];
@@ -522,34 +612,140 @@
     }
 }
 
+-(IBAction)postFacebook{
+    
+    SLComposeViewController *fbController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    
+    
+   // if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+   // {
+        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
+            
+            [fbController dismissViewControllerAnimated:YES completion:nil];
+            NSString *title = @"Facebook Post";
+            NSString *msg = @"";
+            
+            switch(result){
+                case SLComposeViewControllerResultCancelled:
+                default:
+                {
+                    msg = @"You bailed on your post...";
+                    
+                }
+                    break;
+                case SLComposeViewControllerResultDone:
+                {
+                    msg = @"Hurray! Your message was posted!";
+                    self.facebookInt = @(5.0);
+
+                }
+                    break;
+            }
+        
+        
+            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        
+        };
+        
+        NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+        NSNumber *avgRating = [self getAverageRating];
+        if([avgRating doubleValue] > 0) {
+            post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+        }
+        
+        [fbController setInitialText:post];
+        [fbController addURL:[NSURL URLWithString:@"http://arcmobileapp.com"]];
+        [fbController setCompletionHandler:completionHandler];
+        [self presentViewController:fbController animated:YES completion:nil];
+   // }
+    
+}
+
 - (IBAction)postTwitter {
     
-    TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
-    NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
-    NSNumber *avgRating = [self getAverageRating];
-    if([avgRating doubleValue] > 0) {
-        tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+    if (self.isIos6) {
+
+        SLComposeViewController *fbController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        
+       // if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+        //{
+            SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
+                
+                [fbController dismissViewControllerAnimated:YES completion:nil];
+                NSString *title = @"Tweet";
+                NSString *msg = @"";
+                
+                switch(result){
+                    case SLComposeViewControllerResultCancelled:
+                    default:
+                    {
+                        msg = @"You bailed on your tweet...";
+                        
+                    }
+                        break;
+                    case SLComposeViewControllerResultDone:
+                    {
+                        msg = @"Hurray! Your tweet was tweeted!";
+                        self.twitterInt = @(5.0);
+                        
+                    }
+                        break;
+                }
+                
+                
+                UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alertView show];
+                
+            };
+            
+            NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+            NSNumber *avgRating = [self getAverageRating];
+            if([avgRating doubleValue] > 0) {
+                post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+            }
+            
+            [fbController setInitialText:post];
+            [fbController addURL:[NSURL URLWithString:@"http://arcmobileapp.com"]];
+            [fbController setCompletionHandler:completionHandler];
+            [self presentViewController:fbController animated:YES completion:nil];
+       // }
+
+        
+        
+        
+    }else{
+        TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
+        NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+        NSNumber *avgRating = [self getAverageRating];
+        if([avgRating doubleValue] > 0) {
+            tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+        }
+        [twitter setInitialText:tweet];
+        [self presentModalViewController:twitter animated:YES];
+        
+        twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
+            NSString *title = @"Tweet";
+            NSString *msg;
+            
+            if (result == TWTweetComposeViewControllerResultCancelled){
+                msg = @"You bailed on your tweet...";
+            }
+            else if (result == TWTweetComposeViewControllerResultDone) {
+                msg = @"Hurray! Your tweet was tweeted!";
+                self.twitterInt = @(5.0);
+            }
+            
+            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+            
+            [self dismissModalViewControllerAnimated:YES];
+        };
     }
-    [twitter setInitialText:tweet];
-    [self presentModalViewController:twitter animated:YES];
     
-    twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
-        NSString *title = @"Tweet";
-        NSString *msg;
-        
-        if (result == TWTweetComposeViewControllerResultCancelled){
-            msg = @"You bailed on your tweet...";
-        }
-        else if (result == TWTweetComposeViewControllerResultDone) {
-            msg = @"Hurray! Your tweet was tweeted!";
-            self.twitterInt = @(5.0);
-        }
-        
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [alertView show];
-        
-        [self dismissModalViewControllerAnimated:YES];
-    };
+  
+    
     
 }
 
@@ -561,5 +757,77 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ReviewTransaction.getAverageRating" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+
+-(void)autPostTwitter{
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    
+    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    
+    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+        if(granted) {
+            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
+            
+            if ([accountsArray count] > 0) {
+                
+                NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+                NSNumber *avgRating = [self getAverageRating];
+                if([avgRating doubleValue] > 0) {
+                    tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+                }
+                
+                
+                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
+                
+                SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                            requestMethod:SLRequestMethodPOST
+                                                                      URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
+                                                               parameters:[NSDictionary dictionaryWithObject:tweet forKey:@"status"]];
+                
+                [postRequest setAccount:twitterAccount];
+                
+                [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                    //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
+                }];
+                
+            }
+        }
+    }];
+
+}
+
+-(void)autoPostFacebook{
+    
+    /*
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    
+    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    
+    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+        if(granted) {
+            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
+            
+            if ([accountsArray count] > 0) {
+                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
+                
+                SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
+                                                            requestMethod:SLRequestMethodPOST
+                                                                      URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
+                                                               parameters:[NSDictionary dictionaryWithObject:@"new test" forKey:@"message"]];
+                
+                [postRequest setAccount:twitterAccount];
+                
+                [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                    //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
+                }];
+                
+            }
+        }
+    }];
+     */
+    
 }
 @end

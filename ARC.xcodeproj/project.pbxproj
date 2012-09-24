@@ -17,6 +17,8 @@
 		906C818315FD76750012AC9D /* CorbelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C818215FD76750012AC9D /* CorbelButton.m */; };
 		906D106F160DF82000561C31 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 906D106E160DF82000561C31 /* arrow.png */; };
 		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
+		906D108A160FC87100561C31 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D1089160FC87100561C31 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
 		907A406615A9CE2500090452 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406515A9CE2500090452 /* CreditCard.m */; };
@@ -142,6 +144,8 @@
 		906C818215FD76750012AC9D /* CorbelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelButton.m; sourceTree = "<group>"; };
 		906D106E160DF82000561C31 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone5.storyboard; sourceTree = "<group>"; };
+		906D1089160FC87100561C31 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		906D108C160FE03600561C31 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -329,6 +333,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				906D108D160FE03600561C31 /* Accounts.framework in Frameworks */,
+				906D108A160FC87100561C31 /* Social.framework in Frameworks */,
 				90089F29160B71A7005C268D /* libCrashReporter-iphoneos.a in Frameworks */,
 				9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */,
 				9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */,
@@ -350,6 +356,8 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				906D108C160FE03600561C31 /* Accounts.framework */,
+				906D1089160FC87100561C31 /* Social.framework */,
 				9095947A15EA652600F19DD2 /* Twitter.framework */,
 				9081521615E7D26500211C37 /* SystemConfiguration.framework */,
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
