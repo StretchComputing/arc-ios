@@ -131,10 +131,6 @@
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    // NSLog(@"NewString: %@", string);
-    //NSLog(@"RangeLength: %d", range.length);
-    //NSLog(@"RangeLoc: %d", range.location);
-    
     NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
     
     @try {
@@ -148,26 +144,6 @@
             return TRUE;
             
         }
-        /*
-         if ([textField.text isEqualToString:@" "]) {
-         
-         if ([string isEqualToString:@""]) {
-         
-         [self performSelector:@selector(previousField) withObject:nil afterDelay:0.0];
-         
-         }else{
-         textField.text = string;
-         [self performSelector:@selector(nextField) withObject:nil afterDelay:0.0];
-         }
-         }else{
-         
-         if ([string isEqualToString:@""]) {
-         textField.text = @" ";
-         }
-         }
-         
-         return FALSE;
-         */
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"CreditCardpayment.testField" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
