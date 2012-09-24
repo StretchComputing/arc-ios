@@ -17,6 +17,6 @@
 @property (nonatomic, retain) NSString * number;
 @property (nonatomic, retain) NSString * sample;
 @property (nonatomic, retain) NSString * securityCode;
-@property (nonatomic, retain) Customer *whoOwns;
+@property (nonatomic, retain) Customer * whoOwns;
 
 @end

@@ -12,6 +12,7 @@
 #import "SettingsView.h"
 #import "rSkybox.h"
 #import "ArcClient.h"
+#import "ValidatePinView.h"
 
 @interface EditCreditCard ()
 
@@ -19,6 +20,26 @@
 
 @implementation EditCreditCard
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    if (self.cancelAuth) {
+    
+        [self.navigationController popViewControllerAnimated:NO];
+        
+    }else{
+        if (!self.didAuth){
+    
+            ValidatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"validatePin"];
+            tmp.cardNumber = self.creditCardNumber;
+            tmp.securityCode = self.creditCardSecurityCode;
+            
+            [self.navigationController pushViewController:tmp animated:NO];
+        }else{
+            [self loadTable];
+        }
+    }
+    
+}
 -(void)viewDidLoad{
     @try {
         
@@ -72,4 +93,24 @@
     }
 }
 
+-(void)loadTable{
+    
+    self.cardNumberTextField.text = self.displayNumber;
+    self.securityCodeTextField.text = self.displaySecurityCode;
+    
+    self.expirationMonthLabel.text = self.creditCardExpiration;
+    self.expirationYearLabel.text = self.creditCardExpiration;
+    
+    if ([self.creditCardSample rangeOfString:@"Credit"].location != NSNotFound){
+        self.cardTypesSegmentedControl.selectedSegmentIndex = 0;
+    }
+    
+    if ([self.creditCardSample rangeOfString:@"Debit"].location != NSNotFound){
+        self.cardTypesSegmentedControl.selectedSegmentIndex = 1;
+    }
+}
+
+-(void)saveCardAction{
+    
+}
 @end

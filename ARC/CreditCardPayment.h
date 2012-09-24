@@ -21,11 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (nonatomic, strong) NSMutableData *serverData;
-@property (weak, nonatomic) IBOutlet UITextField *checkNumFour;
-@property (weak, nonatomic) IBOutlet UITextField *checkNumThree;
-@property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 
-@property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 - (IBAction)submit:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *notesText;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
@@ -41,6 +37,9 @@
 @property (nonatomic, strong) NSString *creditCardSample;
 
 @property (nonatomic, strong) UITextField *hiddenText;
-
+@property (weak, nonatomic) IBOutlet UITextField *checkNumFour;
+@property (weak, nonatomic) IBOutlet UITextField *checkNumThree;
+@property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
+@property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 
 @end

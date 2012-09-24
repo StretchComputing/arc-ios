@@ -14,11 +14,14 @@
 
 @property BOOL isCreditCard;
 @property BOOL isIphone5;
+@property BOOL fromCreditCard;
 
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 
 @property (nonatomic, strong) NSString *expirationMonth;
 @property (nonatomic, strong) NSString *expirationYear;
+
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activity;
 
 @property (nonatomic, strong) NSArray *months;
 @property (nonatomic, strong) NSArray *years;

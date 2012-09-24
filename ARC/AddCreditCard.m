@@ -13,6 +13,7 @@
 #import "rSkybox.h"
 #import "ArcClient.h"
 #import "NSString+CharArray.h"
+#import "CreatePinView.h"
 
 @interface AddCreditCard ()
 
@@ -24,7 +25,10 @@
 @implementation AddCreditCard
 @synthesize creditDebitSegment;
 
+-(void)viewDidAppear:(BOOL)animated{
+    [self.creditCardNumberText becomeFirstResponder];
 
+}
 
 -(void)viewDidLoad{
     @try {
@@ -335,12 +339,12 @@
 -(NSString *)creditCardStatus{
     @try {
         
-        if ([self.creditCardSecurityCodeText.text isEqualToString:@""] && [self.creditCardPinText.text isEqualToString:@""] && [self.creditCardNumberText.text isEqualToString:@""]){
+        if ([self.creditCardSecurityCodeText.text isEqualToString:@""] && [self.creditCardNumberText.text isEqualToString:@""]){
             
             return @"empty";
         }else{
             //At least one is entered, must all be entered
-            if (![self.creditCardSecurityCodeText.text isEqualToString:@""] && ![self.creditCardPinText.text isEqualToString:@""] && ![self.creditCardNumberText.text isEqualToString:@""]){
+            if (![self.creditCardSecurityCodeText.text isEqualToString:@""]   && ![self.creditCardNumberText.text isEqualToString:@""]){
                 return @"valid";
             }else{
                 return @"invalid";
@@ -394,21 +398,9 @@
                 if ([self luhnCheck:self.creditCardNumberText.text]) {
                     
                 
-                    NSString *creditDebitString = @"";
+                    [self goPin];
                     
-                    if (self.creditDebitSegment.selectedSegmentIndex == 0) {
-                        creditDebitString = @"Credit";
-                    }else{
-                        creditDebitString = @"Debit";
-                    }
-                    
-                    NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                    [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
-                    
-                    [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-                    NSString *action = [NSString stringWithFormat:@"Add %@ Card", creditDebitString];
-                    [ArcClient trackEvent:action];
+                  
                     
                     
                 }else{
@@ -433,6 +425,40 @@
     }
 }
 
+
+-(void)goPin{
+    
+    @try {
+        
+        CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
+        
+        NSString *creditDebitString = @"Credit";
+        
+        if (self.creditDebitSegment.selectedSegmentIndex == 1) {
+            creditDebitString = @"Debit";
+        }
+        
+        NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
+        
+        
+        tmp.creditDebitString = creditDebitString;
+        tmp.expiration = expiration;
+        tmp.securityCode = self.creditCardSecurityCodeText.text;
+        tmp.cardNumber = self.creditCardNumberText.text;
+        tmp.fromRegister = NO;
+        
+        NSString *action = [NSString stringWithFormat:@"Add %@ Card", creditDebitString];
+        [ArcClient trackEvent:action];
+        
+        [self.navigationController pushViewController:tmp animated:NO];
+
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"RegisterView.addCreditCard" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
 -(void)popNow{
     @try {
         
