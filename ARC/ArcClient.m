@@ -12,7 +12,7 @@
 #import "rSkybox.h"
 
 //NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
-NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // CLOUD
+NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
@@ -244,7 +244,6 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [myDictionary JSONRepresentation], nil];
         NSLog(@"requestString: %@", requestString);
-
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *trackEventUrl = [NSString stringWithFormat:@"%@analytics", _arcUrl, nil];

@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LucidaLabel.h"
+#import "CorbelBoldLabel.h"
 
 @interface ReviewTransaction : UIViewController <UITextViewDelegate>
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
 -(IBAction)sliderValueChanged:(UISlider *)sender;
+
+@property BOOL isIos6;
 
 @property (nonatomic, strong) NSNumber *foodInt;
 @property (nonatomic, strong) NSNumber *drinksInt;
@@ -25,11 +29,21 @@
 @property (weak, nonatomic) IBOutlet UISlider *drinksSlider;
 @property (weak, nonatomic) IBOutlet UISlider *moodSlider;
 @property (weak, nonatomic) IBOutlet UISlider *valueSlider;
+@property (weak, nonatomic) IBOutlet UIButton *postFacebookButton;
+@property (weak, nonatomic) IBOutlet LucidaLabel *postFacebookPoints;
+
+@property (weak, nonatomic) IBOutlet UIButton *postTwitterButton;
+@property (weak, nonatomic) IBOutlet LucidaLabel *postTwitterPoints;
+
+@property (weak, nonatomic) IBOutlet CorbelBoldLabel *shareLabel;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *earnMoreLabel;
 @property (weak, nonatomic) IBOutlet UISlider *foodSlider;
 @property double totalAmount;
 @property int invoiceId;
+
+-(IBAction)postFacebook;
 
 @property (nonatomic, strong) IBOutlet UIButton *food1;
 @property (nonatomic, strong) IBOutlet UIButton *food2;
