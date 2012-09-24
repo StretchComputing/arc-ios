@@ -67,7 +67,7 @@
             [self.navigationController popViewControllerAnimated:NO];
         }
         
-        [ArcClient trackEvent:@"Dwolla Activated"];
+        [ArcClient trackEvent:@"DWOLLA_ACTIVATED"];
 \
     }
     @catch (NSException *e) {

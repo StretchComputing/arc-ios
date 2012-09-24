@@ -397,9 +397,9 @@
                     NSString *creditDebitString = @"";
                     
                     if (self.creditDebitSegment.selectedSegmentIndex == 0) {
-                        creditDebitString = @"Credit";
+                        creditDebitString = @"CREDIT";
                     }else{
-                        creditDebitString = @"Debit";
+                        creditDebitString = @"DEBIT";
                     }
                     
                     NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
@@ -407,7 +407,7 @@
                     [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
                     
                     [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-                    NSString *action = [NSString stringWithFormat:@"Add %@ Card", creditDebitString];
+                    NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
                     [ArcClient trackEvent:action];
                     
                     

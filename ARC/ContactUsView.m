@@ -47,7 +47,7 @@
         // Do any additional setup after loading the view.
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
         
-        [ArcClient trackEvent:@"View Contact Us"];
+        [ArcClient trackEvent:@"CONTACT_US_VIEW"];
 
     }
     @catch (NSException *e) {

@@ -212,7 +212,7 @@
     @try {
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
-        NSString *status = [responseInfo valueForKey:@"status"];
+        NSNumber *status = [responseInfo valueForKey:@"status"];
         NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
         
         [self.activity stopAnimating];
@@ -222,7 +222,7 @@
         }
         
         self.activityView.hidden = YES;
-        if ([status isEqualToString:@"1"]) {
+        if ([status isEqualToNumber:@1]) {
             //success
             self.errorLabel.text = @"";
             
@@ -266,11 +266,13 @@
             self.myTableView.hidden = NO;
             [self.myTableView reloadData];
         }
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.merchantListComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     @try {

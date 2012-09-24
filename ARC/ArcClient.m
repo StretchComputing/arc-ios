@@ -240,7 +240,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         [rSkybox addEventToSession:@"trackEvent"];
         api = TrackEvent;
         
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        NSDictionary *myDictionary = @{@"Analytics" : [NSArray arrayWithObject:pairs]};
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [myDictionary JSONRepresentation], nil];
+        NSLog(@"requestString: %@", requestString);
+
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *trackEventUrl = [NSString stringWithFormat:@"%@analytics", _arcUrl, nil];
@@ -250,9 +254,10 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
+        
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"TrackEvent"];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:nil startImmediately: YES];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -274,9 +279,10 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
-    NSLog(@"Status Code: %d", self.httpStatusCode);
-    
+    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
 }
+
+
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     @try {
         
@@ -293,6 +299,19 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         NSString *notificationType;
+        
+        if(self.httpStatusCode == 200 || self.httpStatusCode == 201) {
+            // success scenario
+        } else {
+            // something went wrong, so let's figure out what
+            if(self.httpStatusCode == 422) {
+                // application error scenario
+            } else {
+                // failure scenario -- calling routine must abort
+            }
+        }
+        
+        
         
         BOOL postNotification = YES;
         
@@ -333,7 +352,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
             notificationType = @"getPointBalanceNotification";
         } else if(api == TrackEvent) {
             if (response) {
-                //responseInfo = [self trackEventResponse:response];
+                responseInfo = [self trackEventResponse:response];
             }
             postNotification = NO;
            // notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
@@ -349,11 +368,25 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         if (postNotification) {
             [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
         }
-    }
+
+        [self displayErrorsToAdmins];
+}
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+- (void)displayErrorsToAdmins {
+    
+    // TODO if Admin, display all errors
+    BOOL isAdmin = NO;
+    if(isAdmin) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Admin Only Errors?"  message:@"Here is where the errors will go" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+    
+}
+
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     @try {
@@ -388,6 +421,9 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         }
         
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+        
+        [self displayErrorsToAdmins];
+
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.connection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -537,12 +573,12 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            responseInfo = @{@"status": @"1",
+            responseInfo = @{@"status": @1,
             @"apiResponse": response};
         } else {
             // TODO:: need to pass the Arc Application error to the calling method
             NSString *message = [response valueForKey:@"Message"];
-            NSString *status = @"0";
+            NSNumber *status = @0;
             
             responseInfo = @{@"status": status,
             @"error": message};
@@ -791,7 +827,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         [ tempDictionary setObject:@0.0 forKey:@"Latitude"];//optional
         [ tempDictionary setObject:@0.0 forKey:@"Longitude"];//optional
-        [ tempDictionary setObject:@"clicks" forKey:@"MeasureType"];//LABEL
+        [ tempDictionary setObject:@"count" forKey:@"MeasureType"];//LABEL
         [ tempDictionary setObject:@1.0 forKey:@"MeasureValue"];//VALUE
         [ tempDictionary setObject:@"Arc Mobile" forKey:@"Application"];
         [ tempDictionary setObject:@"AT&T" forKey:@"Carrier"]; //TODO add real carrier
@@ -801,6 +837,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         [ tempDictionary setObject:@"0.1" forKey:@"Version"];
         
 		trackEventDict = tempDictionary;
+
         ArcClient *client = [[ArcClient alloc] init];
         [client trackEvent:trackEventDict];
         

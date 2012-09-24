@@ -47,7 +47,7 @@
         tmp.creditCardDeleted = YES;
         [self.navigationController popToRootViewControllerAnimated:YES];
         
-        NSString *action = [NSString stringWithFormat:@"Delete %@ Card", [self getCardType]];
+        NSString *action = [NSString stringWithFormat:@"%@_CARD_DELETE", [self getCardType]];
         [ArcClient trackEvent:action];
     }
     @catch (NSException *e) {
@@ -61,9 +61,9 @@
         NSString *creditDebitString = @"";
         NSString *sample = [self.creditCardSample lowercaseString];
         if ([sample rangeOfString:@"credit"].location == NSNotFound) {
-            creditDebitString = @"Debit";
+            creditDebitString = @"DEBIT";
         } else {
-            creditDebitString = @"Credit";
+            creditDebitString = @"CREDIT";
         }
         return creditDebitString;
     }

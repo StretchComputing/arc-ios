@@ -44,7 +44,7 @@
         [super viewDidLoad];
         // Do any additional setup after loading the view.
         
-        [ArcClient trackEvent:@"View Main Help"];
+        [ArcClient trackEvent:@"MAIN_HELP_VIEW"];
        
         
     }

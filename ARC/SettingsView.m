@@ -193,8 +193,6 @@
 
             //self.errorLabel.text = @"*Error getting point balance payment.";
         }
-        
-       [ArcClient trackEvent:@"View Profile"];
 }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SettingsView.pointBalanceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -230,7 +228,7 @@
     
     if (buttonIndex == 1) {
         [DwollaAPI clearAccessToken];
-        [ArcClient trackEvent:@"Dwolla Deactivated"];
+        [ArcClient trackEvent:@"DWOLLA_DEACTIVATED"];
     }
 }
 
