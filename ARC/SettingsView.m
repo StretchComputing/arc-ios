@@ -79,13 +79,19 @@
         
         if (self.creditCardAdded){
             self.creditCardAdded = NO;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was added successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your card was added successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
         
         if (self.creditCardDeleted){
             self.creditCardDeleted = NO;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your credit card was deleted successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your card was deleted successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+        if (self.creditCardEdited){
+            self.creditCardEdited = NO;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your card was changed successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
         

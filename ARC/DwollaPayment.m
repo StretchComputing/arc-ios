@@ -457,7 +457,7 @@
         [ tempDictionary setObject:dwollaToken forKey:@"AuthenticationToken"];
         [ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
 
-        double gratDouble = self.gratuity/self.totalAmount;
+        double gratDouble = self.gratuity;
         
         //*Testing Only* -------- SEND EMPTY STRINGS for OPTIONAL PARAMETERS
         //NSNumber *grat = [NSNumber numberWithDouble:gratDouble];

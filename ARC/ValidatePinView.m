@@ -178,6 +178,7 @@
     tmp.didAuth = YES;
     tmp.displayNumber = ccNumber;
     tmp.displaySecurityCode = securityCode;
+    tmp.oldPin = self.initialPin;
     [self.navigationController popToViewController:tmp animated:NO];
     
 }

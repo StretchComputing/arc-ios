@@ -247,16 +247,14 @@
 
             NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
             NSDictionary *loginDict = [[NSDictionary alloc] init];
-            
-            
-     
+                 
             NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
             [ tempDictionary setObject:amount forKey:@"Amount"];
             
             [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
             [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
             
-            double gratDouble = self.gratuity/self.totalAmount;
+            double gratDouble = self.gratuity;
             
             NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
 

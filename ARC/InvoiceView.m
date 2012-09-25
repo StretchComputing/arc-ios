@@ -256,9 +256,27 @@
         
         if (buttonIndex == 0) {
             //Dwolla
-            [rSkybox addEventToSession:@"selectedDwollaForPayment"];
             
-            [self performSegueWithIdentifier:@"goPayDwolla" sender:self];
+            NSString *token = @"";
+            @try {
+                token = [DwollaAPI getAccessToken];
+            }
+            @catch (NSException *exception) {
+                token = nil;
+            }
+            
+            
+            if ((token == nil) || [token isEqualToString:@""]) {
+           
+                [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+                
+                
+            }else{
+                [rSkybox addEventToSession:@"selectedDwollaForPayment"];
+
+                [self performSegueWithIdentifier:@"goPayDwolla" sender:self];
+
+            }
         }else {
             [rSkybox addEventToSession:@"selectedCreditCardForPayment"];
             

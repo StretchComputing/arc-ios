@@ -80,11 +80,17 @@
         
         if ([status isEqualToString:@"1"]) {
             //success
+            self.registerSuccess = YES;
             
-            if ([[self creditCardStatus] isEqualToString:@"valid"]) {
-                //Save credit card info
-                [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:0.0];
+            if (self.dwollaSegControl.selectedSegmentIndex == 1) {
+
+                if ([[self creditCardStatus] isEqualToString:@"valid"]) {
+                    //Save credit card info
+                    [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:0.0];
+                }
+                
             }
+           
 
             
         }else{
@@ -211,6 +217,11 @@
         }else if ((self.dwollaSegControl.selectedSegmentIndex == 1) && (self.creditDebitSegment.selectedSegmentIndex == -1)) {
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit" message:@"Please select credit or debit for your card." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+        }else if (self.dwollaSegControl.selectedSegmentIndex == -1){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Choose Payment Type" message:@"Please select credit card or Dwolla for your payment type." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
         }else{
@@ -964,7 +975,7 @@
     
     if (section == 2) {
         
-        if (!self.isCreditCard) {
+        if (self.dwollaSegControl.selectedSegmentIndex == 0) {
             UIView *tmp = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
             tmp.backgroundColor = [UIColor clearColor];
             UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];

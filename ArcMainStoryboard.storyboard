@@ -164,7 +164,7 @@
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="qPg-LB-KC9" customClass="CorbelSegmentedControl">
+                                                <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="qPg-LB-KC9" customClass="CorbelSegmentedControl">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <segments>
@@ -255,7 +255,7 @@
                                                     <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="exZ-dN-Fhy"/>
                                                     </connections>
@@ -275,7 +275,7 @@
                                                     <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="Jpq-aj-QeM"/>
                                                     </connections>
@@ -295,7 +295,7 @@
                                                     <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="Fdn-7c-vQu"/>
                                                     </connections>
@@ -315,7 +315,7 @@
                                                     <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="x26-b9-40U"/>
                                                     </connections>
@@ -972,7 +972,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="E6c-ep-bpy">
-                                <rect key="frame" x="150" y="95" width="20" height="20"/>
+                                <rect key="frame" x="150" y="83" width="20" height="20"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6VI-hd-ZpM">
                                 <rect key="frame" x="0.0" y="82" width="320" height="21"/>
@@ -981,7 +981,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Transaction Notes (*optional):" id="0xv-kF-Njy" customClass="CorbelTextView">
-                                <rect key="frame" x="12" y="103" width="297" height="70"/>
+                                <rect key="frame" x="12" y="106" width="297" height="70"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
@@ -1060,7 +1060,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="1aJ-2J-WDf">
-                                <rect key="frame" x="150" y="95" width="20" height="20"/>
+                                <rect key="frame" x="150" y="87" width="20" height="20"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="iJR-Lq-0kR">
                                 <rect key="frame" x="0.0" y="83" width="320" height="21"/>
@@ -1069,7 +1069,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Transaction Notes (*optional):" id="7p4-QF-C9c" customClass="CorbelTextView">
-                                <rect key="frame" x="12" y="104" width="297" height="70"/>
+                                <rect key="frame" x="12" y="111" width="297" height="70"/>
                                 <autoresizingMask key="autoresizingMask" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1289,6 +1289,10 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="2ZT-kb-GfZ">
+                                <rect key="frame" x="150" y="56" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1308,6 +1312,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activity" destination="2ZT-kb-GfZ" id="8Pz-7o-kgr"/>
                         <outlet property="commentsText" destination="hZs-wF-YtT" id="W5E-yd-OnM"/>
                         <outlet property="drinksSlider" destination="K1A-My-0gn" id="mON-ff-ODP"/>
                         <outlet property="earnMoreLabel" destination="6oA-d0-eFo" id="ANB-t6-a90"/>
@@ -2231,6 +2236,7 @@
                         <segue destination="hyn-k9-9Hu" kind="push" identifier="goPayDwolla" id="pOd-6P-e5i"/>
                         <segue destination="zZz-LI-SJ8" kind="push" identifier="goPayCreditCard" id="FRd-J0-OXc"/>
                         <segue destination="Txq-fd-JyS" kind="push" identifier="goSplitCheck" id="juA-2N-Fxa"/>
+                        <segue destination="bX5-5s-ZOq" kind="custom" identifier="confirmDwolla" customClass="PushSegueNoAnimation" id="yO3-MZ-Mi9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eAd-SC-823" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2388,7 +2394,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNO-ak-50k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2972" y="1626"/>
+            <point key="canvasLocation" x="2975" y="1752"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yn8-Qc-6md">
@@ -2734,7 +2740,7 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="deleteCardAction" destination="gw4-gZ-IxK" eventType="touchUpInside" id="fXl-XN-leA"/>
+                                        <action selector="saveCardAction" destination="gw4-gZ-IxK" eventType="touchUpInside" id="ho7-PS-HtL"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -2756,9 +2762,12 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
+                                                        <action selector="editBegin:" destination="gw4-gZ-IxK" eventType="editingDidBegin" id="CgL-nx-iyZ"/>
                                                         <action selector="editBegin:" destination="0JH-v4-76k" eventType="editingDidBegin" id="pnN-h7-Xc6"/>
+                                                        <action selector="editEnd:" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="qGj-NF-KUQ"/>
                                                         <action selector="editEnd:" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="rdV-lN-JeF"/>
                                                         <action selector="endText" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="Bcf-Pw-AGh"/>
+                                                        <action selector="endText" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="n1T-Hg-50k"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -2798,6 +2807,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
+                                                        <action selector="changeExpiration:" destination="gw4-gZ-IxK" eventType="touchUpInside" id="an4-7O-Lrv"/>
                                                         <action selector="changeExpiration:" destination="0JH-v4-76k" eventType="touchUpInside" id="pSd-sW-eo4"/>
                                                     </connections>
                                                 </button>
@@ -2839,6 +2849,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="changeExpiration:" destination="0JH-v4-76k" eventType="touchUpInside" id="P92-MI-60F"/>
+                                                        <action selector="changeExpiration:" destination="gw4-gZ-IxK" eventType="touchUpInside" id="pQ4-NM-YWT"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -2859,8 +2870,11 @@
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="editBegin:" destination="0JH-v4-76k" eventType="editingDidBegin" id="Ndt-GC-leA"/>
+                                                        <action selector="editBegin:" destination="gw4-gZ-IxK" eventType="editingDidBegin" id="b1i-X1-juH"/>
+                                                        <action selector="editEnd:" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="3bw-cR-i4J"/>
                                                         <action selector="editEnd:" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="I4D-l6-Jf8"/>
                                                         <action selector="endText" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="a2V-iX-HNF"/>
+                                                        <action selector="endText" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="uDp-cC-hhM"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -2906,6 +2920,8 @@
                     <connections>
                         <outlet property="cardNumberTextField" destination="egV-mh-y3z" id="5w8-ps-BqN"/>
                         <outlet property="cardTypesSegmentedControl" destination="c1o-pf-1ZQ" id="yxC-1E-xwR"/>
+                        <outlet property="creditCardExpirationMonthLabel" destination="IPL-D1-qtD" id="f6C-pc-1f7"/>
+                        <outlet property="creditCardExpirationYearLabel" destination="Eql-6l-OfN" id="YKf-rd-ULH"/>
                         <outlet property="deleteCardButton" destination="gP7-ti-7HK" id="8Ty-mg-mRZ"/>
                         <outlet property="expirationMonthLabel" destination="IPL-D1-qtD" id="dRv-au-W2E"/>
                         <outlet property="expirationYearLabel" destination="Eql-6l-OfN" id="pTm-h3-wZe"/>
@@ -3271,11 +3287,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="co8-nZ-5K2"/>
-        <segue reference="9xk-hF-eyl"/>
+        <segue reference="O7d-m2-fj4"/>
+        <segue reference="pOd-6P-e5i"/>
+        <segue reference="Oi0-YR-QFH"/>
         <segue reference="NwH-xf-Eq4"/>
-        <segue reference="Yz7-xF-sKA"/>
-        <segue reference="2SM-S0-l6J"/>
-        <segue reference="Jpp-du-aSf"/>
+        <segue reference="FRd-J0-OXc"/>
+        <segue reference="yO3-MZ-Mi9"/>
     </inferredMetricsTieBreakers>
 </document>
