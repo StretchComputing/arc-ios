@@ -164,7 +164,7 @@
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="qPg-LB-KC9" customClass="CorbelSegmentedControl">
+                                                <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="qPg-LB-KC9" customClass="CorbelSegmentedControl">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <segments>
@@ -255,7 +255,7 @@
                                                     <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="exZ-dN-Fhy"/>
                                                     </connections>
@@ -275,7 +275,7 @@
                                                     <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="Jpq-aj-QeM"/>
                                                     </connections>
@@ -295,7 +295,7 @@
                                                     <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="Fdn-7c-vQu"/>
                                                     </connections>
@@ -315,7 +315,7 @@
                                                     <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="x26-b9-40U"/>
                                                     </connections>
@@ -1052,9 +1052,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="1aJ-2J-WDf">
-                                <rect key="frame" x="150" y="118" width="20" height="20"/>
-                            </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="iJR-Lq-0kR">
                                 <rect key="frame" x="0.0" y="117" width="320" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1071,6 +1068,9 @@
                                     <outlet property="delegate" destination="hyn-k9-9Hu" id="CH9-r1-YjQ"/>
                                 </connections>
                             </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="1aJ-2J-WDf">
+                                <rect key="frame" x="150" y="118" width="20" height="20"/>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" id="CGW-Vg-58R">
                                 <rect key="frame" x="12" y="50.5" width="288" height="48"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1282,6 +1282,10 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="VWG-sI-bRy">
+                                <rect key="frame" x="150" y="65" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1301,6 +1305,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activity" destination="VWG-sI-bRy" id="13a-NG-m7I"/>
                         <outlet property="commentsText" destination="hZs-wF-YtT" id="W5E-yd-OnM"/>
                         <outlet property="drinksSlider" destination="K1A-My-0gn" id="mON-ff-ODP"/>
                         <outlet property="earnMoreLabel" destination="6oA-d0-eFo" id="ANB-t6-a90"/>
@@ -2667,6 +2672,9 @@
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="saveCardAction" destination="gw4-gZ-IxK" eventType="touchUpInside" id="C0T-mM-HeE"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -2686,6 +2694,11 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                                    <connections>
+                                                        <action selector="editBegin:" destination="gw4-gZ-IxK" eventType="editingDidBegin" id="1W9-l1-idX"/>
+                                                        <action selector="editEnd:" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="7Am-dv-Rou"/>
+                                                        <action selector="endText" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="k24-je-JpT"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2723,6 +2736,9 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="changeExpiration:" destination="gw4-gZ-IxK" eventType="touchUpInside" id="9BB-VX-dit"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2760,6 +2776,9 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="changeExpiration:" destination="gw4-gZ-IxK" eventType="touchUpInside" id="tVj-T6-NXD"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2777,6 +2796,11 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                                    <connections>
+                                                        <action selector="editBegin:" destination="gw4-gZ-IxK" eventType="editingDidBegin" id="RGk-v3-RFj"/>
+                                                        <action selector="editEnd:" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="cZA-LD-OtX"/>
+                                                        <action selector="endText" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="HPN-ge-kME"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2821,6 +2845,8 @@
                     <connections>
                         <outlet property="cardNumberTextField" destination="75H-Ui-sss" id="yWS-aK-Ug3"/>
                         <outlet property="cardTypesSegmentedControl" destination="xeD-VX-iSy" id="yUW-7F-dNW"/>
+                        <outlet property="creditCardExpirationMonthLabel" destination="p0c-HH-gp0" id="Qcv-gQ-gW9"/>
+                        <outlet property="creditCardExpirationYearLabel" destination="naT-oQ-SzO" id="e7D-mR-uvO"/>
                         <outlet property="deleteCardButton" destination="gP7-ti-7HK" id="8Ty-mg-mRZ"/>
                         <outlet property="expirationMonthLabel" destination="p0c-HH-gp0" id="mYw-q0-SWS"/>
                         <outlet property="expirationYearLabel" destination="naT-oQ-SzO" id="htv-Pw-aAU"/>
@@ -3196,11 +3222,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Oi0-YR-QFH"/>
         <segue reference="Jpp-du-aSf"/>
-        <segue reference="O7d-m2-fj4"/>
-        <segue reference="Yz7-xF-sKA"/>
-        <segue reference="C7C-NV-eEl"/>
         <segue reference="NwH-xf-Eq4"/>
         <segue reference="co8-nZ-5K2"/>
+        <segue reference="Yz7-xF-sKA"/>
+        <segue reference="2SM-S0-l6J"/>
     </inferredMetricsTieBreakers>
 </document>

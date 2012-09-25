@@ -1,61 +1,45 @@
 //
-//  EditCreditCard.m
+//  AddCreditCard.m
 //  ARC
 //
 //  Created by Nick Wroblewski on 7/8/12.
 //  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 
-#import "EditCreditCard.h"
-#import "CreditCard.h"
+#import "AddCreditCard.h"
+#import <QuartzCore/QuartzCore.h>
 #import "ArcAppDelegate.h"
 #import "SettingsView.h"
 #import "rSkybox.h"
 #import "ArcClient.h"
-#import "ValidatePinView.h"
-#import <QuartzCore/QuartzCore.h>
 #import "NSString+CharArray.h"
 
-@interface EditCreditCard ()
+@interface AddCreditCard ()
+
+-(void)showDoneButton;
+-(NSString *)creditCardStatus;
 
 @end
 
-@implementation EditCreditCard
+@implementation AddCreditCard
+@synthesize creditDebitSegment;
 
--(void)viewDidAppear:(BOOL)animated{
-    
-    if (self.cancelAuth) {
-    
-        [self.navigationController popViewControllerAnimated:NO];
-        
-    }else{
-        if (!self.didAuth){
-    
-            ValidatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"validatePin"];
-            tmp.cardNumber = self.creditCardNumber;
-            tmp.securityCode = self.creditCardSecurityCode;
-            
-            [self.navigationController pushViewController:tmp animated:NO];
-        }else{
-            [self loadTable];
-        }
-    }
-    
-}
+
+
 -(void)viewDidLoad{
     @try {
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Card"];
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Add Card"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Edit Card"];
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Add Card"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        NSArray *cards = [mainDelegate getCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
+        [rSkybox addEventToSession:@"viewAddCreditCardScreen"];
         
-        
-
+        self.creditCardNumberText.text = @"";
+        self.creditCardPinText.text = @"";
+        self.creditCardSecurityCodeText.text = @"";
         self.expirationMonth = @"01";
         self.expirationYear = @"2012";
         
@@ -76,80 +60,10 @@
         
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"EditCreditCard.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"AddCreditCard.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
-
-- (IBAction)deleteCardAction {
-    @try {
-        
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mainDelegate deleteCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
-        
-        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-        tmp.creditCardDeleted = YES;
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        
-        NSString *action = [NSString stringWithFormat:@"%@_CARD_DELETE", [self getCardType]];
-        [ArcClient trackEvent:action];
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"EditCreditCard.deleteCardAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-    
-}
-
-- (NSString *)getCardType {
-    @try {
-        NSString *creditDebitString = @"";
-        NSString *sample = [self.creditCardSample lowercaseString];
-        if ([sample rangeOfString:@"credit"].location == NSNotFound) {
-            creditDebitString = @"DEBIT";
-        } else {
-            creditDebitString = @"CREDIT";
-        }
-        return creditDebitString;
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"EditCreditCard.getCardType" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-}
-
--(void)loadTable{
-    
-    NSString *expirationYear = [self.creditCardExpiration substringFromIndex:3];
-    
-    for (int i = 0; i < [self.months count]; i++) {
-        
-        NSString *month = [self.months objectAtIndex:i];
-        
-        if ([[month substringToIndex:2] isEqualToString:[self.creditCardExpiration substringToIndex:2]]) {
-            self.creditCardExpirationMonthLabel.text = [self.months objectAtIndex:i];
-            self.expirationMonth = [[self.months objectAtIndex:i] substringToIndex:2];
-            break;
-        }
-    }
-
-    
-    self.creditCardExpirationYearLabel.text = expirationYear;
-    self.expirationYear = expirationYear;
-    
-    self.cardNumberTextField.text = self.displayNumber;
-    self.securityCodeTextField.text = self.displaySecurityCode;
-
-    
-    if ([self.creditCardSample rangeOfString:@"Credit"].location != NSNotFound){
-        self.cardTypesSegmentedControl.selectedSegmentIndex = 0;
-    }
-    
-    if ([self.creditCardSample rangeOfString:@"Debit"].location != NSNotFound){
-        self.cardTypesSegmentedControl.selectedSegmentIndex = 1;
-    }
-}
-
-
-
 
 - (IBAction)editBegin:(id)sender {
     @try {
@@ -295,8 +209,9 @@
 -(void)hideKeyboard{
     @try {
         
-        [self.cardNumberTextField resignFirstResponder];
-        [self.securityCodeTextField resignFirstResponder];
+        [self.creditCardPinText resignFirstResponder];
+        [self.creditCardNumberText resignFirstResponder];
+        [self.creditCardSecurityCodeText resignFirstResponder];
         self.pickerView.hidden = YES;
         [self.hideKeyboardView removeFromSuperview];
         self.hideKeyboardView = nil;
@@ -329,8 +244,9 @@
             self.isExpirationMonth = NO;
         }
         
-        [self.cardNumberTextField resignFirstResponder];
-        [self.securityCodeTextField resignFirstResponder];
+        [self.creditCardPinText resignFirstResponder];
+        [self.creditCardNumberText resignFirstResponder];
+        [self.creditCardSecurityCodeText resignFirstResponder];
         
         int pickerY = 200;
         if (self.isIphone5) {
@@ -419,12 +335,12 @@
 -(NSString *)creditCardStatus{
     @try {
         
-        if ([self.securityCodeTextField.text isEqualToString:@""] && [self.cardNumberTextField.text isEqualToString:@""]){
+        if ([self.creditCardSecurityCodeText.text isEqualToString:@""] && [self.creditCardPinText.text isEqualToString:@""] && [self.creditCardNumberText.text isEqualToString:@""]){
             
             return @"empty";
         }else{
             //At least one is entered, must all be entered
-            if (![self.securityCodeTextField.text isEqualToString:@""]   && ![self.cardNumberTextField.text isEqualToString:@""]){
+            if (![self.creditCardSecurityCodeText.text isEqualToString:@""] && ![self.creditCardPinText.text isEqualToString:@""] && ![self.creditCardNumberText.text isEqualToString:@""]){
                 return @"valid";
             }else{
                 return @"invalid";
@@ -463,10 +379,72 @@
 }
 
 
+-(void)addCard{
+    @try {
+        
+        
+        if (self.creditDebitSegment.selectedSegmentIndex == -1) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit?" message:@"Please select whether this is a credit or debit card." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else{
+            
+            if ([[self creditCardStatus] isEqualToString:@"valid"]) {
+                
+                
+                if ([self luhnCheck:self.creditCardNumberText.text]) {
+                    
+                
+                    NSString *creditDebitString = @"";
+                    
+                    if (self.creditDebitSegment.selectedSegmentIndex == 0) {
+                        creditDebitString = @"Credit";
+                    }else{
+                        creditDebitString = @"Debit";
+                    }
+                    
+                    NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
+                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                    [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
+                    
+                    [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
+                    NSString *action = [NSString stringWithFormat:@"Add %@ Card", creditDebitString];
+                    [ArcClient trackEvent:action];
+                    
+                    
+                }else{
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card" message:@"Please enter a valid card number." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    
+                }
+             
 
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
 
+        }
+        
+     
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"AddCreditCard.addCard" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
 
-
+-(void)popNow{
+    @try {
+        
+        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+        tmp.creditCardAdded = YES;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"AddCreditCard.popNow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
 
 
 
@@ -493,65 +471,4 @@
 	return ((oddSum + evenSum) % 10 == 0);
 }
 
-
-
-
-
--(void)saveCardAction{
-    
-    
-    if (self.cardTypesSegmentedControl.selectedSegmentIndex == -1) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit?" message:@"Please select whether this is a credit or debit card." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-    }else{
-        
-        if ([[self creditCardStatus] isEqualToString:@"valid"]) {
-            
-            
-            if ([self luhnCheck:self.cardNumberTextField.text]) {
-                
-                
-                [self runEdit];
-                
-                
-                
-                
-            }else{
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card" message:@"Please enter a valid card number." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-                
-            }
-            
-            
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-        }
-        
-    }
-    
-    
-    
-}
-
--(void)runEdit{
-    
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [mainDelegate deleteCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
-    
-    NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-
-    NSString *creditDebitString = @"Credit";
-    
-    if (self.cardTypesSegmentedControl.selectedSegmentIndex == 1) {
-        creditDebitString = @"Debit";
-    }
-    
-    [mainDelegate insertCreditCardWithNumber:self.cardNumberTextField.text andSecurityCode:self.securityCodeTextField.text andExpiration:expiration andPin:self.oldPin andCreditDebit:creditDebitString];
-    
-    SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-    tmp.creditCardEdited = YES;
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
 @end
