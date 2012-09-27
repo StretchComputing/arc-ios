@@ -59,6 +59,7 @@
             
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
+            [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
             [self.navigationController dismissModalViewControllerAnimated:NO];

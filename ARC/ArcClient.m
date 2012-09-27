@@ -368,19 +368,39 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
             [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
         }
 
-        [self displayErrorsToAdmins];
+        [self displayErrorsToAdmins:response];
 }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
-- (void)displayErrorsToAdmins {
+- (void)displayErrorsToAdmins:(NSDictionary *)response {
+    if([self admin]) {
+        NSLog(@"user is an admin");
+        
+        NSMutableString* errorMsg = [NSMutableString string];
+        NSArray *errorArr = [response valueForKey:@"Errors"];
+        NSEnumerator *e = [errorArr objectEnumerator];
+        NSDictionary *dict;
+        while (dict = [e nextObject]) {
+            int code = [[dict valueForKey:@"Code"] intValue];
+            NSString *category = [[dict valueForKey:@"Category"] stringValue];
+            [errorMsg appendFormat:@"code:%d category:%@", code, category];
+        }
+        
+        if([errorMsg length] > 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"For Admins Only"  message:[NSString stringWithString:errorMsg] delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
+        
+    }
     
-    // TODO if Admin, display all errors
-    BOOL isAdmin = NO;
-    if(isAdmin) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Admin Only Errors?"  message:@"Here is where the errors will go" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+}
+
+- (void)displayErrorMessageToAdmins:(NSString *)errorMsg {
+    if([self admin]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"For Admins Only"  message:errorMsg delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [alert show];
     }
     
@@ -421,7 +441,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
         
-        [self displayErrorsToAdmins];
+        [self displayErrorMessageToAdmins:error.localizedDescription];
 
     }
     @catch (NSException *e) {
@@ -536,11 +556,15 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
             NSDictionary *customer = [response valueForKey:@"Results"];
             NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
             NSString *customerToken = [customer valueForKey:@"Token"];
+            BOOL admin = [[customer valueForKey:@"Admin"] boolValue];
+            admin = YES;
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             
             [prefs setObject:customerId forKey:@"customerId"];
             [prefs setObject:customerToken forKey:@"customerToken"];
+            NSNumber *adminAsNum = [NSNumber numberWithBool:admin];
+            [prefs setObject:adminAsNum forKey:@"admin"];
             [prefs synchronize];
             
             //Add this customer to the DB
@@ -726,11 +750,12 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
 -(NSString *) authHeader {
     @try {
         
-        if ([self customerToken]) {
-            NSString *stringToEncode = [@"customer:" stringByAppendingString:[self customerToken]];
+        NSString *customerToken = [self customerToken];
+        if (customerToken) {
+            NSString *stringToEncode = [@"customer:" stringByAppendingString:customerToken];
             NSString *authentication = [self encodeBase64:stringToEncode];
             
-            return [@"Basic " stringByAppendingString:[self customerToken]];
+            return [@"Basic " stringByAppendingString:customerToken];
             return authentication;
         }else{
             return @"";
@@ -768,6 +793,19 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.customerToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @"";
+    }
+}
+
+-(BOOL) admin {
+    @try {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        BOOL admin = [[prefs valueForKey:@"admin"] boolValue];
+        return admin;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.admin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return NO;
     }
 }
 
