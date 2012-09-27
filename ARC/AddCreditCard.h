@@ -21,7 +21,6 @@
 @property BOOL isExpirationMonth;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationMonthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationYearLabel;
-- (IBAction)endText;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardSecurityCodeText;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardPinText;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardNumberText;
@@ -31,7 +30,7 @@
 
 - (IBAction)editBegin:(id)sender;
 - (IBAction)editEnd:(id)sender;
-
+- (IBAction)endText;
 -(IBAction)changeExpiration:(UIButton *)sender;
 -(IBAction)addCard;
 

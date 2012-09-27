@@ -539,7 +539,11 @@
             //success
             self.errorLabel.text = @"";
             
+            NSString *points = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] stringValue];
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            [prefs setValue:points forKey:@"pointsEarned"];
+            [prefs synchronize];
+            
             
             if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
                 if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {

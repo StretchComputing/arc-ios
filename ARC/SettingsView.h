@@ -14,6 +14,8 @@
 @property BOOL dwollaSuccess;
 @property BOOL creditCardAdded;
 @property BOOL creditCardDeleted;
+@property BOOL creditCardEdited;
+
 
 @property BOOL isIos6;
 

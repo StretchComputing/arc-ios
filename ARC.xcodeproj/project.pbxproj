@@ -49,6 +49,8 @@
 		9096A0CA15F940FE00630AF6 /* CorbelBoldLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0C915F940FE00630AF6 /* CorbelBoldLabel.m */; };
 		9096A0CD15F9421E00630AF6 /* LucidaLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0CC15F9421E00630AF6 /* LucidaLabel.m */; };
 		9096A0D015F9422B00630AF6 /* LucidaBoldLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0CF15F9422B00630AF6 /* LucidaBoldLabel.m */; };
+		9097099D1610B3270092A970 /* CreatePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9097099C1610B3270092A970 /* CreatePinView.m */; };
+		909709A41610E6B30092A970 /* ValidatePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909709A31610E6B30092A970 /* ValidatePinView.m */; };
 		90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F35159777BC00FC1D49 /* UIKit.framework */; };
 		90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F37159777BC00FC1D49 /* Foundation.framework */; };
 		90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F39159777BC00FC1D49 /* CoreGraphics.framework */; };
@@ -194,6 +196,10 @@
 		9096A0CC15F9421E00630AF6 /* LucidaLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LucidaLabel.m; sourceTree = "<group>"; };
 		9096A0CE15F9422B00630AF6 /* LucidaBoldLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LucidaBoldLabel.h; sourceTree = "<group>"; };
 		9096A0CF15F9422B00630AF6 /* LucidaBoldLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LucidaBoldLabel.m; sourceTree = "<group>"; };
+		9097099B1610B3260092A970 /* CreatePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePinView.h; sourceTree = "<group>"; };
+		9097099C1610B3270092A970 /* CreatePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePinView.m; sourceTree = "<group>"; };
+		909709A21610E6B30092A970 /* ValidatePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidatePinView.h; sourceTree = "<group>"; };
+		909709A31610E6B30092A970 /* ValidatePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidatePinView.m; sourceTree = "<group>"; };
 		90993F31159777BC00FC1D49 /* ARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90993F35159777BC00FC1D49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90993F37159777BC00FC1D49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -518,6 +524,10 @@
 				909456B415FEC0710059E65C /* CorbelTextView.m */,
 				908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */,
 				908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */,
+				9097099B1610B3260092A970 /* CreatePinView.h */,
+				9097099C1610B3270092A970 /* CreatePinView.m */,
+				909709A21610E6B30092A970 /* ValidatePinView.h */,
+				909709A31610E6B30092A970 /* ValidatePinView.m */,
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
@@ -777,6 +787,8 @@
 				908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */,
 				90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */,
 				9046C35B160A0579008BAE4D /* HelpViewNew.m in Sources */,
+				9097099D1610B3270092A970 /* CreatePinView.m in Sources */,
+				909709A41610E6B30092A970 /* ValidatePinView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

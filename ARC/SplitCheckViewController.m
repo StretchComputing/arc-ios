@@ -349,6 +349,11 @@
     double tip = [self.dollarTipText.text doubleValue];
     self.yourPayment = [self.dollarYourPaymentText.text doubleValue];
     
+    if (self.yourPayment > self.amountDue && self.yourPayment != 0.0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Paid Too Much" message:@"You cannot pay more than is due.  Check the 'Amount Remaining' above, and enter a value less than or equal to that!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        self.yourPayment = 0.0;
+    }
     if (self.yourPayment < 0.0) {
         self.yourPayment = 0.0;
     }
@@ -403,9 +408,28 @@
         
         if (buttonIndex == 0) {
             //Dwolla
-            [rSkybox addEventToSession:@"selectedDwollaForPayment"];
             
-            [self performSegueWithIdentifier:@"dollarGoPayDwolla" sender:self];
+            NSString *token = @"";
+            @try {
+                token = [DwollaAPI getAccessToken];
+            }
+            @catch (NSException *exception) {
+                token = nil;
+            }
+            
+            
+            if ((token == nil) || [token isEqualToString:@""]) {
+                
+                [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+                
+                
+            }else{
+                [rSkybox addEventToSession:@"selectedDwollaForPayment"];
+
+                [self performSegueWithIdentifier:@"dollarGoPayDwolla" sender:self];
+                
+            }
+            
         }else {
             [rSkybox addEventToSession:@"selectedCreditCardForPayment"];
             

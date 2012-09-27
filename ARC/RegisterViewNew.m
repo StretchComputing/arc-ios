@@ -14,6 +14,7 @@
 #import "ArcClient.h"
 #import "rSkybox.h"
 #import "NSString+CharArray.h"
+#import "CreatePinView.h"
 
 @interface RegisterViewNew ()
 
@@ -50,6 +51,11 @@
             }
         }
         
+        if (self.fromCreditCard) {
+            self.fromCreditCard = NO;
+            [self goHome];
+        }
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterView.viewDidAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -62,6 +68,8 @@
 -(void)registerComplete:(NSNotification *)notification{
     @try {
         
+        [self.activity stopAnimating];
+        
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
         NSString *status = [responseInfo valueForKey:@"status"];
@@ -72,15 +80,18 @@
         
         if ([status isEqualToString:@"1"]) {
             //success
-            
-            if ([[self creditCardStatus] isEqualToString:@"valid"]) {
-                //Save credit card info
-                [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:1.0];
-            }
+            self.registerSuccess = YES;
             
             if (self.dwollaSegControl.selectedSegmentIndex == 1) {
-                [self goHome];
+
+                if ([[self creditCardStatus] isEqualToString:@"valid"]) {
+                    //Save credit card info
+                    [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:0.0];
+                }
+                
             }
+           
+
             
         }else{
             self.activityView.hidden = NO;
@@ -182,6 +193,7 @@
 }
 
 - (IBAction)registerNow:(id)sender {
+
     @try {
         
         [rSkybox addEventToSession:@"initiateRegister"];
@@ -207,6 +219,11 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit" message:@"Please select credit or debit for your card." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
+        }else if (self.dwollaSegControl.selectedSegmentIndex == -1){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Choose Payment Type" message:@"Please select credit card or Dwolla for your payment type." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
         }else{
             
             
@@ -215,6 +232,7 @@
                 
                 self.activityView.hidden = NO;
                 self.errorLabel.hidden = YES;
+                [self.activity startAnimating];
                 [self runRegister];
                 
                 
@@ -233,9 +251,13 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterView.registerNow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+
 }
 
 -(void)runRegister{
+    
+   
+    
     @try{
         [self.firstNameText resignFirstResponder];
         [self.lastNameText resignFirstResponder];
@@ -277,11 +299,15 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegiterView.runRegister" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+     
 }
 
 
 -(void)addCreditCard{
     @try {
+        
+        CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
+        [self.navigationController pushViewController:tmp animated:NO];
         
         NSString *creditDebitString = @"Credit";
         
@@ -290,8 +316,13 @@
         }
         
         NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
+    
+        
+        tmp.creditDebitString = creditDebitString;
+        tmp.expiration = expiration;
+        tmp.securityCode = self.creditCardSecurityCodeText.text;
+        tmp.cardNumber = self.creditCardNumberText.text;
+        tmp.fromRegister = YES;
         
     }
     @catch (NSException *e) {
@@ -381,7 +412,7 @@
                 myPoint = CGPointMake(0, 300);
                 
             }else if (self.creditCardSecurityCodeText == sender){
-                myPoint = CGPointMake(0, 510);
+                myPoint = CGPointMake(0, 415);
                 
             }else if (self.creditCardPinText == sender){
                 myPoint = CGPointMake(0, 520);
@@ -660,12 +691,12 @@
 -(NSString *)creditCardStatus{
     @try {
         
-        if ([self.creditCardSecurityCodeText.text isEqualToString:@""] && [self.creditCardPinText.text isEqualToString:@""] && [self.creditCardNumberText.text isEqualToString:@""]){
+        if ([self.creditCardSecurityCodeText.text isEqualToString:@""] && [self.creditCardNumberText.text isEqualToString:@""]){
             
             return @"empty";
         }else{
             //At least one is entered, must all be entered
-            if (![self.creditCardSecurityCodeText.text isEqualToString:@""] && ![self.creditCardPinText.text isEqualToString:@""] && ![self.creditCardNumberText.text isEqualToString:@""]){
+            if (![self.creditCardSecurityCodeText.text isEqualToString:@""] && ![self.creditCardNumberText.text isEqualToString:@""]){
                 return @"valid";
             }else{
                 return @"invalid";
@@ -934,7 +965,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     if (self.isCreditCard) {
-        return 5;
+        return 4;
     }else{
         return 3;
     }
@@ -944,7 +975,7 @@
     
     if (section == 2) {
         
-        if (!self.isCreditCard) {
+        if (self.dwollaSegControl.selectedSegmentIndex == 0) {
             UIView *tmp = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
             tmp.backgroundColor = [UIColor clearColor];
             UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
