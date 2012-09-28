@@ -608,11 +608,6 @@
                                 <segue destination="gG4-v6-UND" kind="modal" id="KMh-NW-OM7"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Test" id="H6w-6J-ebI">
-                            <connections>
-                                <segue destination="CSm-3p-pEO" kind="push" id="8g3-u9-MyD"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activity" destination="OGZ-GP-dla" id="GHQ-6e-HEG"/>
@@ -3673,10 +3668,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Oi0-YR-QFH"/>
-        <segue reference="8g3-u9-MyD"/>
         <segue reference="NwH-xf-Eq4"/>
+        <segue reference="FRd-J0-OXc"/>
         <segue reference="pOd-6P-e5i"/>
         <segue reference="yO3-MZ-Mi9"/>
-        <segue reference="FRd-J0-OXc"/>
+        <segue reference="O7d-m2-fj4"/>
     </inferredMetricsTieBreakers>
 </document>

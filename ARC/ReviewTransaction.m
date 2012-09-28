@@ -815,6 +815,7 @@
 
 -(void)autoPostFacebook{
     
+    //change
     @try {
         self.store = [[ACAccountStore alloc] init];
         
@@ -875,7 +876,6 @@
     @catch (NSException *exception) {
         
     }
-  
        
 }
 @end

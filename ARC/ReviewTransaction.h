@@ -4,7 +4,7 @@
 //
 //  Created by Nick Wroblewski on 6/29/12.
 //  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
-//
+// change
 
 #import <UIKit/UIKit.h>
 #import "LucidaLabel.h"
