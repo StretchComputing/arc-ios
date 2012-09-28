@@ -4,9 +4,10 @@
 //
 //  Created by Nick Wroblewski on 6/26/12.
 //  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
-//
+//  change
 
 #import <UIKit/UIKit.h>
+#import <Accounts/Accounts.h>
 
 @interface SettingsView : UITableViewController
 
@@ -16,6 +17,8 @@
 @property BOOL creditCardDeleted;
 @property BOOL creditCardEdited;
 
+@property (nonatomic, strong) NSArray *accounts;
+@property (nonatomic, strong) ACAccountStore *store;
 
 @property BOOL isIos6;
 

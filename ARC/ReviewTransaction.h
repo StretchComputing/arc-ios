@@ -4,11 +4,12 @@
 //
 //  Created by Nick Wroblewski on 6/29/12.
 //  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
-//
+// change
 
 #import <UIKit/UIKit.h>
 #import "LucidaLabel.h"
 #import "CorbelBoldLabel.h"
+#import <Accounts/Accounts.h>
 
 @interface ReviewTransaction : UIViewController <UITextViewDelegate>
 - (IBAction)submitReview:(id)sender;
@@ -17,6 +18,9 @@
 -(IBAction)sliderValueChanged:(UISlider *)sender;
 
 @property BOOL isIos6;
+
+@property (nonatomic, strong) NSArray *accounts;
+@property (nonatomic, strong) ACAccountStore *store;
 
 @property (nonatomic, strong) NSNumber *foodInt;
 @property (nonatomic, strong) NSNumber *drinksInt;
