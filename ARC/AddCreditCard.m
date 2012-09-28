@@ -409,7 +409,7 @@
                     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
                     [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
                     
-                    [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
+                    //[self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
                     NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
                     [ArcClient trackEvent:action];
 
@@ -459,8 +459,8 @@
         tmp.cardNumber = self.creditCardNumberText.text;
         tmp.fromRegister = NO;
         
-        NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
-        [ArcClient trackEvent:action];
+       // NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
+        //[ArcClient trackEvent:action];
         
         [self.navigationController pushViewController:tmp animated:NO];
 

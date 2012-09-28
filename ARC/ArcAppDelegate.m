@@ -73,6 +73,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    self.logout = @"";
+    
     [[UIApplication sharedApplication]
      setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:NO];
     
