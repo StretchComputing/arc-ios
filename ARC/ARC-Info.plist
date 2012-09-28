@@ -54,7 +54,6 @@
 	<string>ArcMainStoryboard</string>
 	<key>UIPrerenderedIcon</key>
 	<false/>
-
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
 	<key>UISupportedInterfaceOrientations</key>

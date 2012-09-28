@@ -398,7 +398,7 @@
                 if ([self luhnCheck:self.creditCardNumberText.text]) {
                     
                 
-<<<<<<< HEAD
+
                     NSString *creditDebitString = @"";
                     
                     if (self.creditDebitSegment.selectedSegmentIndex == 0) {
@@ -414,11 +414,10 @@
                     [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
                     NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
                     [ArcClient trackEvent:action];
-=======
+
                     [self goPin];
                     
                   
->>>>>>> nickprivate
                     
                     
                 }else{

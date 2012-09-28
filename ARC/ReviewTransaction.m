@@ -35,7 +35,7 @@
         if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
             self.postFacebookButton.hidden = YES;
             self.postFacebookPoints.hidden  = YES;
-            //[self autoPostFacebook];
+            [self autoPostFacebook];
             //self.facebookInt = @(5);
         }
     }else{
@@ -804,34 +804,71 @@
 
 -(void)autoPostFacebook{
     
-    /*
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    
-    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-        if(granted) {
-            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
+  
+    @try {
+        NSLog(@"Posting To Facebook");
+        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+        
+        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+        
+        //If get error 190, token is invalid, call [ACAccountStore renewCredentialsForAccount:withHandler:]
+        //on Completion: - CredentialRenewed, CredentialRejected, CredentialRenewalFailed
+        
+     
+        NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                        @"515025721859862", ACFacebookAppIdKey,
+                                        [NSArray arrayWithObjects:@"email", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
+     
+        [accountStore requestAccessToAccountsWithType:accountType options:options completion:^(BOOL granted, NSError *error) {
             
-            if ([accountsArray count] > 0) {
-                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
+            
+            NSLog(@"Completion");
+            
+            
+            if(granted) {
                 
-                SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
-                                                            requestMethod:SLRequestMethodPOST
-                                                                      URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
-                                                               parameters:[NSDictionary dictionaryWithObject:@"new test" forKey:@"message"]];
+                NSLog(@"Logged In");
                 
-                [postRequest setAccount:twitterAccount];
+                NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
                 
-                [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                    //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
-                }];
-                
+                if ([accountsArray count] > 0) {
+                    ACAccount *facebookAccount = [accountsArray lastObject];
+                    
+                    
+                    NSDictionary *parameters = @{@"message": @"This is a test post"};
+                    
+                    
+                    
+                    NSURL *requestURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
+                    
+                    SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
+                                                                requestMethod:SLRequestMethodPOST
+                                                                          URL:requestURL
+                                                                   parameters:parameters];
+                    
+                    [postRequest setAccount:facebookAccount];
+                    
+                    [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                        NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                        //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
+                    }];
+                    
+                }else{
+                  
+                    
+                }
+            }else{
+                NSLog(@"FAIL");
+                NSLog(@"Error: %@", error);
             }
-        }
-    }];
-     */
+        }];
+
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Exceoption: %@", exception);
+    }
+ 
+      
     
 }
 @end
