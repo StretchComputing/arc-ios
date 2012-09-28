@@ -278,68 +278,116 @@
 
 - (IBAction)facebookSwitchSelected{
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    if (self.isIos6) {
+    @try {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
-        if (self.facebookSwitch.on) {
+        if (self.isIos6) {
             
-            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+            if (self.facebookSwitch.on) {
                 
-                [prefs setValue:@"yes" forKey:@"autoPostFacebook"];
+                if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                    
+                    self.store = [[ACAccountStore alloc] init];
+                    
+                    ACAccountType *accType = [self.store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+                    
+                    NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                    @"515025721859862", ACFacebookAppIdKey,
+                                                    [NSArray arrayWithObjects:@"email", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
+                    
+                    [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
+                        
+                        if (granted && error == nil) {
+                            NSLog(@"Granted");
+                            
+                            [prefs setValue:@"yes" forKey:@"autoPostFacebook"];
+                            
+                            
+                        } else {
+                            
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication Failed" message:@"Your Facebook account could not be authenticated.  Please make sure your device is logged into facebook, and turned 'On' for ARC.  Thank you!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                                [alert show];
+                                
+                                self.facebookSwitch.on = NO;
+                                
+                            });
+                            
+                            
+                            NSLog(@"Error: %@", [error description]);
+                            NSLog(@"Access denied");
+                        }
+                    }];
+                    
+                    
+                    
+                }else{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign In Required" message:@"Please log into your Facebook account in your iPhone's settings to use this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    self.facebookSwitch.on = NO;
+                }
                 
             }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign In Required" message:@"Please log into your Facebook account in your iPhone's settings to use this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
+                
+                [prefs setValue:@"no" forKey:@"autoPostFacebook"];
             }
-        
-        }else{
             
-            [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+            
+            [prefs synchronize];
+            
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"ARC only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
         }
-        
-        
-        [prefs synchronize];
-        
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"ARC only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
-        self.facebookSwitch.on = NO;
+
     }
-    
+    @catch (NSException *exception) {
+        
+
+    }
+
 }
 - (IBAction)twitterSwitchSelected{
     
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    if (self.isIos6) {
+    //change
+    @try {
         
-        if (self.twitterSwitch.on) {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        if (self.isIos6) {
             
-            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+            if (self.twitterSwitch.on) {
                 
-                [prefs setValue:@"yes" forKey:@"autoPostTwitter"];
+                if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                    
+                    [prefs setValue:@"yes" forKey:@"autoPostTwitter"];
+                    
+                }else{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign In Required" message:@"Please log into your Twitter account in your iPhone's settings to use this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }
                 
             }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign In Required" message:@"Please log into your Twitter account in your iPhone's settings to use this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
+                
+                [prefs setValue:@"no" forKey:@"autoPostTwitter"];
             }
             
-        }else{
             
-            [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+            [prefs synchronize];
+            
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"ARC only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
         }
         
-        
-        [prefs synchronize];
-        
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"ARC only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
+
     }
-    
-    
+    @catch (NSException *exception) {
+        
+    }
+      
     
 }
 
