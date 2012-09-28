@@ -14,7 +14,6 @@
 #import "rSkybox.h"
 #import <Twitter/Twitter.h>
 #import <Social/Social.h>
-#import <Accounts/Accounts.h>
 
 @interface ReviewTransaction ()
 
@@ -587,8 +586,8 @@
         
         if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
             if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
-                [self autoPostFacebook];
-                self.facebookInt = @(5);
+                //[self autoPostFacebook];
+                //self.facebookInt = @(5);
             }
         }else{
             [prefs setValue:@"no" forKey:@"autoPostFacebook"];
@@ -597,8 +596,8 @@
         
         if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
             if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
-                [self autPostTwitter];
-                self.twitterInt = @(5);
+                //[self autPostTwitter];
+                //self.twitterInt = @(5);
             }
         }else{
             [prefs setValue:@"no" forKey:@"autoPostTwitter"];
@@ -765,15 +764,72 @@
 
 
 -(void)autPostTwitter{
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
     
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    @try {
+        ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+        
+        ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        
+        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+            if(granted) {
+                NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
+                
+                if ([accountsArray count] > 0) {
+                    
+                    NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+                    NSNumber *avgRating = [self getAverageRating];
+                    if([avgRating doubleValue] > 0) {
+                        tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+                    }
+                    
+                    
+                    ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
+                    
+                    SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                                requestMethod:SLRequestMethodPOST
+                                                                          URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
+                                                                   parameters:[NSDictionary dictionaryWithObject:tweet forKey:@"status"]];
+                    
+                    [postRequest setAccount:twitterAccount];
+                    
+                    [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                        NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                        //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
+                    }];
+                    
+                }
+            }else{
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+                [prefs synchronize];
+            }
+        }];
+
+    }
+    @catch (NSException *exception) {
+        
+    }
+  
+   
+}
+
+-(void)autoPostFacebook{
     
-    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-        if(granted) {
-            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-            
-            if ([accountsArray count] > 0) {
+    @try {
+        self.store = [[ACAccountStore alloc] init];
+        
+        ACAccountType *accType = [self.store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+        
+        NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                        @"515025721859862", ACFacebookAppIdKey,
+                                        [NSArray arrayWithObjects:@"publish_stream", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
+        
+        [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
+            if (granted && error == nil) {
+                NSLog(@"Granted");
+                
+                ACAccount *facebookAccount = [self.store.accounts objectAtIndex:0];
+                
                 
                 NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
                 NSNumber *avgRating = [self getAverageRating];
@@ -782,56 +838,44 @@
                 }
                 
                 
-                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
+                NSDictionary *parameters = @{@"message": tweet};
                 
-                SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                            requestMethod:SLRequestMethodPOST
-                                                                      URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
-                                                               parameters:[NSDictionary dictionaryWithObject:tweet forKey:@"status"]];
+                NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
                 
-                [postRequest setAccount:twitterAccount];
+                SLRequest *feedRequest = [SLRequest
+                                          requestForServiceType:SLServiceTypeFacebook
+                                          requestMethod:SLRequestMethodPOST
+                                          URL:feedURL
+                                          parameters:parameters];
                 
-                [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                    //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
-                }];
+                feedRequest.account = facebookAccount;
                 
+                [feedRequest performRequestWithHandler:^(NSData *responseData,
+                                                         NSHTTPURLResponse *urlResponse, NSError *error)
+                 {
+                     // Handle response
+                     NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                     NSLog(@"Output: %@", output);
+                     
+                 }];
+                
+                
+                
+            } else {
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+                [prefs synchronize];
+                
+                NSLog(@"Error: %@", [error description]);
+                NSLog(@"Access denied");
             }
-        }
-    }];
+        }];
 
-}
-
--(void)autoPostFacebook{
-    
-    /*
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    
-    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-        if(granted) {
-            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-            
-            if ([accountsArray count] > 0) {
-                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
-                
-                SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
-                                                            requestMethod:SLRequestMethodPOST
-                                                                      URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
-                                                               parameters:[NSDictionary dictionaryWithObject:@"new test" forKey:@"message"]];
-                
-                [postRequest setAccount:twitterAccount];
-                
-                [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                    //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
-                }];
-                
-            }
-        }
-    }];
-     */
-    
+    }
+    @catch (NSException *exception) {
+        
+    }
+  
+       
 }
 @end

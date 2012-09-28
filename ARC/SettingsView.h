@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Accounts/Accounts.h>
 
 @interface SettingsView : UITableViewController
 
@@ -16,6 +17,8 @@
 @property BOOL creditCardDeleted;
 @property BOOL creditCardEdited;
 
+@property (nonatomic, strong) NSArray *accounts;
+@property (nonatomic, strong) ACAccountStore *store;
 
 @property BOOL isIos6;
 
