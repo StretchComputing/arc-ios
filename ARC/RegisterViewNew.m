@@ -67,19 +67,16 @@
 
 -(void)registerComplete:(NSNotification *)notification{
     @try {
-        
         [self.activity stopAnimating];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
-        
         NSString *status = [responseInfo valueForKey:@"status"];
         
-        
-        [[NSUserDefaults standardUserDefaults] setValue:self.emailText.text forKey:@"customerEmail"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        if ([status isEqualToString:@"1"]) {
-            //success
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            [[NSUserDefaults standardUserDefaults] setValue:self.emailText.text forKey:@"customerEmail"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             self.registerSuccess = YES;
             
             if (self.dwollaSegControl.selectedSegmentIndex == 1) {
@@ -90,13 +87,22 @@
                 }
                 
             }
-           
-
-            
-        }else{
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == USER_ALREADY_EXISTS) {
+                errorMsg = @"Email Address already used.";
+            } else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+           // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
             self.activityView.hidden = NO;
             self.errorLabel.hidden = NO;
-            self.errorLabel.text = @"*Error registering, please try again.";
+            self.errorLabel.text = errorMsg;
             self.registerSuccess = NO;
         }
     }
@@ -111,10 +117,7 @@
     @try {
         
         [rSkybox addEventToSession:@"viewRegisterScreen"];
-        
-  
-        
-        
+    
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Register"];
 		self.navigationItem.backBarButtonItem = temp;
         

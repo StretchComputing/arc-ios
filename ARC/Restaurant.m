@@ -319,9 +319,8 @@
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
         
-        if ([status isEqualToString:@"1"]) {
-            //success
-            
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
             NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] objectAtIndex:0];
             
             self.myInvoice = [[Invoice alloc] init];
@@ -347,9 +346,21 @@
             self.wentInvoice = YES;
             [self performSegueWithIdentifier:@"goInvoice" sender:self];
             
-        }else{
-            
-            self.errorLabel.text = @"*Invoice not found, please try again.";
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            // TODO create static values maybe in ArcClient
+            if(errorCode == CANNOT_GET_INVOICE) {
+                errorMsg = @"Can not find invoice.";
+            } else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            self.errorLabel.text = errorMsg;
         }
     }
     @catch (NSException *e) {

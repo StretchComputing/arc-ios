@@ -3287,11 +3287,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="O7d-m2-fj4"/>
-        <segue reference="pOd-6P-e5i"/>
-        <segue reference="Oi0-YR-QFH"/>
         <segue reference="NwH-xf-Eq4"/>
+        <segue reference="Oi0-YR-QFH"/>
         <segue reference="FRd-J0-OXc"/>
-        <segue reference="yO3-MZ-Mi9"/>
+        <segue reference="pOd-6P-e5i"/>
+        <segue reference="O7d-m2-fj4"/>
+        <segue reference="8zb-Bv-gLK"/>
     </inferredMetricsTieBreakers>
 </document>

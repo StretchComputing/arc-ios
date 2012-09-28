@@ -535,7 +535,8 @@
         
         [self.activity stopAnimating];
         
-        if ([status isEqualToString:@"1"]) {
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
             //success
             self.errorLabel.text = @"";
             
@@ -568,8 +569,16 @@
             Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
             tmp.successReview = YES;
             [self.navigationController popToRootViewControllerAnimated:NO];
-        }else{
-            self.errorLabel.text = @"*Error submitting review.";
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            errorMsg = ARC_ERROR_MSG;
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            self.errorLabel.text = errorMsg;
         }
     }
     @catch (NSException *e) {

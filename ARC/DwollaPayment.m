@@ -504,14 +504,30 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         
         [self.activity stopAnimating];
-        
-        if ([status isEqualToString:@"1"]) {
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
             //success
             self.errorLabel.text = @"";
             
             [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
-        }else{
-            self.errorLabel.text = @"*Error submitting payment.";
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            // TODO create static values maybe in ArcClient
+            if(errorCode == CANNOT_PROCESS_PAYMENT) {
+                errorMsg = @"Can not process payment.";
+            } else if(errorCode == CANNOT_TRANSFER_TO_SAME_ACCOUNT) {
+                errorMsg = @"Can not transfer to your own account.";
+            }
+            else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            self.errorLabel.text = errorMsg;
         }
     }
     @catch (NSException *e) {

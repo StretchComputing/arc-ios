@@ -261,16 +261,31 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         
         [self.activity stopAnimating];
-        if ([status isEqualToString:@"1"]) {
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
             //success
             [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:@"customerEmail"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
             [self performSegueWithIdentifier: @"signIn" sender: self];
             //Do the next thing (go home?)
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INCORRECT_LOGIN_INFO) {
+                errorMsg = @"Invalid Email Address/Password";
+            } else {
+                // TODO -- programming error client/server coordination -- rskybox call
+                errorMsg = ARC_ERROR_MSG;
+            }
         } else {
-            self.errorLabel.text = @"*Invalid credentials, please try again.";
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
         }
+        
+        if([errorMsg length] > 0) {
+            self.errorLabel.text = errorMsg;
+        }
+    
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewController.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

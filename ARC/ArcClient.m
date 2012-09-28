@@ -18,6 +18,14 @@ NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
 NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
 //NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; // Servers API: Jim's Place
 
+int const USER_ALREADY_EXISTS = 120;
+int const INCORRECT_LOGIN_INFO = 310;
+int const CANNOT_GET_INVOICE = 190;
+int const CANNOT_PROCESS_PAYMENT = 100;
+int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE = 200; // for credit card
+int const CANNOT_TRANSFER_TO_SAME_ACCOUNT = 200;
+NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
+
 @implementation ArcClient
 
 
@@ -299,80 +307,116 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         NSDictionary *responseInfo;
         NSString *notificationType;
         
-        if(self.httpStatusCode == 200 || self.httpStatusCode == 201) {
-            // success scenario
-        } else {
-            // something went wrong, so let's figure out what
-            if(self.httpStatusCode == 422) {
-                // application error scenario
-            } else {
-                // failure scenario -- calling routine must abort
-            }
-        }
-        
-        
+        BOOL httpSuccess = self.httpStatusCode == 200 || self.httpStatusCode == 201 || self.httpStatusCode == 422;
         
         BOOL postNotification = YES;
-        
-        if(api == CreateCustomer) {
-            if (response) {
+        if(api == CreateCustomer) { //jpw5
+            if (response && httpSuccess) {
                 responseInfo = [self createCustomerResponse:response];
             }
             notificationType = @"registerNotification";
         } else if(api == GetCustomerToken) {
-            if (response) {
+            if (response && httpSuccess) {
                 responseInfo = [self getCustomerTokenResponse:response];
             }
             notificationType = @"signInNotification";
         } else if(api == GetMerchantList) {
-            if (response) {
+            if (response && httpSuccess) {
                 responseInfo = [self getMerchantListResponse:response];
             }
             notificationType = @"merchantListNotification";
         } else if(api == GetInvoice) {
-            if (response) {
+            if (response && httpSuccess) {
                 responseInfo = [self getInvoiceResponse:response];
             }
             notificationType = @"invoiceNotification";
         } else if(api == CreatePayment) {
-            if (response) {
+            if (response && httpSuccess) {
                 responseInfo = [self createPaymentResponse:response];
             }
             notificationType = @"createPaymentNotification";
         } else if(api == CreateReview) {
-            if (response) {
+            if (response && httpSuccess) {
                 responseInfo = [self createReviewResponse:response];
             }
             notificationType = @"createReviewNotification";
         } else if(api == GetPointBalance) {
-            if (response) {
+            if (response && httpSuccess) {
                 responseInfo = [self getPointBalanceResponse:response];
             }
             notificationType = @"getPointBalanceNotification";
         } else if(api == TrackEvent) {
-            if (response) {
+            if (response && httpSuccess) {
                 responseInfo = [self trackEventResponse:response];
             }
             postNotification = NO;
-           // notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
+            // notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
         }else if (api == GetServer){
-            
             postNotification = NO;
-            if (response) {
+            if (response && httpSuccess) {
                 [self setUrl:response];
             }
-            
         }
+        
+        if(!httpSuccess) {
+            // failure scenario -- HTTP error code returned -- for this processing, we don't care which one
+            NSString *errorMsg = [NSString stringWithFormat:@"HTTP Status Code:%d", self.httpStatusCode];
+            responseInfo = @{@"status": @"fail", @"error": @0};
+        } 
 
         if (postNotification) {
             [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
         }
-
+        
         [self displayErrorsToAdmins:response];
 }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    @try {
+        [rSkybox endThreshold:@"ErrorEncountered" logMessage:@"NA" maxValue:0.00];
+        
+        //NSLog(@"Error: %@", error);
+        NSLog(@"Code: %i", error.code);
+        NSLog(@"Description: %@", error.localizedDescription);
+        
+        // TODO make logType a function of the restaurant/location -- not sure the best way to do this yet
+        NSString *logName = [NSString stringWithFormat:@"api.%@.%@", [self apiToString], [self readableErrorCode:error]];
+        [rSkybox sendClientLog:logName logMessage:error.localizedDescription logLevel:@"error" exception:nil];
+        
+        NSDictionary *responseInfo = @{@"status": @"fail", @"error": @0};
+        NSString *notificationType;
+        if(api == CreateCustomer) {
+            notificationType = @"registerNotification";
+        } else if(api == GetCustomerToken) {
+            notificationType = @"signInNotification";
+        } else if(api == GetMerchantList) {
+            notificationType = @"merchantListNotification";
+        } else if(api == GetInvoice) {
+            notificationType = @"invoiceNotification";
+        } else if(api == CreatePayment) {
+            notificationType = @"createPaymentNotification";
+        } else if(api == CreateReview) {
+            notificationType = @"createReviewNotification";
+        } else if(api == GetPointBalance) {
+            notificationType = @"getPointBalanceNotification";
+        } else if(api == TrackEvent) {
+            notificationType = @"trackEventNotification";   // posting notification for now, but nobody is listenting
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+        
+        [self displayErrorMessageToAdmins:logName];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.connection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 - (void)displayErrorsToAdmins:(NSDictionary *)response {
@@ -406,48 +450,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
     
 }
 
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    @try {
-        [rSkybox endThreshold:@"ErrorEncountered" logMessage:@"NA" maxValue:0.00];
-        
-        //NSLog(@"Error: %@", error);
-        NSLog(@"Code: %i", error.code);
-        NSLog(@"Description: %@", error.localizedDescription);
-
-        // TODO make logType a function of the restaurant/location -- not sure the best way to do this yet
-        NSString *logName = [NSString stringWithFormat:@"api.%@.%@", [self apiToString], [self readableErrorCode:error]];
-        [rSkybox sendClientLog:logName logMessage:error.localizedDescription logLevel:@"error" exception:nil];
-
-        NSDictionary *responseInfo = @{@"status": @"fail", @"error": error};
-        NSString *notificationType;
-        if(api == CreateCustomer) {
-            notificationType = @"registerNotification";
-        } else if(api == GetCustomerToken) {
-            notificationType = @"signInNotification";
-        } else if(api == GetMerchantList) {
-            notificationType = @"merchantListNotification";
-        } else if(api == GetInvoice) {
-            notificationType = @"invoiceNotification";
-        } else if(api == CreatePayment) {
-            notificationType = @"createPaymentNotification";
-        } else if(api == CreatePayment) {
-            notificationType = @"createReviewNotification";
-        } else if(api == GetPointBalance) {
-            notificationType = @"getPointBalanceNotification";
-        } else if(api == TrackEvent) {
-            notificationType = @"trackEventNotification";   // posting notification for now, but nobody is listenting
-        }
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
-        
-        [self displayErrorMessageToAdmins:error.localizedDescription];
-
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.connection" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-    
+- (int)getErrorCode:(NSDictionary *)response {
+    int errorCode = 0;
+    NSDictionary *error = [[response valueForKey:@"Errors"] objectAtIndex:0];
+    errorCode = [[error valueForKey:@"Code"] intValue];
+    return errorCode;
 }
 
 -(NSString *)readableErrorCode:(NSError *)error {
@@ -524,24 +531,20 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
             [prefs synchronize];
             
             //Add this customer to the DB
+            // TODO is this still needed?
             [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
             
-            responseInfo = @{@"status": @"1"};
+            responseInfo = @{@"status": @"success"};
         } else {
-            // TODO:: need to pass the Arc Application error to the calling method
-            NSString *message = [response valueForKey:@"Message"];
-            //NSString *message = @"Internal Server Error";
-            NSString *status = @"0";
-            
-            responseInfo = @{@"status": status,
-            @"error": message};
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
         return responseInfo;
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.createCustomerResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @{};
-
     }
 }
 
@@ -557,7 +560,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
             NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
             NSString *customerToken = [customer valueForKey:@"Token"];
             BOOL admin = [[customer valueForKey:@"Admin"] boolValue];
-            admin = YES;
+            //admin = YES; // for testing admin role
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             
@@ -570,15 +573,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
             //Add this customer to the DB
             [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
             
-            responseInfo = @{@"status": @"1"};
+            responseInfo = @{@"status": @"success"};
         } else {
-            // TODO:: need to pass the Arc Application error to the calling method
-            NSString *message = [response valueForKey:@"Message"];
-            //NSString *message = @"Internal Server Error";
-            NSString *status = @"0";
-            
-            responseInfo = @{@"status": status,
-            @"error": message};
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
         return responseInfo;
     }
@@ -596,15 +595,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            responseInfo = @{@"status": @1,
-            @"apiResponse": response};
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
         } else {
-            // TODO:: need to pass the Arc Application error to the calling method
-            NSString *message = [response valueForKey:@"Message"];
-            NSNumber *status = @0;
-            
-            responseInfo = @{@"status": status,
-            @"error": message};
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
         return responseInfo;
     }
@@ -622,15 +617,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            responseInfo = @{@"status": @"1",
-            @"apiResponse": response};
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
         } else {
-            // TODO:: need to pass the Arc Application error to the calling method
-            NSString *message = [response valueForKey:@"Message"];
-            NSString *status = @"0";
-            
-            responseInfo = @{@"status": status,
-            @"error": message};
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
         return responseInfo;
     }
@@ -648,15 +639,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            responseInfo = @{@"status": @"1",
-            @"apiResponse": response};
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
         } else {
-            // TODO:: need to pass the Arc Application error to the calling method
-            NSString *message = [response valueForKey:@"Message"];
-            NSString *status = @"0";
-            
-            responseInfo = @{@"status": status,
-            @"error": message};
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
         return responseInfo;
     }
@@ -673,15 +660,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            responseInfo = @{@"status": @"1",
-            @"apiResponse": response};
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
         } else {
-            // TODO:: need to pass the Arc Application error to the calling method
-            NSString *message = [response valueForKey:@"Message"];
-            NSString *status = @"0";
-            
-            responseInfo = @{@"status": status,
-            @"error": message};
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
         return responseInfo;
     }
@@ -701,15 +684,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            responseInfo = @{@"status": @"1",
-            @"apiResponse": response};
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
         } else {
-            // TODO:: need to pass the Arc Application error to the calling method
-            NSString *message = [response valueForKey:@"Message"];
-            NSString *status = @"0";
-            
-            responseInfo = @{@"status": status,
-            @"error": message};
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
         return responseInfo;
     }
@@ -727,15 +706,11 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
         
         NSDictionary *responseInfo;
         if (success){
-            responseInfo = @{@"status": @"1",
-            @"apiResponse": response};
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
         } else {
-            // TODO:: need to pass the Arc Application error to the calling method
-            NSString *message = [response valueForKey:@"Message"];
-            NSString *status = @"0";
-            
-            responseInfo = @{@"status": status,
-            @"error": message};
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
         return responseInfo;
     }

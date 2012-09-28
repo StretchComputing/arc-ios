@@ -316,16 +316,31 @@
         
         [self.activity stopAnimating];
         
-        if ([status isEqualToString:@"1"]) {
+        NSString *errorMsg= @"";
+        if ([status isEqualToString:@"success"]) {
             //success
             self.errorLabel.text = @"";
             
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
-        }else{
-            self.errorLabel.text = @"*Error submitting payment.";
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            // TODO create static values maybe in ArcClient
+            if(errorCode == CANNOT_PROCESS_PAYMENT) {
+                errorMsg = @"Credit card not approved.";
+            } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
+                errorMsg = @"Merchant does not accept credit card";
+            }
+            else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
         }
         
-
+        if([errorMsg length] > 0) {
+            self.errorLabel.text = errorMsg;
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"CreditCardPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

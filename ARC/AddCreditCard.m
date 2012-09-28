@@ -398,28 +398,7 @@
                 if ([self luhnCheck:self.creditCardNumberText.text]) {
                     
                 
-<<<<<<< HEAD
-                    NSString *creditDebitString = @"";
-                    
-                    if (self.creditDebitSegment.selectedSegmentIndex == 0) {
-                        creditDebitString = @"CREDIT";
-                    }else{
-                        creditDebitString = @"DEBIT";
-                    }
-                    
-                    NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                    [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
-                    
-                    [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-                    NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
-                    [ArcClient trackEvent:action];
-=======
                     [self goPin];
-                    
-                  
->>>>>>> nickprivate
-                    
                     
                 }else{
                     
@@ -465,7 +444,7 @@
         tmp.cardNumber = self.creditCardNumberText.text;
         tmp.fromRegister = NO;
         
-        NSString *action = [NSString stringWithFormat:@"Add %@ Card", creditDebitString];
+        NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
         [ArcClient trackEvent:action];
         
         [self.navigationController pushViewController:tmp animated:NO];

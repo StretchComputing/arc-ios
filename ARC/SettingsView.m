@@ -197,7 +197,8 @@
         
         [self.activity stopAnimating];
         
-        if ([status isEqualToString:@"1"]) {
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
             //success
             NSDictionary *apiResponse = [[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
             
@@ -209,18 +210,18 @@
             self.lifetimePointsLabel.text = [NSString stringWithFormat:@"Lifetime Points: %d", lifetime];
             self.pointsProgressView.progress = (float)balance/900.00;
             self.lifetimePointsProgressView.progress = (float)lifetime/100000.0;
-        }else{
-            
-            int balance = 0;
-            int lifetime = 0;
-            
-            self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
-            
-            self.lifetimePointsLabel.text = [NSString stringWithFormat:@"Lifetime Points: %d", lifetime];
-            self.pointsProgressView.progress = 0.0/900.00;
-            self.lifetimePointsProgressView.progress = 0.0/100000.0;
-
-            //self.errorLabel.text = @"*Error getting point balance payment.";
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            errorMsg = ARC_ERROR_MSG;
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            // set both labels to the error message otherwise we would be displaying the wrong # of points
+            self.pointsDisplayLabel.text = errorMsg;
+            self.lifetimePointsLabel.text = errorMsg;
         }
 }
     @catch (NSException *e) {

@@ -223,7 +223,7 @@
     @try {
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
-        NSNumber *status = [responseInfo valueForKey:@"status"];
+        NSString *status = [responseInfo valueForKey:@"status"];
         NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
         
         [self.activity stopAnimating];
@@ -233,7 +233,8 @@
         }
         
         self.activityView.hidden = YES;
-        if ([status isEqualToNumber:@1]) {
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
             //success
             self.errorLabel.text = @"";
             
@@ -245,7 +246,6 @@
             }
             
             for (int i = 0; i < [merchants count]; i++) {
-                
                 Merchant *tmpMerchant = [[Merchant alloc] init];
                 NSDictionary *theMerchant = [merchants objectAtIndex:i];
                 
@@ -260,24 +260,33 @@
                 
                 tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
                 
-                
                 [self.allMerchants addObject:tmpMerchant];
                 [self.matchingMerchants addObject:tmpMerchant];
             }
-        }else{
-            // failure
+            
             if ([self.allMerchants count] == 0) {
-                self.errorLabel.text = @"*Error finding restaurants";
+                self.errorLabel.text = @"*No nearbly restaurants found";
+            }else{
+                self.myTableView.hidden = NO;
+                [self.myTableView reloadData];
             }
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            // TODO create static values maybe in ArcClient
+            // TODO need real error code from Santiago
+            if(errorCode == 999) {
+                errorMsg = @"Can not find merchants.";
+            } else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
         }
         
-        if ([self.allMerchants count] == 0) {
-            self.errorLabel.text = @"*No nearbly restaurants found";
-        }else{
-            self.myTableView.hidden = NO;
-            [self.myTableView reloadData];
+        if([errorMsg length] > 0) {
+            self.errorLabel.text = errorMsg;
         }
-        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.merchantListComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
