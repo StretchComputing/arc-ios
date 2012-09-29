@@ -61,6 +61,9 @@
             self.isIphone5 = NO;
         }
         
+        self.creditCardNumberText.delegate = self;
+        self.creditCardSecurityCodeText.delegate = self;
+        
         
     }
     @catch (NSException *e) {
@@ -405,9 +408,9 @@
                         creditDebitString = @"DEBIT";
                     }
                     
-                    NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                    [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
+                    //NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
+                  //  ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                   // [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
                     
                     //[self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
                     NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
@@ -509,4 +512,26 @@
 	return ((oddSum + evenSum) % 10 == 0);
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == self.creditCardNumberText) {
+        
+        if ([self.creditCardNumberText.text length] >= 50) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.creditCardSecurityCodeText){
+        
+        if ([self.creditCardSecurityCodeText.text length] >= 50) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }
+    
+    return TRUE;
+}
 @end

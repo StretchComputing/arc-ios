@@ -12,6 +12,7 @@
 
 @interface DwollaPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
 
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;
 @property int invoiceId;
 @property double totalAmount;
 @property double gratuity;

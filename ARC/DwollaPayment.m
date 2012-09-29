@@ -222,6 +222,12 @@
 
             // Return FALSE so that the final '\n' character doesn't get added
             return FALSE;
+        }else{
+            if ([self.notesText.text length] >= 500) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return FALSE;
+            }
         }
         // For any other character return TRUE so that the text gets added to the view
         return TRUE;
@@ -485,6 +491,8 @@
         [ tempDictionary setObject:@"DWOLLA" forKey:@"Type"];
 
 		loginDict = tempDictionary;
+        self.payButton.enabled = NO;
+        self.navigationItem.hidesBackButton = YES;
         ArcClient *client = [[ArcClient alloc] init];
         [client createPayment:loginDict];
     }
@@ -496,7 +504,8 @@
 
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
-        
+        self.payButton.enabled = YES;
+        self.navigationItem.hidesBackButton = NO;
         [rSkybox addEventToSession:@"DwollaPaymentComplete"];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];

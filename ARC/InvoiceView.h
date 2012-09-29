@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
 
-@interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
+@interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate>
 
 @property double amountDue;
 - (IBAction)payNow:(id)sender;

@@ -10,6 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *registerButton;
+
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, strong) UITextField *username;
 @property (nonatomic, strong) UITextField *password;

@@ -294,6 +294,9 @@
                 
                 NSDictionary *loginDict = [[NSDictionary alloc] init];
                 loginDict = tempDictionary;
+                
+                self.submitButton.enabled = NO;
+            
                 ArcClient *client = [[ArcClient alloc] init];
                 [client getInvoice:loginDict];
             }
@@ -315,7 +318,8 @@
     @try {
         
         [self.activity stopAnimating];
-        
+        self.submitButton.enabled = YES;
+
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
         
@@ -447,4 +451,8 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setSubmitButton:nil];
+    [super viewDidUnload];
+}
 @end

@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *registerButton;
 
 @property BOOL isCreditCard;
 @property BOOL isIphone5;

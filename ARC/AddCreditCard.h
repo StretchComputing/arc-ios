@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddCreditCard : UITableViewController <UIPickerViewDelegate>
+@interface AddCreditCard : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate>
 
 @property BOOL isIphone5;
 

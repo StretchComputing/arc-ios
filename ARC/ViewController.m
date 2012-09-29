@@ -237,6 +237,8 @@
             [ tempDictionary setObject:self.password.text forKey:@"password"];
             
             [self.activity startAnimating];
+            self.registerButton.enabled = NO;
+            self.loginButton.enabled = NO;
             
             loginDict = tempDictionary;
             ArcClient *client = [[ArcClient alloc] init];
@@ -252,6 +254,12 @@
 
 -(void)signInComplete:(NSNotification *)notification{
     @try {
+        
+        [self.activity stopAnimating];
+        self.registerButton.enabled = YES;
+        self.loginButton.enabled = YES;
+        
+        
         [rSkybox addEventToSession:@"signInComplete"];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
@@ -260,7 +268,7 @@
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
-        [self.activity stopAnimating];
+      
         NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
             //success
@@ -289,6 +297,7 @@
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewController.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    
         
     }
     

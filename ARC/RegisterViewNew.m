@@ -68,7 +68,9 @@
 -(void)registerComplete:(NSNotification *)notification{
     @try {
         [self.activity stopAnimating];
-        
+        self.loginButton.enabled = YES;
+        self.registerButton.enabled = YES;
+
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
         
@@ -236,6 +238,9 @@
                 self.activityView.hidden = NO;
                 self.errorLabel.hidden = YES;
                 [self.activity startAnimating];
+                
+                self.registerButton.enabled = NO;
+                self.loginButton.enabled = NO;
                 [self runRegister];
                 
                 
@@ -862,10 +867,13 @@
 
                     self.firstNameText = (UITextField *)[cell.contentView viewWithTag:1];
                     self.firstNameText.placeholder = @"First Name";
+                    self.firstNameText.delegate = self;
                     [self.firstNameText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
                 }else if (row == 1){
                     self.lastNameText = (UITextField *)[cell.contentView viewWithTag:1];
                     self.lastNameText.placeholder = @"Last Name";
+                    self.lastNameText.delegate = self;
+
                      [self.lastNameText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
 
                 }else if (row == 2){
@@ -880,12 +888,16 @@
                 if (row == 0) {
                     self.emailText = (UITextField *)[cell.contentView viewWithTag:1];
                     self.emailText.placeholder = @"Email Address";
+                    self.emailText.delegate = self;
+
                      [self.emailText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
                 }else if (row == 1){
 
                     self.passwordText = (UITextField *)[cell.contentView viewWithTag:1];
                     self.passwordText.placeholder = @"Choose A Password";
                      //[self.passwordText addTarget:self action:@selector(editBeginPassword) forControlEvents:UIControlEventEditingDidBegin];
+                    self.passwordText.delegate = self;
+
                     [self.passwordText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
                     
                 }
@@ -1022,5 +1034,43 @@
 	return ((oddSum + evenSum) % 10 == 0);
 }
 
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == self.firstNameText) {
+        
+        if ([self.firstNameText.text length] >= 50) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.lastNameText){
+        
+        if ([self.lastNameText.text length] >= 50) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.emailText){
+        
+        if ([self.emailText.text length] >= 100) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.passwordText){
+        
+        if ([self.passwordText.text length] >= 50) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }
+    return TRUE;
+}
 
 @end

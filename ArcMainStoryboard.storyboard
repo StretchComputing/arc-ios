@@ -76,8 +76,10 @@
                     <connections>
                         <outlet property="activity" destination="IqA-yC-hJj" id="z6e-0D-xae"/>
                         <outlet property="errorLabel" destination="fGM-6b-9Xk" id="fG5-2n-4QV"/>
+                        <outlet property="loginButton" destination="2LW-I1-Riy" id="g4w-XG-5k2"/>
                         <outlet property="myTableView" destination="xLW-hj-HhD" id="EVn-w1-zyw"/>
                         <outlet property="navBar" destination="XIz-hM-dz3" id="Q4J-bl-C2G"/>
+                        <outlet property="registerButton" destination="qwP-67-mDf" id="iss-gd-Jrn"/>
                         <segue destination="t3u-BW-Rju" kind="modal" identifier="signIn" id="UAW-Ie-qgs"/>
                         <segue destination="nIh-kD-sNs" kind="modal" identifier="howItWorks" modalTransitionStyle="crossDissolve" id="A7t-ff-FTj"/>
                         <segue destination="t3u-BW-Rju" kind="custom" identifier="signInNoAnimation" customClass="PresentSegueNoAnimation" id="o7u-Lj-dwT"/>
@@ -404,7 +406,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activity" destination="fwJ-ma-Ru7" id="c2U-Ws-bjD"/>
+                        <outlet property="loginButton" destination="FR9-UA-yBi" id="CAZ-6S-xVq"/>
                         <outlet property="myTableView" destination="ff4-BK-Vrr" id="bmy-cw-oJO"/>
+                        <outlet property="registerButton" destination="DL1-TY-IXs" id="YCy-PM-9co"/>
                         <segue destination="bX5-5s-ZOq" kind="custom" identifier="confirmDwolla" customClass="PushSegueNoAnimation" id="Jpp-du-aSf"/>
                         <segue destination="t3u-BW-Rju" kind="modal" identifier="registerHome" id="Oi0-YR-QFH"/>
                     </connections>
@@ -757,7 +761,7 @@
                         <outlet property="errorLabel" destination="SlV-1r-alp" id="bAV-De-EyW"/>
                         <outlet property="hiddenText" destination="28O-Ng-Xeu" id="D2F-NP-t1k"/>
                         <outlet property="nameDisplay" destination="PDt-M0-NEP" id="AAs-qi-DK8"/>
-                        <outlet property="submitButton" destination="eH7-kj-5an" id="xaz-IW-TN4"/>
+                        <outlet property="submitButton" destination="eH7-kj-5an" id="hu4-o9-Egs"/>
                         <segue destination="286-cg-SXD" kind="push" identifier="goInvoice" id="pea-yb-ELk"/>
                     </connections>
                 </viewController>
@@ -1018,6 +1022,7 @@
                         <outlet property="checkNumTwo" destination="10P-Yw-Cun" id="7PE-dx-hfC"/>
                         <outlet property="errorLabel" destination="6VI-hd-ZpM" id="hBJ-qe-N5B"/>
                         <outlet property="notesText" destination="0xv-kF-Njy" id="tCv-iN-a8o"/>
+                        <outlet property="payButton" destination="Vzl-CN-Lbu" id="pIi-Fb-4EV"/>
                         <outlet property="submitButton" destination="Vzl-CN-Lbu" id="5SY-1j-kUg"/>
                         <segue destination="CSm-3p-pEO" kind="push" identifier="reviewCreditCardTransaction" id="2SM-S0-l6J"/>
                     </connections>
@@ -1105,6 +1110,7 @@
                         <outlet property="checkNumTwo" destination="INN-2s-4d3" id="q1P-50-8tY"/>
                         <outlet property="errorLabel" destination="iJR-Lq-0kR" id="y0H-c4-3v3"/>
                         <outlet property="notesText" destination="7p4-QF-C9c" id="2eC-fQ-ALX"/>
+                        <outlet property="payButton" destination="xdi-GR-MCb" id="LHU-1c-dLc"/>
                         <outlet property="submitButton" destination="xdi-GR-MCb" id="Nxh-o4-o5a"/>
                         <segue destination="bX5-5s-ZOq" kind="custom" identifier="confirmDwolla" customClass="PushSegueNoAnimation" id="yIh-pn-HeY"/>
                         <segue destination="CSm-3p-pEO" kind="push" identifier="reviewTransaction" id="O7d-m2-fj4"/>
@@ -1329,6 +1335,8 @@
                         <outlet property="postTwitterPoints" destination="mfV-dg-uI8" id="9ar-2E-O8e"/>
                         <outlet property="serviceSlider" destination="Bh1-L4-1jb" id="mTh-Xx-xpT"/>
                         <outlet property="shareLabel" destination="nzE-8x-hl9" id="zcw-ck-rfs"/>
+                        <outlet property="skipButton" destination="Lts-ye-M9d" id="mRd-tn-p6p"/>
+                        <outlet property="submitButton" destination="ia3-JN-ePp" id="mcc-qK-bNj"/>
                         <outlet property="valueSlider" destination="mrX-da-IuP" id="GVC-ze-Hti"/>
                     </connections>
                 </viewController>
@@ -3292,11 +3300,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Oi0-YR-QFH"/>
-        <segue reference="Jpp-du-aSf"/>
-        <segue reference="NwH-xf-Eq4"/>
-        <segue reference="pOd-6P-e5i"/>
-        <segue reference="FRd-J0-OXc"/>
+        <segue reference="Yz7-xF-sKA"/>
+        <segue reference="o7u-Lj-dwT"/>
+        <segue reference="Ii2-yA-rgx"/>
+        <segue reference="co8-nZ-5K2"/>
         <segue reference="O7d-m2-fj4"/>
+        <segue reference="yIh-pn-HeY"/>
     </inferredMetricsTieBreakers>
 </document>

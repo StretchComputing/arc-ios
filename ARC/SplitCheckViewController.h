@@ -10,7 +10,7 @@
 #import "Invoice.h"
 #import "CorbelButton.h"
 
-@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate>
+@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
 
 //bill division
 @property double baseDollarValue;

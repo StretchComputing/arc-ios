@@ -114,6 +114,8 @@
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
         
+        self.tipText.delegate = self;
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -440,4 +442,21 @@
         [rSkybox sendClientLog:@"InvoiceView.splitCheckAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == self.tipText) {
+        
+        if ([self.tipText.text length] >= 20) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }
+    
+    return TRUE;
+}
+
+
 @end

@@ -457,6 +457,13 @@
             
             // Return FALSE so that the final '\n' character doesn't get added
             return FALSE;
+        }else{
+            
+            if ([self.commentsText.text length] >= 500) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return FALSE;
+            }
         }
         // For any other character return TRUE so that the text gets added to the view
         return TRUE;
@@ -514,6 +521,8 @@
         [ tempDictionary setObject:self.facebookInt forKey:@"Facebook"];
 
 		loginDict = tempDictionary;
+        self.submitButton.enabled = NO;
+        self.skipButton.enabled = NO;
         ArcClient *client = [[ArcClient alloc] init];
         [client createReview:loginDict];
     }
@@ -526,7 +535,8 @@
 -(void)reviewComplete:(NSNotification *)notification{
     @try {
         
-   
+        self.submitButton.enabled = YES;
+        self.skipButton.enabled = YES;
         [rSkybox addEventToSession:@"reviewComplete"];
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         

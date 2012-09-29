@@ -15,6 +15,9 @@
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *submitButton;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *skipButton;
+
 -(IBAction)sliderValueChanged:(UISlider *)sender;
 
 @property BOOL isIos6;

@@ -180,6 +180,12 @@
         [self.itemTableView reloadData];
         
         
+        self.itemTipText.delegate = self;
+        self.itemSplitItemYourAmount.delegate = self;
+        self.dollarTipText.delegate = self;
+        self.dollarYourPaymentText.delegate = self;
+        self.percentTipText.delegate = self;
+        self.percentYourPaymentText.delegate = self;
       
 
     }
@@ -865,4 +871,58 @@
     
     self.itemSplitItemYourAmount.text = [NSString stringWithFormat:@"%.2f", amount * percent];
 }
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == self.percentYourPaymentText) {
+        
+        if ([self.percentYourPaymentText.text length] >= 20) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.percentTipText){
+        
+        if ([self.percentTipText.text length] >= 20) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+    }else if (textField == self.dollarTipText){
+        
+        if ([self.dollarTipText.text length] >= 20) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+    }else if (textField == self.dollarYourPaymentText){
+        
+        if ([self.dollarYourPaymentText.text length] >= 20) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+    }else if (textField == self.itemSplitItemYourAmount){
+        
+        if ([self.itemSplitItemYourAmount.text length] >= 20) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+    }else if (textField == self.itemTipText){
+        
+        if ([self.itemTipText.text length] >= 20) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+    }
+
+
+    return TRUE;
+}
+
+
 @end
