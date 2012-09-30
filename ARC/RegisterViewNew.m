@@ -38,16 +38,20 @@
         if (self.fromDwolla) {
             self.fromDwolla = NO;
             if (self.dwollaSuccess) {
+                
+                /*
                 if (self.registerSuccess) {
                     self.dwollaSuccess = NO;
                     self.registerSuccess = NO;
                     [self goHome];
                 }else{
                     self.activityView.hidden = NO;
-                }
+                }*/
+                [self registerNow:nil];
+                
             }else{
-                self.activityView.hidden = NO;
-                self.errorLabel.text = @"Failed to confirm Dwolla credentials.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication Failed" message:@"Dwolla could not authenticate your credentials, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                [alert show];
             }
         }
         
@@ -118,6 +122,10 @@
 {
     @try {
         
+        self.selectedMonth = 0;
+        self.birthDateMonth = @"Jan";
+        self.birthDateDay = @"1";
+        self.birthDateYear = @"2013";
         [rSkybox addEventToSession:@"viewRegisterScreen"];
     
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Register"];
@@ -141,6 +149,24 @@
         self.months = @[@"01 - Jan", @"02 - Feb", @"03 - March", @"04 - April", @"05 - May", @"06 - June", @"07 - July", @"08 - Aug", @"09 - Sept", @"10 - Oct", @"11 - Nov", @"12 - Dec"];
         
         self.years = @[@"2012", @"2013", @"2014", @"2015", @"2016", @"2017", @"2018", @"2019", @"2020", @"2021", @"2022", @"2023", @"2024", @"2025", @"2026", @"2027", @"2028", @"2029", @"2030"];
+        
+        
+        self.birthDateMonths = @[@"Jan", @"Feb", @"March", @"April", @"May", @"June", @"July", @"Aug", @"Sept", @"Oct", @"Nov", @"Dec"];
+
+        self.birthDateDays = [NSMutableArray array];
+        for (int i = 1; i < 32; i++) {
+            
+            NSString *day = [NSString stringWithFormat:@"%d", i];
+            [self.birthDateDays addObject:day];
+        }
+        
+        self.birthDateYears = [NSMutableArray array];
+        for (int i = 2013; i > 1900; i--) {
+            
+            NSString *day = [NSString stringWithFormat:@"%d", i];
+            [self.birthDateYears addObject:day];
+        }
+        
         
         self.firstNameText.text = @"";
         self.lastNameText.text = @"";
@@ -235,13 +261,18 @@
             if ([self luhnCheck:self.creditCardNumberText.text]) {
                 
                 
-                self.activityView.hidden = NO;
-                self.errorLabel.hidden = YES;
-                [self.activity startAnimating];
-                
-                self.registerButton.enabled = NO;
-                self.loginButton.enabled = NO;
-                [self runRegister];
+                if (self.dwollaSegControl.selectedSegmentIndex == 0) {
+                    [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+                }else{
+                    self.activityView.hidden = NO;
+                    self.errorLabel.hidden = YES;
+                    [self.activity startAnimating];
+                    
+                    self.registerButton.enabled = NO;
+                    self.loginButton.enabled = NO;
+                    [self runRegister];
+                }
+               
                 
                 
             }else{
@@ -290,7 +321,21 @@
         
         // TODO hard coded for now
         [ tempDictionary setObject:@"123" forKey:@"PassPhrase"];
-        [ tempDictionary setObject:@"1955-05-10" forKey:@"BirthDate"];
+        
+        
+        NSString *monthString = [NSString stringWithFormat:@"%d", self.selectedMonth + 1];
+        if ([monthString length] == 1) {
+            monthString = [@"0" stringByAppendingString:monthString];
+        }
+        
+        NSString *dayString = self.birthDateDay;
+        if ([dayString length] == 1){
+            dayString = [@"0" stringByAppendingString:dayString];
+        }
+        
+        NSString *birthDayString = [NSString stringWithFormat:@"%@-%@-%@", self.birthDateYear, monthString, dayString];
+        
+        [ tempDictionary setObject:birthDayString forKey:@"BirthDate"];
         [ tempDictionary setObject:@(YES) forKey:@"AcceptTerms"];
         [ tempDictionary setObject:@(YES) forKey:@"Notifications"];
         [ tempDictionary setObject:@(NO) forKey:@"Facebook"];
@@ -300,9 +345,6 @@
         ArcClient *client = [[ArcClient alloc] init];
         [client createCustomer:loginDict];
         
-        if (self.dwollaSegControl.selectedSegmentIndex == 0) {
-            [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
-        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegiterView.runRegister" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -567,6 +609,8 @@
         [self.creditCardNumberText resignFirstResponder];
         [self.creditCardSecurityCodeText resignFirstResponder];
         self.pickerView.hidden = YES;
+        self.birthDatePickerView.hidden = YES;
+
         [self.hideKeyboardView removeFromSuperview];
         self.hideKeyboardView = nil;
         [self endText];
@@ -593,11 +637,42 @@
     [self changeExpiration];
 }
 
+-(void)changeBirthDate{
+    
+    [self.hideKeyboardView removeFromSuperview];
+    [self.birthDatePickerView removeFromSuperview];
+    self.hideKeyboardView = nil;
+    self.pickerView = nil;
+    self.birthDatePickerView = nil;
+    
+    [self showDoneButton];
+    
+    [self.firstNameText resignFirstResponder];
+    [self.lastNameText resignFirstResponder];
+    [self.emailText resignFirstResponder];
+    [self.passwordText resignFirstResponder];
+    [self.creditCardPinText resignFirstResponder];
+    [self.creditCardNumberText resignFirstResponder];
+    [self.creditCardSecurityCodeText resignFirstResponder];
+    
+    int pickerY = 200;
+    if (self.isIphone5) {
+        pickerY = 287;
+    }
+    self.birthDatePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, pickerY, 320, 315)];
+    self.birthDatePickerView.delegate = self;
+    self.birthDatePickerView.showsSelectionIndicator = YES;
+    
+    [self.view.superview addSubview:self.birthDatePickerView];
+    
+    
+}
 -(void)changeExpiration{
     @try {
         
         [self.hideKeyboardView removeFromSuperview];
         [self.pickerView removeFromSuperview];
+        [self.birthDatePickerView removeFromSuperview];
         self.hideKeyboardView = nil;
         self.pickerView = nil;
         
@@ -632,14 +707,31 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     @try {
         
-        if (self.isExpirationMonth) {
-            self.creditCardExpirationMonthLabel.text = [self.months objectAtIndex:row];
-            self.expirationMonth = [[self.months objectAtIndex:row] substringToIndex:2];
-        }else{
-            self.creditCardExpirationYearLabel.text = [self.years objectAtIndex:row];
-            self.expirationYear = [NSString stringWithString:[self.years objectAtIndex:row]];
+        if (pickerView == self.birthDatePickerView) {
             
+            if (component == 0){
+                self.selectedMonth = row;
+                self.birthDateMonth = [self.birthDateMonths objectAtIndex:row];
+            }else if (component == 1){
+                self.birthDateDay = [self.birthDateDays objectAtIndex:row];
+
+            }else{
+                self.birthDateYear = [self.birthDateYears objectAtIndex:row];
+
+            }
+            
+            self.birthDateText.text = [NSString stringWithFormat:@"%@ %@, %@", self.birthDateMonth, self.birthDateDay, self.birthDateYear];
+        }else{
+            if (self.isExpirationMonth) {
+                self.creditCardExpirationMonthLabel.text = [self.months objectAtIndex:row];
+                self.expirationMonth = [[self.months objectAtIndex:row] substringToIndex:2];
+            }else{
+                self.creditCardExpirationYearLabel.text = [self.years objectAtIndex:row];
+                self.expirationYear = [NSString stringWithString:[self.years objectAtIndex:row]];
+                
+            }
         }
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterView.pickerView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -650,15 +742,29 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     @try {
         
-        NSUInteger numRows;
-        
-        if (self.isExpirationMonth) {
-            numRows = 12;
-        }else {
-            numRows = 19;
+        if (pickerView == self.birthDatePickerView) {
+            
+            if (component == 0) {
+                return [self.birthDateMonths count];
+
+            }else if (component == 1){
+                return [self.birthDateDays count];
+
+            }else{
+                return [self.birthDateYears count];
+            }
+        }else{
+            NSUInteger numRows;
+            
+            if (self.isExpirationMonth) {
+                numRows = 12;
+            }else {
+                numRows = 19;
+            }
+            
+            return numRows;
         }
-        
-        return numRows;
+       
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterView.pickerView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -666,17 +772,35 @@
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    
+    if (pickerView == self.birthDatePickerView) {
+        return 3;
+    }
     return 1;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     @try {
         
-        if (self.isExpirationMonth) {
-            return [self.months objectAtIndex:row];
+        if (pickerView == self.birthDatePickerView) {
+            if (component == 0) {
+                return [self.birthDateMonths objectAtIndex:row];
+
+            }else if (component == 1){
+                return [self.birthDateDays objectAtIndex:row];
+
+            }else{
+                return [self.birthDateYears objectAtIndex:row];
+
+            }
         }else{
-            return [self.years objectAtIndex:row];
+            if (self.isExpirationMonth) {
+                return [self.months objectAtIndex:row];
+            }else{
+                return [self.years objectAtIndex:row];
+            }
         }
+       
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterView.pickerView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -687,9 +811,21 @@
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     @try {
         
-        int sectionWidth = 300;
-        
-        return sectionWidth;
+        if (pickerView == self.birthDatePickerView) {
+            
+            if (component == 0) {
+                return 100;
+            }else if (component == 1){
+                return 100;
+            }else{
+                return 100;
+            }
+        }else{
+            int sectionWidth = 300;
+            
+            return sectionWidth;
+        }
+       
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterView.pickerView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -737,6 +873,8 @@
 -(void)choseCredit{
     [self.creditCardNumberText becomeFirstResponder];
     self.pickerView.hidden = YES;
+    self.birthDatePickerView.hidden = YES;
+
 
 }
 
@@ -751,6 +889,8 @@
     [self.creditCardNumberText resignFirstResponder];
     [self.creditCardSecurityCodeText resignFirstResponder];
     self.pickerView.hidden = YES;
+    self.birthDatePickerView.hidden = YES;
+    
     [self.hideKeyboardView removeFromSuperview];
     self.hideKeyboardView = nil;
     
@@ -879,8 +1019,11 @@
                 }else if (row == 2){
                     
                     self.birthDateText = (UITextField *)[cell.contentView viewWithTag:1];
-                    self.birthDateText.placeholder = @"Birth Date (mm/dd/yyyy)";
+                    self.birthDateText.placeholder = @"Birth Date";
                     [self.birthDateText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
+                    
+                    UIButton *tmpButton = (UIButton *)[cell.contentView viewWithTag:3];
+                    [tmpButton addTarget:self action:@selector(changeBirthDate) forControlEvents:UIControlEventTouchUpInside];
                     
                 }
             }else if (section == 1){

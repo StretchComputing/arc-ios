@@ -233,7 +233,7 @@
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Birth Date (mm/dd/yyyy)" minimumFontSize="17" clearButtonMode="whileEditing" id="UYD-ce-maT" customClass="CorbelTextField">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Birth Date " minimumFontSize="17" clearButtonMode="whileEditing" id="UYD-ce-maT" customClass="CorbelTextField">
                                                     <rect key="frame" x="5" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -242,6 +242,18 @@
                                                         <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="DVX-hF-w3r"/>
                                                     </connections>
                                                 </textField>
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WsL-2H-M5r">
+                                                    <rect key="frame" x="5" y="-1" width="290" height="45"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -3300,11 +3312,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Yz7-xF-sKA"/>
-        <segue reference="o7u-Lj-dwT"/>
+        <segue reference="Jpp-du-aSf"/>
+        <segue reference="Oi0-YR-QFH"/>
         <segue reference="Ii2-yA-rgx"/>
         <segue reference="co8-nZ-5K2"/>
+        <segue reference="Yz7-xF-sKA"/>
         <segue reference="O7d-m2-fj4"/>
-        <segue reference="yIh-pn-HeY"/>
     </inferredMetricsTieBreakers>
 </document>

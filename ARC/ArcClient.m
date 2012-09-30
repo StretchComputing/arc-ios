@@ -78,6 +78,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createUrl = [NSString stringWithFormat:@"%@customers", _arcUrl, nil];
+        
+        NSLog(@"CreateUrl: %@", createUrl);
+        
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
         [request setHTTPMethod: @"POST"];
         [request setHTTPBody: requestData];
@@ -101,12 +104,21 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSString * login = [ pairs objectForKey:@"userName"];
         NSString * password = [ pairs objectForKey:@"password"];
         
-        NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
+        NSMutableDictionary *loginDictionary = [ NSMutableDictionary dictionary];
+        [loginDictionary setValue:login forKey:@"Login"];
+        [loginDictionary setValue:password forKey:@"Password"];
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
+        
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+       // NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
+        NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers/token", _arcUrl, nil];
                 
 
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getCustomerTokenUrl]];
-        [request setHTTPMethod: @"GET"];
-        //[request setHTTPBody: requestData];
+        [request setHTTPMethod: @"SEARCH"];
+        [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         self.serverData = [NSMutableData data];

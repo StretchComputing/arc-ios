@@ -11,6 +11,17 @@
 
 @interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
+@property int selectedMonth;
+@property (nonatomic, strong) NSString *birthDateMonth;
+@property (nonatomic, strong) NSString *birthDateDay;
+@property (nonatomic, strong) NSString *birthDateYear;
+@property (nonatomic, strong) NSArray *birthDateMonths;
+@property (nonatomic, strong) NSMutableArray *birthDateDays;
+@property (nonatomic, strong) NSMutableArray *birthDateYears;
+
+@property (nonatomic, strong) UIPickerView *birthDatePickerView;
+
+
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *registerButton;
 
