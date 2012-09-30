@@ -12,6 +12,10 @@
 
 @interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
 
+
+@property BOOL fromDwolla;
+@property BOOL dwollaSuccess;
+
 //bill division
 @property double baseDollarValue;
 @property double taxDollarValue;

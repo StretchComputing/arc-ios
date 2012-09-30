@@ -12,6 +12,8 @@
 #import "rSkybox.h"
 #import "ArcClient.h"
 #import "RegisterViewNew.h"
+#import "InvoiceView.h"
+#import "SplitCheckViewController.h"
 
 @interface RegisterDwollaView ()
 
@@ -58,17 +60,26 @@
             tmp.dwollaSuccess = YES;
             
             [self.navigationController popViewControllerAnimated:NO];
-        }else{
+        }else if (self.fromInvoice) {
             
-            DwollaPayment *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+            InvoiceView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
             tmp.fromDwolla = YES;
             tmp.dwollaSuccess = YES;
             
             [self.navigationController popViewControllerAnimated:NO];
+            
+        }else if (self.fromSplitCheck){
+            
+            SplitCheckViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+            tmp.fromDwolla = YES;
+            tmp.dwollaSuccess = YES;
+            
+            [self.navigationController popViewControllerAnimated:NO];
+            
         }
         
         [ArcClient trackEvent:@"DWOLLA_ACTIVATED"];
-\
+
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterDwollaView.successfulLogin" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -98,9 +109,17 @@
             
             [self.navigationController popViewControllerAnimated:NO];
             
-        }else {
+        }else if (self.fromInvoice) {
             
-            DwollaPayment *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+            InvoiceView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+            tmp.fromDwolla = YES;
+            tmp.dwollaSuccess = NO;
+            
+            [self.navigationController popViewControllerAnimated:NO];
+            
+        }else if (self.fromSplitCheck){
+            
+            SplitCheckViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
             tmp.fromDwolla = YES;
             tmp.dwollaSuccess = NO;
             

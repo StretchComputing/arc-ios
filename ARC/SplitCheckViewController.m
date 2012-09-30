@@ -473,12 +473,26 @@
     double gratuity = 0.0;
     
     if (self.itemView.hidden == NO) {
+        
+        if (self.itemTipText.text == nil) {
+            self.itemTipText.text = @"0.0";
+        }
+        
         gratuity = [self.itemTipText.text doubleValue];
         self.yourPayment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - gratuity;
 
     }else if (self.percentView.hidden == NO){
+        if (self.percentTipText.text == nil) {
+            self.percentTipText.text = @"0.0";
+        }
+        
         gratuity = [self.percentTipText.text doubleValue];
     }else{
+        
+        if (self.dollarTipText.text == nil) {
+            self.dollarTipText.text = @"0.0";
+        }
+        
         gratuity = [self.dollarTipText.text doubleValue];
     }
     @try {

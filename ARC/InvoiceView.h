@@ -11,6 +11,9 @@
 
 @interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate>
 
+@property BOOL fromDwolla;
+@property BOOL dwollaSuccess;
+
 @property double amountDue;
 - (IBAction)payNow:(id)sender;
 @property (strong, nonatomic) Invoice *myInvoice;

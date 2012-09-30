@@ -357,6 +357,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {
         
+        if (self.tipText.text == nil) {
+            self.tipText.text = @"0.0";
+        }
+        
         if ([[segue identifier] isEqualToString:@"goPayDwolla"]) {
             
             DwollaPayment *controller = [segue destinationViewController];

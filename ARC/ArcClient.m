@@ -11,8 +11,8 @@
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
 
-//NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
-NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
+NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+//NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
@@ -34,7 +34,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-            _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+            //_arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
         }
         
     }
@@ -77,7 +77,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *createUrl = [NSString stringWithFormat:@"%@customers", _arcUrl, nil];
+        NSString *createUrl = [NSString stringWithFormat:@"%@customers/new", _arcUrl, nil];
         
         NSLog(@"CreateUrl: %@", createUrl);
         
@@ -109,7 +109,6 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [loginDictionary setValue:password forKey:@"Password"];
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
-        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
        // NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
@@ -135,15 +134,17 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox addEventToSession:@"getMerchantList"];
         api = GetMerchantList;
         
-        //[rSkybox sendClientLog:@"getMerchantList" logMessage:@"jpw testing rSkybox in Arc" logLevel:@"error" exception:nil];
+        NSMutableDictionary *loginDictionary = [ NSMutableDictionary dictionary];
         
-        NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants", _arcUrl, nil];
+        NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants/list", _arcUrl, nil];
         
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
-        [request setHTTPMethod: @"GET"];
-        //[request setHTTPBody: requestData];
-                
+        [request setHTTPMethod: @"SEARCH"];
+        [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
@@ -162,18 +163,26 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox addEventToSession:@"getInvoice"];
         api = GetInvoice;
         
-        NSString * invoiceNumber = [pairs valueForKey:@"invoiceNumber"];
-        NSString *merchantId = [pairs valueForKey:@"merchantId"];
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setValue:[pairs valueForKey:@"invoiceNumber"] forKey:@"Number"];
+        [dictionary setValue:[pairs valueForKey:@"merchantId"] forKey:@"MerchantId"];
+
         
-        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@Invoices/%@/get/%@", _arcUrl, merchantId, invoiceNumber];
+        NSString *requestString = [NSString stringWithFormat:@"%@", [dictionary JSONRepresentation], nil];
+        
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        
+        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@invoices/list", _arcUrl];
         //NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
 
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getInvoiceUrl]];
-        [request setHTTPMethod: @"GET"];
+        [request setHTTPMethod: @"SEARCH"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
-        
+        [request setHTTPBody: requestData];
+
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetInvoice"];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -192,7 +201,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *createPaymentUrl = [NSString stringWithFormat:@"%@payments", _arcUrl, nil];
+        NSString *createPaymentUrl = [NSString stringWithFormat:@"%@payments/new", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createPaymentUrl]];
         [request setHTTPMethod: @"POST"];
         [request setHTTPBody: requestData];
@@ -216,7 +225,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *createReviewUrl = [NSString stringWithFormat:@"%@reviews", _arcUrl, nil];
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@reviews/new", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
         [request setHTTPMethod: @"POST"];
         [request setHTTPBody: requestData];
@@ -266,7 +275,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSLog(@"requestString: %@", requestString);
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *trackEventUrl = [NSString stringWithFormat:@"%@analytics", _arcUrl, nil];
+        NSString *trackEventUrl = [NSString stringWithFormat:@"%@analytics/new", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:trackEventUrl]];
         [request setHTTPMethod: @"POST"];
         [request setHTTPBody: requestData];
