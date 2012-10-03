@@ -445,12 +445,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSLog(@"user is an admin");
         
         NSMutableString* errorMsg = [NSMutableString string];
-        NSArray *errorArr = [response valueForKey:@"Errors"];
+        NSArray *errorArr = [response valueForKey:@"ErrorCodes"];
         NSEnumerator *e = [errorArr objectEnumerator];
         NSDictionary *dict;
         while (dict = [e nextObject]) {
             int code = [[dict valueForKey:@"Code"] intValue];
-            NSString *category = [[dict valueForKey:@"Category"] stringValue];
+            NSString *category = [dict valueForKey:@"Category"];
             [errorMsg appendFormat:@"code:%d category:%@", code, category];
         }
         
@@ -473,7 +473,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 - (int)getErrorCode:(NSDictionary *)response {
     int errorCode = 0;
-    NSDictionary *error = [[response valueForKey:@"Errors"] objectAtIndex:0];
+    NSDictionary *error = [[response valueForKey:@"ErrorCodes"] objectAtIndex:0];
     errorCode = [[error valueForKey:@"Code"] intValue];
     return errorCode;
 }
