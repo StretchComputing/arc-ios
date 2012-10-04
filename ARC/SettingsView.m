@@ -154,6 +154,9 @@
         
         if ((section == 2) && (row == 0)) {
             
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
             mainDelegate.logout = @"true";
             [self.navigationController dismissModalViewControllerAnimated:NO];
