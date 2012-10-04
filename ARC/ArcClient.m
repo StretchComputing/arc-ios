@@ -34,7 +34,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-            //_arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+            _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
         }
         
     }
@@ -45,10 +45,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox addEventToSession:@"getServer"];
         api = GetServer;
         
-        
         //NSString *createUrl = [NSString stringWithFormat:@"%@servers/%@", _arcUrl, [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"], nil];
         
-        NSString *createUrl = [NSString stringWithFormat:@"%@servers/current", _arcServersUrl];
+        NSString *createUrl = [NSString stringWithFormat:@"%@servers/assign/current", _arcServersUrl];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
         
@@ -148,6 +147,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
+        NSLog(@"Auth Header: %@", [self authHeader]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -831,7 +831,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         if ([[response valueForKey:@"Success"] boolValue]) {
             
-            NSString *serverName = [response valueForKey:@"Results"];
+            NSString *serverName = [[response valueForKey:@"Results"] valueForKey:@"Server"];
             
             if (serverName && ([serverName length] > 0)) {
                 [[NSUserDefaults standardUserDefaults] setValue:serverName forKey:@"arcUrl"];

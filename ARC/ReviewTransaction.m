@@ -34,7 +34,7 @@
         if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
             self.postFacebookButton.hidden = YES;
             self.postFacebookPoints.hidden  = YES;
-            [self autoPostFacebook];
+            //[self autoPostFacebook];
             //self.facebookInt = @(5);
         }
     }else{
