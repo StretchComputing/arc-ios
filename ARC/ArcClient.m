@@ -19,7 +19,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Server
 //NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; // Servers API: Jim's Place
 
 int const USER_ALREADY_EXISTS = 120;
-int const INCORRECT_LOGIN_INFO = 310;
+int const INCORRECT_LOGIN_INFO = 130;
 int const CANNOT_GET_INVOICE = 190;
 int const CANNOT_PROCESS_PAYMENT = 100;
 int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE = 200; // for credit card
@@ -248,7 +248,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSString * customerId = [pairs valueForKey:@"customerId"];
         
-        NSString *createReviewUrl = [NSString stringWithFormat:@"%@points/%@/balance", _arcUrl, customerId, nil];
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@points/balance/%@", _arcUrl, customerId, nil];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
         [request setHTTPMethod: @"GET"];

@@ -280,7 +280,7 @@
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == INCORRECT_LOGIN_INFO) {
-                errorMsg = @"Invalid Email Address/Password";
+                errorMsg = @"Invalid Email and/or Password";
             } else {
                 // TODO -- programming error client/server coordination -- rskybox call
                 errorMsg = ARC_ERROR_MSG;
