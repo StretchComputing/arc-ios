@@ -173,6 +173,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
         [dictionary setValue:[pairs valueForKey:@"invoiceNumber"] forKey:@"Number"];
         [dictionary setValue:[pairs valueForKey:@"merchantId"] forKey:@"MerchantId"];
+        
+        NSNumber *pos = [NSNumber numberWithBool:YES];
+        [dictionary setValue:pos forKey:@"POS"];
 
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [dictionary JSONRepresentation], nil];
