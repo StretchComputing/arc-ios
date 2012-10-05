@@ -28,35 +28,38 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-        if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
-            self.postFacebookButton.hidden = YES;
-            self.postFacebookPoints.hidden  = YES;
-            //[self autoPostFacebook];
-            //self.facebookInt = @(5);
+    if (self.isIos6) {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+            if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+                self.postFacebookButton.hidden = YES;
+                self.postFacebookPoints.hidden  = YES;
+                
+            }
+        }else{
+            [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+            [prefs synchronize];
         }
-    }else{
-        [prefs setValue:@"no" forKey:@"autoPostFacebook"];
-        [prefs synchronize];
-    }
-    
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-        if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
-            self.postTwitterButton.hidden = YES;
-            self.postTwitterPoints.hidden  = YES;
-            //[self autPostTwitter];
-            //self.twitterInt = @(5);
+        
+        
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+            if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+                self.postTwitterButton.hidden = YES;
+                self.postTwitterPoints.hidden  = YES;
+                
+            }
+        }else{
+            [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+            [prefs synchronize];
         }
-    }else{
-        [prefs setValue:@"no" forKey:@"autoPostTwitter"];
-        [prefs synchronize];
+        
+        if (self.postFacebookButton.hidden && self.postTwitterButton.hidden) {
+            self.shareLabel.hidden = YES;
+        }
     }
-
-    if (self.postFacebookButton.hidden && self.postTwitterButton.hidden) {
-        self.shareLabel.hidden = YES;
-    }
+   
     
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -555,25 +558,28 @@
             [prefs synchronize];
             
             
-            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-                if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
-                    [self autoPostFacebook];
-                    self.facebookInt = @(5);
+            if (self.isIos6) {
+                if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                    if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+                        [self autoPostFacebook];
+                        self.facebookInt = @(5);
+                    }
+                }else{
+                    [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+                    [prefs synchronize];
                 }
-            }else{
-                [prefs setValue:@"no" forKey:@"autoPostFacebook"];
-                [prefs synchronize];
-            }
-            
-            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-                if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
-                    [self autPostTwitter];
-                    self.twitterInt = @(5);
+                
+                if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                    if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+                        [self autPostTwitter];
+                        self.twitterInt = @(5);
+                    }
+                }else{
+                    [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+                    [prefs synchronize];
                 }
-            }else{
-                [prefs setValue:@"no" forKey:@"autoPostTwitter"];
-                [prefs synchronize];
             }
+       
      
             Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
             tmp.successReview = YES;
@@ -601,27 +607,31 @@
         
         [rSkybox addEventToSession:@"skipReview"];
         
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
-        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-            if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
-                //[self autoPostFacebook];
-                //self.facebookInt = @(5);
+        if (self.isIos6) {
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+                    //[self autoPostFacebook];
+                    //self.facebookInt = @(5);
+                }
+            }else{
+                [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+                [prefs synchronize];
             }
-        }else{
-            [prefs setValue:@"no" forKey:@"autoPostFacebook"];
-            [prefs synchronize];
-        }
-        
-        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-            if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
-                //[self autPostTwitter];
-                //self.twitterInt = @(5);
+            
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+                    //[self autPostTwitter];
+                    //self.twitterInt = @(5);
+                }
+            }else{
+                [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+                [prefs synchronize];
             }
-        }else{
-            [prefs setValue:@"no" forKey:@"autoPostTwitter"];
-            [prefs synchronize];
         }
+     
         
         
         Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
