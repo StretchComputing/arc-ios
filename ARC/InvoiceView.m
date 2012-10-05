@@ -23,6 +23,24 @@
 @implementation InvoiceView
 
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    if (self.fromDwolla) {
+        
+        self.fromDwolla = NO;
+        if (self.dwollaSuccess) {
+            
+            [rSkybox addEventToSession:@"selectedDwollaForPayment"];
+
+            [self performSegueWithIdentifier:@"goPayDwolla" sender:self];
+
+            
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication Failed" message:@"Dwolla could not authenticate your credentials, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+        }
+    }
+}
 
 - (void)viewDidLoad
 {
