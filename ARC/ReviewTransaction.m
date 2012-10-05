@@ -813,6 +813,7 @@
                     
                     [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
                         NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                        NSLog(@"%@", output);
                         //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
                     }];
                     
@@ -848,7 +849,8 @@
             if (granted && error == nil) {
                 NSLog(@"Granted");
                 
-                ACAccount *facebookAccount = [self.store.accounts objectAtIndex:0];
+                NSArray *accounts = [self.store accountsWithAccountType:accType];
+                ACAccount *facebookAccount = [accounts objectAtIndex:0];
                 
                 
                 NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];

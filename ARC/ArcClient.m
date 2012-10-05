@@ -18,12 +18,19 @@ NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
 //NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; // Servers API: Jim's Place
 
-int const USER_ALREADY_EXISTS = 120;
-int const INCORRECT_LOGIN_INFO = 130;
-int const CANNOT_GET_INVOICE = 190;
-int const CANNOT_PROCESS_PAYMENT = 100;
-int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE = 200; // for credit card
-int const CANNOT_TRANSFER_TO_SAME_ACCOUNT = 200;
+int const USER_ALREADY_EXISTS = 200;
+int const INCORRECT_LOGIN_INFO = 203;
+int const INVOICE_NOT_FOUND = 604;
+int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE = 400;
+
+int const CANNOT_PROCESS_PAYMENT = 500;
+int const CANNOT_TRANSFER_TO_SAME_ACCOUNT = 501;
+
+int const FAILED_TO_VALIDATE_CARD = 605;
+int const INVALID_ACCOUNT_NUMBER = 607;
+int const CANNOT_GET_PAYMENT_AUTHORIZATION = 608;
+
+
 NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 @implementation ArcClient

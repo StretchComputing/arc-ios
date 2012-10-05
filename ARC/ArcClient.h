@@ -10,10 +10,14 @@
 
 extern int const USER_ALREADY_EXISTS;
 extern int const INCORRECT_LOGIN_INFO;
-extern int const CANNOT_GET_INVOICE;
+extern int const INVOICE_NOT_FOUND;
 extern int const CANNOT_PROCESS_PAYMENT;
 extern int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE;
 extern int const CANNOT_TRANSFER_TO_SAME_ACCOUNT;
+extern int const FAILED_TO_VALIDATE_CARD;
+extern int const INVALID_ACCOUNT_NUMBER;
+extern int const CANNOT_GET_PAYMENT_AUTHORIZATION;
+
 extern NSString *const ARC_ERROR_MSG;
 
 typedef enum {

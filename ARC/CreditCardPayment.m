@@ -328,11 +328,17 @@
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
-            // TODO create static values maybe in ArcClient
-            if(errorCode == CANNOT_PROCESS_PAYMENT) {
+            if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
                 errorMsg = @"Credit card not approved.";
+            } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
+                // TODO need explanation from Jim to put proper error msg
+                errorMsg = @"Failed to validate credit card";
+            } else if(errorCode == INVALID_ACCOUNT_NUMBER) {
+                // TODO need explanation from Jim to put proper error msg
+                errorMsg = @"Invalid credit/debit card number";
             } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
-                errorMsg = @"Merchant does not accept credit card";
+                // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
+                errorMsg = @"Merchant does not accept credit/debit card";
             }
             else {
                 errorMsg = ARC_ERROR_MSG;

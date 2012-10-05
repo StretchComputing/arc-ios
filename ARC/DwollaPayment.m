@@ -521,11 +521,12 @@
             [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
-            // TODO create static values maybe in ArcClient
             if(errorCode == CANNOT_PROCESS_PAYMENT) {
                 errorMsg = @"Can not process payment.";
             } else if(errorCode == CANNOT_TRANSFER_TO_SAME_ACCOUNT) {
                 errorMsg = @"Can not transfer to your own account.";
+            } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
+                errorMsg = @"Merchant does not accept Dwolla payment.";
             }
             else {
                 errorMsg = ARC_ERROR_MSG;

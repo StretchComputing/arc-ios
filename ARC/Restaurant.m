@@ -352,8 +352,7 @@
             
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
-            // TODO create static values maybe in ArcClient
-            if(errorCode == CANNOT_GET_INVOICE) {
+            if(errorCode == INVOICE_NOT_FOUND) {
                 errorMsg = @"Can not find invoice.";
             } else {
                 errorMsg = ARC_ERROR_MSG;
