@@ -106,9 +106,11 @@
         }
         
         if([errorMsg length] > 0) {
-            self.activityView.hidden = NO;
-            self.errorLabel.hidden = NO;
-            self.errorLabel.text = errorMsg;
+            //self.activityView.hidden = NO;
+            //self.errorLabel.hidden = NO;
+            //self.errorLabel.text = errorMsg;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
             self.registerSuccess = NO;
         }
     }
