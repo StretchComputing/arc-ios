@@ -509,9 +509,9 @@
 
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
-        NSNumber *tmpId = @([customerId intValue]);
-        [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
-        
+        NSNumber *tmpId = [NSNumber numberWithInt:[customerId intValue]];
+        //[ tempDictionary setObject:tmpId forKey:@"CustomerId"];
+        [tempDictionary setObject:customerId forKey:@"CustomerId"];
         NSNumber *invoice = @(self.invoiceId);
         
         [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
