@@ -12,6 +12,22 @@
 
 @property int invoiceId, merchantId, customerId;
 @property (strong, nonatomic) NSString *status, *number, *posi, *dateCreated;
-@property double baseAmount, serviceCharge, tax, discount, additionalCharge;
+@property double rawBaseAmount, serviceCharge, tax, discount, additionalCharge, gratuity, basePaymentAmount;
 @property (strong, nonatomic) NSArray *tags, *items, *payments;
+
+-(double)baseAmount;
+-(double)amountDue;
+-(double)amountDueForSplit;
+-(double)amountDuePlusGratuity;
+-(double)calculateAmountPaid;
+
+-(void)setGratuityByAmount:(double)tipAmount;
+
+-(void)setGratuityByPercentage:(double)tipPercent;
+
+
+
+
+
+
 @end

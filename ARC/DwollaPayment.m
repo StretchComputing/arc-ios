@@ -12,6 +12,7 @@
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
 #import "rSkybox.h"
+#import "Invoice.h"
 
 
 @interface DwollaPayment ()
@@ -455,19 +456,14 @@
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
         
-        //*Testing Only*
-        NSNumber *amount = @1.0;
-        //NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
+        double totalPayment = [self.myInvoice basePaymentAmount] + [self.myInvoice gratuity];
+        NSNumber *amount = [NSNumber numberWithDouble:totalPayment];
         [ tempDictionary setObject:amount forKey:@"Amount"];
         
         [ tempDictionary setObject:dwollaToken forKey:@"AuthenticationToken"];
         [ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
-
-        double gratDouble = self.gratuity;
         
-        //*Testing Only* -------- SEND EMPTY STRINGS for OPTIONAL PARAMETERS
-        //NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
-        NSNumber *grat = @0.0;
+        NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
         [ tempDictionary setObject:grat forKey:@"Gratuity"];
         
         if (![self.notesText.text isEqualToString:@""] && ![self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
@@ -484,7 +480,7 @@
         [ tempDictionary setObject:@"" forKey:@"Tag"];
         [ tempDictionary setObject:@"" forKey:@"Expiration"];
 		
-        NSNumber *invoice = @(self.invoiceId);
+        NSNumber *invoice = @([self.myInvoice invoiceId]);
         [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
 
         [ tempDictionary setObject:pinNumber forKey:@"Pin"];
@@ -552,8 +548,7 @@
         if ([[segue identifier] isEqualToString:@"reviewTransaction"]) {
             
             ReviewTransaction *next = [segue destinationViewController];
-            next.invoiceId = self.invoiceId;
-            next.totalAmount = self.totalAmount;
+            next.myInvoice = self.myInvoice;
         } 
     }
     @catch (NSException *e) {

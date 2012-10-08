@@ -14,7 +14,8 @@
 #import "DwollaPayment.h"
 #import "CreditCardPayment.h"
 #import "MyGestureRecognizer.h"
-
+#import "ArcUtility.h"
+#import "Invoice.h"
 
 @interface SplitCheckViewController ()
 
@@ -93,24 +94,15 @@
         self.serviceChargePercentage = self.myInvoice.serviceCharge / self.myInvoice.baseAmount;
         self.taxPercentage = self.myInvoice.tax / self.myInvoice.baseAmount;
         
-        //self.myInvoice.tax = 0.11;
-       // self.myInvoice.serviceCharge = 0.20;
-        
-        //Calculate tax and service charage for % and $$
-        
-        self.baseDollarValue = self.myInvoice.baseAmount;
-        self.taxDollarValue = self.myInvoice.tax;
-        self.serviceChargeDollarValue = self.myInvoice.serviceCharge;
-        
         //set labels
+        NSLog(@"myInvoice.baseAmount = @%f", self.myInvoice.baseAmount);
+        self.percentFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        self.percentTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+        self.percentServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
         
-        self.percentFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.baseDollarValue];
-        self.percentTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.taxDollarValue];
-        self.percentServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.serviceChargeDollarValue];
-        
-        self.dollarFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.baseDollarValue];
-        self.dollarTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.taxDollarValue];
-        self.dollarServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.serviceChargeDollarValue];
+        self.dollarFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        self.dollarTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+        self.dollarServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
         
         
         self.dollarView.hidden = NO;
@@ -131,28 +123,14 @@
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
         
-        
-        
-     
-        
-        // *** TODO get Jim to change API and/or put this calculation inside of the Invoice class ****
-        double serviceCharge = self.myInvoice.serviceCharge;
-        double tax = self.myInvoice.tax;
-        double discount = self.myInvoice.discount;
-        
-        self.totalBill = self.myInvoice.baseAmount + serviceCharge + tax - discount;
-        double amountPaid = [self calculateAmountPaid];
-        self.amountDue = self.totalBill - amountPaid;
-        
-        
-        self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalBill];
-        self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
-        self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
+        self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
+        self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice calculateAmountPaid]];
+        self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDueForSplit]];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
         
-        self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", self.totalBill];
-        self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
-        self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
+        self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
+        self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice calculateAmountPaid]];
+        self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDueForSplit]];
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
         
         self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
@@ -165,12 +143,8 @@
         self.itemView.backgroundColor = [UIColor clearColor];
         
         self.itemArray = [NSMutableArray array];
-        
-
-    
         NSMutableArray *invoiceItems= [[NSMutableArray alloc]initWithArray:self.myInvoice.items];
 
-        
         for (int i = 0; i < [invoiceItems count]; i++) {
             
             NSDictionary *oldItem = [invoiceItems objectAtIndex:i];
@@ -307,37 +281,20 @@
             tipPercent = .20;
         }
         
-        self.yourPayment = [self.dollarYourPaymentText.text doubleValue];
-        double tipAmount = tipPercent * self.yourPayment;
-        self.yourTotalPayment = self.yourPayment + tipAmount;
+        double basePayment = [self.dollarYourPaymentText.text doubleValue];
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * basePayment)];
+        double payment = basePayment + tipAmount;
+        [self.myInvoice setGratuityByAmount:tipAmount];
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
-        
-        
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", payment];
         
         [self endText];
-        
-        
-  
-      
         
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SplitCheckViewController.dollarTipSegmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 
-}
-
-//::nick::todo what happens if Amount cannot be converted to a float?
-- (double)calculateAmountPaid {
-    double amountPaid = 0.0;
-    double paymentAmount = 0.0;
-    for (int i = 0; i < [self.myInvoice.payments count]; i++) {
-        NSDictionary *paymentDictionary = [self.myInvoice.payments objectAtIndex:i];
-        paymentAmount = [[paymentDictionary valueForKey:@"Amount"] doubleValue];
-        amountPaid += paymentAmount;
-    }
-    return amountPaid;
 }
 
 - (IBAction)dollarTipSegmentSelect {
@@ -350,21 +307,11 @@
 }
 
 
-
+// TODO is the method still used?
 - (IBAction)dollarEditEnd:(id)sender {
     @try {
-        
-        double tip = [self.dollarTipText.text doubleValue];
-        if (tip < 0.0) {
-            tip = 0.0;
-        }
-        self.yourPayment = [self.dollarYourPaymentText.text doubleValue];
-        self.yourTotalPayment = self.yourPayment + tip;
-        
-        self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tip];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
-        
-                
+        [self.myInvoice setBasePaymentAmount:[self.dollarYourPaymentText.text doubleValue]];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDuePlusGratuity]];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SplitCheckViewController.dollarEditEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -372,21 +319,18 @@
 }
 
 - (IBAction)dollarYourPaymentEditEnd:(id)sender {
-    double tip = [self.dollarTipText.text doubleValue];
-    self.yourPayment = [self.dollarYourPaymentText.text doubleValue];
-    
-    if (self.yourPayment > self.amountDue && self.yourPayment != 0.0) {
+    double basePayment = [self.dollarYourPaymentText.text doubleValue];
+
+    if (basePayment > [self.myInvoice amountDue] && basePayment != 0.0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Paid Too Much" message:@"You cannot pay more than is due.  Check the 'Amount Remaining' above, and enter a value less than or equal to that!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
-        self.yourPayment = 0.0;
+        basePayment = 0.0;
+    } else if (basePayment < 0.0) {
+        basePayment = 0.0;
     }
-    if (self.yourPayment < 0.0) {
-        self.yourPayment = 0.0;
-    }
-    self.yourTotalPayment = self.yourPayment + tip;
     
-    self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
-    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
+    self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", basePayment];
+    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDuePlusGratuity]];
 }
 
 - (IBAction)dollarPayNow:(id)sender {
@@ -416,8 +360,7 @@
             
         }else {
             action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
-        }
-        
+        }        
         
         action.actionSheetStyle = UIActionSheetStyleDefault;
         [action showInView:self.view];
@@ -490,46 +433,48 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    double gratuity = 0.0;
-    
+    // since the user can be switching back-and-forth between dollar/percent/item views, myInvoice values can't be relied upon, so
+    // we must get the payment and gratuity fields from the text fields again
     if (self.itemView.hidden == NO) {
         
         if (self.itemTipText.text == nil) {
             self.itemTipText.text = @"0.0";
         }
         
-        gratuity = [self.itemTipText.text doubleValue];
-        self.yourPayment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - gratuity;
-
+        [self.myInvoice setGratuity:[self.itemTipText.text doubleValue]];
+        double payment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - [self.myInvoice gratuity];
+        [self.myInvoice setBasePaymentAmount:payment];
+        
     }else if (self.percentView.hidden == NO){
+        
         if (self.percentTipText.text == nil) {
             self.percentTipText.text = @"0.0";
         }
         
-        gratuity = [self.percentTipText.text doubleValue];
+        [self.myInvoice setGratuity:[self.percentTipText.text doubleValue]];
+        [self.myInvoice setBasePaymentAmount:[self.percentYourPaymentDollarAmount.text doubleValue]];
+        
     }else{
         
         if (self.dollarTipText.text == nil) {
             self.dollarTipText.text = @"0.0";
         }
         
-        gratuity = [self.dollarTipText.text doubleValue];
+        [self.myInvoice setGratuity:[self.dollarTipText.text doubleValue]];
+        [self.myInvoice setBasePaymentAmount:[self.dollarYourPaymentText.text doubleValue]];
+
     }
     @try {
         
         if ([[segue identifier] isEqualToString:@"dollarGoPayDwolla"]) {
             
             DwollaPayment *controller = [segue destinationViewController];
-            controller.totalAmount = [[NSString stringWithFormat:@"%f", self.yourPayment] doubleValue];
-            controller.gratuity = gratuity;
-            controller.invoiceId = self.myInvoice.invoiceId;
+            controller.myInvoice = self.myInvoice;
             
         }else if ([[segue identifier] isEqualToString:@"dollarGoPayCreditCard"]) {
             
             CreditCardPayment *controller = [segue destinationViewController];
-            controller.totalAmount = [[NSString stringWithFormat:@"%f", self.yourPayment] doubleValue];
-            controller.gratuity = gratuity;
-            controller.invoiceId = self.myInvoice.invoiceId;
+            controller.myInvoice = self.myInvoice;
             
             controller.creditCardSample = self.creditCardSample;
             controller.creditCardNumber = self.creditCardNumber;
@@ -557,9 +502,6 @@
 
     }
     
-    //[self percentYourPercentDidEnd];
-   // [self.percentYourPaymentText resignFirstResponder];
-    
     if ([self.percentYourPaymentText isFirstResponder]) {
         [self endText];
 
@@ -574,17 +516,14 @@
     double tip = [self.percentTipText.text doubleValue];
     
     double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-    self.yourPayment = percentYourPayment * self.totalBill;
-    
-    self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", self.yourPayment];
-    
-    if (self.yourPayment < 0.0) {
-        self.yourPayment = 0.0;
+    double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+    if (payment < 0.0) {
+        payment = 0.0;
     }
-    self.yourTotalPayment = self.yourPayment + tip;
+    self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", payment];
     
     //self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
-    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
+    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tip)];
     
     
 }
@@ -605,21 +544,14 @@
         }
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-        self.yourPayment = percentYourPayment * self.totalBill;
-        
-        double tipAmount = tipPercent * self.yourPayment;
-        self.yourTotalPayment = self.yourPayment + tipAmount;
+        double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * payment)];
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
-        
-        
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tipAmount)];
         
         [self endText];
 
-        
-        
-        
-        
         
     }
     @catch (NSException *e) {
@@ -633,20 +565,16 @@
 - (IBAction)percentTipEditEnd{
     
     @try {
-        
-    
         double tip = [self.percentTipText.text doubleValue];
         if (tip < 0.0) {
             tip = 0.0;
         }
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-        self.yourPayment = percentYourPayment * self.totalBill;
-        
-        self.yourTotalPayment = self.yourPayment + tip;
+        double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
         
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tip];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", self.yourTotalPayment];
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tip)];
         
         
     }
@@ -776,15 +704,13 @@
 }
 
 -(void)showItemTotal{
+    double taxTotal = [ArcUtility roundUpToNearestPenny:(self.taxPercentage * self.itemTotal)];
     
-    double taxTotal = self.taxPercentage * self.itemTotal;
-    double serviceTotal = self.serviceChargePercentage * self.itemTotal;
+    double serviceTotal = [ArcUtility roundUpToNearestPenny:(self.serviceChargePercentage * self.itemTotal)];
     
     double tipTotal = [self.itemTipText.text doubleValue];
     
     double total = tipTotal + self.itemTotal + taxTotal + serviceTotal;
-    
-    self.yourPayment = total;
     
     self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", total];
 }
@@ -802,6 +728,7 @@
     
     [self showItemTotal];
 }
+
 - (IBAction)itemTipSegmentSelect{
     
     @try {
@@ -816,7 +743,7 @@
             tipPercent = .20;
         }
         
-        double tipAmount = tipPercent * self.itemTotal;
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * self.itemTotal)];
         
         self.itemTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
 
@@ -824,18 +751,12 @@
         
         
         [self endText];
-
-        
-        
-        
-        
         
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SplitCheckViewController.itemTipSegmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 
-    
 }
 
 - (IBAction)itemSplitItemCancel {
@@ -873,18 +794,16 @@
     
 
 }
+
+// TODO don't think this method is still used
 - (IBAction)itemSplitItemYourAmountTextEnd {
     
-    double yourPay = [self.itemSplitItemYourAmount.text doubleValue];
-    
-    if (self.yourPayment < 0.0) {
-        self.yourPayment = 0.0;
-    }
-    
+    double yourPay = [self.itemSplitItemYourAmount.text doubleValue];    
     self.itemSplitItemYourAmount.text = [NSString stringWithFormat:@"%.2f", yourPay];
     
-    
 }
+
+// TODO don't think this method is still used
 - (IBAction)itemSplitItemSegmentSelect {
     
     double amount = [[[self.itemArray objectAtIndex:self.itemSplitItemIndex] valueForKey:@"splitValue"] doubleValue];

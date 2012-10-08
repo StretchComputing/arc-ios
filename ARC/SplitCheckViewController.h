@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
 #import "CorbelButton.h"
+#import "Invoice.h"
 
 @interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
 
@@ -17,10 +18,6 @@
 @property BOOL dwollaSuccess;
 
 //bill division
-@property double baseDollarValue;
-@property double taxDollarValue;
-@property double serviceChargeDollarValue;
-
 @property double taxPercentage;
 @property double serviceChargePercentage;
 
@@ -29,11 +26,6 @@
 @property int itemSplitItemIndex;
 
 @property (strong, nonatomic) Invoice *myInvoice;
-@property double amountDue;
-@property double yourTotalPayment;
-@property double yourPayment;
-
-@property double totalBill;
 
 @property (weak, nonatomic) IBOutlet UIView *percentView;
 @property (weak, nonatomic) IBOutlet UIView *dollarView;

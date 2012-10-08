@@ -13,6 +13,7 @@
 #import "FBEncryptorAES.h"
 #import "ArcClient.h"
 #import "rSkybox.h"
+#import "Invoice.h"
 
 @interface CreditCardPayment ()
 
@@ -248,16 +249,13 @@
             NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
             NSDictionary *loginDict = [[NSDictionary alloc] init];
                  
-            NSNumber *amount = [NSNumber numberWithDouble:self.totalAmount];
+            NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
             [ tempDictionary setObject:amount forKey:@"Amount"];
             
             [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
             [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
             
-            double gratDouble = self.gratuity;
-            
-            NSNumber *grat = [NSNumber numberWithDouble:gratDouble];
-
+            NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
             [tempDictionary setObject:grat forKey:@"Gratuity"];
             
             if (![self.notesText.text isEqualToString:@""] && ![self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
@@ -265,8 +263,6 @@
             }else{
                 [ tempDictionary setObject:@"" forKey:@"Notes"];
             }
-            
-            
             
             
             ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -278,7 +274,7 @@
             
             [ tempDictionary setObject:self.creditCardExpiration forKey:@"Expiration"];
             
-            NSNumber *invoice = @(self.invoiceId);
+            NSNumber *invoice = @([self.myInvoice invoiceId]);
             [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
             
             [ tempDictionary setObject:ccSecurityCode forKey:@"Pin"];
@@ -400,8 +396,7 @@
         if ([[segue identifier] isEqualToString:@"reviewCreditCardTransaction"]) {
             
             ReviewTransaction *next = [segue destinationViewController];
-            next.invoiceId = self.invoiceId;
-            next.totalAmount = self.totalAmount + self.gratuity;
+            next.myInvoice = self.myInvoice;
         } 
     }
     @catch (NSException *e) {
