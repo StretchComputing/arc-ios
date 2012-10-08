@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "DwollaAPI.h"
+#import "Invoice.h"
 
 
 @interface CreditCardPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;
 
-@property int invoiceId;
-@property double totalAmount;
-@property double gratuity;
+@property (strong, nonatomic) Invoice *myInvoice;
 
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;

@@ -14,7 +14,6 @@
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
 
-@property double amountDue;
 - (IBAction)payNow:(id)sender;
 @property (strong, nonatomic) Invoice *myInvoice;
 @property (weak, nonatomic) IBOutlet UIView *bottomHalfView;

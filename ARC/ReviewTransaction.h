@@ -10,6 +10,7 @@
 #import "LucidaLabel.h"
 #import "CorbelBoldLabel.h"
 #import <Accounts/Accounts.h>
+#import "Invoice.h"
 
 @interface ReviewTransaction : UIViewController <UITextViewDelegate>
 - (IBAction)submitReview:(id)sender;
@@ -47,8 +48,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *earnMoreLabel;
 @property (weak, nonatomic) IBOutlet UISlider *foodSlider;
-@property double totalAmount;
-@property int invoiceId;
+@property (strong, nonatomic) Invoice *myInvoice;
+
 
 -(IBAction)postFacebook;
 

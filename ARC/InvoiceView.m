@@ -45,8 +45,6 @@
 - (void)viewDidLoad
 {
     @try {
-        
-        
     
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Invoice"];
         self.navigationItem.titleView = navLabel;
@@ -57,21 +55,13 @@
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
         
-        double serviceCharge = self.myInvoice.serviceCharge;
-        double tax = self.myInvoice.tax;
-        double discount = self.myInvoice.discount;
+        self.subLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice baseAmount]];
+        self.taxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+        self.gratLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
+        self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];
         
-        
-        self.subLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
-        self.taxLabel.text = [NSString stringWithFormat:@"$%.2f", tax];
-        self.gratLabel.text = [NSString stringWithFormat:@"$%.2f", serviceCharge];
-        self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", discount];
-        
-        self.amountDue = self.myInvoice.baseAmount + serviceCharge + tax - discount;
-        
-        self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
-        
-        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue];
+        self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
+        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
         
         [super viewDidLoad];
         
@@ -133,6 +123,12 @@
         [self.view.layer insertSublayer:gradient atIndex:0];
         
         self.tipText.delegate = self;
+
+        // numeric keyboard test
+        //self.tipText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        //if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+            //self.tipText.keyboardType = UIKeyboardTypeDecimalPad;
+        //}
         
     }
     @catch (NSException *e) {
@@ -355,14 +351,12 @@
         }
         
         self.tipText.text = [NSString stringWithFormat:@"%.2f", tip];
-        
-        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue + tip];
+        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", ([self.myInvoice amountDue] + tip)];
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
         
         self.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        
         
         [UIView commitAnimations];
         
@@ -375,25 +369,24 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {
         
-        if (self.tipText.text == nil) {
-            self.tipText.text = @"0.0";
+        double tipAmount = 0.0f;
+        if (self.tipText.text != nil) {
+            tipAmount = [self.tipText.text doubleValue];
         }
+        [self.myInvoice setGratuityByAmount:tipAmount];
+        
+        [self.myInvoice setBasePaymentAmount:[self.myInvoice amountDue]];
+        
         
         if ([[segue identifier] isEqualToString:@"goPayDwolla"]) {
             
             DwollaPayment *controller = [segue destinationViewController];
-            controller.totalAmount = [[NSString stringWithFormat:@"%f", self.amountDue] doubleValue];
-            controller.gratuity = [self.tipText.text doubleValue];
-            controller.invoiceId = self.myInvoice.invoiceId;
-            
+            controller.myInvoice = self.myInvoice;            
             
         }else if ([[segue identifier] isEqualToString:@"goPayCreditCard"]) {
             
             CreditCardPayment *controller = [segue destinationViewController];
-            
-            controller.totalAmount = [[NSString stringWithFormat:@"%f", self.amountDue] doubleValue];
-            controller.gratuity = [self.tipText.text doubleValue];
-            controller.invoiceId = self.myInvoice.invoiceId;
+            controller.myInvoice = self.myInvoice;
             
             controller.creditCardSample = self.creditCardSample;
             controller.creditCardNumber = self.creditCardNumber;
@@ -405,6 +398,7 @@
             controller.myInvoice = self.myInvoice;
             
         }
+        
             
     }
     @catch (NSException *e) {
@@ -427,19 +421,15 @@
             tipPercent = .20;
         }
         
-        double tipAmount = tipPercent * self.amountDue;
-        
-        self.tipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        
-        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", self.amountDue + tipAmount];
-        
+        [self.myInvoice setGratuityByPercentage:tipPercent];
+        self.tipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
+        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDuePlusGratuity]];
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
         
         self.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         [self.tipText resignFirstResponder];
-        
         
         [UIView commitAnimations];
         

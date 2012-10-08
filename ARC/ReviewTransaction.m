@@ -14,6 +14,7 @@
 #import "rSkybox.h"
 #import <Twitter/Twitter.h>
 #import <Social/Social.h>
+#import "Invoice.h"
 
 @interface ReviewTransaction ()
 
@@ -64,8 +65,8 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     @try {
-        
-        NSString *payAmount = [NSString stringWithFormat:@"%.2f", self.totalAmount];
+        double totalPayment = [self.myInvoice basePaymentAmount] + [self.myInvoice gratuity];
+        NSString *payAmount = [NSString stringWithFormat:@"%.2f", totalPayment];
         
         NSString *payString = [NSString stringWithFormat:@"Congratulations, your payment of $%@ was successfully processed!", payAmount];
         
@@ -512,7 +513,7 @@
         NSNumber *tmpId = [NSNumber numberWithInt:[customerId intValue]];
         //[ tempDictionary setObject:tmpId forKey:@"CustomerId"];
         [tempDictionary setObject:customerId forKey:@"CustomerId"];
-        NSNumber *invoice = @(self.invoiceId);
+        NSNumber *invoice = @([self.myInvoice invoiceId]);
         
         [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
         [ tempDictionary setObject:self.drinksInt forKey:@"Drinks"];

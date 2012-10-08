@@ -124,6 +124,7 @@
 		90FBDC48159CE4FA0051609A /* PushSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */; };
 		9F34F57315CF0CE30084184B /* ArcClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F34F57215CF0CE30084184B /* ArcClient.m */; };
 		9F45D81F15D33F3300682F19 /* Encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F45D81D15D33F3300682F19 /* Encoder.c */; };
+		9F7B4D6F1620F3FA007EC356 /* ArcUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B4D6E1620F3FA007EC356 /* ArcUtility.m */; };
 		9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68CFA15E083750048789D /* UIDevice-Hardware.m */; };
 		9FA68D0615E083BB0048789D /* rSkybox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68D0515E083BB0048789D /* rSkybox.m */; };
 		9FA68D0A15E0880B0048789D /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA68D0915E0880B0048789D /* CrashReporter.framework */; };
@@ -327,6 +328,8 @@
 		9F34F57215CF0CE30084184B /* ArcClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcClient.m; sourceTree = "<group>"; };
 		9F45D81D15D33F3300682F19 /* Encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Encoder.c; path = ARC/Encoder.c; sourceTree = "<group>"; };
 		9F45D81E15D33F3300682F19 /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Encoder.h; path = ARC/Encoder.h; sourceTree = "<group>"; };
+		9F7B4D6D1620F3FA007EC356 /* ArcUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcUtility.h; sourceTree = "<group>"; };
+		9F7B4D6E1620F3FA007EC356 /* ArcUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcUtility.m; sourceTree = "<group>"; };
 		9FA68CF915E083750048789D /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
 		9FA68CFA15E083750048789D /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
 		9FA68D0415E083BB0048789D /* rSkybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rSkybox.h; sourceTree = "<group>"; };
@@ -531,6 +534,8 @@
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
+				9F7B4D6D1620F3FA007EC356 /* ArcUtility.h */,
+				9F7B4D6E1620F3FA007EC356 /* ArcUtility.m */,
 			);
 			path = ARC;
 			sourceTree = "<group>";
@@ -789,6 +794,7 @@
 				9046C35B160A0579008BAE4D /* HelpViewNew.m in Sources */,
 				9097099D1610B3270092A970 /* CreatePinView.m in Sources */,
 				909709A41610E6B30092A970 /* ValidatePinView.m in Sources */,
+				9F7B4D6F1620F3FA007EC356 /* ArcUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
