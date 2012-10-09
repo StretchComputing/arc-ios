@@ -281,6 +281,7 @@
             tipPercent = .20;
         }
         
+        //jpw
         double basePayment = [self.dollarYourPaymentText.text doubleValue];
         double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * basePayment)];
         double payment = basePayment + tipAmount;
@@ -545,8 +546,9 @@
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
         double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+        double basePayment = percentYourPayment * [self.myInvoice baseAmount];
 
-        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * payment)];
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * basePayment)];
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tipAmount)];
         
