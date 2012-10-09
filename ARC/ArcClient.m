@@ -111,9 +111,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSString * login = [ pairs objectForKey:@"userName"];
         NSString * password = [ pairs objectForKey:@"password"];
         
+        
         NSMutableDictionary *loginDictionary = [ NSMutableDictionary dictionary];
         [loginDictionary setValue:login forKey:@"Login"];
         [loginDictionary setValue:password forKey:@"Password"];
+
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
