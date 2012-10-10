@@ -20,6 +20,7 @@
 //bill division
 @property double taxPercentage;
 @property double serviceChargePercentage;
+@property double percentYourPayment;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *dollarAmountAlreadyPaidNameLabel;

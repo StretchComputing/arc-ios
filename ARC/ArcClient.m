@@ -203,7 +203,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
 }
 
--(void)createPayment:(NSDictionary *)pairs{
+-(void) createPayment:(NSDictionary *)pairs{
     @try {
         [rSkybox addEventToSession:@"createPayment"];
         api = CreatePayment;

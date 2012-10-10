@@ -249,6 +249,9 @@
             NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
             NSDictionary *loginDict = [[NSDictionary alloc] init];
                  
+            NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
+            [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
+            
             NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
             [ tempDictionary setObject:amount forKey:@"Amount"];
             

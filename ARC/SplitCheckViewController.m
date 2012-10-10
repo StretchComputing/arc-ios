@@ -281,11 +281,15 @@
             tipPercent = .20;
         }
         
-        double basePayment = [self.dollarYourPaymentText.text doubleValue];
+        double yourPayment = [self.dollarYourPaymentText.text doubleValue];
         double percentTax = [self.myInvoice tax]/[self.myInvoice baseAmount];
-        double tipBasePayment = basePayment - (basePayment * percentTax);
-        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * tipBasePayment)];
-        double payment = basePayment + tipAmount;
+        double percentServiceCharge = [self.myInvoice serviceCharge]/[self.myInvoice baseAmount];
+        
+        double yourBaseAmount = yourPayment/(percentServiceCharge + 1 + percentTax);
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(yourBaseAmount * tipPercent)];
+        
+        double payment = yourPayment + tipAmount;
+        
         [self.myInvoice setGratuityByAmount:tipAmount];
         self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", payment];
@@ -445,6 +449,7 @@
         
         [self.myInvoice setGratuity:[self.itemTipText.text doubleValue]];
         double payment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - [self.myInvoice gratuity];
+        payment = [ArcUtility roundUpToNearestPenny:payment];
         [self.myInvoice setBasePaymentAmount:payment];
         
     }else if (self.percentView.hidden == NO){
@@ -453,8 +458,10 @@
             self.percentTipText.text = @"0.0";
         }
         
-        [self.myInvoice setGratuity:[self.percentTipText.text doubleValue]];
-        [self.myInvoice setBasePaymentAmount:[self.percentYourPaymentDollarAmount.text doubleValue]];
+        
+        [self.myInvoice setGratuity:[ArcUtility roundUpToNearestPenny:[self.percentTipText.text doubleValue]]];
+        [self.myInvoice setBasePaymentAmount:[ArcUtility roundUpToNearestPenny:self.percentYourPayment]];
+        NSLog(@"%f", self.percentYourPayment);
         
     }else{
         
@@ -523,6 +530,7 @@
         payment = 0.0;
     }
     self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", payment];
+    self.percentYourPayment = payment;
     
     //self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", self.yourPayment];
     self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tip)];
