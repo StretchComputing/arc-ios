@@ -17,6 +17,9 @@
         self.gratuity = 0.0f;
         self.basePaymentAmount = 0.0f;
         self.basePaymentAmount = 0.0f;
+        self.splitPercent = @"";
+        self.splitType = @"";
+        self.tipEntry = @"";
     }
     return self;
 }

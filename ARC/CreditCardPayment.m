@@ -270,15 +270,14 @@
             
             ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
             NSString *customerId = [mainDelegate getCustomerId];
-            NSNumber *tmpId = @([customerId intValue]);
-            [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
+            [ tempDictionary setObject:customerId forKey:@"CustomerId"];
             
             [ tempDictionary setObject:@"" forKey:@"Tag"];
             
             [ tempDictionary setObject:self.creditCardExpiration forKey:@"Expiration"];
             
-            NSNumber *invoice = @([self.myInvoice invoiceId]);
-            [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
+            NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myInvoice.invoiceId];
+            [ tempDictionary setObject:invoiceIdString forKey:@"InvoiceId"];
             
             [ tempDictionary setObject:ccSecurityCode forKey:@"Pin"];
             
@@ -288,6 +287,11 @@
                 [ tempDictionary setObject:@"DEBIT" forKey:@"Type"];
             }
             
+            //For Metrics
+            [tempDictionary setObject:self.myInvoice.splitType forKey:@"SplitType"];
+            [tempDictionary setObject:self.myInvoice.splitPercent forKey:@"PercentEntry"];
+            [tempDictionary setObject:self.myInvoice.tipEntry forKey:@"TipEntry"];
+
             
             loginDict = tempDictionary;
             self.payButton.enabled = NO;

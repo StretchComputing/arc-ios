@@ -26,7 +26,8 @@
 -(void)setGratuityByPercentage:(double)tipPercent;
 
 
-
+//For metrics
+@property (nonatomic, strong) NSString *splitType, *splitPercent, *tipEntry;
 
 
 

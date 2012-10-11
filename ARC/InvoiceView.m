@@ -386,6 +386,10 @@
         
         [self.myInvoice setBasePaymentAmount:[self.myInvoice amountDue]];
         
+        //For Metrics
+        self.myInvoice.splitType = @"";
+        self.myInvoice.splitPercent = @"";
+        self.myInvoice.tipEntry = [NSString stringWithFormat:@"%.2f", tipAmount];
         
         if ([[segue identifier] isEqualToString:@"goPayDwolla"]) {
             

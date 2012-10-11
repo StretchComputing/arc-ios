@@ -506,6 +506,10 @@
         payment = [ArcUtility roundDownToNearestPenny:payment];
         [self.myInvoice setBasePaymentAmount:payment];
         
+        self.myInvoice.splitType = @"Item";
+        self.myInvoice.splitPercent = @"";
+        self.myInvoice.tipEntry = [NSString stringWithFormat:@"%.2f", [self.itemTipText.text doubleValue]];
+        
     }else if (self.percentView.hidden == NO){
         
         if (self.percentTipText.text == nil) {
@@ -517,6 +521,10 @@
         [self.myInvoice setBasePaymentAmount:[ArcUtility roundDownToNearestPenny:self.percentYourPayment]];
         NSLog(@"%f", self.percentYourPayment);
         
+        self.myInvoice.splitType = @"Percent";
+        self.myInvoice.splitPercent = [NSString stringWithFormat:@"%.2f", [self.percentYourPaymentText.text doubleValue]];
+        self.myInvoice.tipEntry = [NSString stringWithFormat:@"%.2f", [self.percentTipText.text doubleValue]];
+        
     }else{
         
         if (self.dollarTipText.text == nil) {
@@ -526,6 +534,9 @@
         [self.myInvoice setGratuity:[self.dollarTipText.text doubleValue]];
         [self.myInvoice setBasePaymentAmount:[self.dollarYourPaymentText.text doubleValue]];
 
+        self.myInvoice.splitType = @"Dollar";
+        self.myInvoice.splitPercent = @"";
+        self.myInvoice.tipEntry = [NSString stringWithFormat:@"%.2f", [self.dollarTipText.text doubleValue]];
     }
     @try {
         

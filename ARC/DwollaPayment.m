@@ -456,6 +456,9 @@
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
         
+        NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
+        [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
+        
         double totalPayment = [self.myInvoice basePaymentAmount] + [self.myInvoice gratuity];
         NSNumber *amount = [NSNumber numberWithDouble:totalPayment];
         [ tempDictionary setObject:amount forKey:@"Amount"];
@@ -474,18 +477,22 @@
                 
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
-        NSNumber *tmpId = @([customerId intValue]);
-        [ tempDictionary setObject:tmpId forKey:@"CustomerId"];
+        [ tempDictionary setObject:customerId forKey:@"CustomerId"];
         
         [ tempDictionary setObject:@"" forKey:@"Tag"];
         [ tempDictionary setObject:@"" forKey:@"Expiration"];
 		
-        NSNumber *invoice = @([self.myInvoice invoiceId]);
-        [ tempDictionary setObject:invoice forKey:@"InvoiceId"];
+        NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myInvoice.invoiceId];
+        [ tempDictionary setObject:invoiceIdString forKey:@"InvoiceId"];
 
         [ tempDictionary setObject:pinNumber forKey:@"Pin"];
         [ tempDictionary setObject:@"DWOLLA" forKey:@"Type"];
 
+        //For Metrics
+        [tempDictionary setObject:self.myInvoice.splitType forKey:@"SplitType"];
+        [tempDictionary setObject:self.myInvoice.splitPercent forKey:@"PercentEntry"];
+        [tempDictionary setObject:self.myInvoice.tipEntry forKey:@"TipEntry"];
+        
 		loginDict = tempDictionary;
         self.payButton.enabled = NO;
         self.navigationItem.hidesBackButton = YES;
