@@ -123,4 +123,11 @@
 - (IBAction)itemSplitItemSegmentSelect;
 
 
+//Metrics
+@property BOOL isSegmentDollar;
+@property BOOL isSegmentItemized;
+@property BOOL isSegmentPercentTip;
+@property BOOL isSegmentPercentYour;
+
+
 @end

@@ -350,6 +350,7 @@
 - (IBAction)editEnd:(id)sender {
     @try {
         
+        
         double tip = [self.tipText.text doubleValue];
         
         if (tip < 0.0) {
@@ -387,9 +388,29 @@
         [self.myInvoice setBasePaymentAmount:[self.myInvoice amountDue]];
         
         //For Metrics
-        self.myInvoice.splitType = @"";
-        self.myInvoice.splitPercent = @"";
-        self.myInvoice.tipEntry = [NSString stringWithFormat:@"%.2f", tipAmount];
+        self.myInvoice.splitType = @"NONE";
+        self.myInvoice.splitPercent = @"NONE";
+        
+        if (self.tipSegment.selectedSegmentIndex == 0) {
+            self.myInvoice.tipEntry = @"SHORTCUT10";
+
+        }else if (self.tipSegment.selectedSegmentIndex == 1){
+            self.myInvoice.tipEntry = @"SHORTCUT15";
+
+        }else if (self.tipSegment.selectedSegmentIndex == 2){
+            self.myInvoice.tipEntry = @"SHORTCUT20";
+
+        }else{
+            
+            if (tipAmount > 0) {
+                self.myInvoice.tipEntry = @"MANUAL";
+
+            }else{
+                self.myInvoice.tipEntry = @"NONE";
+
+            }
+
+        }
         
         if ([[segue identifier] isEqualToString:@"goPayDwolla"]) {
             
@@ -423,7 +444,7 @@
 - (IBAction)segmentSelect {
     @try {
         
-        [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
+      
         
         double tipPercent = 0.0;
         if (self.tipSegment.selectedSegmentIndex == 0) {
@@ -453,9 +474,6 @@
     
 }
 
--(void)resetSegment{
-    self.tipSegment.selectedSegmentIndex = -1;
-}
 
 - (IBAction)splitCheckAction:(id)sender {
     @try {
@@ -485,6 +503,8 @@
 
 
 -(void)hideKeyboard{
+    self.tipSegment.selectedSegmentIndex = -1;
+    
     [self.tipText resignFirstResponder];
     
 }

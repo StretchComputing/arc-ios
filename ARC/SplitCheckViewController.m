@@ -323,7 +323,10 @@
 - (IBAction)dollarTipSegmentSelect:(id)sender {
     
     @try {
-        [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
+        
+        if ([self.dollarTipText isFirstResponder]) {
+            self.isSegmentDollar = YES;
+        }
         
         double tipPercent = 0.0;
         if (self.dollarTipSegment.selectedSegmentIndex == 0) {
@@ -361,14 +364,17 @@
        
 }
 
--(void)resetSegment{
-   // self.dollarTipSegment.selectedSegmentIndex = -1;
-}
-
 
 // For tip on the dollar screen
 - (IBAction)dollarEditEnd:(id)sender {
     @try {
+        
+        if (self.isSegmentDollar) {
+            self.isSegmentDollar = NO;
+        }else{
+            self.dollarTipSegment.selectedSegmentIndex = -1;
+        }
+        
         double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
     }
@@ -506,9 +512,31 @@
         payment = [ArcUtility roundDownToNearestPenny:payment];
         [self.myInvoice setBasePaymentAmount:payment];
         
-        self.myInvoice.splitType = @"Item";
-        self.myInvoice.splitPercent = @"";
-        self.myInvoice.tipEntry = [NSString stringWithFormat:@"%.2f", [self.itemTipText.text doubleValue]];
+        self.myInvoice.splitType = @"ITEMIZED";
+        self.myInvoice.splitPercent = @"NONE";
+        
+        if (self.itemSplitItemSegControl.selectedSegmentIndex == 0) {
+            self.myInvoice.tipEntry = @"SHORTCUT10";
+            
+        }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 1){
+            self.myInvoice.tipEntry = @"SHORTCUT15";
+            
+        }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 2){
+            self.myInvoice.tipEntry = @"SHORTCUT20";
+            
+        }else{
+            
+            if ([self.itemTipText.text doubleValue] > 0) {
+                self.myInvoice.tipEntry = @"MANUAL";
+                
+            }else{
+                self.myInvoice.tipEntry = @"NONE";
+                
+            }
+            
+        }
+        
+        
         
     }else if (self.percentView.hidden == NO){
         
@@ -521,9 +549,45 @@
         [self.myInvoice setBasePaymentAmount:[ArcUtility roundDownToNearestPenny:self.percentYourPayment]];
         NSLog(@"%f", self.percentYourPayment);
         
-        self.myInvoice.splitType = @"Percent";
-        self.myInvoice.splitPercent = [NSString stringWithFormat:@"%.2f", [self.percentYourPaymentText.text doubleValue]];
-        self.myInvoice.tipEntry = [NSString stringWithFormat:@"%.2f", [self.percentTipText.text doubleValue]];
+        self.myInvoice.splitType = @"PERCENT";
+
+        if (self.percentYourPercentSegControl.selectedSegmentIndex == 0) {
+            self.myInvoice.splitPercent = @"SHORTCUT25";
+            
+        }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 1){
+            self.myInvoice.splitPercent = @"SHORTCUT33";
+            
+        }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 2){
+            self.myInvoice.splitPercent = @"SHORTCUT50";
+            
+        }else{
+            self.myInvoice.splitPercent = @"MANUAL";
+            
+        }
+        
+        
+        if (self.percentTipSegment.selectedSegmentIndex == 0) {
+            self.myInvoice.tipEntry = @"SHORTCUT10";
+            
+        }else if (self.percentTipSegment.selectedSegmentIndex == 1){
+            self.myInvoice.tipEntry = @"SHORTCUT15";
+            
+        }else if (self.percentTipSegment.selectedSegmentIndex == 2){
+            self.myInvoice.tipEntry = @"SHORTCUT20";
+            
+        }else{
+            
+            if ([self.percentTipText.text doubleValue] > 0) {
+                self.myInvoice.tipEntry = @"MANUAL";
+                
+            }else{
+                self.myInvoice.tipEntry = @"NONE";
+                
+            }
+            
+        }
+        
+        
         
     }else{
         
@@ -534,9 +598,31 @@
         [self.myInvoice setGratuity:[self.dollarTipText.text doubleValue]];
         [self.myInvoice setBasePaymentAmount:[self.dollarYourPaymentText.text doubleValue]];
 
-        self.myInvoice.splitType = @"Dollar";
-        self.myInvoice.splitPercent = @"";
-        self.myInvoice.tipEntry = [NSString stringWithFormat:@"%.2f", [self.dollarTipText.text doubleValue]];
+        self.myInvoice.splitType = @"DOLLAR";
+        self.myInvoice.splitPercent = @"NONE";
+        
+        if (self.dollarTipSegment.selectedSegmentIndex == 0) {
+            self.myInvoice.tipEntry = @"SHORTCUT10";
+            
+        }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
+            self.myInvoice.tipEntry = @"SHORTCUT15";
+            
+        }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
+            self.myInvoice.tipEntry = @"SHORTCUT20";
+            
+        }else{
+            
+            if ([self.dollarTipText.text doubleValue] > 0) {
+                self.myInvoice.tipEntry = @"MANUAL";
+                
+            }else{
+                self.myInvoice.tipEntry = @"NONE";
+                
+            }
+            
+        }
+        
+        
     }
     @try {
         
@@ -566,6 +652,11 @@
 
 -(void)percentYourPercentSegmentSelect{
     
+    if ([self.percentYourPaymentText isFirstResponder]) {
+        self.isSegmentPercentYour = YES;
+    }
+    
+  
     if (self.percentYourPercentSegControl.selectedSegmentIndex == 0) {
         self.percentYourPaymentText.text = @"25";
     }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 1){
@@ -580,12 +671,20 @@
         [self endText];
 
     }else{
+        self.isSegmentPercentYour = YES;
         [self percentYourPercentDidEnd];
     }
 
 }
 
 - (IBAction)percentYourPercentDidEnd {
+    
+    if (self.isSegmentPercentYour) {
+        self.isSegmentPercentYour = NO;
+    }else{
+      
+        self.percentYourPercentSegControl.selectedSegmentIndex = -1;
+    }
     
     double tip = [self.percentTipText.text doubleValue];
     
@@ -607,7 +706,14 @@
 - (IBAction)percentTipSegmentSelect{
     
     @try {
-        [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
+        
+        if ([self.percentTipText isFirstResponder]) {
+            self.isSegmentPercentTip = YES;
+        }
+        
+        if ([self.percentYourPaymentText isFirstResponder]) {
+            self.isSegmentPercentYour = YES;
+        }
         
         double tipPercent = 0.0;
         if (self.percentTipSegment.selectedSegmentIndex == 0) {
@@ -641,6 +747,13 @@
 - (IBAction)percentTipEditEnd{
     
     @try {
+        
+        if (self.isSegmentPercentTip) {
+            self.isSegmentPercentTip = NO;
+        }else{
+            self.percentTipSegment.selectedSegmentIndex = -1;
+        }
+        
         double tip = [self.percentTipText.text doubleValue];
         if (tip < 0.0) {
             tip = 0.0;
@@ -802,13 +915,22 @@
 
 - (IBAction)itemTipEditEnd{
     
+    if (self.isSegmentItemized) {
+        self.isSegmentItemized = NO;
+    }else{
+        self.itemTipSegment.selectedSegmentIndex = -1;
+    }
+    
     [self showItemTotal];
 }
 
 - (IBAction)itemTipSegmentSelect{
     
     @try {
-        [self performSelector:@selector(resetSegment) withObject:nil afterDelay:0.2];
+        
+        if ([self.itemTipText isFirstResponder]) {
+            self.isSegmentItemized = YES;
+        }
         
         double tipPercent = 0.0;
         if (self.itemTipSegment.selectedSegmentIndex == 0) {

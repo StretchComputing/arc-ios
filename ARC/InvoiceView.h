@@ -49,4 +49,5 @@
 @property (nonatomic, strong) NSString *creditCardExpiration;
 @property (nonatomic, strong) NSString *creditCardSample;
 
+
 @end
