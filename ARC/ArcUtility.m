@@ -29,4 +29,17 @@
     }
 }
 
++(double)roundDownToNearestPenny:(double)dollarAmount {
+    @try{
+        int twoPlaceInt = dollarAmount * 100;
+        double twoPlaceDouble = ((double)twoPlaceInt)/100;
+        
+        return twoPlaceDouble;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcUtility.roundDownToNearestPenny" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
 @end

@@ -75,7 +75,7 @@
 -(void)setGratuityByAmount:(double)tipAmount
 {
     @try {
-        self.gratuity = [ArcUtility roundUpToNearestPenny:tipAmount];
+        self.gratuity = [ArcUtility roundDownToNearestPenny:tipAmount];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Invoice.setGratuityByAmount" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -85,7 +85,7 @@
 -(void)setGratuityByPercentage:(double)tipPercent
 {
     @try {
-        self.gratuity = [ArcUtility roundUpToNearestPenny:((self.rawBaseAmount - self.discount) * tipPercent)];
+        self.gratuity = [ArcUtility roundDownToNearestPenny:((self.rawBaseAmount - self.discount) * tipPercent)];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Invoice.setGratuityByPercentage" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

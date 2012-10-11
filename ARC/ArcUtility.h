@@ -11,6 +11,7 @@
 @interface ArcUtility : NSObject
 
 +(double)roundUpToNearestPenny:(double)dollarAmount;
++(double)roundDownToNearestPenny:(double)dollarAmount;
 
 @end
 

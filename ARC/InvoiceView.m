@@ -124,11 +124,11 @@
         
         self.tipText.delegate = self;
 
-        // numeric keyboard test
-        //self.tipText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-        //if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-            //self.tipText.keyboardType = UIKeyboardTypeDecimalPad;
-        //}
+        // numeric keyboard with a period
+        self.tipText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+            self.tipText.keyboardType = UIKeyboardTypeDecimalPad;
+        }
         
     }
     @catch (NSException *e) {

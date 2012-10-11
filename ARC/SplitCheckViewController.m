@@ -105,8 +105,8 @@
         self.dollarServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
         
         
-        self.dollarView.hidden = NO;
-        self.percentView.hidden = YES;
+        self.dollarView.hidden = YES;
+        self.percentView.hidden = NO;
         self.itemView.hidden = YES;
         
         self.itemTableView.delegate = self;
@@ -180,7 +180,37 @@
         self.dollarYourPaymentText.delegate = self;
         self.percentTipText.delegate = self;
         self.percentYourPaymentText.delegate = self;
-      
+        
+        
+        // numeric keyboard with a period
+        self.percentYourPaymentText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+            self.percentYourPaymentText.keyboardType = UIKeyboardTypeDecimalPad;
+        }
+
+        // numeric keyboard with a period
+        self.dollarTipText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+            self.dollarTipText.keyboardType = UIKeyboardTypeDecimalPad;
+        }
+        
+        // numeric keyboard with a period
+        self.dollarYourPaymentText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+            self.dollarYourPaymentText.keyboardType = UIKeyboardTypeDecimalPad;
+        }
+        
+        // numeric keyboard with a period
+        self.itemTipText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+            self.itemTipText.keyboardType = UIKeyboardTypeDecimalPad;
+        }
+        
+        // numeric keyboard with a period
+        self.percentTipText.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+            self.percentTipText.keyboardType = UIKeyboardTypeDecimalPad;
+        }
 
     }
     @catch (NSException *e) {
@@ -199,15 +229,16 @@
     @try {
         if (self.typeSegment.selectedSegmentIndex == 0) {
             
-            self.dollarView.hidden = NO;
-            self.percentView.hidden = YES;
+            self.dollarView.hidden = YES;
+            self.percentView.hidden = NO;
             self.itemView.hidden = YES;
             
         }else if (self.typeSegment.selectedSegmentIndex == 1){
             
-            self.dollarView.hidden = YES;
-            self.percentView.hidden = NO;
+            self.dollarView.hidden = NO;
+            self.percentView.hidden = YES;
             self.itemView.hidden = YES;
+            
             
         }else{
             
@@ -286,7 +317,7 @@
         double percentServiceCharge = [self.myInvoice serviceCharge]/[self.myInvoice baseAmount];
         
         double yourBaseAmount = yourPayment/(percentServiceCharge + 1 + percentTax);
-        double tipAmount = [ArcUtility roundUpToNearestPenny:(yourBaseAmount * tipPercent)];
+        double tipAmount = [ArcUtility roundDownToNearestPenny:(yourBaseAmount * tipPercent)];
         
         double payment = yourPayment + tipAmount;
         
@@ -313,11 +344,11 @@
 }
 
 
-// TODO is the method still used?
+// For tip on the dollar screen
 - (IBAction)dollarEditEnd:(id)sender {
     @try {
-        [self.myInvoice setBasePaymentAmount:[self.dollarYourPaymentText.text doubleValue]];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDuePlusGratuity]];
+        double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SplitCheckViewController.dollarEditEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -336,7 +367,8 @@
     }
     
     self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", basePayment];
-    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDuePlusGratuity]];
+    double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
+    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
 }
 
 - (IBAction)dollarPayNow:(id)sender {
@@ -449,7 +481,7 @@
         
         [self.myInvoice setGratuity:[self.itemTipText.text doubleValue]];
         double payment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - [self.myInvoice gratuity];
-        payment = [ArcUtility roundUpToNearestPenny:payment];
+        payment = [ArcUtility roundDownToNearestPenny:payment];
         [self.myInvoice setBasePaymentAmount:payment];
         
     }else if (self.percentView.hidden == NO){
@@ -459,8 +491,8 @@
         }
         
         
-        [self.myInvoice setGratuity:[ArcUtility roundUpToNearestPenny:[self.percentTipText.text doubleValue]]];
-        [self.myInvoice setBasePaymentAmount:[ArcUtility roundUpToNearestPenny:self.percentYourPayment]];
+        [self.myInvoice setGratuity:[ArcUtility roundDownToNearestPenny:[self.percentTipText.text doubleValue]]];
+        [self.myInvoice setBasePaymentAmount:[ArcUtility roundDownToNearestPenny:self.percentYourPayment]];
         NSLog(@"%f", self.percentYourPayment);
         
     }else{
@@ -525,7 +557,7 @@
     double tip = [self.percentTipText.text doubleValue];
     
     double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-    double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+    double payment = [ArcUtility roundDownToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
     if (payment < 0.0) {
         payment = 0.0;
     }
@@ -554,10 +586,10 @@
         }
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-        double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+        double payment = [ArcUtility roundDownToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
         double baseTipPayment = percentYourPayment * [self.myInvoice baseAmount];
 
-        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * baseTipPayment)];
+        double tipAmount = [ArcUtility roundDownToNearestPenny:(tipPercent * baseTipPayment)];
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tipAmount)];
         
@@ -582,7 +614,7 @@
         }
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-        double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+        double payment = [ArcUtility roundDownToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
         
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tip];
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tip)];
@@ -715,9 +747,9 @@
 }
 
 -(void)showItemTotal{
-    double taxTotal = [ArcUtility roundUpToNearestPenny:(self.taxPercentage * self.itemTotal)];
+    double taxTotal = [ArcUtility roundDownToNearestPenny:(self.taxPercentage * self.itemTotal)];
     
-    double serviceTotal = [ArcUtility roundUpToNearestPenny:(self.serviceChargePercentage * self.itemTotal)];
+    double serviceTotal = [ArcUtility roundDownToNearestPenny:(self.serviceChargePercentage * self.itemTotal)];
     
     double tipTotal = [self.itemTipText.text doubleValue];
     
@@ -754,7 +786,7 @@
             tipPercent = .20;
         }
         
-        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * self.itemTotal)];
+        double tipAmount = [ArcUtility roundDownToNearestPenny:(tipPercent * self.itemTotal)];
         
         self.itemTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
 
