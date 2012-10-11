@@ -34,6 +34,7 @@
 		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
 		908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */; };
 		908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */; };
+		9090204E16266AB2001B8428 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9090204D16266AB2001B8428 /* Default-568h@2x.png */; };
 		90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 90915A1F160952B100A9A070 /* NSString+CharArray.m */; };
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
@@ -174,6 +175,7 @@
 		908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTitleLabel.h; sourceTree = "<group>"; };
 		908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTitleLabel.m; sourceTree = "<group>"; };
 		908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboard.storyboard; sourceTree = "<group>"; };
+		9090204D16266AB2001B8428 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		90915A1E160952B100A9A070 /* NSString+CharArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CharArray.h"; sourceTree = "<group>"; };
 		90915A1F160952B100A9A070 /* NSString+CharArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CharArray.m"; sourceTree = "<group>"; };
 		9094250215D86E2500CB052D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				9090204D16266AB2001B8428 /* Default-568h@2x.png */,
 				906D108C160FE03600561C31 /* Accounts.framework */,
 				906D1089160FC87100561C31 /* Social.framework */,
 				9095947A15EA652600F19DD2 /* Twitter.framework */,
@@ -706,6 +709,7 @@
 				908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */,
 				906D106F160DF82000561C31 /* arrow.png in Resources */,
 				906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */,
+				9090204E16266AB2001B8428 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
