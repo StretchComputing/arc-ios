@@ -11,9 +11,9 @@
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
 
-NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+//NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://arc.dagher.mobi/rest/v1/";           // CLOUD
-//NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
+NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD
 //NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; // Servers API: Jim's Place
@@ -41,7 +41,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-            _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
+           // _arcUrl = [NSString stringWithFormat:@"http://%@/rest/v1/", [prefs valueForKey:@"arcUrl"]];
         }
         
     }
