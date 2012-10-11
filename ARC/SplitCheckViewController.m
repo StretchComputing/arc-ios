@@ -23,6 +23,24 @@
 
 @implementation SplitCheckViewController
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+
+}
+
+-(void)keyboardWillShow:(id)sender{
+    [self showDoneButton];
+}
+-(void)keyboardWillHide:(id)sender{
+    [self.hideKeyboardView removeFromSuperview];
+    self.hideKeyboardView = nil;
+}
 
 -(void)viewDidAppear:(BOOL)animated{
     
@@ -58,7 +76,11 @@
 {
     @try {
       
-        
+        if (self.view.frame.size.height > 500) {
+            self.isIphone5 = YES;
+        }else{
+            self.isIphone5 = NO;
+        }
 
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Split Check"];
         self.navigationItem.titleView = navLabel;
@@ -918,6 +940,52 @@
 
 
     return TRUE;
+}
+
+
+-(void)hideKeyboard{
+    [self endText];
+
+}
+
+-(void)showDoneButton{
+    @try {
+        
+        [self.hideKeyboardView removeFromSuperview];
+        self.hideKeyboardView = nil;
+        
+        int keyboardY = 156;
+        if (self.isIphone5) {
+            keyboardY = 244;
+        }
+        self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, keyboardY, 85, 45)];
+        self.hideKeyboardView .backgroundColor = [UIColor clearColor];
+        self.hideKeyboardView.layer.masksToBounds = YES;
+        self.hideKeyboardView.layer.cornerRadius = 3.0;
+        
+        UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 85, 45)];
+        tmpView.backgroundColor = [UIColor blackColor];
+        tmpView.alpha = 0.6;
+        [self.hideKeyboardView addSubview:tmpView];
+        
+        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        tmpButton.frame = CGRectMake(8, 5, 69, 35);
+        [tmpButton setTitle:@"Done" forState:UIControlStateNormal];
+        [tmpButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+        [tmpButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [tmpButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
+        [tmpButton addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.hideKeyboardView addSubview:tmpButton];
+        [self.view addSubview:self.hideKeyboardView];
+        
+        
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"RegisterView.showDoneButton" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 

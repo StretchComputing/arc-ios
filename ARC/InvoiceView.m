@@ -130,6 +130,12 @@
             self.tipText.keyboardType = UIKeyboardTypeDecimalPad;
         }
         
+        if (self.view.frame.size.height > 500) {
+            self.isIphone5 = YES;
+        }else{
+            self.isIphone5 = NO;
+        }
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -331,7 +337,7 @@
         [UIView setAnimationDuration:0.3];
         
         self.view.frame = CGRectMake(0, -165, 320, self.view.frame.size.height);
-        
+        [self showDoneButton];
         
         [UIView commitAnimations];
     }
@@ -357,6 +363,9 @@
         [UIView setAnimationDuration:0.2];
         
         self.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        
+        [self.hideKeyboardView removeFromSuperview];
+        self.hideKeyboardView = nil;
         
         [UIView commitAnimations];
         
@@ -468,6 +477,52 @@
     }
     
     return TRUE;
+}
+
+
+-(void)hideKeyboard{
+    [self.tipText resignFirstResponder];
+    
+}
+
+-(void)showDoneButton{
+    @try {
+        
+        [self.hideKeyboardView removeFromSuperview];
+        self.hideKeyboardView = nil;
+        
+        int keyboardY = 320;
+        if (self.isIphone5) {
+            keyboardY = 408;
+        }
+        self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, keyboardY, 85, 45)];
+        self.hideKeyboardView .backgroundColor = [UIColor clearColor];
+        self.hideKeyboardView.layer.masksToBounds = YES;
+        self.hideKeyboardView.layer.cornerRadius = 3.0;
+        
+        UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 85, 45)];
+        tmpView.backgroundColor = [UIColor blackColor];
+        tmpView.alpha = 0.6;
+        [self.hideKeyboardView addSubview:tmpView];
+        
+        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        tmpButton.frame = CGRectMake(8, 5, 69, 35);
+        [tmpButton setTitle:@"Done" forState:UIControlStateNormal];
+        [tmpButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+        [tmpButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [tmpButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
+        [tmpButton addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.hideKeyboardView addSubview:tmpButton];
+        [self.view addSubview:self.hideKeyboardView];
+        
+        
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"RegisterView.showDoneButton" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 
 

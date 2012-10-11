@@ -14,6 +14,8 @@
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
 
+@property BOOL isIphone5;
+@property (nonatomic, strong) UIView *hideKeyboardView;
 - (IBAction)payNow:(id)sender;
 @property (strong, nonatomic) Invoice *myInvoice;
 @property (weak, nonatomic) IBOutlet UIView *bottomHalfView;

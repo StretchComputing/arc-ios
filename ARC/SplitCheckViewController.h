@@ -22,6 +22,8 @@
 @property double serviceChargePercentage;
 @property double percentYourPayment;
 
+@property BOOL isIphone5;
+@property (nonatomic, strong) UIView *hideKeyboardView;
 
 @property (weak, nonatomic) IBOutlet UILabel *dollarAmountAlreadyPaidNameLabel;
 @property int itemSplitItemIndex;
