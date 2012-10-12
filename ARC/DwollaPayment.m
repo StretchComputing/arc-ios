@@ -463,6 +463,9 @@
         NSNumber *amount = [NSNumber numberWithDouble:totalPayment];
         [ tempDictionary setObject:amount forKey:@"Amount"];
         
+        NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
+        [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
+        
         [ tempDictionary setObject:dwollaToken forKey:@"AuthenticationToken"];
         [ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
         
