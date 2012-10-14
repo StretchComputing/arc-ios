@@ -17,6 +17,9 @@ extern int const CANNOT_TRANSFER_TO_SAME_ACCOUNT;
 extern int const FAILED_TO_VALIDATE_CARD;
 extern int const INVALID_ACCOUNT_NUMBER;
 extern int const CANNOT_GET_PAYMENT_AUTHORIZATION;
+extern int const INVALID_ACCOUNT_PIN;
+extern int const INSUFFICIENT_FUNDS;
+
 
 extern NSString *const ARC_ERROR_MSG;
 

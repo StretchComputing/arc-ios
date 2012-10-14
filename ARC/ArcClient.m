@@ -25,6 +25,8 @@ int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE = 400;
 
 int const CANNOT_PROCESS_PAYMENT = 500;
 int const CANNOT_TRANSFER_TO_SAME_ACCOUNT = 501;
+int const INVALID_ACCOUNT_PIN = 502;
+int const INSUFFICIENT_FUNDS = 503;
 
 int const FAILED_TO_VALIDATE_CARD = 605;
 int const INVALID_ACCOUNT_NUMBER = 607;
@@ -147,6 +149,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        NSLog(@"getMerchantList requestString = %@", requestString);
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants/list", _arcUrl, nil];
         

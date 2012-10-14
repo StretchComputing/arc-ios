@@ -53,10 +53,10 @@
         self.hiddenText.text = @"";
         [self.view addSubview:self.hiddenText];
         
-        self.checkNumOne.text = @" ";
-        self.checkNumTwo.text = @" ";
-        self.checkNumThree.text = @" ";
-        self.checkNumFour.text = @" ";
+        self.checkNumOne.text = @"";
+        self.checkNumTwo.text = @"";
+        self.checkNumThree.text = @"";
+        self.checkNumFour.text = @"";
         
         self.checkNumOne.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
         self.checkNumTwo.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
@@ -67,11 +67,14 @@
         self.notesText.layer.masksToBounds = YES;
         self.notesText.layer.cornerRadius = 5.0;
         
-        self.fundingSourceStatus = @"";
+        // bypass retrieval of funding sources for now
+        //self.fundingSourceStatus = @"";
+        self.fundingSourceStatus = @"success";
         
         dispatch_queue_t queue = dispatch_queue_create("dwolla.task", NULL);
         dispatch_queue_t main = dispatch_get_main_queue();
         
+        /*
         dispatch_async(queue,^{
             
             @try {
@@ -95,6 +98,7 @@
             
             
         });
+         */
         
         [super viewDidLoad];
         // Do any additional setup after loading the view.
@@ -117,6 +121,8 @@
         [self.hiddenText becomeFirstResponder];
         self.serverData = [NSMutableData data];
         
+        // bypass retrieval of Dwolla funding sources for now
+        /*
         if (self.fromDwolla) {
             self.fromDwolla = NO;
             
@@ -157,6 +163,7 @@
                 [self.activity stopAnimating];
             }
         }
+        */
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"DwollaPayment.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -370,11 +377,14 @@
                 
                 
             }else{
+                // bypass Dwolla Funding Source logic
+                [self performSelector:@selector(createPayment)];
                 
-                
+                /*
                 if ([self.fundingSourceStatus isEqualToString:@"success"]) {
                     
                     if ([self.fundingSources count] == 0) {
+                        // TODO what should the code do here?????
                         
                     }else if ([self.fundingSources count] == 1){
                         
@@ -412,6 +422,7 @@
                     [self.activity startAnimating];
                     
                 }
+                */
                 
                 
                 
@@ -459,15 +470,13 @@
         NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
         [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
         
-        double totalPayment = [self.myInvoice basePaymentAmount] + [self.myInvoice gratuity];
-        NSNumber *amount = [NSNumber numberWithDouble:totalPayment];
+        NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
         [ tempDictionary setObject:amount forKey:@"Amount"];
         
-        NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
-        [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
-        
         [ tempDictionary setObject:dwollaToken forKey:@"AuthenticationToken"];
-        [ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
+        // bypass funding source - force server to use default which means the money comes from the user's Dwolla account
+        //[ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
+        [ tempDictionary setObject:@"" forKey:@"FundSourceAccount"];
         
         NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
         [ tempDictionary setObject:grat forKey:@"Gratuity"];
@@ -533,6 +542,10 @@
                 errorMsg = @"Can not transfer to your own account.";
             } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
                 errorMsg = @"Merchant does not accept Dwolla payment.";
+            } else if(errorCode == INVALID_ACCOUNT_PIN) {
+                errorMsg = @"Invalid PIN";
+            } else if(errorCode == INSUFFICIENT_FUNDS) {
+                errorMsg = @"Insufficient funds.";
             }
             else {
                 errorMsg = ARC_ERROR_MSG;

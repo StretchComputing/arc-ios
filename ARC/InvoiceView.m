@@ -385,6 +385,7 @@
         }
         [self.myInvoice setGratuityByAmount:tipAmount];
         
+        // on this screen, can only pay the full remaining amount due
         [self.myInvoice setBasePaymentAmount:[self.myInvoice amountDue]];
         
         //For Metrics
