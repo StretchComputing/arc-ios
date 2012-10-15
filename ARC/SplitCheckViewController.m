@@ -342,7 +342,7 @@
         double percentServiceCharge = [self.myInvoice serviceCharge]/[self.myInvoice baseAmount];
         
         double yourBaseAmount = yourPayment/(percentServiceCharge + 1 + percentTax);
-        double tipAmount = [ArcUtility roundDownToNearestPenny:(yourBaseAmount * tipPercent)];
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(yourBaseAmount * tipPercent)];
         
         double payment = yourPayment + tipAmount;
         
@@ -509,7 +509,7 @@
         
         [self.myInvoice setGratuity:[self.itemTipText.text doubleValue]];
         double payment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - [self.myInvoice gratuity];
-        payment = [ArcUtility roundDownToNearestPenny:payment];
+        payment = [ArcUtility roundUpToNearestPenny:payment];
         [self.myInvoice setBasePaymentAmount:payment];
         
         self.myInvoice.splitType = @"ITEMIZED";
@@ -545,8 +545,8 @@
         }
         
         
-        [self.myInvoice setGratuity:[ArcUtility roundDownToNearestPenny:[self.percentTipText.text doubleValue]]];
-        [self.myInvoice setBasePaymentAmount:[ArcUtility roundDownToNearestPenny:self.percentYourPayment]];
+        [self.myInvoice setGratuity:[ArcUtility roundUpToNearestPenny:[self.percentTipText.text doubleValue]]];
+        [self.myInvoice setBasePaymentAmount:[ArcUtility roundUpToNearestPenny:self.percentYourPayment]];
         NSLog(@"%f", self.percentYourPayment);
         
         self.myInvoice.splitType = @"PERCENT";
@@ -689,7 +689,7 @@
     double tip = [self.percentTipText.text doubleValue];
     
     double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-    double payment = [ArcUtility roundDownToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+    double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
     if (payment < 0.0) {
         payment = 0.0;
     }
@@ -725,10 +725,10 @@
         }
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-        double payment = [ArcUtility roundDownToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+        double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
         double baseTipPayment = percentYourPayment * [self.myInvoice baseAmount];
 
-        double tipAmount = [ArcUtility roundDownToNearestPenny:(tipPercent * baseTipPayment)];
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * baseTipPayment)];
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tipAmount)];
         
@@ -760,7 +760,7 @@
         }
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-        double payment = [ArcUtility roundDownToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+        double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
         
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tip];
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tip)];
@@ -893,9 +893,9 @@
 }
 
 -(void)showItemTotal{
-    double taxTotal = [ArcUtility roundDownToNearestPenny:(self.taxPercentage * self.itemTotal)];
+    double taxTotal = [ArcUtility roundUpToNearestPenny:(self.taxPercentage * self.itemTotal)];
     
-    double serviceTotal = [ArcUtility roundDownToNearestPenny:(self.serviceChargePercentage * self.itemTotal)];
+    double serviceTotal = [ArcUtility roundUpToNearestPenny:(self.serviceChargePercentage * self.itemTotal)];
     
     double tipTotal = [self.itemTipText.text doubleValue];
     
@@ -941,7 +941,7 @@
             tipPercent = .20;
         }
         
-        double tipAmount = [ArcUtility roundDownToNearestPenny:(tipPercent * self.itemTotal)];
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * self.itemTotal)];
         
         self.itemTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
 
