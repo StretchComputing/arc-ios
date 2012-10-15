@@ -45,6 +45,7 @@
 - (void)viewDidLoad
 {
     @try {
+        
     
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Invoice"];
         self.navigationItem.titleView = navLabel;
@@ -134,6 +135,13 @@
             self.isIphone5 = YES;
         }else{
             self.isIphone5 = NO;
+        }
+        
+        // adjust if payments have already been made
+        double amountPaid = [self.myInvoice calculateAmountPaid];
+        if(amountPaid > 0.0) {
+            self.payBillButton.title = @"Pay Remaining";
+
         }
         
     }
@@ -551,4 +559,9 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setSplitCheckButton:nil];
+    [self setPayBillButton:nil];
+    [super viewDidUnload];
+}
 @end

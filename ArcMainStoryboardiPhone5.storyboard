@@ -2240,7 +2240,9 @@
                         <outlet property="gratLabel" destination="eqC-WG-efc" id="dFi-ot-Kr0"/>
                         <outlet property="gratNameLabel" destination="bdB-j5-2my" id="Ne0-zs-mIj"/>
                         <outlet property="myTableView" destination="1eY-4l-GSe" id="3FK-S1-TTz"/>
+                        <outlet property="payBillButton" destination="5kd-xc-Ydk" id="OuG-lN-NwF"/>
                         <outlet property="scrollView" destination="mdJ-HZ-Mpp" id="xBK-iI-3Gf"/>
+                        <outlet property="splitCheckButton" destination="xZe-0E-avq" id="lAz-fp-ph0"/>
                         <outlet property="subLabel" destination="to3-sc-dHs" id="6BO-Ud-uwg"/>
                         <outlet property="taxLabel" destination="gs2-mK-wwb" id="TRO-b7-cRi"/>
                         <outlet property="tipSegment" destination="3U0-Oi-SuE" id="7Sh-Tw-dSz"/>
@@ -3393,7 +3395,9 @@
                 <relationship kind="outlet" name="gratLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="gratNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="payBillButton" candidateClass="CorbelBarButtonItem"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="splitCheckButton" candidateClass="CorbelBarButtonItem"/>
                 <relationship kind="outlet" name="subLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="taxLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
@@ -3624,11 +3628,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Yz7-xF-sKA"/>
         <segue reference="C7C-NV-eEl"/>
-        <segue reference="co8-nZ-5K2"/>
+        <segue reference="pOd-6P-e5i"/>
+        <segue reference="FRd-J0-OXc"/>
         <segue reference="Ii2-yA-rgx"/>
-        <segue reference="2SM-S0-l6J"/>
         <segue reference="yIh-pn-HeY"/>
+        <segue reference="2SM-S0-l6J"/>
     </inferredMetricsTieBreakers>
 </document>

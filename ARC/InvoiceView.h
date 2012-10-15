@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
+#import "CorbelBarButtonItem.h"
 
 @interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate>
 
@@ -21,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomHalfView;
 - (IBAction)splitCheckAction:(id)sender;
 
+@property (weak, nonatomic) IBOutlet CorbelBarButtonItem *splitCheckButton;
+@property (weak, nonatomic) IBOutlet CorbelBarButtonItem *payBillButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UILabel *dividerLabel;

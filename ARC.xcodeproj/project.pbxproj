@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90089F29160B71A7005C268D /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90089F28160B71A7005C268D /* libCrashReporter-iphoneos.a */; };
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
 		9046C35B160A0579008BAE4D /* HelpViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9046C35A160A0579008BAE4D /* HelpViewNew.m */; };
 		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
@@ -129,10 +128,10 @@
 		9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68CFA15E083750048789D /* UIDevice-Hardware.m */; };
 		9FA68D0615E083BB0048789D /* rSkybox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68D0515E083BB0048789D /* rSkybox.m */; };
 		9FA68D0A15E0880B0048789D /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA68D0915E0880B0048789D /* CrashReporter.framework */; };
+		9FE9DFA6162BB48300115E97 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE9DFA5162BB48300115E97 /* libCrashReporter-iphoneos.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		90089F28160B71A7005C268D /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
 		9046C359160A0579008BAE4D /* HelpViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewNew.h; sourceTree = "<group>"; };
@@ -337,6 +336,7 @@
 		9FA68D0415E083BB0048789D /* rSkybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rSkybox.h; sourceTree = "<group>"; };
 		9FA68D0515E083BB0048789D /* rSkybox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rSkybox.m; sourceTree = "<group>"; };
 		9FA68D0915E0880B0048789D /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
+		9FE9DFA5162BB48300115E97 /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,9 +344,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE9DFA6162BB48300115E97 /* libCrashReporter-iphoneos.a in Frameworks */,
 				906D108D160FE03600561C31 /* Accounts.framework in Frameworks */,
 				906D108A160FC87100561C31 /* Social.framework in Frameworks */,
-				90089F29160B71A7005C268D /* libCrashReporter-iphoneos.a in Frameworks */,
 				9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */,
 				9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */,
 				907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */,
@@ -368,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				9090204D16266AB2001B8428 /* Default-568h@2x.png */,
+				9FE9DFA5162BB48300115E97 /* libCrashReporter-iphoneos.a */,
 				906D108C160FE03600561C31 /* Accounts.framework */,
 				906D1089160FC87100561C31 /* Social.framework */,
 				9095947A15EA652600F19DD2 /* Twitter.framework */,
@@ -376,7 +377,6 @@
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
 				908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */,
 				906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */,
-				90089F28160B71A7005C268D /* libCrashReporter-iphoneos.a */,
 				9FA68D0915E0880B0048789D /* CrashReporter.framework */,
 				907A405915A8D9C400090452 /* CoreData.framework */,
 				90FBDBA1159CB73F0051609A /* SenTestingKit.framework */,
