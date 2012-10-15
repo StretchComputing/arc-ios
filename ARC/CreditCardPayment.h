@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "DwollaAPI.h"
 #import "Invoice.h"
-
+#import "LucidaBoldLabel.h"
 
 @interface CreditCardPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;
+@property (nonatomic, strong) IBOutlet LucidaBoldLabel *totalPaymentText;
 
 @property (strong, nonatomic) Invoice *myInvoice;
 

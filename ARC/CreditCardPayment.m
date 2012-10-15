@@ -64,6 +64,7 @@
         self.notesText.layer.masksToBounds = YES;
         self.notesText.layer.cornerRadius = 5.0;
         
+        self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.amountDue];
         
         [super viewDidLoad];
         // Do any additional setup after loading the view.

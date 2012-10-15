@@ -181,15 +181,15 @@
             
             
             
-            UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 3, 207, 20)];
+            UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 3, 188, 20)];
             itemLabel.tag = itemTag;
             [cell.contentView addSubview:itemLabel];
             
-            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(234, 2, 60, 20)];
+            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 2, 75, 20)];
             priceLabel.tag = priceTag;
             [cell.contentView addSubview:priceLabel];
             
-            UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 2, 20, 20)];
+            UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 2, 32, 20)];
             numberLabel.tag = numberTag;
             [cell.contentView addSubview:numberLabel];
             

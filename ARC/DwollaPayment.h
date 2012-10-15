@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "DwollaAPI.h"
 #import "Invoice.h"
-
+#import "LucidaBoldLabel.h"
 
 @interface DwollaPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
+
+@property double dwollaBalance;
+@property (nonatomic, strong) IBOutlet LucidaBoldLabel *dwollaBalanceText;
+@property (nonatomic, strong) IBOutlet LucidaBoldLabel *totalPaymentText;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *dwollaBalanceActivity;
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;
 @property (strong, nonatomic) Invoice *myInvoice;
