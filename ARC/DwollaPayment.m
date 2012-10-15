@@ -562,6 +562,9 @@
 		
         NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myInvoice.invoiceId];
         [ tempDictionary setObject:invoiceIdString forKey:@"InvoiceId"];
+        NSString *merchantIdString = [NSString stringWithFormat:@"%d", self.myInvoice.merchantId];
+        [ tempDictionary setObject:merchantIdString forKey:@"MerchantId"];
+
 
         [ tempDictionary setObject:pinNumber forKey:@"Pin"];
         [ tempDictionary setObject:@"DWOLLA" forKey:@"Type"];
