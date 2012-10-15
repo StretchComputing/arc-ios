@@ -100,6 +100,33 @@
         });
          */
         
+        [self.dwollaBalanceActivity startAnimating];
+        self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.amountDue];
+        dispatch_async(queue,^{
+            
+            NSString *balance = @"";
+            @try {
+                
+                balance = [DwollaAPI getBalance];
+                
+                dispatch_async(main,^{
+                    [self.dwollaBalanceActivity stopAnimating];
+                    self.dwollaBalance = [balance doubleValue];
+                    self.dwollaBalanceText.text = [NSString stringWithFormat:@"$%.2f", self.dwollaBalance];
+                    [self.dwollaBalanceActivity stopAnimating];
+                    
+                    if (self.dwollaBalance < self.myInvoice.amountDue) {
+                        self.dwollaBalanceText.textColor = [UIColor redColor];
+                    }else{
+                        self.dwollaBalanceText.textColor = [UIColor colorWithRed:100.0/255.0 green:100.0/255.0 blue:100.0/255.0 alpha:1.0];
+                    }
+                });
+            }
+            @catch (NSException *exception) {
+                NSLog(@"Exception getting balance");
+            }           
+        });
+        
         [super viewDidLoad];
         // Do any additional setup after loading the view.
         CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -404,7 +431,15 @@
                 
             }else{
                 // bypass Dwolla Funding Source logic
-                [self performSelector:@selector(createPayment)];
+                
+                if (self.dwollaBalance < self.myInvoice.amountDue) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Insufficient Funds" message:@"You do not have enough funds in your Dwolla account to cover this transaction." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    
+                }else{
+                    [self performSelector:@selector(createPayment)];
+
+                }
                 
                 /*
                 if ([self.fundingSourceStatus isEqualToString:@"success"]) {

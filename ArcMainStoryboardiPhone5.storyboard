@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="58r-7R-ELZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="58r-7R-ELZ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
         <!--Initial Controller-->
@@ -951,46 +951,46 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter Your Credit Card PIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hk1-6s-5KZ" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="0.0" y="19" width="320" height="31"/>
+                                <rect key="frame" x="0.0" y="13" width="320" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="kFd-dv-6sy" customClass="CorbelInputTextField">
-                                <rect key="frame" x="56" y="64" width="35" height="38"/>
+                                <rect key="frame" x="56" y="58" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="10P-Yw-Cun" customClass="CorbelInputTextField">
-                                <rect key="frame" x="114" y="64" width="35" height="38"/>
+                                <rect key="frame" x="114" y="58" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="Aeg-mK-u5A" customClass="CorbelInputTextField">
-                                <rect key="frame" x="170" y="64" width="35" height="38"/>
+                                <rect key="frame" x="170" y="58" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="TcD-Lk-dm2" customClass="CorbelInputTextField">
-                                <rect key="frame" x="229" y="64" width="35" height="38"/>
+                                <rect key="frame" x="229" y="58" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="E6c-ep-bpy">
-                                <rect key="frame" x="150" y="118" width="20" height="20"/>
+                                <rect key="frame" x="150" y="105" width="20" height="20"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6VI-hd-ZpM">
-                                <rect key="frame" x="0.0" y="117" width="320" height="21"/>
+                                <rect key="frame" x="0.0" y="110" width="320" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Transaction Notes (*optional):" id="0xv-kF-Njy" customClass="CorbelTextView">
-                                <rect key="frame" x="12" y="146" width="297" height="121"/>
+                                <rect key="frame" x="12" y="162" width="297" height="97"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
@@ -999,15 +999,27 @@
                                 </connections>
                             </textView>
                             <view contentMode="scaleToFill" id="cul-Ai-a15">
-                                <rect key="frame" x="25" y="50.5" width="262" height="52"/>
+                                <rect key="frame" x="25" y="44.5" width="262" height="52"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total Amount Due:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="r1a-JZ-MrS" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="12" y="123" width="147" height="31"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="JrD-SY-hlo" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="166" y="123" width="115" height="31"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Credit Card" id="cZV-qD-VMc">
-                        <barButtonItem key="rightBarButtonItem" title="Submit" id="Vzl-CN-Lbu" customClass="CorbelBarButtonItem">
+                        <barButtonItem key="rightBarButtonItem" title="Pay" id="Vzl-CN-Lbu" customClass="CorbelBarButtonItem">
                             <connections>
                                 <action selector="submit:" destination="zZz-LI-SJ8" id="cYW-h5-zwQ"/>
                             </connections>
@@ -1024,6 +1036,7 @@
                         <outlet property="notesText" destination="0xv-kF-Njy" id="tCv-iN-a8o"/>
                         <outlet property="payButton" destination="Vzl-CN-Lbu" id="Z8q-da-G9L"/>
                         <outlet property="submitButton" destination="Vzl-CN-Lbu" id="5SY-1j-kUg"/>
+                        <outlet property="totalPaymentText" destination="JrD-SY-hlo" id="wHg-RS-4kW"/>
                         <segue destination="CSm-3p-pEO" kind="push" identifier="reviewCreditCardTransaction" id="2SM-S0-l6J"/>
                     </connections>
                 </viewController>
@@ -1040,43 +1053,67 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter Your Dwolla PIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="5Fu-Jr-qgD" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="0.0" y="19" width="320" height="31"/>
+                                <rect key="frame" x="0.0" y="3" width="320" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total Amount Due:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6X0-AR-64f" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="12" y="112" width="147" height="31"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="BKB-WW-WZi" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="189" y="137" width="115" height="31"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Mv2-EM-LJi" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="189" y="112" width="115" height="31"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your Dwolla Balance:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TSw-Fw-6oI" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="12" y="137" width="163" height="31"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="T6o-sL-LVg" customClass="CorbelInputTextField">
-                                <rect key="frame" x="56" y="64" width="35" height="38"/>
+                                <rect key="frame" x="56" y="48" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="INN-2s-4d3" customClass="CorbelInputTextField">
-                                <rect key="frame" x="114" y="64" width="35" height="38"/>
+                                <rect key="frame" x="114" y="48" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="Fz3-UH-Pjp" customClass="CorbelInputTextField">
-                                <rect key="frame" x="170" y="64" width="35" height="38"/>
+                                <rect key="frame" x="170" y="48" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="Jtn-gY-XTs" customClass="CorbelInputTextField">
-                                <rect key="frame" x="229" y="64" width="35" height="38"/>
+                                <rect key="frame" x="229" y="48" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="iJR-Lq-0kR">
-                                <rect key="frame" x="0.0" y="117" width="320" height="21"/>
+                                <rect key="frame" x="0.0" y="94" width="320" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Transaction Notes (*optional):" id="7p4-QF-C9c" customClass="CorbelTextView">
-                                <rect key="frame" x="12" y="146" width="297" height="121"/>
+                                <rect key="frame" x="12" y="180" width="297" height="87"/>
                                 <autoresizingMask key="autoresizingMask" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1086,17 +1123,21 @@
                                 </connections>
                             </textView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="1aJ-2J-WDf">
-                                <rect key="frame" x="150" y="118" width="20" height="20"/>
+                                <rect key="frame" x="150" y="94" width="20" height="20"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" id="CGW-Vg-58R">
-                                <rect key="frame" x="12" y="50.5" width="288" height="48"/>
+                                <rect key="frame" x="12" y="34.5" width="288" height="48"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="9Wx-JD-U8I">
+                                <rect key="frame" x="189" y="143" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Dwolla Payment" id="3xY-fp-8ok">
-                        <barButtonItem key="rightBarButtonItem" title="Submit" id="xdi-GR-MCb" customClass="CorbelBarButtonItem">
+                        <barButtonItem key="rightBarButtonItem" title="Pay" id="xdi-GR-MCb" customClass="CorbelBarButtonItem">
                             <connections>
                                 <action selector="submit:" destination="hyn-k9-9Hu" id="Aqv-jg-aWH"/>
                             </connections>
@@ -1108,10 +1149,13 @@
                         <outlet property="checkNumOne" destination="T6o-sL-LVg" id="7d7-ip-qBZ"/>
                         <outlet property="checkNumThree" destination="Fz3-UH-Pjp" id="ueI-zQ-Z8L"/>
                         <outlet property="checkNumTwo" destination="INN-2s-4d3" id="q1P-50-8tY"/>
+                        <outlet property="dwollaBalanceActivity" destination="9Wx-JD-U8I" id="8s1-FM-a7e"/>
+                        <outlet property="dwollaBalanceText" destination="BKB-WW-WZi" id="bpe-6Q-8d4"/>
                         <outlet property="errorLabel" destination="iJR-Lq-0kR" id="y0H-c4-3v3"/>
                         <outlet property="notesText" destination="7p4-QF-C9c" id="2eC-fQ-ALX"/>
                         <outlet property="payButton" destination="xdi-GR-MCb" id="pkc-4X-K74"/>
                         <outlet property="submitButton" destination="xdi-GR-MCb" id="Nxh-o4-o5a"/>
+                        <outlet property="totalPaymentText" destination="Mv2-EM-LJi" id="Jll-4Y-xi6"/>
                         <segue destination="bX5-5s-ZOq" kind="custom" identifier="confirmDwolla" customClass="PushSegueNoAnimation" id="yIh-pn-HeY"/>
                         <segue destination="CSm-3p-pEO" kind="push" identifier="reviewTransaction" id="O7d-m2-fj4"/>
                     </connections>
@@ -1595,21 +1639,21 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$96.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="ooA-zW-sxz" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="225" y="21" width="79" height="27"/>
+                                        <rect key="frame" x="216" y="21" width="93" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="kkN-tR-8Li" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="223" y="114" width="81" height="27"/>
+                                        <rect key="frame" x="216" y="114" width="93" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="0b6-P3-GWi" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="223" y="154" width="81" height="27"/>
+                                        <rect key="frame" x="216" y="154" width="93" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1718,14 +1762,14 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Food + Beverage:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0Tn-A2-etc" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="23" y="46" width="139" height="27"/>
+                                        <rect key="frame" x="17" y="46" width="139" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Charge:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="zN7-jY-93Q" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="27" y="65" width="135" height="27"/>
+                                        <rect key="frame" x="21" y="65" width="135" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1746,7 +1790,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tax:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Iud-C1-M4h" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="27" y="83" width="135" height="27"/>
+                                        <rect key="frame" x="21" y="83" width="135" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1779,21 +1823,21 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Food + Beverage:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="RnF-n3-ppB" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="23" y="46" width="139" height="27"/>
+                                        <rect key="frame" x="17" y="46" width="139" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Charge:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lia-Mj-e4c" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="27" y="65" width="135" height="27"/>
+                                        <rect key="frame" x="21" y="65" width="135" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$96.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="bls-Te-oy3" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="225" y="21" width="79" height="27"/>
+                                        <rect key="frame" x="216" y="21" width="93" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1814,14 +1858,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="nZ5-42-72D" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="223" y="114" width="81" height="27"/>
+                                        <rect key="frame" x="216" y="114" width="93" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="2V9-UU-Pl7" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="223" y="154" width="81" height="27"/>
+                                        <rect key="frame" x="216" y="155" width="93" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1914,7 +1958,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tax:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pg3-Eo-70h" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="27" y="83" width="135" height="27"/>
+                                        <rect key="frame" x="21" y="83" width="135" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2107,7 +2151,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="DK5-9f-JXg" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="28" y="0.0" width="42" height="28"/>
+                                        <rect key="frame" x="37" y="0.0" width="42" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -3310,6 +3354,7 @@
                 <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="totalPaymentText" candidateClass="LucidaBoldLabel"/>
             </relationships>
         </class>
         <class className="DwollaPayment" superclassName="UIViewController">
@@ -3321,10 +3366,13 @@
                 <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dwollaBalanceActivity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="dwollaBalanceText" candidateClass="LucidaBoldLabel"/>
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="totalPaymentText" candidateClass="LucidaBoldLabel"/>
             </relationships>
         </class>
         <class className="EditCreditCard" superclassName="UITableViewController">
@@ -3624,10 +3672,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Yz7-xF-sKA"/>
         <segue reference="C7C-NV-eEl"/>
-        <segue reference="co8-nZ-5K2"/>
         <segue reference="Ii2-yA-rgx"/>
+        <segue reference="co8-nZ-5K2"/>
+        <segue reference="Yz7-xF-sKA"/>
         <segue reference="2SM-S0-l6J"/>
         <segue reference="yIh-pn-HeY"/>
     </inferredMetricsTieBreakers>
