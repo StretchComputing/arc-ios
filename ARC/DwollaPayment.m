@@ -137,7 +137,7 @@
                     
                     @try {
                         DwollaFundingSources* sources = [DwollaAPI getFundingSources];
-                        
+                                            
                         //An array of DwollaFundingSource* objects
                         self.fundingSources = [NSMutableArray arrayWithArray:[sources getAll]];
                         self.fundingSourceStatus = @"success";
@@ -156,6 +156,32 @@
                     
                     
                 });
+                
+                dispatch_queue_t queueTwo = dispatch_queue_create("dwolla.taskTwo", NULL);
+                
+                dispatch_async(queue,^{
+                    
+                    NSString *balance = @"";
+                    @try {
+                        balance = [DwollaAPI getBalance];
+                        
+                        
+                    }
+                    @catch (NSException *exception) {
+                        balance = @"Could Not Find";
+                        
+                    }
+                    
+                    dispatch_async(main,^{
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Balance: %@" message:balance delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                    });
+                    
+                    
+                    
+                });
+                
+                
                 
                 
             }else{
@@ -389,6 +415,11 @@
                     }else if ([self.fundingSources count] == 1){
                         
                         DwollaFundingSource *tmp = [self.fundingSources objectAtIndex:0];
+                        
+                        NSLog(@"Name: %@", [tmp getName]);
+                        NSLog(@"Id: %@", [tmp getSourceID]);
+                        NSLog(@"Type: %@", [tmp getType]);
+                        
                         self.selectedFundingSourceId = [tmp getSourceID];
                         [self performSelector:@selector(createPayment)];
                         
