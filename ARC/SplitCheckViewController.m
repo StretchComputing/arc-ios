@@ -385,9 +385,9 @@
 
 - (IBAction)dollarYourPaymentEditEnd:(id)sender {
     double basePayment = [self.dollarYourPaymentText.text doubleValue];
-
-    if (basePayment > [self.myInvoice amountDue] && basePayment != 0.0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Paid Too Much" message:@"You cannot pay more than is due.  Check the 'Amount Remaining' above, and enter a value less than or equal to that!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    
+    if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"You cannot pay more than is due.  Check the 'Amount Remaining' above, and enter a value less than or equal to that!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         basePayment = 0.0;
     } else if (basePayment < 0.0) {

@@ -154,6 +154,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSLog(@"getMerchantList requestString = %@", requestString);
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants/list", _arcUrl, nil];
+        NSLog(@"GertMerchantList URL = @%", getMerchantListUrl);
         
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
