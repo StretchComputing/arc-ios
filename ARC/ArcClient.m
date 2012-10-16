@@ -322,7 +322,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/passcode", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
-        [request setHTTPMethod: @"PUT"];
+        //[request setHTTPMethod: @"PUT"];
+        [request setHTTPMethod: @"POST"];
+
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         //[request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
@@ -347,7 +349,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/passwordreset", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
-        [request setHTTPMethod: @"PUT"];
+        //[request setHTTPMethod: @"PUT"];
+        [request setHTTPMethod: @"POST"];
+
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         //[request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];

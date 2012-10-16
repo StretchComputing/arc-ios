@@ -15,6 +15,7 @@
 #import "rSkybox.h"
 #import "SplitCheckViewController.h"
 #import "HomeNavigationController.h"
+#import "RegisterDwollaView.h"
 
 @interface InvoiceView ()
 
@@ -440,9 +441,12 @@
             SplitCheckViewController *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;
             
+        }else if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
+            
+            RegisterDwollaView *controller = [segue destinationViewController];
+            controller.fromInvoice = YES;
         }
         
-            
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
