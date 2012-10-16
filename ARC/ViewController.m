@@ -40,10 +40,18 @@
             self.password.text = @"";
             
         }
+
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"resetPasswordSuccess"] isEqualToString:@"yes"]) {
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"resetPasswordSuccess"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your password has been reset successfully!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
         
   
-        
-        
+
+
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -325,4 +333,7 @@
     return 0;
 }
 
+-(void)forgotPassword{
+    [self performSegueWithIdentifier:@"forgotPassword" sender:self];
+}
 @end

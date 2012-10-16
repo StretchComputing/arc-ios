@@ -35,6 +35,11 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self getMerchantList];
+
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     
 
@@ -117,7 +122,6 @@
         
         self.activityView.hidden = NO;
         self.errorLabel.text = @"";
-        [self getMerchantList];
         [super viewDidLoad];
         // Do any additional setup after loading the view from its nib.
         
@@ -285,7 +289,11 @@
         }
         
         if([errorMsg length] > 0) {
-            self.errorLabel.text = errorMsg;
+            if ([self.allMerchants count] == 0) {
+                self.errorLabel.text = errorMsg;
+                //if no Merchants found, retry.
+                [self getMerchantList];
+            }
         }
     }
     @catch (NSException *e) {
