@@ -387,14 +387,29 @@
     double basePayment = [self.dollarYourPaymentText.text doubleValue];
     
     if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"You cannot pay more than is due.  Check the 'Amount Remaining' above, and enter a value less than or equal to that!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
+        
         [alert show];
-        basePayment = 0.0;
     } else if (basePayment < 0.0) {
         basePayment = 0.0;
+        self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", basePayment];
+        double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    double basePayment = 0.0;
+    
+    if (buttonIndex == 1) {
+        basePayment = [self.myInvoice amountDueForSplit];
     }
     
-    self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", basePayment];
+    NSString *yourBaseAmount = @"";
+    if(basePayment > 0.0) {
+        yourBaseAmount = [NSString stringWithFormat:@"%.2f", basePayment];
+    }
+    self.dollarYourPaymentText.text = yourBaseAmount;
     double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
     self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
 }
