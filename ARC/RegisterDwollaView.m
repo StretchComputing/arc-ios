@@ -31,7 +31,7 @@
         
         
         NSArray *scopes = @[@"send", @"balance", @"accountinfofull", @"contacts", @"funding",  @"request", @"transactions"];
-        DwollaOAuth2Client *client = [[DwollaOAuth2Client alloc] initWithFrame:CGRectMake(0, 0, 320, 460) key:@"2iFSd6ifWh5KchAPbYQ7TWylQqs+c/xkT8ji5/GwYTx2BkImr3" secret:@"83wLV7XvDAq2VuYXt0l4vB98uo7KFeivHNi+y6yeCyOttbmmeH" redirect:@"https://www.dwolla.com" response:@"code" scopes:scopes view:self.view reciever:self];
+        DwollaOAuth2Client *client = [[DwollaOAuth2Client alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height) key:@"2iFSd6ifWh5KchAPbYQ7TWylQqs+c/xkT8ji5/GwYTx2BkImr3" secret:@"83wLV7XvDAq2VuYXt0l4vB98uo7KFeivHNi+y6yeCyOttbmmeH" redirect:@"https://www.dwolla.com" response:@"code" scopes:scopes view:self.view reciever:self];
         [client login];
         
     }
@@ -46,7 +46,8 @@
     @try {
         
         [rSkybox addEventToSession:@"successfulDwollaLogin"];
-        
+        [ArcClient trackEvent:@"DWOLLA_ACTIVATED"];
+
         if (self.fromRegister) {
             RegisterViewNew *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
             tmp.fromDwolla = YES;
@@ -78,7 +79,6 @@
             
         }
         
-        [ArcClient trackEvent:@"DWOLLA_ACTIVATED"];
 
     }
     @catch (NSException *e) {

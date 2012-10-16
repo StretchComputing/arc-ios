@@ -16,6 +16,7 @@
 #import "MyGestureRecognizer.h"
 #import "ArcUtility.h"
 #import "Invoice.h"
+#import "RegisterDwollaView.h"
 
 @interface SplitCheckViewController ()
 
@@ -641,6 +642,10 @@
             controller.creditCardExpiration = self.creditCardExpiration;
             controller.creditCardSecurityCode = self.creditCardSecurityCode;
             
+        }else if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
+            
+            RegisterDwollaView *controller = [segue destinationViewController];
+            controller.fromSplitCheck = YES;
         }
         
     }
