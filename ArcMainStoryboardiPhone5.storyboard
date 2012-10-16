@@ -60,7 +60,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="fGM-6b-9Xk" customClass="CorbelRegularLabel">
-                                <rect key="frame" x="0.0" y="247" width="320" height="21"/>
+                                <rect key="frame" x="0.0" y="251" width="320" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,7 +70,7 @@
                                 <rect key="frame" x="40" y="57.5" width="236" height="77"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3gg-rf-6cO">
-                                <rect key="frame" x="15" y="227" width="290" height="25"/>
+                                <rect key="frame" x="15" y="224" width="290" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <state key="normal" title="Forgot Your Password?  Click HERE!">
@@ -3453,10 +3453,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="o7u-Lj-dwT"/>
-        <segue reference="Ii2-yA-rgx"/>
+        <segue reference="A7t-ff-FTj"/>
+        <segue reference="co8-nZ-5K2"/>
         <segue reference="dMz-Vz-d6i"/>
         <segue reference="Yz7-xF-sKA"/>
-        <segue reference="co8-nZ-5K2"/>
         <segue reference="2SM-S0-l6J"/>
     </inferredMetricsTieBreakers>
 </document>
