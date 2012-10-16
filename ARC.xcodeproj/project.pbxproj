@@ -61,6 +61,8 @@
 		90993F571597781400FC1D49 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90993F561597781400FC1D49 /* Default.png */; };
 		90993F591597782100FC1D49 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90993F581597782100FC1D49 /* Default@2x.png */; };
 		90993F5D1597795B00FC1D49 /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 90993F5B1597795B00FC1D49 /* Home.m */; };
+		90A19F72162CF186007995DC /* GetPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F71162CF186007995DC /* GetPasscodeViewController.m */; };
+		90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F75162CF197007995DC /* ResetPasswordViewController.m */; };
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
 		90B01D07159E3E61005FCCCF /* fullStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D06159E3E61005FCCCF /* fullStar.png */; };
 		90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D09159E3E92005FCCCF /* ReviewTransaction.m */; };
@@ -218,6 +220,10 @@
 		90993F581597782100FC1D49 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		90993F5A1597795B00FC1D49 /* Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
 		90993F5B1597795B00FC1D49 /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
+		90A19F70162CF186007995DC /* GetPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPasscodeViewController.h; sourceTree = "<group>"; };
+		90A19F71162CF186007995DC /* GetPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPasscodeViewController.m; sourceTree = "<group>"; };
+		90A19F74162CF197007995DC /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
+		90A19F75162CF197007995DC /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		90B01D03159E3CF1005FCCCF /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		90B01D06159E3E61005FCCCF /* fullStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullStar.png; sourceTree = "<group>"; };
 		90B01D08159E3E92005FCCCF /* ReviewTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTransaction.h; sourceTree = "<group>"; };
@@ -462,6 +468,10 @@
 				907A404415A8CFE900090452 /* AccessData.m */,
 				90993F4A159777BC00FC1D49 /* ViewController.h */,
 				90993F4B159777BC00FC1D49 /* ViewController.m */,
+				90A19F70162CF186007995DC /* GetPasscodeViewController.h */,
+				90A19F71162CF186007995DC /* GetPasscodeViewController.m */,
+				90A19F74162CF197007995DC /* ResetPasswordViewController.h */,
+				90A19F75162CF197007995DC /* ResetPasswordViewController.m */,
 				90CDF7C715DC91ED00EBF15B /* SplitCheckViewController.h */,
 				90CDF7C815DC91ED00EBF15B /* SplitCheckViewController.m */,
 				90FBDC46159CE4F90051609A /* PushSegueNoAnimation.h */,
@@ -799,6 +809,8 @@
 				9097099D1610B3270092A970 /* CreatePinView.m in Sources */,
 				909709A41610E6B30092A970 /* ValidatePinView.m in Sources */,
 				9F7B4D6F1620F3FA007EC356 /* ArcUtility.m in Sources */,
+				90A19F72162CF186007995DC /* GetPasscodeViewController.m in Sources */,
+				90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

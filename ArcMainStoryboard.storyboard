@@ -4,6 +4,21 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="l34-wW-jjH">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="hCZ-Qy-HsW" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pWB-B3-8mS">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="QhZ-X3-lej" kind="relationship" relationship="rootViewController" id="Pot-7I-meK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="znZ-pb-uuf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1230" y="-88"/>
+        </scene>
         <!--Initial Controller-->
         <scene sceneID="ovL-Nr-lka">
             <objects>
@@ -23,6 +38,138 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6s-6I-V3B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-573" y="421"/>
+        </scene>
+        <!--Get Passcode View Controller-->
+        <scene sceneID="ZR7-id-vJr">
+            <objects>
+                <viewController id="QhZ-X3-lej" customClass="GetPasscodeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PDr-2p-Idd">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="To reset your password, enter your email address then click Submit:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="msE-kL-sJ9" customClass="CorbelBoldLabel">
+                                <rect key="frame" x="3" y="7" width="314" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" id="E9X-M8-waC">
+                                <rect key="frame" x="57" y="69" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZxZ-DI-9yC">
+                                <rect key="frame" x="106" y="133" width="109" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Submit" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitAction" destination="QhZ-X3-lej" eventType="touchUpInside" id="qbe-UV-ZPB"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="5hp-Gg-aDg">
+                                <rect key="frame" x="150" y="105" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J0B-BX-d7R" customClass="LucidaLabel">
+                                <rect key="frame" x="3" y="104" width="314" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="t5E-Zm-MKe"/>
+                    <connections>
+                        <outlet property="activity" destination="5hp-Gg-aDg" id="9a4-oz-shZ"/>
+                        <outlet property="emailText" destination="E9X-M8-waC" id="4gY-nl-JO7"/>
+                        <outlet property="errorLabel" destination="J0B-BX-d7R" id="Cpy-uQ-VVM"/>
+                        <outlet property="submitButton" destination="ZxZ-DI-9yC" id="3pa-1G-Zuq"/>
+                        <segue destination="meF-mx-l1K" kind="push" identifier="goReset" id="wdm-MY-3AJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="58N-EF-Ytb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-834" y="-662"/>
+        </scene>
+        <!--Reset Password View Controller-->
+        <scene sceneID="eNt-nU-ZDx">
+            <objects>
+                <viewController id="meF-mx-l1K" customClass="ResetPasswordViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lwd-nE-SiM">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter the passcode that has been emailed to you, and choose a new password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p1g-bl-4sq" customClass="CorbelBoldLabel">
+                                <rect key="frame" x="3" y="0.0" width="314" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Passcode (from email)" minimumFontSize="17" id="bec-XY-3og">
+                                <rect key="frame" x="54" y="53" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" minimumFontSize="17" id="F2s-sx-GaY">
+                                <rect key="frame" x="54" y="95" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" id="ENa-ow-2RG">
+                                <rect key="frame" x="54" y="126" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="H7g-RA-X1g">
+                                <rect key="frame" x="103" y="160" width="109" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Submit" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitAction" destination="QhZ-X3-lej" eventType="touchUpInside" id="AWN-i9-dJW"/>
+                                    <action selector="submitAction" destination="meF-mx-l1K" eventType="touchUpInside" id="H0w-cX-BUf"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="wd6-HM-3Cb">
+                                <rect key="frame" x="220" y="169" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Mdg-UG-Srm"/>
+                    <connections>
+                        <outlet property="activity" destination="wd6-HM-3Cb" id="doE-Ub-kAg"/>
+                        <outlet property="confirmText" destination="ENa-ow-2RG" id="N7Y-lX-PbA"/>
+                        <outlet property="passcodeText" destination="bec-XY-3og" id="OTB-8G-yYm"/>
+                        <outlet property="passwordText" destination="F2s-sx-GaY" id="wLa-3R-Byc"/>
+                        <outlet property="submitButton" destination="H7g-RA-X1g" id="pXC-eA-x7x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="idh-tj-lLd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-422" y="-636"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="5">
@@ -69,6 +216,21 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="aUD-tP-oq8">
                                 <rect key="frame" x="40" y="44" width="236" height="55"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ygd-5e-vBc">
+                                <rect key="frame" x="15" y="172" width="290" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <state key="normal" title="Forgot Your Password?  Click HERE!">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="forgotPassword" destination="2" eventType="touchUpInside" id="QQC-Yw-JMD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -83,11 +245,12 @@
                         <segue destination="t3u-BW-Rju" kind="modal" identifier="signIn" id="UAW-Ie-qgs"/>
                         <segue destination="nIh-kD-sNs" kind="modal" identifier="howItWorks" modalTransitionStyle="crossDissolve" id="A7t-ff-FTj"/>
                         <segue destination="t3u-BW-Rju" kind="custom" identifier="signInNoAnimation" customClass="PresentSegueNoAnimation" id="o7u-Lj-dwT"/>
+                        <segue destination="hCZ-Qy-HsW" kind="modal" identifier="forgotPassword" modalTransitionStyle="crossDissolve" id="tTE-C8-fuf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-146" y="135"/>
+            <point key="canvasLocation" x="-117" y="21"/>
         </scene>
         <!--Register View New - Register-->
         <scene sceneID="4At-EH-59Z">
@@ -3353,10 +3516,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Yz7-xF-sKA"/>
-        <segue reference="9xk-hF-eyl"/>
+        <segue reference="o7u-Lj-dwT"/>
+        <segue reference="A7t-ff-FTj"/>
         <segue reference="yO3-MZ-Mi9"/>
-        <segue reference="Ii2-yA-rgx"/>
+        <segue reference="Yz7-xF-sKA"/>
         <segue reference="co8-nZ-5K2"/>
         <segue reference="2SM-S0-l6J"/>
     </inferredMetricsTieBreakers>

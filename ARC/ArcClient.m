@@ -43,7 +43,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-            _arcUrl = [prefs valueForKey:@"arcUrl"];
+           // _arcUrl = [prefs valueForKey:@"arcUrl"];
 
         }
         
@@ -311,6 +311,58 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 }
 
 
+-(void)getPasscode:(NSDictionary *)pairs{
+    @try {
+        [rSkybox addEventToSession:@"getPasscode"];
+        api = GetPasscode;
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/passcode", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
+        [request setHTTPMethod: @"PUT"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        //[request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"getPasscode"];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+-(void)resetPassword:(NSDictionary *)pairs{
+    
+    @try {
+        [rSkybox addEventToSession:@"resetPassword"];
+        api = ResetPassword;
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/passwordreset", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
+        [request setHTTPMethod: @"PUT"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        //[request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        NSLog(@"Request String: %@", requestString);
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"resetPassword"];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
         
@@ -384,12 +436,21 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 responseInfo = [self getPointBalanceResponse:response];
             }
             notificationType = @"getPointBalanceNotification";
-        } else if(api == TrackEvent) {
+        }  else if(api == GetPasscode) {
+            if (response && httpSuccess) {
+                responseInfo = [self getPasscodeResponse:response];
+            }
+            notificationType = @"getPasscodeNotification";
+        } else if(api == ResetPassword) {
+            if (response && httpSuccess) {
+                responseInfo = [self resetPasswordResponse:response];
+            }
+            notificationType = @"resetPasswordNotification";
+        }else if(api == TrackEvent) {
             if (response && httpSuccess) {
                 responseInfo = [self trackEventResponse:response];
             }
             postNotification = NO;
-            // notificationType = @"trackEventNotification";  // posting notification for now, but nobody is listenting
         }else if (api == GetServer){
             postNotification = NO;
             if (response && httpSuccess) {
@@ -738,6 +799,55 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     
  
 }
+
+-(NSDictionary *) getPasscodeResponse:(NSDictionary *)response {
+    
+    @try {
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getPasscodeResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+    }
+    
+    
+}
+
+-(NSDictionary *) resetPasswordResponse:(NSDictionary *)response {
+    
+    @try {
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.resetPasswordResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+    }
+    
+    
+}
+
 
 -(NSDictionary *) trackEventResponse:(NSDictionary *)response {
     @try {

@@ -56,11 +56,11 @@
                                 </items>
                             </navigationBar>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="IqA-yC-hJj">
-                                <rect key="frame" x="150" y="232" width="20" height="20"/>
+                                <rect key="frame" x="150" y="248" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="fGM-6b-9Xk" customClass="CorbelRegularLabel">
-                                <rect key="frame" x="0.0" y="231" width="320" height="21"/>
+                                <rect key="frame" x="0.0" y="247" width="320" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -69,6 +69,21 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="aUD-tP-oq8">
                                 <rect key="frame" x="40" y="57.5" width="236" height="77"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3gg-rf-6cO">
+                                <rect key="frame" x="15" y="227" width="290" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <state key="normal" title="Forgot Your Password?  Click HERE!">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="forgotPassword" destination="2" eventType="touchUpInside" id="vqh-0F-EJS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -83,6 +98,7 @@
                         <segue destination="t3u-BW-Rju" kind="modal" identifier="signIn" id="UAW-Ie-qgs"/>
                         <segue destination="nIh-kD-sNs" kind="modal" identifier="howItWorks" modalTransitionStyle="crossDissolve" id="A7t-ff-FTj"/>
                         <segue destination="t3u-BW-Rju" kind="custom" identifier="signInNoAnimation" customClass="PresentSegueNoAnimation" id="o7u-Lj-dwT"/>
+                        <segue destination="bwl-Fu-9VE" kind="modal" identifier="forgotPassword" modalTransitionStyle="crossDissolve" id="VQT-eg-3bm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -2058,11 +2074,12 @@
                         <outlet property="typeSegment" destination="j2p-Qr-B4H" id="Aij-Ed-6bH"/>
                         <segue destination="zZz-LI-SJ8" kind="push" identifier="dollarGoPayCreditCard" id="co8-nZ-5K2"/>
                         <segue destination="hyn-k9-9Hu" kind="push" identifier="dollarGoPayDwolla" id="Yz7-xF-sKA"/>
+                        <segue destination="bX5-5s-ZOq" kind="push" identifier="confirmDwolla" id="dMz-Vz-d6i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4a-47-brR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2320" y="705"/>
+            <point key="canvasLocation" x="2422" y="585"/>
         </scene>
         <!--Invoice View - Invoice-->
         <scene sceneID="FhH-CO-O8h">
@@ -2295,6 +2312,7 @@
                         <segue destination="hyn-k9-9Hu" kind="push" identifier="goPayDwolla" id="pOd-6P-e5i"/>
                         <segue destination="zZz-LI-SJ8" kind="push" identifier="goPayCreditCard" id="FRd-J0-OXc"/>
                         <segue destination="Txq-fd-JyS" kind="push" identifier="goSplitCheck" id="juA-2N-Fxa"/>
+                        <segue destination="bX5-5s-ZOq" kind="push" identifier="confirmDwolla" id="vYI-Ib-Hg3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eAd-SC-823" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3268,6 +3286,152 @@
             </objects>
             <point key="canvasLocation" x="1170" y="2298"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="M9c-AD-ayf">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="bwl-Fu-9VE" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CTZ-06-hUw">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="oHG-gT-nvd" kind="relationship" relationship="rootViewController" id="DYi-Ln-eGX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dDY-qO-HHN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1230" y="-88"/>
+        </scene>
+        <!--Get Passcode View Controller-->
+        <scene sceneID="Be0-d3-cAM">
+            <objects>
+                <viewController id="oHG-gT-nvd" customClass="GetPasscodeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hba-0R-XRr">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="To reset your password, enter your email address then click Submit:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BAV-oe-mgX" customClass="CorbelBoldLabel">
+                                <rect key="frame" x="3" y="12" width="314" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" id="47Y-Ps-Nce">
+                                <rect key="frame" x="62" y="101" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HGr-4u-TYB">
+                                <rect key="frame" x="106" y="195" width="109" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Submit" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitAction" destination="oHG-gT-nvd" eventType="touchUpInside" id="Ods-Sk-Dwd"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="R9B-bs-486">
+                                <rect key="frame" x="150" y="143" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gnt-Fk-FOr" customClass="LucidaLabel">
+                                <rect key="frame" x="3" y="152" width="314" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="m6b-SZ-kdk"/>
+                    <connections>
+                        <outlet property="activity" destination="R9B-bs-486" id="B7J-mG-Eas"/>
+                        <outlet property="emailText" destination="47Y-Ps-Nce" id="AcG-w3-4UO"/>
+                        <outlet property="errorLabel" destination="Gnt-Fk-FOr" id="5W4-MB-wH7"/>
+                        <outlet property="submitButton" destination="HGr-4u-TYB" id="RSf-cW-fAx"/>
+                        <segue destination="bF3-4J-heM" kind="push" identifier="goReset" id="ago-r4-oge"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Elk-in-o6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-834" y="-662"/>
+        </scene>
+        <!--Reset Password View Controller-->
+        <scene sceneID="mph-cB-ieH">
+            <objects>
+                <viewController id="bF3-4J-heM" customClass="ResetPasswordViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mpl-g1-yiF">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter the passcode that has been emailed to you, and choose a new password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9wz-5G-WKa" customClass="CorbelBoldLabel">
+                                <rect key="frame" x="3" y="8" width="314" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Passcode (from email)" minimumFontSize="17" id="XqU-KJ-pPz">
+                                <rect key="frame" x="54" y="70" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" minimumFontSize="17" id="xRm-AT-uFC">
+                                <rect key="frame" x="54" y="122" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" id="ugw-3O-C8h">
+                                <rect key="frame" x="54" y="155" width="206" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nQG-2n-91b">
+                                <rect key="frame" x="103" y="222" width="109" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Submit" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitAction" destination="bF3-4J-heM" eventType="touchUpInside" id="mBy-qZ-rfs"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="Bqt-4i-6UO">
+                                <rect key="frame" x="150" y="193" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="vFl-Kn-kFO"/>
+                    <connections>
+                        <outlet property="activity" destination="Bqt-4i-6UO" id="gco-8X-kld"/>
+                        <outlet property="confirmText" destination="ugw-3O-C8h" id="zPT-AT-7i6"/>
+                        <outlet property="passcodeText" destination="XqU-KJ-pPz" id="bV1-0W-Y8m"/>
+                        <outlet property="passwordText" destination="xRm-AT-uFC" id="nZv-NM-HDz"/>
+                        <outlet property="submitButton" destination="nQG-2n-91b" id="VFl-Cx-PME"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HnC-w9-Kda" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-422" y="-636"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Default.png" width="320" height="460"/>
@@ -3396,6 +3560,16 @@
                 <relationship kind="outlet" name="securityCodeTextField" candidateClass="UITextField"/>
             </relationships>
         </class>
+        <class className="GetPasscodeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GetPasscodeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submitAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
         <class className="HelpView" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpView.h"/>
             <relationships>
@@ -3478,6 +3652,17 @@
                 <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="registerButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="ResetPasswordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResetPasswordViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submitAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="confirmText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passcodeText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="Restaurant" superclassName="UIViewController">
@@ -3654,6 +3839,7 @@
         <class className="ViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
+                <relationship kind="action" name="forgotPassword"/>
                 <relationship kind="action" name="signIn"/>
                 <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
@@ -3676,12 +3862,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="C7C-NV-eEl"/>
+        <segue reference="o7u-Lj-dwT"/>
         <segue reference="Ii2-yA-rgx"/>
-        <segue reference="co8-nZ-5K2"/>
+        <segue reference="dMz-Vz-d6i"/>
         <segue reference="Yz7-xF-sKA"/>
-        <segue reference="2SM-S0-l6J"/>
-        <segue reference="yIh-pn-HeY"/>
+        <segue reference="co8-nZ-5K2"/>
         <segue reference="2SM-S0-l6J"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -26,6 +26,6 @@
 
 @property BOOL autoSignIn;
 -(IBAction)signIn;
-
+-(IBAction)forgotPassword;
 
 @end
