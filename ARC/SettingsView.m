@@ -234,7 +234,6 @@
 
 
 - (IBAction)cancel:(id)sender {
-    
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
@@ -262,7 +261,7 @@
     if (buttonIndex == 1) {
         [DwollaAPI clearAccessToken];
         [ArcClient trackEvent:@"DWOLLA_DEACTIVATED"];
-    } else {
+    }else{
         self.dwollaAuthSwitch.on = YES;
     }
 }
