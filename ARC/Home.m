@@ -202,7 +202,9 @@
             }
         }
         
-        
+        if ([self.matchingMerchants count] > 0) {
+            self.errorLabel.text = @"";
+        }
         [self.myTableView reloadData];
         
     }

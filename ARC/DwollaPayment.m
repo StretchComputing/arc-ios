@@ -101,7 +101,7 @@
          */
         
         [self.dwollaBalanceActivity startAnimating];
-        self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.basePaymentAmount];
+        self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", (self.myInvoice.basePaymentAmount + self.myInvoice.gratuity)];
         dispatch_async(queue,^{
             
             NSString *balance = @"";

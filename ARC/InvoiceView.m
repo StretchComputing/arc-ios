@@ -25,11 +25,12 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     
-    if (self.isPartialPayment) {
+    if (self.isPartialPayment && !self.isGoSplit) {
         NSMutableArray *itemsArray = [NSMutableArray arrayWithArray:self.myInvoice.items];
         [itemsArray removeObjectAtIndex:0];
         self.myInvoice.items = [NSArray arrayWithArray:itemsArray];
     }
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     
@@ -116,6 +117,11 @@
         //Set up scroll view sizes
         
         int tableCount = [self.myInvoice.items count];
+        
+        double amountPaid = [self.myInvoice calculateAmountPaid];
+        if(amountPaid > 0.0) {
+            tableCount++;
+        }
         
         int tableHeight = tableCount * 24 + tableCount + 10;
         
@@ -495,6 +501,14 @@
             controller.creditCardSecurityCode = self.creditCardSecurityCode;
             
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
+            
+            if (self.isPartialPayment) {
+                self.isGoSplit = YES;
+                NSMutableArray *itemsArray = [NSMutableArray arrayWithArray:self.myInvoice.items];
+                [itemsArray removeObjectAtIndex:0];
+                self.myInvoice.items = [NSArray arrayWithArray:itemsArray];
+            }
+            
             SplitCheckViewController *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;
             

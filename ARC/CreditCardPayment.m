@@ -64,7 +64,8 @@
         self.notesText.layer.masksToBounds = YES;
         self.notesText.layer.cornerRadius = 5.0;
         
-        self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.amountDue];
+
+        self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", (self.myInvoice.basePaymentAmount + self.myInvoice.gratuity)];
         
         [super viewDidLoad];
         // Do any additional setup after loading the view.
@@ -80,7 +81,6 @@
         [rSkybox sendClientLog:@"CreditCardPayment.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
-
 
 -(void)viewWillAppear:(BOOL)animated{
     @try {

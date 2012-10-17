@@ -345,6 +345,7 @@
         }else{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"ARC only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
+            self.facebookSwitch.on = NO;
         }
 
     }
@@ -385,7 +386,10 @@
         }else{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"ARC only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
+            self.twitterSwitch.on = NO;
+
         }
+        
         
 
     }
