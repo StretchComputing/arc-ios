@@ -14,6 +14,7 @@
 
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
+@property BOOL isPartialPayment;
 
 @property BOOL isIphone5;
 @property (nonatomic, strong) UIView *hideKeyboardView;
