@@ -23,6 +23,51 @@
 
 @implementation InvoiceView
 
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    if (self.isPartialPayment) {
+        NSMutableArray *itemsArray = [NSMutableArray arrayWithArray:self.myInvoice.items];
+        [itemsArray removeObjectAtIndex:0];
+        self.myInvoice.items = [NSArray arrayWithArray:itemsArray];
+    }
+}
+-(void)viewWillAppear:(BOOL)animated{
+    
+    // adjust if payments have already been made
+    double amountPaid = [self.myInvoice calculateAmountPaid];
+    if(amountPaid > 0.0) {
+        
+        self.payBillButton.title = @"Pay Remaining";
+        self.isPartialPayment = YES;
+        
+        
+        NSMutableArray *itemsArray = [NSMutableArray arrayWithArray:self.myInvoice.items];
+        NSMutableDictionary *myObject = [NSMutableDictionary dictionary];
+        
+        [myObject setValue:@"ALREADY PAID" forKey:@"Description"];
+        [myObject setValue:@"1" forKey:@"Amount"];
+        NSString *stringAmountPaid = [NSString stringWithFormat:@"%.2f", amountPaid];
+        [myObject setValue:stringAmountPaid forKey:@"Value"];
+        
+        [itemsArray insertObject:myObject atIndex:0];
+        
+        self.myInvoice.items = [NSArray arrayWithArray:itemsArray];
+        
+    }
+    
+    //To only show amount due at bottom, and already paid as a line item
+    double amountDue = self.myInvoice.amountDue;
+    
+    double remaining = amountDue - amountPaid;
+    if (remaining < 0.0001) {
+        remaining = 0;
+    }
+    
+    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", remaining];
+    
+    [self.myTableView reloadData];
+    
+}
 
 -(void)viewDidAppear:(BOOL)animated{
     
@@ -63,11 +108,9 @@
         self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];
         
         self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
-        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
         
         [super viewDidLoad];
         
-        [self.myTableView reloadData];
         // Do any additional setup after loading the view.
         
         //Set up scroll view sizes
@@ -138,12 +181,8 @@
             self.isIphone5 = NO;
         }
         
-        // adjust if payments have already been made
-        double amountPaid = [self.myInvoice calculateAmountPaid];
-        if(amountPaid > 0.0) {
-            self.payBillButton.title = @"Pay Remaining";
+     
 
-        }
         
     }
     @catch (NSException *e) {
@@ -203,6 +242,21 @@
         UILabel *numberLabel = (UILabel *)[cell.contentView viewWithTag:numberTag];
         UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:priceTag];
         
+        NSUInteger row = [indexPath row];
+
+        
+        if (row == 0 && self.isPartialPayment) {
+            
+            itemLabel.textColor = [UIColor redColor];
+            numberLabel.textColor = [UIColor redColor];
+            priceLabel.textColor = [UIColor redColor];
+
+        }else{
+            
+            itemLabel.textColor = [UIColor blackColor];
+            numberLabel.textColor = [UIColor blackColor];
+            priceLabel.textColor = [UIColor blackColor];
+        }
         
         itemLabel.backgroundColor = [UIColor clearColor];
         numberLabel.backgroundColor = [UIColor clearColor];
@@ -215,7 +269,6 @@
         priceLabel.textAlignment = UITextAlignmentRight;
         numberLabel.textAlignment = UITextAlignmentLeft;
         
-        NSUInteger row = [indexPath row];
         
         NSDictionary *itemDictionary = [self.myInvoice.items objectAtIndex:row];
         
@@ -223,8 +276,12 @@
         
         int num = [[itemDictionary valueForKey:@"Amount"] intValue];
         double value = [[itemDictionary valueForKey:@"Value"] doubleValue] * num;
-        priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
-        
+
+        if (self.isPartialPayment && row == 0) {
+            priceLabel.text = [NSString stringWithFormat:@"-$%.2f", value];
+        }else{
+            priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
+        }
         numberLabel.text = [NSString stringWithFormat:@"%d", [[itemDictionary valueForKey:@"Amount"] intValue]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         

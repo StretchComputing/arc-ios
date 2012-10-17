@@ -16,7 +16,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
 +(BOOL)hasToken
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *customerToken = [prefs valueForKey:@"customerId"];
     NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
     
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:key];
@@ -39,7 +39,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
                                        reason:@"oauth_token is invalid" userInfo:nil];
     }
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *customerToken = [prefs valueForKey:@"customerId"];
     NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
 
     
@@ -53,7 +53,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
 +(void)setAccessToken:(NSString*) token
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *customerToken = [prefs valueForKey:@"customerId"];
     NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
     
     NSString *encryptedToken = [FBEncryptorAES encryptBase64String:token
@@ -67,7 +67,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
 +(void)clearAccessToken
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *customerToken = [prefs valueForKey:@"customerId"];
     NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
     
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:key];
@@ -969,7 +969,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
     //NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *customerToken = [prefs valueForKey:@"customerToken"];
+    NSString *customerToken = [prefs valueForKey:@"customerId"];
     NSString *key = [NSString stringWithFormat:@"%@:%@", customerToken, @"token"];
     
     NSString *encryptedToken = [[NSUserDefaults standardUserDefaults] objectForKey:key];
