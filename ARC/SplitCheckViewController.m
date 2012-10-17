@@ -419,6 +419,8 @@
         self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", basePayment];
         self.percentYourPayment = basePayment;
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + [self.percentTipText.text doubleValue])];
+        double percentRemaining = ([self.myInvoice amountDueForSplit]/[self.myInvoice amountDue]) * 100;
+        self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", percentRemaining];
     }
 }
 
