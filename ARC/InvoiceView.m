@@ -16,6 +16,7 @@
 #import "SplitCheckViewController.h"
 #import "HomeNavigationController.h"
 #import "RegisterDwollaView.h"
+#import "ArcClient.h"
 
 @interface InvoiceView ()
 
@@ -310,6 +311,11 @@
     @try {
         
         [rSkybox addEventToSession:@"clickedPayButton"];
+        
+        if([self.myInvoice calculateAmountPaid] > 0) {
+            [ArcClient trackEvent:@"PAY_REMAINING"];
+        }
+
         
         [self.tipText resignFirstResponder];
         UIActionSheet *action;

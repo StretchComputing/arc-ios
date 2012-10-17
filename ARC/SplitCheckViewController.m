@@ -386,13 +386,15 @@
 
 - (IBAction)dollarYourPaymentEditEnd:(id)sender {
     double basePayment = [self.dollarYourPaymentText.text doubleValue];
+    if (basePayment < 0.0) {
+        basePayment = 0.0;
+    }
     
     if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
         
         [alert show];
-    } else if (basePayment < 0.0) {
-        basePayment = 0.0;
+    } else  {
         self.dollarYourPaymentText.text = [NSString stringWithFormat:@"%.2f", basePayment];
         double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
@@ -421,6 +423,9 @@
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + [self.percentTipText.text doubleValue])];
         double percentRemaining = ([self.myInvoice amountDueForSplit]/[self.myInvoice amountDue]) * 100;
         self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", percentRemaining];
+        if(basePayment == 0.0) {
+            self.percentYourPaymentText.text = @"";
+        }
     }
 }
 
@@ -719,17 +724,20 @@
     
     double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
     double basePayment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+    if (basePayment < 0.0) {
+        basePayment = 0.0;
+    }
     
     
     if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
         
         [alert show];
-    } else if (basePayment < 0.0) {
-        basePayment = 0.0;
+    } else {
         self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", basePayment];
         self.percentYourPayment = basePayment;
         self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + tip)];
+
     }
     
 }
