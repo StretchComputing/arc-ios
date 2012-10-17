@@ -101,7 +101,7 @@
          */
         
         [self.dwollaBalanceActivity startAnimating];
-        self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.amountDue];
+        self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.basePaymentAmount];
         dispatch_async(queue,^{
             
             NSString *balance = @"";
@@ -115,7 +115,7 @@
                     self.dwollaBalanceText.text = [NSString stringWithFormat:@"$%.2f", self.dwollaBalance];
                     [self.dwollaBalanceActivity stopAnimating];
                     
-                    if (self.dwollaBalance < self.myInvoice.amountDue) {
+                    if (self.dwollaBalance < self.myInvoice.basePaymentAmount) {
                         self.dwollaBalanceText.textColor = [UIColor redColor];
                     }else{
                         self.dwollaBalanceText.textColor = [UIColor colorWithRed:100.0/255.0 green:100.0/255.0 blue:100.0/255.0 alpha:1.0];
@@ -432,7 +432,7 @@
             }else{
                 // bypass Dwolla Funding Source logic
                 
-                if (self.dwollaBalance < self.myInvoice.amountDue) {
+                if (self.dwollaBalance < self.myInvoice.basePaymentAmount) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Insufficient Funds" message:@"You do not have enough funds in your Dwolla account to cover this transaction." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                     [alert show];
                     
