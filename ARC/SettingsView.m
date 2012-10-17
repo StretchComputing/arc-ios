@@ -262,6 +262,8 @@
     if (buttonIndex == 1) {
         [DwollaAPI clearAccessToken];
         [ArcClient trackEvent:@"DWOLLA_DEACTIVATED"];
+    } else {
+        self.dwollaAuthSwitch.on = YES;
     }
 }
 
