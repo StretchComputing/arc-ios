@@ -65,7 +65,8 @@
         remaining = 0;
     }
     
-    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", remaining];
+    double totalPayment = remaining + [self.tipText.text doubleValue];
+    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
     
     [self.myTableView reloadData];
     
@@ -436,7 +437,7 @@
         }
         
         self.tipText.text = [NSString stringWithFormat:@"%.2f", tip];
-        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", ([self.myInvoice amountDue] + tip)];
+        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", ([self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid] + tip)];
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
@@ -464,7 +465,8 @@
         [self.myInvoice setGratuityByAmount:tipAmount];
         
         // on this screen, can only pay the full remaining amount due
-        [self.myInvoice setBasePaymentAmount:[self.myInvoice amountDue]];
+        double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
+        [self.myInvoice setBasePaymentAmount:basePayment];
         
         //For Metrics
         self.myInvoice.splitType = @"NONE";
@@ -547,7 +549,8 @@
         
         [self.myInvoice setGratuityByPercentage:tipPercent];
         self.tipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
-        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDuePlusGratuity]];
+        double totalPayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid] + [self.myInvoice gratuity];
+        self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
