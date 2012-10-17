@@ -397,7 +397,7 @@
         
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Customer"];
-        request.predicate = [NSPredicate predicateWithFormat:@"(customerId == %@) AND (customerToken == %@)", customerId, customerToken];
+        request.predicate = [NSPredicate predicateWithFormat:@"customerId == %@", customerId];
         
         NSError *error;
         
@@ -432,7 +432,7 @@
         
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CreditCard"];
-        request.predicate = [NSPredicate predicateWithFormat:@"(whoOwns.customerId == %@) AND (whoOwns.customerToken == %@)", customerId, customerToken];
+        request.predicate = [NSPredicate predicateWithFormat:@"whoOwns.customerId == %@", customerId];
         
         NSError *error;
         

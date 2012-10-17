@@ -511,6 +511,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             notificationType = @"getPointBalanceNotification";
         } else if(api == TrackEvent) {
             notificationType = @"trackEventNotification";   // posting notification for now, but nobody is listenting
+        } else if(api == GetPasscode) {
+            notificationType = @"getPasscodeNotification";
+        } else if(api == ResetPassword) {
+            notificationType = @"resetPasswordNotification";
         }
         
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
