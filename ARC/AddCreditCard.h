@@ -7,6 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+extern NSString *const VISA;
+extern NSString *const MASTER_CARD;
+extern NSString *const DISCOVER;
+extern NSString *const DINERS_CLUB;
+extern NSString *const AMERICAN_EXPRESS;
 
 @interface AddCreditCard : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate>
 

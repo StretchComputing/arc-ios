@@ -568,6 +568,9 @@
 
         [ tempDictionary setObject:pinNumber forKey:@"Pin"];
         [ tempDictionary setObject:@"DWOLLA" forKey:@"Type"];
+        
+        // TODO hardcoded for now
+        [ tempDictionary setObject:@"Z" forKey:@"CardType"];
 
         //For Metrics
         [tempDictionary setObject:self.myInvoice.splitType forKey:@"SplitType"];
