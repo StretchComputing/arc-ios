@@ -36,6 +36,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    self.retryCount = 0;
     [self getMerchantList];
 
 }
@@ -294,7 +295,10 @@
             if ([self.allMerchants count] == 0) {
                 self.errorLabel.text = errorMsg;
                 //if no Merchants found, retry.
-                [self getMerchantList];
+                if (self.retryCount < 7) {
+                    self.retryCount++;
+                    [self getMerchantList];
+                }
             }
         }
     }

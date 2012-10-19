@@ -12,6 +12,7 @@
 #import "ArcAppDelegate.h"
 #import "RegisterViewNew.h"
 #import "SettingsView.h"
+#import "EditCreditCard.h"
 
 @interface CreatePinView ()
 
@@ -27,6 +28,19 @@
         }
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self.hiddenText becomeFirstResponder];
+
+    if (self.isEditPin) {
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit PIN"];
+        self.navigationItem.titleView = navLabel;
+        [self.navigationController.navigationItem setHidesBackButton:NO];
+        [self.navigationItem setHidesBackButton:NO];
+    }
+ 
+    
+}
 -(void)viewDidLoad{
     
     self.initialPin = @"";
@@ -35,6 +49,8 @@
     
     CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Card Protection"];
     self.navigationItem.titleView = navLabel;
+    [self.navigationController.navigationItem setHidesBackButton:YES];
+    [self.navigationItem setHidesBackButton:YES];
     
     self.isFirstPin = YES;
     
@@ -71,14 +87,8 @@
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
     [self.view.layer insertSublayer:gradient atIndex:0];
     
-    [self.navigationController.navigationItem setHidesBackButton:YES];
 
-    [self.navigationItem setHidesBackButton:YES];
     
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [self.hiddenText becomeFirstResponder];
 }
 
 
@@ -171,30 +181,50 @@
 
 -(void)runSuccess{
     
-    if (self.fromRegister) {
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
+    if (self.isEditPin) {
         
         NSArray *views = [self.navigationController viewControllers];
         int cell = [views count] - 2;
-        RegisterViewNew *tmp = [views objectAtIndex:cell];
-        tmp.fromCreditCard = YES;
+        EditCreditCard *tmp = [views objectAtIndex:cell];
+        tmp.pinDidChange = YES;
+        tmp.newPin = self.confirmPin;
         
-        // welcome message
-        NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        NSString *welcomeMsg = @"Your PIN for this card has been edited, but your new PIN will only be activated if you choose 'Save Changes' on this page.";
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"PIN Changed." message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [alert show];
         
         [self.navigationController popToViewController:tmp animated:NO];
         
+        
     }else{
         
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
+        if (self.fromRegister) {
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
+            
+            NSArray *views = [self.navigationController viewControllers];
+            int cell = [views count] - 2;
+            RegisterViewNew *tmp = [views objectAtIndex:cell];
+            tmp.fromCreditCard = YES;
+            
+            // welcome message
+            NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+            
+            [self.navigationController popToViewController:tmp animated:NO];
+            
+        }else{
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
+            
+            [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
+            
+        }
         
-        [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-
     }
+    
 
 }
 

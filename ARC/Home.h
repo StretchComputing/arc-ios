@@ -13,6 +13,7 @@
 @property BOOL successReview;
 @property BOOL skipReview;
 
+@property int retryCount;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UILabel *sloganLabel;
