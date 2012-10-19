@@ -540,11 +540,11 @@
         
         double tipPercent = 0.0;
         if (self.tipSegment.selectedSegmentIndex == 0) {
-            tipPercent = .10;
+            tipPercent = .18;
         }else if (self.tipSegment.selectedSegmentIndex == 1){
-            tipPercent = .15;
-        }else{
             tipPercent = .20;
+        }else{
+            tipPercent = .22;
         }
         
         [self.myInvoice setGratuityByPercentage:tipPercent];

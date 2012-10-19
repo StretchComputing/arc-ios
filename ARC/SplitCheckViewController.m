@@ -331,11 +331,11 @@
         
         double tipPercent = 0.0;
         if (self.dollarTipSegment.selectedSegmentIndex == 0) {
-            tipPercent = .10;
+            tipPercent = .18;
         }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
-            tipPercent = .15;
-        }else{
             tipPercent = .20;
+        }else{
+            tipPercent = .22;
         }
         
         double yourPayment = [self.dollarYourPaymentText.text doubleValue];
@@ -757,11 +757,11 @@
         
         double tipPercent = 0.0;
         if (self.percentTipSegment.selectedSegmentIndex == 0) {
-            tipPercent = .10;
+            tipPercent = .18;
         }else if (self.percentTipSegment.selectedSegmentIndex == 1){
-            tipPercent = .15;
-        }else{
             tipPercent = .20;
+        }else{
+            tipPercent = .22;
         }
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
@@ -974,11 +974,11 @@
         
         double tipPercent = 0.0;
         if (self.itemTipSegment.selectedSegmentIndex == 0) {
-            tipPercent = .10;
+            tipPercent = .18;
         }else if (self.itemTipSegment.selectedSegmentIndex == 1){
-            tipPercent = .15;
-        }else{
             tipPercent = .20;
+        }else{
+            tipPercent = .22;
         }
         
         double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * self.itemTotal)];
