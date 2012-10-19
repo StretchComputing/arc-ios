@@ -15,6 +15,12 @@
 #import "NSString+CharArray.h"
 #import "CreatePinView.h"
 
+NSString *const VISA = @"V";
+NSString *const MASTER_CARD = @"M";
+NSString *const DISCOVER = @"D";
+NSString *const DINERS_CLUB = @"N";
+NSString *const AMERICAN_EXPRESS = @"A";
+
 @interface AddCreditCard ()
 
 -(void)showDoneButton;
@@ -462,6 +468,8 @@
         tmp.cardNumber = self.creditCardNumberText.text;
         tmp.fromRegister = NO;
         
+        // determine what type of credit card this is
+        
        // NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
         //[ArcClient trackEvent:action];
         
@@ -474,6 +482,7 @@
     }
     
 }
+
 -(void)popNow{
     @try {
         
@@ -486,6 +495,11 @@
     }
     
 }
+
+
+- (NSString *) cardType:(NSString *)stringToTest {
+}
+
 
 
 

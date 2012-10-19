@@ -289,6 +289,7 @@
             }else{
                 [ tempDictionary setObject:@"DEBIT" forKey:@"Type"];
             }
+            [ tempDictionary setObject:@"V" forKey:@"CardType"];
             
             //For Metrics
             [tempDictionary setObject:self.myInvoice.splitType forKey:@"SplitType"];
