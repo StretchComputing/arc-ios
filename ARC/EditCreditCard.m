@@ -15,6 +15,7 @@
 #import "ValidatePinView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+CharArray.h"
+#import "CreatePinView.h"
 
 @interface EditCreditCard ()
 
@@ -22,6 +23,24 @@
 
 @implementation EditCreditCard
 
+-(void)editPin{
+    
+    CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
+    
+    tmp.isEditPin = YES;
+    
+    [self.navigationController pushViewController:tmp animated:NO];
+
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    if (self.pinDidChange) {
+        self.pinDidChange = NO;
+        self.oldPin = self.newPin;
+    
+    }
+}
 -(void)viewDidAppear:(BOOL)animated{
     
     if (self.cancelAuth) {

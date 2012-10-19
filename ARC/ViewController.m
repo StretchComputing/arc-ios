@@ -327,7 +327,7 @@
         if (self.view.frame.size.height > 500) {
             return 50;
         }else{
-            return 20;
+            return 25;
         }
     }
     return 0;

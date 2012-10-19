@@ -549,6 +549,7 @@
         
         [self.myInvoice setGratuityByPercentage:tipPercent];
         self.tipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
+        
         double totalPayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid] + [self.myInvoice gratuity];
         self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
         
