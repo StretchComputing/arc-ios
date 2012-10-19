@@ -12,6 +12,7 @@
 
 @interface CreatePinView : UIViewController <UITextFieldDelegate>
 
+@property BOOL isEditPin;
 @property BOOL fromRegister;
 @property (nonatomic, strong) UITextField *hiddenText;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFour;

@@ -11,6 +11,8 @@
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
 
+//NSString *_arcUrl = @"http://68.57.205.193:8700/arc-dev/rest/v1/";    //Jim's Place
+
 //NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
@@ -44,7 +46,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           _arcUrl = [prefs valueForKey:@"arcUrl"];
+          // _arcUrl = [prefs valueForKey:@"arcUrl"];
 
         }
         
@@ -73,7 +75,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getServer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
