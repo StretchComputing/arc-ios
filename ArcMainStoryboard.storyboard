@@ -3412,7 +3412,7 @@
                                 <rect key="frame" x="6" y="107" width="308" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <string key="text">Your PIN will be used to securly encrypt your credit card information.  We do not store your PIN, so please pick a number you will remember!</string>
+                                <string key="text">Your PIN will be used to securely encrypt your credit card information.  We do not store your PIN, so please pick a number you will remember!</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -3628,6 +3628,7 @@
                 <relationship kind="action" name="deleteCardAction"/>
                 <relationship kind="action" name="editBegin:"/>
                 <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="editPin"/>
                 <relationship kind="action" name="endText"/>
                 <relationship kind="action" name="saveCardAction"/>
                 <relationship kind="outlet" name="cardNumberTextField" candidateClass="UITextField"/>
@@ -3948,11 +3949,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="o7u-Lj-dwT"/>
-        <segue reference="A7t-ff-FTj"/>
+        <segue reference="9xk-hF-eyl"/>
         <segue reference="co8-nZ-5K2"/>
         <segue reference="Yz7-xF-sKA"/>
         <segue reference="yIh-pn-HeY"/>
         <segue reference="O7d-m2-fj4"/>
+        <segue reference="A7t-ff-FTj"/>
     </inferredMetricsTieBreakers>
 </document>
