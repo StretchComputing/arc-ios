@@ -524,13 +524,13 @@
         self.myInvoice.splitPercent = @"NONE";
         
         if (self.tipSegment.selectedSegmentIndex == 0) {
-            self.myInvoice.tipEntry = @"SHORTCUT10";
+            self.myInvoice.tipEntry = @"SHORTCUT18";
 
         }else if (self.tipSegment.selectedSegmentIndex == 1){
-            self.myInvoice.tipEntry = @"SHORTCUT15";
+            self.myInvoice.tipEntry = @"SHORTCUT20";
 
         }else if (self.tipSegment.selectedSegmentIndex == 2){
-            self.myInvoice.tipEntry = @"SHORTCUT20";
+            self.myInvoice.tipEntry = @"SHORTCUT22";
 
         }else{
             

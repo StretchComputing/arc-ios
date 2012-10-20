@@ -569,13 +569,13 @@
         self.myInvoice.splitPercent = @"NONE";
         
         if (self.itemSplitItemSegControl.selectedSegmentIndex == 0) {
-            self.myInvoice.tipEntry = @"SHORTCUT10";
+            self.myInvoice.tipEntry = @"SHORTCUT18";
             
         }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 1){
-            self.myInvoice.tipEntry = @"SHORTCUT15";
+            self.myInvoice.tipEntry = @"SHORTCUT20";
             
         }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 2){
-            self.myInvoice.tipEntry = @"SHORTCUT20";
+            self.myInvoice.tipEntry = @"SHORTCUT22";
             
         }else{
             
@@ -620,13 +620,13 @@
         
         
         if (self.percentTipSegment.selectedSegmentIndex == 0) {
-            self.myInvoice.tipEntry = @"SHORTCUT10";
+            self.myInvoice.tipEntry = @"SHORTCUT18";
             
         }else if (self.percentTipSegment.selectedSegmentIndex == 1){
-            self.myInvoice.tipEntry = @"SHORTCUT15";
+            self.myInvoice.tipEntry = @"SHORTCUT20";
             
         }else if (self.percentTipSegment.selectedSegmentIndex == 2){
-            self.myInvoice.tipEntry = @"SHORTCUT20";
+            self.myInvoice.tipEntry = @"SHORTCUT22";
             
         }else{
             
@@ -655,13 +655,13 @@
         self.myInvoice.splitPercent = @"NONE";
         
         if (self.dollarTipSegment.selectedSegmentIndex == 0) {
-            self.myInvoice.tipEntry = @"SHORTCUT10";
+            self.myInvoice.tipEntry = @"SHORTCUT18";
             
         }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
-            self.myInvoice.tipEntry = @"SHORTCUT15";
+            self.myInvoice.tipEntry = @"SHORTCUT20";
             
         }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
-            self.myInvoice.tipEntry = @"SHORTCUT20";
+            self.myInvoice.tipEntry = @"SHORTCUT22";
             
         }else{
             
