@@ -42,4 +42,21 @@
 }
 
 
++(NSString *)getCardTypeForNumber:(NSString *)cardNumber{
+    
+    @try {
+        
+        if ([cardNumber length] > 0) {
+            
+        }else{
+            return @"";
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcUtility.getCardTypeForNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+ 
+  
+}
+
 @end

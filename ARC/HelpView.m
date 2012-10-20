@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import "ArcClient.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface HelpView ()
 
@@ -64,6 +65,21 @@
 
 - (IBAction)cancel:(id)sender {
     
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    // Play movie from URL
+    NSURL *movieURL = [NSURL URLWithString:@"http://stretchsite.appspot.com/arcVid1.mp4"];
+    
+    //NSURL *movieURL = [NSURL URLWithString:@"https://dl-web.dropbox.com/get/arcVid1.mp4?w=d42e5627"];
+    
+    
+    moviePlayer = [[CustomMoviePlayerViewController alloc] initWithURL:movieURL];
+    
+	// Show the movie player as modal
+ 	[self presentModalViewController:moviePlayer animated:YES];
+    
+	// Prep and play the movie
+    [moviePlayer readyPlayer];
+    
+    
+    //[self.navigationController dismissModalViewControllerAnimated:YES];
 }
 @end

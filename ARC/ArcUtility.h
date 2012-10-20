@@ -13,6 +13,8 @@
 +(double)roundUpToNearestPenny:(double)dollarAmount;
 +(double)roundDownToNearestPenny:(double)dollarAmount;
 
++(NSString *)getCardTypeForNumber:(NSString *)cardNumber;
+
 @end
 
 

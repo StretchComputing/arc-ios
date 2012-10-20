@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomMoviePlayerViewController.h"
 
-@interface HelpView : UITableViewController
+@class CustomMoviePlayerViewController;
+
+@interface HelpView : UITableViewController{
+    
+    CustomMoviePlayerViewController *moviePlayer;
+}
 - (IBAction)cancel:(id)sender;
 
 @end

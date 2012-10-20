@@ -31,6 +31,8 @@
 		9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081521615E7D26500211C37 /* SystemConfiguration.framework */; };
 		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
 		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
+		908D369C1631EB8100557E8B /* arcVid1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 908D369B1631EB8100557E8B /* arcVid1.mp4 */; };
+		908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D369E1631ED3F00557E8B /* MediaPlayer.framework */; };
 		908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */; };
 		908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */; };
 		9090204E16266AB2001B8428 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9090204D16266AB2001B8428 /* Default-568h@2x.png */; };
@@ -49,6 +51,7 @@
 		9096A0CA15F940FE00630AF6 /* CorbelBoldLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0C915F940FE00630AF6 /* CorbelBoldLabel.m */; };
 		9096A0CD15F9421E00630AF6 /* LucidaLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0CC15F9421E00630AF6 /* LucidaLabel.m */; };
 		9096A0D015F9422B00630AF6 /* LucidaBoldLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0CF15F9422B00630AF6 /* LucidaBoldLabel.m */; };
+		9096DD001632066300106A25 /* CustomMoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096DCFF1632066300106A25 /* CustomMoviePlayerViewController.m */; };
 		9097099D1610B3270092A970 /* CreatePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9097099C1610B3270092A970 /* CreatePinView.m */; };
 		909709A41610E6B30092A970 /* ValidatePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909709A31610E6B30092A970 /* ValidatePinView.m */; };
 		90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F35159777BC00FC1D49 /* UIKit.framework */; };
@@ -173,6 +176,8 @@
 		9081522115E7D77900211C37 /* InitialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialController.m; sourceTree = "<group>"; };
 		9081522315E817E700211C37 /* RegisterViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewNew.h; sourceTree = "<group>"; };
 		9081522415E817E700211C37 /* RegisterViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewNew.m; sourceTree = "<group>"; };
+		908D369B1631EB8100557E8B /* arcVid1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = arcVid1.mp4; sourceTree = "<group>"; };
+		908D369E1631ED3F00557E8B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTitleLabel.h; sourceTree = "<group>"; };
 		908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTitleLabel.m; sourceTree = "<group>"; };
 		908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -200,6 +205,8 @@
 		9096A0CC15F9421E00630AF6 /* LucidaLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LucidaLabel.m; sourceTree = "<group>"; };
 		9096A0CE15F9422B00630AF6 /* LucidaBoldLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LucidaBoldLabel.h; sourceTree = "<group>"; };
 		9096A0CF15F9422B00630AF6 /* LucidaBoldLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LucidaBoldLabel.m; sourceTree = "<group>"; };
+		9096DCFE1632066300106A25 /* CustomMoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMoviePlayerViewController.h; sourceTree = "<group>"; };
+		9096DCFF1632066300106A25 /* CustomMoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMoviePlayerViewController.m; sourceTree = "<group>"; };
 		9097099B1610B3260092A970 /* CreatePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePinView.h; sourceTree = "<group>"; };
 		9097099C1610B3270092A970 /* CreatePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePinView.m; sourceTree = "<group>"; };
 		909709A21610E6B30092A970 /* ValidatePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidatePinView.h; sourceTree = "<group>"; };
@@ -350,6 +357,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */,
 				9FE9DFA6162BB48300115E97 /* libCrashReporter-iphoneos.a in Frameworks */,
 				906D108D160FE03600561C31 /* Accounts.framework in Frameworks */,
 				906D108A160FC87100561C31 /* Social.framework in Frameworks */,
@@ -373,6 +381,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				908D369E1631ED3F00557E8B /* MediaPlayer.framework */,
 				9090204D16266AB2001B8428 /* Default-568h@2x.png */,
 				9FE9DFA5162BB48300115E97 /* libCrashReporter-iphoneos.a */,
 				906D108C160FE03600561C31 /* Accounts.framework */,
@@ -392,6 +401,8 @@
 				90FBDA73159A70E50051609A /* MessageUI.framework */,
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
+				9096DCFE1632066300106A25 /* CustomMoviePlayerViewController.h */,
+				9096DCFF1632066300106A25 /* CustomMoviePlayerViewController.m */,
 				906D106E160DF82000561C31 /* arrow.png */,
 				90993F581597782100FC1D49 /* Default@2x.png */,
 				90993F561597781400FC1D49 /* Default.png */,
@@ -415,6 +426,7 @@
 				90964E1415F842A300676E0A /* CORBELB.TTF */,
 				90964E1515F842A400676E0A /* CORBEL.TTF */,
 				905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */,
+				908D369B1631EB8100557E8B /* arcVid1.mp4 */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
 				90993F32159777BC00FC1D49 /* Products */,
@@ -720,6 +732,7 @@
 				906D106F160DF82000561C31 /* arrow.png in Resources */,
 				906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */,
 				9090204E16266AB2001B8428 /* Default-568h@2x.png in Resources */,
+				908D369C1631EB8100557E8B /* arcVid1.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -811,6 +824,7 @@
 				9F7B4D6F1620F3FA007EC356 /* ArcUtility.m in Sources */,
 				90A19F72162CF186007995DC /* GetPasscodeViewController.m in Sources */,
 				90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */,
+				9096DD001632066300106A25 /* CustomMoviePlayerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,8 +884,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "3782C8A6-CBF3-4785-9947-2370C67F7ACA";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3782C8A6-CBF3-4785-9947-2370C67F7ACA";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

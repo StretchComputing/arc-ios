@@ -9,6 +9,7 @@
 #import "HelpViewNew.h"
 #import "CorbelTitleLabel.h"
 #import <QuartzCore/QuartzCore.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface HelpViewNew ()
 
@@ -41,7 +42,41 @@
 
 - (IBAction)cancel:(id)sender {
     
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+                                             pathForResource:@"arcVid1" ofType:@"mp4"]];
+        MPMoviePlayerController *moviePlayer =  [[MPMoviePlayerController alloc]
+                        initWithContentURL:url];
+        
+        //[[NSNotificationCenter defaultCenter] addObserver:self
+          //                                       selector:@selector(moviePlayBackDidFinish:)
+            //                                         name:MPMoviePlayerPlaybackDidFinishNotification
+              //                                     object:moviePlayer];
+        
+        moviePlayer.controlStyle = MPMovieControlStyleDefault;
+        moviePlayer.shouldAutoplay = YES;
+        [self.view addSubview:moviePlayer.view];
+        [moviePlayer setFullscreen:YES animated:YES];
+    
+    
+    //[self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    
 }
+
+/*
+-(void)myMovieFinishedCallback:(NSNotification*)aNotification
+{
+	MPMoviePlayerController* theMovie=[aNotification object];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:theMovie];
+    [[UIApplication sharedApplication]
+     setStatusBarOrientation:UIInterfaceOrientationPortrait animated:YES];
+}
+
+*/
+
+
+
+
 
 @end
