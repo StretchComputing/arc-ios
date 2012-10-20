@@ -133,12 +133,12 @@
             
             CGRect frame = self.gratLabel.frame;
             frame.origin.y = yValue;
-            self.gratNameLabel.frame = frame;
+            self.gratLabel.frame = frame;
             
             CGRect frameName = self.gratNameLabel.frame;
-            frameName.origin.y = yValue - 2;
+            frameName.origin.y = yValue;
             self.gratNameLabel.frame = frameName;
-            
+                        
         }
         
         if (self.myInvoice.discount == 0.0) {
@@ -515,9 +515,6 @@
         }
         [self.myInvoice setGratuityByAmount:tipAmount];
         
-        // on this screen, can only pay the full remaining amount due
-        double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
-        [self.myInvoice setBasePaymentAmount:basePayment];
         
         //For Metrics
         self.myInvoice.splitType = @"NONE";
@@ -546,10 +543,18 @@
         
         if ([[segue identifier] isEqualToString:@"goPayDwolla"]) {
             
+            // on this screen, can only pay the full remaining amount due
+            double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
+            [self.myInvoice setBasePaymentAmount:basePayment];
+            
             DwollaPayment *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;            
             
         }else if ([[segue identifier] isEqualToString:@"goPayCreditCard"]) {
+            
+            // on this screen, can only pay the full remaining amount due
+            double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
+            [self.myInvoice setBasePaymentAmount:basePayment];
             
             CreditCardPayment *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;

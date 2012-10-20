@@ -497,47 +497,60 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     @try {
         
+        double totalPay = self.myInvoice.basePaymentAmount + self.myInvoice.gratuity;
+        BOOL showError = NO;
+        
         if (buttonIndex == 0) {
             //Dwolla
             
-            NSString *token = @"";
-            @try {
-                token = [DwollaAPI getAccessToken];
-            }
-            @catch (NSException *exception) {
-                token = nil;
-            }
-            
-            
-            if ((token == nil) || [token isEqualToString:@""]) {
-                
-                [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+            if (totalPay > 0.0) {
+                NSString *token = @"";
+                @try {
+                    token = [DwollaAPI getAccessToken];
+                }
+                @catch (NSException *exception) {
+                    token = nil;
+                }
                 
                 
-            }else{
-                [rSkybox addEventToSession:@"selectedDwollaForPayment"];
+                if ((token == nil) || [token isEqualToString:@""]) {
+                    
+                    [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+                    
+                    
+                }else{
+                    [rSkybox addEventToSession:@"selectedDwollaForPayment"];
+                    
+                    [self performSegueWithIdentifier:@"dollarGoPayDwolla" sender:self];
+                    
+                }
 
-                [self performSegueWithIdentifier:@"dollarGoPayDwolla" sender:self];
-                
+            }else{
+                showError = YES;
             }
-            
+                      
         }else {
             [rSkybox addEventToSession:@"selectedCreditCardForPayment"];
             
             if ([self.creditCards count] > 0) {
+            
                 if (buttonIndex == [self.creditCards count] + 1) {
-                    //Cancel
-                    //::todo::nick
+                   
                 }else{
-                    //1 is paypal, 2 is first credit card
-                    CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - 1];
+                    if (totalPay > 0) {
+                        //1 is paypal, 2 is first credit card
+                        CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - 1];
+                        
+                        self.creditCardNumber = selectedCard.number;
+                        self.creditCardSecurityCode = selectedCard.securityCode;
+                        self.creditCardExpiration = selectedCard.expiration;
+                        self.creditCardSample = selectedCard.sample;
+                        
+                        [self performSegueWithIdentifier:@"dollarGoPayCreditCard" sender:self];
+                    }else{
+                        showError = YES;
+                    }
                     
-                    self.creditCardNumber = selectedCard.number;
-                    self.creditCardSecurityCode = selectedCard.securityCode;
-                    self.creditCardExpiration = selectedCard.expiration;
-                    self.creditCardSample = selectedCard.sample;
-                    
-                    [self performSegueWithIdentifier:@"dollarGoPayCreditCard" sender:self];
                     
                 }
             }else{
@@ -546,6 +559,10 @@
             
         }
         
+        if (showError) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"You must pay more than $0.00 to continue" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
