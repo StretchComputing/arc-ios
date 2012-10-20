@@ -334,7 +334,7 @@
             tipPercent = .18;
         }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
             tipPercent = .20;
-        }else{
+        }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
             tipPercent = .22;
         }
         
@@ -399,6 +399,9 @@
         double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
     }
+    
+    [self dollarTipSegmentSelect:nil];
+
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -719,7 +722,7 @@
     }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 1){
         self.percentYourPaymentText.text = @"33.333333";
 
-    }else{
+    }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 2){
         self.percentYourPaymentText.text = @"50";
 
     }
@@ -731,6 +734,9 @@
         self.isSegmentPercentYour = YES;
         [self percentYourPercentDidEnd];
     }
+    
+    [self percentTipSegmentSelect];
+
 
 }
 
@@ -763,6 +769,8 @@
 
     }
     
+    [self percentTipSegmentSelect];
+    
 }
 
 
@@ -783,7 +791,7 @@
             tipPercent = .18;
         }else if (self.percentTipSegment.selectedSegmentIndex == 1){
             tipPercent = .20;
-        }else{
+        }else if (self.percentTipSegment.selectedSegmentIndex == 2){
             tipPercent = .22;
         }
         
@@ -953,6 +961,10 @@
 
     [self showItemTotal];
     [self.itemTableView reloadData];
+    
+    [self itemTipSegmentSelect];
+    
+
 }
 
 -(void)showItemTotal{
@@ -1000,7 +1012,7 @@
             tipPercent = .18;
         }else if (self.itemTipSegment.selectedSegmentIndex == 1){
             tipPercent = .20;
-        }else{
+        }else if (self.itemTipSegment.selectedSegmentIndex == 2){
             tipPercent = .22;
         }
         
@@ -1022,6 +1034,7 @@
 
 - (IBAction)itemSplitItemCancel {
     
+    self.itemSplitItemSegControl.selectedSegmentIndex = -1;
     self.itemSplitItemView.hidden = YES;
 }
 
@@ -1052,7 +1065,10 @@
     
     [self showItemTotal];
     [self.itemTableView reloadData];
-    
+    self.itemSplitItemSegControl.selectedSegmentIndex = -1;
+
+
+    [self itemTipSegmentSelect];
 
 }
 
