@@ -1,4 +1,4 @@
-//
+
 //  ReviewTransaction.m
 //  ARC
 //
@@ -156,13 +156,13 @@
         [self.navigationItem setHidesBackButton:YES];
         self.commentsText.delegate = self;
         
-        /*
-        self.commentsText.clipsToBounds = YES;
-        self.commentsText.layer.cornerRadius = 5.0;
         
-        self.commentsText.layer.borderColor = [[UIColor blackColor] CGColor];
-        self.commentsText.layer.borderWidth = 3.0;
-         */
+        //self.commentsText.clipsToBounds = YES;
+        //self.commentsText.layer.cornerRadius = 5.0;
+        
+        //self.commentsText.layer.borderColor = [[UIColor blackColor] CGColor];
+        //self.commentsText.layer.borderWidth = 3.0;
+         
         
         [[self.commentsText layer] setBorderColor:[[UIColor blackColor] CGColor]];
         [[self.commentsText layer] setBorderWidth:1.0];
@@ -878,7 +878,7 @@
         
         NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                         @"515025721859862", ACFacebookAppIdKey,
-                                        [NSArray arrayWithObjects:@"publish_actions", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
+                                        [NSArray arrayWithObjects:@"publish_stream", @"publish_checkins", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
         
         [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
             if (granted && error == nil) {
@@ -894,10 +894,11 @@
                     post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
                 }
                 
+                post = @"I am testing a transaction";
                 
                 NSDictionary *parameters = @{@"message": post};
                 
-                NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
+                NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed/"];
                 
                 SLRequest *feedRequest = [SLRequest
                                           requestForServiceType:SLServiceTypeFacebook
@@ -937,3 +938,5 @@
 }
 
 @end
+
+

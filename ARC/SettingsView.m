@@ -126,7 +126,7 @@
         
         
         
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+        UIView *backView = [[UIView alloc] initWithFrame:self.view.bounds];
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = backView.bounds;
         UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
