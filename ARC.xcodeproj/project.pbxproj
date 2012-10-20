@@ -20,8 +20,6 @@
 		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
-		907A406615A9CE2500090452 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406515A9CE2500090452 /* CreditCard.m */; };
-		907A406915A9CE2500090452 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406815A9CE2500090452 /* Customer.m */; };
 		907A406C15AA072300090452 /* ViewCreditCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406B15AA072200090452 /* ViewCreditCards.m */; };
 		907A406F15AA072F00090452 /* EditCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406E15AA072F00090452 /* EditCreditCard.m */; };
 		907A407215AA073C00090452 /* AddCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A407115AA073C00090452 /* AddCreditCard.m */; };
@@ -31,7 +29,6 @@
 		9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081521615E7D26500211C37 /* SystemConfiguration.framework */; };
 		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
 		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
-		908D369C1631EB8100557E8B /* arcVid1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 908D369B1631EB8100557E8B /* arcVid1.mp4 */; };
 		908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D369E1631ED3F00557E8B /* MediaPlayer.framework */; };
 		908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */; };
 		908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */; };
@@ -52,6 +49,8 @@
 		9096A0CD15F9421E00630AF6 /* LucidaLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0CC15F9421E00630AF6 /* LucidaLabel.m */; };
 		9096A0D015F9422B00630AF6 /* LucidaBoldLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096A0CF15F9422B00630AF6 /* LucidaBoldLabel.m */; };
 		9096DD001632066300106A25 /* CustomMoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096DCFF1632066300106A25 /* CustomMoviePlayerViewController.m */; };
+		9096DD0D1633088400106A25 /* CreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096DD0C1633088400106A25 /* CreditCard.m */; };
+		9096DD101633088400106A25 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9096DD0F1633088400106A25 /* Customer.m */; };
 		9097099D1610B3270092A970 /* CreatePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9097099C1610B3270092A970 /* CreatePinView.m */; };
 		909709A41610E6B30092A970 /* ValidatePinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909709A31610E6B30092A970 /* ValidatePinView.m */; };
 		90993F36159777BC00FC1D49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90993F35159777BC00FC1D49 /* UIKit.framework */; };
@@ -157,10 +156,6 @@
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		907A406415A9CE2500090452 /* CreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreditCard.h; path = ../CreditCard.h; sourceTree = "<group>"; };
-		907A406515A9CE2500090452 /* CreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreditCard.m; path = ../CreditCard.m; sourceTree = "<group>"; };
-		907A406715A9CE2500090452 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Customer.h; path = ../Customer.h; sourceTree = "<group>"; };
-		907A406815A9CE2500090452 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Customer.m; path = ../Customer.m; sourceTree = "<group>"; };
 		907A406A15AA072200090452 /* ViewCreditCards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewCreditCards.h; sourceTree = "<group>"; };
 		907A406B15AA072200090452 /* ViewCreditCards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewCreditCards.m; sourceTree = "<group>"; };
 		907A406D15AA072F00090452 /* EditCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCreditCard.h; sourceTree = "<group>"; };
@@ -176,7 +171,6 @@
 		9081522115E7D77900211C37 /* InitialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialController.m; sourceTree = "<group>"; };
 		9081522315E817E700211C37 /* RegisterViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewNew.h; sourceTree = "<group>"; };
 		9081522415E817E700211C37 /* RegisterViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewNew.m; sourceTree = "<group>"; };
-		908D369B1631EB8100557E8B /* arcVid1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = arcVid1.mp4; sourceTree = "<group>"; };
 		908D369E1631ED3F00557E8B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTitleLabel.h; sourceTree = "<group>"; };
 		908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTitleLabel.m; sourceTree = "<group>"; };
@@ -207,6 +201,10 @@
 		9096A0CF15F9422B00630AF6 /* LucidaBoldLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LucidaBoldLabel.m; sourceTree = "<group>"; };
 		9096DCFE1632066300106A25 /* CustomMoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMoviePlayerViewController.h; sourceTree = "<group>"; };
 		9096DCFF1632066300106A25 /* CustomMoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMoviePlayerViewController.m; sourceTree = "<group>"; };
+		9096DD0B1633088400106A25 /* CreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCard.h; sourceTree = "<group>"; };
+		9096DD0C1633088400106A25 /* CreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditCard.m; sourceTree = "<group>"; };
+		9096DD0E1633088400106A25 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
+		9096DD0F1633088400106A25 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customer.m; sourceTree = "<group>"; };
 		9097099B1610B3260092A970 /* CreatePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePinView.h; sourceTree = "<group>"; };
 		9097099C1610B3270092A970 /* CreatePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePinView.m; sourceTree = "<group>"; };
 		909709A21610E6B30092A970 /* ValidatePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidatePinView.h; sourceTree = "<group>"; };
@@ -426,7 +424,6 @@
 				90964E1415F842A300676E0A /* CORBELB.TTF */,
 				90964E1515F842A400676E0A /* CORBEL.TTF */,
 				905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */,
-				908D369B1631EB8100557E8B /* arcVid1.mp4 */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
 				90993F32159777BC00FC1D49 /* Products */,
@@ -472,10 +469,10 @@
 				90FBDBED159CDD2E0051609A /* DwollaAPI */,
 				90FBDC0E159CDD980051609A /* Classes */,
 				90C9736815A8CC4B00667FF8 /* ArcData.xcdatamodeld */,
-				907A406715A9CE2500090452 /* Customer.h */,
-				907A406815A9CE2500090452 /* Customer.m */,
-				907A406415A9CE2500090452 /* CreditCard.h */,
-				907A406515A9CE2500090452 /* CreditCard.m */,
+				9096DD0E1633088400106A25 /* Customer.h */,
+				9096DD0F1633088400106A25 /* Customer.m */,
+				9096DD0B1633088400106A25 /* CreditCard.h */,
+				9096DD0C1633088400106A25 /* CreditCard.m */,
 				907A404315A8CFE900090452 /* AccessData.h */,
 				907A404415A8CFE900090452 /* AccessData.m */,
 				90993F4A159777BC00FC1D49 /* ViewController.h */,
@@ -732,7 +729,6 @@
 				906D106F160DF82000561C31 /* arrow.png in Resources */,
 				906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */,
 				9090204E16266AB2001B8428 /* Default-568h@2x.png in Resources */,
-				908D369C1631EB8100557E8B /* arcVid1.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,8 +787,6 @@
 				90B01D2215A4CB95005FCCCF /* CreditCardPayment.m in Sources */,
 				90C9736A15A8CC4B00667FF8 /* ArcData.xcdatamodeld in Sources */,
 				907A404515A8CFE900090452 /* AccessData.m in Sources */,
-				907A406615A9CE2500090452 /* CreditCard.m in Sources */,
-				907A406915A9CE2500090452 /* Customer.m in Sources */,
 				907A406C15AA072300090452 /* ViewCreditCards.m in Sources */,
 				907A406F15AA072F00090452 /* EditCreditCard.m in Sources */,
 				907A407215AA073C00090452 /* AddCreditCard.m in Sources */,
@@ -825,6 +819,8 @@
 				90A19F72162CF186007995DC /* GetPasscodeViewController.m in Sources */,
 				90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */,
 				9096DD001632066300106A25 /* CustomMoviePlayerViewController.m in Sources */,
+				9096DD0D1633088400106A25 /* CreditCard.m in Sources */,
+				9096DD101633088400106A25 /* Customer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

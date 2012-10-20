@@ -65,21 +65,29 @@
 
 - (IBAction)cancel:(id)sender {
     
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     // Play movie from URL
-    NSURL *movieURL = [NSURL URLWithString:@"http://stretchsite.appspot.com/arcVid1.mp4"];
+    NSURL *movieURL;
     
-    //NSURL *movieURL = [NSURL URLWithString:@"https://dl-web.dropbox.com/get/arcVid1.mp4?w=d42e5627"];
-    
+    if (indexPath.row == 0) {
+        movieURL = [NSURL URLWithString:@"http://stretchsite.appspot.com/arcVid1.mp4"];
+    }else{
+        movieURL = [NSURL URLWithString:@"http://stretchsite.appspot.com/arcVid1.mp4"];
+    }
     
     moviePlayer = [[CustomMoviePlayerViewController alloc] initWithURL:movieURL];
     
-	// Show the movie player as modal
- 	[self presentModalViewController:moviePlayer animated:YES];
+    // Show the movie player as modal
+    [self presentModalViewController:moviePlayer animated:YES];
     
-	// Prep and play the movie
+    // Prep and play the movie
     [moviePlayer readyPlayer];
     
-    
-    //[self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
 @end

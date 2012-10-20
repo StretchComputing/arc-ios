@@ -24,16 +24,9 @@
 
 @implementation InvoiceView
 
--(void)viewWillDisappear:(BOOL)animated{
-    
-    if (self.isPartialPayment && !self.isGoSplit) {
-        NSMutableArray *itemsArray = [NSMutableArray arrayWithArray:self.myInvoice.items];
-        [itemsArray removeObjectAtIndex:0];
-        self.myInvoice.items = [NSArray arrayWithArray:itemsArray];
-    }
-    
-}
+
 -(void)viewWillAppear:(BOOL)animated{
+
     
     // adjust if payments have already been made
     double amountPaid = [self.myInvoice calculateAmountPaid];
@@ -41,19 +34,6 @@
         
         self.payBillButton.title = @"Pay Remaining";
         self.isPartialPayment = YES;
-        
-        
-        NSMutableArray *itemsArray = [NSMutableArray arrayWithArray:self.myInvoice.items];
-        NSMutableDictionary *myObject = [NSMutableDictionary dictionary];
-        
-        [myObject setValue:@"ALREADY PAID" forKey:@"Description"];
-        [myObject setValue:@"1" forKey:@"Amount"];
-        NSString *stringAmountPaid = [NSString stringWithFormat:@"%.2f", amountPaid];
-        [myObject setValue:stringAmountPaid forKey:@"Value"];
-        
-        [itemsArray insertObject:myObject atIndex:0];
-        
-        self.myInvoice.items = [NSArray arrayWithArray:itemsArray];
         
     }
     
@@ -69,6 +49,7 @@
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
     
     [self.myTableView reloadData];
+  
     
 }
 
@@ -110,7 +91,6 @@
         self.gratLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
         self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];
         
-        self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
         
         [super viewDidLoad];
         
@@ -140,34 +120,95 @@
         
         self.bottomHalfView.frame = CGRectMake(0, bottomViewY, 300, 134);
         
-        [self.scrollView setContentSize:CGSizeMake(300, bottomViewY + 140)];
         
         
         //bottom view
-        int movedown = 0;
+        int yValue = 34;
+        
         if (self.myInvoice.serviceCharge == 0.0) {
             self.gratLabel.hidden = YES;
             self.gratNameLabel.hidden = YES;
-            movedown += 15;
+        }else{
+            yValue += 20;
+            
+            CGRect frame = self.gratLabel.frame;
+            frame.origin.y = yValue;
+            self.gratNameLabel.frame = frame;
+            
+            CGRect frameName = self.gratNameLabel.frame;
+            frameName.origin.y = yValue - 2;
+            self.gratNameLabel.frame = frameName;
+            
         }
         
         if (self.myInvoice.discount == 0.0) {
             self.discLabel.hidden = YES;
             self.discNameLabel.hidden = YES;
-            movedown +=15;
         }else{
             
-            if (self.myInvoice.serviceCharge == 0.0) {
-                self.discNameLabel.frame = CGRectMake(10, 52, 95, 21);
-                self.discLabel.frame = CGRectMake(219, 52, 71, 21);
-            }
+            yValue += 20;
+            
+            CGRect frame = self.discLabel.frame;
+            frame.origin.y = yValue;
+            self.discLabel.frame = frame;
+            
+            CGRect frameName = self.discNameLabel.frame;
+            frameName.origin.y = yValue - 2;
+            self.discNameLabel.frame = frameName;
+
+            
+           
         }
         
+        
+        if(amountPaid > 0.0) {
+            
+            self.payBillButton.title = @"Pay Remaining";
+            self.isPartialPayment = YES;
+            self.alreadyPaidLabel.hidden = NO;
+            self.alreadyPaidNameLabel.hidden = NO;
+            self.alreadyPaidLabel.text = [NSString stringWithFormat:@"-$%.2f", amountPaid];
+            
+            yValue += 20;
+            
+            CGRect frame = self.alreadyPaidLabel.frame;
+            frame.origin.y = yValue;
+            self.alreadyPaidLabel.frame = frame;
+            
+            CGRect frameName = self.alreadyPaidNameLabel.frame;
+            frameName.origin.y = yValue;
+            self.alreadyPaidNameLabel.frame = frameName;
+         
+            
+        }else{
+            
+            self.alreadyPaidLabel.hidden = YES;
+            self.alreadyPaidNameLabel.hidden = YES;
+        }
+        
+        
         CGRect frame = self.bottomHalfView.frame;
-        frame.origin.y += movedown;
-        frame.size.height -= movedown;
+        frame.size.height = yValue + 45;
         self.bottomHalfView.frame = frame;
         
+        
+        CGRect frameAmountName = self.amountNameLabel.frame;
+        frameAmountName.origin.y = yValue + 27;
+        self.amountNameLabel.frame = frameAmountName;
+        
+        CGRect frameAmount = self.amountLabel.frame;
+        frameAmount.origin.y = yValue + 23;
+        self.amountLabel.frame = frameAmount;
+        double myDue = self.myInvoice.amountDue - amountPaid;
+        self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
+        
+        CGRect frameLine = self.dividerView.frame;
+        frameLine.origin.y = yValue + 18;
+        self.dividerView.frame = frameLine;
+        
+        
+        [self.scrollView setContentSize:CGSizeMake(300, bottomViewY + yValue + 50)];
+
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = self.view.bounds;
         self.view.backgroundColor = [UIColor clearColor];
@@ -188,9 +229,7 @@
         }else{
             self.isIphone5 = NO;
         }
-        
-     
-
+  
         
     }
     @catch (NSException *e) {
@@ -253,18 +292,7 @@
         NSUInteger row = [indexPath row];
 
         
-        if (row == 0 && self.isPartialPayment) {
-            
-            itemLabel.textColor = [UIColor redColor];
-            numberLabel.textColor = [UIColor redColor];
-            priceLabel.textColor = [UIColor redColor];
-
-        }else{
-            
-            itemLabel.textColor = [UIColor blackColor];
-            numberLabel.textColor = [UIColor blackColor];
-            priceLabel.textColor = [UIColor blackColor];
-        }
+     
         
         itemLabel.backgroundColor = [UIColor clearColor];
         numberLabel.backgroundColor = [UIColor clearColor];
@@ -285,11 +313,9 @@
         int num = [[itemDictionary valueForKey:@"Amount"] intValue];
         double value = [[itemDictionary valueForKey:@"Value"] doubleValue] * num;
 
-        if (self.isPartialPayment && row == 0) {
-            priceLabel.text = [NSString stringWithFormat:@"-$%.2f", value];
-        }else{
-            priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
-        }
+    
+        priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
+        
         numberLabel.text = [NSString stringWithFormat:@"%d", [[itemDictionary valueForKey:@"Amount"] intValue]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -324,6 +350,23 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
         
+        NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
+        BOOL didRemove = NO;
+        for (int i = 0; i < [tmpCards count]; i++) {
+            
+            CreditCard *tmp = [tmpCards objectAtIndex:i];
+            
+            if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
+                [tmpCards removeObjectAtIndex:i];
+                i--;
+                didRemove = YES;
+            }
+            
+        }
+        self.creditCards = [NSArray arrayWithArray:tmpCards];
+
+        
+       
         if ([self.creditCards count] > 0) {
             
             action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -345,6 +388,14 @@
         
         action.actionSheetStyle = UIActionSheetStyleDefault;
         [action showInView:self.view];
+
+        if (didRemove) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }else{
+
+        }
+        
         
     }
     @catch (NSException *e) {
@@ -510,12 +561,6 @@
             
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
             
-            if (self.isPartialPayment) {
-                self.isGoSplit = YES;
-                NSMutableArray *itemsArray = [NSMutableArray arrayWithArray:self.myInvoice.items];
-                [itemsArray removeObjectAtIndex:0];
-                self.myInvoice.items = [NSArray arrayWithArray:itemsArray];
-            }
             
             SplitCheckViewController *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;
@@ -535,8 +580,7 @@
 
 - (IBAction)segmentSelect {
     @try {
-        
-      
+
         
         double tipPercent = 0.0;
         if (self.tipSegment.selectedSegmentIndex == 0) {
@@ -647,6 +691,8 @@
 - (void)viewDidUnload {
     [self setSplitCheckButton:nil];
     [self setPayBillButton:nil];
+    [self setAlreadyPaidNameLabel:nil];
+    [self setAlreadyPaidLabel:nil];
     [super viewDidUnload];
 }
 @end

@@ -14,6 +14,7 @@
 #import "rSkybox.h"
 #import "Reachability.h"
 #import "ArcClient.h"
+#import "ArcUtility.h"
 
 @implementation ArcAppDelegate
 
@@ -378,6 +379,7 @@
         creditCard.number = [FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO];
         creditCard.securityCode = [FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO];
         creditCard.whoOwns = customer;
+        creditCard.cardType = [ArcUtility getCardTypeForNumber:number];
         
         [self saveDocument];
     }

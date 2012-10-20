@@ -440,6 +440,23 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
         
+        
+        NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
+        BOOL didRemove = NO;
+        for (int i = 0; i < [tmpCards count]; i++) {
+            
+            CreditCard *tmp = [tmpCards objectAtIndex:i];
+            
+            if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
+                [tmpCards removeObjectAtIndex:i];
+                i--;
+                didRemove = YES;
+            }
+            
+        }
+        self.creditCards = [NSArray arrayWithArray:tmpCards];
+      
+        
         if ([self.creditCards count] > 0) {
             
             action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -460,6 +477,12 @@
         
         action.actionSheetStyle = UIActionSheetStyleDefault;
         [action showInView:self.view];
+        
+        
+        if (didRemove) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
         
     }
     @catch (NSException *e) {

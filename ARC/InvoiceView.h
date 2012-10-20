@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
 #import "CorbelBarButtonItem.h"
+#import "CorbelBoldLabel.h"
+#import "LucidaBoldLabel.h"
 
 @interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate>
 
@@ -22,6 +24,8 @@
 @property (strong, nonatomic) Invoice *myInvoice;
 @property (weak, nonatomic) IBOutlet UIView *bottomHalfView;
 - (IBAction)splitCheckAction:(id)sender;
+@property (weak, nonatomic) IBOutlet CorbelBoldLabel *alreadyPaidNameLabel;
+@property (weak, nonatomic) IBOutlet LucidaBoldLabel *alreadyPaidLabel;
 
 @property (weak, nonatomic) IBOutlet CorbelBarButtonItem *splitCheckButton;
 @property (weak, nonatomic) IBOutlet CorbelBarButtonItem *payBillButton;

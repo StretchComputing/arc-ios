@@ -62,12 +62,14 @@
 //		[[self view] setTransform:CGAffineTransformMakeRotation(M_PI / 2)]; 
 
 		// Set frame of movieplayer
-		[[mp view] setFrame:CGRectMake(0, 160, 320, 160)];
-    
+      //[[mp view] setFrame:CGRectMake(0, 160, 320, 160)];
+      mp.view.frame = self.view.bounds;
+      
     // Add movie player as subview
 	  [[self view] addSubview:[mp view]];   
 
-      [mp setFullscreen:YES];
+      [mp setFullscreen:NO];
+      [mp setControlStyle:MPMovieControlStyleFullscreen];
       
 		// Play the movie
 		[mp play];
@@ -85,6 +87,7 @@
 													removeObserver:self
                         	name:MPMoviePlayerContentPreloadDidFinishNotification
                         	object:nil];
+
 
 	// Play the movie
  	[mp play];
@@ -116,8 +119,8 @@
   if ([mp respondsToSelector:@selector(loadState)]) 
   {
   	// Set movie player layout
-  	[mp setControlStyle:MPMovieControlStyleFullscreen];
-    [mp setFullscreen:YES];
+   // [mp setFullscreen:YES];
+    //[mp setControlStyle:MPMovieControlStyleFullscreen];
 
 		// May help to reduce latency
 		[mp prepareToPlay];

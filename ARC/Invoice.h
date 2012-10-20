@@ -11,7 +11,7 @@
 @interface Invoice : NSObject
 
 @property int invoiceId, merchantId, customerId;
-@property (strong, nonatomic) NSString *status, *number, *posi, *dateCreated;
+@property (strong, nonatomic) NSString *status, *number, *posi, *dateCreated, *paymentsAccepted;
 @property double rawBaseAmount, serviceCharge, tax, discount, additionalCharge, gratuity, basePaymentAmount;
 @property (strong, nonatomic) NSArray *tags, *items, *payments;
 

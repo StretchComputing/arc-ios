@@ -264,6 +264,7 @@
                 tmpMerchant.city = [theMerchant valueForKey:@"City"];
                 tmpMerchant.state = [theMerchant valueForKey:@"State"];
                 tmpMerchant.zipCode = [theMerchant valueForKey:@"Zipcode"];
+                tmpMerchant.paymentsAccepted = [theMerchant valueForKey:@"PaymentAccepted"];
                 
                 tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
                 
@@ -386,6 +387,7 @@
             
             detailViewController.merchantId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
             detailViewController.name = tmpMerchant.name;
+            detailViewController.paymentsAccepted = tmpMerchant.paymentsAccepted;
             
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"selectedRestaurant"];
             [[NSUserDefaults standardUserDefaults] synchronize];
