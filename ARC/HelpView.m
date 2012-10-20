@@ -75,9 +75,9 @@
     NSURL *movieURL;
     
     if (indexPath.row == 0) {
-        movieURL = [NSURL URLWithString:@"http://stretchsite.appspot.com/arcVid1.mp4"];
+        movieURL = [NSURL URLWithString:@"http://dagher.mobi/videos/arcVidMain.mp4"];
     }else{
-        movieURL = [NSURL URLWithString:@"http://stretchsite.appspot.com/arcVid1.mp4"];
+        movieURL = [NSURL URLWithString:@"http://dagher.mobi/videos/arcVidSplit.mp4"];
     }
     
     moviePlayer = [[CustomMoviePlayerViewController alloc] initWithURL:movieURL];
