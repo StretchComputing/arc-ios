@@ -25,6 +25,7 @@ int const USER_ALREADY_EXISTS = 200;
 int const INCORRECT_LOGIN_INFO = 203;
 int const INVOICE_NOT_FOUND = 604;
 int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE = 400;
+int const OVER_PAID = 401;
 
 int const CANNOT_PROCESS_PAYMENT = 500;
 int const CANNOT_TRANSFER_TO_SAME_ACCOUNT = 501;
@@ -46,7 +47,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-          // _arcUrl = [prefs valueForKey:@"arcUrl"];
+          _arcUrl = [prefs valueForKey:@"arcUrl"];
 
         }
         
@@ -75,7 +76,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
-        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getServer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -973,16 +974,28 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
             NSString *serverName = [[response valueForKey:@"Results"] valueForKey:@"Server"];
             BOOL isSSL = [[[response valueForKey:@"Results"] valueForKey:@"SSL"] boolValue];
+            NSString *arcTwitterHandler = [[response valueForKey:@"Results"] valueForKey:@"ArcTwitterHandler"];
+            NSString *arcFacebookHandler = [[response valueForKey:@"Results"] valueForKey:@"ArcFacebookHandler"];
+            NSString *arcPhoneNumber = [[response valueForKey:@"Results"] valueForKey:@"ArcPhoneNumber"];
+            NSString *arcMail = [[response valueForKey:@"Results"] valueForKey:@"ArcMail"];
             
             if (serverName && ([serverName length] > 0)) {
-                
                 NSString *scheme = @"https";
                 if(!isSSL) scheme = @"http";
                 NSString *arcUrl = [NSString stringWithFormat:@"%@://%@/rest/v1/", scheme, serverName];
                 
                 [[NSUserDefaults standardUserDefaults] setValue:arcUrl forKey:@"arcUrl"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
             }
+            
+            if(arcFacebookHandler == nil) {arcFacebookHandler = @"ArcMobileApp";}
+            
+            [[NSUserDefaults standardUserDefaults] setValue:arcTwitterHandler forKey:@"arcTwitterHandler"];
+            [[NSUserDefaults standardUserDefaults] setValue:arcFacebookHandler forKey:@"arcFacebookHandler"];
+            [[NSUserDefaults standardUserDefaults] setValue:arcPhoneNumber forKey:@"arcPhoneNumber"];
+            [[NSUserDefaults standardUserDefaults] setValue:arcMail forKey:@"arcMail"];
+
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        
         }
         
     }

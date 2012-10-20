@@ -331,6 +331,8 @@
         if ([status isEqualToString:@"success"]) {
             //success
             self.errorLabel.text = @"";
+            BOOL isSSL = [[responseInfo valueForKey:@"InvoicePaid"] boolValue];
+            if(isSSL) [self.myInvoice setPaidInFull:isSSL];
             
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
@@ -346,6 +348,9 @@
             } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
                 // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
                 errorMsg = @"Merchant does not accept credit/debit card";
+            } else if(errorCode == OVER_PAID) {
+                // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
+                errorMsg = @"Over payment. Please check invoice and try again.";
             }
             else {
                 errorMsg = ARC_ERROR_MSG;

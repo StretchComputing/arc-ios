@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString *status, *number, *posi, *dateCreated;
 @property double rawBaseAmount, serviceCharge, tax, discount, additionalCharge, gratuity, basePaymentAmount;
 @property (strong, nonatomic) NSArray *tags, *items, *payments;
+@property BOOL paidInFull;
 
 -(double)baseAmount;
 -(double)amountDue;

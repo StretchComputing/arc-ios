@@ -604,6 +604,8 @@
         if ([status isEqualToString:@"success"]) {
             //success
             self.errorLabel.text = @"";
+            BOOL isSSL = [[responseInfo valueForKey:@"InvoicePaid"] boolValue];
+            if(isSSL) [self.myInvoice setPaidInFull:isSSL];
             
             [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
@@ -618,6 +620,9 @@
                 errorMsg = @"Invalid PIN";
             } else if(errorCode == INSUFFICIENT_FUNDS) {
                 errorMsg = @"Insufficient funds.";
+            } else if(errorCode == OVER_PAID) {
+                // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
+                errorMsg = @"Over payment. Please check invoice and try again.";
             }
             else {
                 errorMsg = ARC_ERROR_MSG;

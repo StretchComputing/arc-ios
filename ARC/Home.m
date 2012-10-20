@@ -264,6 +264,8 @@
                 tmpMerchant.city = [theMerchant valueForKey:@"City"];
                 tmpMerchant.state = [theMerchant valueForKey:@"State"];
                 tmpMerchant.zipCode = [theMerchant valueForKey:@"Zipcode"];
+                tmpMerchant.twitterHandler = [theMerchant valueForKey:@"TwitterHandler"];
+                tmpMerchant.facebookHandler = [theMerchant valueForKey:@"FacebookHandler"];
                 
                 tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
                 
@@ -387,7 +389,9 @@
             detailViewController.merchantId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
             detailViewController.name = tmpMerchant.name;
             
-            [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"selectedRestaurant"];
+            [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"merchantName"];
+            [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.twitterHandler forKey:@"merchantTwitterHandler"];
+            [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.facebookHandler forKey:@"merchantFacebookHandler"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
         } 

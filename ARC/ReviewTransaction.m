@@ -15,6 +15,7 @@
 #import <Twitter/Twitter.h>
 #import <Social/Social.h>
 #import "Invoice.h"
+#import "Merchant.h"
 
 @interface ReviewTransaction ()
 
@@ -68,9 +69,17 @@
         double totalPayment = [self.myInvoice basePaymentAmount] + [self.myInvoice gratuity];
         NSString *payAmount = [NSString stringWithFormat:@"%.2f", totalPayment];
         
-        NSString *payString = [NSString stringWithFormat:@"Congratulations, your payment of $%@ was successfully processed!", payAmount];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        NSString *payString = @"";
+        NSString *title = @"";
+        if([self.myInvoice paidInFull]) {
+            title = @"Paid in Full";
+            payString = [NSString stringWithFormat:@"Please confirm payment with server before leaving the restaurant."];
+        } else {
+            title = @"Success!";
+            payString = [NSString stringWithFormat:@"Congratulations, your payment of $%@ was successfully processed!", payAmount];
+        }        
+                
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         
         self.foodInt = @(0.0);
         self.drinksInt = @(0.0);
@@ -133,7 +142,7 @@
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Review"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        self.earnMoreLabel.text = [NSString stringWithFormat:@"Earn more by giving %@ feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+        self.earnMoreLabel.text = [NSString stringWithFormat:@"Earn more by giving %@ feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
         
         [rSkybox addEventToSession:@"viewReviewScreen"];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
@@ -669,7 +678,7 @@
                     msg = @"Hurray! Your message was posted!";
                     self.facebookInt = @(5.0);
 
-                }
+                }   
                     break;
             }
         
@@ -678,8 +687,9 @@
             [alertView show];
         
         };
-        
-        NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+    
+        NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
+    
         NSNumber *avgRating = [self getAverageRating];
         if([avgRating doubleValue] > 0) {
             post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
@@ -731,13 +741,15 @@
                 
             };
             
-            NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+        
+        NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantTwitterHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcTwitterHandler"]];
+        
             NSNumber *avgRating = [self getAverageRating];
             if([avgRating doubleValue] > 0) {
-                post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+                tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
             }
             
-            [fbController setInitialText:post];
+            [fbController setInitialText:tweet];
             [fbController addURL:[NSURL URLWithString:@"http://arcmobileapp.com"]];
             [fbController setCompletionHandler:completionHandler];
             [self presentViewController:fbController animated:YES completion:nil];
@@ -748,7 +760,9 @@
         
     }else{
         TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
-        NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+        NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantTwitterHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcTwitterHandler"]];
+        
+        
         NSNumber *avgRating = [self getAverageRating];
         if([avgRating doubleValue] > 0) {
             tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
@@ -782,8 +796,19 @@
 
 - (NSNumber *)getAverageRating {
     @try {
+        int numOfRatings = 0;
+        if([self.foodInt doubleValue] > 0.0) numOfRatings++;
+        if([self.drinksInt doubleValue] > 0.0) numOfRatings++;
+        if([self.priceInt doubleValue] > 0.0) numOfRatings++;
+        if([self.serviceInt doubleValue] > 0.0) numOfRatings++;
+        if([self.moodInt doubleValue] > 0.0) numOfRatings++;
+        
+        if(numOfRatings == 0) {
+            return [NSNumber numberWithDouble:0.0];
+        }
+        
         return [NSNumber numberWithDouble:([self.foodInt doubleValue] + [self.drinksInt doubleValue] + [self.priceInt doubleValue] +
-                                           [self.serviceInt doubleValue] + [self.moodInt doubleValue])/5.0];
+                                           [self.serviceInt doubleValue] + [self.moodInt doubleValue])/numOfRatings];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ReviewTransaction.getAverageRating" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -804,7 +829,8 @@
                 
                 if ([accountsArray count] > 0) {
                     
-                    NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+                    NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantTwitterHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcTwitterHandler"]];
+                    
                     NSNumber *avgRating = [self getAverageRating];
                     if([avgRating doubleValue] > 0) {
                         tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
@@ -861,15 +887,14 @@
                 NSArray *accounts = [self.store accountsWithAccountType:accType];
                 ACAccount *facebookAccount = [accounts objectAtIndex:0];
                 
-                
-                NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with ARC Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"selectedRestaurant"]];
+                NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
                 NSNumber *avgRating = [self getAverageRating];
                 if([avgRating doubleValue] > 0) {
-                    tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+                    post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
                 }
                 
                 
-                NSDictionary *parameters = @{@"message": tweet};
+                NSDictionary *parameters = @{@"message": post};
                 
                 NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed"];
                 
