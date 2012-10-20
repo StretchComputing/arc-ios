@@ -33,7 +33,7 @@
         
         self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
         
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+        UIView *backView = [[UIView alloc] initWithFrame:self.view.bounds];
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = backView.bounds;
         UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
@@ -75,9 +75,9 @@
     NSURL *movieURL;
     
     if (indexPath.row == 0) {
-        movieURL = [NSURL URLWithString:@"http://dagher.mobi/videos/arcVidMain.mp4"];
+        movieURL = [NSURL URLWithString:@"http://dagher.net.co/videos/arcVidMain.mp4"];
     }else{
-        movieURL = [NSURL URLWithString:@"http://dagher.mobi/videos/arcVidSplit.mp4"];
+        movieURL = [NSURL URLWithString:@"http://dagher.net.co/videos/arcVidSplit.mp4"];
     }
     
     moviePlayer = [[CustomMoviePlayerViewController alloc] initWithURL:movieURL];
