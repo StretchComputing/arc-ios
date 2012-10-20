@@ -894,7 +894,6 @@
                     post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
                 }
                 
-                post = @"I am testing a transaction";
                 
                 NSDictionary *parameters = @{@"message": post};
                 
