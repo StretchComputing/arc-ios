@@ -10,7 +10,7 @@
 
 @interface Merchant : NSObject
 
-@property (nonatomic, strong) NSString *name, *email, *ein, *address, *city, *state, *zipCode, *password, *dateCreated, *lastUpdated, *invoiceExpirationUnit, *twitterHandler, *facebookHandler;
+@property (nonatomic, strong) NSString *name, *email, *ein, *address, *city, *state, *zipCode, *password, *dateCreated, *lastUpdated, *invoiceExpirationUnit, *twitterHandler, *facebookHandler, *paymentsAccepted;
 
 @property int merchantId, typeId, invoiceExpiration, invoiceLength;
 

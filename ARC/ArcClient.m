@@ -47,7 +47,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-          _arcUrl = [prefs valueForKey:@"arcUrl"];
+           _arcUrl = [prefs valueForKey:@"arcUrl"];
 
         }
         

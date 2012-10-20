@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import "ArcClient.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface HelpView ()
 
@@ -66,4 +67,27 @@
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    // Play movie from URL
+    NSURL *movieURL;
+    
+    if (indexPath.row == 0) {
+        movieURL = [NSURL URLWithString:@"http://stretchsite.appspot.com/arcVid1.mp4"];
+    }else{
+        movieURL = [NSURL URLWithString:@"http://stretchsite.appspot.com/arcVid1.mp4"];
+    }
+    
+    moviePlayer = [[CustomMoviePlayerViewController alloc] initWithURL:movieURL];
+    
+    // Show the movie player as modal
+    [self presentModalViewController:moviePlayer animated:YES];
+    
+    // Prep and play the movie
+    [moviePlayer readyPlayer];
+    
+}
+
 @end

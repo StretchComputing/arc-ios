@@ -14,6 +14,7 @@
 #import "ArcClient.h"
 #import "rSkybox.h"
 #import "Invoice.h"
+#import "ArcUtility.h"
 
 @interface CreditCardPayment ()
 
@@ -289,7 +290,10 @@
             }else{
                 [ tempDictionary setObject:@"DEBIT" forKey:@"Type"];
             }
-            [ tempDictionary setObject:@"V" forKey:@"CardType"];
+            
+            NSString *cardType = [ArcUtility getCardTypeForNumber:ccNumber];
+            
+            [ tempDictionary setObject:cardType forKey:@"CardType"];
             
             //For Metrics
             [tempDictionary setObject:self.myInvoice.splitType forKey:@"SplitType"];

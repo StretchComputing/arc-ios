@@ -47,7 +47,7 @@
                 }else{
                     self.activityView.hidden = NO;
                 }*/
-                [self registerNow:nil];
+                [self runRegister];
                 
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication Failed" message:@"Dwolla could not authenticate your credentials, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
@@ -92,6 +92,8 @@
                     [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:0.0];
                 }
                 
+            }else{
+                [self goHome];
             }
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
@@ -386,6 +388,10 @@
 
 -(void)goHome{
     @try {
+        
+        NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
         
         [self performSegueWithIdentifier:@"registerHome" sender:self];
         

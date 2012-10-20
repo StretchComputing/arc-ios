@@ -266,6 +266,7 @@
                 tmpMerchant.zipCode = [theMerchant valueForKey:@"Zipcode"];
                 tmpMerchant.twitterHandler = [theMerchant valueForKey:@"TwitterHandler"];
                 tmpMerchant.facebookHandler = [theMerchant valueForKey:@"FacebookHandler"];
+                tmpMerchant.paymentsAccepted = [theMerchant valueForKey:@"PaymentAccepted"];
                 
                 tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
                 
@@ -388,6 +389,7 @@
             
             detailViewController.merchantId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
             detailViewController.name = tmpMerchant.name;
+            detailViewController.paymentsAccepted = tmpMerchant.paymentsAccepted;
             
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"merchantName"];
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.twitterHandler forKey:@"merchantTwitterHandler"];

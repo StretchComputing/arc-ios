@@ -346,6 +346,7 @@
             self.myInvoice.tags = [NSArray arrayWithArray:[theInvoice valueForKey:@"Tags"]];
             self.myInvoice.items = [NSArray arrayWithArray:[theInvoice valueForKey:@"Items"]];
             self.myInvoice.payments = [NSArray arrayWithArray:[theInvoice valueForKey:@"Payments"]];
+            self.myInvoice.paymentsAccepted = self.paymentsAccepted;
             
             self.wentInvoice = YES;
             [self performSegueWithIdentifier:@"goInvoice" sender:self];

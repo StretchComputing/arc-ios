@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFive;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumSix;
+@property (nonatomic, strong) NSString *paymentsAccepted;
 
 @property BOOL helpShowing;
 - (IBAction)submit:(id)sender;
