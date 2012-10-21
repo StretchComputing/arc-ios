@@ -306,9 +306,9 @@
         [self.managedDocument saveToURL:self.managedDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
             
             if (!success) {
-                NSLog(@"Failed to save");
+                NSLog(@"******************Failed to save");
             }else{
-                NSLog(@"Saved Document Successfully");
+                NSLog(@"******************Saved Document Successfully");
             }
         }];
     }
