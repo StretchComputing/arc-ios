@@ -618,6 +618,14 @@
                 errorMsg = @"Merchant does not accept Dwolla payment.";
             } else if(errorCode == INVALID_ACCOUNT_PIN) {
                 errorMsg = @"Invalid PIN";
+                
+                self.checkNumOne.text = @"";
+                self.checkNumTwo.text = @"";
+                self.checkNumThree.text = @"";
+                self.checkNumFour.text = @"";
+                
+                self.hiddenText.text = @"";
+                
             } else if(errorCode == INSUFFICIENT_FUNDS) {
                 errorMsg = @"Insufficient funds.";
             } else if(errorCode == OVER_PAID) {

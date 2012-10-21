@@ -309,6 +309,13 @@
 
         }else{
             self.errorLabel.text = @"*Invalid PIN.";
+            
+            self.checkNumOne.text = @"";
+            self.checkNumTwo.text = @"";
+            self.checkNumThree.text = @"";
+            self.checkNumFour.text = @"";
+            
+            self.hiddenText.text = @"";
         }
         
     }

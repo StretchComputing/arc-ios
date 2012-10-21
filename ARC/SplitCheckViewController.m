@@ -249,6 +249,7 @@
 }
 
 - (IBAction)typeSegmentChanged {
+    [self endText];
     @try {
         if (self.typeSegment.selectedSegmentIndex == 0) {
             
@@ -912,6 +913,7 @@
 
 -(void)longPress:(id)sender{
     
+    [self endText];
     MyGestureRecognizer *myPress = (MyGestureRecognizer *)sender;
     
     CAGradientLayer *gradient1 = [CAGradientLayer layer];
