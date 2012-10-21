@@ -22,6 +22,7 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.net.co/rest/v1/"; // Serv
 //NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; // Servers API: Jim's Place
 
 int const USER_ALREADY_EXISTS = 103;
+int const INCORRECT_PASSCODE = 105;
 int const INCORRECT_LOGIN_INFO = 203;
 int const INVOICE_NOT_FOUND = 604;
 int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE = 400;

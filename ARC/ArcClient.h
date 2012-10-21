@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern int const USER_ALREADY_EXISTS;
+extern int const INCORRECT_PASSCODE;
 extern int const INCORRECT_LOGIN_INFO;
 extern int const INVOICE_NOT_FOUND;
 extern int const CANNOT_PROCESS_PAYMENT;

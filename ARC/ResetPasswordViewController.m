@@ -35,11 +35,11 @@
     [self.view.layer insertSublayer:gradient atIndex:0];
 
     
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"resetPasswordNotification" object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passwordResetComplete:) name:@"resetPasswordNotification" object:nil];
 }
 
 
--(void)merchantListComplete:(NSNotification *)notification{
+-(void)passwordResetComplete:(NSNotification *)notification{
     @try {
         
         self.passwordText.enabled = YES;
@@ -65,7 +65,12 @@
             
             
         } else {
-            errorMsg = @"Arc error, please try again.";
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INCORRECT_PASSCODE) {
+                errorMsg = @"Incorrect passcode. Please try again.";
+            } else {
+                errorMsg = @"Arc error, please try again.";
+            }
         }
         
         if([errorMsg length] > 0) {
