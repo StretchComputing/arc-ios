@@ -303,7 +303,7 @@
                     [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
                         
                         if (granted && error == nil) {
-                            NSLog(@"Granted");
+                           // NSLog(@"Granted");
                             
                             [prefs setValue:@"yes" forKey:@"autoPostFacebook"];
                             
@@ -321,8 +321,8 @@
                             });
                             
                             
-                            NSLog(@"Error: %@", [error description]);
-                            NSLog(@"Access denied");
+                            //NSLog(@"Error: %@", [error description]);
+                            //NSLog(@"Access denied");
                         }
                     }];
                     

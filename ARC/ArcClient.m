@@ -53,7 +53,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
         }
         
-        NSLog(@"***** Arc URL = %@ *****", _arcUrl);
+        //NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
 }
@@ -96,7 +96,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSString *createUrl = [NSString stringWithFormat:@"%@customers/new", _arcUrl, nil];
         
-        NSLog(@"CreateUrl: %@", createUrl);
+        //NSLog(@"CreateUrl: %@", createUrl);
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
         [request setHTTPMethod: @"POST"];
@@ -157,10 +157,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
-        NSLog(@"getMerchantList requestString = %@", requestString);
+        //NSLog(@"getMerchantList requestString = %@", requestString);
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants/list", _arcUrl, nil];
-        NSLog(@"GertMerchantList URL = %@", getMerchantListUrl);
+        //NSLog(@"GertMerchantList URL = %@", getMerchantListUrl);
         
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
@@ -168,8 +168,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
-        
-        NSLog(@"Auth Header: %@", [self authHeader]);
+       
+        //NSLog(@"Auth Header: %@", [self authHeader]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -297,7 +297,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSDictionary *myDictionary = @{@"Analytics" : [NSArray arrayWithObject:pairs]};
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [myDictionary JSONRepresentation], nil];
-        NSLog(@"requestString: %@", requestString);
+        //NSLog(@"requestString: %@", requestString);
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *trackEventUrl = [NSString stringWithFormat:@"%@analytics/new", _arcUrl, nil];
@@ -362,7 +362,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         //[request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
-        NSLog(@"Request String: %@", requestString);
+        //NSLog(@"Request String: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"resetPassword"];
@@ -388,7 +388,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
-    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
+    //NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
 }
 
 
@@ -401,7 +401,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        NSLog(@"ReturnString: %@", returnString);
+        //NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -492,8 +492,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox endThreshold:@"ErrorEncountered" logMessage:@"NA" maxValue:0.00];
         
         //NSLog(@"Error: %@", error);
-        NSLog(@"Code: %i", error.code);
-        NSLog(@"Description: %@", error.localizedDescription);
+        //NSLog(@"Code: %i", error.code);
+        //NSLog(@"Description: %@", error.localizedDescription);
         
         // TODO make logType a function of the restaurant/location -- not sure the best way to do this yet
         NSString *logName = [NSString stringWithFormat:@"api.%@.%@", [self apiToString], [self readableErrorCode:error]];
@@ -536,7 +536,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 - (void)displayErrorsToAdmins:(NSDictionary *)response {
     if([self admin]) {
-        NSLog(@"user is an admin");
+        //NSLog(@"user is an admin");
         
         NSMutableString* errorMsg = [NSMutableString string];
         NSArray *errorArr = [response valueForKey:@"ErrorCodes"];

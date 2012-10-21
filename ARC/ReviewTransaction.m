@@ -849,7 +849,7 @@
                     
                     [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
                         NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                        NSLog(@"%@", output);
+                        //NSLog(@"%@", output);
                         //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
                     }];
                     
@@ -883,7 +883,7 @@
         
         [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
             if (granted && error == nil) {
-                NSLog(@"Granted");
+                //NSLog(@"Granted");
                 
                 NSArray *accounts = [self.store accountsWithAccountType:accType];
                 ACAccount *facebookAccount = [accounts objectAtIndex:0];
@@ -913,7 +913,7 @@
                  {
                      // Handle response
                      NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                     NSLog(@"Output: %@", output);
+                     //NSLog(@"Output: %@", output);
                      
                  }];
                 
@@ -923,9 +923,9 @@
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                 [prefs setValue:@"no" forKey:@"autoPostFacebook"];
                 [prefs synchronize];
-                
-                NSLog(@"Error: %@", [error description]);
-                NSLog(@"Access denied");
+                //
+                //NSLog(@"Error: %@", [error description]);
+                //NSLog(@"Access denied");
             }
         }];
 

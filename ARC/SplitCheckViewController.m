@@ -119,7 +119,7 @@
         self.discountPercentage = self.myInvoice.discount / self.myInvoice.subtotal;
         
         //set labels
-        NSLog(@"myInvoice.taxableAmount = @%f", self.myInvoice.taxableAmount);
+       // NSLog(@"myInvoice.taxableAmount = @%f", self.myInvoice.taxableAmount);
         self.percentFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.subtotal];
         self.percentTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
         self.percentServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
@@ -605,7 +605,7 @@
             
             [self.myInvoice setGratuity:[ArcUtility roundUpToNearestPenny:[self.percentTipText.text doubleValue]]];
             [self.myInvoice setBasePaymentAmount:[ArcUtility roundUpToNearestPenny:self.percentYourPayment]];
-            NSLog(@"%f", self.percentYourPayment);
+            //NSLog(@"%f", self.percentYourPayment);
             
             self.myInvoice.splitType = @"PERCENT";
             

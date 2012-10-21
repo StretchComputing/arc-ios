@@ -98,7 +98,7 @@
 *--------------------------------------------------------------------------*/
 - (void) moviePlayBackDidFinish:(NSNotification*)notification 
 {    
-  [[UIApplication sharedApplication] setStatusBarHidden:YES];
+  [[UIApplication sharedApplication] setStatusBarHidden:NO];
 
  	// Remove observer
   [[NSNotificationCenter 	defaultCenter] 

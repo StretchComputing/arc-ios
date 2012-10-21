@@ -102,7 +102,7 @@ static NSString *logNameBeingTimed;
         NSString *logMessage = [NSString stringWithFormat:@"threshold: %0.0f ms latency: %0.0f ms", maxValue, milliseconds];
         [rSkybox sendClientLog:logName logMessage:logMessage logLevel:@"error" exception:nil];
     }
-    NSLog(@"Duration of %@: %0.1f", logName, milliseconds);
+    //NSLog(@"Duration of %@: %0.1f", logName, milliseconds);
 }
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
@@ -454,7 +454,7 @@ static NSString *logNameBeingTimed;
         [dateFormatter setDateFormat:@"YYYY-MM-dd hh:mm:ss.SSS"];
         NSString *dateString = [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]];
         
-        NSLog(@"%d: %@ - %@", i, [traceSession objectAtIndex:i], dateString);
+       // NSLog(@"%d: %@ - %@", i, [traceSession objectAtIndex:i], dateString);
     }
     
 }

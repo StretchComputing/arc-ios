@@ -265,7 +265,7 @@
                 if (success) {
                     [self documentIsReady];
                 }else{
-                    NSLog(@"Could not open document");
+                    //NSLog(@"Could not open document");
                 }
             }];
             
@@ -276,7 +276,7 @@
                 if (success) {
                     [self documentIsReady];
                 }else{
-                    NSLog(@"Could not create document");
+                    //NSLog(@"Could not create document");
                 }
             }];
         }
@@ -289,7 +289,7 @@
 
 -(void)documentIsReady{
     @try {
-        NSLog(@"Document is ready!!");
+        //NSLog(@"Document is ready!!");
         
         if (self.managedDocument.documentState == UIDocumentStateNormal) {
             self.managedObjectContext = self.managedDocument.managedObjectContext;
@@ -306,9 +306,9 @@
         [self.managedDocument saveToURL:self.managedDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
             
             if (!success) {
-                NSLog(@"******************Failed to save");
+               // NSLog(@"******************Failed to save");
             }else{
-                NSLog(@"******************Saved Document Successfully");
+                //NSLog(@"******************Saved Document Successfully");
             }
         }];
     }
@@ -323,9 +323,9 @@
         [self.managedDocument closeWithCompletionHandler:^(BOOL success){
             
             if (!success) {
-                NSLog(@"Failed to close");
+                //NSLog(@"Failed to close");
             }else{
-                NSLog(@"Closed Document");
+               // NSLog(@"Closed Document");
             }
         }];
     }
@@ -342,7 +342,7 @@
         Customer *customer = [self getCurrentCustomer];
         
         if (!customer) {
-            NSLog(@"Inserting Customer");
+           // NSLog(@"Inserting Customer");
             Customer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"Customer" inManagedObjectContext:self.managedObjectContext];
             
             customer.customerId = customerId;
@@ -352,7 +352,7 @@
             [self saveDocument];
             
         }else{
-            NSLog(@"Customer Already Exists");
+            //NSLog(@"Customer Already Exists");
         }
     }
     @catch (NSException *e) {
@@ -406,7 +406,7 @@
         NSArray *returnedArray = [self.managedObjectContext executeFetchRequest:request error:&error];
         
         if (returnedArray == nil) {
-            NSLog(@"returnArray was NIL");
+            //NSLog(@"returnArray was NIL");
             return nil;
         }else if ([returnedArray count] == 0){
             
@@ -441,13 +441,13 @@
         NSArray *returnedArray = [self.managedObjectContext executeFetchRequest:request error:&error];
         
         if (returnedArray == nil) {
-            NSLog(@"returnArray was NIL");
+            //NSLog(@"returnArray was NIL");
             return nil;
         }else if ([returnedArray count] == 0){
-            NSLog(@"Card Count was NIL");
+            //NSLog(@"Card Count was NIL");
             return nil;
         }else{
-            NSLog(@"Card retreival was GOOD!!!");
+           // NSLog(@"Card retreival was GOOD!!!");
             return returnedArray;
         }
         
@@ -472,13 +472,13 @@
         NSArray *returnedArray = [self.managedObjectContext executeFetchRequest:request error:&error];
         
         if (returnedArray == nil) {
-            NSLog(@"returnArray was NIL");
+           // NSLog(@"returnArray was NIL");
             return nil;
         }else if ([returnedArray count] == 0){
-            NSLog(@"Card Count was NIL");
+           // NSLog(@"Card Count was NIL");
             return nil;
         }else{
-            NSLog(@"Card retreival was GOOD!!!");
+            //NSLog(@"Card retreival was GOOD!!!");
             return returnedArray;
         }
         

@@ -123,7 +123,7 @@
                 });
             }
             @catch (NSException *exception) {
-                NSLog(@"Exception getting balance");
+                //NSLog(@"Exception getting balance");
             }           
         });
         

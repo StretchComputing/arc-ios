@@ -145,7 +145,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
     NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
     
     NSDictionary* dictionary = [DwollaAPI generateDictionaryWithData:result];
-    NSLog(@"%@", dictionary);
+    //NSLog(@"%@", dictionary);
     
     NSString* data = [[NSString alloc] initWithFormat:@"%@",[dictionary valueForKey:@"Response"]];
     
@@ -223,7 +223,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
     NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
     
     NSDictionary* dictionary = [DwollaAPI generateDictionaryWithData:result];
-    NSLog(@"%@", dictionary);
+    //NSLog(@"%@", dictionary);
     
     NSString* data = [[NSString alloc] initWithFormat:@"%@",[dictionary valueForKey:@"Response"]];
     
@@ -692,7 +692,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
     json = [json stringByAppendingFormat: @"}", type];
     
     NSData* body = [json dataUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"%@",json);
+    //NSLog(@"%@",json);
 
     
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
@@ -709,7 +709,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
     NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
     
     NSDictionary* dictionary = [DwollaAPI generateDictionaryWithData:result];
-    NSLog(@"%@", dictionary);
+    //NSLog(@"%@", dictionary);
     
     NSString* data = [[NSString alloc] initWithFormat:@"%@",[dictionary valueForKey:@"Response"]];
     

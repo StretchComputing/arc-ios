@@ -73,7 +73,7 @@
 		result = [NSData dataWithBytesNoCopy:buffer length:encryptedSize];
 	} else {
         free(buffer);
-        NSLog(@"[ERROR] failed to encrypt|CCCryptoStatus: %d", cryptStatus);
+        //NSLog(@"[ERROR] failed to encrypt|CCCryptoStatus: %d", cryptStatus);
     }
 	
 	return result;
@@ -117,7 +117,7 @@
 		result = [NSData dataWithBytesNoCopy:buffer length:decryptedSize];
 	} else {
         free(buffer);
-        NSLog(@"[ERROR] failed to decrypt| CCCryptoStatus: %d", cryptStatus);
+       // NSLog(@"[ERROR] failed to decrypt| CCCryptoStatus: %d", cryptStatus);
     }
 
 	return result;
