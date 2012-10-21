@@ -20,6 +20,7 @@
 //bill division
 @property double taxPercentage;
 @property double serviceChargePercentage;
+@property double discountPercentage;
 @property double percentYourPayment;
 
 @property BOOL isIphone5;

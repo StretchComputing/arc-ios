@@ -116,6 +116,7 @@
         
         self.serviceChargePercentage = self.myInvoice.serviceCharge / self.myInvoice.taxableAmount;
         self.taxPercentage = self.myInvoice.tax / self.myInvoice.taxableAmount;
+        self.discountPercentage = self.myInvoice.discount / self.myInvoice.subtotal;
         
         //set labels
         NSLog(@"myInvoice.taxableAmount = @%f", self.myInvoice.taxableAmount);
@@ -953,16 +954,16 @@
     
     if ([[tmp valueForKey:@"selected"] isEqualToString:@"yes"]) {
         [tmp setValue:@"no" forKey:@"selected"];
-        self.itemTotal -= value;
+        self.itemTotal -= (value * (1 - self.discountPercentage));
     }else if ([[tmp valueForKey:@"selected"] isEqualToString:@"maybe"]){
         [tmp setValue:@"no" forKey:@"selected"];
         
         double myValue = [[tmp valueForKey:@"myAmount"] doubleValue];
-        self.itemTotal -= myValue;
+        self.itemTotal -= (myValue * (1 - self.discountPercentage));
 
     }else{
         [tmp setValue:@"yes" forKey:@"selected"];
-        self.itemTotal += value;
+        self.itemTotal += (value * (1 - self.discountPercentage));
     }
     
     
