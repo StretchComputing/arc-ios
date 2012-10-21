@@ -974,7 +974,6 @@
     [self.itemTableView reloadData];
     
     [self itemTipSegmentSelect];
-    
 
 }
 
