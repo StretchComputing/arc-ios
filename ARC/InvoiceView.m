@@ -87,7 +87,7 @@
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
         
-        self.subLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice baseAmount]];
+        self.subLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice subtotal]];
         self.taxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
         self.gratLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
         self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];

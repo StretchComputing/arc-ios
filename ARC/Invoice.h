@@ -12,11 +12,12 @@
 
 @property int invoiceId, merchantId, customerId;
 @property (strong, nonatomic) NSString *status, *number, *posi, *dateCreated, *paymentsAccepted;
-@property double rawBaseAmount, serviceCharge, tax, discount, additionalCharge, gratuity, basePaymentAmount;
+@property double subtotal, serviceCharge, tax, discount, additionalCharge, gratuity, basePaymentAmount;
 @property (strong, nonatomic) NSArray *tags, *items, *payments;
 @property BOOL paidInFull;
 
--(double)baseAmount;
+-(double)taxableAmount;
+-(double)subtotal;
 -(double)amountDue;
 -(double)amountDueForSplit;
 -(double)amountDuePlusGratuity;

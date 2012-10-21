@@ -335,7 +335,7 @@
             self.myInvoice.customerId = [[theInvoice valueForKey:@"CustomerId"] intValue];
             self.myInvoice.posi = [theInvoice valueForKey:@"POSI"];
             
-            self.myInvoice.rawBaseAmount = [[theInvoice valueForKey:@"BaseAmount"] doubleValue];
+            self.myInvoice.subtotal = [[theInvoice valueForKey:@"BaseAmount"] doubleValue];
             self.myInvoice.serviceCharge = [[theInvoice valueForKey:@"ServiceCharge"] doubleValue];
             self.myInvoice.tax = [[theInvoice valueForKey:@"Tax"] doubleValue];
             self.myInvoice.discount = [[theInvoice valueForKey:@"Discount"] doubleValue];

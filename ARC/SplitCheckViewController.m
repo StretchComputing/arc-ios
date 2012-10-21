@@ -114,16 +114,16 @@
 
         self.itemSplitItemView.hidden = YES;
         
-        self.serviceChargePercentage = self.myInvoice.serviceCharge / self.myInvoice.baseAmount;
-        self.taxPercentage = self.myInvoice.tax / self.myInvoice.baseAmount;
+        self.serviceChargePercentage = self.myInvoice.serviceCharge / self.myInvoice.taxableAmount;
+        self.taxPercentage = self.myInvoice.tax / self.myInvoice.taxableAmount;
         
         //set labels
-        NSLog(@"myInvoice.baseAmount = @%f", self.myInvoice.baseAmount);
-        self.percentFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        NSLog(@"myInvoice.taxableAmount = @%f", self.myInvoice.taxableAmount);
+        self.percentFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.subtotal];
         self.percentTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
         self.percentServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
         
-        self.dollarFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.baseAmount];
+        self.dollarFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.subtotal];
         self.dollarTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
         self.dollarServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
         
@@ -806,7 +806,7 @@
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
         double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
-        double baseTipPayment = percentYourPayment * [self.myInvoice baseAmount];
+        double baseTipPayment = percentYourPayment * [self.myInvoice subtotal];
 
         double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * baseTipPayment)];
         self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];

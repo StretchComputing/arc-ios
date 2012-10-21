@@ -25,20 +25,20 @@
 }
 
 
-- (double)baseAmount
+- (double)taxableAmount
 {
     @try {
-        return self.rawBaseAmount - self.discount;
+        return self.subtotal - self.discount;
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"Invoice.baseAmount" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"Invoice.taxableAmount" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
 - (double)amountDue
 {
     @try {
-        return self.rawBaseAmount + self.serviceCharge + self.tax - self.discount;
+        return self.subtotal + self.serviceCharge + self.tax - self.discount;
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Invoice.amountDue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -48,7 +48,7 @@
 - (double)amountDuePlusGratuity
 {
     @try {
-        return self.rawBaseAmount + self.serviceCharge + self.tax - self.discount + self.gratuity;
+        return self.subtotal + self.serviceCharge + self.tax - self.discount + self.gratuity;
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Invoice.totalAmount" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -58,7 +58,7 @@
 - (double)amountDueForSplit
 {
     @try {
-        return self.rawBaseAmount + self.serviceCharge + self.tax - self.discount - [self calculateAmountPaid];
+        return self.subtotal + self.serviceCharge + self.tax - self.discount - [self calculateAmountPaid];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Invoice.amountDueForSplit" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -68,7 +68,7 @@
 - (double)amountDueForSplitPlusGratuity
 {
     @try {
-        return self.rawBaseAmount + self.serviceCharge + self.tax - self.discount + self.gratuity - [self calculateAmountPaid];
+        return self.subtotal + self.serviceCharge + self.tax - self.discount + self.gratuity - [self calculateAmountPaid];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Invoice.totalAmount" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -88,8 +88,8 @@
 -(void)setGratuityForSplit:(double)paymentAmount withTipPercent:(double)tipPercent
 {
     @try {        
-        double percentTax = [self tax]/[self baseAmount];
-        double percentServiceCharge = [self serviceCharge]/[self baseAmount];
+        double percentTax = [self tax]/[self taxableAmount];
+        double percentServiceCharge = [self serviceCharge]/[self taxableAmount];
         double yourBaseAmount = paymentAmount/(percentServiceCharge + 1 + percentTax);
         self.gratuity = [ArcUtility roundUpToNearestPenny:(yourBaseAmount * tipPercent)];
     }
