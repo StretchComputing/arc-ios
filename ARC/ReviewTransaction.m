@@ -688,7 +688,8 @@
         
         };
     
-        NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
+        //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
+        NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
     
         NSNumber *avgRating = [self getAverageRating];
         if([avgRating doubleValue] > 0) {

@@ -17,6 +17,7 @@
 #import "HomeNavigationController.h"
 #import "RegisterDwollaView.h"
 #import "ArcClient.h"
+#import "ArcUtility.h"
 
 @interface InvoiceView ()
 
@@ -596,10 +597,11 @@
             tipPercent = .22;
         }
         
-        [self.myInvoice setGratuityByPercentage:tipPercent];
-        self.tipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
+        double yourPayment = [self.myInvoice amountDueForSplit];
+        [self.myInvoice setGratuityForSplit:yourPayment withTipPercent:tipPercent];
+        double totalPayment = yourPayment + [self.myInvoice gratuity];
         
-        double totalPayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid] + [self.myInvoice gratuity];
+        self.tipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
         self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
         
         [UIView beginAnimations:nil context:NULL];

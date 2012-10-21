@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import "LucidaBoldLabel.h"
 
 
 @interface ContactUsView : UIViewController <MFMailComposeViewControllerDelegate>
@@ -15,5 +16,7 @@
 - (IBAction)call;
 - (IBAction)email;
 @property (nonatomic, weak) IBOutlet UILabel *sloganLabel;
+@property (weak, nonatomic) IBOutlet LucidaBoldLabel *phoneNumberLabel;
 
+@property (weak, nonatomic) IBOutlet LucidaBoldLabel *emailAddressLabel;
 @end

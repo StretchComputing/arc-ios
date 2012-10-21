@@ -47,6 +47,11 @@
         // Do any additional setup after loading the view.
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
         
+        NSString *emailAddress = [NSString stringWithFormat:@"Email: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]];
+        NSString *phoneNumber = [NSString stringWithFormat:@"Phone #: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"]];
+        self.phoneNumberLabel.text = phoneNumber;
+        self.emailAddressLabel.text = emailAddress;
+        
         [ArcClient trackEvent:@"CONTACT_US_VIEW"];
 
     }
@@ -74,8 +79,7 @@
         
         if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]){
             
-            
-            NSString *url = [@"tel://" stringByAppendingString:@"6302156979"];
+            NSString *url = [@"tel://" stringByAppendingString:[[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"]];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             
             
@@ -104,7 +108,7 @@
             
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.mailComposeDelegate = self;
-            [mailViewController setToRecipients:@[@"tdoza33@gmail.com"]];
+            [mailViewController setToRecipients:@[[[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]]];
             
             [self presentModalViewController:mailViewController animated:YES];
             
@@ -151,4 +155,9 @@
     }
 }
 
+- (void)viewDidUnload {
+    [self setPhoneNumberLabel:nil];
+    [self setEmailAddressLabel:nil];
+    [super viewDidUnload];
+}
 @end

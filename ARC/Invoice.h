@@ -24,7 +24,7 @@
 
 -(void)setGratuityByAmount:(double)tipAmount;
 
--(void)setGratuityByPercentage:(double)tipPercent;
+-(void)setGratuityForSplit:(double)paymentAmount withTipPercent:(double)tipPercent;
 
 
 //For metrics

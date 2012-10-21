@@ -339,16 +339,10 @@
         }
         
         double yourPayment = [self.dollarYourPaymentText.text doubleValue];
-        double percentTax = [self.myInvoice tax]/[self.myInvoice baseAmount];
-        double percentServiceCharge = [self.myInvoice serviceCharge]/[self.myInvoice baseAmount];
+        [self.myInvoice setGratuityForSplit:yourPayment withTipPercent:tipPercent];
+        double payment = yourPayment + [self.myInvoice gratuity];
         
-        double yourBaseAmount = yourPayment/(percentServiceCharge + 1 + percentTax);
-        double tipAmount = [ArcUtility roundUpToNearestPenny:(yourBaseAmount * tipPercent)];
-        
-        double payment = yourPayment + tipAmount;
-        
-        [self.myInvoice setGratuityByAmount:tipAmount];
-        self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
+        self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
         self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", payment];
         
         [self endText];
@@ -437,6 +431,15 @@
         
         [rSkybox addEventToSession:@"clickedDollarPayButton"];
         
+        [self readyInvoiceForPayment];
+        double totalPay = self.myInvoice.basePaymentAmount + self.myInvoice.gratuity;
+        
+        if (totalPay <= 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"You must pay more than $0.00 to continue" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+
         [self.dollarTipText resignFirstResponder];
         UIActionSheet *action;
         
@@ -497,38 +500,30 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     @try {
         
-        double totalPay = self.myInvoice.basePaymentAmount + self.myInvoice.gratuity;
-        BOOL showError = NO;
-        
         if (buttonIndex == 0) {
             //Dwolla
             
-            if (totalPay > 0.0) {
-                NSString *token = @"";
-                @try {
-                    token = [DwollaAPI getAccessToken];
-                }
-                @catch (NSException *exception) {
-                    token = nil;
-                }
-                
-                
-                if ((token == nil) || [token isEqualToString:@""]) {
-                    
-                    [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
-                    
-                    
-                }else{
-                    [rSkybox addEventToSession:@"selectedDwollaForPayment"];
-                    
-                    [self performSegueWithIdentifier:@"dollarGoPayDwolla" sender:self];
-                    
-                }
-
-            }else{
-                showError = YES;
+            NSString *token = @"";
+            @try {
+                token = [DwollaAPI getAccessToken];
             }
-                      
+            @catch (NSException *exception) {
+                token = nil;
+            }
+            
+            
+            if ((token == nil) || [token isEqualToString:@""]) {
+                
+                [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+                
+                
+            }else{
+                [rSkybox addEventToSession:@"selectedDwollaForPayment"];
+                
+                [self performSegueWithIdentifier:@"dollarGoPayDwolla" sender:self];
+                
+            }
+            
         }else {
             [rSkybox addEventToSession:@"selectedCreditCardForPayment"];
             
@@ -537,20 +532,15 @@
                 if (buttonIndex == [self.creditCards count] + 1) {
                    
                 }else{
-                    if (totalPay > 0) {
-                        //1 is paypal, 2 is first credit card
-                        CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - 1];
-                        
-                        self.creditCardNumber = selectedCard.number;
-                        self.creditCardSecurityCode = selectedCard.securityCode;
-                        self.creditCardExpiration = selectedCard.expiration;
-                        self.creditCardSample = selectedCard.sample;
-                        
-                        [self performSegueWithIdentifier:@"dollarGoPayCreditCard" sender:self];
-                    }else{
-                        showError = YES;
-                    }
+                    //1 is paypal, 2 is first credit card
+                    CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - 1];
                     
+                    self.creditCardNumber = selectedCard.number;
+                    self.creditCardSecurityCode = selectedCard.securityCode;
+                    self.creditCardExpiration = selectedCard.expiration;
+                    self.creditCardSample = selectedCard.sample;
+                    
+                    [self performSegueWithIdentifier:@"dollarGoPayCreditCard" sender:self];
                     
                 }
             }else{
@@ -558,145 +548,146 @@
             }
             
         }
-        
-        if (showError) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"You must pay more than $0.00 to continue" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
+- (void)readyInvoiceForPayment {
+    @try {
+
+        // since the user can be switching back-and-forth between dollar/percent/item views, myInvoice values can't be relied upon, so
+        // we must get the payment and gratuity fields from the text fields again
+        if (self.itemView.hidden == NO) {
+            
+            if (self.itemTipText.text == nil) {
+                self.itemTipText.text = @"0.0";
+            }
+            
+            [self.myInvoice setGratuity:[self.itemTipText.text doubleValue]];
+            double payment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - [self.myInvoice gratuity];
+            payment = [ArcUtility roundUpToNearestPenny:payment];
+            [self.myInvoice setBasePaymentAmount:payment];
+            
+            self.myInvoice.splitType = @"ITEMIZED";
+            self.myInvoice.splitPercent = @"NONE";
+            
+            if (self.itemSplitItemSegControl.selectedSegmentIndex == 0) {
+                self.myInvoice.tipEntry = @"SHORTCUT18";
+                
+            }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 1){
+                self.myInvoice.tipEntry = @"SHORTCUT20";
+                
+            }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 2){
+                self.myInvoice.tipEntry = @"SHORTCUT22";
+                
+            }else{
+                
+                if ([self.itemTipText.text doubleValue] > 0) {
+                    self.myInvoice.tipEntry = @"MANUAL";
+                    
+                }else{
+                    self.myInvoice.tipEntry = @"NONE";
+                    
+                }
+                
+            }
+            
+        }else if (self.percentView.hidden == NO){
+            
+            if (self.percentTipText.text == nil) {
+                self.percentTipText.text = @"0.0";
+            }
+            
+            
+            [self.myInvoice setGratuity:[ArcUtility roundUpToNearestPenny:[self.percentTipText.text doubleValue]]];
+            [self.myInvoice setBasePaymentAmount:[ArcUtility roundUpToNearestPenny:self.percentYourPayment]];
+            NSLog(@"%f", self.percentYourPayment);
+            
+            self.myInvoice.splitType = @"PERCENT";
+            
+            if (self.percentYourPercentSegControl.selectedSegmentIndex == 0) {
+                self.myInvoice.splitPercent = @"SHORTCUT25";
+                
+            }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 1){
+                self.myInvoice.splitPercent = @"SHORTCUT33";
+                
+            }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 2){
+                self.myInvoice.splitPercent = @"SHORTCUT50";
+                
+            }else{
+                self.myInvoice.splitPercent = @"MANUAL";
+                
+            }
+            
+            
+            if (self.percentTipSegment.selectedSegmentIndex == 0) {
+                self.myInvoice.tipEntry = @"SHORTCUT18";
+                
+            }else if (self.percentTipSegment.selectedSegmentIndex == 1){
+                self.myInvoice.tipEntry = @"SHORTCUT20";
+                
+            }else if (self.percentTipSegment.selectedSegmentIndex == 2){
+                self.myInvoice.tipEntry = @"SHORTCUT22";
+                
+            }else{
+                
+                if ([self.percentTipText.text doubleValue] > 0) {
+                    self.myInvoice.tipEntry = @"MANUAL";
+                    
+                }else{
+                    self.myInvoice.tipEntry = @"NONE";
+                    
+                }
+                
+            }
+            
+        } else{
+            
+            if (self.dollarTipText.text == nil) {
+                self.dollarTipText.text = @"0.0";
+            }
+            
+            [self.myInvoice setGratuity:[self.dollarTipText.text doubleValue]];
+            [self.myInvoice setBasePaymentAmount:[self.dollarYourPaymentText.text doubleValue]];
+            
+            self.myInvoice.splitType = @"DOLLAR";
+            self.myInvoice.splitPercent = @"NONE";
+            
+            if (self.dollarTipSegment.selectedSegmentIndex == 0) {
+                self.myInvoice.tipEntry = @"SHORTCUT18";
+                
+            }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
+                self.myInvoice.tipEntry = @"SHORTCUT20";
+                
+            }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
+                self.myInvoice.tipEntry = @"SHORTCUT22";
+                
+            }else{
+                
+                if ([self.dollarTipText.text doubleValue] > 0) {
+                    self.myInvoice.tipEntry = @"MANUAL";
+                    
+                }else{
+                    self.myInvoice.tipEntry = @"NONE";
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceView.readyInvoiceForPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    // since the user can be switching back-and-forth between dollar/percent/item views, myInvoice values can't be relied upon, so
-    // we must get the payment and gratuity fields from the text fields again
-    if (self.itemView.hidden == NO) {
-        
-        if (self.itemTipText.text == nil) {
-            self.itemTipText.text = @"0.0";
-        }
-        
-        [self.myInvoice setGratuity:[self.itemTipText.text doubleValue]];
-        double payment = [[self.itemYourTotalPaymentLabel.text substringFromIndex:1] doubleValue] - [self.myInvoice gratuity];
-        payment = [ArcUtility roundUpToNearestPenny:payment];
-        [self.myInvoice setBasePaymentAmount:payment];
-        
-        self.myInvoice.splitType = @"ITEMIZED";
-        self.myInvoice.splitPercent = @"NONE";
-        
-        if (self.itemSplitItemSegControl.selectedSegmentIndex == 0) {
-            self.myInvoice.tipEntry = @"SHORTCUT18";
-            
-        }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 1){
-            self.myInvoice.tipEntry = @"SHORTCUT20";
-            
-        }else if (self.itemSplitItemSegControl.selectedSegmentIndex == 2){
-            self.myInvoice.tipEntry = @"SHORTCUT22";
-            
-        }else{
-            
-            if ([self.itemTipText.text doubleValue] > 0) {
-                self.myInvoice.tipEntry = @"MANUAL";
-                
-            }else{
-                self.myInvoice.tipEntry = @"NONE";
-                
-            }
-            
-        }
-        
-        
-        
-    }else if (self.percentView.hidden == NO){
-        
-        if (self.percentTipText.text == nil) {
-            self.percentTipText.text = @"0.0";
-        }
-        
-        
-        [self.myInvoice setGratuity:[ArcUtility roundUpToNearestPenny:[self.percentTipText.text doubleValue]]];
-        [self.myInvoice setBasePaymentAmount:[ArcUtility roundUpToNearestPenny:self.percentYourPayment]];
-        NSLog(@"%f", self.percentYourPayment);
-        
-        self.myInvoice.splitType = @"PERCENT";
-
-        if (self.percentYourPercentSegControl.selectedSegmentIndex == 0) {
-            self.myInvoice.splitPercent = @"SHORTCUT25";
-            
-        }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 1){
-            self.myInvoice.splitPercent = @"SHORTCUT33";
-            
-        }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 2){
-            self.myInvoice.splitPercent = @"SHORTCUT50";
-            
-        }else{
-            self.myInvoice.splitPercent = @"MANUAL";
-            
-        }
-        
-        
-        if (self.percentTipSegment.selectedSegmentIndex == 0) {
-            self.myInvoice.tipEntry = @"SHORTCUT18";
-            
-        }else if (self.percentTipSegment.selectedSegmentIndex == 1){
-            self.myInvoice.tipEntry = @"SHORTCUT20";
-            
-        }else if (self.percentTipSegment.selectedSegmentIndex == 2){
-            self.myInvoice.tipEntry = @"SHORTCUT22";
-            
-        }else{
-            
-            if ([self.percentTipText.text doubleValue] > 0) {
-                self.myInvoice.tipEntry = @"MANUAL";
-                
-            }else{
-                self.myInvoice.tipEntry = @"NONE";
-                
-            }
-            
-        }
-        
-        
-        
-    }else{
-        
-        if (self.dollarTipText.text == nil) {
-            self.dollarTipText.text = @"0.0";
-        }
-        
-        [self.myInvoice setGratuity:[self.dollarTipText.text doubleValue]];
-        [self.myInvoice setBasePaymentAmount:[self.dollarYourPaymentText.text doubleValue]];
-
-        self.myInvoice.splitType = @"DOLLAR";
-        self.myInvoice.splitPercent = @"NONE";
-        
-        if (self.dollarTipSegment.selectedSegmentIndex == 0) {
-            self.myInvoice.tipEntry = @"SHORTCUT18";
-            
-        }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
-            self.myInvoice.tipEntry = @"SHORTCUT20";
-            
-        }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
-            self.myInvoice.tipEntry = @"SHORTCUT22";
-            
-        }else{
-            
-            if ([self.dollarTipText.text doubleValue] > 0) {
-                self.myInvoice.tipEntry = @"MANUAL";
-                
-            }else{
-                self.myInvoice.tipEntry = @"NONE";
-                
-            }
-            
-        }
-        
-        
-    }
     @try {
         
         if ([[segue identifier] isEqualToString:@"dollarGoPayDwolla"]) {
