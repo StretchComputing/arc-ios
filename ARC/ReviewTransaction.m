@@ -530,7 +530,9 @@
         [ tempDictionary setObject:self.moodInt forKey:@"Mood"];        
         [ tempDictionary setObject:self.twitterInt forKey:@"Twitter"];
         [ tempDictionary setObject:self.facebookInt forKey:@"Facebook"];
-
+        NSString *paymentIdString = [NSString stringWithFormat:@"%d", self.myInvoice.paymentId];
+        [ tempDictionary setObject:paymentIdString forKey:@"PaymentId"];
+        
 		loginDict = tempDictionary;
         self.submitButton.enabled = NO;
         self.skipButton.enabled = NO;
