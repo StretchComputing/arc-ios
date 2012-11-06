@@ -49,11 +49,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           _arcUrl = [prefs valueForKey:@"arcUrl"];
+           //_arcUrl = [prefs valueForKey:@"arcUrl"];
 
         }
         
-        //NSLog(@"***** Arc URL = %@ *****", _arcUrl);
+        NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
 }
@@ -388,7 +388,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
-    //NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
+    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
 }
 
 
