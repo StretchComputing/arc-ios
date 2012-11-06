@@ -16,6 +16,7 @@
 #import "ArcClient.h"
 #import "ArcUtility.h"
 
+
 @implementation ArcAppDelegate
 
 //Reachability
@@ -251,22 +252,39 @@
 }
 // ***
 
+- (void)handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted{
 
+    NSLog(@"Error: %@", error);
+    
+}
+
+- (BOOL)loadFromContents:(id)contents
+ofType:(NSString *)typeName
+                   error:(NSError **)outError{
+    
+    NSLog(@"Error: %@", outError);
+    return YES;
+
+}
 -(void)initManagedDocument{
     @try {
         NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         url = [url URLByAppendingPathComponent:@"DataBase"];
         
+
+        
         self.managedDocument = [[UIManagedDocument alloc] initWithFileURL:url];
         
+
         if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]){
             
             [self.managedDocument openWithCompletionHandler:^(BOOL success){
                 if (success) {
                     [self documentIsReady];
                 }else{
-                    //NSLog(@"Could not open document");
+                    NSLog(@"Could not open document");
                 }
+
             }];
             
         }else{
@@ -276,7 +294,7 @@
                 if (success) {
                     [self documentIsReady];
                 }else{
-                    //NSLog(@"Could not create document");
+                    NSLog(@"Could not create document");
                 }
             }];
         }
@@ -289,7 +307,7 @@
 
 -(void)documentIsReady{
     @try {
-        //NSLog(@"Document is ready!!");
+        NSLog(@"Document is ready!!");
         
         if (self.managedDocument.documentState == UIDocumentStateNormal) {
             self.managedObjectContext = self.managedDocument.managedObjectContext;
@@ -306,9 +324,9 @@
         [self.managedDocument saveToURL:self.managedDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success){
             
             if (!success) {
-               // NSLog(@"******************Failed to save");
+                NSLog(@"******************Failed to save");
             }else{
-                //NSLog(@"******************Saved Document Successfully");
+                NSLog(@"******************Saved Document Successfully");
             }
         }];
     }
@@ -342,6 +360,8 @@
         Customer *customer = [self getCurrentCustomer];
         
         if (!customer) {
+            
+            NSLog(@"Test");
            // NSLog(@"Inserting Customer");
             Customer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"Customer" inManagedObjectContext:self.managedObjectContext];
             
@@ -352,10 +372,11 @@
             [self saveDocument];
             
         }else{
-            //NSLog(@"Customer Already Exists");
+            NSLog(@"Customer Already Exists");
         }
     }
     @catch (NSException *e) {
+        
         [rSkybox sendClientLog:@"ArcAppDelegate.insertCustomerWithId" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
     }
@@ -384,7 +405,7 @@
         [self saveDocument];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcAppDelegate.insertCustomerWithId" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcAppDelegate.insertCreditCardWithNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
   
 }
@@ -406,12 +427,13 @@
         NSArray *returnedArray = [self.managedObjectContext executeFetchRequest:request error:&error];
         
         if (returnedArray == nil) {
-            //NSLog(@"returnArray was NIL");
+            NSLog(@"returnArray was NIL");
             return nil;
         }else if ([returnedArray count] == 0){
-            
+            NSLog(@"NIL");
             return nil;
         }else{
+            NSLog(@"RETURNING A CUSTOMER");
             return (Customer *)[returnedArray objectAtIndex:0];
         }
     }
