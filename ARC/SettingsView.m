@@ -26,6 +26,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     @try {
         
+        ArcClient *tmp = [[ArcClient alloc] init];
+        if (![tmp admin]) {
+            self.adminView.hidden = YES;
+        }else{
+            self.adminView.hidden = NO;
+        }
+        
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
         if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
@@ -402,4 +409,10 @@
 
 
 
+- (void)viewDidUnload {
+    [self setAdminView:nil];
+    [super viewDidUnload];
+}
+- (IBAction)changeServer {
+}
 @end
