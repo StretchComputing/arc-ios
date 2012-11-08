@@ -107,7 +107,7 @@
 @property double itemTotal;
 @property (weak, nonatomic) IBOutlet UILabel *itemTaxLabel;
 @property (weak, nonatomic) IBOutlet UILabel *itemServiceChargeLabel;
-
+@property (nonatomic, strong) NSString *paymentsAccepted;
 - (IBAction)itemTipDidBegin;
 - (IBAction)itemTipEditEnd;
 - (IBAction)itemTipSegmentSelect;
@@ -116,12 +116,15 @@
 @property (weak, nonatomic) IBOutlet UIView *itemSplitItemView;
 - (IBAction)itemSplitItemCancel;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+
 - (IBAction)itemSplitItemSave;
 @property (weak, nonatomic) IBOutlet UILabel *itemSplitItemItemTotal;
 @property (weak, nonatomic) IBOutlet UITextField *itemSplitItemYourAmount;
 - (IBAction)itemSplitItemYourAmountTextEnd;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *itemSplitItemSegControl;
 - (IBAction)itemSplitItemSegmentSelect;
+-(IBAction)refreshInvoice;
 
 
 //Metrics

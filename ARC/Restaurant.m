@@ -23,9 +23,13 @@
 @synthesize checkNumSix;
 
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     
-   
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
     
     @try {
         
@@ -108,7 +112,14 @@
     NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
     
     @try {
+        self.errorLabel.text = @"";
         
+        if (newLength == 0) {
+            [self.hideKeyboardView removeFromSuperview];
+            self.hideKeyboardView = nil;
+        }else{
+            [self showDoneButton];
+        }
    
         if (newLength > 6) {
             return FALSE;
@@ -199,6 +210,12 @@
 {
     @try {
         
+        if (self.view.frame.size.height > 500) {
+            self.isIphone5 = YES;
+        }else{
+            self.isIphone5 = NO;
+        }
+        
        
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Invoice #"];
         self.navigationItem.titleView = navLabel;
@@ -206,7 +223,7 @@
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Invoice #"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
+       
         
         self.checkHelpImageView.hidden = YES;
         
@@ -267,7 +284,7 @@
         
         self.errorLabel.text = @"";
         
-        if ([self.checkNumOne.text isEqualToString:@" "] || [self.checkNumTwo.text isEqualToString:@" "] || [self.checkNumThree.text isEqualToString:@" "] || [self.checkNumFour.text isEqualToString:@" "]) {
+        if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
             
             self.errorLabel.text = @"*Please enter the full check number";
         }else{
@@ -296,6 +313,7 @@
                 loginDict = tempDictionary;
                 
                 self.submitButton.enabled = NO;
+                self.keyboardSubmitButton.enabled = NO;
             
                 ArcClient *client = [[ArcClient alloc] init];
                 [client getInvoice:loginDict];
@@ -303,7 +321,6 @@
             @catch (NSException *e) {
                 //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];                
             }
-            
             
         }
         
@@ -319,6 +336,8 @@
         
         [self.activity stopAnimating];
         self.submitButton.enabled = YES;
+        self.keyboardSubmitButton.enabled = YES;
+
 
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
@@ -382,6 +401,7 @@
             
             InvoiceView *nextView = [segue destinationViewController];
             nextView.myInvoice = self.myInvoice;
+            nextView.paymentsAccepted = self.paymentsAccepted;
             
             
         } 
@@ -449,6 +469,48 @@
     
     
 }
+
+
+-(void)showDoneButton{
+    @try {
+        
+        [self.hideKeyboardView removeFromSuperview];
+        self.hideKeyboardView = nil;
+        
+        int keyboardY = 158;
+        if (self.isIphone5) {
+            keyboardY = 245;
+        }
+        self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, keyboardY, 85, 45)];
+        self.hideKeyboardView .backgroundColor = [UIColor clearColor];
+        self.hideKeyboardView.layer.masksToBounds = YES;
+        self.hideKeyboardView.layer.cornerRadius = 3.0;
+        
+        UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 85, 45)];
+        tmpView.backgroundColor = [UIColor blackColor];
+        tmpView.alpha = 0.6;
+        [self.hideKeyboardView addSubview:tmpView];
+        
+        self.keyboardSubmitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.keyboardSubmitButton.frame = CGRectMake(8, 5, 69, 35);
+        [self.keyboardSubmitButton setTitle:@"Submit" forState:UIControlStateNormal];
+        [self.keyboardSubmitButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+        [self.keyboardSubmitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.keyboardSubmitButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
+        [self.keyboardSubmitButton addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.hideKeyboardView addSubview:self.keyboardSubmitButton];
+        [self.view addSubview:self.hideKeyboardView];
+        
+        
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"Restaurant.showDoneButton" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
 
 
 - (void)viewDidUnload {

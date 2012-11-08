@@ -25,31 +25,21 @@
 
 @implementation InvoiceView
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+    
+   
 
 -(void)viewWillAppear:(BOOL)animated{
 
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
     
     // adjust if payments have already been made
-    double amountPaid = [self.myInvoice calculateAmountPaid];
-    if(amountPaid > 0.0) {
-        
-        self.payBillButton.title = @"Pay Remaining";
-        self.isPartialPayment = YES;
-        
-    }
     
-    //To only show amount due at bottom, and already paid as a line item
-    double amountDue = self.myInvoice.amountDue;
     
-    double remaining = amountDue - amountPaid;
-    if (remaining < 0.0001) {
-        remaining = 0;
-    }
-    
-    double totalPayment = remaining + [self.tipText.text doubleValue];
-    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
-    
-    [self.myTableView reloadData];
+    [self willAppearSetup];
   
     
 }
@@ -87,129 +77,12 @@
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
         
-        self.subLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice subtotal]];
-        self.taxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
-        self.gratLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
-        self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];
-        
-        
+               
         [super viewDidLoad];
         
-        // Do any additional setup after loading the view.
+      
+        [self setUpView];
         
-        //Set up scroll view sizes
-        
-        int tableCount = [self.myInvoice.items count];
-        
-        double amountPaid = [self.myInvoice calculateAmountPaid];
-        if(amountPaid > 0.0) {
-            tableCount++;
-        }
-        
-        int tableHeight = tableCount * 24 + tableCount + 10;
-        
-        self.myTableView.frame = CGRectMake(0, 20, 300, tableHeight);
-        
-        self.dividerLabel.frame = CGRectMake(0, tableHeight + 10, 300, 21);
-        int bottomViewY = tableHeight + 20;
-        
-        if (bottomViewY < 120) {
-            bottomViewY = 120;
-            int height = (120 - tableHeight)/2 + tableHeight;
-            self.dividerLabel.frame = CGRectMake(0, height, 300, 21);
-        }
-        
-        self.bottomHalfView.frame = CGRectMake(0, bottomViewY, 300, 134);
-        
-        
-        
-        //bottom view
-        int yValue = 34;
-        
-        if (self.myInvoice.serviceCharge == 0.0) {
-            self.gratLabel.hidden = YES;
-            self.gratNameLabel.hidden = YES;
-        }else{
-            yValue += 20;
-            
-            CGRect frame = self.gratLabel.frame;
-            frame.origin.y = yValue;
-            self.gratLabel.frame = frame;
-            
-            CGRect frameName = self.gratNameLabel.frame;
-            frameName.origin.y = yValue;
-            self.gratNameLabel.frame = frameName;
-                        
-        }
-        
-        if (self.myInvoice.discount == 0.0) {
-            self.discLabel.hidden = YES;
-            self.discNameLabel.hidden = YES;
-        }else{
-            
-            yValue += 20;
-            
-            CGRect frame = self.discLabel.frame;
-            frame.origin.y = yValue;
-            self.discLabel.frame = frame;
-            
-            CGRect frameName = self.discNameLabel.frame;
-            frameName.origin.y = yValue - 2;
-            self.discNameLabel.frame = frameName;
-
-            
-           
-        }
-        
-        
-        if(amountPaid > 0.0) {
-            
-            self.payBillButton.title = @"Pay Remaining";
-            self.isPartialPayment = YES;
-            self.alreadyPaidLabel.hidden = NO;
-            self.alreadyPaidNameLabel.hidden = NO;
-            self.alreadyPaidLabel.text = [NSString stringWithFormat:@"-$%.2f", amountPaid];
-            
-            yValue += 20;
-            
-            CGRect frame = self.alreadyPaidLabel.frame;
-            frame.origin.y = yValue;
-            self.alreadyPaidLabel.frame = frame;
-            
-            CGRect frameName = self.alreadyPaidNameLabel.frame;
-            frameName.origin.y = yValue;
-            self.alreadyPaidNameLabel.frame = frameName;
-         
-            
-        }else{
-            
-            self.alreadyPaidLabel.hidden = YES;
-            self.alreadyPaidNameLabel.hidden = YES;
-        }
-        
-        
-        CGRect frame = self.bottomHalfView.frame;
-        frame.size.height = yValue + 45;
-        self.bottomHalfView.frame = frame;
-        
-        
-        CGRect frameAmountName = self.amountNameLabel.frame;
-        frameAmountName.origin.y = yValue + 27;
-        self.amountNameLabel.frame = frameAmountName;
-        
-        CGRect frameAmount = self.amountLabel.frame;
-        frameAmount.origin.y = yValue + 23;
-        self.amountLabel.frame = frameAmount;
-        double myDue = self.myInvoice.amountDue - amountPaid;
-        self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
-        
-        CGRect frameLine = self.dividerView.frame;
-        frameLine.origin.y = yValue + 18;
-        self.dividerView.frame = frameLine;
-        
-        
-        [self.scrollView setContentSize:CGSizeMake(300, bottomViewY + yValue + 50)];
-
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = self.view.bounds;
         self.view.backgroundColor = [UIColor clearColor];
@@ -238,6 +111,151 @@
     }
 }
 
+-(void)setUpView{
+    
+    self.subLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice subtotal]];
+    self.taxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+    self.gratLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
+    self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];
+    
+
+    
+    int tableCount = [self.myInvoice.items count];
+    
+    double amountPaid = [self.myInvoice calculateAmountPaid];
+    if(amountPaid > 0.0) {
+        tableCount++;
+    }
+    
+    int tableHeight = tableCount * 24 + tableCount + 10;
+    
+    self.myTableView.frame = CGRectMake(0, 20, 300, tableHeight);
+    
+    self.dividerLabel.frame = CGRectMake(0, tableHeight + 10, 300, 21);
+    int bottomViewY = tableHeight + 20;
+    
+    if (bottomViewY < 120) {
+        bottomViewY = 120;
+        int height = (120 - tableHeight)/2 + tableHeight;
+        self.dividerLabel.frame = CGRectMake(0, height, 300, 21);
+    }
+    
+    self.bottomHalfView.frame = CGRectMake(0, bottomViewY, 300, 134);
+    
+    
+    
+    //bottom view
+    int yValue = 34;
+    
+    if (self.myInvoice.serviceCharge == 0.0) {
+        self.gratLabel.hidden = YES;
+        self.gratNameLabel.hidden = YES;
+    }else{
+        yValue += 20;
+        
+        CGRect frame = self.gratLabel.frame;
+        frame.origin.y = yValue;
+        self.gratLabel.frame = frame;
+        
+        CGRect frameName = self.gratNameLabel.frame;
+        frameName.origin.y = yValue;
+        self.gratNameLabel.frame = frameName;
+        
+    }
+    
+    if (self.myInvoice.discount == 0.0) {
+        self.discLabel.hidden = YES;
+        self.discNameLabel.hidden = YES;
+    }else{
+        
+        yValue += 20;
+        
+        CGRect frame = self.discLabel.frame;
+        frame.origin.y = yValue;
+        self.discLabel.frame = frame;
+        
+        CGRect frameName = self.discNameLabel.frame;
+        frameName.origin.y = yValue - 2;
+        self.discNameLabel.frame = frameName;
+        
+        
+        
+    }
+    
+    
+    if(amountPaid > 0.0) {
+        
+        self.payBillButton.title = @"Pay Remaining";
+        self.isPartialPayment = YES;
+        self.alreadyPaidLabel.hidden = NO;
+        self.alreadyPaidNameLabel.hidden = NO;
+        self.alreadyPaidLabel.text = [NSString stringWithFormat:@"-$%.2f", amountPaid];
+        
+        yValue += 20;
+        
+        CGRect frame = self.alreadyPaidLabel.frame;
+        frame.origin.y = yValue;
+        self.alreadyPaidLabel.frame = frame;
+        
+        CGRect frameName = self.alreadyPaidNameLabel.frame;
+        frameName.origin.y = yValue;
+        self.alreadyPaidNameLabel.frame = frameName;
+        
+        
+    }else{
+        
+        self.alreadyPaidLabel.hidden = YES;
+        self.alreadyPaidNameLabel.hidden = YES;
+    }
+    
+    
+    CGRect frame = self.bottomHalfView.frame;
+    frame.size.height = yValue + 45;
+    self.bottomHalfView.frame = frame;
+    
+    
+    CGRect frameAmountName = self.amountNameLabel.frame;
+    frameAmountName.origin.y = yValue + 27;
+    self.amountNameLabel.frame = frameAmountName;
+    
+    CGRect frameAmount = self.amountLabel.frame;
+    frameAmount.origin.y = yValue + 23;
+    self.amountLabel.frame = frameAmount;
+    double myDue = self.myInvoice.amountDue - amountPaid;
+    self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
+    
+    CGRect frameLine = self.dividerView.frame;
+    frameLine.origin.y = yValue + 18;
+    self.dividerView.frame = frameLine;
+    
+    
+    [self.scrollView setContentSize:CGSizeMake(300, bottomViewY + yValue + 50)];
+    
+}
+
+-(void)willAppearSetup{
+    double amountPaid = [self.myInvoice calculateAmountPaid];
+    if(amountPaid > 0.0) {
+        
+        self.payBillButton.title = @"Pay Remaining";
+        self.isPartialPayment = YES;
+        
+    }
+    
+    //To only show amount due at bottom, and already paid as a line item
+    double amountDue = self.myInvoice.amountDue;
+    
+    double remaining = amountDue - amountPaid;
+    if (remaining < 0.0001) {
+        remaining = 0;
+    }
+    
+    double totalPayment = remaining + [self.tipText.text doubleValue];
+    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
+    
+    [self.myTableView reloadData];
+    
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     @try {
@@ -570,6 +588,7 @@
             
             SplitCheckViewController *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;
+            controller.paymentsAccepted = self.paymentsAccepted;
             
         }else if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
             
@@ -695,11 +714,84 @@
 }
 
 
-- (void)viewDidUnload {
-    [self setSplitCheckButton:nil];
-    [self setPayBillButton:nil];
-    [self setAlreadyPaidNameLabel:nil];
-    [self setAlreadyPaidLabel:nil];
-    [super viewDidUnload];
+-(void)refreshInvoice{
+    
+    [self.activity startAnimating];
+    NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+
+    NSString *merchantId = [NSString stringWithFormat:@"%d", self.myInvoice.merchantId];
+    [tempDictionary setValue:self.myInvoice.number forKey:@"invoiceNumber"];
+    [tempDictionary setValue:merchantId forKey:@"merchantId"];
+    
+    NSDictionary *loginDict = [[NSDictionary alloc] init];
+    loginDict = tempDictionary;
+    
+    ArcClient *client = [[ArcClient alloc] init];
+    [client getInvoice:loginDict];
 }
+
+
+-(void)invoiceComplete:(NSNotification *)notification{
+    @try {
+        
+        [self.activity stopAnimating];
+    
+        
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] objectAtIndex:0];
+            
+            self.myInvoice = [[Invoice alloc] init];
+            self.myInvoice.invoiceId = [[theInvoice valueForKey:@"Id"] intValue];
+            self.myInvoice.status = [theInvoice valueForKey:@"Status"];
+            self.myInvoice.number = [theInvoice valueForKey:@"Number"];
+            self.myInvoice.merchantId = [[theInvoice valueForKey:@"MerchantId"] intValue];
+            self.myInvoice.customerId = [[theInvoice valueForKey:@"CustomerId"] intValue];
+            self.myInvoice.posi = [theInvoice valueForKey:@"POSI"];
+            
+            self.myInvoice.subtotal = [[theInvoice valueForKey:@"BaseAmount"] doubleValue];
+            self.myInvoice.serviceCharge = [[theInvoice valueForKey:@"ServiceCharge"] doubleValue];
+            self.myInvoice.tax = [[theInvoice valueForKey:@"Tax"] doubleValue];
+            self.myInvoice.discount = [[theInvoice valueForKey:@"Discount"] doubleValue];
+            self.myInvoice.additionalCharge = [[theInvoice valueForKey:@"AdditionalCharge"] doubleValue];
+            
+            self.myInvoice.dateCreated = [theInvoice valueForKey:@"DateCreated"];
+            
+            self.myInvoice.tags = [NSArray arrayWithArray:[theInvoice valueForKey:@"Tags"]];
+            self.myInvoice.items = [NSArray arrayWithArray:[theInvoice valueForKey:@"Items"]];
+            self.myInvoice.payments = [NSArray arrayWithArray:[theInvoice valueForKey:@"Payments"]];
+            self.myInvoice.paymentsAccepted = self.paymentsAccepted;
+            
+            [self setUpView];
+            [self willAppearSetup];
+            
+            
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INVOICE_NOT_FOUND) {
+                errorMsg = @"Can not find invoice.";
+            } else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+           // self.errorLabel.text = errorMsg;
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InvoiceView.invoiceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+
+
 @end
