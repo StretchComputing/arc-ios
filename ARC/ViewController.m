@@ -283,6 +283,9 @@
             [[NSUserDefaults standardUserDefaults] setValue:self.username.text forKey:@"customerEmail"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
+            ArcClient *client = [[ArcClient alloc] init];
+            [client getServer];
+            
             [self performSegueWithIdentifier: @"signIn" sender: self];
             //Do the next thing (go home?)
         } else if([status isEqualToString:@"error"]){

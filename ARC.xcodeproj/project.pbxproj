@@ -29,6 +29,8 @@
 		9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081521615E7D26500211C37 /* SystemConfiguration.framework */; };
 		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
 		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
+		908C2590164C0C8700AB3684 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 908C258F164C0C8700AB3684 /* blueCheck.png */; };
+		908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2592164C0D1D00AB3684 /* EditServerController.m */; };
 		908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D369E1631ED3F00557E8B /* MediaPlayer.framework */; };
 		908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */; };
 		908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */; };
@@ -171,6 +173,9 @@
 		9081522115E7D77900211C37 /* InitialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialController.m; sourceTree = "<group>"; };
 		9081522315E817E700211C37 /* RegisterViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewNew.h; sourceTree = "<group>"; };
 		9081522415E817E700211C37 /* RegisterViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewNew.m; sourceTree = "<group>"; };
+		908C258F164C0C8700AB3684 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
+		908C2591164C0D1D00AB3684 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
+		908C2592164C0D1D00AB3684 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
 		908D369E1631ED3F00557E8B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTitleLabel.h; sourceTree = "<group>"; };
 		908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTitleLabel.m; sourceTree = "<group>"; };
@@ -424,6 +429,7 @@
 				90964E1415F842A300676E0A /* CORBELB.TTF */,
 				90964E1515F842A400676E0A /* CORBEL.TTF */,
 				905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */,
+				908C258F164C0C8700AB3684 /* blueCheck.png */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
 				90993F32159777BC00FC1D49 /* Products */,
@@ -477,6 +483,8 @@
 				907A404415A8CFE900090452 /* AccessData.m */,
 				90993F4A159777BC00FC1D49 /* ViewController.h */,
 				90993F4B159777BC00FC1D49 /* ViewController.m */,
+				908C2591164C0D1D00AB3684 /* EditServerController.h */,
+				908C2592164C0D1D00AB3684 /* EditServerController.m */,
 				90A19F70162CF186007995DC /* GetPasscodeViewController.h */,
 				90A19F71162CF186007995DC /* GetPasscodeViewController.m */,
 				90A19F74162CF197007995DC /* ResetPasswordViewController.h */,
@@ -729,6 +737,7 @@
 				906D106F160DF82000561C31 /* arrow.png in Resources */,
 				906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */,
 				9090204E16266AB2001B8428 /* Default-568h@2x.png in Resources */,
+				908C2590164C0C8700AB3684 /* blueCheck.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,6 +830,7 @@
 				9096DD001632066300106A25 /* CustomMoviePlayerViewController.m in Sources */,
 				9096DD0D1633088400106A25 /* CreditCard.m in Sources */,
 				9096DD101633088400106A25 /* Customer.m in Sources */,
+				908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

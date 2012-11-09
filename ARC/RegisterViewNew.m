@@ -83,6 +83,9 @@
             [[NSUserDefaults standardUserDefaults] setValue:self.emailText.text forKey:@"customerEmail"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
+            ArcClient *client = [[ArcClient alloc] init];
+            [client getServer];
+            
             self.registerSuccess = YES;
             
             if (self.dwollaSegControl.selectedSegmentIndex == 1) {

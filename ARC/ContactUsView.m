@@ -46,9 +46,26 @@
         
         // Do any additional setup after loading the view.
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
+        //630-215-6979
+        //support@arcmobileapp.com
         
-        NSString *emailAddress = [NSString stringWithFormat:@"Email: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]];
-        NSString *phoneNumber = [NSString stringWithFormat:@"Phone #: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"]];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        NSString *phoneNumber = @"";
+        NSString *emailAddress = @"";
+        
+        if (![prefs valueForKey:@"arcPhoneNumber"]) {
+            [prefs setValue:@"630-215-6979" forKey:@"arcPhoneNumber"];
+        }
+        
+        if (![prefs valueForKey:@"arcPhoneNumber"]) {
+            [prefs setValue:@"support@arcmobileapp.com" forKey:@"arcMail"];
+        }
+        
+        phoneNumber = [NSString stringWithFormat:@"Phone #: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"]];
+        emailAddress = [NSString stringWithFormat:@"Email: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]];
+        
+       
         self.phoneNumberLabel.text = phoneNumber;
         self.emailAddressLabel.text = emailAddress;
         

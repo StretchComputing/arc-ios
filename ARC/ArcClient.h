@@ -38,7 +38,8 @@ typedef enum {
     GetPointBalance=7,
     TrackEvent=8,
     GetPasscode=9,
-    ResetPassword = 10
+    ResetPassword = 10,
+    SetAdminServer = 11
 
 } APIS;
 
@@ -76,6 +77,11 @@ typedef enum {
 -(void)resetPassword:(NSDictionary *)pairs;
 
 -(void)getServer;
+-(void)setServer:(NSString *)serverNumber;
+
+-(BOOL) admin;
+
+-(NSString *)getCurrentUrl;
 
 +(void)trackEvent:(NSString *)action;
 

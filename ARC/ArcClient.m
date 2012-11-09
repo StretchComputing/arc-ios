@@ -50,13 +50,15 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           //_arcUrl = [prefs valueForKey:@"arcUrl"];
-
+           _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
-        
         NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
+}
+
+-(NSString *)getCurrentUrl{
+    return _arcUrl;
 }
 
 -(void)getServer{
@@ -375,6 +377,33 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 }
 
 
+-(void)setServer:(NSString *)serverNumber{
+    @try {
+        [rSkybox addEventToSession:@"setAdminServer"];
+        api = SetAdminServer;
+        
+        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+        
+        NSString *createUrl = [NSString stringWithFormat:@"http://arc-servers.dagher.net.co/rest/v1/servers/%@/setserver/%@", customerId, serverNumber];
+        
+        //NSLog(@"CreateUrl: %@", createUrl);
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
+        [request setHTTPMethod: @"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"setAdminServer"];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.createCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
         
@@ -389,7 +418,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
-    //NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
+    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
 }
 
 
@@ -402,7 +431,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        //NSLog(@"ReturnString: %@", returnString);
+        NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -468,6 +497,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             if (response && httpSuccess) {
                 [self setUrl:response];
             }
+        }else if (api == SetAdminServer){
+            if (response && httpSuccess) {
+                responseInfo = [self setServerResponse:response];
+            }
+            notificationType = @"setServerNotification";
+
         }
         
         if(!httpSuccess) {
@@ -859,6 +894,30 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.resetPasswordResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+    }
+    
+    
+}
+
+-(NSDictionary *) setServerResponse:(NSDictionary *)response {
+    
+    @try {
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.setServerResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @{};
     }
     

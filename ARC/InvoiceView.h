@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *taxLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gratLabel;
 
+@property (nonatomic, strong) NSString *paymentsAccepted;
+
 @property (weak, nonatomic) IBOutlet UILabel *discLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
@@ -44,8 +46,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *tipText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tipSegment;
 - (IBAction)segmentSelect;
+-(IBAction)refreshInvoice;
+
 @property (weak, nonatomic) IBOutlet UILabel *amountNameLabel;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *gratNameLabel;
 @property (weak, nonatomic) IBOutlet UIView *dividerView;
 - (IBAction)editBegin:(id)sender;
@@ -56,6 +61,6 @@
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
 @property (nonatomic, strong) NSString *creditCardExpiration;
 @property (nonatomic, strong) NSString *creditCardSample;
-
+-(void)setUpView;
 
 @end

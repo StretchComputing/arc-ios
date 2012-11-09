@@ -16,6 +16,7 @@
 @property BOOL creditCardAdded;
 @property BOOL creditCardDeleted;
 @property BOOL creditCardEdited;
+@property (weak, nonatomic) IBOutlet UIView *adminView;
 
 @property (nonatomic, strong) NSArray *accounts;
 @property (nonatomic, strong) ACAccountStore *store;
@@ -25,6 +26,7 @@
 - (IBAction)cancel:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lifetimePointsLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *lifetimePointsProgressView;
+- (IBAction)changeServer;
 
 @property (nonatomic, strong) NSMutableData *serverData;
 @property (weak, nonatomic) IBOutlet UILabel *pointsDisplayLabel;

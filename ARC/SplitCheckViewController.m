@@ -17,6 +17,8 @@
 #import "ArcUtility.h"
 #import "Invoice.h"
 #import "RegisterDwollaView.h"
+#import "ArcClient.h"
+#import "InvoiceView.h"
 
 @interface SplitCheckViewController ()
 
@@ -28,6 +30,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)viewWillAppear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
@@ -88,20 +92,7 @@
         
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Split"];
 		self.navigationItem.backBarButtonItem = temp;
-        
-        /*
-        self.dollarAmountAlreadyPaidNameLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:21];
-        self.dollarAmountDueLabel.font = [UIFont fontWithName:@"Corbel Bold" size:21];
-        self.dollarAmountDueNameLabel.font = [UIFont fontWithName:@"Corbel" size:21];
-        self.dollarAmountPaidLabel.font = [UIFont fontWithName:@"Corbel" size:21];
-        self.dollarFoodBevLabel.font = [UIFont fontWithName:@"Corbel" size:21];
-        self.dollarServiceChargeLabel.font = [UIFont fontWithName:@"Corbel" size:21];
-        self.dollarTaxLabel.font = [UIFont fontWithName:@"Corbel Bold" size:21];
-        self.dollarTotalBillLabel.font = [UIFont fontWithName:@"Corbel" size:21];
-        self.dollarTotalBillNameLabel.font = [UIFont fontWithName:@"Corbel" size:21];
-        self.dollarYourPaymentNameLabel.font = [UIFont fontWithName:@"Corbel" size:21];
-        self.dollarYourTotalPaymentLabel.font = [UIFont fontWithName:@"Corbel Bold" size:21];
-         */
+   
         
         [rSkybox addEventToSession:@"signInComplete"];
         
@@ -113,20 +104,6 @@
         
 
         self.itemSplitItemView.hidden = YES;
-        
-        self.serviceChargePercentage = self.myInvoice.serviceCharge / self.myInvoice.taxableAmount;
-        self.taxPercentage = self.myInvoice.tax / self.myInvoice.taxableAmount;
-        self.discountPercentage = self.myInvoice.discount / self.myInvoice.subtotal;
-        
-        //set labels
-       // NSLog(@"myInvoice.taxableAmount = @%f", self.myInvoice.taxableAmount);
-        self.percentFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.subtotal];
-        self.percentTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
-        self.percentServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
-        
-        self.dollarFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.subtotal];
-        self.dollarTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
-        self.dollarServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
         
         
         self.dollarView.hidden = YES;
@@ -147,55 +124,16 @@
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
         
-        self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
-        self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice calculateAmountPaid]];
-        self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDueForSplit]];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
         
-        self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
-        self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice calculateAmountPaid]];
-        self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDueForSplit]];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
         
-        self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
-
+        [self setUpView];
+        
         [super viewDidLoad];
-        // Do any additional setup after loading the view.
+
         
         self.dollarView.backgroundColor = [UIColor clearColor];
         self.percentView.backgroundColor = [UIColor clearColor];
         self.itemView.backgroundColor = [UIColor clearColor];
-        
-        self.itemArray = [NSMutableArray array];
-        NSMutableArray *invoiceItems= [[NSMutableArray alloc]initWithArray:self.myInvoice.items];
-
-        for (int i = 0; i < [invoiceItems count]; i++) {
-            
-            NSDictionary *oldItem = [invoiceItems objectAtIndex:i];
-            
-            int number = [[oldItem valueForKey:@"Amount"] intValue];
-            
-            [oldItem setValue:@"no" forKey:@"selected"];
-            [oldItem setValue:@"0" forKey:@"myAmount"];
-
-            [oldItem setValue:@"1" forKey:@"splitAmount"];
-            
-            double price = [[oldItem valueForKey:@"Value"] doubleValue];
-            
-            //price  = price / (double)number;
-            
-            [oldItem setValue:[NSString stringWithFormat:@"%f", price] forKey:@"splitValue"];
-            
-            
-            for (int j = 0; j < number; j++) {
-                
-                NSMutableDictionary *newItem = [NSMutableDictionary dictionaryWithDictionary:oldItem];
-                [self.itemArray addObject:newItem];
-            }
-            
-        }
-        
-        [self.itemTableView reloadData];
         
         
         self.itemTipText.delegate = self;
@@ -244,6 +182,69 @@
 
 }
 
+-(void)setUpView{
+    self.serviceChargePercentage = self.myInvoice.serviceCharge / self.myInvoice.taxableAmount;
+    self.taxPercentage = self.myInvoice.tax / self.myInvoice.taxableAmount;
+    self.discountPercentage = self.myInvoice.discount / self.myInvoice.subtotal;
+    
+    
+    self.percentFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.subtotal];
+    self.percentTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+    self.percentServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
+    
+    self.dollarFoodBevLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.subtotal];
+    self.dollarTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
+    self.dollarServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
+    
+    
+    self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
+    self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice calculateAmountPaid]];
+    self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDueForSplit]];
+    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
+    
+    self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
+    self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice calculateAmountPaid]];
+    self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDueForSplit]];
+    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
+    
+    self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
+    
+    // Do any additional setup after loading the view.
+    
+    
+    
+    self.itemArray = [NSMutableArray array];
+    NSMutableArray *invoiceItems= [[NSMutableArray alloc]initWithArray:self.myInvoice.items];
+    
+    for (int i = 0; i < [invoiceItems count]; i++) {
+        
+        NSDictionary *oldItem = [invoiceItems objectAtIndex:i];
+        
+        int number = [[oldItem valueForKey:@"Amount"] intValue];
+        
+        [oldItem setValue:@"no" forKey:@"selected"];
+        [oldItem setValue:@"0" forKey:@"myAmount"];
+        
+        [oldItem setValue:@"1" forKey:@"splitAmount"];
+        
+        double price = [[oldItem valueForKey:@"Value"] doubleValue];
+        
+        //price  = price / (double)number;
+        
+        [oldItem setValue:[NSString stringWithFormat:@"%f", price] forKey:@"splitValue"];
+        
+        
+        for (int j = 0; j < number; j++) {
+            
+            NSMutableDictionary *newItem = [NSMutableDictionary dictionaryWithDictionary:oldItem];
+            [self.itemArray addObject:newItem];
+        }
+        
+    }
+    
+    [self.itemTableView reloadData];
+
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -1211,4 +1212,89 @@
 }
 
 
+
+-(void)refreshInvoice{
+    
+    [self.activity startAnimating];
+    NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+    
+    NSString *merchantId = [NSString stringWithFormat:@"%d", self.myInvoice.merchantId];
+    [tempDictionary setValue:self.myInvoice.number forKey:@"invoiceNumber"];
+    [tempDictionary setValue:merchantId forKey:@"merchantId"];
+    
+    NSDictionary *loginDict = [[NSDictionary alloc] init];
+    loginDict = tempDictionary;
+    
+    ArcClient *client = [[ArcClient alloc] init];
+    [client getInvoice:loginDict];
+}
+
+
+-(void)invoiceComplete:(NSNotification *)notification{
+    @try {
+        
+        [self.activity stopAnimating];
+                
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] objectAtIndex:0];
+            
+            self.myInvoice = [[Invoice alloc] init];
+            self.myInvoice.invoiceId = [[theInvoice valueForKey:@"Id"] intValue];
+            self.myInvoice.status = [theInvoice valueForKey:@"Status"];
+            self.myInvoice.number = [theInvoice valueForKey:@"Number"];
+            self.myInvoice.merchantId = [[theInvoice valueForKey:@"MerchantId"] intValue];
+            self.myInvoice.customerId = [[theInvoice valueForKey:@"CustomerId"] intValue];
+            self.myInvoice.posi = [theInvoice valueForKey:@"POSI"];
+            
+            self.myInvoice.subtotal = [[theInvoice valueForKey:@"BaseAmount"] doubleValue];
+            self.myInvoice.serviceCharge = [[theInvoice valueForKey:@"ServiceCharge"] doubleValue];
+            self.myInvoice.tax = [[theInvoice valueForKey:@"Tax"] doubleValue];
+            self.myInvoice.discount = [[theInvoice valueForKey:@"Discount"] doubleValue];
+            self.myInvoice.additionalCharge = [[theInvoice valueForKey:@"AdditionalCharge"] doubleValue];
+            
+            self.myInvoice.dateCreated = [theInvoice valueForKey:@"DateCreated"];
+            
+            self.myInvoice.tags = [NSArray arrayWithArray:[theInvoice valueForKey:@"Tags"]];
+            self.myInvoice.items = [NSArray arrayWithArray:[theInvoice valueForKey:@"Items"]];
+            self.myInvoice.payments = [NSArray arrayWithArray:[theInvoice valueForKey:@"Payments"]];
+            self.myInvoice.paymentsAccepted = self.paymentsAccepted;
+            
+            [self setUpView];
+            [self changePreviousView];
+            
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INVOICE_NOT_FOUND) {
+                errorMsg = @"Can not find invoice.";
+            } else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            // self.errorLabel.text = errorMsg;
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.invoiceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+-(void)changePreviousView{
+    
+    NSArray *views = [self.navigationController viewControllers];
+    int count = [views count];
+    
+    InvoiceView *tmp = [views objectAtIndex:count - 2];
+    tmp.myInvoice = self.myInvoice;
+    [tmp setUpView];
+}
 @end
