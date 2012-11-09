@@ -13,8 +13,8 @@
 
 //NSString *_arcUrl = @"http://68.57.205.193:8700/arc-dev/rest/v1/";    //Jim's Place
 
-//NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
-NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -23,7 +23,8 @@ NSString *_arcServersUrl = @"http://arc-servers.dagher.net.co/rest/v1/"; // Serv
 
 int const USER_ALREADY_EXISTS = 103;
 int const INCORRECT_PASSCODE = 105;
-int const INCORRECT_LOGIN_INFO = 203;
+int const INCORRECT_LOGIN_INFO = 106;
+int const INVOICE_CLOSED = 603;
 int const INVOICE_NOT_FOUND = 604;
 int const MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE = 400;
 int const OVER_PAID = 401;
@@ -49,7 +50,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           _arcUrl = [prefs valueForKey:@"arcUrl"];
+           //_arcUrl = [prefs valueForKey:@"arcUrl"];
 
         }
         
@@ -471,9 +472,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         if(!httpSuccess) {
             // failure scenario -- HTTP error code returned -- for this processing, we don't care which one
-            NSString *errorMsg = [NSString stringWithFormat:@"HTTP Status Code:%d", self.httpStatusCode];
+            NSString *errorMsg = [NSString stringWithFormat:@"HTTP Status Code:%d for API %@", self.httpStatusCode, [self apiToString]];
             responseInfo = @{@"status": @"fail", @"error": @0};
-        } 
+            [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:errorMsg logLevel:@"error" exception:nil];
+        }
 
         if (postNotification) {
             [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];

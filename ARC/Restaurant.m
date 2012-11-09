@@ -355,6 +355,8 @@
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == INVOICE_NOT_FOUND) {
                 errorMsg = @"Can not find invoice.";
+            } else if(errorCode == INVOICE_CLOSED) {
+                errorMsg = @"Invoice closed.";
             } else {
                 errorMsg = ARC_ERROR_MSG;
             }
