@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="58r-7R-ELZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C3006" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="58r-7R-ELZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
@@ -957,11 +957,12 @@
                         <outlet property="submitButton" destination="Vzl-CN-Lbu" id="5SY-1j-kUg"/>
                         <outlet property="totalPaymentText" destination="JrD-SY-hlo" id="wHg-RS-4kW"/>
                         <segue destination="CSm-3p-pEO" kind="push" identifier="reviewCreditCardTransaction" id="2SM-S0-l6J"/>
+                        <segue destination="gw4-gZ-IxK" kind="custom" identifier="editCard" customClass="PushSegueNoAnimation" id="f4G-VL-9D0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6X-Xf-rvt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2583" y="-838"/>
+            <point key="canvasLocation" x="923" y="440"/>
         </scene>
         <!--Dwolla Payment - Dwolla Payment-->
         <scene sceneID="JkZ-WE-dxq">
@@ -2919,7 +2920,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GuQ-1c-b3L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="649" y="2200"/>
+            <point key="canvasLocation" x="1465" y="716"/>
         </scene>
         <!--Add Credit Card - Add Card-->
         <scene sceneID="2YA-9L-2jF">
@@ -3951,10 +3952,11 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Oi0-YR-QFH"/>
+        <segue reference="8zb-Bv-gLK"/>
+        <segue reference="co8-nZ-5K2"/>
         <segue reference="Yz7-xF-sKA"/>
         <segue reference="Ii2-yA-rgx"/>
-        <segue reference="co8-nZ-5K2"/>
-        <segue reference="O7d-m2-fj4"/>
-        <segue reference="8zb-Bv-gLK"/>
+        <segue reference="2SM-S0-l6J"/>
+        <segue reference="f4G-VL-9D0"/>
     </inferredMetricsTieBreakers>
 </document>

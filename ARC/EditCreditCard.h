@@ -11,6 +11,7 @@
 @interface EditCreditCard : UITableViewController
 
 @property BOOL pinDidChange;
+@property BOOL isFromPayment;
 @property (nonatomic, strong, getter = getMyNewPin) NSString *newPin;
 
 @property (nonatomic, strong) NSString *expirationMonth;

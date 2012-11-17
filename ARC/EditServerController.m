@@ -35,7 +35,7 @@
         self.currentServer = 2;
     }else if ([server rangeOfString:@"arc-dev.dagher.mobi"].location != NSNotFound){
         self.currentServer = 5;
-    }else if ([server rangeOfString:@"dtnetwork.dyndns"].location != NSNotFound){
+    }else if (([server rangeOfString:@"dtnetwork.dyndns"].location != NSNotFound) || ([server rangeOfString:@"68.57.205.193:8700"].location != NSNotFound)){
         self.currentServer = 8;
     }
     
@@ -156,7 +156,8 @@
             ArcClient *tmp = [[ArcClient alloc] init];
             [tmp getServer];
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You are now pointing to the new server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            NSString *message = @"You are now pointing to the new server.";
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             [self dismissModalViewControllerAnimated:YES];
             

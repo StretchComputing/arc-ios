@@ -36,8 +36,11 @@ int const INVALID_ACCOUNT_PIN = 502;
 int const INSUFFICIENT_FUNDS = 503;
 
 int const FAILED_TO_VALIDATE_CARD = 605;
+int const FIELD_FORMAT_ERROR = 606;
 int const INVALID_ACCOUNT_NUMBER = 607;
 int const CANNOT_GET_PAYMENT_AUTHORIZATION = 608;
+int const UNKOWN_ISIS_ERROR = 699;
+
 
 
 NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";

@@ -16,6 +16,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+CharArray.h"
 #import "CreatePinView.h"
+#import "CreditCardPayment.h"
 
 @interface EditCreditCard ()
 
@@ -35,6 +36,12 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    if (self.isFromPayment) {
+        self.deleteCardButton.hidden = YES;
+    }else{
+        self.deleteCardButton.hidden = NO;
+    }
     if (self.pinDidChange) {
         self.pinDidChange = NO;
         self.oldPin = self.newPin;
@@ -569,8 +576,15 @@
     
     [mainDelegate insertCreditCardWithNumber:self.cardNumberTextField.text andSecurityCode:self.securityCodeTextField.text andExpiration:expiration andPin:self.oldPin andCreditDebit:creditDebitString];
     
-    SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-    tmp.creditCardEdited = YES;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (self.isFromPayment) {
+        CreditCardPayment *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2];
+        tmp.didEditCard = YES;
+        [self.navigationController popViewControllerAnimated:NO];
+    }else{
+        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+        tmp.creditCardEdited = YES;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
 }
 @end

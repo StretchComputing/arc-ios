@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) Invoice *myInvoice;
 
+@property BOOL didEditCard;
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
 

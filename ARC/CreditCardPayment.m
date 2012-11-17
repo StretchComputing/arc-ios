@@ -15,6 +15,7 @@
 #import "rSkybox.h"
 #import "Invoice.h"
 #import "ArcUtility.h"
+#import "EditCreditCard.h"
 
 @interface CreditCardPayment ()
 
@@ -23,6 +24,15 @@
 @implementation CreditCardPayment
 
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    if (self.didEditCard) {
+        self.didEditCard = NO;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your card was successfully edited, please try your payment again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -328,6 +338,8 @@
 
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
+        BOOL editCardOption = NO;
+
         self.payButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
 
@@ -349,15 +361,22 @@
             
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
+            
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
                 errorMsg = @"Credit card not approved.";
+                editCardOption = YES;
             } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
                 // TODO need explanation from Jim to put proper error msg
                 errorMsg = @"Failed to validate credit card";
-            } else if(errorCode == INVALID_ACCOUNT_NUMBER) {
+                editCardOption = YES;
+            } else if (errorCode == FIELD_FORMAT_ERROR){
+                errorMsg = @"Invalid Credit Card Field Format";
+                editCardOption = YES;
+            }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
                 // TODO need explanation from Jim to put proper error msg
                 errorMsg = @"Invalid credit/debit card number";
+                editCardOption = YES;
             } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
                 // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
                 errorMsg = @"Merchant does not accept credit/debit card";
@@ -365,6 +384,9 @@
                 errorMsg = @"Over payment. Please check invoice and try again.";
             } else if(errorCode == INVALID_AMOUNT) {
                 errorMsg = @"Invalid amount. Please re-enter payment and try again.";
+            }else if (errorCode == UNKOWN_ISIS_ERROR){
+                editCardOption = YES;
+                errorMsg = @"Arc Error, Try Again.";
             }
             else {
                 errorMsg = ARC_ERROR_MSG;
@@ -377,9 +399,22 @@
         if([errorMsg length] > 0) {
             self.errorLabel.text = errorMsg;
         }
+        
+        if (editCardOption) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to an invalid credit card number.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
+            [alert show];
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"CreditCardPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 1) {
+        [self performSegueWithIdentifier:@"editCard" sender:self];
     }
 }
 
@@ -427,7 +462,19 @@
             
             ReviewTransaction *next = [segue destinationViewController];
             next.myInvoice = self.myInvoice;
-        } 
+        }
+        
+        if ([[segue identifier] isEqualToString:@"editCard"]) {
+            
+            EditCreditCard *controller = [segue destinationViewController];
+            
+            controller.creditCardSample = self.creditCardSample;
+            controller.creditCardNumber = self.creditCardNumber;
+            controller.creditCardExpiration = self.creditCardExpiration;
+            controller.creditCardSecurityCode = self.creditCardSecurityCode;
+            controller.isFromPayment = YES;
+            
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"CreditCardPayment.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
