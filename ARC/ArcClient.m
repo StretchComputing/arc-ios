@@ -13,8 +13,8 @@
 
 //NSString *_arcUrl = @"http://68.57.205.193:8700/arc-dev/rest/v1/";    //Jim's Place
 
-NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
-//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+//NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -1044,6 +1044,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             NSString *arcFacebookHandler = [[response valueForKey:@"Results"] valueForKey:@"ArcFacebookHandler"];
             NSString *arcPhoneNumber = [[response valueForKey:@"Results"] valueForKey:@"ArcPhoneNumber"];
             NSString *arcMail = [[response valueForKey:@"Results"] valueForKey:@"ArcMail"];
+            NSString *userStatus = [[response valueForKey:@"Results"] valueForKey:@"UserStatus"];
             
             if (serverName && ([serverName length] > 0)) {
                 NSString *scheme = @"https";
@@ -1059,6 +1060,14 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             [[NSUserDefaults standardUserDefaults] setValue:arcFacebookHandler forKey:@"arcFacebookHandler"];
             [[NSUserDefaults standardUserDefaults] setValue:arcPhoneNumber forKey:@"arcPhoneNumber"];
             [[NSUserDefaults standardUserDefaults] setValue:arcMail forKey:@"arcMail"];
+            
+            // if account is now inactive, clear out the token and go to login screen
+            // TODO go to login screen
+            if([userStatus isEqualToString:@"I"]) {
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                [prefs setObject:nil forKey:@"customerToken"];
+                NSLog(@"GetToken returned UserStatus Inactive -- token has been cleared");
+            }
 
             [[NSUserDefaults standardUserDefaults] synchronize];
         
