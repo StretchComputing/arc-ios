@@ -286,6 +286,9 @@
             ArcClient *client = [[ArcClient alloc] init];
             [client getServer];
             
+            ArcClient *tmp = [[ArcClient alloc] init];
+            [tmp updatePushToken];
+            
             [self performSegueWithIdentifier: @"signIn" sender: self];
             //Do the next thing (go home?)
         } else if([status isEqualToString:@"error"]){

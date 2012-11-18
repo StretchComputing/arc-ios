@@ -76,6 +76,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+    
+    // one reason this method is called is if a push notification is received while the app is in the background
+    // if custom data in push notification payload, then establish appropriate "context" in this app
+    if (launchOptions != nil)
+    {
+        NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (dictionary != nil)
+        {
+            NSLog(@"Launched from push notification: %@", dictionary);
+            
+            // TODO  look for custom payload and establish context
+        }
+    }
+    
     self.logout = @"";
     
     [[UIApplication sharedApplication]
@@ -132,7 +147,43 @@
     
     return YES;
 }
-							
+
+
+
+// this method is called if a push notification is received while the app is already running
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+    //  Push notification received while the app is running
+    
+    NSLog(@"Received notification: %@", userInfo);
+    
+    // TODO  look for custom payload and establish context
+}
+
+
+//Push Notification Delegate methods
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
+    
+    
+    NSString *deviceTokenStr = [[[devToken description]
+                                 stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
+                                stringByReplacingOccurrencesOfString:@" "
+                                withString:@""];
+    
+    self.pushToken = [deviceTokenStr uppercaseString];
+    
+    
+}
+
+
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    
+    NSLog(@"Token Failed: %@", err);
+    
+}
+
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
