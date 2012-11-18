@@ -32,6 +32,9 @@
             //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
             //self.autoSignIn = YES;
             
+            ArcClient *tmp = [[ArcClient alloc] init];
+            [tmp updatePushToken];
+            
             UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
             [self presentModalViewController:home animated:NO];
         }else{

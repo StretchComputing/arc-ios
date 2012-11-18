@@ -20,6 +20,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) NSString *logout;
+@property (nonatomic, strong) NSString *pushToken;
 
 -(NSString *)getCustomerId;
 -(NSString *)getCustomerToken;

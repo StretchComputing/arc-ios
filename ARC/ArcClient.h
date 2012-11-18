@@ -42,7 +42,8 @@ typedef enum {
     TrackEvent=8,
     GetPasscode=9,
     ResetPassword = 10,
-    SetAdminServer = 11
+    SetAdminServer = 11,
+    UpdatePushToken = 12
 
 } APIS;
 
@@ -51,6 +52,7 @@ typedef enum {
 }
 @property (nonatomic, strong) NSMutableData *serverData;
 @property int httpStatusCode;
+@property (nonatomic, strong) NSURLConnection *urlConnection;
 
 -(void)createCustomer:(NSDictionary *)pairs;
 -(NSDictionary *) createCustomerResponse:(NSDictionary *)response;
@@ -92,6 +94,7 @@ typedef enum {
 +(void)startLatency:(APIS)api;
 +(void)endAndReportLatency:(APIS)api logMessage:(NSString *)logMessage;
 
+-(void)updatePushToken;
 
 @end
 
