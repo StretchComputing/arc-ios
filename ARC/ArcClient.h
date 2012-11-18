@@ -88,5 +88,10 @@ typedef enum {
 
 +(void)trackEvent:(NSString *)action;
 
+// Footprint analytics
++(void)startLatency:(APIS)api;
++(void)endAndReportLatency:(APIS)api logMessage:(NSString *)logMessage;
+
+
 @end
 

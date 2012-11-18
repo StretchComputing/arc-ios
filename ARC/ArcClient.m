@@ -41,12 +41,16 @@ int const INVALID_ACCOUNT_NUMBER = 607;
 int const CANNOT_GET_PAYMENT_AUTHORIZATION = 608;
 int const UNKOWN_ISIS_ERROR = 699;
 
+static NSMutableDictionary *latencyStartTimes = nil;
 
 
 NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 @implementation ArcClient
 
++ (void) initialize{
+    latencyStartTimes = [[NSMutableDictionary alloc] init];
+}
 
 - (id)init {
     if (self = [super init]) {
@@ -216,6 +220,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetInvoice"];
+        [ArcClient startLatency:GetInvoice];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -241,6 +246,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"CreatePayment"];
+        [ArcClient startLatency:CreatePayment];
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -778,6 +784,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             int errorCode = [self getErrorCode:response];
             responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
+        
+        [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed successfully"];
         return responseInfo;
     }
     @catch (NSException *e) {
@@ -800,6 +808,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             int errorCode = [self getErrorCode:response];
             responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
         }
+        
+        [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed successfully"];
+
         return responseInfo;
     }
     @catch (NSException *e) {
@@ -1081,27 +1092,38 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 +(void)trackEvent:(NSString *)action{
     @try{
+        NSNumber *measureValue = @1.0F;
+        [ArcClient trackEvent:action activityType:@"Analytics" measureType:@"Count" measureValue:measureValue];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
++(void)trackEvent:(NSString *)activity activityType:(NSString *)activityType measureType:(NSString *)measureType measureValue:(NSNumber *)measureValue{
+    @try{
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *trackEventDict = [[NSDictionary alloc] init];
         
-        [ tempDictionary setObject:action forKey:@"Activity"]; //ACTION
-        [ tempDictionary setObject:@"Analytics" forKey:@"ActivityType"]; //CATEGORY
+        [ tempDictionary setObject:activity forKey:@"Activity"]; //ACTION
+        [ tempDictionary setObject:activityType forKey:@"ActivityType"]; //CATEGORY
 
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
         [ tempDictionary setObject:customerId forKey:@"EntityId"]; //get from auth header?
-        [ tempDictionary setObject:@"Customer" forKey:@"EntityType"]; //get from auth header?
+        [ tempDictionary setObject:@"LOGIN_TYPE_CUSTOMER" forKey:@"EntityType"]; //get from auth header?
         
         [ tempDictionary setObject:@0.0 forKey:@"Latitude"];//optional
         [ tempDictionary setObject:@0.0 forKey:@"Longitude"];//optional
-        [ tempDictionary setObject:@"count" forKey:@"MeasureType"];//LABEL
-        [ tempDictionary setObject:@1.0 forKey:@"MeasureValue"];//VALUE
+        [ tempDictionary setObject:measureType forKey:@"MeasureType"];//LABEL
+        [ tempDictionary setObject:measureValue forKey:@"MeasureValue"];//VALUE
         [ tempDictionary setObject:@"Arc Mobile" forKey:@"Application"];
         [ tempDictionary setObject:@"AT&T" forKey:@"Carrier"]; //TODO add real carrier
         //[ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"]; //Jim removed description
         [ tempDictionary setObject:@"iOS" forKey:@"Source"];
         [ tempDictionary setObject:@"phone" forKey:@"SourceType"];//remove
-        [ tempDictionary setObject:@"0.1" forKey:@"Version"];
+        [ tempDictionary setObject:@"1.1" forKey:@"Version"];
         
 		trackEventDict = tempDictionary;
 
@@ -1111,6 +1133,47 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
++(void)startLatency:(APIS)api{
+    @try{
+        NSDate *startTime = [NSDate date];
+        [latencyStartTimes setObject:startTime forKey:[NSNumber numberWithInt:api]];
+        NSLog(@"size of latencyStartTimes dictionary = %d", [latencyStartTimes count]);
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.startLatency" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
++(void)endAndReportLatency:(APIS)api logMessage:(NSString *)logMessage{
+    @try{
+        NSDate *startTime = [latencyStartTimes objectForKey:[NSNumber numberWithInt:api]];
+        if(startTime == nil) {
+            NSLog(@"endLatency() could not retrieve startTime");
+            return;
+        }
+        
+        NSString *activity = @"UNKNOWN_API";
+        NSString *apiName = @"";
+        if(api == GetInvoice) {
+            activity = @"LATENCY_INVOICES_GET";
+            apiName = @"Get Invoice";
+        } else if(api == CreatePayment) {
+            activity = @"LATENCY_PAYMENT_POST";
+            apiName = @"Create Payment";
+        } 
+        NSTimeInterval milliseconds = [[NSDate date] timeIntervalSinceDate:startTime] * 1000;
+        NSInteger roundedMilliseconds = milliseconds;
+        NSLog(@"total latency for %@ API in milliseconds = %@", apiName, [NSString stringWithFormat:@"%d", roundedMilliseconds]);
+        
+        
+        [ArcClient trackEvent:activity activityType:@"Performance" measureType:@"Milliseconds" measureValue:[NSNumber numberWithInt:roundedMilliseconds]];
+
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.endLatency" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
