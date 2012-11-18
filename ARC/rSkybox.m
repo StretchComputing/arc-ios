@@ -100,7 +100,9 @@ static NSString *logNameBeingTimed;
     
     if(milliseconds > maxValue && ![logName isEqualToString:@"ErrorEncountered"]) {
         NSString *logMessage = [NSString stringWithFormat:@"threshold: %0.0f ms latency: %0.0f ms", maxValue, milliseconds];
-        [rSkybox sendClientLog:logName logMessage:logMessage logLevel:@"error" exception:nil];
+        NSLog(logMessage);
+        // deactivate thresshold reporting for now
+        //[rSkybox sendClientLog:logName logMessage:logMessage logLevel:@"error" exception:nil];
     }
     //NSLog(@"Duration of %@: %0.1f", logName, milliseconds);
 }
