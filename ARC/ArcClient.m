@@ -816,15 +816,17 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         BOOL success = [[response valueForKey:@"Success"] boolValue];
         
         NSDictionary *responseInfo;
+        BOOL successful = TRUE;
         if (success){
             responseInfo = @{@"status": @"success", @"apiResponse": response};
         } else {
             NSString *status = @"error";
             int errorCode = [self getErrorCode:response];
             responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
         }
         
-        [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed successfully"];
+        [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed successfully" successful:successful];
         return responseInfo;
     }
     @catch (NSException *e) {
@@ -840,15 +842,17 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         BOOL success = [[response valueForKey:@"Success"] boolValue];
         
         NSDictionary *responseInfo;
+        BOOL successful = TRUE;
         if (success){
             responseInfo = @{@"status": @"success", @"apiResponse": response};
         } else {
             NSString *status = @"error";
             int errorCode = [self getErrorCode:response];
             responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
         }
         
-        [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed successfully"];
+        [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed successfully" successful:successful];
 
         return responseInfo;
     }
@@ -1132,7 +1136,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 +(void)trackEvent:(NSString *)action{
     @try{
         NSNumber *measureValue = @1.0F;
-        [ArcClient trackEvent:action activityType:@"Analytics" measureType:@"Count" measureValue:measureValue];
+        [ArcClient trackEvent:action activityType:@"Analytics" measureType:@"Count" measureValue:measureValue successful:TRUE];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -1140,7 +1144,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 }
 
 
-+(void)trackEvent:(NSString *)activity activityType:(NSString *)activityType measureType:(NSString *)measureType measureValue:(NSNumber *)measureValue{
++(void)trackEvent:(NSString *)activity activityType:(NSString *)activityType measureType:(NSString *)measureType measureValue:(NSNumber *)measureValue successful:(BOOL)successful{
     @try{
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *trackEventDict = [[NSDictionary alloc] init];
@@ -1163,6 +1167,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [ tempDictionary setObject:@"iOS" forKey:@"Source"];
         [ tempDictionary setObject:@"phone" forKey:@"SourceType"];//remove
         [ tempDictionary setObject:@"1.1" forKey:@"Version"];
+        if(successful) {
+            [ tempDictionary setObject:@(YES) forKey:@"Successful"];
+        } else {
+            [ tempDictionary setObject:@(NO) forKey:@"Successful"];
+        }
         
 		trackEventDict = tempDictionary;
 
@@ -1186,7 +1195,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
 }
 
-+(void)endAndReportLatency:(APIS)api logMessage:(NSString *)logMessage{
++(void)endAndReportLatency:(APIS)api logMessage:(NSString *)logMessage successful:(BOOL)successful {
     @try{
         NSDate *startTime = [latencyStartTimes objectForKey:[NSNumber numberWithInt:api]];
         if(startTime == nil) {
@@ -1208,11 +1217,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSLog(@"total latency for %@ API in milliseconds = %@", apiName, [NSString stringWithFormat:@"%d", roundedMilliseconds]);
         
         
-        [ArcClient trackEvent:activity activityType:@"Performance" measureType:@"Milliseconds" measureValue:[NSNumber numberWithInt:roundedMilliseconds]];
+        [ArcClient trackEvent:activity activityType:@"Performance" measureType:@"Milliseconds" measureValue:[NSNumber numberWithInt:roundedMilliseconds] successful:successful];
 
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.endLatency" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.endAndReportLatency" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
