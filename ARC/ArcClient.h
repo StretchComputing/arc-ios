@@ -43,7 +43,8 @@ typedef enum {
     GetPasscode=9,
     ResetPassword = 10,
     SetAdminServer = 11,
-    UpdatePushToken = 12
+    UpdatePushToken = 12,
+    ReferFriend = 13
 
 } APIS;
 
@@ -87,6 +88,7 @@ typedef enum {
 -(BOOL) admin;
 
 -(NSString *)getCurrentUrl;
+-(void)referFriend:(NSString *)emailAddress;
 
 +(void)trackEvent:(NSString *)action;
 
