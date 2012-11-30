@@ -450,6 +450,44 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 }
 
 
+-(void)referFriend:(NSString *)emailAddress{
+    
+    @try {
+        [rSkybox addEventToSession:@"referFriend"];
+        api = ReferFriend;
+        
+        NSMutableDictionary *pairs = [NSMutableDictionary dictionary];
+        
+        
+        [pairs setValue:emailAddress forKey:@"eMail"];
+        
+        NSMutableArray *pairsArray = [NSMutableArray arrayWithObject:pairs];
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairsArray JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+    
+  
+        
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/referfriends", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
+        [request setHTTPMethod: @"POST"];
+        
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"referFriend"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.referFriend" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
         
@@ -551,6 +589,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
         }else if (api == UpdatePushToken){
             postNotification = NO;
+        }else if (api == ReferFriend){
+            if (response && httpSuccess) {
+                responseInfo = [self referFriendResponse:response];
+            }
+            notificationType = @"referFriendNotification";
+            
         }
         
         if(!httpSuccess) {
@@ -981,6 +1025,29 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     
 }
 
+-(NSDictionary *) referFriendResponse:(NSDictionary *)response {
+    
+    @try {
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.setServerResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+    }
+    
+    
+}
 
 -(NSDictionary *) trackEventResponse:(NSDictionary *)response {
     @try {

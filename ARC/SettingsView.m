@@ -176,6 +176,12 @@
             mainDelegate.logout = @"true";
             [self.navigationController dismissModalViewControllerAnimated:NO];
         }
+        
+        if ((section == 0) && (row == 2)) {
+            
+            UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"referFriend"];
+            [self.navigationController presentModalViewController:tmp animated:YES];
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SettingsView.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

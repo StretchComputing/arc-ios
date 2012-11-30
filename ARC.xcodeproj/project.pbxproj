@@ -30,6 +30,9 @@
 		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
 		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
 		908AA79316684AE00020C1FB /* NoPaymentSourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AA79216684AE00020C1FB /* NoPaymentSourcesViewController.m */; };
+		908AA79B166859F80020C1FB /* ReferFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AA79A166859F80020C1FB /* ReferFriendViewController.m */; };
+		908AA7A71668632A0020C1FB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A51668632A0020C1FB /* AddressBook.framework */; };
+		908AA7A81668632A0020C1FB /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A61668632A0020C1FB /* AddressBookUI.framework */; };
 		908C2590164C0C8700AB3684 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 908C258F164C0C8700AB3684 /* blueCheck.png */; };
 		908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2592164C0D1D00AB3684 /* EditServerController.m */; };
 		908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D369E1631ED3F00557E8B /* MediaPlayer.framework */; };
@@ -176,6 +179,10 @@
 		9081522415E817E700211C37 /* RegisterViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewNew.m; sourceTree = "<group>"; };
 		908AA79116684AE00020C1FB /* NoPaymentSourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoPaymentSourcesViewController.h; sourceTree = "<group>"; };
 		908AA79216684AE00020C1FB /* NoPaymentSourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoPaymentSourcesViewController.m; sourceTree = "<group>"; };
+		908AA799166859F80020C1FB /* ReferFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferFriendViewController.h; sourceTree = "<group>"; };
+		908AA79A166859F80020C1FB /* ReferFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferFriendViewController.m; sourceTree = "<group>"; };
+		908AA7A51668632A0020C1FB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		908AA7A61668632A0020C1FB /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		908C258F164C0C8700AB3684 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
 		908C2591164C0D1D00AB3684 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
 		908C2592164C0D1D00AB3684 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
@@ -363,6 +370,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908AA7A71668632A0020C1FB /* AddressBook.framework in Frameworks */,
+				908AA7A81668632A0020C1FB /* AddressBookUI.framework in Frameworks */,
 				908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */,
 				9FE9DFA6162BB48300115E97 /* libCrashReporter-iphoneos.a in Frameworks */,
 				906D108D160FE03600561C31 /* Accounts.framework in Frameworks */,
@@ -387,6 +396,8 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				908AA7A51668632A0020C1FB /* AddressBook.framework */,
+				908AA7A61668632A0020C1FB /* AddressBookUI.framework */,
 				908D369E1631ED3F00557E8B /* MediaPlayer.framework */,
 				9090204D16266AB2001B8428 /* Default-568h@2x.png */,
 				9FE9DFA5162BB48300115E97 /* libCrashReporter-iphoneos.a */,
@@ -486,6 +497,8 @@
 				907A404415A8CFE900090452 /* AccessData.m */,
 				908AA79116684AE00020C1FB /* NoPaymentSourcesViewController.h */,
 				908AA79216684AE00020C1FB /* NoPaymentSourcesViewController.m */,
+				908AA799166859F80020C1FB /* ReferFriendViewController.h */,
+				908AA79A166859F80020C1FB /* ReferFriendViewController.m */,
 				90993F4A159777BC00FC1D49 /* ViewController.h */,
 				90993F4B159777BC00FC1D49 /* ViewController.m */,
 				908C2591164C0D1D00AB3684 /* EditServerController.h */,
@@ -837,6 +850,7 @@
 				9096DD101633088400106A25 /* Customer.m in Sources */,
 				908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */,
 				908AA79316684AE00020C1FB /* NoPaymentSourcesViewController.m in Sources */,
+				908AA79B166859F80020C1FB /* ReferFriendViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
