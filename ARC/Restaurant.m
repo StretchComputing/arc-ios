@@ -27,9 +27,16 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void)noPaymentSources{
+    UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
+    [self.navigationController presentModalViewController:noPaymentController animated:YES];
+    
+}
 -(void)viewWillAppear:(BOOL)animated{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
     
     @try {
         

@@ -15,7 +15,7 @@
 @property BOOL fromSettings;
 @property BOOL fromInvoice;
 @property BOOL fromSplitCheck;
-
+@property BOOL fromMain;
 
 //Dwolla
 -(void)successfulLogin;

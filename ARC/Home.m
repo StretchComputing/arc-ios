@@ -35,9 +35,19 @@
 
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     self.retryCount = 0;
     [self getMerchantList];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActive) name:@"appActive" object:nil];
 
 }
 
@@ -107,9 +117,7 @@
 {
     @try {
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActive) name:@"appActive" object:nil];
         
         self.matchingMerchants = [NSMutableArray array];
         self.searchTextField.delegate = self;
@@ -586,6 +594,11 @@
   
 }
 
+-(void)noPaymentSources{
+    UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
+    [self.navigationController presentModalViewController:noPaymentController animated:YES];
+    
+}
 
 
 @end

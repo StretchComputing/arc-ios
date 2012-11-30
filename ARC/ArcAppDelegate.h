@@ -17,7 +17,7 @@
     Reachability* internetReach;
     Reachability* wifiReach;
 }
-
+@property BOOL documentReady;
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) NSString *logout;
 @property (nonatomic, strong) NSString *pushToken;

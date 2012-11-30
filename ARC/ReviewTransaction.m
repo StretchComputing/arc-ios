@@ -27,9 +27,15 @@
 @implementation ReviewTransaction
 @synthesize earnMoreLabel;
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
     
     if (self.isIos6) {
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -145,7 +151,7 @@
         self.earnMoreLabel.text = [NSString stringWithFormat:@"Earn more by giving %@ feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
         
         [rSkybox addEventToSession:@"viewReviewScreen"];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
+       
         
         self.priceInt = @1;
         self.foodInt = @1;
@@ -938,6 +944,14 @@
     }
  
 }
+
+
+-(void)noPaymentSources{
+    UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
+    [self.navigationController presentModalViewController:noPaymentController animated:YES];
+    
+}
+
 
 @end
 

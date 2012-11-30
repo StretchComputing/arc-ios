@@ -23,8 +23,16 @@
 @implementation SettingsView
 @synthesize lifetimePointsProgressView;
 
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 -(void)viewWillAppear:(BOOL)animated{
     @try {
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointBalanceComplete:) name:@"getPointBalanceNotification" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
         
         ArcClient *tmp = [[ArcClient alloc] init];
         if (![tmp admin]) {
@@ -127,7 +135,7 @@
 		self.navigationItem.backBarButtonItem = temp;
         
         [rSkybox addEventToSession:@"viewSettingsPage"];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointBalanceComplete:) name:@"getPointBalanceNotification" object:nil];
+       
         
         self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
         
@@ -409,10 +417,12 @@
 
 
 
-- (void)viewDidUnload {
-    [self setAdminView:nil];
-    [super viewDidUnload];
+-(void)noPaymentSources{
+    UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
+    [self.navigationController presentModalViewController:noPaymentController animated:YES];
+    
 }
+
 - (IBAction)changeServer {
 }
 @end
