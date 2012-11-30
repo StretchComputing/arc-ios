@@ -404,31 +404,40 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    double basePayment = 0.0;
     
-    if (buttonIndex == 1) {
-        basePayment = [self.myInvoice amountDueForSplit];
-    }
-    
-    NSString *yourBaseAmount = @"";
-    if(basePayment > 0.0) {
-        yourBaseAmount = [NSString stringWithFormat:@"%.2f", basePayment];
-    }
-    
-    if(self.dollarView.hidden == NO) {
-        self.dollarYourPaymentText.text = yourBaseAmount;
-        double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
-    } else if(self.percentView.hidden == NO) {
-        self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", basePayment];
-        self.percentYourPayment = basePayment;
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + [self.percentTipText.text doubleValue])];
-        double percentRemaining = ([self.myInvoice amountDueForSplit]/[self.myInvoice amountDue]) * 100;
-        self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", percentRemaining];
-        if(basePayment == 0.0) {
-            self.percentYourPaymentText.text = @"";
+    if (alertView == self.removeAlertView) {
+        [self.actionSheet showInView:self.view];
+
+    }else{
+        
+        double basePayment = 0.0;
+        
+        if (buttonIndex == 1) {
+            basePayment = [self.myInvoice amountDueForSplit];
         }
+        
+        NSString *yourBaseAmount = @"";
+        if(basePayment > 0.0) {
+            yourBaseAmount = [NSString stringWithFormat:@"%.2f", basePayment];
+        }
+        
+        if(self.dollarView.hidden == NO) {
+            self.dollarYourPaymentText.text = yourBaseAmount;
+            double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
+            self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
+        } else if(self.percentView.hidden == NO) {
+            self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", basePayment];
+            self.percentYourPayment = basePayment;
+            self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + [self.percentTipText.text doubleValue])];
+            double percentRemaining = ([self.myInvoice amountDueForSplit]/[self.myInvoice amountDue]) * 100;
+            self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", percentRemaining];
+            if(basePayment == 0.0) {
+                self.percentYourPaymentText.text = @"";
+            }
+        }
+
     }
+   
 }
 
 - (IBAction)dollarPayNow:(id)sender {
@@ -446,7 +455,6 @@
         }
 
         [self.dollarTipText resignFirstResponder];
-        UIActionSheet *action;
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
@@ -470,29 +478,31 @@
         
         if ([self.creditCards count] > 0) {
             
-            action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
             
-            [action addButtonWithTitle:@"Dwolla"];
+            [self.actionSheet addButtonWithTitle:@"Dwolla"];
             
             for (int i = 0; i < [self.creditCards count]; i++) {
                 CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                [action addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
                 
             }
-            [action addButtonWithTitle:@"Cancel"];
-            action.cancelButtonIndex = [self.creditCards count] + 1;
+            [self.actionSheet addButtonWithTitle:@"Cancel"];
+            self.actionSheet.cancelButtonIndex = [self.creditCards count] + 1;
             
         }else {
-            action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+            self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
         }        
         
-        action.actionSheetStyle = UIActionSheetStyleDefault;
-        [action showInView:self.view];
+        self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
         
         
         if (didRemove) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+            self.removeAlertView = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [self.removeAlertView show];
+        }else{
+            [self.actionSheet showInView:self.view];
+
         }
         
     }
@@ -500,6 +510,7 @@
         [rSkybox sendClientLog:@"SplitCheckViewController.dollarPayNow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
 
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

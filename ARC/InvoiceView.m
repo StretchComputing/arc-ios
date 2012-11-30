@@ -366,7 +366,6 @@
 
         
         [self.tipText resignFirstResponder];
-        UIActionSheet *action;
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
@@ -390,30 +389,30 @@
        
         if ([self.creditCards count] > 0) {
             
-            action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
             
-            [action addButtonWithTitle:@"Dwolla"];
+            [self.actionSheet addButtonWithTitle:@"Dwolla"];
             
             for (int i = 0; i < [self.creditCards count]; i++) {
                 CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                [action addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
                 
             }
-            [action addButtonWithTitle:@"Cancel"];
-            action.cancelButtonIndex = [self.creditCards count] + 1;
+            [self.actionSheet addButtonWithTitle:@"Cancel"];
+            self.actionSheet.cancelButtonIndex = [self.creditCards count] + 1;
             
         }else {
-            action = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+            self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
         }
         
         
-        action.actionSheetStyle = UIActionSheetStyleDefault;
-        [action showInView:self.view];
+        self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
 
         if (didRemove) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }else{
+            [self.actionSheet showInView:self.view];
 
         }
         
@@ -422,6 +421,11 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.payNow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [self.actionSheet showInView:self.view];
+
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

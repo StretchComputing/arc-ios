@@ -115,6 +115,9 @@
 //ItemSplitItem
 @property (weak, nonatomic) IBOutlet UIView *itemSplitItemView;
 - (IBAction)itemSplitItemCancel;
+@property (nonatomic, strong) UIActionSheet *actionSheet;
+@property (nonatomic, strong) UIAlertView *removeAlertView;
+
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 

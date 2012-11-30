@@ -173,6 +173,20 @@
     self.pushToken = [deviceTokenStr uppercaseString];
     
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString *customerId = [prefs stringForKey:@"customerId"];
+    NSString *customerToken = [prefs stringForKey:@"customerToken"];
+    
+    
+    if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
+        //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
+        //self.autoSignIn = YES;
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp updatePushToken];
+    }
+ 
+    
 }
 
 

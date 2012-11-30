@@ -47,7 +47,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tipSegment;
 - (IBAction)segmentSelect;
 -(IBAction)refreshInvoice;
-
+@property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (weak, nonatomic) IBOutlet UILabel *amountNameLabel;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
