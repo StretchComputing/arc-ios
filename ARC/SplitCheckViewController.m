@@ -36,6 +36,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
 
 }
 
@@ -1297,4 +1299,12 @@
     tmp.myInvoice = self.myInvoice;
     [tmp setUpView];
 }
+
+-(void)noPaymentSources{
+    UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
+    [self.navigationController presentModalViewController:noPaymentController animated:YES];
+    
+}
+
+
 @end

@@ -15,7 +15,7 @@
 #import "Reachability.h"
 #import "ArcClient.h"
 #import "ArcUtility.h"
-
+#import "DwollaAPI.h"
 
 @implementation ArcAppDelegate
 
@@ -213,6 +213,41 @@
     // *** for rSkybox
     [self performSelectorInBackground:@selector(createEndUser) withObject:nil];
     // ***
+    
+    
+    @try {
+        if (self.documentReady) {
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            NSString *customerId = [prefs stringForKey:@"customerId"];
+            NSString *customerToken = [prefs stringForKey:@"customerToken"];
+            
+            
+            if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
+                
+                //If the user is logged in
+                BOOL hasToken = [DwollaAPI hasToken];
+                
+                NSArray *creditCards = [NSArray arrayWithArray:[self getAllCreditCardsForCurrentCustomer]];
+                
+                if (([creditCards count] == 0) && !hasToken) {
+                    //No payment sources found
+                    NSLog(@"NONE FOUND");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NoPaymentSourcesNotification" object:self userInfo:nil];
+                    
+                }
+                
+            }
+
+            
+        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+  
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -359,7 +394,7 @@ ofType:(NSString *)typeName
 -(void)documentIsReady{
     @try {
         NSLog(@"Document is ready!!");
-        
+        self.documentReady = YES;
         if (self.managedDocument.documentState == UIDocumentStateNormal) {
             self.managedObjectContext = self.managedDocument.managedObjectContext;
         }

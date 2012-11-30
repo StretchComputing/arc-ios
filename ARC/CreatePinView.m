@@ -13,6 +13,7 @@
 #import "RegisterViewNew.h"
 #import "SettingsView.h"
 #import "EditCreditCard.h"
+#import "NoPaymentSourcesViewController.h"
 
 @interface CreatePinView ()
 
@@ -245,9 +246,18 @@
 -(void)popNow{
     @try {
         
-        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-        tmp.creditCardAdded = YES;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        if ([SettingsView class] == [[[self.navigationController viewControllers] objectAtIndex:0] class] ) {
+            SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+            tmp.creditCardAdded = YES;
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else{
+            
+            NoPaymentSourcesViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+            tmp.creditCardAdded = YES;
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        }
+        
     }
     @catch (NSException *e) {
        // [rSkybox sendClientLog:@"AddCreditCard.popNow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

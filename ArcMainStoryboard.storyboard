@@ -126,6 +126,88 @@
             </objects>
             <point key="canvasLocation" x="-233" y="1100"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DT9-HY-L5c">
+            <objects>
+                <navigationController storyboardIdentifier="noPayment" definesPresentationContext="YES" id="BsY-at-ug1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8cr-PJ-iWW">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="CBV-g7-tIp" kind="relationship" relationship="rootViewController" id="eaq-7b-RCE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yEE-Ar-KOd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1441" y="-1371"/>
+        </scene>
+        <!--No Payment Sources View Controller - Payment Info-->
+        <scene sceneID="8bS-NX-ml5">
+            <objects>
+                <viewController storyboardIdentifier="" id="CBV-g7-tIp" customClass="NoPaymentSourcesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EJe-Ef-E8q">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i3O-JF-ZCf">
+                                <rect key="frame" x="44" y="137" width="233" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Credit Card" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="creditCard" destination="CBV-g7-tIp" eventType="touchUpInside" id="AbS-ns-mGS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cPO-rf-XPp">
+                                <rect key="frame" x="44" y="203" width="233" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Dwolla" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dwolla" destination="CBV-g7-tIp" eventType="touchUpInside" id="hbx-TZ-MxO"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="ARC has detected that you have no valid forms of payment entered.  To continue using ARC, please choose one of the following:" id="2KR-qO-TSp" customClass="CorbelTextView">
+                                <rect key="frame" x="13" y="14" width="295" height="115"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="tp6-it-Ugh">
+                                <rect key="frame" x="35" y="364" width="250" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="ef9-y7-Kp7">
+                                <rect key="frame" x="35" y="292" width="238" height="70"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Payment Info" id="KSp-iw-sW0"/>
+                    <connections>
+                        <segue destination="bX5-5s-ZOq" kind="push" identifier="confirmDwolla" id="XUM-Ky-nrh"/>
+                        <segue destination="0JH-v4-76k" kind="push" identifier="addCard" id="neU-RJ-74W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gnI-YB-7r1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-864" y="-1357"/>
+        </scene>
         <!--Get Passcode View Controller-->
         <scene sceneID="ZR7-id-vJr">
             <objects>
@@ -3790,6 +3872,13 @@
         <class className="LucidaLabel" superclassName="UILabel">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaLabel.h"/>
         </class>
+        <class className="NoPaymentSourcesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoPaymentSourcesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="creditCard"/>
+                <relationship kind="action" name="dwolla"/>
+            </relationships>
+        </class>
         <class className="RegisterDwollaView" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
         </class>
@@ -4024,11 +4113,12 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Oi0-YR-QFH"/>
-        <segue reference="8zb-Bv-gLK"/>
-        <segue reference="Yz7-xF-sKA"/>
         <segue reference="co8-nZ-5K2"/>
         <segue reference="Ii2-yA-rgx"/>
-        <segue reference="M5n-Hw-9ay"/>
+        <segue reference="Yz7-xF-sKA"/>
         <segue reference="2SM-S0-l6J"/>
+        <segue reference="M5n-Hw-9ay"/>
+        <segue reference="XUM-Ky-nrh"/>
+        <segue reference="neU-RJ-74W"/>
     </inferredMetricsTieBreakers>
 </document>

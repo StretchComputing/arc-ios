@@ -18,6 +18,16 @@
 @implementation ContactUsView
 
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
+    
+}
 
 - (void)viewDidLoad
 {
@@ -172,9 +182,10 @@
     }
 }
 
-- (void)viewDidUnload {
-    [self setPhoneNumberLabel:nil];
-    [self setEmailAddressLabel:nil];
-    [super viewDidUnload];
+-(void)noPaymentSources{
+    UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
+    [self.navigationController presentModalViewController:noPaymentController animated:YES];
+    
 }
+
 @end

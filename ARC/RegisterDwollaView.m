@@ -14,6 +14,7 @@
 #import "RegisterViewNew.h"
 #import "InvoiceView.h"
 #import "SplitCheckViewController.h"
+#import "NoPaymentSourcesViewController.h"
 
 @interface RegisterDwollaView ()
 
@@ -77,6 +78,14 @@
             
             [self.navigationController popViewControllerAnimated:NO];
             
+        }else if (self.fromMain){
+            
+            NoPaymentSourcesViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+            tmp.fromDwolla = YES;
+            tmp.dwollaSuccess = YES;
+            
+            [self.navigationController popViewControllerAnimated:NO];
+            
         }
         
 
@@ -120,6 +129,14 @@
         }else if (self.fromSplitCheck){
             
             SplitCheckViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
+            tmp.fromDwolla = YES;
+            tmp.dwollaSuccess = NO;
+            
+            [self.navigationController popViewControllerAnimated:NO];
+            
+        }else if (self.fromMain){
+            
+            NoPaymentSourcesViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
             tmp.fromDwolla = YES;
             tmp.dwollaSuccess = NO;
             

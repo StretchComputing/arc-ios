@@ -17,9 +17,19 @@
 
 @implementation ResetPasswordViewController
 
--(void)viewWillAppear:(BOOL)animated{
-    [self.passcodeText becomeFirstResponder];
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self.passcodeText becomeFirstResponder];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
+    
+}
+
 -(void)viewDidLoad{
     
     CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Password Reset"];
@@ -112,5 +122,10 @@
     
 }
 
+-(void)noPaymentSources{
+    UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
+    [self.navigationController presentModalViewController:noPaymentController animated:YES];
+    
+}
 
 @end
