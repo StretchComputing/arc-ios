@@ -384,7 +384,10 @@
                 errorMsg = @"Over payment. Please check invoice and try again.";
             } else if(errorCode == INVALID_AMOUNT) {
                 errorMsg = @"Invalid amount. Please re-enter payment and try again.";
-            }else if (errorCode == UNKOWN_ISIS_ERROR){
+            } else if(errorCode == INVALID_EXPIRATION_DATE) {
+                errorMsg = @"Invalid expiration date.";
+                editCardOption = YES;
+            }  else if (errorCode == UNKOWN_ISIS_ERROR){
                 editCardOption = YES;
                 errorMsg = @"Arc Error, Try Again.";
             }

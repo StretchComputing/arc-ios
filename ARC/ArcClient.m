@@ -39,6 +39,7 @@ int const FAILED_TO_VALIDATE_CARD = 605;
 int const FIELD_FORMAT_ERROR = 606;
 int const INVALID_ACCOUNT_NUMBER = 607;
 int const CANNOT_GET_PAYMENT_AUTHORIZATION = 608;
+int const INVALID_EXPIRATION_DATE = 610;
 int const UNKOWN_ISIS_ERROR = 699;
 
 static NSMutableDictionary *latencyStartTimes = nil;
@@ -421,7 +422,13 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         
         [pairs setValue:mainDelegate.pushToken forKey:@"DeviceId"];
+#if DEBUG==1
         [pairs setValue:@"Development" forKey:@"PushType"];
+#endif
+        
+#if RELEASE==1
+        [pairs setValue:@"Production" forKey:@"PushType"];
+#endif
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];

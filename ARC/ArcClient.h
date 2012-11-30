@@ -25,7 +25,7 @@ extern int const CANNOT_GET_PAYMENT_AUTHORIZATION;
 extern int const INVALID_ACCOUNT_PIN;
 extern int const INSUFFICIENT_FUNDS;
 extern int const UNKOWN_ISIS_ERROR;
-
+extern int const INVALID_EXPIRATION_DATE;
 
 
 extern NSString *const ARC_ERROR_MSG;
