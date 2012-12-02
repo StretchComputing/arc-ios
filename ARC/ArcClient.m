@@ -201,7 +201,6 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSNumber *pos = [NSNumber numberWithBool:YES];
         [dictionary setValue:pos forKey:@"POS"];
-
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [dictionary JSONRepresentation], nil];
         
@@ -429,6 +428,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 #if RELEASE==1
         [pairs setValue:@"Production" forKey:@"PushType"];
 #endif
+        
+        NSNumber *noMail = [NSNumber numberWithBool:YES];
+        [pairs setValue:noMail forKey:@"NoMail"];
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
