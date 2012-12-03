@@ -33,6 +33,7 @@
 		908AA79B166859F80020C1FB /* ReferFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AA79A166859F80020C1FB /* ReferFriendViewController.m */; };
 		908AA7A71668632A0020C1FB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A51668632A0020C1FB /* AddressBook.framework */; };
 		908AA7A81668632A0020C1FB /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A61668632A0020C1FB /* AddressBookUI.framework */; };
+		908AB24916696F4C00A318C8 /* FacebookCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AB24816696F4C00A318C8 /* FacebookCheckin.m */; };
 		908C2590164C0C8700AB3684 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 908C258F164C0C8700AB3684 /* blueCheck.png */; };
 		908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2592164C0D1D00AB3684 /* EditServerController.m */; };
 		908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D369E1631ED3F00557E8B /* MediaPlayer.framework */; };
@@ -183,6 +184,8 @@
 		908AA79A166859F80020C1FB /* ReferFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferFriendViewController.m; sourceTree = "<group>"; };
 		908AA7A51668632A0020C1FB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		908AA7A61668632A0020C1FB /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		908AB24716696F4C00A318C8 /* FacebookCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookCheckin.h; sourceTree = "<group>"; };
+		908AB24816696F4C00A318C8 /* FacebookCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookCheckin.m; sourceTree = "<group>"; };
 		908C258F164C0C8700AB3684 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
 		908C2591164C0D1D00AB3684 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
 		908C2592164C0D1D00AB3684 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
@@ -521,6 +524,8 @@
 				90FBDA61159A63D50051609A /* HelpView.m */,
 				9046C359160A0579008BAE4D /* HelpViewNew.h */,
 				9046C35A160A0579008BAE4D /* HelpViewNew.m */,
+				908AB24716696F4C00A318C8 /* FacebookCheckin.h */,
+				908AB24816696F4C00A318C8 /* FacebookCheckin.m */,
 				90FBDA63159A63E40051609A /* ContactUsView.h */,
 				90FBDA64159A63E40051609A /* ContactUsView.m */,
 				90993F5A1597795B00FC1D49 /* Home.h */,
@@ -851,6 +856,7 @@
 				908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */,
 				908AA79316684AE00020C1FB /* NoPaymentSourcesViewController.m in Sources */,
 				908AA79B166859F80020C1FB /* ReferFriendViewController.m in Sources */,
+				908AB24916696F4C00A318C8 /* FacebookCheckin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
