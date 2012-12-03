@@ -22,7 +22,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6s-6I-V3B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-573" y="421"/>
+            <point key="canvasLocation" x="-2305" y="333"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="5">
@@ -103,7 +103,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-146" y="135"/>
+            <point key="canvasLocation" x="-1726" y="383"/>
         </scene>
         <!--Register View New - Register-->
         <scene sceneID="4At-EH-59Z">
@@ -443,7 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JCV-M0-kjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="719" y="-1322"/>
+            <point key="canvasLocation" x="-1061" y="-498"/>
         </scene>
         <!--Register Dwolla View - Register-->
         <scene sceneID="II2-QN-Neg">
@@ -487,7 +487,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MdB-np-ygt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="211" y="-629"/>
+            <point key="canvasLocation" x="-1633" y="-513"/>
         </scene>
         <!--Home Navigation Controller-->
         <scene sceneID="ngT-vI-nh8">
@@ -502,7 +502,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UU3-2b-h4s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="643" y="147"/>
+            <point key="canvasLocation" x="-417" y="311"/>
         </scene>
         <!--Home - Home-->
         <scene sceneID="q4Z-kY-aF0">
@@ -653,7 +653,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oj2-ic-msF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1776" y="845"/>
+            <point key="canvasLocation" x="1516" y="857"/>
         </scene>
         <!--Restaurant - Invoice #-->
         <scene sceneID="b02-ct-bn5">
@@ -776,7 +776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Vh-Wd-akv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671" y="29"/>
+            <point key="canvasLocation" x="2043" y="777"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nuT-rf-xVJ">
@@ -962,7 +962,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6X-Xf-rvt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="923" y="440"/>
+            <point key="canvasLocation" x="155" y="-232"/>
         </scene>
         <!--Dwolla Payment - Dwolla Payment-->
         <scene sceneID="JkZ-WE-dxq">
@@ -1082,7 +1082,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OCP-KK-TXt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2804" y="21"/>
+            <point key="canvasLocation" x="2788" y="-887"/>
         </scene>
         <!--Review Transaction - Review-->
         <scene sceneID="Ffx-Y5-TBr">
@@ -1306,7 +1306,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1T-PC-DJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2958" y="808"/>
+            <point key="canvasLocation" x="3546" y="800"/>
         </scene>
         <!--Split Check View Controller - Split Check-->
         <scene sceneID="bLB-mJ-0fJ">
@@ -1994,7 +1994,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4a-47-brR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="708"/>
+            <point key="canvasLocation" x="3011" y="1496"/>
         </scene>
         <!--Invoice View - Invoice-->
         <scene sceneID="FhH-CO-O8h">
@@ -2258,7 +2258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eAd-SC-823" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2143" y="147"/>
+            <point key="canvasLocation" x="2439" y="-149"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GNk-Rr-rWT">
@@ -2273,7 +2273,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="49w-Uf-gqP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1252" y="1471"/>
+            <point key="canvasLocation" x="1256" y="2231"/>
         </scene>
         <!--Contact Us View - Contact Us-->
         <scene sceneID="tZJ-E6-zp7">
@@ -2354,7 +2354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFl-EG-K7S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671" y="1584"/>
+            <point key="canvasLocation" x="1803" y="2256"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yn8-Qc-6md">
@@ -2369,7 +2369,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L3Z-8f-gsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="105" y="808"/>
+            <point key="canvasLocation" x="-1563" y="1644"/>
         </scene>
         <!--Settings View - Profile-->
         <scene sceneID="0hj-Wu-SB3">
@@ -2629,7 +2629,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWZ-Fl-0f5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="563" y="800"/>
+            <point key="canvasLocation" x="-617" y="1812"/>
         </scene>
         <!--View Credit Cards - Credit Cards-->
         <scene sceneID="2OA-lX-zcd">
@@ -2700,7 +2700,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmq-av-e95" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="1471"/>
+            <point key="canvasLocation" x="-39" y="2147"/>
         </scene>
         <!--Edit Credit Card - Edit Card-->
         <scene sceneID="H7K-3I-7ib">
@@ -2938,7 +2938,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GuQ-1c-b3L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1465" y="716"/>
+            <point key="canvasLocation" x="897" y="1548"/>
         </scene>
         <!--Add Credit Card - Add Card-->
         <scene sceneID="2YA-9L-2jF">
@@ -3127,7 +3127,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ur2-9r-caL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="776" y="1488"/>
+            <point key="canvasLocation" x="748" y="2200"/>
         </scene>
         <!--Create Pin View - Account Protection-->
         <scene sceneID="eQF-Ro-5hn">
@@ -3203,7 +3203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YoE-3P-pPk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1034" y="-620"/>
+            <point key="canvasLocation" x="-1174" y="976"/>
         </scene>
         <!--Validate Pin View - Account Protection-->
         <scene sceneID="SMP-Ds-m0h">
@@ -3283,7 +3283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WoN-BA-kw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1170" y="2298"/>
+            <point key="canvasLocation" x="-2402" y="1902"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="M9c-AD-ayf">
@@ -3298,7 +3298,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dDY-qO-HHN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1230" y="-88"/>
+            <point key="canvasLocation" x="-3528" y="-552"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ju2-mX-Cgv">
@@ -3313,7 +3313,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nnk-nf-NgU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1910" y="-2158"/>
+            <point key="canvasLocation" x="-2918" y="1090"/>
         </scene>
         <!--Refer Friend View Controller-->
         <scene sceneID="51M-9U-mjO">
@@ -3407,7 +3407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fYC-Ld-tUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1472" y="-2164"/>
+            <point key="canvasLocation" x="-2480" y="1084"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Cky-ag-UUC">
@@ -3552,7 +3552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Elk-in-o6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-834" y="-662"/>
+            <point key="canvasLocation" x="-3012" y="-526"/>
         </scene>
         <!--Reset Password View Controller-->
         <scene sceneID="mph-cB-ieH">
@@ -3620,7 +3620,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HnC-w9-Kda" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-422" y="-636"/>
+            <point key="canvasLocation" x="-2480" y="-504"/>
         </scene>
         <!--Edit Server Controller-->
         <scene sceneID="tiv-N0-6gO">
@@ -3707,7 +3707,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLW-a6-bxr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-134" y="1471"/>
+            <point key="canvasLocation" x="-1198" y="2471"/>
         </scene>
     </scenes>
     <resources>
@@ -3724,19 +3724,468 @@
         <image name="twittetrconnect.png" width="80" height="80"/>
         <image name="untitledLogo.png" width="300" height="175"/>
     </resources>
+    <classes>
+        <class className="AddCreditCard" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddCreditCard.h"/>
+            <relationships>
+                <relationship kind="action" name="addCard"/>
+                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardNumberText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="creditCardPinText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="ContactUsView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactUsView.h"/>
+            <relationships>
+                <relationship kind="action" name="call"/>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="email"/>
+                <relationship kind="outlet" name="emailAddressLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="phoneNumberLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="sloganLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CorbelBarButtonItem" superclassName="UIBarButtonItem">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelBarButtonItem.h"/>
+        </class>
+        <class className="CorbelBoldLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelBoldLabel.h"/>
+        </class>
+        <class className="CorbelButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelButton.h"/>
+        </class>
+        <class className="CorbelInputTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelInputTextField.h"/>
+        </class>
+        <class className="CorbelRegularLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelRegularLabel.h"/>
+        </class>
+        <class className="CorbelSegmentedControl" superclassName="UISegmentedControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelSegmentedControl.h"/>
+        </class>
+        <class className="CorbelTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelTextField.h"/>
+        </class>
+        <class className="CorbelTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelTextView.h"/>
+        </class>
+        <class className="CreatePinView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreatePinView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionText" candidateClass="CorbelTextView"/>
+                <relationship kind="outlet" name="instructionsLabel" candidateClass="LucidaBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="CreditCardPayment" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreditCardPayment.h"/>
+            <relationships>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="totalPaymentText" candidateClass="LucidaBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="DwollaPayment" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
+            <relationships>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dwollaBalanceActivity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="dwollaBalanceText" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="totalPaymentText" candidateClass="LucidaBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="EditCreditCard" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditCreditCard.h"/>
+            <relationships>
+                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
+                <relationship kind="action" name="deleteCardAction"/>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="editPin"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="saveCardAction"/>
+                <relationship kind="outlet" name="cardNumberTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="cardTypesSegmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="expirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="securityCodeTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="EditServerController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditServerController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UINavigationBar"/>
+            </relationships>
+        </class>
+        <class className="GetPasscodeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GetPasscodeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submitAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="HelpView" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+            </relationships>
+        </class>
+        <class className="Home" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Home.h"/>
+            <relationships>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="refreshMerchants:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="activityView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="sloganLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="HomeNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeNavigationController.h"/>
+        </class>
+        <class className="InitialController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mottoLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="InvoiceView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceView.h"/>
+            <relationships>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="payNow:"/>
+                <relationship kind="action" name="refreshInvoice"/>
+                <relationship kind="action" name="segmentSelect"/>
+                <relationship kind="action" name="splitCheckAction:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="alreadyPaidLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="alreadyPaidNameLabel" candidateClass="CorbelBoldLabel"/>
+                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="amountNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="bottomHalfView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="discLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="discNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="gratLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="gratNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="payBillButton" candidateClass="CorbelBarButtonItem"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="splitCheckButton" candidateClass="CorbelBarButtonItem"/>
+                <relationship kind="outlet" name="subLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="taxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LucidaBoldLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaBoldLabel.h"/>
+        </class>
+        <class className="LucidaLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaLabel.h"/>
+        </class>
+        <class className="NoPaymentSourcesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoPaymentSourcesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="creditCard"/>
+                <relationship kind="action" name="dwolla"/>
+            </relationships>
+        </class>
+        <class className="ReferFriendViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReferFriendViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addContact"/>
+                <relationship kind="action" name="cancelRefer:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="submit"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="emailAddress" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="RegisterDwollaView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
+        </class>
+        <class className="RegisterNavigation" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterNavigation.h"/>
+        </class>
+        <class className="RegisterViewNew" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewNew.h"/>
+            <relationships>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="login:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="registerNow:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="dwollaSegControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="registerButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="ResetPasswordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResetPasswordViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submitAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="confirmText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passcodeText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="Restaurant" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Restaurant.h"/>
+            <relationships>
+                <relationship kind="action" name="checkNumberHelp"/>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkHelpImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="checkNumFive" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumSix" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameDisplay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="ReviewTransaction" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReviewTransaction.h"/>
+            <relationships>
+                <relationship kind="action" name="postFacebook"/>
+                <relationship kind="action" name="postTwitter"/>
+                <relationship kind="action" name="skipReview:"/>
+                <relationship kind="action" name="sliderValueChanged:" candidateClass="UISlider"/>
+                <relationship kind="action" name="starClicked:"/>
+                <relationship kind="action" name="submitReview:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="atmosphere1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentsText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="drinks1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinksSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="earnMoreLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="food1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="foodSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="moodSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="postFacebookButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postFacebookPoints" candidateClass="LucidaLabel"/>
+                <relationship kind="outlet" name="postTwitterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postTwitterPoints" candidateClass="LucidaLabel"/>
+                <relationship kind="outlet" name="service1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="serviceSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="shareLabel" candidateClass="CorbelBoldLabel"/>
+                <relationship kind="outlet" name="skipButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="value1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="valueSlider" candidateClass="UISlider"/>
+            </relationships>
+        </class>
+        <class className="SettingsView" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="changeServer"/>
+                <relationship kind="action" name="dwollaAuthSwitchSelected"/>
+                <relationship kind="action" name="facebookSwitchSelected"/>
+                <relationship kind="action" name="twitterSwitchSelected"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="adminView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dwollaAuthSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="facebookSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="lifetimePointsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lifetimePointsProgressView" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="pointsDisplayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pointsProgressView" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="twitterSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="SplitCheckViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplitCheckViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dollarEditEnd:"/>
+                <relationship kind="action" name="dollarPayNow:"/>
+                <relationship kind="action" name="dollarTipDidBegin"/>
+                <relationship kind="action" name="dollarTipSegmentSelect:"/>
+                <relationship kind="action" name="dollarYourPaymentEditEnd:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="itemSplitItemCancel"/>
+                <relationship kind="action" name="itemSplitItemSave"/>
+                <relationship kind="action" name="itemSplitItemSegmentSelect"/>
+                <relationship kind="action" name="itemSplitItemYourAmountTextEnd"/>
+                <relationship kind="action" name="itemTipDidBegin"/>
+                <relationship kind="action" name="itemTipEditEnd"/>
+                <relationship kind="action" name="itemTipSegmentSelect"/>
+                <relationship kind="action" name="percentTipDidBegin"/>
+                <relationship kind="action" name="percentTipEditEnd"/>
+                <relationship kind="action" name="percentTipSegmentSelect"/>
+                <relationship kind="action" name="percentYourPercentDidEnd"/>
+                <relationship kind="action" name="percentYourPercentSegmentSelect"/>
+                <relationship kind="action" name="refreshInvoice"/>
+                <relationship kind="action" name="typeSegmentChanged"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="divisionTypeSegment" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="dollarAmountAlreadyPaidNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarAmountDueLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarAmountDueNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarAmountPaidLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarAmountPaidNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarFoodBevLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarServiceChargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarTipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="dollarTipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dollarTotalBillLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarTotalBillNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dollarYourPaymentNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarYourPaymentText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dollarYourTotalPaymentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemServiceChargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemSplitItemItemTotal" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemSplitItemSegControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="itemSplitItemView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="itemSplitItemYourAmount" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="itemTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="itemTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemTipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="itemTipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="itemView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="itemYourTotalPaymentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentAmountDueLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentAmountDueNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentAmountPaidLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentAmountPaidNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentFoodBevLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentServiceChargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentTipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="percentTipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="percentTotalBillLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentTotalBillNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="percentYourPaymentDollarAmount" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentYourPaymentNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentYourPaymentText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="percentYourPercentSegControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="percentYourTotalPaymentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="splitCancelButton" candidateClass="CorbelButton"/>
+                <relationship kind="outlet" name="splitSaveButton" candidateClass="CorbelButton"/>
+                <relationship kind="outlet" name="typeSegment" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="ValidatePinView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ValidatePinView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionText" candidateClass="CorbelTextView"/>
+                <relationship kind="outlet" name="instructionsLabel" candidateClass="LucidaBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="forgotPassword"/>
+                <relationship kind="action" name="signIn"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="registerButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="ViewCreditCards" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewCreditCards.h"/>
+            <relationships>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Oi0-YR-QFH"/>
-        <segue reference="co8-nZ-5K2"/>
-        <segue reference="Yz7-xF-sKA"/>
+        <segue reference="L6b-sc-kgN"/>
+        <segue reference="C7C-NV-eEl"/>
+        <segue reference="FRd-J0-OXc"/>
+        <segue reference="pOd-6P-e5i"/>
+        <segue reference="vYI-Ib-Hg3"/>
         <segue reference="Ii2-yA-rgx"/>
         <segue reference="f4G-VL-9D0"/>
         <segue reference="2SM-S0-l6J"/>
-        <segue reference="8zb-Bv-gLK"/>
-        <segue reference="8Ap-ny-8Aq"/>
     </inferredMetricsTieBreakers>
 </document>

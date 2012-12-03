@@ -20,7 +20,6 @@
 @interface ReviewTransaction ()
 
 -(void)changeStarsInRow:(NSString *)row numSelected:(int)selected;
--(void)createPayment;
 
 @end
 
@@ -546,7 +545,7 @@
         [client createReview:loginDict];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ReviewTransaction.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ReviewTransaction.createReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
@@ -601,7 +600,7 @@
             tmp.successReview = YES;
             [self.navigationController popToRootViewControllerAnimated:NO];
         } else if([status isEqualToString:@"error"]){
-            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            //int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             errorMsg = ARC_ERROR_MSG;
         } else {
             // must be failure -- user notification handled by ArcClient
@@ -857,6 +856,9 @@
                     
                     [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
                         NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                        if (output) {
+                            
+                        }
                         //NSLog(@"%@", output);
                         //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
                     }];
@@ -903,7 +905,8 @@
                     post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
                 }
                 
-                
+                post = @"I just made a purchase at @[223133961125265:1:test] via @[334720129933220:answer]";
+           
                 NSDictionary *parameters = @{@"message": post};
                 
                 NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed/"];
@@ -921,6 +924,9 @@
                  {
                      // Handle response
                      NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                     if (output) {
+                         
+                     }
                      //NSLog(@"Output: %@", output);
                      
                  }];
