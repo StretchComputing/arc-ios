@@ -27,8 +27,20 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+-(void)customerDeactivated{
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    mainDelegate.logout = @"true";
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
+    
+    
+    
     @try {
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pointBalanceComplete:) name:@"getPointBalanceNotification" object:nil];
         
@@ -168,9 +180,6 @@
         NSUInteger section = [indexPath section];
         
         if ((section == 2) && (row == 0)) {
-            
-            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
             
             ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
             mainDelegate.logout = @"true";

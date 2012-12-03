@@ -26,6 +26,18 @@
 
 @implementation RegisterViewNew
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self.firstNameText resignFirstResponder];
+    [self.lastNameText resignFirstResponder];
+    [self.birthDateText resignFirstResponder];
+    [self.emailText resignFirstResponder];
+    [self.passwordText resignFirstResponder];
+    [self.creditCardPinText resignFirstResponder];
+    [self.creditCardNumberText resignFirstResponder];
+    [self.creditCardSecurityCodeText resignFirstResponder];
+    
+    [self endText];
+}
 -(void)viewDidAppear:(BOOL)animated{
     @try {
         

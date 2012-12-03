@@ -43,6 +43,9 @@
     self.retryCount = 0;
     [self getMerchantList];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
@@ -51,6 +54,23 @@
 
 }
 
+-(void)customerDeactivated{
+    [self logOut];
+}
+-(void)logOut{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account Deactivated" message:@"For security purposes, your account has been remotely deactivated.  If this was done in error, please contact ARC support." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];    
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+    
+}
 -(void)viewDidAppear:(BOOL)animated{
     
 
@@ -73,12 +93,14 @@
         ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
             [self.navigationController dismissModalViewControllerAnimated:NO];
+            
         }
         
         if (self.skipReview || self.successReview) {
@@ -107,10 +129,20 @@
             self.skipReview = NO;
             self.successReview = NO;
         }
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didJustLogin"] isEqualToString:@"yes"]) {
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"didJustLogin"];
+            [self checkPayment];
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.viewDidAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+-(void)checkPayment{
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [mainDelegate doPaymentCheck];
 }
 
 - (void)viewDidLoad
@@ -232,6 +264,8 @@
 -(void)merchantListComplete:(NSNotification *)notification{
     @try {
         
+        self.navigationItem.rightBarButtonItem = nil;
+        
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
         NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
@@ -296,14 +330,17 @@
             // must be failure -- user notification handled by ArcClient
             errorMsg = ARC_ERROR_MSG;
         }
-        
+                
         if([errorMsg length] > 0) {
             if ([self.allMerchants count] == 0) {
                 self.errorLabel.text = errorMsg;
                 //if no Merchants found, retry.
-                if (self.retryCount < 7) {
+                if (self.retryCount < 1) {
                     self.retryCount++;
                     [self getMerchantList];
+                }else{
+                    UIBarButtonItem *tmp = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshList)];
+                    self.navigationItem.rightBarButtonItem = tmp;
                 }
             }
         }
@@ -313,7 +350,9 @@
     }
 }
 
-
+-(void)refreshList{
+    [self getMerchantList];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     @try {
         

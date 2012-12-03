@@ -22,6 +22,8 @@
 @implementation DwollaPayment
 
 
+
+
 - (void)viewDidLoad
 {
     
@@ -36,7 +38,6 @@
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Dwolla"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
         
         self.fundingSourceStatus = @"";
         self.serverData = [NSMutableData data];
@@ -142,7 +143,22 @@
 }
 
 
+-(void)customerDeactivated{
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    mainDelegate.logout = @"true";
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 -(void)viewWillAppear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
+    
     @try {
         
         [self.hiddenText becomeFirstResponder];

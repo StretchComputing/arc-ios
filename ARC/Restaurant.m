@@ -32,7 +32,19 @@
     [self.navigationController presentModalViewController:noPaymentController animated:YES];
     
 }
+
+-(void)customerDeactivated{
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    mainDelegate.logout = @"true";
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
     

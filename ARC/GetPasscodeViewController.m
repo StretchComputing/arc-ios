@@ -18,7 +18,22 @@
 
 @implementation GetPasscodeViewController
 
+-(void)customerDeactivated{
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    mainDelegate.logout = @"true";
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
+    
     [self.emailText becomeFirstResponder];
 }
 -(void)cancel{

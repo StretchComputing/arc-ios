@@ -22,7 +22,15 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void)customerDeactivated{
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    mainDelegate.logout = @"true";
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
+        
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     
     [self.passcodeText becomeFirstResponder];
 
@@ -59,7 +67,7 @@
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
-        NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
+        //NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
         
         [self.activity stopAnimating];
         
@@ -67,6 +75,9 @@
         NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
             //success
+            
+            //NSString *newToken = [apiResponse valueForKey:@"Results"];
+            //[[NSUserDefaults standardUserDefaults] setObject:newToken forKey:@"customerToken"];
             
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"resetPasswordSuccess"];
             [[NSUserDefaults standardUserDefaults] synchronize];

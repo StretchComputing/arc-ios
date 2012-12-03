@@ -59,4 +59,7 @@
 -(void)handleCrashReport;
 // ***
 
+
+-(void)doPaymentCheck;
+
 @end

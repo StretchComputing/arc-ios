@@ -290,6 +290,12 @@
             [tmp updatePushToken];
             
             [self performSegueWithIdentifier: @"signIn" sender: self];
+            
+            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didJustLogin"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+           // [self performSelector:@selector(checkPayment) withObject:nil afterDelay:1.5];
+            
             //Do the next thing (go home?)
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
@@ -317,6 +323,10 @@
     
 }
 
+-(void)checkPayment{
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [mainDelegate doPaymentCheck];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([indexPath section] == 1) {

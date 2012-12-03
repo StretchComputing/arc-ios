@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ArcAppDelegate.h"
 
 extern int const USER_ALREADY_EXISTS;
 extern int const INCORRECT_PASSCODE;

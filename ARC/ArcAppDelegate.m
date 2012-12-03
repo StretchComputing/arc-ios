@@ -232,28 +232,7 @@
     @try {
         if (self.documentReady) {
             
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            
-            NSString *customerId = [prefs stringForKey:@"customerId"];
-            NSString *customerToken = [prefs stringForKey:@"customerToken"];
-            
-            
-            if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
-                
-                //If the user is logged in
-                BOOL hasToken = [DwollaAPI hasToken];
-                
-                NSArray *creditCards = [NSArray arrayWithArray:[self getAllCreditCardsForCurrentCustomer]];
-                
-                if (([creditCards count] == 0) && !hasToken) {
-                    //No payment sources found
-                    NSLog(@"NONE FOUND");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NoPaymentSourcesNotification" object:self userInfo:nil];
-                    
-                }
-                
-            }
-
+            [self doPaymentCheck];
             
         }
     }
@@ -262,6 +241,38 @@
     }
   
     
+}
+
+-(void)doPaymentCheck{
+    
+    @try {
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        NSString *customerId = [prefs stringForKey:@"customerId"];
+        NSString *customerToken = [prefs stringForKey:@"customerToken"];
+        
+        
+        if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
+            
+            //If the user is logged in
+            BOOL hasToken = [DwollaAPI hasToken];
+            
+            NSArray *creditCards = [NSArray arrayWithArray:[self getAllCreditCardsForCurrentCustomer]];
+            
+            if (([creditCards count] == 0) && !hasToken) {
+                //No payment sources found
+                NSLog(@"NONE FOUND");
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"NoPaymentSourcesNotification" object:self userInfo:nil];
+                
+            }
+            
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Exception: %@", exception);
+    }
+   
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

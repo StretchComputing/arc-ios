@@ -23,6 +23,9 @@
 
 @implementation CreditCardPayment
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 -(void)viewDidAppear:(BOOL)animated{
     
@@ -93,7 +96,18 @@
     }
 }
 
+-(void)customerDeactivated{
+    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    mainDelegate.logout = @"true";
+    [self.navigationController dismissModalViewControllerAnimated:NO];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
+    
     @try {
         
         [self.hiddenText becomeFirstResponder];
@@ -402,7 +416,7 @@
         if([errorMsg length] > 0) {
             self.errorLabel.text = errorMsg;
         }
-        
+                
         if (editCardOption) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
             [alert show];
