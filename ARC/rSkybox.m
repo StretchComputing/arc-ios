@@ -197,7 +197,9 @@ static NSString *logNameBeingTimed;
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
-        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+        
+        NSData *returnData;
+       // NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];

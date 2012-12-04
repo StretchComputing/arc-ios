@@ -15,6 +15,7 @@
 #import "rSkybox.h"
 #import "NSString+CharArray.h"
 #import "CreatePinView.h"
+#import "PrivacyTermsViewController.h"
 
 @interface RegisterViewNew ()
 
@@ -150,7 +151,7 @@
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Register"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        self.isCreditCard = NO;
+        self.isCreditCard = YES;
         
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
@@ -206,7 +207,7 @@
         gradient.frame = self.view.bounds;
         self.view.backgroundColor = [UIColor clearColor];
         //UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-        double x = 1.9;
+        double x = 1.0;
         UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
         
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
@@ -259,19 +260,14 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"If you wish to use enter a credit card, please enter all fields" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
-        }else if ((self.dwollaSegControl.selectedSegmentIndex == 1) && [[self creditCardStatus] isEqualToString:@"empty"]){
+        }else if ([[self creditCardStatus] isEqualToString:@"empty"]){
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Payment" message:@"You must choose at least 1 form of payment to continue" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
-        }else if ((self.dwollaSegControl.selectedSegmentIndex == 1) && (self.creditDebitSegment.selectedSegmentIndex == -1)) {
+        }else if ((self.creditDebitSegment.selectedSegmentIndex == -1)) {
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit" message:@"Please select credit or debit for your card." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            
-        }else if (self.dwollaSegControl.selectedSegmentIndex == -1){
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Choose Payment Type" message:@"Please select credit card or Dwolla for your payment type." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
         }else{
@@ -280,17 +276,28 @@
             if ([self luhnCheck:self.creditCardNumberText.text]) {
                 
                 
-                if (self.dwollaSegControl.selectedSegmentIndex == 0) {
-                    [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
-                }else{
-                    self.activityView.hidden = NO;
-                    self.errorLabel.hidden = YES;
-                    [self.activity startAnimating];
+                if (self.didAgreePrivacy) {
                     
-                    self.registerButton.enabled = NO;
-                    self.loginButton.enabled = NO;
-                    [self runRegister];
+                    if (!self.isCreditCard) {
+                        [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+                    }else{
+                        self.activityView.hidden = NO;
+                        self.errorLabel.hidden = YES;
+                        [self.activity startAnimating];
+                        
+                        self.registerButton.enabled = NO;
+                        self.loginButton.enabled = NO;
+                        [self runRegister];
+                    }
+                    
+                }else{
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Terms Of Service" message:@"You must agree to the privacy policy and terms of service before you continue." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    
                 }
+                
+                
                
                 
                 
@@ -449,6 +456,21 @@
             
             RegisterDwollaView *detailViewController = [segue destinationViewController];
             detailViewController.fromRegister = YES;
+        }
+        
+        if ([[segue identifier] isEqualToString:@"goPrivacy"]) {
+            
+            UINavigationController *tmp = [segue destinationViewController];
+            PrivacyTermsViewController *detailViewController = [[tmp viewControllers] objectAtIndex:0];
+            detailViewController.isPrivacy = YES;
+                    
+        }
+        
+        if ([[segue identifier] isEqualToString:@"goTerms"]) {
+            
+            UINavigationController *tmp = [segue destinationViewController];
+            PrivacyTermsViewController *detailViewController = [[tmp viewControllers] objectAtIndex:0];
+            detailViewController.isPrivacy = NO;
         }
     }
     @catch (NSException *e) {
@@ -960,11 +982,11 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:@"passwordCell"];
 
             }
-        }else if (section == 2){
+        }else if (section == 22){
             
             cell = [tableView dequeueReusableCellWithIdentifier:@"paymentCell"];
 
-        }else if (section == 3){
+        }else if (section == 2){
             
             if (row == 0) {
                 cell = [tableView dequeueReusableCellWithIdentifier:@"cardNumberCell"];
@@ -990,12 +1012,12 @@
         }
         
 
-        if (section == 2) {
+        if (section == 22) {
 
             self.dwollaSegControl = (UISegmentedControl *)[cell.contentView viewWithTag:1];
             [self.dwollaSegControl addTarget:self action:@selector(paymentChanged) forControlEvents:UIControlEventValueChanged];
             
-        }else if ((section == 3) && ((row == 1) || (row == 2))){
+        }else if ((section == 2) && ((row == 1) || (row == 2))){
 
             if (row == 1) {
                 
@@ -1069,7 +1091,7 @@
                 }
                 
             
-            }else if (section == 3){
+            }else if (section == 2){
                 
                 
                 if (row == 0) {
@@ -1106,7 +1128,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 2) {
+    if (indexPath.section == 22) {
         return 30;
     }
     return 44;
@@ -1117,7 +1139,7 @@
     if (section == 0) {
         return @"Personal Information";
     }else if (section == 2){
-        return @"Choose Payment";
+        return @"Payment Information";
     }else if (section == 4){
         return @"Create a 4 Digit Credit Card Pin for Security Purposes";
     }else{
@@ -1134,9 +1156,9 @@
         return 3;
     }else if (section == 1){
         return 2;
-    }else if (section == 2){
+    }else if (section == 22){
         return 1;
-    }else if (section == 3){
+    }else if (section == 2){
         return 5;
     }else{
         return 1;
@@ -1146,7 +1168,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     if (self.isCreditCard) {
-        return 4;
+        return 3;
     }else{
         return 3;
     }
@@ -1154,7 +1176,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
-    if (section == 2) {
+    if (section == 22) {
         
         if (self.dwollaSegControl.selectedSegmentIndex == 0) {
             UIView *tmp = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
@@ -1238,5 +1260,25 @@
     }
     return TRUE;
 }
+
+
+
+
+-(IBAction)agreeSelected{
+    
+    if (self.didAgreePrivacy) {
+        self.didAgreePrivacy = NO;
+        [self.checkedImageView setImage:[UIImage imageNamed:@"boxEmpty"]];
+        
+    }else{
+        self.didAgreePrivacy = YES;
+        [self.checkedImageView setImage:[UIImage imageNamed:@"boxChecked"]];
+
+    }
+}
+
+
+
+
 
 @end

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
-		9046C35B160A0579008BAE4D /* HelpViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9046C35A160A0579008BAE4D /* HelpViewNew.m */; };
 		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
 		906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */; };
 		906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */; };
@@ -36,6 +35,18 @@
 		908AB24916696F4C00A318C8 /* FacebookCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AB24816696F4C00A318C8 /* FacebookCheckin.m */; };
 		908C2590164C0C8700AB3684 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 908C258F164C0C8700AB3684 /* blueCheck.png */; };
 		908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2592164C0D1D00AB3684 /* EditServerController.m */; };
+		908D2F67166E4818007B6078 /* Address+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D2F4D166E4817007B6078 /* Address+Additions.m */; };
+		908D2F68166E4818007B6078 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D2F4F166E4817007B6078 /* NSString+Additions.m */; };
+		908D2F69166E4818007B6078 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 908D2F51166E4817007B6078 /* checked.png */; };
+		908D2F6A166E4818007B6078 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 908D2F52166E4817007B6078 /* unchecked.png */; };
+		908D2F71166E4818007B6078 /* SMContactsSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D2F62166E4818007B6078 /* SMContactsSelector.m */; };
+		908D2F72166E4818007B6078 /* SMContactsSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 908D2F63166E4818007B6078 /* SMContactsSelector.xib */; };
+		908D2F73166E4818007B6078 /* UIAlertView+UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D2F66166E4818007B6078 /* UIAlertView+UITableView.m */; };
+		908D2FC5166E76B8007B6078 /* PrivacyTermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D2FC4166E76B8007B6078 /* PrivacyTermsViewController.m */; };
+		908D2FCD166E782B007B6078 /* privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 908D2FCB166E782B007B6078 /* privacy.pdf */; };
+		908D2FCE166E782B007B6078 /* terms.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 908D2FCC166E782B007B6078 /* terms.pdf */; };
+		908D2FD1166E8D66007B6078 /* boxChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 908D2FCF166E8D66007B6078 /* boxChecked.png */; };
+		908D2FD2166E8D66007B6078 /* boxEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 908D2FD0166E8D66007B6078 /* boxEmpty.png */; };
 		908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D369E1631ED3F00557E8B /* MediaPlayer.framework */; };
 		908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */; };
 		908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */; };
@@ -145,8 +156,6 @@
 /* Begin PBXFileReference section */
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
-		9046C359160A0579008BAE4D /* HelpViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewNew.h; sourceTree = "<group>"; };
-		9046C35A160A0579008BAE4D /* HelpViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewNew.m; sourceTree = "<group>"; };
 		905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CHATOKYO_0.TTF; sourceTree = "<group>"; };
 		906C80F015FD582F0012AC9D /* CorbelSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelSegmentedControl.h; sourceTree = "<group>"; };
 		906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelSegmentedControl.m; sourceTree = "<group>"; };
@@ -189,6 +198,23 @@
 		908C258F164C0C8700AB3684 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
 		908C2591164C0D1D00AB3684 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
 		908C2592164C0D1D00AB3684 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
+		908D2F4C166E4817007B6078 /* Address+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Address+Additions.h"; sourceTree = "<group>"; };
+		908D2F4D166E4817007B6078 /* Address+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Address+Additions.m"; sourceTree = "<group>"; };
+		908D2F4E166E4817007B6078 /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		908D2F4F166E4817007B6078 /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
+		908D2F51166E4817007B6078 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
+		908D2F52166E4817007B6078 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
+		908D2F61166E4818007B6078 /* SMContactsSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMContactsSelector.h; sourceTree = "<group>"; };
+		908D2F62166E4818007B6078 /* SMContactsSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMContactsSelector.m; sourceTree = "<group>"; };
+		908D2F63166E4818007B6078 /* SMContactsSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMContactsSelector.xib; sourceTree = "<group>"; };
+		908D2F65166E4818007B6078 /* UIAlertView+UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+UITableView.h"; sourceTree = "<group>"; };
+		908D2F66166E4818007B6078 /* UIAlertView+UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+UITableView.m"; sourceTree = "<group>"; };
+		908D2FC3166E76B8007B6078 /* PrivacyTermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyTermsViewController.h; sourceTree = "<group>"; };
+		908D2FC4166E76B8007B6078 /* PrivacyTermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyTermsViewController.m; sourceTree = "<group>"; };
+		908D2FCB166E782B007B6078 /* privacy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = privacy.pdf; sourceTree = "<group>"; };
+		908D2FCC166E782B007B6078 /* terms.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = terms.pdf; sourceTree = "<group>"; };
+		908D2FCF166E8D66007B6078 /* boxChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boxChecked.png; sourceTree = "<group>"; };
+		908D2FD0166E8D66007B6078 /* boxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boxEmpty.png; sourceTree = "<group>"; };
 		908D369E1631ED3F00557E8B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTitleLabel.h; sourceTree = "<group>"; };
 		908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTitleLabel.m; sourceTree = "<group>"; };
@@ -396,6 +422,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		908D2F4A166E4817007B6078 /* SMContactsSelector */ = {
+			isa = PBXGroup;
+			children = (
+				908D2F4B166E4817007B6078 /* Additions */,
+				908D2F50166E4817007B6078 /* Images */,
+				908D2F61166E4818007B6078 /* SMContactsSelector.h */,
+				908D2F62166E4818007B6078 /* SMContactsSelector.m */,
+				908D2F63166E4818007B6078 /* SMContactsSelector.xib */,
+				908D2F64166E4818007B6078 /* UIAlertView+UITableView */,
+			);
+			path = SMContactsSelector;
+			sourceTree = "<group>";
+		};
+		908D2F4B166E4817007B6078 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				908D2F4C166E4817007B6078 /* Address+Additions.h */,
+				908D2F4D166E4817007B6078 /* Address+Additions.m */,
+				908D2F4E166E4817007B6078 /* NSString+Additions.h */,
+				908D2F4F166E4817007B6078 /* NSString+Additions.m */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
+		908D2F50166E4817007B6078 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				908D2F51166E4817007B6078 /* checked.png */,
+				908D2F52166E4817007B6078 /* unchecked.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		908D2F64166E4818007B6078 /* UIAlertView+UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				908D2F65166E4818007B6078 /* UIAlertView+UITableView.h */,
+				908D2F66166E4818007B6078 /* UIAlertView+UITableView.m */,
+			);
+			path = "UIAlertView+UITableView";
+			sourceTree = "<group>";
+		};
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +515,8 @@
 				90964E1515F842A400676E0A /* CORBEL.TTF */,
 				905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */,
 				908C258F164C0C8700AB3684 /* blueCheck.png */,
+				908D2FCF166E8D66007B6078 /* boxChecked.png */,
+				908D2FD0166E8D66007B6078 /* boxEmpty.png */,
 				90993F3B159777BC00FC1D49 /* ARC */,
 				90993F34159777BC00FC1D49 /* Frameworks */,
 				90993F32159777BC00FC1D49 /* Products */,
@@ -522,8 +592,6 @@
 				90FBDA5E159A63CB0051609A /* SettingsView.m */,
 				90FBDA60159A63D50051609A /* HelpView.h */,
 				90FBDA61159A63D50051609A /* HelpView.m */,
-				9046C359160A0579008BAE4D /* HelpViewNew.h */,
-				9046C35A160A0579008BAE4D /* HelpViewNew.m */,
 				908AB24716696F4C00A318C8 /* FacebookCheckin.h */,
 				908AB24816696F4C00A318C8 /* FacebookCheckin.m */,
 				90FBDA63159A63E40051609A /* ContactUsView.h */,
@@ -584,6 +652,11 @@
 				9097099C1610B3270092A970 /* CreatePinView.m */,
 				909709A21610E6B30092A970 /* ValidatePinView.h */,
 				909709A31610E6B30092A970 /* ValidatePinView.m */,
+				908D2FC3166E76B8007B6078 /* PrivacyTermsViewController.h */,
+				908D2FC4166E76B8007B6078 /* PrivacyTermsViewController.m */,
+				908D2FCB166E782B007B6078 /* privacy.pdf */,
+				908D2FCC166E782B007B6078 /* terms.pdf */,
+				908D2F4A166E4817007B6078 /* SMContactsSelector */,
 				90993F3C159777BC00FC1D49 /* Supporting Files */,
 				9F34F57115CF0CE30084184B /* ArcClient.h */,
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
@@ -761,6 +834,13 @@
 				906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */,
 				9090204E16266AB2001B8428 /* Default-568h@2x.png in Resources */,
 				908C2590164C0C8700AB3684 /* blueCheck.png in Resources */,
+				908D2F69166E4818007B6078 /* checked.png in Resources */,
+				908D2F6A166E4818007B6078 /* unchecked.png in Resources */,
+				908D2F72166E4818007B6078 /* SMContactsSelector.xib in Resources */,
+				908D2FCD166E782B007B6078 /* privacy.pdf in Resources */,
+				908D2FCE166E782B007B6078 /* terms.pdf in Resources */,
+				908D2FD1166E8D66007B6078 /* boxChecked.png in Resources */,
+				908D2FD2166E8D66007B6078 /* boxEmpty.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,7 +924,6 @@
 				909456B515FEC0710059E65C /* CorbelTextView.m in Sources */,
 				908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */,
 				90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */,
-				9046C35B160A0579008BAE4D /* HelpViewNew.m in Sources */,
 				9097099D1610B3270092A970 /* CreatePinView.m in Sources */,
 				909709A41610E6B30092A970 /* ValidatePinView.m in Sources */,
 				9F7B4D6F1620F3FA007EC356 /* ArcUtility.m in Sources */,
@@ -857,6 +936,11 @@
 				908AA79316684AE00020C1FB /* NoPaymentSourcesViewController.m in Sources */,
 				908AA79B166859F80020C1FB /* ReferFriendViewController.m in Sources */,
 				908AB24916696F4C00A318C8 /* FacebookCheckin.m in Sources */,
+				908D2F67166E4818007B6078 /* Address+Additions.m in Sources */,
+				908D2F68166E4818007B6078 /* NSString+Additions.m in Sources */,
+				908D2F71166E4818007B6078 /* SMContactsSelector.m in Sources */,
+				908D2F73166E4818007B6078 /* UIAlertView+UITableView.m in Sources */,
+				908D2FC5166E76B8007B6078 /* PrivacyTermsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

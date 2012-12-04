@@ -917,7 +917,7 @@
                 
                 post = @"I just made a purchase at @[223133961125265:1:test] via @[334720129933220:answer]";
            
-                NSDictionary *parameters = @{@"message": post};
+                NSDictionary *parameters = @{@"message": post, @"actions":@"Review"};
                 
                 NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed/"];
                 
@@ -937,7 +937,12 @@
                      if (output) {
                          
                      }
-                     //NSLog(@"Output: %@", output);
+                     NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+                     NSLog(@"Output: %@", output);
+                     NSLog(@"Error: %@", error);
+                     NSLog(@"Output: %@", dataString);
+
+
                      
                  }];
                 

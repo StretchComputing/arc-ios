@@ -89,7 +89,7 @@ typedef enum {
 -(BOOL) admin;
 
 -(NSString *)getCurrentUrl;
--(void)referFriend:(NSString *)emailAddress;
+-(void)referFriend:(NSArray *)emailAddresses;
 
 +(void)trackEvent:(NSString *)action;
 

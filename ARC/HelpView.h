@@ -16,5 +16,6 @@
     CustomMoviePlayerViewController *moviePlayer;
 }
 - (IBAction)cancel:(id)sender;
+-(IBAction)contactUs;
 
 @end

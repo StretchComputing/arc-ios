@@ -59,6 +59,8 @@
 
 -(void)changeExpiration;
 
+@property BOOL isPrivacy;
+@property BOOL didAgreePrivacy;
 
 @property (weak, nonatomic)  UITextField *firstNameText;
 @property (weak, nonatomic)  UITextField *lastNameText;
@@ -76,6 +78,8 @@
 @property BOOL registerSuccess;
 @property BOOL fromDwolla;
 
+
+@property (nonatomic, weak) IBOutlet UIImageView *checkedImageView;
 
 
 

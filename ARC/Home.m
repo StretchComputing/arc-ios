@@ -15,7 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
-
+#import "SMContactsSelector.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -43,6 +43,9 @@
     self.retryCount = 0;
     [self getMerchantList];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referFriendComplete:) name:@"referFriendNotification" object:nil];
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
 
@@ -150,7 +153,7 @@
     @try {
 
         
-        
+        self.refreshListButton.hidden = YES;
         self.matchingMerchants = [NSMutableArray array];
         self.searchTextField.delegate = self;
         self.toolbar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
@@ -264,7 +267,7 @@
 -(void)merchantListComplete:(NSNotification *)notification{
     @try {
         
-        self.navigationItem.rightBarButtonItem = nil;
+        self.refreshListButton.hidden = YES;
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
@@ -339,8 +342,7 @@
                     self.retryCount++;
                     [self getMerchantList];
                 }else{
-                    UIBarButtonItem *tmp = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshList)];
-                    self.navigationItem.rightBarButtonItem = tmp;
+                    self.refreshListButton.hidden = NO;
                 }
             }
         }
@@ -640,4 +642,84 @@
 }
 
 
+-(void)inviteFriend{
+    
+    SMContactsSelector *controller = [[SMContactsSelector alloc] initWithNibName:@"SMContactsSelector" bundle:nil];
+    controller.delegate = self;
+    
+    // Select your returned data type
+    controller.requestData = DATA_CONTACT_EMAIL; // , DATA_CONTACT_TELEPHONE
+    
+    // Set your contact list setting record ids (optional)
+    //controller.recordIDs = [NSArray arrayWithObjects:@"1", @"2", nil];
+    
+    //Window show in Modal or not
+    controller.showModal = YES; //Mandatory: YES or NO
+    //Show tick or not
+    controller.showCheckButton = YES; //Mandatory: YES or NO
+    [self presentModalViewController:controller animated:YES];
+    
+}
+
+
+//********Invite a Friend Methods
+
+
+
+
+-(void)referFriendComplete:(NSNotification *)notification{
+    @try {
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        NSString *status = [responseInfo valueForKey:@"status"];
+        NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
+        
+        [self.activity stopAnimating];
+        
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            //success
+            self.errorLabel.text = @"";
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully invited your friend!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            [self.navigationController dismissModalViewControllerAnimated:YES];
+            
+            
+        }else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            // TODO create static values maybe in ArcClient
+            // TODO need real error code from Santiago
+            if(errorCode == 999) {
+                errorMsg = @"Can not find merchants.";
+            } else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        self.errorLabel.text = errorMsg;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ReferFriendViewController.referFriendComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+- (void)numberOfRowsSelected:(NSInteger)numberRows withData:(NSArray *)data andDataType:(DATA_CONTACT)type{
+    
+    if (numberRows == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Email Addresses" message:@"None of the contacts you selected had email addresses entered." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }else{
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        [tmp referFriend:data];
+    }
+    
+}
 @end

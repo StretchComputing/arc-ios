@@ -459,20 +459,25 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 }
 
 
--(void)referFriend:(NSString *)emailAddress{
+-(void)referFriend:(NSArray *)emailAddresses{
     
     @try {
         [rSkybox addEventToSession:@"referFriend"];
         api = ReferFriend;
         
-        NSMutableDictionary *pairs = [NSMutableDictionary dictionary];
+        NSMutableArray *emailAddressArray = [NSMutableArray array];
+        
+        for (int i = 0; i < [emailAddresses count]; i++) {
+            
+            NSMutableDictionary *pairs = [NSMutableDictionary dictionary];            
+            [pairs setValue:[emailAddresses objectAtIndex:i] forKey:@"eMail"];
+            
+            [emailAddressArray addObject:pairs];
+        }
+      
         
         
-        [pairs setValue:emailAddress forKey:@"eMail"];
-        
-        NSMutableArray *pairsArray = [NSMutableArray arrayWithObject:pairs];
-        
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairsArray JSONRepresentation], nil];
+        NSString *requestString = [NSString stringWithFormat:@"%@", [emailAddressArray JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
     
   

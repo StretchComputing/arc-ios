@@ -7,8 +7,9 @@
 //  Made a change
 
 #import <UIKit/UIKit.h>
+#import "SMContactsSelector.h"
 
-@interface Home : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface Home : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate>
 
 @property BOOL successReview;
 @property BOOL skipReview;
@@ -24,7 +25,7 @@
 @property BOOL isLoading;
 @property BOOL shouldCallStop;
 @property BOOL isIos6;
-
+@property (nonatomic, weak) IBOutlet UIButton *refreshListButton;
 
 @property (weak, nonatomic) IBOutlet UIView *activityView;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
@@ -37,6 +38,8 @@
 - (IBAction)refreshMerchants:(id)sender;
 
 -(IBAction)endText;
+-(IBAction)inviteFriend;
+
 @property (nonatomic, weak) IBOutlet UITextField *searchTextField;
 
 
@@ -47,6 +50,8 @@
 @property (nonatomic, strong) NSString *textPull;
 @property (nonatomic, strong) NSString *textRelease;
 @property (nonatomic, strong) NSString *textLoading;
+-(IBAction)refreshList;
 
+@property (nonatomic, strong) NSMutableArray *multipleEmailArray;
 
 @end

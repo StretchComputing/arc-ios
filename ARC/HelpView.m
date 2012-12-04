@@ -35,6 +35,9 @@
     
 }
 
+-(void)contactUs{
+    
+}
 - (void)viewDidLoad
 {
         
