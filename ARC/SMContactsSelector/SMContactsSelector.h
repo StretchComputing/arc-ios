@@ -64,7 +64,8 @@ typedef enum
 - (void)displayChanges:(BOOL)yesOrNO;
 - (void)loadContacts;
 
-
+@property BOOL isIos6;
+@property BOOL didFind;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
 @property (nonatomic, weak) IBOutlet UILabel *activityLabel;
 @property (nonatomic, retain) IBOutlet UITableView *table;
