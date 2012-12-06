@@ -7,6 +7,7 @@
 //
 
 #import "SMContactsSelector.h"
+#import "rSkybox.h"
 
 @interface NSArray (Alphabet)
 
@@ -230,113 +231,127 @@
 
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewDidLoad];
-    self.table.hidden = YES;
-    self.activity.hidden = NO;
-    self.activityLabel.hidden = NO;
-    self.navigationController.navigationBar.hidden = YES;
-    if ((requestData != DATA_CONTACT_TELEPHONE) &&
-        (requestData != DATA_CONTACT_EMAIL) &&
-        (requestData != DATA_CONTACT_ID))
-    {
-        [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+    @try {
+        [super viewDidLoad];
+        self.table.hidden = YES;
+        self.activity.hidden = NO;
+        self.activityLabel.hidden = NO;
+        self.navigationController.navigationBar.hidden = YES;
+        if ((requestData != DATA_CONTACT_TELEPHONE) &&
+            (requestData != DATA_CONTACT_EMAIL) &&
+            (requestData != DATA_CONTACT_ID))
+        {
+            [self.navigationController dismissModalViewControllerAnimated:YES];
+            
+            @throw ([NSException exceptionWithName:@"Undefined data request"
+                                            reason:@"Define requestData variable (EMAIL or TELEPHONE)"
+                                          userInfo:nil]);
+        }
         
-        @throw ([NSException exceptionWithName:@"Undefined data request"
-                                        reason:@"Define requestData variable (EMAIL or TELEPHONE)"
-                                      userInfo:nil]);
-    }
-    
-    NSString *currentLanguage = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] lowercaseString];
-	
-    // Jetzt Spanisch und Englisch nur
-    // Por el momento solo ingles y español
-    // At the moment only Spanish and English
-    // replace by your alphabet
-	if ([currentLanguage isEqualToString:@"es"])
-	{
-		arrayLetters = [[NSArray spanishAlphabet] createList];
-        cancelItem.title = @"Cancelar";
-        doneItem.title = @"Hecho";
-        alertTitle = @"Selecciona";
-	}
-	else
-	{
-		arrayLetters = [[NSArray englishAlphabet] createList];
-        cancelItem.title = @"Cancel";
-        doneItem.title = @"Done";
-        alertTitle = @"Select";
-	}
-    
-	cancelItem.action = @selector(dismiss);
-	doneItem.action = @selector(acceptAction);
-	
-    if (!showModal)
-    {
-        toolBar.hidden = YES;
-        CGRect rect = table.frame;
-        rect.size.height += toolBar.frame.size.height;
-        table.frame = rect;
-        table.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    }
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
-    
-    __block SMContactsSelector *controller = self;
-    
-    // Request authorization to Address Book
-    ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
-    
-    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined)
-    {
-        ABAddressBookRequestAccessWithCompletion(addressBookRef,
-                                                 ^(bool granted, CFErrorRef error) {
-                                                     if (granted)
-                                                         [controller loadContacts];
-                                                     
-                                                 });
-    }
-    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized)
-    {
-        // The user has previously given access, add the contact
-        //[self loadContacts];
-        [self performSelectorInBackground:@selector(loadContacts) withObject:nil];
-
-    }
-    else
-    {
         NSString *currentLanguage = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] lowercaseString];
         
-        NSString *msg = @"";
-        
+        // Jetzt Spanisch und Englisch nur
+        // Por el momento solo ingles y español
+        // At the moment only Spanish and English
+        // replace by your alphabet
         if ([currentLanguage isEqualToString:@"es"])
         {
-            msg = @"No se tiene permiso para obtener los contactos, por favor, actívelo en Preferencias de la privacidad.";
+            arrayLetters = [[NSArray spanishAlphabet] createList];
+            cancelItem.title = @"Cancelar";
+            doneItem.title = @"Hecho";
+            alertTitle = @"Selecciona";
         }
         else
         {
-            msg = @"Unable to get your contacts, enable it on your privacy preferences.";
+            arrayLetters = [[NSArray englishAlphabet] createList];
+            cancelItem.title = @"Cancel";
+            doneItem.title = @"Done";
+            alertTitle = @"Select";
         }
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                        message:msg
-                                                       delegate:self
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:@"OK", nil];
-        alert.tag = 457;
-        [alert show];
+        cancelItem.action = @selector(dismiss);
+        doneItem.action = @selector(acceptAction);
         
-        return;
+        if (!showModal)
+        {
+            toolBar.hidden = YES;
+            CGRect rect = table.frame;
+            rect.size.height += toolBar.frame.size.height;
+            table.frame = rect;
+            table.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        }
+        
+        
+        if(NSClassFromString(@"UIRefreshControl")) {
+            self.isIos6 = YES;
+        }else{
+            self.isIos6 = NO;
+        }
+        
+        if (self.isIos6) {
+            __block SMContactsSelector *controller = self;
+            
+            // Request authorization to Address Book
+            ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
+            
+            if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined)
+            {
+                ABAddressBookRequestAccessWithCompletion(addressBookRef,
+                                                         ^(bool granted, CFErrorRef error) {
+                                                             if (granted)
+                                                                 [controller loadContacts];
+                                                             
+                                                         });
+            }
+            else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized)
+            {
+                // The user has previously given access, add the contact
+                //[self loadContacts];
+                [self performSelectorInBackground:@selector(loadContacts) withObject:nil];
+                
+            }
+            else
+            {
+                NSString *currentLanguage = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] lowercaseString];
+                
+                NSString *msg = @"";
+                
+                if ([currentLanguage isEqualToString:@"es"])
+                {
+                    msg = @"No se tiene permiso para obtener los contactos, por favor, actívelo en Preferencias de la privacidad.";
+                }
+                else
+                {
+                    msg = @"Unable to get your contacts, enable it on your privacy preferences.";
+                }
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                                message:msg
+                                                               delegate:self
+                                                      cancelButtonTitle:nil
+                                                      otherButtonTitles:@"OK", nil];
+                alert.tag = 457;
+                [alert show];
+                
+                return;
+            }
+            
+        }else{
+            [self performSelectorInBackground:@selector(loadContacts) withObject:nil];
+            
+        }
+        
+        
+        selectedRow = [NSMutableArray new];
+        table.editing = NO;
+        table.backgroundColor = [UIColor clearColor];
+
     }
-    
-#else
-    //[self loadContacts];
-    [self performSelectorInBackground:@selector(loadContacts) withObject:nil];
-#endif
-    
-    selectedRow = [NSMutableArray new];
-	table.editing = NO;
-    table.backgroundColor = [UIColor clearColor];
-    
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SMContactSelector.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+
    
 }
 
@@ -358,6 +373,7 @@
             
             for (int i = 0; i < nPeople; i++)
             {
+                
                 ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
                 ABMultiValueRef property = ABRecordCopyValue(person, (requestData == DATA_CONTACT_TELEPHONE) ? kABPersonPhoneProperty : kABPersonEmailProperty);
                 
@@ -544,6 +560,7 @@
                     if ([[[name substringToIndex:1] uppercaseString] isEqualToString:[arrayLetters objectAtIndex:i]])
                     {
                         if ([email length] > 0) {
+                            self.didFind = YES;
                             [array addObject:dict];
                         }
                     }
@@ -566,6 +583,7 @@
           
                     if ((![name isLetter]) && (![name containsNullString]) && ([email length] > 0))
                     {
+                        self.didFind = YES;
                         [array addObject:dict];
                     }
                 }
@@ -575,12 +593,12 @@
             
             
             dataArray = [[NSMutableArray alloc] initWithObjects:info, nil];
-            //NSLog(@"LOGGIN INFO:************************************************************ %@", info);
+            NSLog(@"LOGGIN INFO:************************************************************ %@", info);
             
             self.filteredListContent = [NSMutableArray arrayWithCapacity:[data count]];
         }
         @catch (NSException *exception) {
-            
+             [rSkybox sendClientLog:@"SMContactSelector.loadContacts" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
         }
        
         
@@ -590,6 +608,10 @@
 
 -(void)doneContacts{
     
+    if (!self.didFind) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Email Contacts Found" message:@"Only contacts with a valid email address can be invited.  None of your contacts have an email address enetered." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
     [self.searchDisplayController.searchBar setShowsCancelButton:NO];
     [self.table reloadData];
     self.activity.hidden = YES;
@@ -599,57 +621,63 @@
 
 - (void)acceptAction
 {
-	NSMutableArray *objects = [NSMutableArray new];
-    
-	for (int i = 0; i < [arrayLetters count]; i++)
-	{
-		NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:i]];
-		
-		for (int x = 0; x < [obj count]; x++)
-		{
-			NSMutableDictionary *item = (NSMutableDictionary *)[obj objectAtIndex:x];
-			BOOL checked = [[item objectForKey:@"checked"] boolValue];
+	@try {
+        NSMutableArray *objects = [NSMutableArray new];
+        
+        for (int i = 0; i < [arrayLetters count]; i++)
+        {
+            NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:i]];
             
-			if (checked)
-			{
-                NSString *str = @"";
+            for (int x = 0; x < [obj count]; x++)
+            {
+                NSMutableDictionary *item = (NSMutableDictionary *)[obj objectAtIndex:x];
+                BOOL checked = [[item objectForKey:@"checked"] boolValue];
                 
-				if (requestData == DATA_CONTACT_TELEPHONE) 
+                if (checked)
                 {
-                    str = [item valueForKey:@"telephoneSelected"];
+                    NSString *str = @"";
                     
-                    if (![str isEqualToString:@""]) 
+                    if (requestData == DATA_CONTACT_TELEPHONE)
                     {
-                        [objects addObject:str];
+                        str = [item valueForKey:@"telephoneSelected"];
+                        
+                        if (![str isEqualToString:@""])
+                        {
+                            [objects addObject:str];
+                        }
+                    }
+                    else if (requestData == DATA_CONTACT_EMAIL)
+                    {
+                        str = [item valueForKey:@"emailSelected"];
+                        
+                        if (![str isEqualToString:@""])
+                        {
+                            [objects addObject:str];
+                        }
+                    }
+                    else
+                    {
+                        str = [item valueForKey:@"recordID"];
+                        
+                        if (![str isEqualToString:@""])
+                        {
+                            [objects addObject:str];
+                        }
                     }
                 }
-                else if (requestData == DATA_CONTACT_EMAIL)
-                {
-                    str = [item valueForKey:@"emailSelected"];
-                    
-                    if (![str isEqualToString:@""]) 
-                    {
-                        [objects addObject:str];
-                    }
-                }
-                else
-                {
-                    str = [item valueForKey:@"recordID"];
-                    
-                    if (![str isEqualToString:@""]) 
-                    {
-                        [objects addObject:str];
-                    }
-                }
-			}
-		}
-	}
+            }
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(numberOfRowsSelected:withData:andDataType:)]) 
+            [self.delegate numberOfRowsSelected:[objects count] withData:objects andDataType:requestData];
+        
+        
+        [self dismiss];
+    }
+    @catch (NSException *exception) {
+           [rSkybox sendClientLog:@"SMContactSelector.acceptAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
     
-    if ([self.delegate respondsToSelector:@selector(numberOfRowsSelected:withData:andDataType:)]) 
-        [self.delegate numberOfRowsSelected:[objects count] withData:objects andDataType:requestData];
-    
-    
-	[self dismiss];
 }
 
 - (void)dismiss
@@ -659,158 +687,187 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-		[self tableView:self.searchDisplayController.searchResultsTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
-		[self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
-	}
-	else
-	{
-		[self tableView:self.table accessoryButtonTappedForRowWithIndexPath:indexPath];
-		[self.table deselectRowAtIndexPath:indexPath animated:YES];
-	}	
+	@try {
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+        {
+            [self tableView:self.searchDisplayController.searchResultsTableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+            [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+        else
+        {
+            [self tableView:self.table accessoryButtonTappedForRowWithIndexPath:indexPath];
+            [self.table deselectRowAtIndexPath:indexPath animated:YES];
+        }
+    
+    }
+    @catch (NSException *exception) {
+         [rSkybox sendClientLog:@"SMContactSelector.didSelectRowAtIndexPath" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	static NSString *kCustomCellID = @"MyCellID";
-	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCustomCellID];
-	if (cell == nil)
-	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCustomCellID];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-	}
-	
-	NSMutableDictionary *item = nil;
-	if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        item = (NSMutableDictionary *)[self.filteredListContent objectAtIndex:indexPath.row];
+	@try {
+        static NSString *kCustomCellID = @"MyCellID";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCustomCellID];
+        if (cell == nil)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCustomCellID];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        }
+        
+        NSMutableDictionary *item = nil;
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+        {
+            item = (NSMutableDictionary *)[self.filteredListContent objectAtIndex:indexPath.row];
+        }
+        else
+        {
+            NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:indexPath.section]];
+            
+            item = (NSMutableDictionary *)[obj objectAtIndex:indexPath.row];
+        }
+        
+        cell.textLabel.text = [item objectForKey:@"name"];
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
+        
+        [item setObject:cell forKey:@"cell"];
+        
+        BOOL checked = [[item objectForKey:@"checked"] boolValue];
+        UIImage *image = (checked) ? [UIImage imageNamed:@"checked.png"] : [UIImage imageNamed:@"unchecked.png"];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        if (!showCheckButton)
+            button.hidden = YES;
+        else
+            button.hidden = NO;
+        
+        CGRect frame = CGRectMake(0.0, 0.0, 28, 28);
+        button.frame = frame;
+        
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+        {
+            button.userInteractionEnabled = NO;
+        }
+        
+        [button setBackgroundImage:image forState:UIControlStateNormal];
+        
+        [button addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.accessoryView = button;
+        
+        return cell;
     }
-	else
-	{
-		NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:indexPath.section]];
-		
-		item = (NSMutableDictionary *)[obj objectAtIndex:indexPath.row];
-	}
-    
-	cell.textLabel.text = [item objectForKey:@"name"];
-	cell.textLabel.adjustsFontSizeToFitWidth = YES;
-    
-	[item setObject:cell forKey:@"cell"];
-	
-	BOOL checked = [[item objectForKey:@"checked"] boolValue];
-	UIImage *image = (checked) ? [UIImage imageNamed:@"checked.png"] : [UIImage imageNamed:@"unchecked.png"];
-	
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    if (!showCheckButton)
-        button.hidden = YES;
-    else
-        button.hidden = NO;
-    
-	CGRect frame = CGRectMake(0.0, 0.0, 28, 28);
-	button.frame = frame;
-	
-	if (tableView == self.searchDisplayController.searchResultsTableView) 
-	{
-		button.userInteractionEnabled = NO;
-	}
-	
-	[button setBackgroundImage:image forState:UIControlStateNormal];
-    
-	[button addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-	cell.backgroundColor = [UIColor clearColor];
-	cell.accessoryView = button;
-	
-	return cell;
+    @catch (NSException *exception) {
+        
+        [rSkybox sendClientLog:@"SMContactSelector.cellForRowAtIndexPath" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return [[UITableViewCell alloc] init];
+    }
+  
 }
 
 - (void)checkButtonTapped:(id)sender event:(id)event
 {
-	NSSet *touches = [event allTouches];
-	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView:self.table];
-	NSIndexPath *indexPath = [self.table indexPathForRowAtPoint: currentTouchPosition];
-	
-	if (indexPath != nil)
-	{
-		[self tableView: self.table accessoryButtonTappedForRowWithIndexPath: indexPath];
-	}
+	@try {
+        NSSet *touches = [event allTouches];
+        UITouch *touch = [touches anyObject];
+        CGPoint currentTouchPosition = [touch locationInView:self.table];
+        NSIndexPath *indexPath = [self.table indexPathForRowAtPoint: currentTouchPosition];
+        
+        if (indexPath != nil)
+        {
+            [self tableView: self.table accessoryButtonTappedForRowWithIndexPath: indexPath];
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SMContactSelector.checkButtonTapped" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+   
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {	
-	NSMutableDictionary *item = nil;
-    
-	if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-		item = (NSMutableDictionary *)[filteredListContent objectAtIndex:indexPath.row];
-	}
-	else
-	{
-		NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:indexPath.section]];
-		item = (NSMutableDictionary *)[obj objectAtIndex:indexPath.row];
-	}
-    
-    NSArray *objectsArray = nil;
-    
-    if (requestData == DATA_CONTACT_TELEPHONE)
-        objectsArray = (NSArray *)[[item valueForKey:@"telephone"] componentsSeparatedByString:@","];
-    else if (requestData == DATA_CONTACT_EMAIL)
-        objectsArray = (NSArray *)[[item valueForKey:@"email"] componentsSeparatedByString:@","];
-    else
-        objectsArray = (NSArray *)[[item valueForKey:@"recordID"] componentsSeparatedByString:@","];
-    
-    int objectsCount = [objectsArray count];
-    
-    if (objectsCount > 1)
-    {
-        selectedItem = item;
-        self.currentTable = tableView;
+
+	@try {
+        NSMutableDictionary *item = nil;
         
-        alertTable = [[AlertTableView alloc] initWithCaller:self 
-                                                       data:objectsArray 
-                                                      title:alertTitle
-                                                    context:self
-                                                 dictionary:item
-                                                    section:indexPath.section
-                                                        row:indexPath.row];
-        alertTable.isModal = showModal;
-        [alertTable show];
-    }
-    else
-    {
-        
-        if (showModal) 
+        if (tableView == self.searchDisplayController.searchResultsTableView)
         {
-            BOOL checked = [[item objectForKey:@"checked"] boolValue];
-            
-            [item setObject:[NSNumber numberWithBool:!checked] forKey:@"checked"];
-            
-            UITableViewCell *cell = [item objectForKey:@"cell"];
-            UIButton *button = (UIButton *)cell.accessoryView;
-            
-            UIImage *newImage = (checked) ? [UIImage imageNamed:@"unchecked.png"] : [UIImage imageNamed:@"checked.png"];
-            [button setBackgroundImage:newImage forState:UIControlStateNormal];
-            
-            if (tableView == self.searchDisplayController.searchResultsTableView)
-            {
-                [self.searchDisplayController.searchResultsTableView reloadData];
-                [selectedRow addObject:item];
-            }
+            item = (NSMutableDictionary *)[filteredListContent objectAtIndex:indexPath.row];
         }
         else
         {
-            if ([self.delegate respondsToSelector:@selector(numberOfRowsSelected:withData:andDataType:)])
+            NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:indexPath.section]];
+            item = (NSMutableDictionary *)[obj objectAtIndex:indexPath.row];
+        }
+        
+        NSArray *objectsArray = nil;
+        
+        if (requestData == DATA_CONTACT_TELEPHONE)
+            objectsArray = (NSArray *)[[item valueForKey:@"telephone"] componentsSeparatedByString:@","];
+        else if (requestData == DATA_CONTACT_EMAIL)
+            objectsArray = (NSArray *)[[item valueForKey:@"email"] componentsSeparatedByString:@","];
+        else
+            objectsArray = (NSArray *)[[item valueForKey:@"recordID"] componentsSeparatedByString:@","];
+        
+        int objectsCount = [objectsArray count];
+        
+        if (objectsCount > 1)
+        {
+            selectedItem = item;
+            self.currentTable = tableView;
+            
+            alertTable = [[AlertTableView alloc] initWithCaller:self
+                                                           data:objectsArray
+                                                          title:alertTitle
+                                                        context:self
+                                                     dictionary:item
+                                                        section:indexPath.section
+                                                            row:indexPath.row];
+            alertTable.isModal = showModal;
+            [alertTable show];
+        }
+        else
+        {
+            
+            if (showModal)
             {
-                [self.delegate numberOfRowsSelected:1 
-                                           withData:[NSArray arrayWithObject:[item valueForKey:@"telephoneSelected"]]
-                                        andDataType:requestData];
+                BOOL checked = [[item objectForKey:@"checked"] boolValue];
+                
+                [item setObject:[NSNumber numberWithBool:!checked] forKey:@"checked"];
+                
+                UITableViewCell *cell = [item objectForKey:@"cell"];
+                UIButton *button = (UIButton *)cell.accessoryView;
+                
+                UIImage *newImage = (checked) ? [UIImage imageNamed:@"unchecked.png"] : [UIImage imageNamed:@"checked.png"];
+                [button setBackgroundImage:newImage forState:UIControlStateNormal];
+                
+                if (tableView == self.searchDisplayController.searchResultsTableView)
+                {
+                    [self.searchDisplayController.searchResultsTableView reloadData];
+                    [selectedRow addObject:item];
+                }
+            }
+            else
+            {
+                if ([self.delegate respondsToSelector:@selector(numberOfRowsSelected:withData:andDataType:)])
+                {
+                    [self.delegate numberOfRowsSelected:1 
+                                               withData:[NSArray arrayWithObject:[item valueForKey:@"telephoneSelected"]]
+                                            andDataType:requestData];
+                }
             }
         }
+
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SMContactSelector.acccessoryButtonTappedForRowWithPath" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
 }
 
 #pragma mark
@@ -823,92 +880,105 @@
                     andItem:(NSMutableDictionary *)item
                         row:(int)rowSelected
 {
-    if ([text isEqualToString:@"-1"])
-    {
-        selectedItem = nil;
-        return;
-    }
-    else if ([text isEqualToString:@"-2"])
-    {
-        (requestData == DATA_CONTACT_TELEPHONE) ? [selectedItem setValue:@"" forKey:@"telephoneSelected"] : [selectedItem setValue:@"" forKey:@"emailSelected"];
-        [selectedItem setObject:[NSNumber numberWithBool:NO] forKey:@"checked"];
-        [selectedItem setValue:@"-1" forKey:@"rowSelected"];
-        UITableViewCell *cell = [selectedItem objectForKey:@"cell"];
-        UIButton *button = (UIButton *)cell.accessoryView;
-        
-        UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
-        [button setBackgroundImage:newImage forState:UIControlStateNormal];
-    }
-    else
-    {
-        (requestData == DATA_CONTACT_TELEPHONE) ? [selectedItem setValue:text forKey:@"telephoneSelected"] : [selectedItem setValue:text forKey:@"emailSelected"];
-        [selectedItem setObject:[NSNumber numberWithBool:YES] forKey:@"checked"];
-        
-        UITableViewCell *cell = [selectedItem objectForKey:@"cell"];
-        UIButton *button = (UIButton *)cell.accessoryView;
-        
-        UIImage *newImage = [UIImage imageNamed:@"checked.png"];
-        [button setBackgroundImage:newImage forState:UIControlStateNormal]; 
+    @try {
+        if ([text isEqualToString:@"-1"])
+        {
+            selectedItem = nil;
+            return;
+        }
+        else if ([text isEqualToString:@"-2"])
+        {
+            (requestData == DATA_CONTACT_TELEPHONE) ? [selectedItem setValue:@"" forKey:@"telephoneSelected"] : [selectedItem setValue:@"" forKey:@"emailSelected"];
+            [selectedItem setObject:[NSNumber numberWithBool:NO] forKey:@"checked"];
+            [selectedItem setValue:@"-1" forKey:@"rowSelected"];
+            UITableViewCell *cell = [selectedItem objectForKey:@"cell"];
+            UIButton *button = (UIButton *)cell.accessoryView;
+            
+            UIImage *newImage = [UIImage imageNamed:@"unchecked.png"];
+            [button setBackgroundImage:newImage forState:UIControlStateNormal];
+        }
+        else
+        {
+            (requestData == DATA_CONTACT_TELEPHONE) ? [selectedItem setValue:text forKey:@"telephoneSelected"] : [selectedItem setValue:text forKey:@"emailSelected"];
+            [selectedItem setObject:[NSNumber numberWithBool:YES] forKey:@"checked"];
+            
+            UITableViewCell *cell = [selectedItem objectForKey:@"cell"];
+            UIButton *button = (UIButton *)cell.accessoryView;
+            
+            UIImage *newImage = [UIImage imageNamed:@"checked.png"];
+            [button setBackgroundImage:newImage forState:UIControlStateNormal];
+            
+            if (self.currentTable == self.searchDisplayController.searchResultsTableView)
+            {
+                [self.searchDisplayController.searchResultsTableView reloadData];
+                [selectedRow addObject:selectedItem];
+            }
+        }
         
         if (self.currentTable == self.searchDisplayController.searchResultsTableView)
         {
-            [self.searchDisplayController.searchResultsTableView reloadData];
-            [selectedRow addObject:selectedItem];
+            [filteredListContent replaceObjectAtIndex:rowSelected withObject:item];
         }
-    }
-    
-    if (self.currentTable == self.searchDisplayController.searchResultsTableView)
-	{
-        [filteredListContent replaceObjectAtIndex:rowSelected withObject:item];
-	}
-	else
-	{
-		NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:section]];
-		[obj replaceObjectAtIndex:rowSelected withObject:item];
-	}
-    
-    selectedItem = nil;
-    
-    if (!showModal) 
-    {
-        if ([self.delegate respondsToSelector:@selector(numberOfRowsSelected:withData:andDataType:)])
+        else
         {
-            [self.delegate numberOfRowsSelected:1 
-                                       withData:[NSArray arrayWithObject:[item valueForKey:@"telephoneSelected"]]
-                                    andDataType:requestData];
+            NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:section]];
+            [obj replaceObjectAtIndex:rowSelected withObject:item];
+        }
+        
+        selectedItem = nil;
+        
+        if (!showModal)
+        {
+            if ([self.delegate respondsToSelector:@selector(numberOfRowsSelected:withData:andDataType:)])
+            {
+                [self.delegate numberOfRowsSelected:1
+                                           withData:[NSArray arrayWithObject:[item valueForKey:@"telephoneSelected"]]
+                                        andDataType:requestData];
+            }
         }
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SMContactSelector.didSelectRowSectionWithContext" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-	if (tableView == self.searchDisplayController.searchResultsTableView)
-        return [self.filteredListContent count];
-	
-	int i = 0;
-	NSString *sectionString = [arrayLetters objectAtIndex:section];
-	
-	NSArray *array = (NSArray *)[[dataArray objectAtIndex:0] valueForKey:sectionString];
+	@try {
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+            return [self.filteredListContent count];
+        
+        int i = 0;
+        NSString *sectionString = [arrayLetters objectAtIndex:section];
+        
+        NSArray *array = (NSArray *)[[dataArray objectAtIndex:0] valueForKey:sectionString];
+        
+        for (NSDictionary *dict in array)
+        {
+            NSString *name = [dict valueForKey:@"name"];
+            name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            if (![name isLetter])
+            {
+                i++;
+            }
+            else
+            {
+                if ([[[name substringToIndex:1] uppercaseString] isEqualToString:[arrayLetters objectAtIndex:section]]) 
+                {
+                    i++;
+                }
+            }
+        }
+        
+        return i;
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SMContactSelector.numberOfRowsInSection" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return 0;
+    }
     
-	for (NSDictionary *dict in array)
-	{
-		NSString *name = [dict valueForKey:@"name"];
-		name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
-		
-		if (![name isLetter]) 
-		{
-			i++;
-		}
-		else
-		{
-			if ([[[name substringToIndex:1] uppercaseString] isEqualToString:[arrayLetters objectAtIndex:section]]) 
-			{
-				i++;
-			}
-		}
-	}
-	
-	return i;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView 
@@ -956,50 +1026,56 @@
 
 - (void)displayChanges:(BOOL)yesOrNO
 {
-	int elements = [filteredListContent count];
-	NSMutableArray *selected = [NSMutableArray new];
-	for (int i = 0; i < elements; i++)
-	{
-		NSMutableDictionary *item = (NSMutableDictionary *)[filteredListContent objectAtIndex:i];
-		
-		BOOL checked = [[item objectForKey:@"checked"] boolValue];
-		
-		if (checked)
-		{
-			[selected addObject:item];
-		}
-	}
-	
-	for (int i = 0; i < [arrayLetters count]; i++)
-	{
-		NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:i]];
-		
-		for (int x = 0; x < [obj count]; x++)
-		{
-			NSMutableDictionary *item = (NSMutableDictionary *)[obj objectAtIndex:x];
+	@try {
+        int elements = [filteredListContent count];
+        NSMutableArray *selected = [NSMutableArray new];
+        for (int i = 0; i < elements; i++)
+        {
+            NSMutableDictionary *item = (NSMutableDictionary *)[filteredListContent objectAtIndex:i];
             
-			if (yesOrNO)
-			{
-				for (NSDictionary *d in selected)
-				{
-					if (d == item)
-					{
-						[item setObject:[NSNumber numberWithBool:yesOrNO] forKey:@"checked"];
-					}
-				}
-			}
-			else 
-			{
-				for (NSDictionary *d in selectedRow)
-				{
-					if (d == item)
-					{
-						[item setObject:[NSNumber numberWithBool:yesOrNO] forKey:@"checked"];
-					}
-				}
-			}
-		}
-	}
+            BOOL checked = [[item objectForKey:@"checked"] boolValue];
+            
+            if (checked)
+            {
+                [selected addObject:item];
+            }
+        }
+        
+        for (int i = 0; i < [arrayLetters count]; i++)
+        {
+            NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:i]];
+            
+            for (int x = 0; x < [obj count]; x++)
+            {
+                NSMutableDictionary *item = (NSMutableDictionary *)[obj objectAtIndex:x];
+                
+                if (yesOrNO)
+                {
+                    for (NSDictionary *d in selected)
+                    {
+                        if (d == item)
+                        {
+                            [item setObject:[NSNumber numberWithBool:yesOrNO] forKey:@"checked"];
+                        }
+                    }
+                }
+                else 
+                {
+                    for (NSDictionary *d in selectedRow)
+                    {
+                        if (d == item)
+                        {
+                            [item setObject:[NSNumber numberWithBool:yesOrNO] forKey:@"checked"];
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SMContactSelector.displayChanges" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+
 	
 }
 
@@ -1026,26 +1102,32 @@
 
 - (void)filterContentForSearchText:(NSString *)searchText scope:(NSString*)scope
 {
-	[self.filteredListContent removeAllObjects];
-    
-	for (int i = 0; i < [arrayLetters count]; i++)
-	{
-		NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:i]];
-		
-		for (int x = 0; x < [obj count]; x++)
-		{
-			NSMutableDictionary *item = (NSMutableDictionary *)[obj objectAtIndex:x];
-			
-			NSString *name = [[item valueForKey:@"name"] lowercaseString];
-			name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
-			
-			NSComparisonResult result = [name compare:[searchText lowercaseString] options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-			if (result == NSOrderedSame)
-			{
-				[self.filteredListContent addObject:item];
-			}
-		}
-	}
+	@try {
+        [self.filteredListContent removeAllObjects];
+        
+        for (int i = 0; i < [arrayLetters count]; i++)
+        {
+            NSMutableArray *obj = [[dataArray objectAtIndex:0] valueForKey:[arrayLetters objectAtIndex:i]];
+            
+            for (int x = 0; x < [obj count]; x++)
+            {
+                NSMutableDictionary *item = (NSMutableDictionary *)[obj objectAtIndex:x];
+                
+                NSString *name = [[item valueForKey:@"name"] lowercaseString];
+                name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
+                
+                NSComparisonResult result = [name compare:[searchText lowercaseString] options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+                if (result == NSOrderedSame)
+                {
+                    [self.filteredListContent addObject:item];
+                }
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SMContactSelector.filterContentForSearchText" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+
 }
 
 #pragma mark -
