@@ -118,7 +118,16 @@
         
         if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]){
             
-            NSString *url = [@"tel://" stringByAppendingString:[[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"]];
+            NSString *phoneNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"];
+            
+            phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
+            phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@"(" withString:@""];
+            phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@")" withString:@""];
+
+
+
+            NSString *url = [@"tel://" stringByAppendingString:phoneNumber];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             
             
