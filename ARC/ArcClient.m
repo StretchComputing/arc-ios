@@ -1204,9 +1204,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             [[NSUserDefaults standardUserDefaults] setValue:arcMail forKey:@"arcMail"];
             
             // if account is now inactive, clear out the token and go to login screen
-            // TODO go to login screen
-            if([userStatus isEqualToString:@"I"]) {
-                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *customerToken = [prefs valueForKey:@"customerToken"];
+            if([userStatus isEqualToString:@"I"] && customerToken != nil) {
                 [prefs setObject:nil forKey:@"customerToken"];
                 NSLog(@"GetToken returned UserStatus Inactive -- token has been cleared");
                 
