@@ -110,7 +110,13 @@ static NSString *logNameBeingTimed;
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
     @try {
+#if DEBUG==1
+        logName = [@"ArcDev." stringByAppendingString:logName];
+#endif
+        
+#if RELEASE==1
         logName = [@"Arc." stringByAppendingString:logName];
+#endif
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];
