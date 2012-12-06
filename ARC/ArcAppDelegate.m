@@ -358,8 +358,10 @@
     [prefs setValue:self.appActionsTime forKey:@"appActionsTime"]; [prefs synchronize];
 }
 
--(void)createEndUser{ @autoreleasepool {
-    [rSkybox createEndUser]; }
+-(void)createEndUser{
+    @autoreleasepool {
+    [rSkybox createEndUser];
+    }
 }
 // ***
 

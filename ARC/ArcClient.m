@@ -13,8 +13,8 @@
 
 //NSString *_arcUrl = @"http://68.57.205.193:8700/arc-dev/rest/v1/";    //Jim's Place
 
-NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
-//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+//NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -86,6 +86,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
            [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         }
 
+        
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetServer"];
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -179,7 +180,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
        
-        //NSLog(@"Auth Header: %@", [self authHeader]);
+        NSLog(@"Request: %@", request);
+        
+        NSLog(@"Auth Header: %@", [self authHeader]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -516,6 +519,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
+    
+    NSLog(@"Server Call: %d", api);
     NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
 }
 

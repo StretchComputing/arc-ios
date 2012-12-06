@@ -15,7 +15,7 @@
 #import <Twitter/Twitter.h>
 #import <Social/Social.h>
 #import "Invoice.h"
-#import "Merchant.h"
+//#import "Merchant.h"
 
 @interface ReviewTransaction ()
 
@@ -764,9 +764,9 @@
         
             NSNumber *avgRating = [self getAverageRating];
             if([avgRating doubleValue] > 0) {
-                tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+                tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
             }
-            
+        
             [fbController setInitialText:tweet];
             [fbController addURL:[NSURL URLWithString:@"http://arcmobileapp.com"]];
             [fbController setCompletionHandler:completionHandler];
@@ -915,9 +915,12 @@
                     post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
                 }
                 
-                post = @"I just made a purchase at @[223133961125265:1:test] via @[334720129933220:answer]";
+                //post = @"I just made a purchase at @[223133961125265:1:test] via @[334720129933220:answer]";
            
-                NSDictionary *parameters = @{@"message": post, @"actions":@"Review"};
+                NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"];
+                //facebookId = @"223133961125265";
+                
+                NSDictionary *parameters = @{@"message": post, @"place":facebookId, @"link":@"www.arcmobileapp.com"};
                 
                 NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed/"];
                 

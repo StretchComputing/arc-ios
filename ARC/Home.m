@@ -40,6 +40,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
     self.retryCount = 0;
     [self getMerchantList];
     

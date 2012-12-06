@@ -87,6 +87,8 @@ static NSString *logNameBeingTimed;
         [returnDictionary setValue:statusReturn forKey:@"status"];
         return returnDictionary;
     }
+
+    
 }
 
 
@@ -198,10 +200,11 @@ static NSString *logNameBeingTimed;
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSData *returnData;
-       // NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        //NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object
+        /*
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
         
         SBJsonParser *jsonParser = [SBJsonParser new];
@@ -226,6 +229,7 @@ static NSString *logNameBeingTimed;
             
             
         }
+         */
         
     }
     
@@ -303,6 +307,9 @@ static NSString *logNameBeingTimed;
         
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
+        /*
         NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object
@@ -316,6 +323,7 @@ static NSString *logNameBeingTimed;
         if (![apiStatus isEqualToString:@"100"]) {
             // NSLog(@"Send Crash Failed.");
         }
+         */
     }
     
     @catch (NSException *e) {
@@ -361,6 +369,10 @@ static NSString *logNameBeingTimed;
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
+        
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
+        /*
         NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object
@@ -373,6 +385,7 @@ static NSString *logNameBeingTimed;
         if ([apiStatus isEqualToString:@"100"]) {
             //NSLog(@"Send Feedback Failed.");
         }
+         */
         
     }
     
