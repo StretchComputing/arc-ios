@@ -19,6 +19,9 @@
 
 @implementation NoPaymentSourcesViewController
 
+-(void)cancel{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
 -(void)viewWillAppear:(BOOL)animated{
     
     

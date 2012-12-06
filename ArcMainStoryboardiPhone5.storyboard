@@ -3586,7 +3586,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Payment Info" id="GM8-hd-oEy"/>
+                    <navigationItem key="navigationItem" title="Payment Info" id="GM8-hd-oEy">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="nPv-IC-8gN">
+                            <connections>
+                                <action selector="cancel" destination="fKj-lZ-dBf" id="JXk-Uh-Bjs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="bX5-5s-ZOq" kind="push" identifier="confirmDwolla" id="hxV-NI-Cfh"/>
                         <segue destination="0JH-v4-76k" kind="push" identifier="addCard" id="8Ap-ny-8Aq"/>
@@ -4086,6 +4092,7 @@
         <class className="NoPaymentSourcesViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NoPaymentSourcesViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancel"/>
                 <relationship kind="action" name="creditCard"/>
                 <relationship kind="action" name="dwolla"/>
             </relationships>
@@ -4343,15 +4350,15 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="FVE-NR-da1"/>
-        <segue reference="Jpp-du-aSf"/>
         <segue reference="Oi0-YR-QFH"/>
+        <segue reference="FVE-NR-da1"/>
         <segue reference="NwH-xf-Eq4"/>
-        <segue reference="L6b-sc-kgN"/>
-        <segue reference="FRd-J0-OXc"/>
+        <segue reference="9uW-NG-o9G"/>
         <segue reference="pOd-6P-e5i"/>
+        <segue reference="FRd-J0-OXc"/>
         <segue reference="f4G-VL-9D0"/>
         <segue reference="2SM-S0-l6J"/>
-        <segue reference="9uW-NG-o9G"/>
+        <segue reference="8Ap-ny-8Aq"/>
+        <segue reference="hxV-NI-Cfh"/>
     </inferredMetricsTieBreakers>
 </document>
