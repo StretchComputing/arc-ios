@@ -673,40 +673,28 @@
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
-        NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
         
         [self.activity stopAnimating];
         
         
-        NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
             //success
             self.errorLabel.text = @"";
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully invited your friend!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully invited your friend(s)!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+                        
+            
+        }else{
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Friend Invite Failed." message:@"Sorry, we were unable to send your invite(s) at this time, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
-            [self.navigationController dismissModalViewControllerAnimated:YES];
-            
-            
-        }else if([status isEqualToString:@"error"]){
-            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
-            // TODO create static values maybe in ArcClient
-            // TODO need real error code from Santiago
-            if(errorCode == 999) {
-                errorMsg = @"Can not find merchants.";
-            } else {
-                errorMsg = ARC_ERROR_MSG;
-            }
-        } else {
-            // must be failure -- user notification handled by ArcClient
-            errorMsg = ARC_ERROR_MSG;
         }
         
-        self.errorLabel.text = errorMsg;
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ReferFriendViewController.referFriendComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"Home.referFriendComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
