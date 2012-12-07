@@ -39,7 +39,6 @@
 
 - (void)viewDidLoad
 {
-    [self showDoneButton];
 
     @try {
         
@@ -49,6 +48,8 @@
             self.isIphone5 = NO;
         }
         
+        [self showDoneButton];
+
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Card"];
         self.navigationItem.titleView = navLabel;
         

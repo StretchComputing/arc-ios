@@ -27,7 +27,6 @@
 - (void)viewDidLoad
 {
     
-    [self showDoneButton];
 
     @try {
         
@@ -37,6 +36,8 @@
             self.isIphone5 = NO;
         }
         
+        [self showDoneButton];
+
         [rSkybox addEventToSession:@"viewDwollaPaymentScreen"];
         
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Dwolla"];
