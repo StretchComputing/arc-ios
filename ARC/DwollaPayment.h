@@ -45,4 +45,8 @@
 @property (nonatomic, strong) UITextField *hiddenText;
 
 
+@property BOOL isIphone5;
+@property (nonatomic, strong) UIButton *keyboardSubmitButton;
+@property (nonatomic, strong) UIView *hideKeyboardView;
+
 @end

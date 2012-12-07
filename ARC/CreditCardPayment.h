@@ -45,4 +45,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 
+
+@property BOOL isIphone5;
+@property (nonatomic, strong) UIButton *keyboardSubmitButton;
+@property (nonatomic, strong) UIView *hideKeyboardView;
+
+
 @end

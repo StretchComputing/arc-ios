@@ -17,12 +17,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumSix;
 @property (nonatomic, strong) NSString *paymentsAccepted;
 @property (nonatomic, strong) UIButton *keyboardSubmitButton;
+@property (nonatomic, strong) UIView *hideKeyboardView;
 
 @property BOOL isIphone5;
 @property BOOL helpShowing;
 - (IBAction)submit:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *nameDisplay;
-@property (nonatomic, strong) UIView *hideKeyboardView;
 
 @property (nonatomic, strong) NSString *name;
 
