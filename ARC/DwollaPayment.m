@@ -623,6 +623,8 @@
 
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
+        
+        bool displayAlert = NO;
         self.payButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
         [rSkybox addEventToSession:@"DwollaPaymentComplete"];
@@ -666,6 +668,9 @@
                     errorMsg = @"Over payment. Please check invoice and try again.";
             } else if(errorCode == INVALID_AMOUNT) {
                 errorMsg = @"Invalid amount. Please re-enter payment and try again.";
+            }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
+                errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
+                displayAlert = YES;
             }
             else {
                 errorMsg = ARC_ERROR_MSG;
@@ -676,7 +681,15 @@
         }
         
         if([errorMsg length] > 0) {
-            self.errorLabel.text = errorMsg;
+            if (displayAlert) {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Warning" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                
+            }else{
+                self.errorLabel.text = errorMsg;
+
+            }
         }
     }
     @catch (NSException *e) {

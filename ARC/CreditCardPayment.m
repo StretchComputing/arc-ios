@@ -376,7 +376,7 @@
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
         BOOL editCardOption = NO;
-
+        BOOL displayAlert = NO;
         self.keyboardSubmitButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
 
@@ -427,6 +427,9 @@
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
                 editCardOption = YES;
                 errorMsg = @"Arc Error, Try Again.";
+            }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
+                errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
+                displayAlert = YES;
             }
             else {
                 errorMsg = ARC_ERROR_MSG;
@@ -436,10 +439,16 @@
             errorMsg = ARC_ERROR_MSG;
         }
         
-        if([errorMsg length] > 0) {
+        if (displayAlert) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Warning" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+        }else{
             self.errorLabel.text = errorMsg;
+            
         }
-                
+        
         if (editCardOption) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
             [alert show];
