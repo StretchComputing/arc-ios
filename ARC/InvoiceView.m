@@ -242,6 +242,9 @@
     
     [self.scrollView setContentSize:CGSizeMake(300, bottomViewY + yValue + 50)];
     
+    // this method is called after refresh too, so tip may need to be recalculated
+    [self segmentSelect];
+    
 }
 
 -(void)willAppearSetup{
@@ -703,7 +706,7 @@
             tipPercent = .18;
         }else if (self.tipSegment.selectedSegmentIndex == 1){
             tipPercent = .20;
-        }else{
+        }else if (self.tipSegment.selectedSegmentIndex == 2){
             tipPercent = .22;
         }
         

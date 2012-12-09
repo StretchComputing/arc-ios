@@ -256,6 +256,11 @@
     }
     
     [self.itemTableView reloadData];
+    // since the reloading of the itemized table clears all the selections, we must clear the tip as well
+    // TODO maybe in the future, when reloading the items, remember which ones were selected and try to re-select them?
+    self.itemTipText.text = @"0.0";
+    //self.itemTipSegment.selectedSegmentIndex = -1;
+    self.itemTotal = 0.0;
 
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

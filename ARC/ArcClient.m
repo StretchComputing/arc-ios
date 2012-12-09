@@ -137,6 +137,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSMutableDictionary *loginDictionary = [ NSMutableDictionary dictionary];
         [loginDictionary setValue:login forKey:@"Login"];
         [loginDictionary setValue:password forKey:@"Password"];
+        // the phone always sets activate to true. The website never does. Only the phone can reactivate a user.
+        NSNumber *activate = [NSNumber numberWithBool:YES];
+        [loginDictionary setValue:activate forKey:@"Activate"];
 
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
@@ -1188,6 +1191,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             NSString *arcPhoneNumber = [[response valueForKey:@"Results"] valueForKey:@"ArcPhoneNumber"];
             NSString *arcMail = [[response valueForKey:@"Results"] valueForKey:@"ArcMail"];
             NSString *userStatus = [[response valueForKey:@"Results"] valueForKey:@"UserStatus"];
+            NSString *loginType = [[response valueForKey:@"Results"] valueForKey:@"LoginType"];
             
             if (serverName && ([serverName length] > 0)) {
                 NSString *scheme = @"https";
@@ -1203,6 +1207,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             [[NSUserDefaults standardUserDefaults] setValue:arcFacebookHandler forKey:@"arcFacebookHandler"];
             [[NSUserDefaults standardUserDefaults] setValue:arcPhoneNumber forKey:@"arcPhoneNumber"];
             [[NSUserDefaults standardUserDefaults] setValue:arcMail forKey:@"arcMail"];
+            [[NSUserDefaults standardUserDefaults] setValue:loginType forKey:@"arcLoginType"];
             
             // if account is now inactive, clear out the token and go to login screen
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -1247,7 +1252,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
         [ tempDictionary setObject:customerId forKey:@"EntityId"]; //get from auth header?
-        [ tempDictionary setObject:@"LOGIN_TYPE_CUSTOMER" forKey:@"EntityType"]; //get from auth header?
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *loginType = [prefs valueForKey:@"arcLoginType"];
+        [ tempDictionary setObject:loginType forKey:@"EntityType"];
         
         [ tempDictionary setObject:@0.0 forKey:@"Latitude"];//optional
         [ tempDictionary setObject:@0.0 forKey:@"Longitude"];//optional
