@@ -241,7 +241,7 @@
             self.pointsDisplayLabel.text = [NSString stringWithFormat:@"Current Points: %d   -   Level %d", balance, 1];
             
             self.lifetimePointsLabel.text = [NSString stringWithFormat:@"Lifetime Points: %d", lifetime];
-            self.pointsProgressView.progress = (float)balance/900.00;
+            self.pointsProgressView.progress = (float)balance/1000.00;
             self.lifetimePointsProgressView.progress = (float)lifetime/100000.0;
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];

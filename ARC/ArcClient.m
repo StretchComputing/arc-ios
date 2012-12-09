@@ -895,7 +895,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             successful = FALSE;
         }
         
-        [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed successfully" successful:successful];
+        [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed" successful:successful];
         return responseInfo;
     }
     @catch (NSException *e) {
@@ -921,7 +921,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             successful = FALSE;
         }
         
-        [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed successfully" successful:successful];
+        [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
 
         return responseInfo;
     }
