@@ -60,7 +60,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
            _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
-        NSLog(@"***** Arc URL = %@ *****", _arcUrl);
+       // NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
 }
@@ -175,7 +175,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         //NSLog(@"getMerchantList requestString = %@", requestString);
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants/list", _arcUrl, nil];
-        NSLog(@"GertMerchantList URL = %@", getMerchantListUrl);
+        //NSLog(@"GertMerchantList URL = %@", getMerchantListUrl);
         
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getMerchantListUrl]];
@@ -184,9 +184,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
        
-        NSLog(@"Request: %@", request);
+        //NSLog(@"Request: %@", request);
         
-        NSLog(@"Auth Header: %@", [self authHeader]);
+       // NSLog(@"Auth Header: %@", [self authHeader]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetMerchantList"];
@@ -524,8 +524,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
     
-    NSLog(@"Server Call: %d", api);
-    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
+    //NSLog(@"Server Call: %d", api);
+    //NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
 }
 
 
@@ -538,7 +538,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        NSLog(@"ReturnString: %@", returnString);
+        //NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -602,7 +602,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             notificationType = @"resetPasswordNotification";
         }else if(api == TrackEvent) {
             if (response && httpSuccess) {
-                responseInfo = [self trackEventResponse:response];
+                //responseInfo = [self trackEventResponse:response];
             }
             postNotification = NO;
         }else if (api == GetServer){
@@ -1224,7 +1224,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             NSString *customerToken = [prefs valueForKey:@"customerToken"];
             if([userStatus isEqualToString:@"I"] && customerToken != nil) {
                 [prefs setObject:nil forKey:@"customerToken"];
-                NSLog(@"GetToken returned UserStatus Inactive -- token has been cleared");
+                //NSLog(@"GetToken returned UserStatus Inactive -- token has been cleared");
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"customerDeactivatedNotification" object:self userInfo:nil];
 
@@ -1298,7 +1298,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     @try{
         NSDate *startTime = [NSDate date];
         [latencyStartTimes setObject:startTime forKey:[NSNumber numberWithInt:api]];
-        NSLog(@"size of latencyStartTimes dictionary = %d", [latencyStartTimes count]);
+        //NSLog(@"size of latencyStartTimes dictionary = %d", [latencyStartTimes count]);
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.startLatency" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -1309,7 +1309,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     @try{
         NSDate *startTime = [latencyStartTimes objectForKey:[NSNumber numberWithInt:api]];
         if(startTime == nil) {
-            NSLog(@"endLatency() could not retrieve startTime");
+            //NSLog(@"endLatency() could not retrieve startTime");
             return;
         }
         
@@ -1324,7 +1324,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         } 
         NSTimeInterval milliseconds = [[NSDate date] timeIntervalSinceDate:startTime] * 1000;
         NSInteger roundedMilliseconds = milliseconds;
-        NSLog(@"total latency for %@ API in milliseconds = %@", apiName, [NSString stringWithFormat:@"%d", roundedMilliseconds]);
+        //NSLog(@"total latency for %@ API in milliseconds = %@", apiName, [NSString stringWithFormat:@"%d", roundedMilliseconds]);
         
         
         [ArcClient trackEvent:activity activityType:@"Performance" measureType:@"Milliseconds" measureValue:[NSNumber numberWithInt:roundedMilliseconds] successful:successful];
