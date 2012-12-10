@@ -567,11 +567,17 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         } else if(api == GetInvoice) {
             if (response && httpSuccess) {
                 responseInfo = [self getInvoiceResponse:response];
+            } else {
+                BOOL successful = FALSE;
+                [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed" successful:successful];
             }
             notificationType = @"invoiceNotification";
         } else if(api == CreatePayment) {
             if (response && httpSuccess) {
                 responseInfo = [self createPaymentResponse:response];
+            } else {
+                BOOL successful = FALSE;
+                [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
             }
             notificationType = @"createPaymentNotification";
         } else if(api == CreateReview) {
@@ -623,7 +629,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         }
         
         if(!httpSuccess) {
-            // failure scenario -- HTTP error code returned -- for this processing, we don't care which one
+            // failure scenario -- HTTP error code returned -- for this processing, we don't care which API failed
             NSString *errorMsg = [NSString stringWithFormat:@"HTTP Status Code:%d for API %@", self.httpStatusCode, [self apiToString]];
             responseInfo = @{@"status": @"fail", @"error": @0};
             [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:errorMsg logLevel:@"error" exception:nil];
@@ -663,8 +669,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             notificationType = @"merchantListNotification";
         } else if(api == GetInvoice) {
             notificationType = @"invoiceNotification";
+            BOOL successful = FALSE;
+            [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed" successful:successful];
         } else if(api == CreatePayment) {
             notificationType = @"createPaymentNotification";
+            BOOL successful = FALSE;
+            [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
         } else if(api == CreateReview) {
             notificationType = @"createReviewNotification";
         } else if(api == GetPointBalance) {
