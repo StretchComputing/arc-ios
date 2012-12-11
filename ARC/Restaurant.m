@@ -437,6 +437,9 @@
 - (IBAction)checkNumberHelp {
     @try {
         
+        [self.hideKeyboardView removeFromSuperview];
+        self.hideKeyboardView = nil;
+        
         self.helpShowing = YES;
         
         self.checkHelpImageView.hidden = NO;
@@ -466,6 +469,7 @@
     @try {
         
         if (self.helpShowing) {
+            
             self.helpShowing = NO;
             self.checkHelpImageView.hidden = YES;
             
@@ -479,6 +483,11 @@
             
             self.nameDisplay.hidden = NO;
             self.submitButton.enabled = YES;
+            
+            if ([self.hiddenText.text length] > 0) {
+                [self showDoneButton];
+            }
+
             
             
         }

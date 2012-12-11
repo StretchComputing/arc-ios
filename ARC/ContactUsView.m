@@ -80,7 +80,7 @@
             [prefs setValue:@"630-215-6979" forKey:@"arcPhoneNumber"];
         }
         
-        if (![prefs valueForKey:@"arcPhoneNumber"]) {
+        if (![prefs valueForKey:@"arcMail"]) {
             [prefs setValue:@"support@arcmobileapp.com" forKey:@"arcMail"];
         }
         

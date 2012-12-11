@@ -139,7 +139,7 @@
         
         
         
-        [self setUpView];
+        [self setUpView:YES];
         
         [super viewDidLoad];
 
@@ -195,7 +195,8 @@
 
 }
 
--(void)setUpView{
+-(void)setUpView:(BOOL)isInitialDisplay{
+    
     self.serviceChargePercentage = self.myInvoice.serviceCharge / self.myInvoice.taxableAmount;
     self.taxPercentage = self.myInvoice.tax / self.myInvoice.taxableAmount;
     self.discountPercentage = self.myInvoice.discount / self.myInvoice.subtotal;
@@ -213,12 +214,17 @@
     self.dollarTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
     self.dollarAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice calculateAmountPaid]];
     self.dollarAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDueForSplit]];
-    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
+    
+    if (isInitialDisplay) {
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
+    }
     
     self.percentTotalBillLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDue]];
     self.percentAmountPaidLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice calculateAmountPaid]];
     self.percentAmountDueLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice amountDueForSplit]];
-    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
+    if (isInitialDisplay) {
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
+    }
     
     self.itemYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", 0.0];
     
@@ -261,6 +267,9 @@
     self.itemTipText.text = @"0.0";
     //self.itemTipSegment.selectedSegmentIndex = -1;
     self.itemTotal = 0.0;
+    self.itemTaxLabel.text = @"0.00";
+    self.itemServiceChargeLabel.text = @"0.00";
+    
 
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -314,6 +323,8 @@
     [self.dollarYourPaymentText resignFirstResponder];
     [self.itemTipText resignFirstResponder];
     [self.percentTipText resignFirstResponder];
+    [self.itemSplitItemYourAmount resignFirstResponder];
+    
 
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -426,32 +437,39 @@
 
     }else{
         
-        double basePayment = 0.0;
-        
-        if (buttonIndex == 1) {
+        if (buttonIndex == 0) {
+            //Try again
+        }else{
+            //Pay Remaining
+            double basePayment = 0.0;
+            
             basePayment = [self.myInvoice amountDueForSplit];
-        }
-        
-        NSString *yourBaseAmount = @"";
-        if(basePayment > 0.0) {
-            yourBaseAmount = [NSString stringWithFormat:@"%.2f", basePayment];
-        }
-        
-        if(self.dollarView.hidden == NO) {
-            self.dollarYourPaymentText.text = yourBaseAmount;
-            double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
-            self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
-        } else if(self.percentView.hidden == NO) {
-            self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", basePayment];
-            self.percentYourPayment = basePayment;
-            self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + [self.percentTipText.text doubleValue])];
-            double percentRemaining = ([self.myInvoice amountDueForSplit]/[self.myInvoice amountDue]) * 100;
-            self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", percentRemaining];
-            if(basePayment == 0.0) {
-                self.percentYourPaymentText.text = @"";
+            
+            
+            NSString *yourBaseAmount = @"";
+            if(basePayment > 0.0) {
+                yourBaseAmount = [NSString stringWithFormat:@"%.2f", basePayment];
             }
-        }
+            
+            if(self.dollarView.hidden == NO) {
+                self.dollarYourPaymentText.text = yourBaseAmount;
+                double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
+                self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
+            } else if(self.percentView.hidden == NO) {
+                self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", basePayment];
+                self.percentYourPayment = basePayment;
+                self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + [self.percentTipText.text doubleValue])];
+                double percentRemaining = ([self.myInvoice amountDueForSplit]/[self.myInvoice amountDue]) * 100;
+                self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.2f", percentRemaining];
+                if(basePayment == 0.0) {
+                    self.percentYourPaymentText.text = @"";
+                }
+            }
 
+            
+            
+        }
+       
     }
    
 }
@@ -459,119 +477,171 @@
 - (IBAction)dollarPayNow:(id)sender {
     @try {
         
+        BOOL didAlert = NO;
         [rSkybox addEventToSession:@"clickedDollarPayButton"];
         
-        [self.dollarTipText resignFirstResponder];
         
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
-        
-        BOOL haveDwolla;
-        BOOL haveCards;
-        BOOL showSheet = YES;
-        [self readyInvoiceForPayment];
-        double totalPay = self.myInvoice.basePaymentAmount + self.myInvoice.gratuity;
-        
-        if (totalPay <= 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"You must pay more than $0.00 to continue" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return;
-        }
-
-        if ([self.creditCards count] == 0) {
-            haveCards = NO;
-        }else{
-            haveCards = YES;
-        }
-        
-        NSString *token;
-        
-        @try {
-            token = [DwollaAPI getAccessToken];
-        }
-        @catch (NSException *exception) {
+        if (self.percentView.hidden == NO) {
             
-        }
-        
-        if ([token length] > 0) {
-            haveDwolla = YES;
-        }else{
-            haveDwolla = NO;
-        }
-        
-        if (haveDwolla || haveCards) {         
+            double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
+            double basePayment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+            if (basePayment < 0.0) {
+                basePayment = 0.0;
+            }
             
             
-            NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
-            BOOL didRemove = NO;
-            for (int i = 0; i < [tmpCards count]; i++) {
+            if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
                 
-                CreditCard *tmp = [tmpCards objectAtIndex:i];
+                didAlert = YES;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
                 
-                if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
-                    [tmpCards removeObjectAtIndex:i];
-                    i--;
-                    didRemove = YES;
-                }
+                [alert show];
+            }
+            
+        }else if (self.dollarView.hidden == NO){
+            
+            double basePayment = [self.dollarYourPaymentText.text doubleValue];
+            if (basePayment < 0.0) {
+                basePayment = 0.0;
+            }
+            
+            if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
+                didAlert = YES;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
+                
+                [alert show];
+            }
+            
+        }else{
+            
+            double basePayment = self.itemTotal + self.itemTotal*self.taxPercentage + self.itemTotal+self.serviceChargePercentage;
+            
+            if (basePayment < 0.0) {
+                basePayment = 0.0;
+            }
+            
+            if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
+                didAlert = YES;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Your payment currently exceeds the amount remaining, please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                
+                [alert show];
+            }
+        }
+        
+        if (!didAlert) {
+            [self.dollarTipText resignFirstResponder];
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+            
+            BOOL haveDwolla;
+            BOOL haveCards;
+            BOOL showSheet = YES;
+            [self readyInvoiceForPayment];
+            double totalPay = self.myInvoice.basePaymentAmount + self.myInvoice.gratuity;
+            
+            if (totalPay <= 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"You must pay more than $0.00 to continue" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return;
+            }
+            
+            if ([self.creditCards count] == 0) {
+                haveCards = NO;
+            }else{
+                haveCards = YES;
+            }
+            
+            NSString *token;
+            
+            @try {
+                token = [DwollaAPI getAccessToken];
+            }
+            @catch (NSException *exception) {
                 
             }
-            self.creditCards = [NSArray arrayWithArray:tmpCards];
             
+            if ([token length] > 0) {
+                haveDwolla = YES;
+            }else{
+                haveDwolla = NO;
+            }
             
-            if ([self.creditCards count] > 0) {
+            if (haveDwolla || haveCards) {
                 
-                self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
                 
-                if (haveDwolla) {
-                    [self.actionSheet addButtonWithTitle:@"Dwolla"];
-                }
-                
-                for (int i = 0; i < [self.creditCards count]; i++) {
-                    CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
+                BOOL didRemove = NO;
+                for (int i = 0; i < [tmpCards count]; i++) {
+                    
+                    CreditCard *tmp = [tmpCards objectAtIndex:i];
+                    
+                    if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
+                        [tmpCards removeObjectAtIndex:i];
+                        i--;
+                        didRemove = YES;
+                    }
                     
                 }
-                [self.actionSheet addButtonWithTitle:@"Cancel"];
-                self.actionSheet.cancelButtonIndex = [self.creditCards count] + 1;
+                self.creditCards = [NSArray arrayWithArray:tmpCards];
                 
-            }else {
-               
-                if (haveDwolla) {
-                    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                
+                if ([self.creditCards count] > 0) {
+                    
+                    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                    
+                    if (haveDwolla) {
+                        [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                    }
+                    
+                    for (int i = 0; i < [self.creditCards count]; i++) {
+                        CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                        
+                    }
+                    [self.actionSheet addButtonWithTitle:@"Cancel"];
+                    self.actionSheet.cancelButtonIndex = [self.creditCards count] + 1;
+                    
+                }else {
+                    
+                    if (haveDwolla) {
+                        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                    }else{
+                        
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Excepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                        
+                        didRemove = NO;
+                        showSheet = NO;
+                        [self noPaymentSources];
+                        
+                        
+                    }
+                    
+                }
+                
+                self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+                
+                
+                if (didRemove) {
+                    self.removeAlertView = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [self.removeAlertView show];
                 }else{
                     
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Excepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                    [alert show];
-                    
-                    didRemove = NO;
-                    showSheet = NO;
-                    [self noPaymentSources];
-                    
+                    if (showSheet) {
+                        [self.actionSheet showInView:self.view];
+                    }
                     
                 }
                 
-            }
-            
-            self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-            
-            
-            if (didRemove) {
-                self.removeAlertView = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [self.removeAlertView show];
             }else{
                 
-                if (showSheet) {
-                    [self.actionSheet showInView:self.view];
-                }
-            
+                [self noPaymentSources];
+                
             }
-            
-        }else{
-        
-            [self noPaymentSources];
 
         }
-       
+               
         
     }
     @catch (NSException *e) {
@@ -1160,36 +1230,58 @@
 
 - (IBAction)itemSplitItemSave {
     
-    self.itemSplitItemView.hidden = YES;
     NSDictionary *tmp = [self.itemArray objectAtIndex:self.itemSplitItemIndex];
-
     
     double initValue = [[tmp valueForKey:@"splitValue"] doubleValue];
     double value = [self.itemSplitItemYourAmount.text doubleValue];
     
-    [tmp setValue:[NSString stringWithFormat:@"%f", value] forKey:@"myAmount"];
     
-    if ([[tmp valueForKey:@"selected"] isEqualToString:@"yes"]) {
-        [tmp setValue:@"maybe" forKey:@"selected"];
-        self.itemTotal -= initValue;
-        self.itemTotal += value;
+    if (value > initValue) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"Please enter an amount that is less than this item's price." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
         
     }else{
-        [tmp setValue:@"maybe" forKey:@"selected"];
-        self.itemTotal += value;
+        self.itemSplitItemView.hidden = YES;
+
+        double oldPartial = 0.0;
+        if ([tmp valueForKey:@"myAmount"]) {
+            oldPartial = [[tmp valueForKey:@"myAmount"] doubleValue];
+        }
+        
+        [tmp setValue:[NSString stringWithFormat:@"%f", value] forKey:@"myAmount"];
+        
+        if ([[tmp valueForKey:@"selected"] isEqualToString:@"yes"]) {
+            [tmp setValue:@"maybe" forKey:@"selected"];
+            self.itemTotal -= initValue;
+            self.itemTotal += value;
+            
+        }else if ([[tmp valueForKey:@"selected"] isEqualToString:@"maybe"]){
+            
+            self.itemTotal -= oldPartial;
+            self.itemTotal += value;
+            
+            
+        } else{
+            
+            [tmp setValue:@"maybe" forKey:@"selected"];
+            self.itemTotal += value;
+        }
+        
+        
+        self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.taxPercentage * self.itemTotal];
+        self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.serviceChargePercentage * self.itemTotal];
+        
+        [self showItemTotal];
+        [self.itemTableView reloadData];
+        self.itemSplitItemSegControl.selectedSegmentIndex = -1;
+        
+        
+        [self itemTipSegmentSelect];
+        
+
     }
-    
-    
-    self.itemTaxLabel.text = [NSString stringWithFormat:@"$%.2f", self.taxPercentage * self.itemTotal];
-    self.itemServiceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", self.serviceChargePercentage * self.itemTotal];
-    
-    [self showItemTotal];
-    [self.itemTableView reloadData];
-    self.itemSplitItemSegControl.selectedSegmentIndex = -1;
-
-
-    [self itemTipSegmentSelect];
-
+   
 }
 
 // TODO don't think this method is still used
@@ -1372,7 +1464,7 @@
             self.myInvoice.payments = [NSArray arrayWithArray:[theInvoice valueForKey:@"Payments"]];
             self.myInvoice.paymentsAccepted = self.paymentsAccepted;
             
-            [self setUpView];
+            [self setUpView:NO];
             [self changePreviousView];
             
         } else if([status isEqualToString:@"error"]){
