@@ -489,8 +489,10 @@
                 basePayment = 0.0;
             }
             
+            double roundDown = [ArcUtility roundDownToNearestPenny:basePayment];
             
-            if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
+            
+            if (roundDown > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
                 
                 didAlert = YES;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
@@ -505,7 +507,9 @@
                 basePayment = 0.0;
             }
             
-            if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
+            double roundDown = [ArcUtility roundDownToNearestPenny:basePayment];
+
+            if (roundDown > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
                 didAlert = YES;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
                 
@@ -514,13 +518,15 @@
             
         }else{
             
-            double basePayment = self.itemTotal + self.itemTotal*self.taxPercentage + self.itemTotal+self.serviceChargePercentage;
+            double basePayment = self.itemTotal + self.itemTotal*self.taxPercentage + self.itemTotal*self.serviceChargePercentage;
             
             if (basePayment < 0.0) {
                 basePayment = 0.0;
             }
             
-            if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
+            double roundDown = [ArcUtility roundDownToNearestPenny:basePayment];
+
+            if (roundDown > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
                 didAlert = YES;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Your payment currently exceeds the amount remaining, please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 
