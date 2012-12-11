@@ -859,43 +859,52 @@
         ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
         
         [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-            if(granted) {
-                NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-                
-                if ([accountsArray count] > 0) {
+            
+            @try {
+                if(granted) {
+                    NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
                     
-                    NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with %@!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantTwitterHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcTwitterHandler"]];
-                    
-                    NSNumber *avgRating = [self getAverageRating];
-                    if([avgRating doubleValue] > 0) {
-                        tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
-                    }
-                    
-                    
-                    ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
-                    
-                    SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                                requestMethod:SLRequestMethodPOST
-                                                                          URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
-                                                                   parameters:[NSDictionary dictionaryWithObject:tweet forKey:@"status"]];
-                    
-                    [postRequest setAccount:twitterAccount];
-                    
-                    [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                        NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                        if (output) {
-                            
+                    if ([accountsArray count] > 0) {
+                        
+                        NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with %@!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantTwitterHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcTwitterHandler"]];
+                        
+                        NSNumber *avgRating = [self getAverageRating];
+                        if([avgRating doubleValue] > 0) {
+                            tweet = [tweet stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
                         }
-                        //NSLog(@"%@", output);
-                        //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
-                    }];
-                    
+                        
+                        
+                        ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
+                        
+                        SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                                    requestMethod:SLRequestMethodPOST
+                                                                              URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
+                                                                       parameters:[NSDictionary dictionaryWithObject:tweet forKey:@"status"]];
+                        
+                        [postRequest setAccount:twitterAccount];
+                        
+                        [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                            NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                            if (output) {
+                                
+                            }
+                            //NSLog(@"%@", output);
+                            //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
+                        }];
+                        
+                    }
+                }else{
+                    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                    [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+                    [prefs synchronize];
                 }
-            }else{
-                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                [prefs setValue:@"no" forKey:@"autoPostTwitter"];
-                [prefs synchronize];
+
             }
+            @catch (NSException *exception) {
+                [rSkybox sendClientLog:@"ReviewTransaction.autoPostTwitter.Completion" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+            }
+         
+        
         }];
 
     }
@@ -915,39 +924,49 @@
         ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
         
         [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-            if(granted) {
-                NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-                
-                if ([accountsArray count] > 0) {
+            
+            @try {
+                if(granted) {
+                    NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
                     
-                    NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with %@!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantTwitterHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcTwitterHandler"]];
-                    
-                 
-                    
-                    ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
-                    
-                    SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                                requestMethod:SLRequestMethodPOST
-                                                                          URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
-                                                                   parameters:[NSDictionary dictionaryWithObject:tweet forKey:@"status"]];
-                    
-                    [postRequest setAccount:twitterAccount];
-                    
-                    [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                        NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                        if (output) {
-                            
-                        }
-                        //NSLog(@"%@", output);
-                        //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
-                    }];
-                    
+                    if ([accountsArray count] > 0) {
+                        
+                        NSString *tweet = [NSString stringWithFormat:@"I just made a purchase at %@ with %@!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantTwitterHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcTwitterHandler"]];
+                        
+                        
+                        
+                        ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
+                        
+                        SLRequest* postRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                                    requestMethod:SLRequestMethodPOST
+                                                                              URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
+                                                                       parameters:[NSDictionary dictionaryWithObject:tweet forKey:@"status"]];
+                        
+                        [postRequest setAccount:twitterAccount];
+                        
+                        [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                            NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                            if (output) {
+                                
+                            }
+                            //NSLog(@"%@", output);
+                            //[self performSelectorOnMainThread:@selector(displayText:) withObject:output waitUntilDone:NO];
+                        }];
+                        
+                    }
+                }else{
+                    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                    [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+                    [prefs synchronize];
                 }
-            }else{
-                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                [prefs setValue:@"no" forKey:@"autoPostTwitter"];
-                [prefs synchronize];
+
             }
+            @catch (NSException *exception) {
+                
+                [rSkybox sendClientLog:@"ReviewTransaction.autoPostTwitterSkip.Completion" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+            }
+           
+        
         }];
         
     }
@@ -972,63 +991,80 @@
                                         [NSArray arrayWithObjects:@"publish_stream", @"publish_checkins", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
         
         [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
-            if (granted && error == nil) {
-                //NSLog(@"Granted");
-                
-                NSArray *accounts = [self.store accountsWithAccountType:accType];
-                ACAccount *facebookAccount = [accounts objectAtIndex:0];
-                
-                //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
-                NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
-                NSNumber *avgRating = [self getAverageRating];
-                if([avgRating doubleValue] > 0) {
-                    post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
-                }
-                
-                //post = @"I just made a purchase at @[223133961125265:1:test] via @[334720129933220:answer]";
-           
-                NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"];
-                //facebookId = @"223133961125265";
-                
-                NSDictionary *parameters = @{@"message": post, @"place":facebookId, @"link":@"www.arcmobileapp.com"};
-                
-                NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed/"];
-                
-                SLRequest *feedRequest = [SLRequest
-                                          requestForServiceType:SLServiceTypeFacebook
-                                          requestMethod:SLRequestMethodPOST
-                                          URL:feedURL
-                                          parameters:parameters];
-                
-                feedRequest.account = facebookAccount;
-                
-                [feedRequest performRequestWithHandler:^(NSData *responseData,
-                                                         NSHTTPURLResponse *urlResponse, NSError *error)
-                 {
-                     // Handle response
-                     NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                     if (output) {
+            
+            @try {
+                if (granted && error == nil) {
+                    //NSLog(@"Granted");
+                    
+                    NSArray *accounts = [self.store accountsWithAccountType:accType];
+                    ACAccount *facebookAccount = [accounts objectAtIndex:0];
+                    
+                    //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
+                    NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+                    NSNumber *avgRating = [self getAverageRating];
+                    if([avgRating doubleValue] > 0) {
+                        post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
+                    }
+                    
+                    //post = @"I just made a purchase at @[223133961125265:1:test] via @[334720129933220:answer]";
+                    
+                    NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"];
+                    //facebookId = @"223133961125265";
+                    
+                    NSDictionary *parameters;
+                    if (facebookId) {
+                        parameters = @{@"message": post, @"place":facebookId, @"link":@"www.arcmobileapp.com"};
+                    }else{
+                        parameters = @{@"message": post, @"link":@"www.arcmobileapp.com"};
+
+                    }
+                    
+                    NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed/"];
+                    
+                    SLRequest *feedRequest = [SLRequest
+                                              requestForServiceType:SLServiceTypeFacebook
+                                              requestMethod:SLRequestMethodPOST
+                                              URL:feedURL
+                                              parameters:parameters];
+                    
+                    feedRequest.account = facebookAccount;
+                    
+                    [feedRequest performRequestWithHandler:^(NSData *responseData,
+                                                             NSHTTPURLResponse *urlResponse, NSError *error)
+                     {
+                         // Handle response
+                         NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                         if (output) {
+                             
+                         }
+                         NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+                         NSLog(@"Output: %@", output);
+                         NSLog(@"Error: %@", error);
+                         NSLog(@"Output: %@", dataString);
                          
-                     }
-                     NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-                     NSLog(@"Output: %@", output);
-                     NSLog(@"Error: %@", error);
-                     NSLog(@"Output: %@", dataString);
+                         
+                         
+                     }];
+                    
+                    
+                    
+                } else {
+                    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                    [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+                    [prefs synchronize];
+                    //
+                    //NSLog(@"Error: %@", [error description]);
+                    //NSLog(@"Access denied");
+                }
 
-
-                     
-                 }];
-                
-                
-                
-            } else {
-                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                [prefs setValue:@"no" forKey:@"autoPostFacebook"];
-                [prefs synchronize];
-                //
-                //NSLog(@"Error: %@", [error description]);
-                //NSLog(@"Access denied");
             }
+            @catch (NSException *exception) {
+                
+                [rSkybox sendClientLog:@"ReviewTransaction.autoPostFacebook.Completion" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+            }
+         
+        
+        
         }];
 
     }
@@ -1052,59 +1088,73 @@
                                         [NSArray arrayWithObjects:@"publish_stream", @"publish_checkins", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
         
         [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
-            if (granted && error == nil) {
-                //NSLog(@"Granted");
-                
-                NSArray *accounts = [self.store accountsWithAccountType:accType];
-                ACAccount *facebookAccount = [accounts objectAtIndex:0];
-                
-                //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
-                NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
-               
-                
-                
-                NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"];
-                //facebookId = @"223133961125265";
-                
-                NSDictionary *parameters = @{@"message": post, @"place":facebookId, @"link":@"www.arcmobileapp.com"};
-                
-                NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed/"];
-                
-                SLRequest *feedRequest = [SLRequest
-                                          requestForServiceType:SLServiceTypeFacebook
-                                          requestMethod:SLRequestMethodPOST
-                                          URL:feedURL
-                                          parameters:parameters];
-                
-                feedRequest.account = facebookAccount;
-                
-                [feedRequest performRequestWithHandler:^(NSData *responseData,
-                                                         NSHTTPURLResponse *urlResponse, NSError *error)
-                 {
-                     // Handle response
-                     NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                     if (output) {
+            
+            @try {
+                if (granted && error == nil) {
+                    //NSLog(@"Granted");
+                    
+                    NSArray *accounts = [self.store accountsWithAccountType:accType];
+                    ACAccount *facebookAccount = [accounts objectAtIndex:0];
+                    
+                    //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
+                    NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+                    
+                    
+                    
+                    NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"];
+                    //facebookId = @"223133961125265";
+                    
+                    NSDictionary *parameters;
+                    if (facebookId) {
+                        parameters = @{@"message": post, @"place":facebookId, @"link":@"www.arcmobileapp.com"};
+                    }else{
+                        parameters = @{@"message": post, @"link":@"www.arcmobileapp.com"};
+                        
+                    }
+                    
+                    
+                    NSURL *feedURL = [NSURL URLWithString:@"https://graph.facebook.com/me/feed/"];
+                    
+                    SLRequest *feedRequest = [SLRequest
+                                              requestForServiceType:SLServiceTypeFacebook
+                                              requestMethod:SLRequestMethodPOST
+                                              URL:feedURL
+                                              parameters:parameters];
+                    
+                    feedRequest.account = facebookAccount;
+                    
+                    [feedRequest performRequestWithHandler:^(NSData *responseData,
+                                                             NSHTTPURLResponse *urlResponse, NSError *error)
+                     {
+                         // Handle response
+                         NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                         if (output) {
+                             
+                         }
+                         NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+                         NSLog(@"Output: %@", output);
+                         NSLog(@"Error: %@", error);
+                         NSLog(@"Output: %@", dataString);
                          
-                     }
-                     NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-                     NSLog(@"Output: %@", output);
-                     NSLog(@"Error: %@", error);
-                     NSLog(@"Output: %@", dataString);
-                     
-                     
-                     
-                 }];
-                
-                
-                
-            } else {
-                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                [prefs setValue:@"no" forKey:@"autoPostFacebook"];
-                [prefs synchronize];
-                //
-                //NSLog(@"Error: %@", [error description]);
-                //NSLog(@"Access denied");
+                         
+                         
+                     }];
+                    
+                    
+                    
+                } else {
+                    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                    [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+                    [prefs synchronize];
+                    //
+                    //NSLog(@"Error: %@", [error description]);
+                    //NSLog(@"Access denied");
+                }
             }
+            @catch (NSException *exception) {
+                  [rSkybox sendClientLog:@"ReviewTransaction.autoPostFacebookSkip.Completion" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+            }
+         
         }];
         
     }

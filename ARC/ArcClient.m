@@ -1276,7 +1276,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         //[ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"]; //Jim removed description
         [ tempDictionary setObject:@"iOS" forKey:@"Source"];
         [ tempDictionary setObject:@"phone" forKey:@"SourceType"];//remove
-        [ tempDictionary setObject:@"1.1" forKey:@"Version"];
+        [ tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"Version"];
         if(successful) {
             [ tempDictionary setObject:@(YES) forKey:@"Successful"];
         } else {

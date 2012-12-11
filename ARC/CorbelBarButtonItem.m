@@ -19,6 +19,7 @@
         [self setTitleTextAttributes:attributes forState:UIControlStateNormal];
         
         [self setTitlePositionAdjustment:UIOffsetMake(0, 1.0) forBarMetrics:UIBarMetricsDefault];
+        
     }
     
     return self;
@@ -34,6 +35,8 @@
         [self setTitlePositionAdjustment:UIOffsetMake(0, 1.0) forBarMetrics:UIBarMetricsDefault];
         
     }
+    
+    self.width = 100;
     return self;
 }
 

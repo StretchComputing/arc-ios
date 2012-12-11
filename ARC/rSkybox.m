@@ -14,7 +14,6 @@
 
 static NSString *basicAuthUserName = @"token";
 static NSString *baseUrl = @"https://rskybox-stretchcom.appspot.com/rest/v1";
-static NSString *versionNumber = @"1.0";
 //TODO: rSkybox ids - replace the current basicAuthToken and applicationId with the token and application id you received when you registered for rSkybox
 static NSString *basicAuthToken = @"ekokq167k46gbrmr6hvbht9lab";
 static NSString *applicationId = @"ahRzfnJza3lib3gtc3RyZXRjaGNvbXITCxILQXBwbGljYXRpb24YgPYvDA";
@@ -27,6 +26,8 @@ static NSMutableArray *traceSession;
 static NSMutableArray *traceTimeStamps;
 static NSDate *startTime;
 static NSString *logNameBeingTimed;
+
+NSString* const ARC_VERSION_NUMBER = @"1.1";
 
 @implementation rSkybox
 
@@ -48,7 +49,7 @@ static NSString *logNameBeingTimed;
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
         [tempDictionary setObject:@"rTeam" forKey:@"application"];
-        [tempDictionary setObject:versionNumber forKey:@"version"];
+        [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
         
         
         
@@ -131,12 +132,12 @@ static NSString *logNameBeingTimed;
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
         
         //HardCoded at top of page
-        [tempDictionary setObject:versionNumber forKey:@"version"];
+        [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
         
         //Get the device and platform information, and add to a summary string
         float version = [[[UIDevice currentDevice] systemVersion] floatValue]; 
         NSString *platform = [[UIDevice currentDevice] platformString];
-        NSString *summaryString = [NSString stringWithFormat:@"iOS Version: %f, Device: %@, App Version: %@", version, platform, versionNumber];
+        NSString *summaryString = [NSString stringWithFormat:@"iOS Version: %f, Device: %@, App Version: %@", version, platform, ARC_VERSION_NUMBER];
         [tempDictionary setObject:summaryString forKey:@"summary"];
         
         //Send in the current date
@@ -254,7 +255,7 @@ static NSString *logNameBeingTimed;
         [tempDictionary setObject:summary forKey:@"summary"];
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
-        [tempDictionary setObject:versionNumber forKey:@"version"];
+        [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
         
         
         NSDate *today = [NSDate date];
@@ -352,7 +353,7 @@ static NSString *logNameBeingTimed;
         [tempDictionary setObject:encodedRecordedData forKey:@"voice"];
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
-        [tempDictionary setObject:versionNumber forKey:@"version"];
+        [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
                 
         NSDate *today = [NSDate date];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];

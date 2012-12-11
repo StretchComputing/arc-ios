@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *registerButton;

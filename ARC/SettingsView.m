@@ -244,7 +244,7 @@
             self.pointsProgressView.progress = (float)balance/1000.00;
             self.lifetimePointsProgressView.progress = (float)lifetime/100000.0;
         } else if([status isEqualToString:@"error"]){
-            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+           // int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             errorMsg = ARC_ERROR_MSG;
         } else {
             // must be failure -- user notification handled by ArcClient

@@ -223,7 +223,7 @@
             
             // welcome message
             NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
            // [alert show];
             
             [self.navigationController popToViewController:tmp animated:NO];

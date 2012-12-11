@@ -97,7 +97,7 @@ typedef enum {
 
 // Footprint analytics
 +(void)startLatency:(APIS)api;
-+(void)endAndReportLatency:(APIS)api logMessage:(NSString *)logMessage;
+//+(void)endAndReportLatency:(APIS)api logMessage:(NSString *)logMessage;
 
 -(void)updatePushToken;
 

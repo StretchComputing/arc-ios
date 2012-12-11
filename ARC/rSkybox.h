@@ -19,6 +19,8 @@
 #import "CorbelTitleLabel.h"
 #import "CorbelBarButtonItem.h"
 
+extern NSString *const ARC_VERSION_NUMBER;
+
 @interface rSkybox : NSObject
 
 //rSkybox server communication methods

@@ -40,7 +40,7 @@
 			{
                 
                 NSString *message = @"An internet connection is required for this app.  Please make sure you are connected to the internet to continue.";
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Lost" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+               // UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Lost" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 //[alert show];
                 
 				break;
