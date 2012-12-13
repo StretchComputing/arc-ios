@@ -282,44 +282,56 @@
 
 // *** for rSkybox
 - (void) handleCrashReport {
-    PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
-    NSData *crashData;
-    NSError *error;
-    self.crashDetectDate = [NSDate date];
-    self.crashStackData = nil;
-    //self.crashUserName = mainDelegate.token;
-    /* Try loading the crash report */
-    bool isNil = false;
-    crashData = [crashReporter loadPendingCrashReportDataAndReturnError: &error];
+
     
-    if (crashData == nil) {
-        //NSLog(@"Could not load crash report: %@", error);
-        isNil = true;
-    }
-    
-    if(!isNil) {
-        PLCrashReport *report = [[PLCrashReport alloc] initWithData:crashData error:&error];
-        bool thisIsNil = false;
-        if(report == nil) {
-            self.crashSummary = @"Could not parse crash report";
-            [self performSelectorInBackground:@selector(sendCrashDetect) withObject:nil];
-            thisIsNil = true;
+    @try {
+        PLCrashReporter *crashReporter = [PLCrashReporter sharedReporter];
+        NSData *crashData;
+        NSError *error;
+        self.crashDetectDate = [NSDate date];
+        self.crashStackData = nil;
+        //self.crashUserName = mainDelegate.token;
+        /* Try loading the crash report */
+        bool isNil = false;
+        crashData = [crashReporter loadPendingCrashReportDataAndReturnError: &error];
+        
+        if (crashData == nil) {
+            //NSLog(@"Could not load crash report: %@", error);
+            isNil = true;
         }
         
-        if(!thisIsNil) {
-            @try {
-                NSString *platform = [[UIDevice currentDevice] platformString];
-                self.crashSummary = [NSString stringWithFormat:@"Crashed with signal=%@, app version=%@,osversion=%@, hardware=%@", report.signalInfo.name, report.applicationInfo.applicationVersion, report.systemInfo.operatingSystemVersion, platform];
-                self.crashStackData = [crashReporter loadPendingCrashReportDataAndReturnError: &error];
+        if(!isNil) {
+            PLCrashReport *report = [[PLCrashReport alloc] initWithData:crashData error:&error];
+            bool thisIsNil = false;
+            if(report == nil) {
+                self.crashSummary = @"Could not parse crash report";
                 [self performSelectorInBackground:@selector(sendCrashDetect) withObject:nil];
+                thisIsNil = true;
             }
-            @catch (NSException *exception) { }
-        }else{
+            
+            if(!thisIsNil) {
+                @try {
+                    NSString *platform = [[UIDevice currentDevice] platformString];
+                    self.crashSummary = [NSString stringWithFormat:@"Crashed with signal=%@, app version=%@,osversion=%@, hardware=%@", report.signalInfo.name, report.applicationInfo.applicationVersion, report.systemInfo.operatingSystemVersion, platform];
+                    self.crashStackData = [crashReporter loadPendingCrashReportDataAndReturnError: &error];
+                    [self performSelectorInBackground:@selector(sendCrashDetect) withObject:nil];
+                }
+                @catch (NSException *exception) { }
+            }else{
+                [crashReporter purgePendingCrashReport]; return;
+            }
+        } else{
             [crashReporter purgePendingCrashReport]; return;
         }
-    } else{
-        [crashReporter purgePendingCrashReport]; return;
+
     }
+    @catch (NSException *exception) {
+        
+        
+    }
+   
+    
+   
 }
 
 - (id)init {

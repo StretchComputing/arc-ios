@@ -279,6 +279,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.2";
         NSMutableArray *appActions = [NSMutableArray arrayWithArray:[rSkybox getActions]];
         NSMutableArray *appTimestamps = [NSMutableArray arrayWithArray:[rSkybox getTimestamps]];
         
+  
         
         for (int i = 0; i < [appActions count]; i++) {
             NSMutableDictionary *actDictionary = [NSMutableDictionary dictionary];
@@ -314,9 +315,11 @@ NSString* const ARC_VERSION_NUMBER = @"1.2";
         
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+   
+        
+       // NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 
-        /*
+        
         NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object
@@ -330,7 +333,8 @@ NSString* const ARC_VERSION_NUMBER = @"1.2";
         if (![apiStatus isEqualToString:@"100"]) {
             // NSLog(@"Send Crash Failed.");
         }
-         */
+         
+        
     }
     
     @catch (NSException *e) {
