@@ -100,17 +100,11 @@
             [client getServer];
             
             self.registerSuccess = YES;
-            
-            if (self.dwollaSegControl.selectedSegmentIndex == 1) {
 
-                if ([[self creditCardStatus] isEqualToString:@"valid"]) {
                     //Save credit card info
-                    [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:0.0];
-                }
-                
-            }else{
-                [self goHome];
-            }
+            [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:0.0];
+            
+           
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == USER_ALREADY_EXISTS) {

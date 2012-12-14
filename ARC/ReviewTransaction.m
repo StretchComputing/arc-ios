@@ -518,24 +518,29 @@
     
     @try{     
         
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-            if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
-                self.facebookInt = @(5);
+        if (self.isIos6) {
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+                    self.facebookInt = @(5);
+                }
+            }else{
+                [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+                [prefs synchronize];
             }
-        }else{
-            [prefs setValue:@"no" forKey:@"autoPostFacebook"];
-            [prefs synchronize];
-        }
-        
-        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-            if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
-                self.twitterInt = @(5);
+            
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+                    self.twitterInt = @(5);
+                }
+            }else{
+                [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+                [prefs synchronize];
             }
-        }else{
-            [prefs setValue:@"no" forKey:@"autoPostTwitter"];
-            [prefs synchronize];
+            
         }
+       
         
         [self.activity startAnimating];
         
