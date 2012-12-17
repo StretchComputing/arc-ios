@@ -29,6 +29,9 @@ extern int const UNKOWN_ISIS_ERROR;
 extern int const INVALID_EXPIRATION_DATE;
 extern int const PAYMENT_MAYBE_PROCESSED;
 
+extern int const MAX_RETRIES_EXCEEDED;
+
+
 
 
 extern NSString *const ARC_ERROR_MSG;
@@ -47,13 +50,21 @@ typedef enum {
     ResetPassword = 10,
     SetAdminServer = 11,
     UpdatePushToken = 12,
-    ReferFriend = 13
+    ReferFriend = 13,
+    ConfirmPayment = 14
 
 } APIS;
 
 @interface ArcClient : NSObject <NSURLConnectionDelegate> {
     APIS api;
 }
+
+@property (nonatomic, strong) NSArray *retryTimes;
+@property int numberConfirmPaymentTries;
+@property int numberRegisterTries;
+
+@property (nonatomic, strong) NSString *ticketId;
+@property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) NSMutableData *serverData;
 @property int httpStatusCode;
 @property (nonatomic, strong) NSURLConnection *urlConnection;
@@ -94,6 +105,9 @@ typedef enum {
 -(void)referFriend:(NSArray *)emailAddresses;
 
 +(void)trackEvent:(NSString *)action;
+
+
+-(void)confirmPayment;
 
 // Footprint analytics
 +(void)startLatency:(APIS)api;

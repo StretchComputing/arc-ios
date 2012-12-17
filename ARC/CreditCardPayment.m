@@ -352,6 +352,9 @@
             self.keyboardSubmitButton.enabled = NO;
             self.navigationItem.hidesBackButton = YES;
             ArcClient *client = [[ArcClient alloc] init];
+            
+            self.myTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(createPaymentTimer) userInfo:nil repeats:NO];
+            
             [client createPayment:loginDict];
 
         }else{
@@ -373,13 +376,20 @@
     }
 }
 
+
+
+
 -(void)paymentComplete:(NSNotification *)notification{
+    
     @try {
+        
+        [self.myTimer invalidate];
+        
         BOOL editCardOption = NO;
         BOOL displayAlert = NO;
         self.keyboardSubmitButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
-
+        
         [rSkybox addEventToSession:@"creditCardPaymentComplete"];
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
@@ -457,9 +467,8 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"CreditCardPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+    
 }
-
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     if (buttonIndex == 1) {
@@ -572,5 +581,11 @@
     
 }
 
+-(void)createPaymentTimer{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"ARC is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    
+}
 
 @end
