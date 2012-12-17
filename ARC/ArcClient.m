@@ -61,6 +61,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     if (self = [super init]) {
         
         self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10)];
+        self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(5)];
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
@@ -536,8 +537,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
-        NSLog(@"URL: %@", createReviewUrl);
-        NSLog(@"RequestString: %@", requestString);
+
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"confirmPayment"];
@@ -547,6 +547,37 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox sendClientLog:@"ArcClient.confirmPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+-(void)confirmRegister{
+    
+    @try {
+        [rSkybox addEventToSession:@"confirmRegister"];
+        api = ConfirmRegister;
+        
+        NSDictionary *params = @{@"TicketId" : self.registerTicketId};
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [params JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/register/confirm", _arcUrl, nil];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
+        [request setHTTPMethod: @"SEARCH"];
+        
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+    
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"confirmRegister"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.confirmRegister" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 
 
 
@@ -591,6 +622,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         BOOL postNotification = YES;
         if(api == CreateCustomer) { //jpw5
+            postNotification = NO;
             if (response && httpSuccess) {
                 responseInfo = [self createCustomerResponse:response];
             }
@@ -652,8 +684,6 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             if (response && httpSuccess) {
                 [self setUrl:response];
             }
-            
-
         }else if (api == SetAdminServer){
             if (response && httpSuccess) {
                 responseInfo = [self setServerResponse:response];
@@ -672,6 +702,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             postNotification = NO;
             if (response && httpSuccess) {
                 responseInfo = [self confirmPaymentResponse:response];
+            }
+        }else if (api == ConfirmRegister){
+            postNotification = NO;
+            if (response && httpSuccess) {
+                responseInfo = [self confirmRegisterResponse:response];
             }
         }
         
@@ -849,25 +884,23 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSDictionary *responseInfo;
         if (success){
             
-            NSDictionary *customer = [response valueForKey:@"Results"];
-            NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
-            NSString *customerToken = [customer valueForKey:@"Token"];
+            self.registerTicketId = [response valueForKey:@"Results"];
             
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            self.numberRegisterTries = 0;
             
-            [prefs setObject:customerId forKey:@"customerId"];
-            [prefs setObject:customerToken forKey:@"customerToken"];
-            [prefs synchronize];
+            int retryTime = [[self.retryTimesRegister objectAtIndex:self.numberRegisterTries] intValue];
             
-            //Add this customer to the DB
-            // TODO is this still needed?
-            [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
+            self.myRegisterTimer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(confirmRegister) userInfo:nil repeats:NO];
             
-            responseInfo = @{@"status": @"success"};
+            
+         
         } else {
             NSString *status = @"error";
             int errorCode = [self getErrorCode:response];
             responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+            [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreateCustomer API completed" successful:success];
         }
         return responseInfo;
     }
@@ -1066,6 +1099,84 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
     }
 }
+
+
+-(NSDictionary *)confirmRegisterResponse:(NSDictionary *)response {
+    @try {
+        
+        self.numberRegisterTries++;
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        BOOL successful = TRUE;
+        if (success){
+            
+         
+ 
+            if ([response valueForKey:@"Results"]) {
+                //complete successfully
+                
+                NSDictionary *customer = [response valueForKey:@"Results"];
+                NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
+                NSString *customerToken = [customer valueForKey:@"Token"];
+                
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                
+                [prefs setObject:customerId forKey:@"customerId"];
+                [prefs setObject:customerToken forKey:@"customerToken"];
+                [prefs synchronize];
+                
+                //Add this customer to the DB
+                // TODO is this still needed?
+                [self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
+                
+                responseInfo = @{@"status": @"success"};
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+                [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreateCustomer API completed" successful:successful];
+                
+            }else{
+                
+                if (self.numberRegisterTries > 6) {
+                    
+                    NSString *status = @"error";
+                    int errorCode = MAX_RETRIES_EXCEEDED;
+                    responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                    successful = FALSE;
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+                    [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreateCustomer API completed" successful:successful];
+                    
+                }else{
+                    
+                    int retryTime = [[self.retryTimesRegister objectAtIndex:self.numberRegisterTries] intValue];
+                    
+                    self.myRegisterTimer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(confirmRegister) userInfo:nil repeats:NO];
+                }
+            }
+            
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+            [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreateCustomer API completed" successful:successful];
+            
+        }
+        
+        
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.confirmRegisterResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
+    }
+}
+
 
 -(NSDictionary *) createReviewResponse:(NSDictionary *)response {
     @try {

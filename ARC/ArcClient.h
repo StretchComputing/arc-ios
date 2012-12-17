@@ -51,7 +51,8 @@ typedef enum {
     SetAdminServer = 11,
     UpdatePushToken = 12,
     ReferFriend = 13,
-    ConfirmPayment = 14
+    ConfirmPayment = 14,
+    ConfirmRegister = 15
 
 } APIS;
 
@@ -63,7 +64,13 @@ typedef enum {
 @property int numberConfirmPaymentTries;
 @property int numberRegisterTries;
 
+@property (nonatomic, strong) NSArray *retryTimesRegister;
+@property (nonatomic, strong) NSTimer *myRegisterTimer;
+
+
 @property (nonatomic, strong) NSString *ticketId;
+@property (nonatomic, strong) NSString *registerTicketId;
+
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) NSMutableData *serverData;
 @property int httpStatusCode;
