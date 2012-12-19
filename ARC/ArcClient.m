@@ -439,13 +439,14 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         
         [pairs setValue:mainDelegate.pushToken forKey:@"DeviceId"];
+        
+        [pairs setValue:@"Production" forKey:@"PushType"];
+
 #if DEBUG==1
         [pairs setValue:@"Development" forKey:@"PushType"];
 #endif
         
-#if RELEASE==1
-        [pairs setValue:@"Production" forKey:@"PushType"];
-#endif
+
         
         NSNumber *noMail = [NSNumber numberWithBool:YES];
         [pairs setValue:noMail forKey:@"NoMail"];
@@ -744,6 +745,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSString *logName = [NSString stringWithFormat:@"api.%@.%@ - %@", [self apiToString], [self readableErrorCode:error], urlString];
         [rSkybox sendClientLog:logName logMessage:error.localizedDescription logLevel:@"error" exception:nil];
         
+        BOOL postNotification = YES;
+        BOOL successful = FALSE;
+
         NSDictionary *responseInfo = @{@"status": @"fail", @"error": @0};
         NSString *notificationType;
         if(api == CreateCustomer) {
@@ -770,9 +774,67 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             notificationType = @"getPasscodeNotification";
         } else if(api == ResetPassword) {
             notificationType = @"resetPasswordNotification";
+        }else if (api == ConfirmPayment){
+            
+            if(error.code == -1003){
+                //try again
+                postNotification = NO;
+                
+                if (self.numberConfirmPaymentTries > 10) {
+                
+                    NSString *status = @"error";
+                    int errorCode = MAX_RETRIES_EXCEEDED;
+                    responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                    successful = FALSE;
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
+                    [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+                    
+                }else{
+                    
+                    int retryTime = [[self.retryTimes objectAtIndex:self.numberConfirmPaymentTries] intValue];
+                    
+                    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(confirmPayment) userInfo:nil repeats:NO];
+                }
+                
+            }else{
+                
+                notificationType = @"createPaymentNotification";
+            
+                
+            }
+            
+        }else if (api == ConfirmRegister){
+            
+            if(error.code == -1003){
+                //try again
+                postNotification = NO;
+                if (self.numberRegisterTries > 6) {
+                    
+                    NSString *status = @"error";
+                    int errorCode = MAX_RETRIES_EXCEEDED;
+                    responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                    successful = FALSE;
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+                    [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreateCustomer API completed" successful:successful];
+                    
+                }else{
+                    
+                    int retryTime = [[self.retryTimesRegister objectAtIndex:self.numberRegisterTries] intValue];
+                    
+                    self.myRegisterTimer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(confirmRegister) userInfo:nil repeats:NO];
+                }
+                
+            }else{
+                notificationType = @"registerNotification";
+
+            }
         }
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+        if (postNotification == YES) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
+        }
         
         [self displayErrorMessageToAdmins:logName];
         
