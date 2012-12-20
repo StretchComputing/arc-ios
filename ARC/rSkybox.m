@@ -254,6 +254,9 @@ NSString* const ARC_VERSION_NUMBER = @"1.2.1";
         
         [tempDictionary setObject:summary forKey:@"summary"];
         
+        [tempDictionary setObject:@"Arc Crash" forKey:@"eventName"];
+
+        
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
         [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
         

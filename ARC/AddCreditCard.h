@@ -16,6 +16,7 @@ extern NSString *const AMERICAN_EXPRESS;
 @interface AddCreditCard : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate>
 
 @property BOOL isIphone5;
+@property BOOL isDelete;
 
 @property (nonatomic, strong) NSString *expirationMonth;
 @property (nonatomic, strong) NSString *expirationYear;
@@ -29,6 +30,8 @@ extern NSString *const AMERICAN_EXPRESS;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardSecurityCodeText;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardPinText;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardNumberText;
+@property (weak, nonatomic) IBOutlet UITextField *expirationText;
+
 @property (nonatomic, strong) UIView *hideKeyboardView;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *creditDebitSegment;
@@ -38,5 +41,7 @@ extern NSString *const AMERICAN_EXPRESS;
 - (IBAction)endText;
 -(IBAction)changeExpiration:(UIButton *)sender;
 -(IBAction)addCard;
+
+-(IBAction)valueChanged:(id)sender;
 
 @end

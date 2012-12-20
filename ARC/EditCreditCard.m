@@ -158,6 +158,7 @@
 
 -(void)loadTable{
     
+    /*
     NSString *expirationYear = [self.creditCardExpiration substringFromIndex:3];
     
     for (int i = 0; i < [self.months count]; i++) {
@@ -170,22 +171,48 @@
             break;
         }
     }
+     */
 
     
-    self.creditCardExpirationYearLabel.text = expirationYear;
-    self.expirationYear = expirationYear;
+   // self.creditCardExpirationYearLabel.text = expirationYear;
+   // self.expirationYear = expirationYear;
     
-    self.cardNumberTextField.text = self.displayNumber;
-    self.securityCodeTextField.text = self.displaySecurityCode;
+    @try {
+        
+        if ([self.creditCardExpiration length] > 5) {
+            
+            self.expirationText.text = [NSString stringWithFormat:@"%@/%@", [self.creditCardExpiration substringToIndex:2], [self.creditCardExpiration substringFromIndex:5]];
+        }else{
+            self.expirationText.text = self.creditCardExpiration;
 
-    
-    if ([self.creditCardSample rangeOfString:@"Credit"].location != NSNotFound){
-        self.cardTypesSegmentedControl.selectedSegmentIndex = 0;
+        }
+        
+        self.cardNumberTextField.text = [NSString stringWithFormat:@"%@ %@ %@ %@", [self.displayNumber substringToIndex:4], [self.displayNumber substringWithRange:NSMakeRange(4, 4)], [self.displayNumber substringWithRange:NSMakeRange(8, 4)], [self.displayNumber substringWithRange:NSMakeRange(12, 4)]];
+        
+        self.securityCodeTextField.text = self.displaySecurityCode;
+        
+        self.cardNumberTextField.delegate = self;
+        self.expirationText.delegate = self;
+        self.securityCodeTextField.delegate = self;
+        
+        self.cardNumberTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        self.expirationText.clearButtonMode = UITextFieldViewModeWhileEditing;
+        self.securityCodeTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        
+        
+        if ([self.creditCardSample rangeOfString:@"Credit"].location != NSNotFound){
+            self.cardTypesSegmentedControl.selectedSegmentIndex = 0;
+        }
+        
+        if ([self.creditCardSample rangeOfString:@"Debit"].location != NSNotFound){
+            self.cardTypesSegmentedControl.selectedSegmentIndex = 1;
+        }
     }
-    
-    if ([self.creditCardSample rangeOfString:@"Debit"].location != NSNotFound){
-        self.cardTypesSegmentedControl.selectedSegmentIndex = 1;
+    @catch (NSException *exception) {
+        NSLog(@"Exception: %@", exception);
     }
+  
+  
 }
 
 
@@ -337,6 +364,8 @@
         
         [self.cardNumberTextField resignFirstResponder];
         [self.securityCodeTextField resignFirstResponder];
+        [self.expirationText resignFirstResponder];
+
         self.pickerView.hidden = YES;
         [self.hideKeyboardView removeFromSuperview];
         self.hideKeyboardView = nil;
@@ -371,6 +400,8 @@
         
         [self.cardNumberTextField resignFirstResponder];
         [self.securityCodeTextField resignFirstResponder];
+        [self.expirationText resignFirstResponder];
+
         
         int pickerY = 200;
         if (self.isIphone5) {
@@ -512,6 +543,8 @@
 
 - (BOOL) luhnCheck:(NSString *)stringToTest {
     
+    stringToTest = [stringToTest stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
 	NSMutableArray *stringAsChars = [stringToTest toCharArray];
     
 	BOOL isOdd = YES;
@@ -580,15 +613,18 @@
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     [mainDelegate deleteCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
     
-    NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
+    //NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
 
+    NSString *expiration = self.expirationText.text;
     NSString *creditDebitString = @"Credit";
     
     if (self.cardTypesSegmentedControl.selectedSegmentIndex == 1) {
         creditDebitString = @"Debit";
     }
     
-    [mainDelegate insertCreditCardWithNumber:self.cardNumberTextField.text andSecurityCode:self.securityCodeTextField.text andExpiration:expiration andPin:self.oldPin andCreditDebit:creditDebitString];
+    NSString *cardNumber = [self.cardNumberTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    [mainDelegate insertCreditCardWithNumber:cardNumber andSecurityCode:self.securityCodeTextField.text andExpiration:expiration andPin:self.oldPin andCreditDebit:creditDebitString];
     
     if (self.isFromPayment) {
         CreditCardPayment *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2];
@@ -601,4 +637,124 @@
     }
     
 }
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    self.isDelete = NO;
+    
+    
+    
+    if (textField == self.cardNumberTextField){
+        
+        if ([string isEqualToString:@""]) {
+            self.isDelete = YES;
+            return TRUE;
+        }
+        
+        if ([self.cardNumberTextField.text length] >= 20) {
+            
+            return FALSE;
+        }
+        
+    }else if (textField == self.expirationText){
+        
+        if ([string isEqualToString:@""]) {
+            self.isDelete = YES;
+            
+            return TRUE;
+        }
+        if ([self.expirationText.text length] >= 5) {
+            
+            return FALSE;
+        }
+        
+    }else if (textField == self.securityCodeTextField){
+        if ([string isEqualToString:@""]) {
+            return TRUE;
+        }
+        
+        if ([self.securityCodeTextField.text length] >= 4) {
+            
+            return FALSE;
+        }
+        
+    }
+    return TRUE;
+}
+
+
+
+-(void)valueChanged:(id)sender{
+    
+    if (sender == self.expirationText) {
+        [self formatExpiration];
+    }else{
+        [self formatCreditCard];
+    }
+}
+
+-(void)formatCreditCard{
+    
+    if (!self.isDelete) {
+        NSString *cardNumber = self.cardNumberTextField.text;
+        
+        if ([cardNumber length] == 4) {
+            cardNumber = [cardNumber stringByAppendingString:@" "];
+        }else if ([cardNumber length] == 9){
+            cardNumber = [cardNumber stringByAppendingString:@" "];
+        }else if ([cardNumber length] == 14){
+            cardNumber = [cardNumber stringByAppendingString:@" "];
+        }else if ([cardNumber length] == 19){
+            [self.expirationText becomeFirstResponder];
+        }else if ([cardNumber length] == 5) {
+            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
+        }else if ([cardNumber length] == 10){
+            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:9], [cardNumber substringFromIndex:9]];
+            
+        }else if ([cardNumber length] == 15){
+            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:14], [cardNumber substringFromIndex:14]];
+        }
+        
+        
+        self.cardNumberTextField.text = cardNumber;
+    }
+    
+    
+}
+
+-(void)formatExpiration{
+    
+    NSString *expiration = self.expirationText.text;
+    
+    if (self.isDelete) {
+        
+    }else{
+        if ([expiration length] == 5) {
+            [self.securityCodeTextField becomeFirstResponder];
+        }
+        
+        if ([expiration length] == 1) {
+            if (![expiration isEqualToString:@"1"] && ![expiration isEqualToString:@"0"]) {
+                expiration = [NSString stringWithFormat:@"0%@/", expiration];
+            }
+        }else if ([expiration length] == 2){
+            expiration = [expiration stringByAppendingString:@"/"];
+        }
+    }
+    
+    self.expirationText.text = expiration;
+    
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    
+    return @"Credit Card Information";
+    
+    
+}
+
+
 @end

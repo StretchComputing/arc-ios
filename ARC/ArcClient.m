@@ -67,7 +67,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
            //_arcUrl = [prefs valueForKey:@"arcUrl"];
         }
-       // NSLog(@"***** Arc URL = %@ *****", _arcUrl);
+        NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
 }
@@ -257,9 +257,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
-        
+        NSLog(@"AuthHeader: %@", [self authHeader]);
         NSLog(@"URL: %@", createPaymentUrl);
         NSLog(@"RequestString: %@", requestString);
+        
+        NSLog(@"Header: %@", [request allHTTPHeaderFields]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"CreatePayment"];
@@ -424,7 +426,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.createCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.setServerNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -774,6 +776,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             notificationType = @"getPasscodeNotification";
         } else if(api == ResetPassword) {
             notificationType = @"resetPasswordNotification";
+        }else if (api == SetAdminServer){
+            notificationType = @"setServerNotification";
         }else if (api == ConfirmPayment){
             
             if(error.code == -1003){

@@ -36,6 +36,8 @@
     [self.creditCardPinText resignFirstResponder];
     [self.creditCardNumberText resignFirstResponder];
     [self.creditCardSecurityCodeText resignFirstResponder];
+    [self.expirationText resignFirstResponder];
+
     
     [self endText];
 }
@@ -135,6 +137,9 @@
 - (void)viewDidLoad
 {
     @try {
+        
+        self.didAgreePrivacy = YES;
+
         
         self.selectedMonth = 0;
         self.birthDateMonth = @"Jan";
@@ -259,12 +264,15 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Payment" message:@"You must choose at least 1 form of payment to continue" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
-        }else if ((self.creditDebitSegment.selectedSegmentIndex == -1)) {
+        }
+        //else if ((self.creditDebitSegment.selectedSegmentIndex == -1)) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit" message:@"Please select credit or debit for your card." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+         //   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Credit or Debit" message:@"Please select credit or debit for your card." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+          //  [alert show];
             
-        }else{
+    //    }
+        
+         else{
             
             
             if ([self luhnCheck:self.creditCardNumberText.text]) {
@@ -322,6 +330,7 @@
         [self.lastNameText resignFirstResponder];
         [self.emailText resignFirstResponder];
         [self.passwordText resignFirstResponder];
+
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -381,17 +390,18 @@
         
         NSString *creditDebitString = @"Credit";
         
-        if (self.creditDebitSegment.selectedSegmentIndex == 1) {
-            creditDebitString = @"Debit";
-        }
+        //if (self.creditDebitSegment.selectedSegmentIndex == 1) {
+         //   creditDebitString = @"Debit";
+       // }
         
-        NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
+        //NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
     
+        NSString *expiration = self.expirationText.text;
         
         tmp.creditDebitString = creditDebitString;
         tmp.expiration = expiration;
         tmp.securityCode = self.creditCardSecurityCodeText.text;
-        tmp.cardNumber = self.creditCardNumberText.text;
+        tmp.cardNumber = [self.creditCardNumberText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         tmp.fromRegister = YES;
         
     }
@@ -498,17 +508,17 @@
                 myPoint = CGPointMake(0, 150);
                 
             }else if (self.creditCardNumberText == sender){
-                myPoint = CGPointMake(0, 300);
+                myPoint = CGPointMake(0, 250);
                 
             }else if (self.creditCardSecurityCodeText == sender){
-                myPoint = CGPointMake(0, 415);
+                myPoint = CGPointMake(0, 250);
                 
-            }else if (self.creditCardPinText == sender){
-                myPoint = CGPointMake(0, 520);
+            }else if (self.expirationText == sender){
+                myPoint = CGPointMake(0, 250);
                 
             }
             
-            [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:0.4 animations:^{
                 
                 self.myTableView.frame = CGRectMake(0, 0, 320, 287);
                 [self.myTableView setContentOffset:myPoint animated:YES];
@@ -536,17 +546,17 @@
                 myPoint = CGPointMake(0, 200);
                 
             }else if (self.creditCardNumberText == sender){
-                myPoint = CGPointMake(0, 300);
+                myPoint = CGPointMake(0, 250);
                 
             }else if (self.creditCardSecurityCodeText == sender){
-                myPoint = CGPointMake(0, 510);
+                myPoint = CGPointMake(0, 250);
                 
-            }else if (self.creditCardPinText == sender){
-                myPoint = CGPointMake(0, 540);
+            }else if (self.expirationText == sender){
+                myPoint = CGPointMake(0, 250);
                 
             }
             
-            [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:0.4 animations:^{
                 
                 self.myTableView.frame = CGRectMake(0, 0, 320, 200);
                 [self.myTableView setContentOffset:myPoint animated:YES];
@@ -647,6 +657,8 @@
         [self.creditCardPinText resignFirstResponder];
         [self.creditCardNumberText resignFirstResponder];
         [self.creditCardSecurityCodeText resignFirstResponder];
+        [self.expirationText resignFirstResponder];
+
         self.pickerView.hidden = YES;
         self.birthDatePickerView.hidden = YES;
 
@@ -693,6 +705,8 @@
     [self.creditCardPinText resignFirstResponder];
     [self.creditCardNumberText resignFirstResponder];
     [self.creditCardSecurityCodeText resignFirstResponder];
+    [self.expirationText resignFirstResponder];
+
     
     int pickerY = 200;
     if (self.isIphone5) {
@@ -724,6 +738,8 @@
         [self.creditCardPinText resignFirstResponder];
         [self.creditCardNumberText resignFirstResponder];
         [self.creditCardSecurityCodeText resignFirstResponder];
+        [self.expirationText resignFirstResponder];
+
         
         int pickerY = 200;
         if (self.isIphone5) {
@@ -874,12 +890,12 @@
 -(NSString *)creditCardStatus{
     @try {
         
-        if ([self.creditCardSecurityCodeText.text isEqualToString:@""] && [self.creditCardNumberText.text isEqualToString:@""]){
+        if ([self.creditCardSecurityCodeText.text isEqualToString:@""] && [self.creditCardNumberText.text isEqualToString:@""] && [self.expirationText.text isEqualToString:@""]){
             
             return @"empty";
         }else{
             //At least one is entered, must all be entered
-            if (![self.creditCardSecurityCodeText.text isEqualToString:@""] && ![self.creditCardNumberText.text isEqualToString:@""]){
+            if (![self.creditCardSecurityCodeText.text isEqualToString:@""] && ![self.creditCardNumberText.text isEqualToString:@""] && ([self.expirationText.text length] == 5)){
                 return @"valid";
             }else{
                 return @"invalid";
@@ -927,6 +943,8 @@
     [self.creditCardPinText resignFirstResponder];
     [self.creditCardNumberText resignFirstResponder];
     [self.creditCardSecurityCodeText resignFirstResponder];
+    [self.expirationText resignFirstResponder];
+
     self.pickerView.hidden = YES;
     self.birthDatePickerView.hidden = YES;
     
@@ -986,13 +1004,16 @@
                 cell = [tableView dequeueReusableCellWithIdentifier:@"cardNumberCell"];
 
             }else if (row == 1){
+                cell = [tableView dequeueReusableCellWithIdentifier:@"securityCodeCell"];
+
+            }else if (row == 12){
                 
                 cell = [tableView dequeueReusableCellWithIdentifier:@"expirationMonthCell"];
 
-            }else if (row == 2){
+            }else if (row == 212){
                 cell = [tableView dequeueReusableCellWithIdentifier:@"expirationYearCell"];
 
-            }else if (row == 3){
+            }else if (row == 23){
                 cell = [tableView dequeueReusableCellWithIdentifier:@"securityCodeCell"];
 
             }else{
@@ -1011,7 +1032,7 @@
             self.dwollaSegControl = (UISegmentedControl *)[cell.contentView viewWithTag:1];
             [self.dwollaSegControl addTarget:self action:@selector(paymentChanged) forControlEvents:UIControlEventValueChanged];
             
-        }else if ((section == 2) && ((row == 1) || (row == 2))){
+        }else if ((section == 221) && ((row == 1) || (row == 2))){
 
             if (row == 1) {
                 
@@ -1090,11 +1111,32 @@
                 
                 if (row == 0) {
                     self.creditCardNumberText = (UITextField *)[cell.contentView viewWithTag:1];
-                    self.creditCardNumberText.placeholder = @"Credit Card Number";
+                    self.creditCardNumberText.placeholder = @"1234 5678 9102 3456";
+                    self.creditCardNumberText.delegate = self;
                      [self.creditCardNumberText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
-                }else if (row == 3){
+                    
+                    
+                    [self.creditCardNumberText addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
+                    
+                }else if (row == 1){
+                    self.expirationText = (UITextField *)[cell.contentView viewWithTag:1];
+                    self.expirationText.placeholder = @"MM/YY";
+                    self.expirationText.delegate = self;
+                    [self.expirationText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
+                    
+                    [self.expirationText addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
+                    
+                    
+                    self.creditCardSecurityCodeText = (UITextField *)[cell.contentView viewWithTag:2];
+                    self.creditCardSecurityCodeText.placeholder = @"CVV";
+                    self.creditCardSecurityCodeText.delegate = self;
+                    [self.creditCardSecurityCodeText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
+                    
+               
+                    
+                }else if (row == 2){
                     self.creditCardSecurityCodeText = (UITextField *)[cell.contentView viewWithTag:1];
-                    self.creditCardSecurityCodeText.placeholder = @"Security Code";
+                    self.creditCardSecurityCodeText.placeholder = @"CVV";
                      [self.creditCardSecurityCodeText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
                     
                 }else if (row == 4){
@@ -1133,7 +1175,7 @@
     if (section == 0) {
         return @"Personal Information";
     }else if (section == 2){
-        return @"Payment Information";
+        return @"Credit Card Information";
     }else if (section == 4){
         return @"Create a 4 Digit Credit Card Pin for Security Purposes";
     }else{
@@ -1147,13 +1189,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section == 0) {
-        return 3;
+        return 2;
     }else if (section == 1){
         return 2;
     }else if (section == 22){
         return 1;
     }else if (section == 2){
-        return 5;
+        return 2;
     }else{
         return 1;
     }
@@ -1195,6 +1237,8 @@
 
 - (BOOL) luhnCheck:(NSString *)stringToTest {
     
+    stringToTest = [stringToTest stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
 	NSMutableArray *stringAsChars = [stringToTest toCharArray];
     
 	BOOL isOdd = YES;
@@ -1217,47 +1261,6 @@
 }
 
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    if (textField == self.firstNameText) {
-        
-        if ([self.firstNameText.text length] >= 50) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
-        
-    }else if (textField == self.lastNameText){
-        
-        if ([self.lastNameText.text length] >= 50) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
-        
-    }else if (textField == self.emailText){
-        
-        if ([self.emailText.text length] >= 100) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
-        
-    }else if (textField == self.passwordText){
-        
-        if ([self.passwordText.text length] >= 50) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
-        
-    }
-    return TRUE;
-}
-
-
-
-
 -(IBAction)agreeSelected{
     
     if (self.didAgreePrivacy) {
@@ -1272,7 +1275,153 @@
 }
 
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    self.isDelete = NO;
+
+    
+    
+    if (textField == self.firstNameText) {
+        
+        if ([string isEqualToString:@""]) {
+            return TRUE;
+        }
+        if ([self.firstNameText.text length] >= 50) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.lastNameText){
+        
+        if ([string isEqualToString:@""]) {
+            return TRUE;
+        }
+        if ([self.lastNameText.text length] >= 50) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.emailText){
+        
+        if ([string isEqualToString:@""]) {
+            return TRUE;
+        }
+        if ([self.emailText.text length] >= 100) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.passwordText){
+        if ([string isEqualToString:@""]) {
+            return TRUE;
+        }
+        if ([self.passwordText.text length] >= 50) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            return FALSE;
+        }
+        
+    }else if (textField == self.creditCardNumberText){
+        
+        if ([string isEqualToString:@""]) {
+            self.isDelete = YES;
+            return TRUE;
+        }
+        
+        if ([self.creditCardNumberText.text length] >= 20) {
+
+            return FALSE;
+        }
+        
+    }else if (textField == self.expirationText){
+        
+        if ([string isEqualToString:@""]) {
+            self.isDelete = YES;
+
+            return TRUE;
+        }
+        if ([self.expirationText.text length] >= 5) {
+
+            return FALSE;
+        }
+        
+    }else if (textField == self.creditCardSecurityCodeText){
+        if ([string isEqualToString:@""]) {
+            return TRUE;
+        }
+        
+        if ([self.creditCardSecurityCodeText.text length] >= 4) {
+           
+            return FALSE;
+        }
+        
+    }
+    return TRUE;
+}
 
 
+-(void)valueChanged:(id)sender{
+    
+    if (sender == self.expirationText) {
+        [self formatExpiration];
+    }else{
+        [self formatCreditCard];
+    }
+}
 
+-(void)formatCreditCard{
+    
+    if (!self.isDelete) {
+        NSString *cardNumber = self.creditCardNumberText.text;
+        
+        if ([cardNumber length] == 4) {
+            cardNumber = [cardNumber stringByAppendingString:@" "];
+        }else if ([cardNumber length] == 9){
+            cardNumber = [cardNumber stringByAppendingString:@" "];
+        }else if ([cardNumber length] == 14){
+            cardNumber = [cardNumber stringByAppendingString:@" "];
+        }else if ([cardNumber length] == 19){
+            [self.expirationText becomeFirstResponder];
+        }else if ([cardNumber length] == 5) {
+            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
+        }else if ([cardNumber length] == 10){
+            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:9], [cardNumber substringFromIndex:9]];
+            
+        }else if ([cardNumber length] == 15){
+            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:14], [cardNumber substringFromIndex:14]];
+        }
+        
+        
+        self.creditCardNumberText.text = cardNumber;
+    }
+    
+    
+}
+
+-(void)formatExpiration{
+    
+    NSString *expiration = self.expirationText.text;
+    
+    if (self.isDelete) {
+        
+    }else{
+        if ([expiration length] == 5) {
+            [self.creditCardSecurityCodeText becomeFirstResponder];
+        }
+        
+        if ([expiration length] == 1) {
+            if (![expiration isEqualToString:@"1"] && ![expiration isEqualToString:@"0"]) {
+                expiration = [NSString stringWithFormat:@"0%@/", expiration];
+            }
+        }else if ([expiration length] == 2){
+            expiration = [expiration stringByAppendingString:@"/"];
+        }
+    }
+   
+    self.expirationText.text = expiration;
+    
+}
 @end

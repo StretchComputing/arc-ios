@@ -18,9 +18,10 @@
 @property (nonatomic, strong) NSArray *birthDateMonths;
 @property (nonatomic, strong) NSMutableArray *birthDateDays;
 @property (nonatomic, strong) NSMutableArray *birthDateYears;
-
+@property (nonatomic, strong) UITextField *expirationText;
 @property (nonatomic, strong) UIPickerView *birthDatePickerView;
 
+@property BOOL isDelete;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *registerButton;

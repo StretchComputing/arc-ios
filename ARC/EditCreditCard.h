@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EditCreditCard : UITableViewController
+@interface EditCreditCard : UITableViewController <UITextFieldDelegate>
 
 @property BOOL pinDidChange;
 @property BOOL isFromPayment;
 @property (nonatomic, strong, getter = getMyNewPin) NSString *newPin;
 
+@property (nonatomic, strong) IBOutlet UITextField *expirationText;
 @property (nonatomic, strong) NSString *expirationMonth;
 @property (nonatomic, strong) NSString *expirationYear;
 @property (nonatomic, strong) NSString *oldPin;
@@ -47,12 +48,16 @@
 @property (nonatomic, strong) IBOutlet UILabel *expirationYearLabel;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *cardTypesSegmentedControl;
 
+@property BOOL isDelete;
+
 - (IBAction)editBegin:(id)sender;
 - (IBAction)editEnd:(id)sender;
 - (IBAction)endText;
 -(IBAction)changeExpiration:(UIButton *)sender;
 
 -(IBAction)editPin;
+
+-(IBAction)valueChanged:(id)sender;
 
 @property BOOL didAuth;
 @property BOOL cancelAuth;
