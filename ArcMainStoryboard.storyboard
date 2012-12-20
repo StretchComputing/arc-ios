@@ -3165,7 +3165,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Hrd-YM-6xQ">
-                            <rect key="frame" x="0.0" y="242" width="320" height="216"/>
+                            <rect key="frame" x="0.0" y="110" width="320" height="216"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gP7-ti-7HK" customClass="CorbelButton">
@@ -3226,8 +3226,8 @@
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Card Number" minimumFontSize="17" id="egV-mh-y3z" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="7" width="289" height="31"/>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="1234 5678 9102 3456" minimumFontSize="17" id="egV-mh-y3z" customClass="CorbelTextField">
+                                                    <rect key="frame" x="6" y="6" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
@@ -3238,142 +3238,40 @@
                                                         <action selector="editEnd:" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="rdV-lN-JeF"/>
                                                         <action selector="endText" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="Bcf-Pw-AGh"/>
                                                         <action selector="endText" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="n1T-Hg-50k"/>
+                                                        <action selector="valueChanged:" destination="gw4-gZ-IxK" eventType="editingChanged" id="fMN-2p-LPO"/>
                                                     </connections>
                                                 </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fOO-Kj-WMS">
-                                        <rect key="frame" x="0.0" y="55" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Expiration Month" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kaO-GJ-Uf7" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="10" y="12" width="189" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="01 - Jan" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="IPL-D1-qtD" customClass="LucidaLabel">
-                                                    <rect key="frame" x="194" y="7" width="86" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="T6Y-Pe-cFn">
-                                                    <rect key="frame" x="5" y="-2" width="290" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="changeExpiration:" destination="gw4-gZ-IxK" eventType="touchUpInside" id="an4-7O-Lrv"/>
-                                                        <action selector="changeExpiration:" destination="0JH-v4-76k" eventType="touchUpInside" id="pSd-sW-eo4"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="dHX-XL-hno">
-                                        <rect key="frame" x="0.0" y="99" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Expiration Year" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="9Oc-qY-VrE" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="10" y="12" width="178" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2012" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Eql-6l-OfN" customClass="LucidaLabel">
-                                                    <rect key="frame" x="212" y="12" width="68" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gab-Am-KuM">
-                                                    <rect key="frame" x="10" y="-2" width="290" height="45"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="changeExpiration:" destination="0JH-v4-76k" eventType="touchUpInside" id="P92-MI-60F"/>
-                                                        <action selector="changeExpiration:" destination="gw4-gZ-IxK" eventType="touchUpInside" id="pQ4-NM-YWT"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="iGE-Os-ga2">
-                                        <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="55" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Security Code" minimumFontSize="17" id="xu7-a3-nla" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="7" width="289" height="31"/>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CVV" minimumFontSize="17" id="t6r-uf-e3S" customClass="CorbelTextField">
+                                                    <rect key="frame" x="165" y="6" width="128" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/YY" minimumFontSize="17" id="nnt-iE-Fre" customClass="CorbelTextField">
+                                                    <rect key="frame" x="8" y="6" width="128" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
-                                                        <action selector="editBegin:" destination="0JH-v4-76k" eventType="editingDidBegin" id="Ndt-GC-leA"/>
-                                                        <action selector="editBegin:" destination="gw4-gZ-IxK" eventType="editingDidBegin" id="b1i-X1-juH"/>
-                                                        <action selector="editEnd:" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="3bw-cR-i4J"/>
-                                                        <action selector="editEnd:" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="I4D-l6-Jf8"/>
-                                                        <action selector="endText" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="a2V-iX-HNF"/>
-                                                        <action selector="endText" destination="gw4-gZ-IxK" eventType="editingDidEndOnExit" id="uDp-cC-hhM"/>
+                                                        <action selector="valueChanged:" destination="gw4-gZ-IxK" eventType="editingChanged" id="X3D-zT-Vd1"/>
                                                     </connections>
                                                 </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Qm8-IO-fdb">
-                                        <rect key="frame" x="0.0" y="187" width="320" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="c1o-pf-1ZQ" customClass="CorbelSegmentedControl">
-                                                    <rect key="frame" x="129" y="8" width="166" height="30"/>
+                                                <view contentMode="scaleToFill" id="TiU-dC-P31">
+                                                    <rect key="frame" x="151" y="0.0" width="1" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <segments>
-                                                        <segment title="Credit"/>
-                                                        <segment title="Debit"/>
-                                                    </segments>
-                                                    <color key="tintColor" red="0.08235294118" green="0.31372549020000001" blue="0.49019607840000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                                                </segmentedControl>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Card Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="qe1-zr-T5f" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="11" y="12" width="125" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
+                                                    <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -3389,13 +3287,9 @@
                     <navigationItem key="navigationItem" title="Edit Card" id="EvA-JO-KJm"/>
                     <connections>
                         <outlet property="cardNumberTextField" destination="egV-mh-y3z" id="5w8-ps-BqN"/>
-                        <outlet property="cardTypesSegmentedControl" destination="c1o-pf-1ZQ" id="yxC-1E-xwR"/>
-                        <outlet property="creditCardExpirationMonthLabel" destination="IPL-D1-qtD" id="f6C-pc-1f7"/>
-                        <outlet property="creditCardExpirationYearLabel" destination="Eql-6l-OfN" id="YKf-rd-ULH"/>
                         <outlet property="deleteCardButton" destination="gP7-ti-7HK" id="8Ty-mg-mRZ"/>
-                        <outlet property="expirationMonthLabel" destination="IPL-D1-qtD" id="dRv-au-W2E"/>
-                        <outlet property="expirationYearLabel" destination="Eql-6l-OfN" id="pTm-h3-wZe"/>
-                        <outlet property="securityCodeTextField" destination="xu7-a3-nla" id="7Qe-aL-pHF"/>
+                        <outlet property="expirationText" destination="nnt-iE-Fre" id="bCC-ZU-3bT"/>
+                        <outlet property="securityCodeTextField" destination="t6r-uf-e3S" id="EtR-HD-dSx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GuQ-1c-b3L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3420,7 +3314,7 @@
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Card Number" minimumFontSize="17" id="G32-K4-Ngw" customClass="CorbelTextField">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="1234 5678 9102 3456" minimumFontSize="17" id="G32-K4-Ngw" customClass="CorbelTextField">
                                                     <rect key="frame" x="6" y="7" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -3429,137 +3323,40 @@
                                                         <action selector="editBegin:" destination="0JH-v4-76k" eventType="editingDidBegin" id="wUS-ZV-YZn"/>
                                                         <action selector="editEnd:" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="uPx-ge-sWY"/>
                                                         <action selector="endText" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="mRG-zG-oQA"/>
+                                                        <action selector="valueChanged:" destination="0JH-v4-76k" eventType="editingChanged" id="YYG-bI-TcA"/>
                                                     </connections>
                                                 </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Eud-eo-usc">
-                                        <rect key="frame" x="0.0" y="55" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Expiration Month" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="U8s-Cp-Kvr" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="10" y="12" width="189" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="01 - Jan" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="5If-f4-KkI" customClass="LucidaLabel">
-                                                    <rect key="frame" x="194" y="7" width="86" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6eK-gV-LGM">
-                                                    <rect key="frame" x="5" y="-2" width="290" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="changeExpiration:" destination="0JH-v4-76k" eventType="touchUpInside" id="NfO-9R-wKU"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZWW-rn-Ad5">
-                                        <rect key="frame" x="0.0" y="99" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Expiration Year" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="7Bi-zF-fyW" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="10" y="12" width="178" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2012" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="68g-GK-srp" customClass="LucidaLabel">
-                                                    <rect key="frame" x="212" y="12" width="68" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Lbr-c4-EWC">
-                                                    <rect key="frame" x="10" y="-2" width="290" height="45"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="changeExpiration:" destination="0JH-v4-76k" eventType="touchUpInside" id="cZH-TA-upm"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="th7-zq-gLf">
-                                        <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="55" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Security Code" minimumFontSize="17" id="phd-1F-0N3" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="7" width="289" height="31"/>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CVV" minimumFontSize="17" id="Kcd-ce-dbR" customClass="CorbelTextField">
+                                                    <rect key="frame" x="165" y="5" width="128" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/YY" minimumFontSize="17" id="xM1-Rz-eu9" customClass="CorbelTextField">
+                                                    <rect key="frame" x="8" y="5" width="128" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
-                                                        <action selector="editBegin:" destination="0JH-v4-76k" eventType="editingDidBegin" id="N1Y-FT-d08"/>
-                                                        <action selector="editEnd:" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="DAJ-4f-Oaf"/>
-                                                        <action selector="endText" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="OoE-oZ-TKO"/>
+                                                        <action selector="valueChanged:" destination="0JH-v4-76k" eventType="editingChanged" id="WHN-vY-ZVb"/>
                                                     </connections>
                                                 </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vjt-A8-8ix">
-                                        <rect key="frame" x="0.0" y="187" width="320" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="E7X-lm-co2" customClass="CorbelSegmentedControl">
-                                                    <rect key="frame" x="129" y="8" width="166" height="30"/>
+                                                <view contentMode="scaleToFill" id="927-Xn-fgd">
+                                                    <rect key="frame" x="151" y="-1" width="1" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <segments>
-                                                        <segment title="Credit"/>
-                                                        <segment title="Debit"/>
-                                                    </segments>
-                                                    <color key="tintColor" red="0.082352941176470587" green="0.31372549019607843" blue="0.49019607843137253" alpha="0.0" colorSpace="calibratedRGB"/>
-                                                </segmentedControl>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Card Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="DwM-Bn-oHE" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="11" y="12" width="125" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
+                                                    <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -3580,11 +3377,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="creditCardExpirationMonthLabel" destination="5If-f4-KkI" id="8Ya-Y5-yFb"/>
-                        <outlet property="creditCardExpirationYearLabel" destination="68g-GK-srp" id="L9z-Qc-vEk"/>
                         <outlet property="creditCardNumberText" destination="G32-K4-Ngw" id="htI-CY-mzY"/>
-                        <outlet property="creditCardSecurityCodeText" destination="phd-1F-0N3" id="N7d-Ri-h9P"/>
-                        <outlet property="creditDebitSegment" destination="E7X-lm-co2" id="5Sx-xS-ypV"/>
+                        <outlet property="creditCardSecurityCodeText" destination="Kcd-ce-dbR" id="5Wl-9U-syN"/>
+                        <outlet property="expirationText" destination="xM1-Rz-eu9" id="lkO-47-u5x"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ur2-9r-caL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3916,12 +3711,14 @@
                 <relationship kind="action" name="editBegin:"/>
                 <relationship kind="action" name="editEnd:"/>
                 <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="valueChanged:"/>
                 <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="creditCardNumberText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="creditCardPinText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="ContactUsView" superclassName="UIViewController">
@@ -4014,12 +3811,14 @@
                 <relationship kind="action" name="editPin"/>
                 <relationship kind="action" name="endText"/>
                 <relationship kind="action" name="saveCardAction"/>
+                <relationship kind="action" name="valueChanged:"/>
                 <relationship kind="outlet" name="cardNumberTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="cardTypesSegmentedControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="expirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="expirationYearLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="securityCodeTextField" candidateClass="UITextField"/>
             </relationships>
