@@ -113,7 +113,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    
+    [self.view bringSubviewToFront:self.touchBoxesButton];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     
@@ -588,4 +588,11 @@
     
 }
 
+- (IBAction)touchBoxesAction {
+    [self.hiddenText becomeFirstResponder];
+}
+- (void)viewDidUnload {
+    [self setTouchBoxesButton:nil];
+    [super viewDidUnload];
+}
 @end

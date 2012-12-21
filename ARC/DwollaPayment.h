@@ -17,6 +17,7 @@
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *dwollaBalanceText;
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *totalPaymentText;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *dwollaBalanceActivity;
+- (IBAction)touchBoxesAction;
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;
 @property (strong, nonatomic) Invoice *myInvoice;

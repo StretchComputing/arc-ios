@@ -84,6 +84,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         
         self.creditCardNumberText.delegate = self;
         self.creditCardSecurityCodeText.delegate = self;
+        self.expirationText.delegate = self;
         
         [self.creditCardNumberText setClearButtonMode:UITextFieldViewModeWhileEditing];
         [self.creditCardSecurityCodeText setClearButtonMode:UITextFieldViewModeWhileEditing];
@@ -555,6 +556,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
     self.isDelete = NO;
+    self.isDeleteOnEmpty = NO;
     
     
     
@@ -575,6 +577,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         if ([string isEqualToString:@""]) {
             self.isDelete = YES;
             
+            
             return TRUE;
         }
         if ([self.expirationText.text length] >= 5) {
@@ -583,7 +586,10 @@ NSString *const AMERICAN_EXPRESS = @"A";
         }
         
     }else if (textField == self.creditCardSecurityCodeText){
+        
         if ([string isEqualToString:@""]) {
+            
+    
             return TRUE;
         }
         
@@ -597,13 +603,20 @@ NSString *const AMERICAN_EXPRESS = @"A";
 }
 
 
-
 -(void)valueChanged:(id)sender{
     
     if (sender == self.expirationText) {
+        if (self.isDeleteOnEmpty) {
+            [self.creditCardNumberText becomeFirstResponder];
+        }
+        
         [self formatExpiration];
-    }else{
+    }else if (sender == self.creditCardNumberText){
         [self formatCreditCard];
+    }else{
+        if (self.isDeleteOnEmpty) {
+            [self.expirationText becomeFirstResponder];
+        }
     }
 }
 

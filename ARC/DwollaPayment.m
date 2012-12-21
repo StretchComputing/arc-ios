@@ -759,4 +759,8 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
+- (IBAction)touchBoxesAction {
+    [self.hiddenText becomeFirstResponder];
+
+}
 @end

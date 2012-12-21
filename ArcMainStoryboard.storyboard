@@ -1367,6 +1367,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WnH-nO-UB4">
+                                <rect key="frame" x="21" y="25" width="277" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchBoxesAction" destination="zZz-LI-SJ8" eventType="touchUpInside" id="VN5-7q-bc5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -1382,6 +1397,7 @@
                         <outlet property="errorLabel" destination="6VI-hd-ZpM" id="hBJ-qe-N5B"/>
                         <outlet property="notesText" destination="0xv-kF-Njy" id="tCv-iN-a8o"/>
                         <outlet property="totalPaymentText" destination="g5L-8m-mzV" id="iWf-vp-6CL"/>
+                        <outlet property="touchBoxesButton" destination="WnH-nO-UB4" id="0AN-2L-mzl"/>
                         <segue destination="CSm-3p-pEO" kind="push" identifier="reviewCreditCardTransaction" id="2SM-S0-l6J"/>
                         <segue destination="gw4-gZ-IxK" kind="custom" identifier="editCard" customClass="PushSegueNoAnimation" id="M5n-Hw-9ay"/>
                     </connections>
@@ -1479,6 +1495,21 @@
                                 <rect key="frame" x="191" y="111" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KiZ-n6-XRz">
+                                <rect key="frame" x="21" y="18" width="277" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchBoxesAction" destination="hyn-k9-9Hu" eventType="touchUpInside" id="07w-f8-Mg1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -3342,6 +3373,9 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                                    <connections>
+                                                        <action selector="valueChanged:" destination="0JH-v4-76k" eventType="editingChanged" id="Pfk-54-RYG"/>
+                                                    </connections>
                                                 </textField>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/YY" minimumFontSize="17" id="xM1-Rz-eu9" customClass="CorbelTextField">
                                                     <rect key="frame" x="8" y="5" width="128" height="31"/>
@@ -3708,15 +3742,15 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jpp-du-aSf"/>
         <segue reference="Oi0-YR-QFH"/>
         <segue reference="86F-Ca-hBx"/>
         <segue reference="NwH-xf-Eq4"/>
-        <segue reference="Yz7-xF-sKA"/>
-        <segue reference="co8-nZ-5K2"/>
-        <segue reference="O7d-m2-fj4"/>
-        <segue reference="M5n-Hw-9ay"/>
         <segue reference="WJr-CZ-1Tw"/>
+        <segue reference="co8-nZ-5K2"/>
+        <segue reference="Yz7-xF-sKA"/>
+        <segue reference="2SM-S0-l6J"/>
+        <segue reference="M5n-Hw-9ay"/>
+        <segue reference="yIh-pn-HeY"/>
         <segue reference="neU-RJ-74W"/>
     </inferredMetricsTieBreakers>
 </document>

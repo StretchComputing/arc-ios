@@ -18,8 +18,10 @@
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *totalPaymentText;
 
+- (IBAction)touchBoxesAction;
 @property (strong, nonatomic) Invoice *myInvoice;
 
+@property (weak, nonatomic) IBOutlet UIButton *touchBoxesButton;
 @property BOOL didEditCard;
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;

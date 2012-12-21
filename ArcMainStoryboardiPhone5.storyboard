@@ -1026,6 +1026,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="m3F-jD-Rnp">
+                                <rect key="frame" x="21" y="47" width="277" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchBoxesAction" destination="zZz-LI-SJ8" eventType="touchUpInside" id="6w3-LT-PSQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -1041,6 +1056,7 @@
                         <outlet property="errorLabel" destination="6VI-hd-ZpM" id="hBJ-qe-N5B"/>
                         <outlet property="notesText" destination="0xv-kF-Njy" id="tCv-iN-a8o"/>
                         <outlet property="totalPaymentText" destination="JrD-SY-hlo" id="wHg-RS-4kW"/>
+                        <outlet property="touchBoxesButton" destination="m3F-jD-Rnp" id="nGU-vK-9BR"/>
                         <segue destination="CSm-3p-pEO" kind="push" identifier="reviewCreditCardTransaction" id="2SM-S0-l6J"/>
                         <segue destination="gw4-gZ-IxK" kind="custom" identifier="editCard" customClass="PushSegueNoAnimation" id="f4G-VL-9D0"/>
                     </connections>
@@ -1131,13 +1147,28 @@
                                 <rect key="frame" x="150" y="94" width="20" height="20"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" id="CGW-Vg-58R">
-                                <rect key="frame" x="12" y="34.5" width="288" height="48"/>
+                                <rect key="frame" x="12" y="34.5" width="288" height="61"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="9Wx-JD-U8I">
                                 <rect key="frame" x="189" y="143" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CLZ-5r-Wwu">
+                                <rect key="frame" x="21" y="32" width="277" height="73"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchBoxesAction" destination="hyn-k9-9Hu" eventType="touchUpInside" id="a7T-Kv-lpu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -2825,7 +2856,7 @@
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Card Number" minimumFontSize="17" id="75H-Ui-sss" customClass="CorbelTextField">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="1234 5678 9102 3456" minimumFontSize="17" id="75H-Ui-sss" customClass="CorbelTextField">
                                                     <rect key="frame" x="6" y="7" width="289" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -2950,6 +2981,7 @@
                                                         <action selector="editBegin:" destination="0JH-v4-76k" eventType="editingDidBegin" id="N1Y-FT-d08"/>
                                                         <action selector="editEnd:" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="DAJ-4f-Oaf"/>
                                                         <action selector="endText" destination="0JH-v4-76k" eventType="editingDidEndOnExit" id="OoE-oZ-TKO"/>
+                                                        <action selector="valueChanged:" destination="0JH-v4-76k" eventType="editingChanged" id="GYh-NA-1bA"/>
                                                     </connections>
                                                 </textField>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/YY" minimumFontSize="17" id="gRx-Ki-Yv2" customClass="CorbelTextField">
@@ -3652,11 +3684,11 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Oi0-YR-QFH"/>
-        <segue reference="Jpp-du-aSf"/>
         <segue reference="Ii2-yA-rgx"/>
         <segue reference="Yz7-xF-sKA"/>
         <segue reference="co8-nZ-5K2"/>
         <segue reference="9uW-NG-o9G"/>
+        <segue reference="yIh-pn-HeY"/>
         <segue reference="2SM-S0-l6J"/>
         <segue reference="f4G-VL-9D0"/>
         <segue reference="8Ap-ny-8Aq"/>
