@@ -19,6 +19,7 @@
 @property BOOL isPartialPayment;
 @property BOOL isGoSplit;
 @property BOOL isIphone5;
+
 @property (nonatomic, strong) UIView *hideKeyboardView;
 - (IBAction)payNow:(id)sender;
 @property (strong, nonatomic) Invoice *myInvoice;

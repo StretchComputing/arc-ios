@@ -1894,7 +1894,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Charge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TID-Cy-DIV" customClass="CorbelRegularLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip Included" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TID-Cy-DIV" customClass="CorbelRegularLabel">
                                         <rect key="frame" x="163" y="228" width="134" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2020,7 +2020,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Charge:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lia-Mj-e4c" customClass="CorbelRegularLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip Included:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lia-Mj-e4c" customClass="CorbelRegularLabel">
                                         <rect key="frame" x="21" y="50" width="135" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -2311,7 +2311,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Charge:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="zN7-jY-93Q" customClass="CorbelRegularLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip Included:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="zN7-jY-93Q" customClass="CorbelRegularLabel">
                                         <rect key="frame" x="21" y="50" width="135" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -2404,6 +2404,7 @@
                         <outlet property="dollarTotalBillLabel" destination="bls-Te-oy3" id="PkX-of-mMT"/>
                         <outlet property="dollarTotalBillNameLabel" destination="zAA-po-9QN" id="5KI-nW-GIi"/>
                         <outlet property="dollarView" destination="T8l-yt-cdp" id="ZUb-Yg-cIF"/>
+                        <outlet property="dollarYourPaymentNameLabel" destination="Lia-Mj-e4c" id="rF5-Rg-yzn"/>
                         <outlet property="dollarYourPaymentText" destination="Gko-fJ-B2q" id="OXM-hR-fpi"/>
                         <outlet property="dollarYourTotalPaymentLabel" destination="Itq-6n-RHY" id="gz6-pz-hvx"/>
                         <outlet property="itemServiceChargeLabel" destination="tTb-Hw-GfI" id="0PE-0x-OJ3"/>
@@ -2413,6 +2414,7 @@
                         <outlet property="itemSplitItemYourAmount" destination="3rE-mH-BTO" id="mNM-aM-s5B"/>
                         <outlet property="itemTableView" destination="iV8-D2-GZ5" id="XTI-Lw-UUX"/>
                         <outlet property="itemTaxLabel" destination="k8J-2t-wal" id="PMW-Mp-gSp"/>
+                        <outlet property="itemTipIncludedLabel" destination="TID-Cy-DIV" id="Vf6-uR-OoK"/>
                         <outlet property="itemTipSegment" destination="L0R-jc-Kc0" id="OdU-1m-o64"/>
                         <outlet property="itemTipText" destination="Q0H-s0-bkp" id="fTg-iq-4AO"/>
                         <outlet property="itemView" destination="ip3-cP-Thb" id="eIy-Rc-MPQ"/>
@@ -2424,6 +2426,7 @@
                         <outlet property="percentFoodBevLabel" destination="2fF-Ee-zT8" id="6Po-04-QTW"/>
                         <outlet property="percentServiceChargeLabel" destination="APi-QA-XdI" id="KQ4-6v-R2a"/>
                         <outlet property="percentTaxLabel" destination="Jf8-2y-sQv" id="han-6d-RcA"/>
+                        <outlet property="percentTipIncludedLabel" destination="zN7-jY-93Q" id="hP4-6u-9RR"/>
                         <outlet property="percentTipSegment" destination="x4p-7y-D0b" id="uZt-Z7-M76"/>
                         <outlet property="percentTipText" destination="N9A-0R-wwh" id="Iqv-KL-9KU"/>
                         <outlet property="percentTotalBillLabel" destination="ooA-zW-sxz" id="445-Kb-0PN"/>
@@ -4135,6 +4138,7 @@
                 <relationship kind="outlet" name="dollarFoodBevLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="dollarServiceChargeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="dollarTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarTipIncludedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="dollarTipSegment" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="dollarTipText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="dollarTotalBillLabel" candidateClass="UILabel"/>
@@ -4150,6 +4154,7 @@
                 <relationship kind="outlet" name="itemSplitItemYourAmount" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="itemTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="itemTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemTipIncludedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="itemTipSegment" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="itemTipText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="itemView" candidateClass="UIView"/>
@@ -4161,6 +4166,7 @@
                 <relationship kind="outlet" name="percentFoodBevLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="percentServiceChargeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="percentTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentTipIncludedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="percentTipSegment" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="percentTipText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="percentTotalBillLabel" candidateClass="UILabel"/>
@@ -4214,15 +4220,15 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="NwH-xf-Eq4"/>
+        <segue reference="RgT-l3-35c"/>
         <segue reference="Oi0-YR-QFH"/>
-        <segue reference="Jpp-du-aSf"/>
         <segue reference="86F-Ca-hBx"/>
+        <segue reference="Ii2-yA-rgx"/>
         <segue reference="co8-nZ-5K2"/>
         <segue reference="Yz7-xF-sKA"/>
+        <segue reference="WJr-CZ-1Tw"/>
         <segue reference="2SM-S0-l6J"/>
         <segue reference="M5n-Hw-9ay"/>
-        <segue reference="WJr-CZ-1Tw"/>
         <segue reference="neU-RJ-74W"/>
     </inferredMetricsTieBreakers>
 </document>

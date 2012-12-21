@@ -38,17 +38,36 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    @try {
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
+        
+        
+        if (self.myInvoice.serviceCharge > 0.0) {
+            
+            double serviceChargePercent = self.myInvoice.serviceCharge/self.myInvoice.subtotal * 100;
+            
+            self.dollarTipIncludedLabel.text = [NSString stringWithFormat:@"Tip Included - %.0f%%:", serviceChargePercent];
+            self.percentTipIncludedLabel.text = [NSString stringWithFormat:@"Tip Included - %.0f%%:", serviceChargePercent];
+            self.itemTipIncludedLabel.text = [NSString stringWithFormat:@"Tip Included - %.0f%%", serviceChargePercent];
+
+            
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+   
     
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invoiceComplete:) name:@"invoiceNotification" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
+   
 
 }
 

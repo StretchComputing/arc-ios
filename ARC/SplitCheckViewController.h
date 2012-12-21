@@ -16,6 +16,9 @@
 
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
+@property (nonatomic, strong) IBOutlet UILabel *dollarTipIncludedLabel;
+@property (nonatomic, strong) IBOutlet UILabel *percentTipIncludedLabel;
+@property (nonatomic, strong) IBOutlet UILabel *itemTipIncludedLabel;
 
 //bill division
 @property double taxPercentage;
