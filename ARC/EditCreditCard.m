@@ -47,7 +47,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     
@@ -85,6 +85,15 @@
 -(void)viewDidLoad{
     @try {
         
+        
+        if(NSClassFromString(@"UIRefreshControl")) {
+            self.isIos6 = YES;
+        }else{
+            self.isIos6 = NO;
+        }
+       
+        
+        
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Card"];
         self.navigationItem.titleView = navLabel;
         
@@ -92,6 +101,7 @@
 		self.navigationItem.backBarButtonItem = temp;
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
         NSArray *cards = [mainDelegate getCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
         
         
@@ -157,25 +167,7 @@
 }
 
 -(void)loadTable{
-    
-    /*
-    NSString *expirationYear = [self.creditCardExpiration substringFromIndex:3];
-    
-    for (int i = 0; i < [self.months count]; i++) {
-        
-        NSString *month = [self.months objectAtIndex:i];
-        
-        if ([[month substringToIndex:2] isEqualToString:[self.creditCardExpiration substringToIndex:2]]) {
-            self.creditCardExpirationMonthLabel.text = [self.months objectAtIndex:i];
-            self.expirationMonth = [[self.months objectAtIndex:i] substringToIndex:2];
-            break;
-        }
-    }
-     */
 
-    
-   // self.creditCardExpirationYearLabel.text = expirationYear;
-   // self.expirationYear = expirationYear;
     
     @try {
         
@@ -187,7 +179,30 @@
 
         }
         
-        self.cardNumberTextField.text = [NSString stringWithFormat:@"%@ %@ %@ %@", [self.displayNumber substringToIndex:4], [self.displayNumber substringWithRange:NSMakeRange(4, 4)], [self.displayNumber substringWithRange:NSMakeRange(8, 4)], [self.displayNumber substringWithRange:NSMakeRange(12, 4)]];
+        @try {
+            
+            BOOL isAmex = NO;
+            
+            if ([self.displayNumber length] > 1) {
+                if ([[self.displayNumber substringToIndex:2] isEqualToString:@"34"] || [[self.displayNumber substringToIndex:2] isEqualToString:@"37"]) {
+                    isAmex = YES;
+                }
+            }
+            
+            if (isAmex) {
+
+                self.cardNumberTextField.text = [NSString stringWithFormat:@"%@ %@ %@", [self.displayNumber substringToIndex:4], [self.displayNumber substringWithRange:NSMakeRange(4, 6)], [self.displayNumber substringFromIndex:10]];
+                
+            }else{
+                  self.cardNumberTextField.text = [NSString stringWithFormat:@"%@ %@ %@ %@", [self.displayNumber substringToIndex:4], [self.displayNumber substringWithRange:NSMakeRange(4, 4)], [self.displayNumber substringWithRange:NSMakeRange(8, 4)], [self.displayNumber substringWithRange:NSMakeRange(12, 4)]];
+            }
+            
+        }
+        @catch (NSException *exception) {
+            self.cardNumberTextField.text = self.displayNumber;
+        }
+       
+      
         
         self.securityCodeTextField.text = self.displaySecurityCode;
         
@@ -209,7 +224,7 @@
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"Exception: %@", exception);
+        [rSkybox sendClientLog:@"EditCreditCard.loadTable" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
   
   
@@ -641,109 +656,203 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    self.isDelete = NO;
-    
-    
-    
-    if (textField == self.cardNumberTextField){
+    @try {
+        self.isDelete = NO;
         
-        if ([string isEqualToString:@""]) {
-            self.isDelete = YES;
-            return TRUE;
-        }
         
-        if ([self.cardNumberTextField.text length] >= 20) {
+        
+        if (textField == self.cardNumberTextField){
             
-            return FALSE;
-        }
-        
-    }else if (textField == self.expirationText){
-        
-        if ([string isEqualToString:@""]) {
-            self.isDelete = YES;
+            if ([string isEqualToString:@""]) {
+                self.isDelete = YES;
+                return TRUE;
+            }
             
-            return TRUE;
-        }
-        if ([self.expirationText.text length] >= 5) {
+            if ([self.cardNumberTextField.text length] >= 20) {
+                
+                return FALSE;
+            }
             
-            return FALSE;
-        }
-        
-    }else if (textField == self.securityCodeTextField){
-        if ([string isEqualToString:@""]) {
-            return TRUE;
-        }
-        
-        if ([self.securityCodeTextField.text length] >= 4) {
+        }else if (textField == self.expirationText){
             
-            return FALSE;
+            if ([string isEqualToString:@""]) {
+                self.isDelete = YES;
+                
+                return TRUE;
+            }
+            if ([self.expirationText.text length] >= 5) {
+                
+                return FALSE;
+            }
+            
+        }else if (textField == self.securityCodeTextField){
+            if ([string isEqualToString:@""]) {
+                return TRUE;
+            }
+            
+            if ([self.securityCodeTextField.text length] >= 4) {
+                
+                return FALSE;
+            }
+            
         }
-        
+        return TRUE;
+
     }
-    return TRUE;
+    @catch (NSException *exception) {
+          [rSkybox sendClientLog:@"EditCreditCard.shouldChangeCharacters" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+  
+    
 }
 
 
 
 -(void)valueChanged:(id)sender{
     
-    if (sender == self.expirationText) {
-        [self formatExpiration];
-    }else{
-        [self formatCreditCard];
+    @try {
+        if (self.isIos6) {
+            if (sender == self.expirationText) {
+                
+                [self formatExpiration];
+            }else if (sender == self.cardNumberTextField){
+                [self formatCreditCard];
+            }else{
+                
+            }
+        }else{
+            
+            if (self.shouldIgnoreValueChanged) {
+                self.shouldIgnoreValueChanged = NO;
+            }else{
+                if (sender == self.cardNumberTextField){
+                    [self formatCreditCard];
+                }
+            }
+            
+            if (self.shouldIgnoreValueChangedExpiration) {
+                self.shouldIgnoreValueChangedExpiration = NO;
+            }else{
+                if (sender == self.expirationText) {
+                    
+                    [self formatExpiration];
+                }
+            }
+            
+            
+            
+        }
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"EditCreditCard.valueChanged" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+
+    
+    
 }
 
 -(void)formatCreditCard{
     
-    if (!self.isDelete) {
-        NSString *cardNumber = self.cardNumberTextField.text;
-        
-        if ([cardNumber length] == 4) {
-            cardNumber = [cardNumber stringByAppendingString:@" "];
-        }else if ([cardNumber length] == 9){
-            cardNumber = [cardNumber stringByAppendingString:@" "];
-        }else if ([cardNumber length] == 14){
-            cardNumber = [cardNumber stringByAppendingString:@" "];
-        }else if ([cardNumber length] == 19){
-            [self.expirationText becomeFirstResponder];
-        }else if ([cardNumber length] == 5) {
-            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
-        }else if ([cardNumber length] == 10){
-            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:9], [cardNumber substringFromIndex:9]];
+    @try {
+       
+        if (!self.isDelete) {
             
-        }else if ([cardNumber length] == 15){
-            cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:14], [cardNumber substringFromIndex:14]];
+            
+            NSString *cardNumber = self.cardNumberTextField.text;
+            BOOL isAmex = NO;
+            
+            if ([cardNumber length] > 1) {
+                if ([[cardNumber substringToIndex:2] isEqualToString:@"34"] || [[cardNumber substringToIndex:2] isEqualToString:@"37"]) {
+                    isAmex = YES;
+                }
+            }
+            
+            if (isAmex) {
+                
+                if ([cardNumber length] == 4) {
+                    cardNumber = [cardNumber stringByAppendingString:@" "];
+                }else if ([cardNumber length] == 11){
+                    cardNumber = [cardNumber stringByAppendingString:@" "];
+                }else if ([cardNumber length] == 17){
+                    [self.expirationText becomeFirstResponder];
+                }else if ([cardNumber length] == 5) {
+                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
+                }else if ([cardNumber length] == 12){
+                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:11], [cardNumber substringFromIndex:11]];
+                    
+                }
+                
+                
+            }else{
+                if ([cardNumber length] == 4) {
+                    cardNumber = [cardNumber stringByAppendingString:@" "];
+                }else if ([cardNumber length] == 9){
+                    cardNumber = [cardNumber stringByAppendingString:@" "];
+                }else if ([cardNumber length] == 14){
+                    cardNumber = [cardNumber stringByAppendingString:@" "];
+                }else if ([cardNumber length] == 19){
+                    [self.expirationText becomeFirstResponder];
+                }else if ([cardNumber length] == 5) {
+                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
+                }else if ([cardNumber length] == 10){
+                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:9], [cardNumber substringFromIndex:9]];
+                    
+                }else if ([cardNumber length] == 15){
+                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:14], [cardNumber substringFromIndex:14]];
+                }
+            }
+            
+            
+            
+            if (!self.isIos6) {
+                self.shouldIgnoreValueChanged = YES;
+            }
+            self.cardNumberTextField.text = cardNumber;
         }
-        
-        
-        self.cardNumberTextField.text = cardNumber;
     }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"EditCreditCard.formatCreditCard" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+
     
     
 }
 
 -(void)formatExpiration{
     
-    NSString *expiration = self.expirationText.text;
-    
-    if (self.isDelete) {
+    @try {
+        NSString *expiration = self.expirationText.text;
         
-    }else{
-        if ([expiration length] == 5) {
-            [self.securityCodeTextField becomeFirstResponder];
-        }
-        
-        if ([expiration length] == 1) {
-            if (![expiration isEqualToString:@"1"] && ![expiration isEqualToString:@"0"]) {
-                expiration = [NSString stringWithFormat:@"0%@/", expiration];
+        if (self.isDelete) {
+            
+            if ([expiration length] == 2) {
+                expiration = [expiration substringToIndex:1];
             }
-        }else if ([expiration length] == 2){
-            expiration = [expiration stringByAppendingString:@"/"];
+            
+        }else{
+            if ([expiration length] == 5) {
+                [self.securityCodeTextField becomeFirstResponder];
+            }
+            
+            if ([expiration length] == 1) {
+                if (![expiration isEqualToString:@"1"] && ![expiration isEqualToString:@"0"]) {
+                    expiration = [NSString stringWithFormat:@"0%@/", expiration];
+                }
+            }else if ([expiration length] == 2){
+                expiration = [expiration stringByAppendingString:@"/"];
+            }
         }
+        
+        if (!self.isIos6) {
+            self.shouldIgnoreValueChangedExpiration = YES;
+        }
+        
+        self.expirationText.text = expiration;
     }
-    
-    self.expirationText.text = expiration;
+    @catch (NSException *exception) {
+         [rSkybox sendClientLog:@"EditCreditCard.formatExpiration" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+   
     
 }
 
@@ -756,5 +865,21 @@
     
 }
 
+
+-(void)backspaceHit{
+    
+    @try {
+        if (([self.securityCodeTextField.text length] == 0) && [self.securityCodeTextField isFirstResponder]) {
+            [self.expirationText becomeFirstResponder];
+        }else if (([self.expirationText.text length] == 0) && [self.expirationText isFirstResponder]) {
+            [self.cardNumberTextField becomeFirstResponder];
+        }
+
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"EditCreditCard.backspaceHit" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+   
+}
 
 @end

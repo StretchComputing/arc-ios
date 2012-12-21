@@ -12,6 +12,11 @@
 
 @property BOOL pinDidChange;
 @property BOOL isFromPayment;
+
+@property BOOL isIos6;
+@property BOOL shouldIgnoreValueChanged;
+@property BOOL shouldIgnoreValueChangedExpiration;
+
 @property (nonatomic, strong, getter = getMyNewPin) NSString *newPin;
 
 @property (nonatomic, strong) IBOutlet UITextField *expirationText;

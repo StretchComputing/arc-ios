@@ -21,7 +21,10 @@
 @property (nonatomic, strong) UITextField *expirationText;
 @property (nonatomic, strong) UIPickerView *birthDatePickerView;
 
+@property BOOL isIos6;
+@property BOOL shouldIgnoreValueChanged;
 @property BOOL isDelete;
+@property BOOL shouldIgnoreValueChangedExpiration;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *registerButton;

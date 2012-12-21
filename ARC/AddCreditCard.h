@@ -17,8 +17,9 @@ extern NSString *const AMERICAN_EXPRESS;
 
 @property BOOL isIphone5;
 @property BOOL isDelete;
-@property BOOL isDeleteOnEmpty;
-
+@property BOOL isIos6;
+@property BOOL shouldIgnoreValueChanged;
+@property BOOL shouldIgnoreValueChangedExpiration;
 
 @property (nonatomic, strong) NSString *expirationMonth;
 @property (nonatomic, strong) NSString *expirationYear;
@@ -45,5 +46,7 @@ extern NSString *const AMERICAN_EXPRESS;
 -(IBAction)addCard;
 
 -(IBAction)valueChanged:(id)sender;
+
+
 
 @end
