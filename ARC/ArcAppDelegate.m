@@ -481,6 +481,11 @@ ofType:(NSString *)typeName
 -(void)insertCustomerWithId:(NSString *)customerId andToken:(NSString *)customerToken{
     
     @try {
+        
+        NSLog(@"Inserting Customer***********");
+        
+        [rSkybox addEventToSession:@"insertCustomerWithId"];
+
         //Only inserts if one doesn't already exist
         Customer *customer = [self getCurrentCustomer];
         
@@ -508,6 +513,12 @@ ofType:(NSString *)typeName
   
 }
 
+-(void)reInsertCard{
+    
+    [self insertCreditCardWithNumber:self.storedNumber andSecurityCode:self.storedSecurityCode andExpiration:self.storedExpiration andPin:self.storedPin andCreditDebit:self.storedCreditDebit];
+}
+
+
 -(void)insertCreditCardWithNumber:(NSString *)number andSecurityCode:(NSString *)securityCode andExpiration:(NSString *)expiration andPin:(NSString *)pin andCreditDebit:(NSString *)andCreditDebit{
     
 
@@ -516,18 +527,42 @@ ofType:(NSString *)typeName
                 
         Customer *customer = [self getCurrentCustomer];
         
-        CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
         
-        NSString *sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+        if (!customer) {
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *customerId = [prefs valueForKey:@"customerId"];
+            NSString *customerToken = [prefs valueForKey:@"customerToken"];
+            
+            [self insertCustomerWithId:customerId andToken:customerToken];
+            
+            self.waitingCustomerInsertion = YES;
+            
+            self.storedNumber = number;
+            self.storedSecurityCode = securityCode;
+            self.storedExpiration = expiration;
+            self.storedPin = pin;
+            self.storedCreditDebit = andCreditDebit;
+            
+            [self performSelector:@selector(reInsertCard) withObject:nil afterDelay:1.5];
+
+        }else{
+            
+            CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
+            
+            NSString *sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+            
+            creditCard.expiration = expiration;
+            creditCard.sample = sample;
+            creditCard.number = [FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO];
+            creditCard.securityCode = [FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO];
+            creditCard.whoOwns = customer;
+            creditCard.cardType = [ArcUtility getCardTypeForNumber:number];
+            
+            [self saveDocument];
+            
+        }
         
-        creditCard.expiration = expiration;
-        creditCard.sample = sample;
-        creditCard.number = [FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO];
-        creditCard.securityCode = [FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO];
-        creditCard.whoOwns = customer;
-        creditCard.cardType = [ArcUtility getCardTypeForNumber:number];
-        
-        [self saveDocument];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcAppDelegate.insertCreditCardWithNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -538,10 +573,13 @@ ofType:(NSString *)typeName
 -(Customer *)getCurrentCustomer{
     
     @try {
+        [rSkybox addEventToSession:@"getCurentCustomer"];
+
+        
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
         NSString *customerId = [prefs valueForKey:@"customerId"];
-        NSString *customerToken = [prefs valueForKey:@"customerToken"];
+        //NSString *customerToken = [prefs valueForKey:@"customerToken"];
         
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Customer"];
@@ -564,7 +602,7 @@ ofType:(NSString *)typeName
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcAppDelegate.getCurrentCustomer" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        return @[];
+        return nil;
     }
    
     

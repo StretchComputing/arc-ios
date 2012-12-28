@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Customer.h"
 #import "Reachability.h"
+#import "CreditCard.h"
 
 @interface ArcAppDelegate : UIResponder <UIApplicationDelegate>
 {
@@ -22,11 +23,21 @@
 @property (nonatomic, strong) NSString *logout;
 @property (nonatomic, strong) NSString *pushToken;
 
+@property BOOL waitingCustomerInsertion;
+
 -(NSString *)getCustomerId;
 -(NSString *)getCustomerToken;
 
 @property (nonatomic, strong) UIManagedDocument *managedDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+
+@property (nonatomic, strong) NSString *storedNumber;
+@property (nonatomic, strong) NSString *storedSecurityCode;
+@property (nonatomic, strong) NSString *storedExpiration;
+@property (nonatomic, strong) NSString *storedPin;
+@property (nonatomic, strong) NSString *storedCreditDebit;
+
 
 
 -(void)documentIsReady;

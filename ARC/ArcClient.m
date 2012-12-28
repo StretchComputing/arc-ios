@@ -113,7 +113,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *createUrl = [NSString stringWithFormat:@"%@customers/new", _arcUrl, nil];
+        NSString *createUrl = [NSString stringWithFormat:@"%@customers/create", _arcUrl, nil];
         
         //NSLog(@"CreateUrl: %@", createUrl);
         
@@ -250,7 +250,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
-        NSString *createPaymentUrl = [NSString stringWithFormat:@"%@payments/new", _arcUrl, nil];
+        NSString *createPaymentUrl = [NSString stringWithFormat:@"%@payments/create", _arcUrl, nil];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createPaymentUrl]];
         [request setHTTPMethod: @"POST"];
         [request setHTTPBody: requestData];
