@@ -13,6 +13,7 @@
 #import "rSkybox.h"
 
 #import "HomeNavigationController.h"
+#import "Tesseract.h"
 
 @interface Restaurant ()
 
@@ -489,7 +490,6 @@
             }
 
             
-            
         }
         
     }
@@ -500,7 +500,101 @@
     
 }
 
+-(void)showCamera{
+    
+    @try {
+        
+        UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        [self presentModalViewController:picker animated:YES];
+    }
+    @catch (NSException *exception) {
+        
+    }
+     
+    
+}
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    @try {
+        [picker dismissModalViewControllerAnimated:YES];
+        
+        UIImage *tmpImage = info[UIImagePickerControllerOriginalImage];
+        
+        [self.activity startAnimating];
+        [self performSelectorInBackground:@selector(getDataFromImage:) withObject:tmpImage];
+    }
+    @catch (NSException *exception) {
+        
+    }
+  
+
+
+}
+
+
+-(void)getDataFromImage:(UIImage *)image{
+    
+    @autoreleasepool {
+        
+        @try {
+            Tesseract* tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];
+            [tesseract setImage:image];
+            //[tesseract setImage:[UIImage imageNamed:@"untitledReceipt.png"]];
+            [tesseract recognize];
+            
+            [self performSelectorOnMainThread:@selector(doneReadingImage:) withObject:[tesseract recognizedText] waitUntilDone:NO];
+        }
+        @catch (NSException *exception) {
+            
+        }
+      
+        
+        
+    }
+}
+
+-(void)doneReadingImage:(NSString *)textString{
+
+    @try {
+        BOOL showAlert = NO;
+        if ([textString length] > 0) {
+            
+            if ([textString rangeOfString:@"CHK:"].location != NSNotFound) {
+                
+                int location = [textString rangeOfString:@"CHK:"].location;
+                location+=4;
+                
+                NSString *number = [textString substringWithRange:NSMakeRange(location, 7)];
+                number = [number stringByReplacingOccurrencesOfString:@" " withString:@""];
+                
+                self.hiddenText.text = number;
+                [self setValues:number];
+                [self submit:nil];
+                
+            }else{
+                showAlert = YES;
+            }
+        }else{
+            showAlert = YES;
+        }
+        
+        if (showAlert) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Read Check" message:@"ARC was unable to read your check number off of your check, please try again, or enter it manually." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+
+    }
+    @catch (NSException *exception) {
+        
+    }
+  
+   
+}
 -(void)showDoneButton{
     @try {
         

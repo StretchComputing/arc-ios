@@ -11,7 +11,8 @@
 #import "CorbelBarButtonItem.h"
 
 
-@interface Restaurant : UIViewController <UITextFieldDelegate>
+@interface Restaurant : UIViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFive;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumSix;
@@ -48,4 +49,5 @@
 
 @property (nonatomic, strong) UITextField *hiddenText;
 
+-(IBAction)showCamera;
 @end

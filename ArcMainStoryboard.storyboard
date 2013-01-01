@@ -1081,58 +1081,58 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter Check Number:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="H75-PX-PLp" customClass="LucidaLabel">
-                                <rect key="frame" x="78" y="82" width="188" height="21"/>
+                                <rect key="frame" x="78" y="71" width="188" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="C6o-71-lJJ" customClass="CorbelInputTextField">
-                                <rect key="frame" x="18" y="115" width="35" height="38"/>
+                                <rect key="frame" x="18" y="119" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="M6K-NP-9tT" customClass="CorbelInputTextField">
-                                <rect key="frame" x="68" y="115" width="35" height="38"/>
+                                <rect key="frame" x="68" y="119" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="3ak-3T-Tdz" customClass="CorbelInputTextField">
-                                <rect key="frame" x="118" y="115" width="35" height="38"/>
+                                <rect key="frame" x="118" y="119" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="gjR-4J-xDv" customClass="CorbelInputTextField">
-                                <rect key="frame" x="168" y="115" width="35" height="38"/>
+                                <rect key="frame" x="168" y="119" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="DCa-bn-T5f" customClass="CorbelInputTextField">
-                                <rect key="frame" x="218" y="115" width="35" height="38"/>
+                                <rect key="frame" x="218" y="119" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="vOT-eu-TpS" customClass="CorbelInputTextField">
-                                <rect key="frame" x="265" y="115" width="35" height="38"/>
+                                <rect key="frame" x="265" y="119" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="isn-UN-jwH">
-                                <rect key="frame" x="150" y="161" width="20" height="20"/>
+                                <rect key="frame" x="150" y="92" width="20" height="20"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="SlV-1r-alp">
-                                <rect key="frame" x="0.0" y="170" width="235" height="21"/>
+                                <rect key="frame" x="0.0" y="94" width="320" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Kyc-Zj-6Nb">
-                                <rect key="frame" x="45" y="78" width="25" height="25"/>
+                                <rect key="frame" x="45" y="67" width="25" height="25"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="qmark.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1161,12 +1161,38 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <view contentMode="scaleToFill" id="Oe0-ow-tqq">
-                                <rect key="frame" x="10" y="111" width="297" height="51"/>
+                                <rect key="frame" x="10" y="115" width="297" height="51"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="checkNumberHelp.png" id="TiP-i5-v6U">
-                                <rect key="frame" x="5" y="8" width="310" height="325"/>
+                                <rect key="frame" x="5" y="400" width="310" height="325"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Fy-2w-CQa">
+                                <rect key="frame" x="0.0" y="157" width="208" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showCamera" destination="qbo-Pr-HTj" eventType="touchUpInside" id="LVg-Rt-Nbj"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="camera.png" id="aMT-ja-GJa">
+                                <rect key="frame" x="5" y="164" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Or take a picture of your check" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qcd-WI-fBx" customClass="CorbelBoldLabel">
+                                <rect key="frame" x="30" y="170" width="203" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -3730,6 +3756,7 @@
         <image name="addCard.png" width="40" height="40"/>
         <image name="arcLogo.png" width="667" height="250"/>
         <image name="blueCheck.png" width="150" height="138"/>
+        <image name="camera.png" width="128" height="128"/>
         <image name="checkNumberHelp.png" width="600" height="750"/>
         <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="qmark.png" width="60" height="60"/>
@@ -4020,6 +4047,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/Restaurant.h"/>
             <relationships>
                 <relationship kind="action" name="checkNumberHelp"/>
+                <relationship kind="action" name="showCamera"/>
                 <relationship kind="action" name="submit:"/>
                 <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="checkHelpImageView" candidateClass="UIImageView"/>
