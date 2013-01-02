@@ -11,7 +11,7 @@
 #import "CorbelBarButtonItem.h"
 
 
-@interface Restaurant : UIViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface Restaurant : UIViewController <UITextFieldDelegate >
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFive;
