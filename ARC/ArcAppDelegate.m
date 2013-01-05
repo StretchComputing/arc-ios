@@ -39,7 +39,7 @@
 			case NotReachable:
 			{
                 
-                NSString *message = @"An internet connection is required for this app.  Please make sure you are connected to the internet to continue.";
+                //NSString *message = @"An internet connection is required for this app.  Please make sure you are connected to the internet to continue.";
                // UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Lost" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 //[alert show];
                 
@@ -387,7 +387,7 @@
 ofType:(NSString *)typeName
                    error:(NSError **)outError{
     
-    NSLog(@"Error: %@", outError);
+    //NSLog(@"Error: %@", outError);
     return YES;
 
 }
@@ -615,7 +615,7 @@ ofType:(NSString *)typeName
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
         NSString *customerId = [prefs valueForKey:@"customerId"];
-        NSString *customerToken = [prefs valueForKey:@"customerToken"];
+       // NSString *customerToken = [prefs valueForKey:@"customerToken"];
         
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CreditCard"];

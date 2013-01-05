@@ -49,5 +49,5 @@
 
 @property (nonatomic, strong) UITextField *hiddenText;
 
--(IBAction)showCamera;
+//-(IBAction)showCamera;
 @end

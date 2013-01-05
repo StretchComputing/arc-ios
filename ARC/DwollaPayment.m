@@ -640,7 +640,7 @@
             self.errorLabel.text = @"";
             BOOL paidInFull = [[[responseInfo valueForKey:@"Results"] valueForKey:@"InvoicePaid"] boolValue];
             if(paidInFull) [self.myInvoice setPaidInFull:paidInFull];
-            int paymentId = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"PaymentId"];
+            int paymentId = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"PaymentId"] intValue];
             [self.myInvoice setPaymentId:paymentId];
             
             [self performSegueWithIdentifier:@"reviewTransaction" sender:self];

@@ -23,6 +23,7 @@ extern NSString *const ARC_VERSION_NUMBER;
 
 @interface rSkybox : NSObject
 
+
 //rSkybox server communication methods
 + (NSDictionary *)createEndUser;
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception;

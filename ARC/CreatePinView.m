@@ -14,6 +14,7 @@
 #import "SettingsView.h"
 #import "EditCreditCard.h"
 #import "NoPaymentSourcesViewController.h"
+#import "RegisterViewNew.h"
 
 @interface CreatePinView ()
 
@@ -222,7 +223,7 @@
             tmp.fromCreditCard = YES;
             
             // welcome message
-            NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
+            //NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
             //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
            // [alert show];
             

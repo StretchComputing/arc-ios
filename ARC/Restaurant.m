@@ -22,8 +22,6 @@
 @end
 
 @implementation Restaurant
-@synthesize checkNumFive;
-@synthesize checkNumSix;
 
 
 -(void)viewWillDisappear:(BOOL)animated{

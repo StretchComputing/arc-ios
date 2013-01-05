@@ -7,84 +7,56 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CorbelBarButtonItem.h"
+#import "CardIO.h"
 
+@interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
 
-@interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
-
-@property int selectedMonth;
-@property (nonatomic, strong) NSString *birthDateMonth;
-@property (nonatomic, strong) NSString *birthDateDay;
-@property (nonatomic, strong) NSString *birthDateYear;
-@property (nonatomic, strong) NSArray *birthDateMonths;
-@property (nonatomic, strong) NSMutableArray *birthDateDays;
-@property (nonatomic, strong) NSMutableArray *birthDateYears;
-@property (nonatomic, strong) UITextField *expirationText;
-@property (nonatomic, strong) UIPickerView *birthDatePickerView;
-
+@property (nonatomic, strong) UIButton *keyboardSubmitButton;
+@property (nonatomic, strong) UIView *hideKeyboardView;
+@property (nonatomic, strong) CorbelBarButtonItem *registerButton;
 @property BOOL isIos6;
-@property BOOL shouldIgnoreValueChanged;
 @property BOOL isDelete;
-@property BOOL shouldIgnoreValueChangedExpiration;
+
+@property CGPoint scrollViewOffset;
+
+@property BOOL didFirstRun;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *registerButton;
 
-@property BOOL isCreditCard;
 @property BOOL isIphone5;
-@property BOOL fromCreditCard;
 
+@property int pageNumber;
+@property (nonatomic, strong) IBOutlet UIScrollView *myScrollView;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
-
-@property (nonatomic, strong) NSString *expirationMonth;
-@property (nonatomic, strong) NSString *expirationYear;
+@property (nonatomic, strong) IBOutlet UITableView *myTableViewTwo;
+@property (nonatomic, strong) IBOutlet UITableView *myTableViewThree;
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activity;
 
-@property (nonatomic, strong) NSArray *months;
-@property (nonatomic, strong) NSArray *years;
-@property (nonatomic, strong) UIPickerView *pickerView;
-@property BOOL isExpirationMonth;
-@property (weak, nonatomic) UILabel *creditCardExpirationMonthLabel;
-@property (weak, nonatomic) UILabel *creditCardExpirationYearLabel;
-- (IBAction)endText;
-@property (weak, nonatomic)  UITextField *creditCardSecurityCodeText;
-@property (weak, nonatomic)  UITextField *creditCardPinText;
-@property (weak, nonatomic)  UITextField *creditCardNumberText;
-@property (nonatomic, strong) UIView *hideKeyboardView;
 
+- (IBAction)goNext;
+@property BOOL fromCreditCard;
+
+@property BOOL registerSuccess;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 - (IBAction)login:(UIBarButtonItem *)sender;
-- (IBAction)registerNow:(id)sender;
-
-@property (nonatomic, weak) IBOutlet UISegmentedControl *creditDebitSegment;
 
 
--(void)changeExpiration;
+@property BOOL shouldIgnoreValueChanged;
+@property BOOL shouldIgnoreValueChangedExpiration;
 
-@property BOOL isPrivacy;
-@property BOOL didAgreePrivacy;
-
+@property (weak, nonatomic)  UITextField *emailText;
+@property (weak, nonatomic)  UITextField *passwordText;
 @property (weak, nonatomic)  UITextField *firstNameText;
 @property (weak, nonatomic)  UITextField *lastNameText;
-@property (weak, nonatomic)  UITextField *emailText;
-@property (weak, nonatomic)  UITextField *birthDateText;
-
-@property (weak, nonatomic)  UITextField *passwordText;
-@property (weak, nonatomic)  UISegmentedControl *genderSegment;
-@property (weak, nonatomic)  UIView *activityView;
-
-@property (weak, nonatomic) IBOutlet UISegmentedControl *dwollaSegControl;
-@property (nonatomic, strong) NSMutableData *serverData;
-
-@property BOOL dwollaSuccess;
-@property BOOL registerSuccess;
-@property BOOL fromDwolla;
+@property (weak, nonatomic)  UITextField *creditCardSecurityCodeText;
+@property (weak, nonatomic)  UITextField *creditCardNumberText;
+@property (nonatomic, strong) UITextField *expirationText;
 
 
-@property (nonatomic, weak) IBOutlet UIImageView *checkedImageView;
-
-
+-(IBAction)scanCard;
 
 @end

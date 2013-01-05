@@ -103,7 +103,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.2.1";
     
     if(milliseconds > maxValue && ![logName isEqualToString:@"ErrorEncountered"]) {
         NSString *logMessage = [NSString stringWithFormat:@"threshold: %0.0f ms latency: %0.0f ms", maxValue, milliseconds];
-        NSLog(logMessage);
+        NSLog(@"%@", logMessage);
         // deactivate thresshold reporting for now
         //[rSkybox sendClientLog:logName logMessage:logMessage logLevel:@"error" exception:nil];
     }
@@ -208,6 +208,10 @@ NSString* const ARC_VERSION_NUMBER = @"1.2.1";
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        
+        if (connection) {
+            
+        }
         //NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object
@@ -386,6 +390,9 @@ NSString* const ARC_VERSION_NUMBER = @"1.2.1";
         
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 
+        if (connection) {
+            
+        }
         /*
         NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
@@ -484,7 +491,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.2.1";
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"YYYY-MM-dd hh:mm:ss.SSS"];
-        NSString *dateString = [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]];
+       // NSString *dateString = [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]];
         
        // NSLog(@"%d: %@ - %@", i, [traceSession objectAtIndex:i], dateString);
     }

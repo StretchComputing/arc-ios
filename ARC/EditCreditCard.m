@@ -100,9 +100,9 @@
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Edit Card"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        //ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         
-        NSArray *cards = [mainDelegate getCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
+        //NSArray *cards = [mainDelegate getCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
         
         
 
@@ -423,7 +423,7 @@
             pickerY = 287;
         }
         self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, pickerY, 320, 315)];
-        self.pickerView.delegate = self;
+        //self.pickerView.delegate = self;
         self.pickerView.showsSelectionIndicator = YES;
         
         [self.view.superview addSubview:self.pickerView];

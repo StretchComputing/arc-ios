@@ -425,415 +425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1193" y="253"/>
-        </scene>
-        <!--Register View New - Register-->
-        <scene sceneID="4At-EH-59Z">
-            <objects>
-                <viewController id="512-JI-24r" customClass="RegisterViewNew" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jRX-A5-C4a">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ff4-BK-Vrr">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="iyk-dM-KwZ">
-                                    <rect key="frame" x="0.0" y="586" width="320" height="80"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="By creating an ARC account, you agree to the:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N1J-uI-X7z" customClass="CorbelBoldLabel">
-                                            <rect key="frame" x="3" y="-2" width="314" height="33"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="z91-kX-geQ">
-                                            <rect key="frame" x="0.0" y="25" width="158" height="34"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <state key="normal" title="Privacy Policy">
-                                                <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <segue destination="wZZ-QO-1n2" kind="modal" identifier="goPrivacy" modalTransitionStyle="flipHorizontal" id="aCy-eM-duv"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rcw-K4-5Cl">
-                                            <rect key="frame" x="166" y="25" width="154" height="34"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <state key="normal" title="Terms Of Use">
-                                                <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <segue destination="wZZ-QO-1n2" kind="modal" identifier="goTerms" modalTransitionStyle="flipHorizontal" id="86F-Ca-hBx"/>
-                                            </connections>
-                                        </button>
-                                        <view contentMode="scaleToFill" id="1mW-Jj-jE2">
-                                            <rect key="frame" x="22" y="49" width="114" height="2"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </view>
-                                        <view contentMode="scaleToFill" id="dRq-kH-uGE">
-                                            <rect key="frame" x="188" y="49" width="110" height="2"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="firstNameCell" id="dMg-bW-rPe">
-                                        <rect key="frame" x="0.0" y="46" width="320" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" clearButtonMode="whileEditing" id="1cj-8z-m9z" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="7" width="289" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="9pz-il-0ya"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="expirationMonthCell" id="aP3-ch-NZb">
-                                        <rect key="frame" x="0.0" y="91" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Expiration Year" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="tnO-ro-lBA" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="5" y="13" width="195" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="2012" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Sil-jm-vaC" customClass="LucidaLabel">
-                                                    <rect key="frame" x="195" y="13" width="91" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IfJ-c9-Rvi">
-                                                    <rect key="frame" x="5" y="-1" width="290" height="45"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paymentCell" id="p0f-WF-Vif">
-                                        <rect key="frame" x="0.0" y="135" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="qPg-LB-KC9" customClass="CorbelSegmentedControl">
-                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <segments>
-                                                        <segment title="Dwolla"/>
-                                                        <segment title="Credit/Debit"/>
-                                                    </segments>
-                                                    <color key="tintColor" red="0.08235294118" green="0.31372549020000001" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                </segmentedControl>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cardTypeCell" id="FlG-9c-k5q">
-                                        <rect key="frame" x="0.0" y="179" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="HYb-3d-d9d" customClass="CorbelSegmentedControl">
-                                                    <rect key="frame" x="129" y="7" width="166" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <segments>
-                                                        <segment title="Credit"/>
-                                                        <segment title="Debit"/>
-                                                    </segments>
-                                                    <color key="tintColor" red="0.08235294118" green="0.31372549020000001" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                </segmentedControl>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Card Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="skg-JN-dTN" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="11" y="12" width="125" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="lastNameCell" id="IHd-ko-xKq">
-                                        <rect key="frame" x="0.0" y="223" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" clearButtonMode="whileEditing" id="Ggc-Vy-yBa" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="6" width="289" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="fbk-Gb-BbE"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="birthDateCell" id="kb4-Re-eiK">
-                                        <rect key="frame" x="0.0" y="267" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Birth Date " minimumFontSize="17" clearButtonMode="whileEditing" id="UYD-ce-maT" customClass="CorbelTextField">
-                                                    <rect key="frame" x="5" y="6" width="289" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="DVX-hF-w3r"/>
-                                                    </connections>
-                                                </textField>
-                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WsL-2H-M5r">
-                                                    <rect key="frame" x="5" y="-1" width="290" height="45"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="emailCell" id="B1i-i6-HIN">
-                                        <rect key="frame" x="0.0" y="311" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" minimumFontSize="17" clearButtonMode="whileEditing" id="KIP-eq-vrv" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="6" width="289" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="exZ-dN-Fhy"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="passwordCell" id="Gpw-c0-0lV">
-                                        <rect key="frame" x="0.0" y="355" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Choose A Password" minimumFontSize="17" clearButtonMode="whileEditing" id="TfG-Y7-kAT" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="6" width="289" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="Jpq-aj-QeM"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cardNumberCell" id="cKs-Xk-n0a">
-                                        <rect key="frame" x="0.0" y="399" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="1234 5678 9102 3456" minimumFontSize="17" clearButtonMode="whileEditing" id="EeL-rX-KcS" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="6" width="289" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="Fdn-7c-vQu"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="securityCodeCell" id="JXp-A8-t23">
-                                        <rect key="frame" x="0.0" y="443" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CVV" minimumFontSize="17" clearButtonMode="whileEditing" id="LBb-B6-Rom" customClass="CorbelTextFieldCreditCardiOS6">
-                                                    <rect key="frame" x="165" y="6" width="130" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="x26-b9-40U"/>
-                                                    </connections>
-                                                </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/YY" minimumFontSize="17" clearButtonMode="whileEditing" id="CN2-Qu-f1D" customClass="CorbelTextFieldCreditCardiOS6">
-                                                    <rect key="frame" x="6" y="6" width="130" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="Zzc-lA-gc3"/>
-                                                    </connections>
-                                                </textField>
-                                                <view contentMode="scaleToFill" id="tgG-H2-Ub6">
-                                                    <rect key="frame" x="150" y="0.0" width="1" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                                </view>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pinCell" id="IEx-u0-jmg">
-                                        <rect key="frame" x="0.0" y="487" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Credit Card Pin" minimumFontSize="17" clearButtonMode="whileEditing" id="1tb-TE-zyx" customClass="CorbelTextField">
-                                                    <rect key="frame" x="6" y="6" width="289" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="endText" destination="512-JI-24r" eventType="editingDidEndOnExit" id="zOH-HE-oSb"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="expirationYearCell" id="MCm-uZ-jwZ">
-                                        <rect key="frame" x="0.0" y="531" width="320" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BgY-fr-JRm">
-                                                    <rect key="frame" x="5" y="-1" width="290" height="45"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Expiration Year" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="9Ix-7Y-8Qp" customClass="LucidaBoldLabel">
-                                                    <rect key="frame" x="5" y="13" width="195" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="2012" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="66a-tj-Y65" customClass="LucidaLabel">
-                                                    <rect key="frame" x="195" y="13" width="91" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="fwJ-ma-Ru7">
-                                <rect key="frame" x="274" y="7" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Register" id="OvC-8I-dVr">
-                        <barButtonItem key="leftBarButtonItem" title="Login" id="FR9-UA-yBi" customClass="CorbelBarButtonItem">
-                            <connections>
-                                <action selector="login:" destination="512-JI-24r" id="dmY-Kc-AvJ"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Register" style="done" id="DL1-TY-IXs" customClass="CorbelBarButtonItem">
-                            <connections>
-                                <action selector="registerNow:" destination="512-JI-24r" id="IZB-Ju-w8Z"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="activity" destination="fwJ-ma-Ru7" id="c2U-Ws-bjD"/>
-                        <outlet property="loginButton" destination="FR9-UA-yBi" id="CAZ-6S-xVq"/>
-                        <outlet property="myTableView" destination="ff4-BK-Vrr" id="bmy-cw-oJO"/>
-                        <outlet property="registerButton" destination="DL1-TY-IXs" id="YCy-PM-9co"/>
-                        <segue destination="bX5-5s-ZOq" kind="custom" identifier="confirmDwolla" customClass="PushSegueNoAnimation" id="Jpp-du-aSf"/>
-                        <segue destination="t3u-BW-Rju" kind="modal" identifier="registerHome" id="Oi0-YR-QFH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JCV-M0-kjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-953" y="-535"/>
+            <point key="canvasLocation" x="-1324" y="335"/>
         </scene>
         <!--Register Dwolla View - Register-->
         <scene sceneID="II2-QN-Neg">
@@ -872,12 +464,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="512-JI-24r" kind="relationship" relationship="rootViewController" id="kwp-LM-LQp"/>
+                        <segue destination="2xa-h1-30U" kind="relationship" relationship="rootViewController" id="AiZ-JX-3TL"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MdB-np-ygt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1473" y="-553"/>
+            <point key="canvasLocation" x="-1596" y="-444"/>
         </scene>
         <!--Home Navigation Controller-->
         <scene sceneID="ngT-vI-nh8">
@@ -892,7 +484,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UU3-2b-h4s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="295" y="-561"/>
+            <point key="canvasLocation" x="-383" y="-609"/>
         </scene>
         <!--Home - Home-->
         <scene sceneID="q4Z-kY-aF0">
@@ -3492,7 +3084,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9nV-Gh-vqO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-610" y="-1267"/>
+            <point key="canvasLocation" x="-144" y="-1463"/>
         </scene>
         <!--Validate Pin View - Account Protection-->
         <scene sceneID="n5d-WQ-cE9">
@@ -3724,12 +3316,319 @@
             </objects>
             <point key="canvasLocation" x="-2700" y="848"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="aTZ-Fj-XPy">
+            <objects>
+                <viewController id="f4x-jL-XWN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WaK-Y7-USZ">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="HEi-qL-0Bb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W0U-6O-PRk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-612" y="-1862"/>
+        </scene>
+        <!--Register View New - Create Account-->
+        <scene sceneID="EQY-gP-RC8">
+            <objects>
+                <viewController id="2xa-h1-30U" customClass="RegisterViewNew" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AWP-0k-3TP">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="HgL-V6-KPK">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="hqn-TL-XmO">
+                                        <rect key="frame" x="0.0" y="20" width="320" height="524"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="MZq-SM-iqP">
+                                            <rect key="frame" x="0.0" y="146" width="320" height="80"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(minimum 5 characters)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jDx-94-RO4" customClass="CorbelBoldLabel">
+                                                    <rect key="frame" x="0.0" y="-7" width="320" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="emailCell" id="JCm-pd-sMh">
+                                                <rect key="frame" x="0.0" y="46" width="320" height="45"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" minimumFontSize="17" clearButtonMode="whileEditing" id="TNM-rx-LR2" customClass="CorbelTextField">
+                                                            <rect key="frame" x="6" y="6" width="289" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                                        </textField>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="passwordCell" id="cOw-2Y-ZZH">
+                                                <rect key="frame" x="0.0" y="91" width="320" height="45"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Choose A Password" minimumFontSize="17" clearButtonMode="whileEditing" id="qup-wF-15D" customClass="CorbelTextField">
+                                                            <rect key="frame" x="6" y="6" width="289" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
+                                                        </textField>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Gzz-5B-Qgp">
+                                        <rect key="frame" x="320" y="20" width="320" height="504"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="pAO-Wy-MhY">
+                                            <rect key="frame" x="0.0" y="146" width="320" height="80"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="arE-W7-Uvm">
+                                                    <rect key="frame" x="20" y="20" width="280" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="firstNameCell" id="mG7-hz-OBa">
+                                                <rect key="frame" x="0.0" y="46" width="320" height="45"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" clearButtonMode="whileEditing" id="zS0-6T-Wgm" customClass="CorbelTextField">
+                                                            <rect key="frame" x="6" y="7" width="289" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
+                                                        </textField>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="lastNameCell" id="TFE-Gg-5ws">
+                                                <rect key="frame" x="0.0" y="91" width="320" height="45"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" clearButtonMode="whileEditing" id="55h-h3-zkp" customClass="CorbelTextField">
+                                                            <rect key="frame" x="6" y="6" width="289" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
+                                                        </textField>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="2FJ-d8-evg">
+                                        <rect key="frame" x="640" y="0.0" width="320" height="504"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="xuQ-Kj-yPA">
+                                            <rect key="frame" x="0.0" y="146" width="320" height="164"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="By creating an ARC account, you agree to the:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Hj-Q9-2vL" customClass="CorbelBoldLabel">
+                                                    <rect key="frame" x="3" y="37" width="314" height="33"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LUH-TU-gsw">
+                                                    <rect key="frame" x="0.0" y="57" width="158" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <state key="normal" title="Privacy Policy">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="wZZ-QO-1n2" kind="modal" identifier="goPrivacy" modalTransitionStyle="flipHorizontal" id="f4o-cj-Edq"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KHe-OI-BaD">
+                                                    <rect key="frame" x="166" y="57" width="154" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <state key="normal" title="Terms Of Use">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="wZZ-QO-1n2" kind="modal" identifier="goTerms" modalTransitionStyle="flipHorizontal" id="dNz-f5-Iao"/>
+                                                    </connections>
+                                                </button>
+                                                <view contentMode="scaleToFill" id="4lv-Hc-Sh1">
+                                                    <rect key="frame" x="22" y="82" width="114" height="2"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" id="IWo-mN-fNT">
+                                                    <rect key="frame" x="188" y="82" width="110" height="2"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dv6-pd-NuL">
+                                                    <rect key="frame" x="8" y="-3" width="163" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="scanCard" destination="2xa-h1-30U" eventType="touchUpInside" id="aWg-qX-BOv"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="camera.png" id="fzF-fs-EKS">
+                                                    <rect key="frame" x="14" y="-6" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Or scan your card" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aDF-SM-gyR" customClass="CorbelBoldLabel">
+                                                    <rect key="frame" x="45" y="2" width="187" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cardNumberCell" id="nhw-Of-elU">
+                                                <rect key="frame" x="0.0" y="46" width="320" height="45"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="1234 5678 9102 3456" minimumFontSize="17" clearButtonMode="whileEditing" id="QEx-ng-ZEU" customClass="CorbelTextField">
+                                                            <rect key="frame" x="6" y="6" width="289" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
+                                                        </textField>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="securityCodeCell" id="54V-QA-v9u">
+                                                <rect key="frame" x="0.0" y="91" width="320" height="45"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CVV" minimumFontSize="17" clearButtonMode="whileEditing" id="fbw-1s-SBa" customClass="CorbelTextFieldCreditCardiOS6">
+                                                            <rect key="frame" x="165" y="6" width="130" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
+                                                        </textField>
+                                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/YY" minimumFontSize="17" clearButtonMode="whileEditing" id="vhY-yD-9gW" customClass="CorbelTextFieldCreditCardiOS6">
+                                                            <rect key="frame" x="6" y="6" width="130" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
+                                                        </textField>
+                                                        <view contentMode="scaleToFill" id="ikD-lu-u4l">
+                                                            <rect key="frame" x="150" y="0.0" width="1" height="44"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                            </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="Eeq-Fh-GzN">
+                                <rect key="frame" x="251" y="24" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m1W-I6-6zo">
+                                <rect key="frame" x="20" y="173" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create Account" id="FfO-Em-Gj6">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="5xx-k2-43g" customClass="CorbelBarButtonItem">
+                            <connections>
+                                <action selector="login:" destination="2xa-h1-30U" id="RVQ-nj-2yn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="activity" destination="Eeq-Fh-GzN" id="XFs-uZ-zNt"/>
+                        <outlet property="errorLabel" destination="m1W-I6-6zo" id="7cl-SK-Mre"/>
+                        <outlet property="loginButton" destination="5xx-k2-43g" id="wGs-cL-0f9"/>
+                        <outlet property="myScrollView" destination="HgL-V6-KPK" id="L3T-UL-WPu"/>
+                        <outlet property="myTableView" destination="hqn-TL-XmO" id="eso-ch-8hk"/>
+                        <outlet property="myTableViewThree" destination="2FJ-d8-evg" id="fTR-MO-KYh"/>
+                        <outlet property="myTableViewTwo" destination="Gzz-5B-Qgp" id="UNC-mH-5D1"/>
+                        <segue destination="t3u-BW-Rju" kind="modal" identifier="registerHome" id="nKu-Gy-muq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FZH-KO-1hO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1070" y="-414"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Default.png" width="320" height="460"/>
         <image name="addCard.png" width="40" height="40"/>
         <image name="arcLogo.png" width="667" height="250"/>
         <image name="blueCheck.png" width="150" height="138"/>
+        <image name="camera.png" width="128" height="128"/>
         <image name="checkNumberHelp.png" width="600" height="750"/>
         <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="qmark.png" width="60" height="60"/>
@@ -3739,21 +3638,496 @@
         <image name="twittetrconnect.png" width="80" height="80"/>
         <image name="untitledLogo.png" width="300" height="175"/>
     </resources>
+    <classes>
+        <class className="AddCreditCard" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddCreditCard.h"/>
+            <relationships>
+                <relationship kind="action" name="addCard"/>
+                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="valueChanged:"/>
+                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardNumberText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="creditCardPinText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ContactUsView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactUsView.h"/>
+            <relationships>
+                <relationship kind="action" name="call"/>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="email"/>
+                <relationship kind="outlet" name="emailAddressLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="phoneNumberLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="sloganLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CorbelBarButtonItem" superclassName="UIBarButtonItem">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelBarButtonItem.h"/>
+        </class>
+        <class className="CorbelBoldLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelBoldLabel.h"/>
+        </class>
+        <class className="CorbelButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelButton.h"/>
+        </class>
+        <class className="CorbelInputTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelInputTextField.h"/>
+        </class>
+        <class className="CorbelRegularLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelRegularLabel.h"/>
+        </class>
+        <class className="CorbelSegmentedControl" superclassName="UISegmentedControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelSegmentedControl.h"/>
+        </class>
+        <class className="CorbelTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelTextField.h"/>
+        </class>
+        <class className="CorbelTextFieldCreditCardiOS6" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelTextFieldCreditCardiOS6.h"/>
+        </class>
+        <class className="CorbelTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelTextView.h"/>
+        </class>
+        <class className="CreatePinView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreatePinView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionText" candidateClass="CorbelTextView"/>
+                <relationship kind="outlet" name="instructionsLabel" candidateClass="LucidaBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="CreditCardPayment" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreditCardPayment.h"/>
+            <relationships>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="action" name="touchBoxesAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="totalPaymentText" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="touchBoxesButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="DwollaPayment" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
+            <relationships>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="action" name="touchBoxesAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dwollaBalanceActivity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="dwollaBalanceText" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="totalPaymentText" candidateClass="LucidaBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="EditCreditCard" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditCreditCard.h"/>
+            <relationships>
+                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
+                <relationship kind="action" name="deleteCardAction"/>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="editPin"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="saveCardAction"/>
+                <relationship kind="action" name="valueChanged:"/>
+                <relationship kind="outlet" name="cardNumberTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="cardTypesSegmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="expirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="expirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="securityCodeTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="EditServerController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditServerController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UINavigationBar"/>
+            </relationships>
+        </class>
+        <class className="GetPasscodeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GetPasscodeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submitAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="HelpView" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="contactUs"/>
+            </relationships>
+        </class>
+        <class className="Home" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Home.h"/>
+            <relationships>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="inviteFriend"/>
+                <relationship kind="action" name="refreshList"/>
+                <relationship kind="action" name="refreshMerchants:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="activityView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="refreshListButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="sloganLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="HomeNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeNavigationController.h"/>
+        </class>
+        <class className="InitialController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mottoLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="InvoiceView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceView.h"/>
+            <relationships>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="payNow:"/>
+                <relationship kind="action" name="refreshInvoice"/>
+                <relationship kind="action" name="segmentSelect"/>
+                <relationship kind="action" name="splitCheckAction:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="alreadyPaidLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="alreadyPaidNameLabel" candidateClass="CorbelBoldLabel"/>
+                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="amountNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="bottomHalfView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="discLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="discNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="gratLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="gratNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="payBillButton" candidateClass="CorbelBarButtonItem"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="splitCheckButton" candidateClass="CorbelBarButtonItem"/>
+                <relationship kind="outlet" name="subLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="taxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LucidaBoldLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaBoldLabel.h"/>
+        </class>
+        <class className="LucidaLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaLabel.h"/>
+        </class>
+        <class className="NoPaymentSourcesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoPaymentSourcesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel"/>
+                <relationship kind="action" name="creditCard"/>
+                <relationship kind="action" name="dwolla"/>
+            </relationships>
+        </class>
+        <class className="PrivacyTermsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivacyTermsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doneReading"/>
+                <relationship kind="outlet" name="webview" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="ReferFriendViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReferFriendViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addContact"/>
+                <relationship kind="action" name="cancelRefer:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="submit"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="emailAddress" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="RegisterDwollaView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
+        </class>
+        <class className="RegisterNavigation" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterNavigation.h"/>
+        </class>
+        <class className="RegisterViewNew" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewNew.h"/>
+            <relationships>
+                <relationship kind="action" name="goNext"/>
+                <relationship kind="action" name="login:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="scanCard"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="myTableViewThree" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="myTableViewTwo" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ResetPasswordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResetPasswordViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="submitAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="confirmText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passcodeText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="Restaurant" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Restaurant.h"/>
+            <relationships>
+                <relationship kind="action" name="checkNumberHelp"/>
+                <relationship kind="action" name="showCamera"/>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkHelpImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="checkNumFive" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumSix" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameDisplay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="ReviewTransaction" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReviewTransaction.h"/>
+            <relationships>
+                <relationship kind="action" name="postFacebook"/>
+                <relationship kind="action" name="postTwitter"/>
+                <relationship kind="action" name="skipReview:"/>
+                <relationship kind="action" name="sliderValueChanged:" candidateClass="UISlider"/>
+                <relationship kind="action" name="starClicked:"/>
+                <relationship kind="action" name="submitReview:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="atmosphere1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="commentsText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="drinks1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinksSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="earnMoreLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="food1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="foodSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="moodSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="postFacebookButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postFacebookPoints" candidateClass="LucidaLabel"/>
+                <relationship kind="outlet" name="postTwitterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postTwitterPoints" candidateClass="LucidaLabel"/>
+                <relationship kind="outlet" name="service1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="serviceSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="shareLabel" candidateClass="CorbelBoldLabel"/>
+                <relationship kind="outlet" name="skipButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="value1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="valueSlider" candidateClass="UISlider"/>
+            </relationships>
+        </class>
+        <class className="SettingsView" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="changeServer"/>
+                <relationship kind="action" name="dwollaAuthSwitchSelected"/>
+                <relationship kind="action" name="facebookSwitchSelected"/>
+                <relationship kind="action" name="twitterSwitchSelected"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="adminView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dwollaAuthSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="facebookSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="lifetimePointsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lifetimePointsProgressView" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="pointsDisplayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pointsProgressView" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="twitterSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="SplitCheckViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplitCheckViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dollarEditEnd:"/>
+                <relationship kind="action" name="dollarPayNow:"/>
+                <relationship kind="action" name="dollarTipDidBegin"/>
+                <relationship kind="action" name="dollarTipSegmentSelect:"/>
+                <relationship kind="action" name="dollarYourPaymentEditEnd:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="itemSplitItemCancel"/>
+                <relationship kind="action" name="itemSplitItemSave"/>
+                <relationship kind="action" name="itemSplitItemSegmentSelect"/>
+                <relationship kind="action" name="itemSplitItemYourAmountTextEnd"/>
+                <relationship kind="action" name="itemTipDidBegin"/>
+                <relationship kind="action" name="itemTipEditEnd"/>
+                <relationship kind="action" name="itemTipSegmentSelect"/>
+                <relationship kind="action" name="percentTipDidBegin"/>
+                <relationship kind="action" name="percentTipEditEnd"/>
+                <relationship kind="action" name="percentTipSegmentSelect"/>
+                <relationship kind="action" name="percentYourPercentDidEnd"/>
+                <relationship kind="action" name="percentYourPercentSegmentSelect"/>
+                <relationship kind="action" name="refreshInvoice"/>
+                <relationship kind="action" name="typeSegmentChanged"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="divisionTypeSegment" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="dollarAmountAlreadyPaidNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarAmountDueLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarAmountDueNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarAmountPaidLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarAmountPaidNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarFoodBevLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarServiceChargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarTipIncludedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarTipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="dollarTipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dollarTotalBillLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarTotalBillNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dollarYourPaymentNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dollarYourPaymentText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dollarYourTotalPaymentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemServiceChargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemSplitItemItemTotal" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemSplitItemSegControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="itemSplitItemView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="itemSplitItemYourAmount" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="itemTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="itemTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemTipIncludedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemTipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="itemTipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="itemView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="itemYourTotalPaymentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentAmountDueLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentAmountDueNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentAmountPaidLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentAmountPaidNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentFoodBevLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentServiceChargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentTaxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentTipIncludedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentTipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="percentTipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="percentTotalBillLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentTotalBillNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="percentYourPaymentDollarAmount" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentYourPaymentNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="percentYourPaymentText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="percentYourPercentSegControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="percentYourTotalPaymentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="splitCancelButton" candidateClass="CorbelButton"/>
+                <relationship kind="outlet" name="splitSaveButton" candidateClass="CorbelButton"/>
+                <relationship kind="outlet" name="typeSegment" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="ValidatePinView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ValidatePinView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionText" candidateClass="CorbelTextView"/>
+                <relationship kind="outlet" name="instructionsLabel" candidateClass="LucidaBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="forgotPassword"/>
+                <relationship kind="action" name="signIn"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="registerButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="ViewCreditCards" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewCreditCards.h"/>
+            <relationships>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="RgT-l3-35c"/>
-        <segue reference="Oi0-YR-QFH"/>
-        <segue reference="86F-Ca-hBx"/>
-        <segue reference="Ii2-yA-rgx"/>
+        <segue reference="neU-RJ-74W"/>
+        <segue reference="WJr-CZ-1Tw"/>
+        <segue reference="A7t-ff-FTj"/>
+        <segue reference="dNz-f5-Iao"/>
+        <segue reference="nKu-Gy-muq"/>
+        <segue reference="yO3-MZ-Mi9"/>
         <segue reference="co8-nZ-5K2"/>
         <segue reference="Yz7-xF-sKA"/>
-        <segue reference="WJr-CZ-1Tw"/>
         <segue reference="2SM-S0-l6J"/>
         <segue reference="M5n-Hw-9ay"/>
-        <segue reference="neU-RJ-74W"/>
     </inferredMetricsTieBreakers>
 </document>

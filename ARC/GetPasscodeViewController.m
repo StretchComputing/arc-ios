@@ -72,7 +72,7 @@
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
-        NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
+       // NSDictionary *apiResponse = [responseInfo valueForKey:@"apiResponse"];
         
         [self.activity stopAnimating];
     
