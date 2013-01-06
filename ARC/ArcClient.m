@@ -344,7 +344,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.trackEventPairs" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -1549,7 +1549,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [ArcClient trackEvent:action activityType:@"Analytics" measureType:@"Count" measureValue:measureValue successful:TRUE];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.trackEventAction" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -1593,7 +1593,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.trackEvent" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.trackEventActivity" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
