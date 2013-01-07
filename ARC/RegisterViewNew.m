@@ -1125,7 +1125,7 @@
  
     @try {
         
-        [ArcClient trackEvent:@"CARD.IO_SCAN_ATTEMPTED"];
+        //[ArcClient trackEvent:@"CARD.IO_SCAN_ATTEMPTED"];
 
         
         CardIOPaymentViewController *scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
@@ -1148,7 +1148,7 @@
  
      @try {
          
-         [ArcClient trackEvent:@"CARD.IO_SCAN_CANCELED"];
+         //[ArcClient trackEvent:@"CARD.IO_SCAN_CANCELED"];
 
          [scanViewController dismissModalViewControllerAnimated:YES];
 
@@ -1165,7 +1165,7 @@
     
     @try {
         
-        [ArcClient trackEvent:@"CARD.IO_SCAN_SUCCESSFULL"];
+        //[ArcClient trackEvent:@"CARD.IO_SCAN_SUCCESSFULL"];
         
         self.creditCardNumberText.text = info.cardNumber;
         NSString *expirationYearString = [NSString stringWithFormat:@"%i", info.expiryYear];
