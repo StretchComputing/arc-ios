@@ -41,9 +41,7 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
     
     if (self.isIos6) {
@@ -142,6 +140,26 @@
 }
 -(void)viewDidLoad{
     @try {
+        
+        self.favoriteItemTableView.delegate = self;
+        self.favoriteItemTableView.dataSource = self;
+        self.favoriteItemBackview.hidden = YES;
+        self.favoriteItemBackview.backgroundColor = [UIColor clearColor];
+        
+        self.favoriteItemBackview.layer.masksToBounds = YES;
+        self.favoriteItemBackview.layer.cornerRadius = 5.0;
+        self.favoriteItemBackview.layer.borderWidth = 2.0;
+        self.favoriteItemBackview.layer.borderColor = [[UIColor blackColor] CGColor];
+        
+        
+        CAGradientLayer *gradient1 = [CAGradientLayer layer];
+        gradient1.frame = self.favoriteItemBackview.bounds;
+        self.favoriteItemBackview.backgroundColor = [UIColor clearColor];
+        double x = 1.1;
+        UIColor *myColor1 = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
+        gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor1 CGColor], nil];
+        [self.favoriteItemBackview.layer insertSublayer:gradient1 atIndex:0];
+        
         
         if(NSClassFromString(@"SLComposeViewController")) {
             self.isIos6 = YES;
@@ -569,6 +587,8 @@
         [ tempDictionary setObject:self.moodInt forKey:@"Mood"];        
         [ tempDictionary setObject:self.twitterInt forKey:@"Twitter"];
         [ tempDictionary setObject:self.facebookInt forKey:@"Facebook"];
+        [ tempDictionary setObject:self.selectedItemId forKey:@"BestItemId"];
+
         NSString *paymentIdString = [NSString stringWithFormat:@"%d", self.myInvoice.paymentId];
         [ tempDictionary setObject:paymentIdString forKey:@"PaymentId"];
         
@@ -1181,6 +1201,72 @@
 }
 
 
+
+
+
+-(void)selectFavoriteItem{
+    [self.favoriteItemTableView reloadData];
+    self.favoriteItemBackview.hidden = NO;
+}
+
+-(void)cancelFavoriteItemAction{
+    
+    self.favoriteItemBackview.hidden = YES;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    @try {
+        
+        return [self.myInvoice.items count];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ReviewTransaction.tableViewNumberOfRows" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        
+        NSUInteger row = [indexPath row];
+        static NSString *itemCell=@"itemCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCell];
+        
+        
+        NSDictionary *tmpItem = [self.myInvoice.items objectAtIndex:row];
+        
+        UILabel *itemlabel = (UILabel *)[cell.contentView viewWithTag:1];
+        
+        itemlabel.text = [tmpItem valueForKey:@"Description"];
+        
+        
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor whiteColor];
+        
+        return cell;
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"Home.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    NSDictionary *tmpItem = [self.myInvoice.items objectAtIndex:indexPath.row];
+    
+    self.selectedItemId = [tmpItem valueForKey:@"Id"];
+    self.selectedItemName = [tmpItem valueForKey:@"Description"];
+    
+    self.selectedItemTextField.text = self.selectedItemName;
+    
+    self.favoriteItemBackview.hidden = YES;
+
+    
+}
 @end
 
 

@@ -12,7 +12,7 @@
 #import <Accounts/Accounts.h>
 #import "Invoice.h"
 
-@interface ReviewTransaction : UIViewController <UITextViewDelegate>
+@interface ReviewTransaction : UIViewController <UITextViewDelegate, UITableViewDataSource, UITableViewDelegate>
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
@@ -23,6 +23,7 @@
 
 @property BOOL isIos6;
 
+@property int pointsEarned;
 @property (nonatomic, strong) NSArray *accounts;
 @property (nonatomic, strong) ACAccountStore *store;
 
@@ -90,5 +91,20 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
-  
-  @end
+
+-(IBAction)selectFavoriteItem;
+
+//Favorite Item
+
+@property (nonatomic, strong) IBOutlet UIView *favoriteItemBackview;
+@property (nonatomic, strong) IBOutlet UITableView *favoriteItemTableView;
+@property (nonatomic, strong) NSString *selectedItemId;
+@property (nonatomic, strong) NSString *selectedItemName;
+@property (nonatomic, strong) IBOutlet UITextField *selectedItemTextField;
+
+
+-(IBAction)cancelFavoriteItemAction;
+
+
+
+@end

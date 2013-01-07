@@ -22,12 +22,21 @@
 
 @implementation ViewController
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)viewDidAppear:(BOOL)animated{
 
 
 }
 -(void)viewWillAppear:(BOOL)animated{
     @try {
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noUsersFound:) name:@"noUsersFound" object:nil];
+        
+        
         [self.myTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO];
         self.errorLabel.text = @"";
         [self.username becomeFirstResponder];
@@ -60,6 +69,9 @@
         
 }
 
+-(void)noUsersFound:(NSNotification *)notification{
+    [self performSegueWithIdentifier:@"goRegister" sender:self];
+}
 
 -(void)selectPassword{
     [self.password becomeFirstResponder];
@@ -75,7 +87,8 @@
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Sign In"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
+
+
         
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;

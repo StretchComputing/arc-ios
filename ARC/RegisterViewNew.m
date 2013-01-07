@@ -154,6 +154,7 @@
             self.isIphone5 = NO;
         }
         
+        [self.loginButton setTitle:@"Login"];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -164,8 +165,13 @@
 - (IBAction)login:(UIBarButtonItem *)sender {
     @try {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cancel Registration?" message:@"Are you sure you want to cancel? Your registration information will be lost." delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
-        [alert show];
+        if (self.pageNumber > 1) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cancel Registration?" message:@"Are you sure you want to cancel? Your registration information will be lost." delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+            [alert show];
+        }else{
+            [self.navigationController dismissModalViewControllerAnimated:YES];
+        }
+      
         
     }
     @catch (NSException *e) {
@@ -234,6 +240,8 @@
                 CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Create Profile"];
                 self.navigationItem.titleView = navLabel;
                 [self.firstNameText becomeFirstResponder];
+                [self.loginButton setTitle:@"Cancel"];
+
             }else{
                 self.errorLabel.text = @"Please enter all fields.";
             }
@@ -261,6 +269,8 @@
                 
                 
                 [self.creditCardNumberText becomeFirstResponder];
+                [self.loginButton setTitle:@"Cancel"];
+
             }else{
                 self.errorLabel.text = @"Please enter all fields.";
             }

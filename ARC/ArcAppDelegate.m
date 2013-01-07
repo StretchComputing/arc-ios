@@ -437,11 +437,36 @@ ofType:(NSString *)typeName
         if (self.managedDocument.documentState == UIDocumentStateNormal) {
             self.managedObjectContext = self.managedDocument.managedObjectContext;
         }
+        
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"checkedNoUsers"] length] == 0) {
+     
+        [self checkNoUsers];
+    }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcAppDelegate.documentIsReady" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
+}
+
+-(void)checkNoUsers{
+    @try {
+        NSArray *customers = [self getAllCustomers];
+        
+        if (!customers) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"noUsersFound" object:self userInfo:nil];
+
+        }else{
+            //there are users
+            NSLog(@"Here");
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.checkNoUsers" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
 }
 
 -(void)saveDocument{
@@ -481,6 +506,9 @@ ofType:(NSString *)typeName
 -(void)insertCustomerWithId:(NSString *)customerId andToken:(NSString *)customerToken{
     
     @try {
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"checkedNoUsers"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         NSLog(@"Inserting Customer***********");
         
@@ -642,6 +670,37 @@ ofType:(NSString *)typeName
         return @[];
     }
    
+    
+}
+
+-(NSArray *)getAllCustomers{
+    
+    
+    @try {
+           
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Customer"];
+        
+        NSError *error;
+        
+        NSArray *returnedArray = [self.managedObjectContext executeFetchRequest:request error:&error];
+        
+        if (returnedArray == nil) {
+            //NSLog(@"returnArray was NIL");
+            return nil;
+        }else if ([returnedArray count] == 0){
+            //NSLog(@"Card Count was NIL");
+            return nil;
+        }else{
+            // NSLog(@"Card retreival was GOOD!!!");
+            return returnedArray;
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcAppDelegate.getAllCustomers" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @[];
+    }
+    
     
 }
 

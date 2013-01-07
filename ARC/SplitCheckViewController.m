@@ -123,7 +123,7 @@
         }
         
         self.numberOfPeople = @[@"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12", @"13", @"14", @"15", @"16", @"17", @"18", @"19", @"20"];
-        self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, pickerY, 320, 216)];
+        self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 316)];
         self.pickerView.delegate = self;
         self.pickerView.dataSource = self;
         self.pickerView.hidden = YES;
