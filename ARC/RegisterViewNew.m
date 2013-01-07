@@ -164,7 +164,8 @@
 - (IBAction)login:(UIBarButtonItem *)sender {
     @try {
         
-        [self.navigationController dismissModalViewControllerAnimated:YES];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cancel Registration?" message:@"Are you sure you want to cancel? Your registration information will be lost." delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+        [alert show];
         
     }
     @catch (NSException *e) {
@@ -172,6 +173,14 @@
     }
     
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+    if (buttonIndex == 0) {
+        [self.navigationController dismissModalViewControllerAnimated:YES];
+    }
+}
+
 
 -(BOOL)isValidEntries{
     
@@ -911,12 +920,12 @@
         
         if ([[self creditCardStatus] isEqualToString:@"invalid"]){
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please enter all credit card fiels." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please enter all credit card fiels." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
         }else if ([[self creditCardStatus] isEqualToString:@"empty"]){
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please enter all credit card fiels." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please enter all credit card fiels." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
         }
@@ -937,7 +946,7 @@
                 
             }else{
                 
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card" message:@"Please enter a valid card number." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Card" message:@"Please enter a valid card number." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
                 
             }

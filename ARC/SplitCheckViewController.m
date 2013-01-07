@@ -113,11 +113,37 @@
 {
     @try {
       
+        int pickerY;
         if (self.view.frame.size.height > 500) {
             self.isIphone5 = YES;
+            pickerY = 200;
         }else{
             self.isIphone5 = NO;
+            pickerY = 112;
         }
+        
+        self.numberOfPeople = @[@"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12", @"13", @"14", @"15", @"16", @"17", @"18", @"19", @"20"];
+        self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, pickerY, 320, 216)];
+        self.pickerView.delegate = self;
+        self.pickerView.dataSource = self;
+        self.pickerView.hidden = YES;
+        self.pickerView.showsSelectionIndicator = YES;
+        [self.pickerView reloadAllComponents];
+        [self.pickerView selectRow:2 inComponent:0 animated:NO];
+        self.numberOfPeopleSelected = 4;
+        [self.percentView addSubview:self.pickerView];
+        
+        self.numberOfPeopleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.numberOfPeopleButton.frame = CGRectMake(200, self.pickerView.frame.origin.y + 88, 100, 40);
+        [self.numberOfPeopleButton addTarget:self action:@selector(savePickerView) forControlEvents:UIControlEventTouchUpInside];
+        [self.numberOfPeopleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.numberOfPeopleButton setTitle:@"Select" forState:UIControlStateNormal];
+        [self.numberOfPeopleButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
+        self.numberOfPeopleButton.hidden = YES;
+        [self.percentView addSubview:self.numberOfPeopleButton];
+        
+        
+        
 
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Split Check"];
         self.navigationItem.titleView = navLabel;
@@ -932,13 +958,21 @@
     }
     
   
+
     if (self.percentYourPercentSegControl.selectedSegmentIndex == 0) {
-        self.percentYourPaymentText.text = @"25";
+        [self.percentYourPercentSegControl setTitle:@"More" forSegmentAtIndex:3];
+        self.percentYourPaymentText.text = @"50";
     }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 1){
         self.percentYourPaymentText.text = @"33.333333";
+        [self.percentYourPercentSegControl setTitle:@"More" forSegmentAtIndex:3];
 
     }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 2){
-        self.percentYourPaymentText.text = @"50";
+        self.percentYourPaymentText.text = @"25";
+        [self.percentYourPercentSegControl setTitle:@"More" forSegmentAtIndex:3];
+
+    }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 3){
+        self.pickerView.hidden = NO;
+        self.numberOfPeopleButton.hidden = NO;
 
     }
     
@@ -1531,4 +1565,86 @@
 }
 
 
+//Picker View Delegates
+
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
+    @try {
+        
+        self.numberOfPeopleSelected = [[self.numberOfPeople objectAtIndex:row] intValue];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.pickerViewDidSleect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    @try {
+        
+        return [self.numberOfPeople count];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.pickerViewNumberOfRows" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    @try {
+        
+        return [self.numberOfPeople objectAtIndex:row];
+       
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.pickerViewTitleForRow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+-(void)savePickerView{
+    
+    [self.percentYourPercentSegControl setTitle:[NSString stringWithFormat:@"%d", self.numberOfPeopleSelected] forSegmentAtIndex:3];
+    double yourPercent = 1.0/self.numberOfPeopleSelected * 100;
+    
+    self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.4f", yourPercent];
+    
+    
+    if ([self.percentYourPaymentText isFirstResponder]) {
+        [self endText];
+        
+    }else{
+        self.isSegmentPercentYour = YES;
+        [self percentYourPercentDidEnd];
+    }
+    
+    [self percentTipSegmentSelect];
+    
+    self.pickerView.hidden = YES;
+    self.numberOfPeopleButton.hidden = YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    if (self.percentView.hidden == NO) {
+        if (self.pickerView.hidden == NO) {
+            
+            if ([[self.percentYourPercentSegControl titleForSegmentAtIndex:3] isEqualToString:@"More"]) {
+                self.percentYourPercentSegControl.selectedSegmentIndex = -1;
+            }
+        }
+        self.pickerView.hidden = YES;
+        self.numberOfPeopleButton.hidden = YES;
+
+    }
+    
+}
+
+-(void)retapSegmentAction{
+    self.percentYourPercentSegControl.selectedSegmentIndex = 3;
+    [self percentYourPercentSegmentSelect];
+}
 @end

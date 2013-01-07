@@ -11,7 +11,7 @@
 #import "CorbelButton.h"
 #import "Invoice.h"
 
-@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
+@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 
 @property BOOL fromDwolla;
@@ -139,5 +139,11 @@
 @property BOOL isSegmentPercentTip;
 @property BOOL isSegmentPercentYour;
 
+@property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic, strong) NSArray *numberOfPeople;
+@property (nonatomic, strong) UIButton *numberOfPeopleButton;
+@property int numberOfPeopleSelected;
+
+-(IBAction)retapSegmentAction;
 
 @end
