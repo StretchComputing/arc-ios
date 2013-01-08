@@ -10,6 +10,8 @@
 #import "SBJson.h"
 #import "ArcAppDelegate.h"
 #import "rSkybox.h"
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 //NSString *_arcUrl = @"http://68.57.205.193:8700/arc-dev/rest/v1/";    //Jim's Place
 //NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // STAGE
@@ -1575,7 +1577,18 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [ tempDictionary setObject:measureType forKey:@"MeasureType"];//LABEL
         [ tempDictionary setObject:measureValue forKey:@"MeasureValue"];//VALUE
         [ tempDictionary setObject:@"Arc Mobile" forKey:@"Application"];
-        [ tempDictionary setObject:@"AT&T" forKey:@"Carrier"]; //TODO add real carrier
+        
+        NSString *mobileCarrier = @"UNKNOWN";
+        @try {
+            CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+            CTCarrier *carrier = [netinfo subscriberCellularProvider];
+            mobileCarrier = [carrier carrierName];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        
+        [ tempDictionary setObject:mobileCarrier forKey:@"Carrier"]; //TODO add real carrier
         //[ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"]; //Jim removed description
         [ tempDictionary setObject:@"iOS" forKey:@"Source"];
         [ tempDictionary setObject:@"phone" forKey:@"SourceType"];//remove

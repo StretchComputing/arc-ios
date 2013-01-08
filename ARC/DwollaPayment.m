@@ -641,6 +641,9 @@
             BOOL paidInFull = [[[responseInfo valueForKey:@"Results"] valueForKey:@"InvoicePaid"] boolValue];
             if(paidInFull) [self.myInvoice setPaidInFull:paidInFull];
             int paymentId = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"PaymentId"] intValue];
+            
+             self.paymentPointsReceived =  [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"Points"] intValue];
+            
             [self.myInvoice setPaymentId:paymentId];
             
             [self performSegueWithIdentifier:@"reviewTransaction" sender:self];
@@ -705,6 +708,7 @@
             
             ReviewTransaction *next = [segue destinationViewController];
             next.myInvoice = self.myInvoice;
+            next.paymentPointsReceived = self.paymentPointsReceived;
         } 
     }
     @catch (NSException *e) {

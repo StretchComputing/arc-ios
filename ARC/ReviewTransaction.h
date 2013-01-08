@@ -11,13 +11,19 @@
 #import "CorbelBoldLabel.h"
 #import <Accounts/Accounts.h>
 #import "Invoice.h"
+#import "LucidaBoldLabel.h"
 
-@interface ReviewTransaction : UIViewController <UITextViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ReviewTransaction : UIViewController <UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
+
+@property (nonatomic, strong) IBOutlet LucidaBoldLabel *paymentPointsLabel;
+
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *submitButton;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *skipButton;
+
+@property int paymentPointsReceived;
 
 -(IBAction)sliderValueChanged:(UISlider *)sender;
 
@@ -94,16 +100,19 @@
 
 -(IBAction)selectFavoriteItem;
 
-//Favorite Item
 
-@property (nonatomic, strong) IBOutlet UIView *favoriteItemBackview;
-@property (nonatomic, strong) IBOutlet UITableView *favoriteItemTableView;
+
+
+//Favorite Item Picker
+@property (nonatomic, strong) IBOutlet UIButton *selectFavoriteButton;
+@property (nonatomic, strong) IBOutlet CorbelBoldLabel *selectedItemTextField;
 @property (nonatomic, strong) NSString *selectedItemId;
 @property (nonatomic, strong) NSString *selectedItemName;
-@property (nonatomic, strong) IBOutlet UITextField *selectedItemTextField;
+@property (nonatomic, strong) IBOutlet UIView *favoriteItemBackview;
+@property (nonatomic, strong) UIView *favoriteItemBackAlphaView;
+@property (nonatomic, strong) UIPickerView *favoriteItemPickerView;
+@property (nonatomic, strong) UILabel *favoriteItemLabel;
 
-
--(IBAction)cancelFavoriteItemAction;
 
 
 

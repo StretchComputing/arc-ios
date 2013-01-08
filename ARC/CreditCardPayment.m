@@ -402,6 +402,8 @@
             //success
             self.errorLabel.text = @"";
             BOOL paidInFull = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"InvoicePaid"] boolValue];
+            self.paymentPointsReceived =  [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"Points"] intValue];
+            
             if(paidInFull) [self.myInvoice setPaidInFull:paidInFull];
             int paymentId = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"PaymentId"] intValue];
             [self.myInvoice setPaymentId:paymentId];
@@ -520,6 +522,7 @@
             
             ReviewTransaction *next = [segue destinationViewController];
             next.myInvoice = self.myInvoice;
+            next.paymentPointsReceived = self.paymentPointsReceived;
         }
         
         if ([[segue identifier] isEqualToString:@"editCard"]) {

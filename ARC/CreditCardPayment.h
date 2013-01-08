@@ -13,6 +13,7 @@
 
 @interface CreditCardPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
 
+@property int paymentPointsReceived;
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) NSString *ticketId;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;

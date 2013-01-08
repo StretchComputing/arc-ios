@@ -39,7 +39,9 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     
-    
+    if (self.paymentPointsReceived) {
+        self.paymentPointsLabel.text = [NSString stringWithFormat:@"You just received %d points!!", self.paymentPointsReceived];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
@@ -141,24 +143,52 @@
 -(void)viewDidLoad{
     @try {
         
-        self.favoriteItemTableView.delegate = self;
-        self.favoriteItemTableView.dataSource = self;
+   
+        self.favoriteItemBackview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
+        self.favoriteItemBackview.backgroundColor = [UIColor clearColor];
         self.favoriteItemBackview.hidden = YES;
-        self.favoriteItemBackview.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:self.favoriteItemBackview];
         
-        self.favoriteItemBackview.layer.masksToBounds = YES;
-        self.favoriteItemBackview.layer.cornerRadius = 5.0;
-        self.favoriteItemBackview.layer.borderWidth = 2.0;
-        self.favoriteItemBackview.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.favoriteItemBackAlphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
+        self.favoriteItemBackAlphaView.backgroundColor = [UIColor blackColor];
+        self.favoriteItemBackAlphaView.alpha = 0.75;
+        [self.favoriteItemBackview addSubview:self.favoriteItemBackAlphaView];
         
+        self.favoriteItemPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 140, 320, 216)];
+        self.favoriteItemPickerView.delegate = self;
+        self.favoriteItemPickerView.dataSource = self;
+        self.favoriteItemPickerView.showsSelectionIndicator = YES;
+        [self.favoriteItemBackview addSubview:self.favoriteItemPickerView];
         
-        CAGradientLayer *gradient1 = [CAGradientLayer layer];
-        gradient1.frame = self.favoriteItemBackview.bounds;
-        self.favoriteItemBackview.backgroundColor = [UIColor clearColor];
-        double x = 1.1;
-        UIColor *myColor1 = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
-        gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor1 CGColor], nil];
-        [self.favoriteItemBackview.layer insertSublayer:gradient1 atIndex:0];
+        UILabel *selectLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 320, 40)];
+        selectLabel.textAlignment = UITextAlignmentCenter;
+        [selectLabel setFont: [UIFont fontWithName: @"Corbel-Bold" size: 27]];
+        selectLabel.textColor = [UIColor whiteColor];
+        selectLabel.backgroundColor = [UIColor clearColor];
+        selectLabel.text = @"Select Your Favorite Item:";
+        [self.favoriteItemBackview addSubview:selectLabel];
+
+
+        UIButton *select = [UIButton buttonWithType:UIButtonTypeCustom];
+        select.frame = CGRectMake(190, 370, 110, 37);
+        [select setTitle:@"Select" forState:UIControlStateNormal];
+        [select setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [select setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
+        [select addTarget:self action:@selector(favoriteItemSelectAction) forControlEvents:UIControlEventTouchUpInside];
+        select.titleLabel.adjustsFontSizeToFitWidth = TRUE;
+        select.titleLabel.minimumFontSize = 8.0;
+        select.titleLabel.numberOfLines = 2.0;
+        [self.favoriteItemBackview addSubview:select];
+        
+        UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
+        cancel.frame = CGRectMake(20, 370, 110, 37);
+        [cancel setTitle:@"Cancel" forState:UIControlStateNormal];
+        [cancel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [cancel setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
+        [cancel addTarget:self action:@selector(favoriteItemCancelAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.favoriteItemBackview addSubview:cancel];
+        
+
         
         
         if(NSClassFromString(@"SLComposeViewController")) {
@@ -1205,68 +1235,76 @@
 
 
 -(void)selectFavoriteItem{
-    [self.favoriteItemTableView reloadData];
+    [self.favoriteItemPickerView reloadAllComponents];
     self.favoriteItemBackview.hidden = NO;
+    self.skipButton.enabled = NO;
+    self.submitButton.enabled = NO;
 }
 
--(void)cancelFavoriteItemAction{
+
+-(void)favoriteItemSelectAction{
+    
+    [self.selectFavoriteButton setTitle:self.selectedItemName forState:UIControlStateNormal];
+        
+    self.selectedItemTextField.text = self.selectedItemName;
     
     self.favoriteItemBackview.hidden = YES;
+    self.skipButton.enabled = YES;
+    self.submitButton.enabled = YES;
+    
+}
+-(void)favoriteItemCancelAction{
+    self.favoriteItemBackview.hidden = YES;
+    self.skipButton.enabled = YES;
+    self.submitButton.enabled = YES;
+    
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//Picker View Delegates
+
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
+    @try {
+        
+        NSDictionary *item = [self.myInvoice.items objectAtIndex:row];
+
+        self.selectedItemId = [item valueForKey:@"Id"];
+        self.selectedItemName  = [item valueForKey:@"Description"];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ReviewTransaction.pickerViewDidSleect" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     @try {
         
         return [self.myInvoice.items count];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ReviewTransaction.tableViewNumberOfRows" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ReviewTransaction.pickerViewNumberOfRows" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     @try {
         
-        NSUInteger row = [indexPath row];
-        static NSString *itemCell=@"itemCell";
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCell];
-        
-        
-        NSDictionary *tmpItem = [self.myInvoice.items objectAtIndex:row];
-        
-        UILabel *itemlabel = (UILabel *)[cell.contentView viewWithTag:1];
-        
-        itemlabel.text = [tmpItem valueForKey:@"Description"];
-        
-        
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        cell.backgroundColor = [UIColor whiteColor];
-        
-        return cell;
+        NSDictionary *item = [self.myInvoice.items objectAtIndex:row];
+        return [item valueForKey:@"Description"];
         
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"Home.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ReviewTransaction.pickerViewTitleForRow" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-}
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    NSDictionary *tmpItem = [self.myInvoice.items objectAtIndex:indexPath.row];
-    
-    self.selectedItemId = [tmpItem valueForKey:@"Id"];
-    self.selectedItemName = [tmpItem valueForKey:@"Description"];
-    
-    self.selectedItemTextField.text = self.selectedItemName;
-    
-    self.favoriteItemBackview.hidden = YES;
-
     
 }
+
 @end
 
 

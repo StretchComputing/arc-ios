@@ -92,6 +92,7 @@
 		90993F5D1597795B00FC1D49 /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 90993F5B1597795B00FC1D49 /* Home.m */; };
 		90A19F72162CF186007995DC /* GetPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F71162CF186007995DC /* GetPasscodeViewController.m */; };
 		90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F75162CF197007995DC /* ResetPasswordViewController.m */; };
+		90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A65C66169B785500FC519B /* CoreTelephony.framework */; };
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
 		90B01D07159E3E61005FCCCF /* fullStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D06159E3E61005FCCCF /* fullStar.png */; };
 		90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D09159E3E92005FCCCF /* ReviewTransaction.m */; };
@@ -296,6 +297,7 @@
 		90A19F71162CF186007995DC /* GetPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPasscodeViewController.m; sourceTree = "<group>"; };
 		90A19F74162CF197007995DC /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		90A19F75162CF197007995DC /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
+		90A65C66169B785500FC519B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		90B01D03159E3CF1005FCCCF /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		90B01D06159E3E61005FCCCF /* fullStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullStar.png; sourceTree = "<group>"; };
 		90B01D08159E3E92005FCCCF /* ReviewTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTransaction.h; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */,
 				908A4C4116978CCF00B68664 /* libCardIO.a in Frameworks */,
 				90FBDABF159C91D60051609A /* Security.framework in Frameworks */,
 				908A4C4D16978D2000B68664 /* OpenGLES.framework in Frameworks */,
@@ -509,6 +512,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				90A65C66169B785500FC519B /* CoreTelephony.framework */,
 				908A4C4C16978D2000B68664 /* OpenGLES.framework */,
 				908A4C4A16978D1600B68664 /* MobileCoreServices.framework */,
 				908A4C4816978D0D00B68664 /* CoreVideo.framework */,
