@@ -25,7 +25,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    //if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertRestaurant"] length] == 0) {
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertRestaurant"] length] == 0) {
         [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertRestaurant"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -40,7 +40,7 @@
         self.arcAlertViewController.alertView.frame = frame;
     }
         [self.view addSubview:self.arcAlertViewController.view];
-    //}
+    }
     
 }
 
@@ -571,7 +571,7 @@
 
 -(void)hideAlert{
     
-    [UIView transitionWithView:self.arcAlertViewController.alertView duration:1.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{self.arcAlertViewController.alertView.frame = CGRectOffset(self.arcAlertViewController.alertView.frame, 0, -260);} completion:^(BOOL finished){
+    [UIView transitionWithView:self.arcAlertViewController.alertView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{self.arcAlertViewController.alertView.frame = CGRectOffset(self.arcAlertViewController.alertView.frame, 0, -260);} completion:^(BOOL finished){
         
         [self.arcAlertViewController.view setHidden:YES];
         //self.arcAlertViewController.view.frame = CGRectMake(0, -8000, 320, 480);
@@ -579,5 +579,38 @@
     }];
     
     // self.arcAlertViewController.view.hidden = YES;
+}
+- (void)closeHelp {
+    
+    @try {
+        
+        if (self.helpShowing) {
+            
+            self.helpShowing = NO;
+            self.checkHelpImageView.hidden = YES;
+            
+            self.checkNumOne.enabled = YES;
+            self.checkNumTwo.enabled = YES;
+            self.checkNumThree.enabled = YES;
+            self.checkNumFour.enabled = YES;
+            
+            [self.checkNumOne becomeFirstResponder];
+            [self.hiddenText becomeFirstResponder];
+            
+            self.nameDisplay.hidden = NO;
+            self.submitButton.enabled = YES;
+            
+            if ([self.hiddenText.text length] > 0) {
+                [self showDoneButton];
+            }
+            
+            
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"Restaurant.closeHelp" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
 }
 @end
