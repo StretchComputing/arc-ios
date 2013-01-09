@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
 #import "CorbelBarButtonItem.h"
+#import "ArcAlertViewController.h"
 
+@class ArcAlertViewController;
 
 @interface Restaurant : UIViewController <UITextFieldDelegate >
+
+@property (nonatomic, strong) ArcAlertViewController *arcAlertViewController;
+
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFive;

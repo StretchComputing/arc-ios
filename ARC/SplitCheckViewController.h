@@ -10,8 +10,14 @@
 #import "Invoice.h"
 #import "CorbelButton.h"
 #import "Invoice.h"
+#import "ArcAlertViewController.h"
+
+@class ArcAlertViewController;
 
 @interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+
+
+@property (nonatomic, strong) ArcAlertViewController *arcAlertViewController;
 
 
 @property BOOL fromDwolla;
