@@ -349,8 +349,20 @@
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 UIAlertView *betaAlert = [[UIAlertView alloc] initWithTitle:@"Choose Your Items:" message:@"Itemized check splitting currently does not check which members of your party paid for each item .  Please be sure that multiple people do not select and pay for the same item!  ARC will verify for you that this does not happen in the next release.  Thank you!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [betaAlert show];
+                //[betaAlert show];
             }
+            
+            //if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertSplit"] length] == 0) {
+            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertSplit"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            self.arcAlertViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"arcAlert"];
+            self.arcAlertViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+            self.arcAlertViewController.alertText = @"To split by item, select the items you wish to pay for.  To split a single item, press and hold that item.";
+            self.arcAlertViewController.alertViewHeight = 130;
+            [self.arcAlertViewController doInitSetup];
+            [self.view addSubview:self.arcAlertViewController.view];
+            //}
             
         }
     }
@@ -1643,8 +1655,22 @@
     
 }
 
+
+
 -(void)retapSegmentAction{
     self.percentYourPercentSegControl.selectedSegmentIndex = 3;
     [self percentYourPercentSegmentSelect];
+}
+
+-(void)hideAlert{
+    
+    [UIView transitionWithView:self.arcAlertViewController.alertView duration:1.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{self.arcAlertViewController.alertView.frame = CGRectOffset(self.arcAlertViewController.alertView.frame, 0, -260);} completion:^(BOOL finished){
+        
+        [self.arcAlertViewController.view setHidden:YES];
+        //self.arcAlertViewController.view.frame = CGRectMake(0, -8000, 320, 480);
+        
+    }];
+    
+    // self.arcAlertViewController.view.hidden = YES;
 }
 @end

@@ -16,6 +16,7 @@
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
 #import "SMContactsSelector.h"
+#import "ArcAlertViewController.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -42,6 +43,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
    
+    
     
     self.retryCount = 0;
     [self getMerchantList];
@@ -140,6 +142,20 @@
             [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"didJustLogin"];
             [self checkPayment];
         }
+        
+        //Home Alert
+       // if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertHome"] length] == 0) {
+            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertHome"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            self.arcAlertViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"arcAlert"];
+            self.arcAlertViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+            self.arcAlertViewController.alertText = @"Welcome to ARC!  To begin using mobile payments, use this screen to select a restaurant."; 
+            self.arcAlertViewController.alertViewHeight = 110;
+            [self.arcAlertViewController doInitSetup];
+            [self.view addSubview:self.arcAlertViewController.view];
+       // }
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.viewDidAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -712,5 +728,17 @@
         [tmp referFriend:data];
     }
     
+}
+
+-(void)hideAlert{
+    
+    [UIView transitionWithView:self.arcAlertViewController.alertView duration:1.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{self.arcAlertViewController.alertView.frame = CGRectOffset(self.arcAlertViewController.alertView.frame, 0, -260);} completion:^(BOOL finished){
+        
+        [self.arcAlertViewController.view setHidden:YES];
+        //self.arcAlertViewController.view.frame = CGRectMake(0, -8000, 320, 480);
+        
+    }];
+    
+   // self.arcAlertViewController.view.hidden = YES;
 }
 @end

@@ -1049,7 +1049,7 @@
         
         NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-        [alert show];
+        //[alert show];
         
         [self performSegueWithIdentifier:@"registerHome" sender:self];
         

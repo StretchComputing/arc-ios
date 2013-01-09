@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "SMContactsSelector.h"
+#import "ArcAlertViewController.h"
 
+@class ArcAlertViewController;
 @interface Home : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate>
 
 @property BOOL successReview;
 @property BOOL skipReview;
 
+@property (nonatomic, strong) ArcAlertViewController *arcAlertViewController;
 @property int retryCount;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -54,4 +57,5 @@
 
 @property (nonatomic, strong) NSMutableArray *multipleEmailArray;
 
+-(void)hideAlert;
 @end

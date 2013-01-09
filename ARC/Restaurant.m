@@ -23,6 +23,26 @@
 
 @implementation Restaurant
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    //if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertRestaurant"] length] == 0) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertRestaurant"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        self.arcAlertViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"arcAlert"];
+        self.arcAlertViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.arcAlertViewController.alertText = @"To view your bill, enter your check number.  If you cannot find your check number, click on the '?' icon.";
+        self.arcAlertViewController.alertViewHeight = 130;
+        [self.arcAlertViewController doInitSetup];
+    if (!self.isIphone5) {
+        CGRect frame = self.arcAlertViewController.alertView.frame;
+        frame.origin.y = 10;
+        self.arcAlertViewController.alertView.frame = frame;
+    }
+        [self.view addSubview:self.arcAlertViewController.view];
+    //}
+    
+}
 
 -(void)viewWillDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -549,9 +569,15 @@
 }
 
 
-
-- (void)viewDidUnload {
-    [self setSubmitButton:nil];
-    [super viewDidUnload];
+-(void)hideAlert{
+    
+    [UIView transitionWithView:self.arcAlertViewController.alertView duration:1.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{self.arcAlertViewController.alertView.frame = CGRectOffset(self.arcAlertViewController.alertView.frame, 0, -260);} completion:^(BOOL finished){
+        
+        [self.arcAlertViewController.view setHidden:YES];
+        //self.arcAlertViewController.view.frame = CGRectMake(0, -8000, 320, 480);
+        
+    }];
+    
+    // self.arcAlertViewController.view.hidden = YES;
 }
 @end

@@ -30,6 +30,7 @@
 		9081522515E817E700211C37 /* RegisterViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522415E817E700211C37 /* RegisterViewNew.m */; };
 		90850DD4168E44EB00D91F15 /* untitledReceipt.png in Resources */ = {isa = PBXBuildFile; fileRef = 90850DD3168E44EB00D91F15 /* untitledReceipt.png */; };
 		90850DD6168E557B00D91F15 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 90850DD5168E557B00D91F15 /* camera.png */; };
+		90893F43169CEB4F00B08240 /* ArcAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90893F42169CEB4F00B08240 /* ArcAlertViewController.m */; };
 		908A4C4116978CCF00B68664 /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4016978CCF00B68664 /* libCardIO.a */; };
 		908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4216978CF600B68664 /* AVFoundation.framework */; };
 		908A4C4516978CFA00B68664 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4416978CFA00B68664 /* AudioToolbox.framework */; };
@@ -199,6 +200,8 @@
 		9081522415E817E700211C37 /* RegisterViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewNew.m; sourceTree = "<group>"; };
 		90850DD3168E44EB00D91F15 /* untitledReceipt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = untitledReceipt.png; sourceTree = "<group>"; };
 		90850DD5168E557B00D91F15 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		90893F41169CEB4F00B08240 /* ArcAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcAlertViewController.h; sourceTree = "<group>"; };
+		90893F42169CEB4F00B08240 /* ArcAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcAlertViewController.m; sourceTree = "<group>"; };
 		908A4C3C16978CCE00B68664 /* CardIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIO.h; sourceTree = "<group>"; };
 		908A4C3D16978CCF00B68664 /* CardIOCreditCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOCreditCardInfo.h; sourceTree = "<group>"; };
 		908A4C3E16978CCF00B68664 /* CardIOPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOPaymentViewController.h; sourceTree = "<group>"; };
@@ -626,6 +629,8 @@
 				907A404415A8CFE900090452 /* AccessData.m */,
 				9081522315E817E700211C37 /* RegisterViewNew.h */,
 				9081522415E817E700211C37 /* RegisterViewNew.m */,
+				90893F41169CEB4F00B08240 /* ArcAlertViewController.h */,
+				90893F42169CEB4F00B08240 /* ArcAlertViewController.m */,
 				908AA79116684AE00020C1FB /* NoPaymentSourcesViewController.h */,
 				908AA79216684AE00020C1FB /* NoPaymentSourcesViewController.m */,
 				90993F4A159777BC00FC1D49 /* ViewController.h */,
@@ -999,6 +1004,7 @@
 				908D2F73166E4818007B6078 /* UIAlertView+UITableView.m in Sources */,
 				908D2FC5166E76B8007B6078 /* PrivacyTermsViewController.m in Sources */,
 				908FA86616850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.m in Sources */,
+				90893F43169CEB4F00B08240 /* ArcAlertViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
