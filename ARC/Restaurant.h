@@ -51,6 +51,7 @@
 @property (strong, nonatomic) NSMutableData *serverData;
 
 @property (strong, nonatomic) Invoice *myInvoice;
+- (IBAction)closeHelp;
 
 @property (nonatomic, strong) UITextField *hiddenText;
 

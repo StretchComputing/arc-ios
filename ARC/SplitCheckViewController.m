@@ -352,7 +352,7 @@
                 //[betaAlert show];
             }
             
-            //if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertSplit"] length] == 0) {
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertSplit"] length] == 0) {
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertSplit"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
@@ -362,7 +362,7 @@
             self.arcAlertViewController.alertViewHeight = 130;
             [self.arcAlertViewController doInitSetup];
             [self.view addSubview:self.arcAlertViewController.view];
-            //}
+        }
             
         }
     }
@@ -1664,7 +1664,7 @@
 
 -(void)hideAlert{
     
-    [UIView transitionWithView:self.arcAlertViewController.alertView duration:1.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{self.arcAlertViewController.alertView.frame = CGRectOffset(self.arcAlertViewController.alertView.frame, 0, -260);} completion:^(BOOL finished){
+    [UIView transitionWithView:self.arcAlertViewController.alertView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{self.arcAlertViewController.alertView.frame = CGRectOffset(self.arcAlertViewController.alertView.frame, 0, -260);} completion:^(BOOL finished){
         
         [self.arcAlertViewController.view setHidden:YES];
         //self.arcAlertViewController.view.frame = CGRectMake(0, -8000, 320, 480);
