@@ -48,7 +48,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.3";
         NSDictionary *loginDict = [[NSDictionary alloc] init];
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
-        [tempDictionary setObject:@"rTeam" forKey:@"application"];
+        [tempDictionary setObject:@"ARC" forKey:@"application"];
         [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
         
         
@@ -69,6 +69,8 @@ NSString* const ARC_VERSION_NUMBER = @"1.3";
         
         // parse the returned JSON object
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+        
+        //NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
