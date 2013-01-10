@@ -49,13 +49,7 @@
         [rSkybox addEventToSession:@"successfulDwollaLogin"];
         [ArcClient trackEvent:@"DWOLLA_ACTIVATED"];
 
-        if (self.fromRegister) {
-            //RegisterViewNew *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
-            //tmp.fromDwolla = YES;
-            //tmp.dwollaSuccess = YES;
-            
-            [self.navigationController popViewControllerAnimated:NO];
-        }else if (self.fromSettings){
+        if (self.fromSettings){
             
             SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
             tmp.fromDwolla = YES;
@@ -104,13 +98,7 @@
     @try {
         
         [rSkybox addEventToSession:@"failedDwollaLogin"];
-        if (self.fromRegister) {
-            //RegisterViewNew *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
-            //tmp.fromDwolla = YES;
-            //tmp.dwollaSuccess = NO;
-            
-            [self.navigationController popViewControllerAnimated:NO];
-        }else if (self.fromSettings){
+        if (self.fromSettings){
             
             SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] - 2 ];
             tmp.fromDwolla = YES;

@@ -1244,26 +1244,41 @@
 
 -(void)favoriteItemSelectAction{
     
-    if (!self.selectedItemId) {
-        NSDictionary *item = [self.myInvoice.items objectAtIndex:0];
+    @try {
+        if (!self.selectedItemId) {
+            NSDictionary *item = [self.myInvoice.items objectAtIndex:0];
+            
+            self.selectedItemId = [item valueForKey:@"Id"];
+            self.selectedItemName  = [item valueForKey:@"Description"];
+        }
         
-        self.selectedItemId = [item valueForKey:@"Id"];
-        self.selectedItemName  = [item valueForKey:@"Description"];
+        [self.selectFavoriteButton setTitle:self.selectedItemName forState:UIControlStateNormal];
+        
+        self.selectedItemTextField.text = self.selectedItemName;
+        
+        self.favoriteItemBackview.hidden = YES;
+        self.skipButton.enabled = YES;
+        self.submitButton.enabled = YES;
     }
-    
-    [self.selectFavoriteButton setTitle:self.selectedItemName forState:UIControlStateNormal];
-        
-    self.selectedItemTextField.text = self.selectedItemName;
-    
-    self.favoriteItemBackview.hidden = YES;
-    self.skipButton.enabled = YES;
-    self.submitButton.enabled = YES;
+    @catch (NSException *exception) {
+         [rSkybox sendClientLog:@"ReviewTransaction.favoriteItemSelectionAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+  
+   
     
 }
 -(void)favoriteItemCancelAction{
-    self.favoriteItemBackview.hidden = YES;
-    self.skipButton.enabled = YES;
-    self.submitButton.enabled = YES;
+    
+
+    @try {
+        self.favoriteItemBackview.hidden = YES;
+        self.skipButton.enabled = YES;
+        self.submitButton.enabled = YES;
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ReviewTransaction.favoriteItemCancelAction" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+   
     
 }
 

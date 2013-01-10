@@ -1592,7 +1592,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         if ([prefs valueForKey:@"arcLoginType"]) {
             [tempDictionary setObject:loginType forKey:@"EntityType"];
         }else{
-            [tempDictionary setObject:@"NEW_USER" forKey:@"EntityType"];
+            [tempDictionary setObject:@"LOGIN_TYPE_CUSTOMER" forKey:@"EntityType"];
         }
         
         [ tempDictionary setObject:@0.0 forKey:@"Latitude"];//optional
