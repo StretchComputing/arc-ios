@@ -1424,7 +1424,7 @@
                         <outlet property="postFacebookPoints" destination="nUe-QV-OwR" id="jbl-al-fx7"/>
                         <outlet property="postTwitterButton" destination="iM3-QU-sDl" id="XcE-ii-QZ7"/>
                         <outlet property="postTwitterPoints" destination="mfV-dg-uI8" id="9ar-2E-O8e"/>
-                        <outlet property="selectFavoriteButton" destination="MKd-i0-Kwc" id="4qU-wG-7kt"/>
+                        <outlet property="selectFavoriteButton" destination="MKd-i0-Kwc" id="BZU-y7-gm7"/>
                         <outlet property="selectedItemTextField" destination="6r7-KN-X4s" id="ZRg-Qt-bCr"/>
                         <outlet property="serviceSlider" destination="Bh1-L4-1jb" id="mTh-Xx-xpT"/>
                         <outlet property="shareLabel" destination="nzE-8x-hl9" id="zcw-ck-rfs"/>
