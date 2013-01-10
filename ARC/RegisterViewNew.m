@@ -1131,7 +1131,7 @@
  
     @try {
         
-        //[ArcClient trackEvent:@"CARD.IO_SCAN_ATTEMPTED"];
+        [ArcClient trackEvent:@"CARD.IO_SCAN_ATTEMPTED"];
 
         
         CardIOPaymentViewController *scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
@@ -1154,7 +1154,7 @@
  
      @try {
          
-         //[ArcClient trackEvent:@"CARD.IO_SCAN_CANCELED"];
+         [ArcClient trackEvent:@"CARD.IO_SCAN_CANCELED"];
 
          [scanViewController dismissModalViewControllerAnimated:YES];
 
