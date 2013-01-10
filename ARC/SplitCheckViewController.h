@@ -11,6 +11,7 @@
 #import "CorbelButton.h"
 #import "Invoice.h"
 #import "ArcAlertViewController.h"
+#import "CorbelTextView.h"
 
 @class ArcAlertViewController;
 
@@ -19,6 +20,9 @@
 
 @property (nonatomic, strong) ArcAlertViewController *arcAlertViewController;
 
+
+@property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
+@property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
 
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;

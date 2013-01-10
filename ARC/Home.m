@@ -144,17 +144,40 @@
         }
         
         //Home Alert
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertHome"] length] == 0) {
-            [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertHome"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if (!self.didShowPayment) {
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertHome"] length] == 0) {
+                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertHome"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                self.overlayTextView.layer.masksToBounds = YES;
+                self.overlayTextView.layer.cornerRadius = 10.0;
+                self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
+                self.overlayTextView.layer.borderWidth = 2.0;
+                
+                CAGradientLayer *gradient = [CAGradientLayer layer];
+                gradient.frame = self.overlayTextView.bounds;
+                self.overlayTextView.backgroundColor = [UIColor clearColor];
+                double x = 1.4;
+                UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
+                gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+                [self.overlayTextView.layer insertSublayer:gradient atIndex:0];
+                
+                [self showHintOverlay];
             
-            self.arcAlertViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"arcAlert"];
-            self.arcAlertViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-            self.arcAlertViewController.alertText = @"Welcome to ARC!  To begin using mobile payments, use this screen to select a restaurant."; 
-            self.arcAlertViewController.alertViewHeight = 110;
-            [self.arcAlertViewController doInitSetup];
-            [self.view addSubview:self.arcAlertViewController.view];
+                NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
+            
+            if (tmp) {
+                
+            }
+            
+            
+            
+            }
         }
+        self.didShowPayment = NO;
+        
+    
         
     }
     @catch (NSException *e) {
@@ -207,6 +230,8 @@
         UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
+        
+        //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greyback.png"]];
         
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
         
@@ -488,17 +513,6 @@
     }
 }
 
-- (void)viewDidUnload {
-    @try {
-        
-        [self setSloganLabel:nil];
-        [super viewDidUnload];
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"Home.viewDidUnload" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-}
-
 
 //iOS 5 pull to refresh code
 
@@ -655,6 +669,7 @@
 }
 
 -(void)noPaymentSources{
+    self.didShowPayment = YES;
     UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
     [self.navigationController presentModalViewController:noPaymentController animated:YES];
     
@@ -741,4 +756,23 @@
     
    // self.arcAlertViewController.view.hidden = YES;
 }
+
+-(void)showHintOverlay{
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        CGRect frame = self.hintOverlayView.frame;
+        frame.origin.x += 300;
+        self.hintOverlayView.frame = frame;
+    }];
+}
+
+-(void)hideHintOverlay{
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        CGRect frame = self.hintOverlayView.frame;
+        frame.origin.x += 300;
+        self.hintOverlayView.frame = frame;
+    }];
+}
+
 @end

@@ -10,12 +10,18 @@
 #import "Invoice.h"
 #import "CorbelBarButtonItem.h"
 #import "ArcAlertViewController.h"
+#import "CorbelTextView.h"
 
 @class ArcAlertViewController;
 
 @interface Restaurant : UIViewController <UITextFieldDelegate >
 
 @property (nonatomic, strong) ArcAlertViewController *arcAlertViewController;
+
+
+
+@property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
+@property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
 
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
