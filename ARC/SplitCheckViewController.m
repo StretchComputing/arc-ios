@@ -356,12 +356,29 @@
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertSplit"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            self.arcAlertViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"arcAlert"];
-            self.arcAlertViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-            self.arcAlertViewController.alertText = @"To split by item, select the items you wish to pay for.  To split a single item, press and hold that item.";
-            self.arcAlertViewController.alertViewHeight = 130;
-            [self.arcAlertViewController doInitSetup];
-            [self.view addSubview:self.arcAlertViewController.view];
+            self.overlayTextView.layer.masksToBounds = YES;
+            self.overlayTextView.layer.cornerRadius = 10.0;
+            self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
+            self.overlayTextView.layer.borderWidth = 2.0;
+            
+            CAGradientLayer *gradient = [CAGradientLayer layer];
+            gradient.frame = self.overlayTextView.bounds;
+            self.overlayTextView.backgroundColor = [UIColor clearColor];
+            double x = 1.4;
+            UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
+            gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+            [self.overlayTextView.layer insertSublayer:gradient atIndex:0];
+            
+            [self showHintOverlay];
+            
+            NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
+            
+            if (tmp) {
+                
+            }
+            
+            
+            
         }
             
         }
@@ -1673,4 +1690,24 @@
     
     // self.arcAlertViewController.view.hidden = YES;
 }
+
+
+-(void)showHintOverlay{
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        CGRect frame = self.hintOverlayView.frame;
+        frame.origin.x += 300;
+        self.hintOverlayView.frame = frame;
+    }];
+}
+
+-(void)hideHintOverlay{
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        CGRect frame = self.hintOverlayView.frame;
+        frame.origin.x += 300;
+        self.hintOverlayView.frame = frame;
+    }];
+}
+
 @end

@@ -31,6 +31,8 @@
 		90850DD4168E44EB00D91F15 /* untitledReceipt.png in Resources */ = {isa = PBXBuildFile; fileRef = 90850DD3168E44EB00D91F15 /* untitledReceipt.png */; };
 		90850DD6168E557B00D91F15 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 90850DD5168E557B00D91F15 /* camera.png */; };
 		90893F43169CEB4F00B08240 /* ArcAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90893F42169CEB4F00B08240 /* ArcAlertViewController.m */; };
+		90893F9C169DF24F00B08240 /* greyback.png in Resources */ = {isa = PBXBuildFile; fileRef = 90893F9B169DF24F00B08240 /* greyback.png */; };
+		90893FA2169E04CD00B08240 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 90893FA1169E04CD00B08240 /* blueArrow.png */; };
 		908A4C4116978CCF00B68664 /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4016978CCF00B68664 /* libCardIO.a */; };
 		908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4216978CF600B68664 /* AVFoundation.framework */; };
 		908A4C4516978CFA00B68664 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4416978CFA00B68664 /* AudioToolbox.framework */; };
@@ -42,6 +44,7 @@
 		908AA7A71668632A0020C1FB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A51668632A0020C1FB /* AddressBook.framework */; };
 		908AA7A81668632A0020C1FB /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A61668632A0020C1FB /* AddressBookUI.framework */; };
 		908AB24916696F4C00A318C8 /* FacebookCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AB24816696F4C00A318C8 /* FacebookCheckin.m */; };
+		908B0250169E688B0039EB97 /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 908B024F169E688B0039EB97 /* finger.png */; };
 		908C2590164C0C8700AB3684 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 908C258F164C0C8700AB3684 /* blueCheck.png */; };
 		908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2592164C0D1D00AB3684 /* EditServerController.m */; };
 		908D2F67166E4818007B6078 /* Address+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D2F4D166E4817007B6078 /* Address+Additions.m */; };
@@ -202,6 +205,8 @@
 		90850DD5168E557B00D91F15 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		90893F41169CEB4F00B08240 /* ArcAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcAlertViewController.h; sourceTree = "<group>"; };
 		90893F42169CEB4F00B08240 /* ArcAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcAlertViewController.m; sourceTree = "<group>"; };
+		90893F9B169DF24F00B08240 /* greyback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyback.png; sourceTree = "<group>"; };
+		90893FA1169E04CD00B08240 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
 		908A4C3C16978CCE00B68664 /* CardIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIO.h; sourceTree = "<group>"; };
 		908A4C3D16978CCF00B68664 /* CardIOCreditCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOCreditCardInfo.h; sourceTree = "<group>"; };
 		908A4C3E16978CCF00B68664 /* CardIOPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOPaymentViewController.h; sourceTree = "<group>"; };
@@ -219,6 +224,7 @@
 		908AA7A61668632A0020C1FB /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		908AB24716696F4C00A318C8 /* FacebookCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookCheckin.h; sourceTree = "<group>"; };
 		908AB24816696F4C00A318C8 /* FacebookCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookCheckin.m; sourceTree = "<group>"; };
+		908B024F169E688B0039EB97 /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
 		908C258F164C0C8700AB3684 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
 		908C2591164C0D1D00AB3684 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
 		908C2592164C0D1D00AB3684 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
@@ -546,7 +552,10 @@
 				90FBDA73159A70E50051609A /* MessageUI.framework */,
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
+				908B024F169E688B0039EB97 /* finger.png */,
+				90893F9B169DF24F00B08240 /* greyback.png */,
 				90850DD5168E557B00D91F15 /* camera.png */,
+				90893FA1169E04CD00B08240 /* blueArrow.png */,
 				9096DCFE1632066300106A25 /* CustomMoviePlayerViewController.h */,
 				9096DCFF1632066300106A25 /* CustomMoviePlayerViewController.m */,
 				906D106E160DF82000561C31 /* arrow.png */,
@@ -904,6 +913,9 @@
 				908D2FD2166E8D66007B6078 /* boxEmpty.png in Resources */,
 				90850DD4168E44EB00D91F15 /* untitledReceipt.png in Resources */,
 				90850DD6168E557B00D91F15 /* camera.png in Resources */,
+				90893F9C169DF24F00B08240 /* greyback.png in Resources */,
+				90893FA2169E04CD00B08240 /* blueArrow.png in Resources */,
+				908B0250169E688B0039EB97 /* finger.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

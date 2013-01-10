@@ -209,11 +209,11 @@ NSString *const AMERICAN_EXPRESS = @"A";
         
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
         tmpButton.frame = CGRectMake(8, 5, 69, 35);
-        [tmpButton setTitle:@"Done" forState:UIControlStateNormal];
+        [tmpButton setTitle:@"Add" forState:UIControlStateNormal];
         [tmpButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
         [tmpButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [tmpButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
-        [tmpButton addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventTouchUpInside];
+        [tmpButton addTarget:self action:@selector(addCard) forControlEvents:UIControlEventTouchUpInside];
         
         [self.hideKeyboardView addSubview:tmpButton];
         [self.view.superview addSubview:self.hideKeyboardView];
@@ -257,8 +257,8 @@ NSString *const AMERICAN_EXPRESS = @"A";
         [self.expirationText resignFirstResponder];
 
         self.pickerView.hidden = YES;
-        [self.hideKeyboardView removeFromSuperview];
-        self.hideKeyboardView = nil;
+        //[self.hideKeyboardView removeFromSuperview];
+        //self.hideKeyboardView = nil;
         [self endText];
         
     }
@@ -273,9 +273,9 @@ NSString *const AMERICAN_EXPRESS = @"A";
 -(void)changeExpiration:(UIButton *)sender{
     @try {
         
-        [self.hideKeyboardView removeFromSuperview];
-        [self.pickerView removeFromSuperview];
-        self.hideKeyboardView = nil;
+        //[self.hideKeyboardView removeFromSuperview];
+        //[self.pickerView removeFromSuperview];
+        //self.hideKeyboardView = nil;
         self.pickerView = nil;
         
         [self showDoneButton];
@@ -402,8 +402,8 @@ NSString *const AMERICAN_EXPRESS = @"A";
 -(void)endText{
     @try {
         
-        [self.hideKeyboardView removeFromSuperview];
-        self.hideKeyboardView = nil;
+        //[self.hideKeyboardView removeFromSuperview];
+        //self.hideKeyboardView = nil;
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.1];
         

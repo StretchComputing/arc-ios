@@ -9,12 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "SMContactsSelector.h"
 #import "ArcAlertViewController.h"
+#import "CorbelTextView.h"
 
 @class ArcAlertViewController;
 @interface Home : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate>
 
 @property BOOL successReview;
 @property BOOL skipReview;
+
+@property BOOL didShowPayment;
+
+@property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
+@property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
 
 @property (nonatomic, strong) ArcAlertViewController *arcAlertViewController;
 @property int retryCount;
