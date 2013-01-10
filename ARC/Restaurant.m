@@ -24,23 +24,42 @@
 @implementation Restaurant
 
 
+
 -(void)showHintOverlay{
     
-    [UIView animateWithDuration:1.0 animations:^{
-        CGRect frame = self.hintOverlayView.frame;
-        frame.origin.y += 100;
-        self.hintOverlayView.frame = frame;
-    }];
+    @try {
+        [UIView animateWithDuration:1.0 animations:^{
+            CGRect frame = self.hintOverlayView.frame;
+            frame.origin.y += 100;
+            self.hintOverlayView.frame = frame;
+        }];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"Restaurant.showHintOverlay" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
 }
 
 -(void)hideHintOverlay{
     
-    [UIView animateWithDuration:1.0 animations:^{
-        CGRect frame = self.hintOverlayView.frame;
-        frame.origin.y -= 100;
-        self.hintOverlayView.frame = frame;
-    }];
+    @try {
+        [UIView animateWithDuration:1.0 animations:^{
+            CGRect frame = self.hintOverlayView.frame;
+            frame.origin.y -= 100;
+            self.hintOverlayView.frame = frame;
+        }];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"Resaurant.hideHintOverlay" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
 }
+
+
 
 
 

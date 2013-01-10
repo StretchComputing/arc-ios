@@ -43,9 +43,6 @@
 
     @try {
         
-        [ArcClient trackEvent:@"TEST_REG_NO_AUTH"];
-
-        
         [self.myScrollView setContentOffset:self.scrollViewOffset animated:NO];
         
         
@@ -247,7 +244,12 @@
                 [self.loginButton setTitle:@"Cancel"];
 
             }else{
-                self.errorLabel.text = @"Please enter all fields.";
+                
+                if ([self.emailText.text length] > 0 && [self.passwordText.text length] > 0) {
+                    self.errorLabel.text = @"Password must be least 5 characters.";
+                }else{
+                    self.errorLabel.text = @"Please enter all fields.";
+                }
             }
             
         }else if (self.pageNumber == 2){
@@ -1169,7 +1171,7 @@
     
     @try {
         
-        [ArcClient trackEvent:@"CARD.IO_SCAN_SUCCESSFULL"];
+        [ArcClient trackEvent:@"CARD.IO_SCAN_SUCCESSFUL"];
         
         self.creditCardNumberText.text = info.cardNumber;
         NSString *expirationYearString = [NSString stringWithFormat:@"%i", info.expiryYear];

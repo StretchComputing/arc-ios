@@ -302,7 +302,7 @@
         if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
             
             RegisterDwollaView *detailViewController = [segue destinationViewController];
-            detailViewController.fromRegister = YES;
+            detailViewController.fromSettings = YES;
         } 
     }
     @catch (NSException *e) {
