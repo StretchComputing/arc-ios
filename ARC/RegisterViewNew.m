@@ -42,6 +42,10 @@
 -(void)viewWillAppear:(BOOL)animated{
 
     @try {
+        
+        [ArcClient trackEvent:@"TEST_REG_NO_AUTH"];
+
+        
         [self.myScrollView setContentOffset:self.scrollViewOffset animated:NO];
         
         

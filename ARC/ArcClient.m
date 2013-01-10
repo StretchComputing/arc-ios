@@ -12,12 +12,13 @@
 #import "rSkybox.h"
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import "Home.h"
 
 //NSString *_arcUrl = @"http://68.57.205.193:8700/arc-dev/rest/v1/";    //Jim's Place
 //NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // STAGE
 
-NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
-//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+//NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -67,7 +68,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           //_arcUrl = [prefs valueForKey:@"arcUrl"];
+           _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
@@ -192,7 +193,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
-       
+   
+        
         //NSLog(@"Request: %@", request);
         
        // NSLog(@"Auth Header: %@", [self authHeader]);
@@ -338,7 +340,14 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPMethod: @"POST"];
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        @try {
+            [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        }
+        @catch (NSException *exception) {
+            
+        }
+      
         
         
         self.serverData = [NSMutableData data];
@@ -1564,13 +1573,27 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [ tempDictionary setObject:activity forKey:@"Activity"]; //ACTION
         [ tempDictionary setObject:activityType forKey:@"ActivityType"]; //CATEGORY
 
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        NSString *customerId = [mainDelegate getCustomerId];
-        [ tempDictionary setObject:customerId forKey:@"EntityId"]; //get from auth header?
+        @try {
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            NSString *customerId = [mainDelegate getCustomerId];
+            [ tempDictionary setObject:customerId forKey:@"EntityId"]; //get from auth header?
+        }
+        @catch (NSException *exception) {
+            [ tempDictionary setObject:@"" forKey:@"EntityId"]; //get from auth header?
+
+        }
+     
+     
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        
         NSString *loginType = [prefs valueForKey:@"arcLoginType"];
-        [ tempDictionary setObject:loginType forKey:@"EntityType"];
+        if ([prefs valueForKey:@"arcLoginType"]) {
+            [tempDictionary setObject:loginType forKey:@"EntityType"];
+        }else{
+            [tempDictionary setObject:@"NEW_USER" forKey:@"EntityType"];
+        }
         
         [ tempDictionary setObject:@0.0 forKey:@"Latitude"];//optional
         [ tempDictionary setObject:@0.0 forKey:@"Longitude"];//optional

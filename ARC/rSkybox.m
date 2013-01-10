@@ -27,7 +27,7 @@ static NSMutableArray *traceTimeStamps;
 static NSDate *startTime;
 static NSString *logNameBeingTimed;
 
-NSString* const ARC_VERSION_NUMBER = @"1.2.1";
+NSString* const ARC_VERSION_NUMBER = @"1.3";
 
 @implementation rSkybox
 
@@ -127,6 +127,10 @@ NSString* const ARC_VERSION_NUMBER = @"1.2.1";
         //Fill parameter dictionary from input method parameters
         [tempDictionary setObject:logName  forKey:@"logName"];
         [tempDictionary setObject:logLevel forKey:@"logLevel"];
+        
+        if (exception) {
+            logMessage = [logMessage stringByAppendingFormat:@" - %@ - %@", [exception name], [exception description]];
+        }
         [tempDictionary setObject:logMessage forKey:@"message"];
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
@@ -150,6 +154,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.2.1";
         [tempDictionary setObject:dateString forKey:@"date"];
         
         //If its an exception, send in the stackBackTrace in an array
+        
         if (exception != nil) {
             NSMutableArray *stackTraceArray = [NSMutableArray array];
             NSArray *stackSymbols = [exception callStackSymbols];

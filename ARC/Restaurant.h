@@ -9,14 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
 #import "CorbelBarButtonItem.h"
-#import "ArcAlertViewController.h"
 #import "CorbelTextView.h"
 
-@class ArcAlertViewController;
 
 @interface Restaurant : UIViewController <UITextFieldDelegate >
 
-@property (nonatomic, strong) ArcAlertViewController *arcAlertViewController;
 
 
 

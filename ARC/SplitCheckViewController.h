@@ -10,15 +10,12 @@
 #import "Invoice.h"
 #import "CorbelButton.h"
 #import "Invoice.h"
-#import "ArcAlertViewController.h"
 #import "CorbelTextView.h"
 
-@class ArcAlertViewController;
 
 @interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 
-@property (nonatomic, strong) ArcAlertViewController *arcAlertViewController;
 
 
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;

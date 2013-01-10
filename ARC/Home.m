@@ -16,7 +16,6 @@
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
 #import "SMContactsSelector.h"
-#import "ArcAlertViewController.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -745,17 +744,7 @@
     
 }
 
--(void)hideAlert{
-    
-    [UIView transitionWithView:self.arcAlertViewController.alertView duration:1.0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{self.arcAlertViewController.alertView.frame = CGRectOffset(self.arcAlertViewController.alertView.frame, 0, -260);} completion:^(BOOL finished){
-        
-        [self.arcAlertViewController.view setHidden:YES];
-        //self.arcAlertViewController.view.frame = CGRectMake(0, -8000, 320, 480);
-        
-    }];
-    
-   // self.arcAlertViewController.view.hidden = YES;
-}
+
 
 -(void)showHintOverlay{
     
