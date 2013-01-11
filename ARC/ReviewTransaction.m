@@ -617,6 +617,10 @@
         [ tempDictionary setObject:self.moodInt forKey:@"Mood"];        
         [ tempDictionary setObject:self.twitterInt forKey:@"Twitter"];
         [ tempDictionary setObject:self.facebookInt forKey:@"Facebook"];
+        
+        if ([self.selectedItemId length] == 0) {
+            self.selectedItemId = @"";
+        }
         [ tempDictionary setObject:self.selectedItemId forKey:@"BestItemId"];
 
         NSString *paymentIdString = [NSString stringWithFormat:@"%d", self.myInvoice.paymentId];

@@ -4069,7 +4069,6 @@
             <relationships>
                 <relationship kind="action" name="goNext"/>
                 <relationship kind="action" name="login:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="registerNow:"/>
                 <relationship kind="action" name="scanCard"/>
                 <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
