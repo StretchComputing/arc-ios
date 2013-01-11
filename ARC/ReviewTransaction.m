@@ -1252,7 +1252,7 @@
         if (!self.selectedItemId) {
             NSDictionary *item = [self.myInvoice.items objectAtIndex:0];
             
-            self.selectedItemId = [item valueForKey:@"Id"];
+            self.selectedItemId = [[item valueForKey:@"Id"] stringValue];
             self.selectedItemName  = [item valueForKey:@"Description"];
         }
         
@@ -1295,7 +1295,7 @@
         
         NSDictionary *item = [self.myInvoice.items objectAtIndex:row];
 
-        self.selectedItemId = [item valueForKey:@"Id"];
+        self.selectedItemId = [[item valueForKey:@"Id"] stringValue];
         self.selectedItemName  = [item valueForKey:@"Description"];
         
     }
