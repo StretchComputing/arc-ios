@@ -579,7 +579,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        //[request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
     
         
