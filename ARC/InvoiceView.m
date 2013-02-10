@@ -32,7 +32,7 @@
     
    
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
@@ -105,6 +105,24 @@
     @try {
         
     
+        
+        self.overlayTextView.layer.masksToBounds = YES;
+        self.overlayTextView.layer.cornerRadius = 10.0;
+        self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.overlayTextView.layer.borderWidth = 3.0;
+        
+        //self.overlayTextView.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
+        
+        CAGradientLayer *gradient1 = [CAGradientLayer layer];
+        gradient1.frame = self.overlayTextView.bounds;
+        self.overlayTextView.backgroundColor = [UIColor clearColor];
+        double x = 1.4;
+        UIColor *myColor1 = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
+        gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor1 CGColor], nil];
+        [self.overlayTextView.layer insertSublayer:gradient1 atIndex:0];
+      
+        
+        
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Invoice"];
         self.navigationItem.titleView = navLabel;
   
@@ -492,8 +510,12 @@
             self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
             
             if (didRemove) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
+                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                //[alert show];
+                
+                [self showTextOverlay];
+                [self.actionSheet showInView:self.view];
+                
             }else{
                 
                 if (showSheet) {
@@ -514,12 +536,16 @@
     }
 }
 
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     [self.actionSheet showInView:self.view];
 
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    [self hideTextOverlay];
+    
     @try {
         
         BOOL haveDwolla = NO;
@@ -846,6 +872,8 @@
     NSDictionary *loginDict = [[NSDictionary alloc] init];
     loginDict = tempDictionary;
     
+    self.refreshButton.enabled = NO;
+
     ArcClient *client = [[ArcClient alloc] init];
     [client getInvoice:loginDict];
 }
@@ -855,7 +883,8 @@
     @try {
         
         [self.activity stopAnimating];
-    
+        self.refreshButton.enabled = YES;
+
         
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
@@ -919,4 +948,27 @@
     
 }
 
+-(void)showTextOverlay{
+  
+    [UIView animateWithDuration:0.5 animations:^{
+        CGRect frame = self.overlayTextView.frame;
+        frame.origin.y = 10;
+        self.overlayTextView.frame = frame;
+    }];
+    
+}
+
+-(void)hideTextOverlay{
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        CGRect frame = self.overlayTextView.frame;
+        frame.origin.y = -124;
+        self.overlayTextView.frame = frame;
+    }];
+}
+
+- (void)viewDidUnload {
+    [self setRefreshButton:nil];
+    [super viewDidUnload];
+}
 @end

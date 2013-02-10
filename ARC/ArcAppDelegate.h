@@ -10,14 +10,26 @@
 #import "Customer.h"
 #import "Reachability.h"
 #import "CreditCard.h"
+#import <GameKit/GameKit.h>
 
-@interface ArcAppDelegate : UIResponder <UIApplicationDelegate>
+#define UIAppDelegate ((ArcAppDelegate *)[UIApplication sharedApplication].delegate)
+
+@interface ArcAppDelegate : UIResponder <UIApplicationDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate>
 {
     
     Reachability* hostReach;
     Reachability* internetReach;
     Reachability* wifiReach;
 }
+//TrackEvent
+@property (nonatomic, strong) NSMutableArray *trackEventArray;
+
+//Bluetooth
+@property (strong) GKSession* connectionSession;
+@property (nonatomic, strong) NSMutableArray *connectionPeers;
+@property (nonatomic, strong) GKPeerPickerController* connectionPicker;
+
+
 @property BOOL documentReady;
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) NSString *logout;
@@ -72,5 +84,6 @@
 
 
 -(void)doPaymentCheck;
+-(void)showNewVersionAlert;
 
 @end

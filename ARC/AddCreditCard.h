@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardIO.h"
+
 extern NSString *const VISA;
 extern NSString *const MASTER_CARD;
 extern NSString *const DISCOVER;
 extern NSString *const DINERS_CLUB;
 extern NSString *const AMERICAN_EXPRESS;
 
-@interface AddCreditCard : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate>
+@interface AddCreditCard : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
 
+@property BOOL selectCardIo;
 @property BOOL isIphone5;
 @property BOOL isDelete;
 @property BOOL isIos6;
@@ -47,6 +50,7 @@ extern NSString *const AMERICAN_EXPRESS;
 
 -(IBAction)valueChanged:(id)sender;
 
+-(IBAction)scanCard;
 
 
 @end

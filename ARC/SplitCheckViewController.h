@@ -13,10 +13,10 @@
 #import "CorbelTextView.h"
 
 
-@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface SplitCheckViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIScrollViewDelegate>
 
 
-
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
 @property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
@@ -153,4 +153,7 @@
 
 -(IBAction)retapSegmentAction;
 
+@property (nonatomic, strong) IBOutlet UITextView *cardsOverlayTextView;
+
+@property (nonatomic, strong) IBOutlet UIScrollView *numberSliderScrollView;
 @end

@@ -32,12 +32,17 @@ NSString *const AMERICAN_EXPRESS = @"A";
 @synthesize creditDebitSegment;
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self.creditCardNumberText becomeFirstResponder];
+    
+    if (!self.selectCardIo) {
+        [self.creditCardNumberText becomeFirstResponder];
+    }else{
+        [self showDoneButton];
+    }
 
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
@@ -452,8 +457,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
                    // [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
                     
                     //[self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-                    NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
-                    [ArcClient trackEvent:action];
+                    //NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
 
                     [self goPin];
                     
@@ -531,6 +535,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
 
 
 - (NSString *) cardType:(NSString *)stringToTest {
+    return @"";
 }
 
 
@@ -626,7 +631,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
                 
                 [self formatExpiration];
             }else if (sender == self.creditCardNumberText){
-                [self formatCreditCard];
+                [self formatCreditCard:NO];
             }else{
                 
             }
@@ -636,7 +641,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
                 self.shouldIgnoreValueChanged = NO;
             }else{
                 if (sender == self.creditCardNumberText){
-                    [self formatCreditCard];
+                    [self formatCreditCard:NO];
                 }
             }
             
@@ -662,12 +667,12 @@ NSString *const AMERICAN_EXPRESS = @"A";
     
 }
 
--(void)formatCreditCard{
+-(void)formatCreditCard:(BOOL)final{
     
     @try {
         if (!self.isDelete) {
             
-          
+            
             NSString *cardNumber = self.creditCardNumberText.text;
             BOOL isAmex = NO;
             
@@ -679,37 +684,52 @@ NSString *const AMERICAN_EXPRESS = @"A";
             
             if (isAmex) {
                 
-                if ([cardNumber length] == 4) {
-                    cardNumber = [cardNumber stringByAppendingString:@" "];
-                }else if ([cardNumber length] == 11){
-                    cardNumber = [cardNumber stringByAppendingString:@" "];
-                }else if ([cardNumber length] == 17){
-                    [self.expirationText becomeFirstResponder];
-                }else if ([cardNumber length] == 5) {
-                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
-                }else if ([cardNumber length] == 12){
-                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:11], [cardNumber substringFromIndex:11]];
+                
+                if (final) {
                     
+                    cardNumber = [NSString stringWithFormat:@"%@ %@ %@", [cardNumber substringToIndex:4], [cardNumber substringWithRange:NSMakeRange(4, 6)], [cardNumber substringFromIndex:10]];
+                    
+                }else{
+                    if ([cardNumber length] == 4) {
+                        cardNumber = [cardNumber stringByAppendingString:@" "];
+                    }else if ([cardNumber length] == 11){
+                        cardNumber = [cardNumber stringByAppendingString:@" "];
+                    }else if ([cardNumber length] == 17){
+                        [self.expirationText becomeFirstResponder];
+                    }else if ([cardNumber length] == 5) {
+                        cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
+                    }else if ([cardNumber length] == 12){
+                        cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:11], [cardNumber substringFromIndex:11]];
+                        
+                    }
                 }
+                
                 
                 
             }else{
-                if ([cardNumber length] == 4) {
-                    cardNumber = [cardNumber stringByAppendingString:@" "];
-                }else if ([cardNumber length] == 9){
-                    cardNumber = [cardNumber stringByAppendingString:@" "];
-                }else if ([cardNumber length] == 14){
-                    cardNumber = [cardNumber stringByAppendingString:@" "];
-                }else if ([cardNumber length] == 19){
-                    [self.expirationText becomeFirstResponder];
-                }else if ([cardNumber length] == 5) {
-                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
-                }else if ([cardNumber length] == 10){
-                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:9], [cardNumber substringFromIndex:9]];
+                
+                if (final) {
                     
-                }else if ([cardNumber length] == 15){
-                    cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:14], [cardNumber substringFromIndex:14]];
+                    cardNumber = [NSString stringWithFormat:@"%@ %@ %@ %@", [cardNumber substringToIndex:4], [cardNumber substringWithRange:NSMakeRange(4, 4)], [cardNumber substringWithRange:NSMakeRange(8, 4)], [cardNumber substringFromIndex:12]];
+                }else{
+                    if ([cardNumber length] == 4) {
+                        cardNumber = [cardNumber stringByAppendingString:@" "];
+                    }else if ([cardNumber length] == 9){
+                        cardNumber = [cardNumber stringByAppendingString:@" "];
+                    }else if ([cardNumber length] == 14){
+                        cardNumber = [cardNumber stringByAppendingString:@" "];
+                    }else if ([cardNumber length] == 19){
+                        [self.expirationText becomeFirstResponder];
+                    }else if ([cardNumber length] == 5) {
+                        cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:4], [cardNumber substringFromIndex:4]];
+                    }else if ([cardNumber length] == 10){
+                        cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:9], [cardNumber substringFromIndex:9]];
+                        
+                    }else if ([cardNumber length] == 15){
+                        cardNumber = [NSString stringWithFormat:@"%@ %@", [cardNumber substringToIndex:14], [cardNumber substringFromIndex:14]];
+                    }
                 }
+                
             }
             
             
@@ -720,6 +740,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
             self.creditCardNumberText.text = cardNumber;
         }
     }
+    
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"AddCreditCard.formatCreditCard" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
@@ -783,6 +804,73 @@ NSString *const AMERICAN_EXPRESS = @"A";
 }
 
 
+-(void)scanCard{
+    
+    self.selectCardIo = YES;
+    [self.hideKeyboardView removeFromSuperview];
+    self.hideKeyboardView = nil;
+    
+    @try {
+        
+        [ArcClient trackEvent:@"CARD.IO_SCAN_ATTEMPTED"];
+        
+        
+        CardIOPaymentViewController *scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
+        scanViewController.collectCVV = YES;
+        scanViewController.collectExpiry = YES;
+        
+        //54bb17d6425a400194570cefaeaf5219
+        scanViewController.appToken = @"54bb17d6425a400194570cefaeaf5219"; // get your app token from the card.io website
+        [self presentModalViewController:scanViewController animated:YES];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"RegisterView.scanCard" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
+}
 
+- (void)userDidCancelPaymentViewController:(CardIOPaymentViewController *)scanViewController {
+    
+    @try {
+        
+        [ArcClient trackEvent:@"CARD.IO_SCAN_CANCELED"];
+        
+        [scanViewController dismissModalViewControllerAnimated:YES];
+        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"RegisterView.userDidCancelPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+}
+
+- (void)userDidProvideCreditCardInfo:(CardIOCreditCardInfo *)info inPaymentViewController:(CardIOPaymentViewController *)scanViewController
+{
+    
+    @try {
+        
+        [ArcClient trackEvent:@"CARD.IO_SCAN_SUCCESSFUL"];
+        
+        self.creditCardNumberText.text = info.cardNumber;
+        NSString *expirationYearString = [NSString stringWithFormat:@"%i", info.expiryYear];
+        self.expirationText.text = [NSString stringWithFormat:@"%02i/%@", info.expiryMonth, [expirationYearString substringFromIndex:2]];
+        self.creditCardSecurityCodeText.text = info.cvv;
+        [self formatCreditCard:YES];
+        
+        
+        [scanViewController dismissModalViewControllerAnimated:YES];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"RegisterView.userDidProvideCreditCardInfo" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        
+    }
+    
+    
+    
+    
+}
 
 @end

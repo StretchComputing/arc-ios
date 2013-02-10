@@ -41,11 +41,13 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-   
-    
-    
     self.retryCount = 0;
-    [self getMerchantList];
+    
+    if (!self.isGettingMerchantList) {
+        self.isGettingMerchantList = YES;
+        [self getMerchantList];
+
+    }
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referFriendComplete:) name:@"referFriendNotification" object:nil];
@@ -98,7 +100,8 @@
             [self.myTableView deselectRowAtIndexPath:myPath animated:NO];
         }
         
-        ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             
             [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
@@ -194,6 +197,7 @@
 {
     @try {
 
+        self.searchCancelButton.hidden = YES;
         
         self.refreshListButton.hidden = YES;
         self.matchingMerchants = [NSMutableArray array];
@@ -311,6 +315,7 @@
 -(void)merchantListComplete:(NSNotification *)notification{
     @try {
         
+        self.isGettingMerchantList = NO;
         self.refreshListButton.hidden = YES;
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
@@ -503,6 +508,7 @@
 -(void)endText{
     @try {
         
+        self.searchCancelButton.hidden = YES;
         if ([self.matchingMerchants count] == 0) {
             self.myTableView.hidden = YES;
             self.errorLabel.text = @"*No matches found.";
@@ -677,6 +683,7 @@
 
 
 -(void)inviteFriend{
+
     
     SMContactsSelector *controller = [[SMContactsSelector alloc] initWithNibName:@"SMContactsSelector" bundle:nil];
     controller.delegate = self;
@@ -772,6 +779,8 @@
             frame.origin.x += 300;
             self.hintOverlayView.frame = frame;
         }];
+        
+        [self performSelector:@selector(hideOverlay) withObject:nil afterDelay:1.0];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"Home.hideHintOverlay" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -781,4 +790,27 @@
    
 }
 
+-(void)hideOverlay{
+    self.hintOverlayView.hidden = YES;
+}
+
+- (void)viewDidUnload {
+    [self setSearchCancelButton:nil];
+    [super viewDidUnload];
+}
+- (IBAction)searchCancelAction {
+    
+    self.searchTextField.text = @"";
+    
+    self.searchCancelButton.hidden = YES;
+    [self.searchTextField resignFirstResponder];
+    
+    self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
+
+    [self.myTableView reloadData];
+}
+
+-(void)searchEditDidBegin{
+    self.searchCancelButton.hidden = NO;
+}
 @end

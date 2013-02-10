@@ -28,7 +28,7 @@ extern int const INSUFFICIENT_FUNDS;
 extern int const UNKOWN_ISIS_ERROR;
 extern int const INVALID_EXPIRATION_DATE;
 extern int const PAYMENT_MAYBE_PROCESSED;
-
+extern int const DUPLICATE_TRANSACTION;
 extern int const MAX_RETRIES_EXCEEDED;
 
 
@@ -121,6 +121,10 @@ typedef enum {
 //+(void)endAndReportLatency:(APIS)api logMessage:(NSString *)logMessage;
 
 -(void)updatePushToken;
+
+-(void)cancelConnection;
+
+-(void)sendTrackEvent:(NSMutableArray *)array;
 
 @end
 

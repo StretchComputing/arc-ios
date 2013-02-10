@@ -55,5 +55,7 @@
 @property (nonatomic, strong) UIButton *keyboardSubmitButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
 
+@property (nonatomic, strong) IBOutlet UITextView *overlayTextView;
+
 
 @end

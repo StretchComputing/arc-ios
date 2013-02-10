@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Accounts/Accounts.h>
+#import "ArcClient.h"
 
 @interface SettingsView : UITableViewController
 
@@ -17,6 +18,8 @@
 @property BOOL creditCardDeleted;
 @property BOOL creditCardEdited;
 @property (weak, nonatomic) IBOutlet UIView *adminView;
+
+@property (nonatomic, strong) ArcClient *getPointsBalanceArcClient;
 
 @property (nonatomic, strong) NSArray *accounts;
 @property (nonatomic, strong) ACAccountStore *store;

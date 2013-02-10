@@ -31,7 +31,7 @@
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
@@ -81,6 +81,9 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     @try {
+        
+      
+        
         double totalPayment = [self.myInvoice basePaymentAmount] + [self.myInvoice gratuity];
         NSString *payAmount = [NSString stringWithFormat:@"%.2f", totalPayment];
         

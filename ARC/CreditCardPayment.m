@@ -42,6 +42,28 @@
 
     @try {
         
+        self.overlayTextView.layer.masksToBounds = YES;
+        self.overlayTextView.layer.cornerRadius = 10.0;
+        self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.overlayTextView.layer.borderWidth = 3.0;
+        
+        self.overlayTextView.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
+
+        CAGradientLayer *gradient1 = [CAGradientLayer layer];
+        gradient1.frame = self.overlayTextView.bounds;
+        self.overlayTextView.backgroundColor = [UIColor clearColor];
+        double x = 1.4;
+        UIColor *myColor1 = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
+        gradient1.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor1 CGColor], nil];
+        [self.overlayTextView.layer insertSublayer:gradient1 atIndex:0];
+        
+        UIActivityIndicatorView *highVolumeActivity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        highVolumeActivity.frame = CGRectMake(165, 70, 20, 20);
+        [highVolumeActivity startAnimating];
+        [self.overlayTextView addSubview:highVolumeActivity];
+        self.overlayTextView.alpha = 0.0;
+        
+        
         if (self.view.frame.size.height > 500) {
             self.isIphone5 = YES;
         }else{
@@ -106,7 +128,7 @@
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
@@ -385,12 +407,14 @@
         
         [self.myTimer invalidate];
         
+        [self hideHighVolumeOverlay];
+        
         BOOL editCardOption = NO;
+        BOOL duplicateTransaction = NO;
         BOOL displayAlert = NO;
         self.keyboardSubmitButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
         
-        [rSkybox addEventToSession:@"creditCardPaymentComplete"];
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
         NSString *status = [responseInfo valueForKey:@"status"];
@@ -399,6 +423,8 @@
         
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
+            [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];
+
             //success
             self.errorLabel.text = @"";
             BOOL paidInFull = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"InvoicePaid"] boolValue];
@@ -410,6 +436,8 @@
             
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
+            [rSkybox addEventToSession:@"creditCardPaymentCompleteFail"];
+
             
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
@@ -442,6 +470,8 @@
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
                 displayAlert = YES;
+            }else if(errorCode == DUPLICATE_TRANSACTION){
+                duplicateTransaction = YES;
             }
             else {
                 errorMsg = ARC_ERROR_MSG;
@@ -463,6 +493,9 @@
         
         if (editCardOption) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
+            [alert show];
+        }else if (duplicateTransaction){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"ARC has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }
@@ -586,16 +619,30 @@
 
 -(void)createPaymentTimer{
     
+    /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"ARC is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     
+    */
+    
+    [self showHighVolumeOverlay];
 }
 
 - (IBAction)touchBoxesAction {
     [self.hiddenText becomeFirstResponder];
 }
-- (void)viewDidUnload {
-    [self setTouchBoxesButton:nil];
-    [super viewDidUnload];
+
+-(void)showHighVolumeOverlay{
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        self.overlayTextView.alpha = 1.0;
+    }];
+}
+
+-(void)hideHighVolumeOverlay{
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        self.overlayTextView.alpha = 0.0;
+    }];
 }
 @end

@@ -433,7 +433,11 @@ NSString* const ARC_VERSION_NUMBER = @"1.3";
 
 +(void)addEventToSession:(NSString *)event{
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+    
     NSDate *myDate = [NSDate date];
+  
     
     if ([traceSession count] < NUMBER_EVENTS_STORED) {
         [traceSession addObject:event];
@@ -441,12 +445,10 @@ NSString* const ARC_VERSION_NUMBER = @"1.3";
     }else{
         [traceSession removeObjectAtIndex:0];
         [traceSession addObject:event];
-        [traceTimeStamps removeObject:0];
+        [traceTimeStamps removeObjectAtIndex:0];
         [traceTimeStamps addObject:myDate];
     }
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd hh:mm:ss.SSS"];
     
     //TODO: rSkybox - instantiate your app delegate (uncomment the line below and replace MyAppDelegate with your app delegate);
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -468,6 +470,8 @@ NSString* const ARC_VERSION_NUMBER = @"1.3";
             
         }
     }
+    
+
     
     mainDelegate.appActions = [NSString stringWithString:tmpTrace];
     mainDelegate.appActionsTime = [NSString stringWithString:tmpTraceTime];
@@ -497,7 +501,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.3";
     for (int i = 0; i < [traceSession count]; i++) {
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"YYYY-MM-dd hh:mm:ss.SSS"];
+        [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSS"];
        // NSString *dateString = [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]];
         
        // NSLog(@"%d: %@ - %@", i, [traceSession objectAtIndex:i], dateString);

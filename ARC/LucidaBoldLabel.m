@@ -18,4 +18,19 @@
     }
     return self;
 }
+
+- (id)initWithFrame:(CGRect)frame andSize:(int)size
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        self.backgroundColor = [UIColor clearColor];
+        self.textColor = [UIColor blackColor];
+        [self setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:size]];
+        self.textAlignment = UITextAlignmentCenter;
+    }
+    return self;
+}
+
+
 @end

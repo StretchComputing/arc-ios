@@ -14,6 +14,7 @@
 
 @property BOOL successReview;
 @property BOOL skipReview;
+@property BOOL isGettingMerchantList;
 
 @property BOOL didShowPayment;
 
@@ -26,7 +27,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *sloganLabel;
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
+- (IBAction)searchCancelAction;
 
+@property (strong, nonatomic) IBOutlet UIButton *searchCancelButton;
 @property BOOL isDragging;
 @property BOOL isLoading;
 @property BOOL shouldCallStop;
@@ -60,5 +63,8 @@
 
 @property (nonatomic, strong) NSMutableArray *multipleEmailArray;
 
--(void)hideAlert;
+//-(void)hideAlert;
+
+-(IBAction)searchEditDidBegin;
+
 @end

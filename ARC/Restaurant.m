@@ -94,10 +94,12 @@
     
      }
 
+   // [self connectToPeers:nil];
     
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [self.getInvoiceArcClient cancelConnection];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -108,7 +110,7 @@
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
@@ -408,8 +410,8 @@
                 self.submitButton.enabled = NO;
                 self.keyboardSubmitButton.enabled = NO;
             
-                ArcClient *client = [[ArcClient alloc] init];
-                [client getInvoice:loginDict];
+                self.getInvoiceArcClient = [[ArcClient alloc] init];
+                [self.getInvoiceArcClient getInvoice:loginDict];
             }
             @catch (NSException *e) {
                 //[rSkybox sendClientLog:@"getInvoiceFromNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:e];                
@@ -656,4 +658,35 @@
     }
     
 }
+
+//BlueTooth
+
+- (void)sendData:(NSArray*)data
+{
+    NSData* encodedArray = [NSKeyedArchiver archivedDataWithRootObject:data];
+    [UIAppDelegate.connectionSession sendDataToAllPeers:encodedArray withDataMode:GKSendDataReliable error:nil];
+    
+}
+
+- (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession: (GKSession *)session context:(void *)context
+{
+    //NSArray *receivedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    //Handle the data received in the array
+    
+}
+
+
+- (void)connectToPeers:(id)sender
+{
+    [UIAppDelegate.connectionPicker show];
+}
+
+- (void)disconnect:(id)sender
+{
+    [UIAppDelegate.connectionSession disconnectFromAllPeers];
+    [UIAppDelegate.connectionPeers removeAllObjects];
+}
+
+
+
 @end

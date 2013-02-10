@@ -40,7 +40,7 @@
 			{
                 
                 //NSString *message = @"An internet connection is required for this app.  Please make sure you are connected to the internet to continue.";
-               // UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Lost" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+               // UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Lost" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 //[alert show];
                 
 				break;
@@ -71,10 +71,63 @@
 	
 }
 
+//Bluetooth delegate methods
+#pragma mark - GKPeerPickerControllerDelegate
+- (GKSession *)peerPickerController:(GKPeerPickerController *)picker sessionForConnectionType:(GKPeerPickerConnectionType)type
+{
+    // Create a session with a unique session ID - displayName:nil = Takes the iPhone Name
+    GKSession* session = [[GKSession alloc] initWithSessionID:@"com.arcmobile.connect" displayName:nil sessionMode:GKSessionModePeer];
+    return session;
+}
+
+// Tells us that the peer was connected
+- (void)peerPickerController:(GKPeerPickerController *)picker didConnectPeer:(NSString *)peerID toSession:(GKSession *)session
+{
+    // Get the session and assign it locally
+    self.connectionSession = session;
+    session.delegate = self;
+    
+    [picker dismiss];
+}
+
+
+- (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
+    if (state == GKPeerStateConnected) {
+        // Add the peer to the Array
+        [self.connectionPeers addObject:peerID];
+        
+        // Used to acknowledge that we will be sending data
+        [session setDataReceiveHandler:self withContext:nil];
+        
+        //In case you need to do something else when a peer connects, do it here
+    }
+    else if (state == GKPeerStateDisconnected) {
+        [self.connectionPeers removeObject:peerID];
+        //Any processing when a peer disconnects
+    }
+}
+
+
+
+
+
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    self.trackEventArray = [NSMutableArray array];
+    //Checking versionNumber
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"didShowVersionWarning"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    //Bluetooth
+    self.connectionPicker = [[GKPeerPickerController alloc] init];
+    self.connectionPicker.delegate = self;
+    //NOTE - GKPeerPickerConnectionTypeNearby is for Bluetooth connection, you can do the same thing over Wi-Fi with different type of connection
+    self.connectionPicker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
+    self.connectionPeers = [[NSMutableArray alloc] init];
+    
     
      [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
@@ -200,6 +253,14 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    ArcClient *tmp = [[ArcClient alloc] init];
+    [tmp sendTrackEvent:self.trackEventArray];
+    
+    self.trackEventArray = [NSMutableArray array];
+    
+    [self.connectionSession disconnectFromAllPeers];
+    [self.connectionPeers removeAllObjects];
+    
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
@@ -336,7 +397,9 @@
 
 - (id)init {
     [rSkybox initiateSession];
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults]; self.appActions = [prefs valueForKey:@"appActions"]; self.appActionsTime = [prefs valueForKey:@"appActionsTime"];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    self.appActions = [prefs valueForKey:@"appActions"];
+    self.appActionsTime = [prefs valueForKey:@"appActionsTime"];
     @try {
         if ([self.appActions length] > 0) {
             //Set the trace session array
@@ -345,7 +408,7 @@
             NSMutableArray *tmpDateArray = [NSMutableArray array];
             for (int i = 0; i < [tmpTraceTimeArray count]; i++) {
                 NSString *tmpTime = [tmpTraceTimeArray objectAtIndex:i];
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; [dateFormatter setDateFormat:@"YYYY-MM-dd hh:mm:ss.SSS"]; NSDate *theDate = [dateFormatter dateFromString:tmpTime];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"]; NSDate *theDate = [dateFormatter dateFromString:tmpTime];
                 [tmpDateArray addObject:theDate];
             }
             [rSkybox setSavedArray:tmpTraceArray :tmpDateArray];
@@ -366,8 +429,10 @@
 }
 
 -(void)saveUserInfo{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults]; [prefs setValue:self.appActions forKey:@"appActions"];
-    [prefs setValue:self.appActionsTime forKey:@"appActionsTime"]; [prefs synchronize];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setValue:self.appActions forKey:@"appActions"];
+    [prefs setValue:self.appActionsTime forKey:@"appActionsTime"];
+    [prefs synchronize];
 }
 
 -(void)createEndUser{
@@ -576,6 +641,8 @@ ofType:(NSString *)typeName
 
         }else{
             
+            [ArcClient trackEvent:@"CREDIT_CARD_ADD"];
+
             CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
             
             NSString *sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
@@ -587,6 +654,7 @@ ofType:(NSString *)typeName
             creditCard.whoOwns = customer;
             creditCard.cardType = [ArcUtility getCardTypeForNumber:number];
             
+
             [self saveDocument];
             
         }
@@ -783,5 +851,31 @@ ofType:(NSString *)typeName
     }
     
 }
+
+-(void)showNewVersionAlert{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Version Available!" message:@"A new version of ARC is available for download.  Would you like to update now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Update", nil];
+    [alert show];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+    if (buttonIndex == 1) {
+        //Go to ARC in app store
+        
+        NSString *str = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa";
+        str = [NSString stringWithFormat:@"%@/wa/viewContentsUserReviews?", str];
+        str = [NSString stringWithFormat:@"%@type=Purple+Software&id=", str];
+        
+        // Here is the app id from itunesconnect
+        str = [NSString stringWithFormat:@"%@563542097", str];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
+    }
+    
+}
+
 
 @end

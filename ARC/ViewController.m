@@ -41,7 +41,7 @@
         self.errorLabel.text = @"";
         [self.username becomeFirstResponder];
         
-        ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             
             mainDelegate.logout = @"false";

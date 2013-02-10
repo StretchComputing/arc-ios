@@ -21,7 +21,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     if ([mainDelegate.logout isEqualToString:@"true"]) {
         [self.navigationController dismissModalViewControllerAnimated:NO];
     }
@@ -83,7 +83,7 @@
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
@@ -157,7 +157,7 @@
                     
                     if (self.numAttempts > 5) {
                         
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Locked" message:@"You have entered the PIN incorrectly too many times.  If you have forgotten your PIN, please delete the card and re enter it." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Locked" message:@"You have entered the PIN incorrectly too many times.  Please wait and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                         [alert show];
                         [self cancel];
                     }
@@ -182,10 +182,14 @@
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+  
+}
+
 -(void)runSuccess:(NSString *)ccNumber :(NSString *)securityCode{
     
- 
-    NSArray *views = [self.navigationController viewControllers];
+     NSArray *views = [self.navigationController viewControllers];
     EditCreditCard *tmp = [views objectAtIndex:[views count] - 2];
     tmp.cancelAuth = NO;
     tmp.didAuth = YES;

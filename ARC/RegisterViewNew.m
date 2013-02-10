@@ -17,6 +17,7 @@
 #import "CreatePinView.h"
 #import "PrivacyTermsViewController.h"
 #import "CorbelBarButtonItem.h"
+#import <Social/Social.h>
 
 @interface RegisterViewNew ()
 
@@ -28,10 +29,11 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     @try {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+
         self.scrollViewOffset = self.myScrollView.contentOffset;
         
         
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"RegisterView.viewWillDisappear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -50,6 +52,18 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerComplete:) name:@"registerNotification" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
+        
+        if (self.isIos6) {
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                self.facebookButton.hidden = NO;
+            }else{
+                self.facebookButton.hidden = YES;
+            }
+        }else{
+            self.facebookButton.hidden = YES;
+        }
+ 
+        
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"RegisterView.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -78,7 +92,7 @@
         }
         
         
-        ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             [self.navigationController dismissModalViewControllerAnimated:NO];
         }
@@ -156,6 +170,13 @@
         }
         
         [self.loginButton setTitle:@"Login"];
+        
+        
+      
+       
+
+        
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"RegisterView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -229,7 +250,7 @@
     @try {
         if (self.pageNumber == 1) {
             
-            if ([self isValidEntries]){
+            if ([self isValidEntries] && [self validateEmail:self.emailText.text]){
                 
                 [UIView animateWithDuration:0.4 animations:^{
                     [self.myScrollView setContentOffset:CGPointMake(320, 0) animated:NO];
@@ -245,7 +266,13 @@
 
             }else{
                 
-                if ([self.emailText.text length] > 0 && [self.passwordText.text length] > 0) {
+                if ([self.emailText.text length] == 0){
+                    self.errorLabel.text = @"Please enter email address.";
+
+                }else if (![self validateEmail:self.emailText.text]){
+                    self.errorLabel.text = @"Please enter a valid email address.";
+
+                }else if ([self.passwordText.text length] < 5) {
                     self.errorLabel.text = @"Password must be least 5 characters.";
                 }else{
                     self.errorLabel.text = @"Please enter all fields.";
@@ -993,7 +1020,8 @@
 		[ tempDictionary setObject:self.lastNameText.text forKey:@"LastName"];
 		[ tempDictionary setObject:self.emailText.text forKey:@"eMail"];
 		[ tempDictionary setObject:self.passwordText.text forKey:@"Password"];
-        
+        [ tempDictionary setObject:@"Phone" forKey:@"Source"];
+
       
         //[ tempDictionary setObject:genderString forKey:@"Gender"];
         
@@ -1053,8 +1081,8 @@
 -(void)goHome{
     @try {
         
-        NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        //NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
+       // UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         //[alert show];
         
         [self performSegueWithIdentifier:@"registerHome" sender:self];
@@ -1190,7 +1218,94 @@
 
      
  }
- 
+
+
+- (BOOL) validateEmail: (NSString *) candidate {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    
+    return [emailTest evaluateWithObject:candidate];
+}
  
 
+- (IBAction)signUpFacebookAction {
+    
+    self.store = [[ACAccountStore alloc] init];
+    
+    ACAccountType *accType = [self.store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    
+    NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                    @"515025721859862", ACFacebookAppIdKey,
+                                    [NSArray arrayWithObjects:@"email", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
+    
+    [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
+        
+        if (granted && error == nil) {
+            // NSLog(@"Granted");
+            NSURL* URL = [NSURL URLWithString:@"https://graph.facebook.com/me"];
+            
+            SLRequest* request = [SLRequest requestForServiceType:SLServiceTypeFacebook
+                                                    requestMethod:SLRequestMethodGET
+                                                              URL:URL
+                                                       parameters:nil];
+            
+            NSArray *accounts = [self.store accountsWithAccountType:accType];
+            ACAccount *facebookAccount = [accounts objectAtIndex:0];
+            
+            [request setAccount:facebookAccount]; // Authentication - Requires user context
+            
+            [request performRequestWithHandler:^(NSData* responseData, NSHTTPURLResponse* urlResponse, NSError* error) {
+                // parse the response or handle the error
+                
+                /*
+                 sample response -
+                 
+                 {
+                 "id": "100004384750110",
+                 "name": "Nick Wroble",
+                 "first_name": "Nick",
+                 "last_name": "Wroble",
+                 "link": "http://www.facebook.com/nick.wroble.9",
+                 "username": "nick.wroble.9",
+                 "birthday": "08/01/1984",
+                 "gender": "male",
+                 "email": "nick@rteam.com",
+                 "timezone": -6,
+                 "locale": "en_US",
+                 "verified": true,
+                 "updated_time": "2012-12-03T01:30:43+0000"
+                 }
+                 
+                */
+                NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                if (output) {
+                    
+                }
+                NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+                NSLog(@"Output: %@", output);
+                NSLog(@"Error: %@", error);
+                NSLog(@"Output: %@", dataString);
+                
+                
+            }];
+            
+            
+        } else {
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                
+                
+            });
+            
+            
+            NSLog(@"Error: %@", [error description]);
+            NSLog(@"Access denied");
+        }
+    }];
+    
+    
+    
+}
 @end

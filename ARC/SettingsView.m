@@ -25,11 +25,13 @@
 
 
 -(void)viewWillDisappear:(BOOL)animated{
+    
+    [self.getPointsBalanceArcClient cancelConnection];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
@@ -179,11 +181,29 @@
         NSUInteger row = [indexPath row];
         NSUInteger section = [indexPath section];
         
-        if ((section == 2) && (row == 0)) {
+        if (section == 2){
             
-            ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
-            mainDelegate.logout = @"true";
-            [self.navigationController dismissModalViewControllerAnimated:NO];
+            if (row == 0) {
+                //rate
+                NSString *str = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa";
+                str = [NSString stringWithFormat:@"%@/wa/viewContentsUserReviews?", str];
+                str = [NSString stringWithFormat:@"%@type=Purple+Software&id=", str];
+                
+                // Here is the app id from itunesconnect
+                str = [NSString stringWithFormat:@"%@563542097", str];
+                
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            }else if (row == 1){
+               //Customer Service Button clicked
+                
+            
+            }else if (row == 2){
+                //logout
+                ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                mainDelegate.logout = @"true";
+                [self.navigationController dismissModalViewControllerAnimated:NO];
+            }
+          
         }
         
         if ((section == 0) && (row == 2)) {
@@ -211,8 +231,8 @@
         [self.activity startAnimating];
 
 		loginDict = tempDictionary;
-        ArcClient *client = [[ArcClient alloc] init];
-        [client getPointBalance:loginDict];
+        self.getPointsBalanceArcClient = [[ArcClient alloc] init];
+        [self.getPointsBalanceArcClient getPointBalance:loginDict];
         
     }
     @catch (NSException *e) {

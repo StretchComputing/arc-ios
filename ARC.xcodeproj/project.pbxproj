@@ -32,6 +32,7 @@
 		90850DD6168E557B00D91F15 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 90850DD5168E557B00D91F15 /* camera.png */; };
 		90893F9C169DF24F00B08240 /* greyback.png in Resources */ = {isa = PBXBuildFile; fileRef = 90893F9B169DF24F00B08240 /* greyback.png */; };
 		90893FA2169E04CD00B08240 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 90893FA1169E04CD00B08240 /* blueArrow.png */; };
+		9089CB2616C6B6EB00DA11B0 /* NumberLineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9089CB2516C6B6E900DA11B0 /* NumberLineButton.m */; };
 		908A4C4116978CCF00B68664 /* libCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4016978CCF00B68664 /* libCardIO.a */; };
 		908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4216978CF600B68664 /* AVFoundation.framework */; };
 		908A4C4516978CFA00B68664 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4416978CFA00B68664 /* AudioToolbox.framework */; };
@@ -39,6 +40,7 @@
 		908A4C4916978D0D00B68664 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4816978D0D00B68664 /* CoreVideo.framework */; };
 		908A4C4B16978D1600B68664 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4A16978D1600B68664 /* MobileCoreServices.framework */; };
 		908A4C4D16978D2000B68664 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A4C4C16978D2000B68664 /* OpenGLES.framework */; };
+		908A667F16A0648F002425A2 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A667E16A0648F002425A2 /* GameKit.framework */; };
 		908AA79316684AE00020C1FB /* NoPaymentSourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AA79216684AE00020C1FB /* NoPaymentSourcesViewController.m */; };
 		908AA7A71668632A0020C1FB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A51668632A0020C1FB /* AddressBook.framework */; };
 		908AA7A81668632A0020C1FB /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A61668632A0020C1FB /* AddressBookUI.framework */; };
@@ -204,6 +206,8 @@
 		90850DD5168E557B00D91F15 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		90893F9B169DF24F00B08240 /* greyback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyback.png; sourceTree = "<group>"; };
 		90893FA1169E04CD00B08240 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		9089CB2416C6B6E700DA11B0 /* NumberLineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberLineButton.h; sourceTree = "<group>"; };
+		9089CB2516C6B6E900DA11B0 /* NumberLineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberLineButton.m; sourceTree = "<group>"; };
 		908A4C3C16978CCE00B68664 /* CardIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIO.h; sourceTree = "<group>"; };
 		908A4C3D16978CCF00B68664 /* CardIOCreditCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOCreditCardInfo.h; sourceTree = "<group>"; };
 		908A4C3E16978CCF00B68664 /* CardIOPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOPaymentViewController.h; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 		908A4C4816978D0D00B68664 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		908A4C4A16978D1600B68664 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		908A4C4C16978D2000B68664 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		908A667E16A0648F002425A2 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		908AA79116684AE00020C1FB /* NoPaymentSourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoPaymentSourcesViewController.h; sourceTree = "<group>"; };
 		908AA79216684AE00020C1FB /* NoPaymentSourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoPaymentSourcesViewController.m; sourceTree = "<group>"; };
 		908AA7A51668632A0020C1FB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -430,6 +435,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908A667F16A0648F002425A2 /* GameKit.framework in Frameworks */,
 				90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */,
 				908A4C4116978CCF00B68664 /* libCardIO.a in Frameworks */,
 				90FBDABF159C91D60051609A /* Security.framework in Frameworks */,
@@ -518,6 +524,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				908A667E16A0648F002425A2 /* GameKit.framework */,
 				90A65C66169B785500FC519B /* CoreTelephony.framework */,
 				908A4C4C16978D2000B68664 /* OpenGLES.framework */,
 				908A4C4A16978D1600B68664 /* MobileCoreServices.framework */,
@@ -611,6 +618,8 @@
 			children = (
 				9081521315E7D10900211C37 /* Reachability.m */,
 				9081521415E7D10900211C37 /* Reachability.h */,
+				9089CB2416C6B6E700DA11B0 /* NumberLineButton.h */,
+				9089CB2516C6B6E900DA11B0 /* NumberLineButton.m */,
 				90915A1E160952B100A9A070 /* NSString+CharArray.h */,
 				90915A1F160952B100A9A070 /* NSString+CharArray.m */,
 				9FA68D0415E083BB0048789D /* rSkybox.h */,
@@ -1011,6 +1020,7 @@
 				908D2F73166E4818007B6078 /* UIAlertView+UITableView.m in Sources */,
 				908D2FC5166E76B8007B6078 /* PrivacyTermsViewController.m in Sources */,
 				908FA86616850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.m in Sources */,
+				9089CB2616C6B6EB00DA11B0 /* NumberLineButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

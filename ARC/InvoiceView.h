@@ -19,6 +19,7 @@
 @property BOOL isPartialPayment;
 @property BOOL isGoSplit;
 @property BOOL isIphone5;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
 @property (nonatomic, strong) UIView *hideKeyboardView;
 - (IBAction)payNow:(id)sender;
@@ -64,4 +65,5 @@
 @property (nonatomic, strong) NSString *creditCardSample;
 -(void)setUpView;
 
+@property (nonatomic, strong) IBOutlet UITextView *overlayTextView;
 @end

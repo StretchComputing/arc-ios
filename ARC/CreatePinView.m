@@ -24,7 +24,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
         
-        ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             [self.navigationController dismissModalViewControllerAnimated:NO];
         }
@@ -36,7 +36,7 @@
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }

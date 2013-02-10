@@ -9,14 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "CorbelBarButtonItem.h"
 #import "CardIO.h"
+#import <Accounts/Accounts.h>
+
 
 @interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
 
+@property (nonatomic, strong) ACAccountStore *store;
 @property (nonatomic, strong) UIButton *keyboardSubmitButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
 @property (nonatomic, strong) CorbelBarButtonItem *registerButton;
 @property BOOL isIos6;
 @property BOOL isDelete;
+@property (nonatomic, strong) IBOutlet UIButton *facebookButton;
+
 
 @property CGPoint scrollViewOffset;
 
@@ -44,6 +49,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 - (IBAction)login:(UIBarButtonItem *)sender;
 
+@property (strong, nonatomic) IBOutlet UIButton *facebookSignupButton;
+- (IBAction)signUpFacebookAction;
 
 @property BOOL shouldIgnoreValueChanged;
 @property BOOL shouldIgnoreValueChangedExpiration;

@@ -10,4 +10,7 @@
 
 @interface LucidaBoldLabel : UILabel
 
+
+- (id)initWithFrame:(CGRect)frame andSize:(int)size;
+
 @end
