@@ -1649,6 +1649,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
         }
      
+        NSDate *currentDate = [NSDate date];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+        
+        [tempDictionary setObject:[dateFormat stringFromDate:currentDate] forKey:@"EventDate"];
      
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
