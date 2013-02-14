@@ -1656,9 +1656,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         [tempDictionary setObject:[dateFormat stringFromDate:currentDate] forKey:@"EventDate"];
      
-        
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        
         
         NSString *loginType = [prefs valueForKey:@"arcLoginType"];
         if ([prefs valueForKey:@"arcLoginType"]) {
@@ -1678,12 +1676,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
             CTCarrier *carrier = [netinfo subscriberCellularProvider];
             mobileCarrier = [carrier carrierName];
+            [ tempDictionary setObject:mobileCarrier forKey:@"Carrier"]; //TODO add real carrier
         }
         @catch (NSException *exception) {
-            
+
         }
-        
-        [ tempDictionary setObject:mobileCarrier forKey:@"Carrier"]; //TODO add real carrier
+
         //[ tempDictionary setObject:@"Profile page viewed" forKey:@"Description"]; //Jim removed description
         [ tempDictionary setObject:@"iOS" forKey:@"Source"];
         [ tempDictionary setObject:@"phone" forKey:@"SourceType"];//remove
@@ -1701,6 +1699,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
     }
     @catch (NSException *e) {
+                
         [rSkybox sendClientLog:@"ArcClient.trackEventActivity" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }

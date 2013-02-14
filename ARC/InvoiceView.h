@@ -21,6 +21,7 @@
 @property BOOL isIphone5;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
+@property (nonatomic, strong) UIButton *alreadyPaidButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
 - (IBAction)payNow:(id)sender;
 @property (strong, nonatomic) Invoice *myInvoice;
@@ -66,4 +67,12 @@
 -(void)setUpView;
 
 @property (nonatomic, strong) IBOutlet UITextView *overlayTextView;
+
+
+//AlreadyPaid
+@property (nonatomic, strong) IBOutlet UIView *alreadyPaid;
+@property (nonatomic, strong) IBOutlet UITableView *alreadyPaidTableView;
+@property (nonatomic, strong) IBOutlet LucidaBoldLabel *alreadyPaidViewLabel;
+-(IBAction)cancelAlreadyPaid;
+
 @end

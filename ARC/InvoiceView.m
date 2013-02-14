@@ -105,6 +105,14 @@
     @try {
         
     
+        self.alreadyPaidButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.alreadyPaidButton setTitle:@"See Who Paid!" forState:UIControlStateNormal];
+        [self.alreadyPaidButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:14]];
+        [self.alreadyPaidButton setTitleColor:[UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.bottomHalfView addSubview:self.alreadyPaidButton];
+        self.alreadyPaidButton.hidden = YES;
+        [self.alreadyPaidButton addTarget:self action:@selector(showAlreadyPaid) forControlEvents:UIControlEventTouchUpInside];
+        [self.alreadyPaidButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
         
         self.overlayTextView.layer.masksToBounds = YES;
         self.overlayTextView.layer.cornerRadius = 10.0;
@@ -213,7 +221,7 @@
         self.gratLabel.frame = frame;
         
         CGRect frameName = self.gratNameLabel.frame;
-        frameName.origin.y = yValue;
+        frameName.origin.y = yValue + 2;
         self.gratNameLabel.frame = frameName;
         
     }
@@ -230,7 +238,7 @@
         self.discLabel.frame = frame;
         
         CGRect frameName = self.discNameLabel.frame;
-        frameName.origin.y = yValue - 2;
+        frameName.origin.y = yValue + 2;
         self.discNameLabel.frame = frameName;
         
         
@@ -253,12 +261,18 @@
         self.alreadyPaidLabel.frame = frame;
         
         CGRect frameName = self.alreadyPaidNameLabel.frame;
-        frameName.origin.y = yValue;
+        frameName.origin.y = yValue+2;
         self.alreadyPaidNameLabel.frame = frameName;
         
         
+        self.alreadyPaidButton.frame = CGRectMake(110, yValue - 8, 110, self.alreadyPaidNameLabel.frame.size.height + 9);
+        self.alreadyPaidButton.hidden = NO;
+     
+
+
     }else{
         
+        self.alreadyPaidButton.hidden = YES;
         self.alreadyPaidLabel.hidden = YES;
         self.alreadyPaidNameLabel.hidden = YES;
     }
@@ -318,6 +332,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     @try {
         
+        if (tableView == self.alreadyPaidTableView) {
+            return [self.myInvoice.payments count];
+        }
         return [self.myInvoice.items count];
     }
     @catch (NSException *e) {
@@ -330,73 +347,119 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     @try {
         
-        static NSString *FirstLevelCell=@"FirstLevelCell";
-        
-        static NSInteger itemTag = 1;
-        static NSInteger numberTag = 2;
-        static NSInteger priceTag = 3;
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FirstLevelCell];
-        
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier: FirstLevelCell];
+        if (tableView == self.alreadyPaidTableView) {
             
-            
-            
-            UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 3, 188, 20)];
-            itemLabel.tag = itemTag;
-            [cell.contentView addSubview:itemLabel];
-            
-            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 2, 75, 20)];
-            priceLabel.tag = priceTag;
-            [cell.contentView addSubview:priceLabel];
-            
-            UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 2, 32, 20)];
-            numberLabel.tag = numberTag;
-            [cell.contentView addSubview:numberLabel];
-            
-            
-            
-            
-        }
-        
-        UILabel *itemLabel = (UILabel *)[cell.contentView viewWithTag:itemTag];
-        UILabel *numberLabel = (UILabel *)[cell.contentView viewWithTag:numberTag];
-        UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:priceTag];
-        
-        NSUInteger row = [indexPath row];
-
-        
-     
-        
-        itemLabel.backgroundColor = [UIColor clearColor];
-        numberLabel.backgroundColor = [UIColor clearColor];
-        priceLabel.backgroundColor = [UIColor clearColor];
-        
-        itemLabel.font = [UIFont fontWithName:@"Corbel" size:14];
-        numberLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
-        priceLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
-        
-        priceLabel.textAlignment = UITextAlignmentRight;
-        numberLabel.textAlignment = UITextAlignmentLeft;
-        
-        
-        NSDictionary *itemDictionary = [self.myInvoice.items objectAtIndex:row];
-        
-        itemLabel.text = [itemDictionary valueForKey:@"Description"];
-        
-        int num = [[itemDictionary valueForKey:@"Amount"] intValue];
-        double value = [[itemDictionary valueForKey:@"Value"] doubleValue] * num;
-
+            static NSString *alreadyPaidCell=@"alreadyPaidCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:alreadyPaidCell];
     
-        priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
+            
+            LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
+            LucidaBoldLabel *amountLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:2];
+            CorbelTextView *notesText = (CorbelTextView *)[cell.contentView viewWithTag:3];
+            
+            NSUInteger row = [indexPath row];
+            
+            NSDictionary *payment = [self.myInvoice.payments objectAtIndex:row];
+            
+            nameLabel.text = [payment valueForKey:@"Name"];
         
-        numberLabel.text = [NSString stringWithFormat:@"%d", [[itemDictionary valueForKey:@"Amount"] intValue]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return cell;
+            double amountDouble = [[payment valueForKey:@"Amount"] doubleValue];
+            
+            amountLabel.text = [NSString stringWithFormat:@"$%.2f", amountDouble];
+            
+            if ([payment valueForKey:@"Notes"] && [[payment valueForKey:@"Notes"] length] > 0) {
+                notesText.hidden = NO;
+                notesText.text = [payment valueForKey:@"Notes"];
+                
+                CGSize constraints = CGSizeMake(200, 900);
+                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                
+                CGRect frame = notesText.frame;
+                frame.size.height = totalSize.height + 15;
+                notesText.frame = frame;
+                
+                
+            }else{
+                notesText.hidden = YES;
+            }
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
+
+            
+        }else{
+            static NSString *FirstLevelCell=@"FirstLevelCell";
+            
+            static NSInteger itemTag = 1;
+            static NSInteger numberTag = 2;
+            static NSInteger priceTag = 3;
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FirstLevelCell];
+            
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault
+                        reuseIdentifier: FirstLevelCell];
+                
+                
+                
+                UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 3, 188, 20)];
+                itemLabel.tag = itemTag;
+                [cell.contentView addSubview:itemLabel];
+                
+                UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 2, 75, 20)];
+                priceLabel.tag = priceTag;
+                [cell.contentView addSubview:priceLabel];
+                
+                UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 2, 32, 20)];
+                numberLabel.tag = numberTag;
+                [cell.contentView addSubview:numberLabel];
+                
+                
+                
+                
+            }
+            
+            UILabel *itemLabel = (UILabel *)[cell.contentView viewWithTag:itemTag];
+            UILabel *numberLabel = (UILabel *)[cell.contentView viewWithTag:numberTag];
+            UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:priceTag];
+            
+            NSUInteger row = [indexPath row];
+            
+            
+            
+            
+            itemLabel.backgroundColor = [UIColor clearColor];
+            numberLabel.backgroundColor = [UIColor clearColor];
+            priceLabel.backgroundColor = [UIColor clearColor];
+            
+            itemLabel.font = [UIFont fontWithName:@"Corbel" size:14];
+            numberLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+            priceLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+            
+            priceLabel.textAlignment = UITextAlignmentRight;
+            numberLabel.textAlignment = UITextAlignmentLeft;
+            
+            
+            NSDictionary *itemDictionary = [self.myInvoice.items objectAtIndex:row];
+            
+            itemLabel.text = [itemDictionary valueForKey:@"Description"];
+            
+            int num = [[itemDictionary valueForKey:@"Amount"] intValue];
+            double value = [[itemDictionary valueForKey:@"Value"] doubleValue] * num;
+            
+            
+            priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
+            
+            numberLabel.text = [NSString stringWithFormat:@"%d", [[itemDictionary valueForKey:@"Amount"] intValue]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
+
+        }
+       
+    
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -407,7 +470,29 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 24;
+    @try {
+        if (tableView == self.alreadyPaidTableView) {
+            
+            NSDictionary *payment = [self.myInvoice.payments objectAtIndex:indexPath.row];
+            
+            if ([payment valueForKey:@"Notes"]) {
+                if ([[payment valueForKey:@"Notes"] length] > 0) {
+                    
+                    CGSize constraints = CGSizeMake(200, 900);
+                    CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                    
+                    return 25 + totalSize.height + 15;
+                    
+                }
+            }
+            return 33;
+        }
+        return 24;
+    }
+    @catch (NSException *exception) {
+        
+    }
+   
 }
 
 
@@ -967,8 +1052,27 @@
     }];
 }
 
-- (void)viewDidUnload {
-    [self setRefreshButton:nil];
-    [super viewDidUnload];
+
+-(void)showAlreadyPaid{
+    
+    @try {
+        self.alreadyPaid.hidden = NO;
+        self.alreadyPaid.layer.cornerRadius = 2.0;
+        self.alreadyPaid.layer.borderWidth = 2.0;
+        self.alreadyPaid.layer.borderColor = [[UIColor blackColor] CGColor];
+        
+        self.alreadyPaidViewLabel.text = [NSString stringWithFormat:@"Already Paid: %@", [self.alreadyPaidLabel.text substringFromIndex:1]];
+        self.alreadyPaidViewLabel.textColor = [UIColor redColor];
+    }
+    @catch (NSException *exception) {
+        
+    }
+  
+    
 }
+
+-(void)cancelAlreadyPaid{
+    self.alreadyPaid.hidden = YES;
+}
+
 @end

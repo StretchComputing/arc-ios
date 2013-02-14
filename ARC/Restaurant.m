@@ -435,6 +435,9 @@
 
 
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        NSLog(@"ResponseInfo: %@", responseInfo);
+        
         NSString *status = [responseInfo valueForKey:@"status"];
         
         NSString *errorMsg = @"";

@@ -2354,14 +2354,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sub Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="el7-jN-ZAc" customClass="CorbelBoldLabel">
-                                                <rect key="frame" x="10" y="13" width="95" height="21"/>
+                                                <rect key="frame" x="10" y="15" width="95" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tax" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="9Ri-PP-r61" customClass="CorbelBoldLabel">
-                                                <rect key="frame" x="10" y="34" width="95" height="21"/>
+                                                <rect key="frame" x="10" y="36" width="95" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2467,6 +2467,97 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view hidden="YES" contentMode="scaleToFill" id="b8t-gZ-NgQ">
+                                <rect key="frame" x="45" y="35" width="230" height="278"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="69" sectionHeaderHeight="22" sectionFooterHeight="22" id="f66-Ck-scV">
+                                        <rect key="frame" x="0.0" y="49" width="230" height="189"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="xYy-Pk-qbp">
+                                            <rect key="frame" x="0.0" y="92" width="230" height="2"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="alreadyPaidCell" rowHeight="70" id="j0q-Ge-y20">
+                                                <rect key="frame" x="0.0" y="22" width="230" height="70"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="230" height="69"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wI7-hP-9Y5" customClass="LucidaBoldLabel">
+                                                            <rect key="frame" x="8" y="7" width="109" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Rgc-au-nUO" customClass="LucidaBoldLabel">
+                                                            <rect key="frame" x="138" y="7" width="77" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" id="8Tb-yM-LbV" customClass="CorbelTextView">
+                                                            <rect key="frame" x="0.0" y="25" width="230" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        </textView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="286-cg-SXD" id="scv-Vh-7IT"/>
+                                            <outlet property="delegate" destination="286-cg-SXD" id="tBe-Qd-I3P"/>
+                                        </connections>
+                                    </tableView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Payments:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dXB-2U-Glg" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="0.0" y="1" width="230" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Payments:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qbf-j9-F6Y" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="0.0" y="246" width="230" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5Y8-qV-kWW">
+                                        <rect key="frame" x="1" y="1" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="X" backgroundImage="rowButton.png">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelAlreadyPaid" destination="286-cg-SXD" eventType="touchUpInside" id="qBs-Xl-npk"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" id="y5h-T1-UKi">
+                                        <rect key="frame" x="0.0" y="48" width="230" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.88526459850000006" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.95882755470000003" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -2479,8 +2570,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activity" destination="XX2-QE-eQc" id="fL9-r0-75J"/>
+                        <outlet property="alreadyPaid" destination="b8t-gZ-NgQ" id="VBe-4Z-ggN"/>
                         <outlet property="alreadyPaidLabel" destination="9jx-Ti-Qe3" id="62D-yA-IIw"/>
                         <outlet property="alreadyPaidNameLabel" destination="XRZ-k8-WfC" id="T61-No-D3U"/>
+                        <outlet property="alreadyPaidTableView" destination="f66-Ck-scV" id="Yxy-o3-WTp"/>
+                        <outlet property="alreadyPaidViewLabel" destination="qbf-j9-F6Y" id="3PJ-3Q-2Z2"/>
                         <outlet property="amountLabel" destination="9HQ-MA-PTO" id="bzp-4S-Qi1"/>
                         <outlet property="amountNameLabel" destination="56h-sd-0Qd" id="Ybz-1n-gLv"/>
                         <outlet property="bottomHalfView" destination="dgU-M3-eD6" id="Lfz-8n-ebt"/>
@@ -3973,11 +4067,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="nKu-Gy-muq"/>
         <segue reference="dNz-f5-Iao"/>
-        <segue reference="8zb-Bv-gLK"/>
         <segue reference="FRd-J0-OXc"/>
         <segue reference="pOd-6P-e5i"/>
-        <segue reference="M5n-Hw-9ay"/>
+        <segue reference="yO3-MZ-Mi9"/>
         <segue reference="2SM-S0-l6J"/>
+        <segue reference="M5n-Hw-9ay"/>
         <segue reference="Ii2-yA-rgx"/>
         <segue reference="WJr-CZ-1Tw"/>
         <segue reference="neU-RJ-74W"/>
