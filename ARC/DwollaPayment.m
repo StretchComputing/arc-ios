@@ -308,7 +308,7 @@
             // Return FALSE so that the final '\n' character doesn't get added
             return FALSE;
         }else{
-            if ([self.notesText.text length] >= 500) {
+            if ([self.notesText.text length] >= 300) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
                 return FALSE;

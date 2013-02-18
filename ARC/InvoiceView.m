@@ -326,6 +326,7 @@
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
     
     [self.myTableView reloadData];
+    [self.alreadyPaidTableView reloadData];
     
 }
 
@@ -797,8 +798,17 @@
             double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
             [self.myInvoice setBasePaymentAmount:basePayment];
             
+            double percentPaid = 0.0;
+            if ([self.myInvoice calculateAmountPaid] == 0.0) {
+                percentPaid = 100.0;
+            }else{
+                
+                percentPaid = basePayment/[self.myInvoice amountDue] * 100.0;
+            }
+            
             DwollaPayment *controller = [segue destinationViewController];
-            controller.myInvoice = self.myInvoice;            
+            controller.myInvoice = self.myInvoice;
+            controller.mySplitPercent = percentPaid;
             
         }else if ([[segue identifier] isEqualToString:@"goPayCreditCard"]) {
             
@@ -814,6 +824,16 @@
             controller.creditCardExpiration = self.creditCardExpiration;
             controller.creditCardSecurityCode = self.creditCardSecurityCode;
 
+            double percentPaid = 0.0;
+            if ([self.myInvoice calculateAmountPaid] == 0.0) {
+                percentPaid = 100.0;
+            }else{
+                
+                percentPaid = basePayment/[self.myInvoice amountDue] * 100.0;
+            }
+            
+            controller.mySplitPercent = percentPaid;
+            
            
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
             
