@@ -13,6 +13,9 @@
 
 @interface CreditCardPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
 
+@property (nonatomic, strong) NSMutableArray *myItemsArray;
+@property double mySplitPercent;
+
 @property int paymentPointsReceived;
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) NSString *ticketId;

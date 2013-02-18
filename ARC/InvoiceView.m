@@ -813,7 +813,8 @@
             controller.creditCardNumber = self.creditCardNumber;
             controller.creditCardExpiration = self.creditCardExpiration;
             controller.creditCardSecurityCode = self.creditCardSecurityCode;
-            
+
+           
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
             
             

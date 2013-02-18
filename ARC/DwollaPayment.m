@@ -609,6 +609,14 @@
         [tempDictionary setObject:self.myInvoice.splitPercent forKey:@"PercentEntry"];
         [tempDictionary setObject:self.myInvoice.tipEntry forKey:@"TipEntry"];
         
+        if (self.mySplitPercent > 0.0) {
+            [tempDictionary setValue:[NSNumber numberWithDouble:self.mySplitPercent] forKey:@"PercentPaid"];
+        }
+        
+        if ([self.myItemsArray count] > 0) {
+            [tempDictionary setValue:self.myItemsArray forKey:@"Items"];
+        }
+        
 		loginDict = tempDictionary;
         self.payButton.enabled = NO;
         self.navigationItem.hidesBackButton = YES;

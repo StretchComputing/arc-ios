@@ -368,6 +368,14 @@
             [tempDictionary setObject:self.myInvoice.splitType forKey:@"SplitType"];
             [tempDictionary setObject:self.myInvoice.splitPercent forKey:@"PercentEntry"];
             [tempDictionary setObject:self.myInvoice.tipEntry forKey:@"TipEntry"];
+            
+            if (self.mySplitPercent > 0.0) {
+                [tempDictionary setValue:[NSNumber numberWithDouble:self.mySplitPercent] forKey:@"PercentPaid"];
+            }
+            
+            if ([self.myItemsArray count] > 0) {
+                [tempDictionary setValue:self.myItemsArray forKey:@"Items"];
+            }
 
             
             loginDict = tempDictionary;
@@ -495,7 +503,7 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
             [alert show];
         }else if (duplicateTransaction){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"ARC has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"Arc has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }
@@ -620,7 +628,7 @@
 -(void)createPaymentTimer{
     
     /*
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"ARC is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"Arc is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     
     */

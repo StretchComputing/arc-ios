@@ -854,7 +854,7 @@ ofType:(NSString *)typeName
 
 -(void)showNewVersionAlert{
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Version Available!" message:@"A new version of ARC is available for download.  Would you like to update now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Update", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Version Available!" message:@"A new version of Arc is available for download.  Would you like to update now?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"Update", nil];
     [alert show];
 }
 

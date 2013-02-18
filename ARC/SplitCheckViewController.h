@@ -78,6 +78,7 @@
 @property (nonatomic, strong) NSString *creditCardSample;
 
 
+@property (nonatomic, strong) NSMutableArray *myItemArray;
 
 //Percent
 @property (weak, nonatomic) IBOutlet UILabel *percentTotalBillNameLabel;
