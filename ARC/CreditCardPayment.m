@@ -135,6 +135,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+  
     [self.view bringSubviewToFront:self.touchBoxesButton];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];

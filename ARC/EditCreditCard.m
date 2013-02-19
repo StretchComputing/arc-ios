@@ -17,6 +17,7 @@
 #import "NSString+CharArray.h"
 #import "CreatePinView.h"
 #import "CreditCardPayment.h"
+#import "ViewCreditCards.h"
 
 @interface EditCreditCard ()
 
@@ -66,6 +67,22 @@
     
     if (self.cancelAuth) {
     
+        [self.navigationController popViewControllerAnimated:NO];
+        
+    }else if (self.cancelAuthLock){
+        
+        int index = [[self.navigationController viewControllers] count] - 2;
+        ViewCreditCards *tmp = [[self.navigationController viewControllers] objectAtIndex:index];
+        tmp.showCardLocked = YES;
+        
+        [self.navigationController popViewControllerAnimated:NO];
+        
+    }else if (self.deleteCardNow){
+        
+        int index = [[self.navigationController viewControllers] count] - 2;
+        ViewCreditCards *tmp = [[self.navigationController viewControllers] objectAtIndex:index];
+        tmp.deleteCardNow = YES;
+        
         [self.navigationController popViewControllerAnimated:NO];
         
     }else{

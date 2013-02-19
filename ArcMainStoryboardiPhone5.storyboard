@@ -3130,6 +3130,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wJe-2x-Cx6">
+                                <rect key="frame" x="19" y="230" width="274" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Forgot PIN? Delete this card." backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteCardAction" destination="IUS-Rm-wgY" eventType="touchUpInside" id="HJu-Wh-Qx2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -3148,6 +3163,7 @@
                         <outlet property="checkNumOne" destination="EHU-FB-c82" id="QAF-dW-82T"/>
                         <outlet property="checkNumThree" destination="1He-X7-FJV" id="G58-6O-hcN"/>
                         <outlet property="checkNumTwo" destination="4Ed-Q7-HK8" id="C6Y-xy-NN2"/>
+                        <outlet property="deleteCardButton" destination="wJe-2x-Cx6" id="Dsk-gZ-dyO"/>
                         <outlet property="descriptionText" destination="M4W-7R-R3v" id="gc7-i3-I2i"/>
                         <outlet property="instructionsLabel" destination="DNz-gc-899" id="VY2-fA-Nz9"/>
                     </connections>
