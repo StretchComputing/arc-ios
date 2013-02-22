@@ -107,7 +107,7 @@
     
         self.alreadyPaidButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.alreadyPaidButton setTitle:@"See Who Paid!" forState:UIControlStateNormal];
-        [self.alreadyPaidButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:14]];
+        [self.alreadyPaidButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:13]];
         [self.alreadyPaidButton setTitleColor:[UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0] forState:UIControlStateNormal];
         [self.bottomHalfView addSubview:self.alreadyPaidButton];
         self.alreadyPaidButton.hidden = YES;
@@ -265,7 +265,7 @@
         self.alreadyPaidNameLabel.frame = frameName;
         
         
-        self.alreadyPaidButton.frame = CGRectMake(110, yValue - 8, 110, self.alreadyPaidNameLabel.frame.size.height + 9);
+        self.alreadyPaidButton.frame = CGRectMake(110, yValue - 4, 110 - 4, self.alreadyPaidNameLabel.frame.size.height + 9 - 4);
         self.alreadyPaidButton.hidden = NO;
      
 
@@ -326,6 +326,7 @@
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
     
     [self.myTableView reloadData];
+    [self.alreadyPaidTableView reloadData];
     
 }
 
@@ -797,8 +798,17 @@
             double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
             [self.myInvoice setBasePaymentAmount:basePayment];
             
+            double percentPaid = 0.0;
+            if ([self.myInvoice calculateAmountPaid] == 0.0) {
+                percentPaid = 100.0;
+            }else{
+                
+                percentPaid = basePayment/[self.myInvoice amountDue] * 100.0;
+            }
+            
             DwollaPayment *controller = [segue destinationViewController];
-            controller.myInvoice = self.myInvoice;            
+            controller.myInvoice = self.myInvoice;
+            controller.mySplitPercent = percentPaid;
             
         }else if ([[segue identifier] isEqualToString:@"goPayCreditCard"]) {
             
@@ -813,7 +823,18 @@
             controller.creditCardNumber = self.creditCardNumber;
             controller.creditCardExpiration = self.creditCardExpiration;
             controller.creditCardSecurityCode = self.creditCardSecurityCode;
+
+            double percentPaid = 0.0;
+            if ([self.myInvoice calculateAmountPaid] == 0.0) {
+                percentPaid = 100.0;
+            }else{
+                
+                percentPaid = basePayment/[self.myInvoice amountDue] * 100.0;
+            }
             
+            controller.mySplitPercent = percentPaid;
+            
+           
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
             
             

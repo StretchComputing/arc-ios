@@ -10,11 +10,15 @@
 #import "DwollaAPI.h"
 #import "Invoice.h"
 #import "LucidaBoldLabel.h"
+#import "LoadingViewController.h"
 
 @interface DwollaPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
 
-@property int paymentPointsReceived;
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 
+@property int paymentPointsReceived;
+@property double mySplitPercent;
+@property (nonatomic, strong) NSMutableArray *myItemsArray;
 @property double dwollaBalance;
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *dwollaBalanceText;
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *totalPaymentText;

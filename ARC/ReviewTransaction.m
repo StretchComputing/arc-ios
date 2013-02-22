@@ -146,7 +146,12 @@
 -(void)viewDidLoad{
     @try {
         
-   
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
+        
         self.favoriteItemBackview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
         self.favoriteItemBackview.backgroundColor = [UIColor clearColor];
         self.favoriteItemBackview.hidden = YES;
@@ -594,6 +599,10 @@
        
         
         [self.activity startAnimating];
+       
+        self.shouldShowLoading = YES;
+        [self performSelector:@selector(showLoader) withObject:nil afterDelay:1.5];
+
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -641,8 +650,21 @@
     
 }
 
+-(void)showLoader{
+    
+    [self.activity stopAnimating];
+    if (self.shouldShowLoading) {
+        self.loadingViewController.displayText.text = @"Sending Review...";
+        self.loadingViewController.view.hidden = NO;
+    }
+
+}
 -(void)reviewComplete:(NSNotification *)notification{
     @try {
+        
+        self.shouldShowLoading = NO;
+        self.loadingViewController.view.hidden = YES;
+
         
         self.submitButton.enabled = YES;
         self.skipButton.enabled = YES;

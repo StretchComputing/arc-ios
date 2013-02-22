@@ -29,6 +29,8 @@
 
 -(void)viewDidLoad{
     
+    self.deleteCardButton.hidden = YES;
+    
     self.numAttempts = 0;
     self.initialPin = @"";
     self.confirmPin = @"";
@@ -156,10 +158,8 @@
                     self.numAttempts++;
                     
                     if (self.numAttempts > 5) {
-                        
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Locked" message:@"You have entered the PIN incorrectly too many times.  Please wait and try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                        [alert show];
-                        [self cancel];
+                      
+                        [self cancelLock];
                     }
                     self.checkNumFour.text = @"";
                     self.checkNumThree.text = @"";
@@ -168,6 +168,7 @@
                     self.hiddenText.text = @"";
                     
                     self.descriptionText.text = @"*Incorrect PIN, try again.";
+                    self.deleteCardButton.hidden = NO;
                     self.descriptionText.textColor = [UIColor redColor];
                     self.descriptionText.textAlignment = UITextAlignmentCenter;
                 }
@@ -212,12 +213,31 @@
     
 }
 
+-(void)cancelLock{
+    
+    NSArray *views = [self.navigationController viewControllers];
+    EditCreditCard *tmp = [views objectAtIndex:[views count] - 2];
+    tmp.cancelAuthLock = YES;
+    
+    [self.navigationController popToViewController:tmp animated:NO];
+}
 -(void)cancel{
     
     NSArray *views = [self.navigationController viewControllers];
     EditCreditCard *tmp = [views objectAtIndex:[views count] - 2];
     tmp.cancelAuth = YES;
+        
     [self.navigationController popToViewController:tmp animated:NO];
+}
+
+-(void)deleteCardAction{
+    
+    NSArray *views = [self.navigationController viewControllers];
+    EditCreditCard *tmp = [views objectAtIndex:[views count] - 2];
+    tmp.deleteCardNow = YES;
+    
+    [self.navigationController popToViewController:tmp animated:NO];
+    
 }
 
 @end

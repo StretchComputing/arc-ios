@@ -34,7 +34,7 @@
             [self.navigationController dismissModalViewControllerAnimated:YES];
             
         }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation Failed" message:@"ARC failed to validate your Dwolla credentials, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation Failed" message:@"Arc failed to validate your Dwolla credentials, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }

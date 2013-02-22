@@ -265,11 +265,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
-        NSLog(@"AuthHeader: %@", [self authHeader]);
-        NSLog(@"URL: %@", createPaymentUrl);
         NSLog(@"RequestString: %@", requestString);
         
-        NSLog(@"Header: %@", [request allHTTPHeaderFields]);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"CreatePayment"];

@@ -140,7 +140,7 @@
                 size = 13;
             }
             
-            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 35, 0, 35, 35) andSize:size];
+            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 35, 5, 35, 35) andSize:size];
             numberLabel.textAlignment = UITextAlignmentCenter;
             numberLabel.text = numberText;
             numberLabel.clipsToBounds = YES;
@@ -173,6 +173,7 @@
         self.numberSliderScrollView.contentSize = CGSizeMake(840, 35);
         self.numberSliderScrollView.backgroundColor = [UIColor clearColor];
         self.numberSliderScrollView.delegate = self;
+        self.numberSliderScrollView.showsHorizontalScrollIndicator = NO;
         
     }
     @catch (NSException *exception) {
@@ -339,6 +340,8 @@
     @try {
       
         [self setUpScrollView];
+        
+        self.myItemArray = [NSMutableArray array];
         
         self.cardsOverlayTextView.layer.masksToBounds = YES;
         self.cardsOverlayTextView.layer.cornerRadius = 10.0;
@@ -596,7 +599,7 @@
                 [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowItemAlert"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-               // UIAlertView *betaAlert = [[UIAlertView alloc] initWithTitle:@"Choose Your Items:" message:@"Itemized check splitting currently does not check which members of your party paid for each item .  Please be sure that multiple people do not select and pay for the same item!  ARC will verify for you that this does not happen in the next release.  Thank you!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+               // UIAlertView *betaAlert = [[UIAlertView alloc] initWithTitle:@"Choose Your Items:" message:@"Itemized check splitting currently does not check which members of your party paid for each item .  Please be sure that multiple people do not select and pay for the same item!  Arc will verify for you that this does not happen in the next release.  Thank you!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 //[betaAlert show];
             }
             
@@ -1224,6 +1227,53 @@
             DwollaPayment *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;
             
+            if (self.percentView.hidden == NO) {
+                controller.mySplitPercent = [self.percentYourPaymentText.text doubleValue];
+                
+                NSLog(@"MySplitPercent: %f", controller.mySplitPercent);
+                
+                NSLog(@"Test");
+            }else{
+                controller.mySplitPercent = 0.0;
+            }
+            
+            if (self.itemView.hidden == NO) {
+                
+                self.myItemArray = [NSMutableArray array];
+                
+                for (int i = 0; i < [self.itemArray  count]; i++) {
+                    
+                    NSDictionary *tmpItem = [self.itemArray objectAtIndex:i];
+                    NSMutableDictionary *sendInItem = [NSMutableDictionary dictionary];
+                    if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"yes"]) {
+                        
+                        [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                        [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:100.0] forKey:@"Percent"];
+                        [self.myItemArray addObject:sendInItem];
+                        
+                    }else if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"maybe"]){
+                        
+                        
+                        double myAmount = [[tmpItem valueForKey:@"myAmount"] doubleValue];
+                        double totalAmount = [[tmpItem valueForKey:@"splitValue"] doubleValue];
+                        
+                        double myPercent = myAmount/totalAmount * 100;
+                        
+                        [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                        [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:myPercent] forKey:@"Percent"];
+                        [self.myItemArray addObject:sendInItem];
+                        
+                    }
+                    
+                }
+                
+                controller.myItemsArray = [NSArray arrayWithArray:self.myItemArray];
+            }
+
+            
+            
         }else if ([[segue identifier] isEqualToString:@"dollarGoPayCreditCard"]) {
             
             CreditCardPayment *controller = [segue destinationViewController];
@@ -1233,6 +1283,54 @@
             controller.creditCardNumber = self.creditCardNumber;
             controller.creditCardExpiration = self.creditCardExpiration;
             controller.creditCardSecurityCode = self.creditCardSecurityCode;
+            
+            if (self.percentView.hidden == NO) {
+                controller.mySplitPercent = [self.percentYourPaymentText.text doubleValue];
+                
+                NSLog(@"MySplitPercent: %f", controller.mySplitPercent);
+                
+                NSLog(@"Test");
+            }else{
+                controller.mySplitPercent = 0.0;
+            }
+            
+            
+            if (self.itemView.hidden == NO) {
+                
+                self.myItemArray = [NSMutableArray array];
+                
+                for (int i = 0; i < [self.itemArray  count]; i++) {
+                    
+                    NSDictionary *tmpItem = [self.itemArray objectAtIndex:i];
+                    NSMutableDictionary *sendInItem = [NSMutableDictionary dictionary];
+                    if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"yes"]) {
+                        
+                        [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                        [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:100.0] forKey:@"Percent"];
+                        [self.myItemArray addObject:sendInItem];
+                        
+                    }else if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"maybe"]){
+                        
+                        
+                        double myAmount = [[tmpItem valueForKey:@"myAmount"] doubleValue];
+                        double totalAmount = [[tmpItem valueForKey:@"splitValue"] doubleValue];
+                        
+                        double myPercent = myAmount/totalAmount * 100;
+                        
+                        [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                        [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:myPercent] forKey:@"Percent"];
+                        [self.myItemArray addObject:sendInItem];
+                        
+                    }
+                    
+                }
+                
+                controller.myItemsArray = [NSArray arrayWithArray:self.myItemArray];
+
+            }
+            
             
         }else if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
             
@@ -1310,17 +1408,19 @@
             basePayment = 0.0;
         }
         
-        
+        /*
         if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
             
             [alert show];
         } else {
+         
+         */
             self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", basePayment];
             self.percentYourPayment = basePayment;
             self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + tip)];
             
-        }
+       // }
         
         [self percentTipSegmentSelect];
     }

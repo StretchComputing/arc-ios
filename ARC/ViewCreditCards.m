@@ -11,6 +11,8 @@
 #import "CreditCard.h"
 #import "EditCreditCard.h"
 #import "rSkybox.h"
+#import "ArcClient.h"
+#import "SettingsView.h"
 
 @interface ViewCreditCards ()
 
@@ -36,6 +38,15 @@
     
     @try {
         
+        if (self.showCardLocked) {
+            self.showCardLocked = NO;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Locked" message:@"You have entered the PIN incorrectly too many times.  Please wait and try again, or delete this card and re-enter it with a new PIN." delegate:self cancelButtonTitle:@"Delete Card" otherButtonTitles:@"Ok", nil];
+            [alert show];
+        }else if (self.deleteCardNow) {
+            self.deleteCardNow = NO;
+            [self deleteCurrentCard];
+        }
+        
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
     }
@@ -43,6 +54,60 @@
         [rSkybox sendClientLog:@"ViewCreditCards.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+    @try {
+        if (buttonIndex == 0) {
+            //Delete
+            [self deleteCurrentCard];
+            
+           
+        }
+    }
+    @catch (NSException *exception) {
+         [rSkybox sendClientLog:@"ViewCreditCards.clickedButtonAtIndex" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+}
+
+-(void)deleteCurrentCard{
+    
+    @try {
+        CreditCard *tmpCard = [self.creditCards objectAtIndex:self.selectedRow];
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [mainDelegate deleteCreditCardWithNumber:tmpCard.number andSecurityCode:tmpCard.securityCode andExpiration:tmpCard.expiration];
+        
+        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+        tmp.creditCardDeleted = YES;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        NSString *action = [NSString stringWithFormat:@"%@_CARD_DELETE", [self getCardType]];
+        [ArcClient trackEvent:action];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ViewCreditCards.deleteCurrentCard" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+}
+- (NSString *)getCardType {
+    @try {
+        NSString *creditDebitString = @"";
+        CreditCard *tmp = [self.creditCards objectAtIndex:self.selectedRow];
+        NSString *sample = [tmp.sample lowercaseString];
+        if ([sample rangeOfString:@"credit"].location == NSNotFound) {
+            creditDebitString = @"DEBIT";
+        } else {
+            creditDebitString = @"CREDIT";
+        }
+        return creditDebitString;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewCreditCards.getCardType" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 
 -(void)viewDidLoad{
     @try {
@@ -152,6 +217,9 @@
     @try {
         
         NSUInteger row = [indexPath row];
+        
+        self.selectedRow = row;
+
         
         int lastRow = 0;
         if ([self.creditCards count] == 0) {

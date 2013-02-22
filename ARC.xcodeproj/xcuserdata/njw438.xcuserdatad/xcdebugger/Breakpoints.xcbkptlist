@@ -7,13 +7,13 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "ARC/Restaurant.m"
-         timestampString = "382475615.353715"
+         filePath = "ARC/SplitCheckViewController.m"
+         timestampString = "383189330.528296"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "441"
-         endingLineNumber = "441"
-         landmarkName = "-invoiceComplete:"
+         startingLineNumber = "1397"
+         endingLineNumber = "1397"
+         landmarkName = "-percentYourPercentDidEnd"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

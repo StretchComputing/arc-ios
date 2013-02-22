@@ -16,4 +16,8 @@
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
 @property (nonatomic, strong) NSString *creditCardExpiration;
 @property (nonatomic, strong) NSString *creditCardSample;
+@property BOOL deleteCardNow;
+@property int selectedRow;
+@property BOOL showCardLocked;
+
 @end

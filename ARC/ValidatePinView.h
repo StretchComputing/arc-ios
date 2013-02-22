@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet LucidaBoldLabel *instructionsLabel;
 
 
+@property (nonatomic, strong) IBOutlet UIButton *deleteCardButton;
+-(IBAction)deleteCardAction;
+
 @property BOOL isFirstPin;
 
 @property (strong, nonatomic) NSString *initialPin;

@@ -30,6 +30,11 @@
 
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
         if (self.view.frame.size.height > 500) {
             self.isIphone5 = YES;
         }else{
@@ -308,7 +313,7 @@
             // Return FALSE so that the final '\n' character doesn't get added
             return FALSE;
         }else{
-            if ([self.notesText.text length] >= 500) {
+            if ([self.notesText.text length] >= 300) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
                 return FALSE;
@@ -556,8 +561,11 @@
 -(void)createPayment{
     
     @try{        
-        [self.activity startAnimating];
+        //[self.activity startAnimating];
         
+        self.loadingViewController.displayText.text = @"Sending Payment...";
+        self.loadingViewController.view.hidden = NO;
+
          NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
         
         NSString *dwollaToken = [DwollaAPI getAccessToken];
@@ -609,6 +617,14 @@
         [tempDictionary setObject:self.myInvoice.splitPercent forKey:@"PercentEntry"];
         [tempDictionary setObject:self.myInvoice.tipEntry forKey:@"TipEntry"];
         
+        if (self.mySplitPercent > 0.0) {
+            [tempDictionary setValue:[NSNumber numberWithDouble:self.mySplitPercent] forKey:@"PercentPaid"];
+        }
+        
+        if ([self.myItemsArray count] > 0) {
+            [tempDictionary setValue:self.myItemsArray forKey:@"Items"];
+        }
+        
 		loginDict = tempDictionary;
         self.payButton.enabled = NO;
         self.navigationItem.hidesBackButton = YES;
@@ -624,6 +640,8 @@
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
         
+        self.loadingViewController.view.hidden = YES;
+
         bool displayAlert = NO;
         self.payButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;

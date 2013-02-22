@@ -16,6 +16,8 @@
 @property BOOL isIos6;
 @property BOOL shouldIgnoreValueChanged;
 @property BOOL shouldIgnoreValueChangedExpiration;
+@property BOOL cancelAuthLock;
+@property BOOL deleteCardNow;
 
 @property (nonatomic, strong, getter = getMyNewPin) NSString *newPin;
 

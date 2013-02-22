@@ -720,7 +720,7 @@
                                     <action selector="touchBoxesAction" destination="zZz-LI-SJ8" eventType="touchUpInside" id="6w3-LT-PSQ"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="ARC is experiencing high volume, or a weak internet conneciton, please be patient..." id="DU3-kQ-jho" customClass="CorbelTextView">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Arc is experiencing high volume, or a weak internet conneciton, please be patient..." id="DU3-kQ-jho" customClass="CorbelTextView">
                                 <rect key="frame" x="23" y="64" width="273" height="115"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1483,7 +1483,7 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your amount ($$)" minimumFontSize="17" id="3rE-mH-BTO" customClass="CorbelTextField">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your amount ($$)" minimumFontSize="17" clearButtonMode="whileEditing" id="3rE-mH-BTO" customClass="CorbelTextField">
                                                 <rect key="frame" x="86" y="78" width="139" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1792,7 +1792,7 @@
                                         </connections>
                                     </button>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="EzL-mR-2bN">
-                                        <rect key="frame" x="141" y="233" width="175" height="35"/>
+                                        <rect key="frame" x="141" y="228" width="175" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </scrollView>
                                 </subviews>
@@ -2443,7 +2443,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="gDv-AY-ZZx">
-                                    <rect key="frame" x="6" y="7" width="20" height="20"/>
+                                    <rect key="frame" x="6" y="51" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                             </subviews>
@@ -2572,14 +2572,14 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Settings" id="kyj-hW-GkM">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="D6w-Fa-ArU">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="D6w-Fa-ArU">
                                         <rect key="frame" x="0.0" y="404" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rate ARC!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="lx7-i8-Ide" customClass="CorbelBoldLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rate Arc!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="lx7-i8-Ide" customClass="CorbelBoldLabel">
                                                     <rect key="frame" x="11" y="14" width="279" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -2590,11 +2590,11 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vEt-Cm-2p2">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vEt-Cm-2p2">
                                         <rect key="frame" x="0.0" y="449" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Customer Service" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="3Gp-eP-dwS" customClass="CorbelBoldLabel">
@@ -2607,6 +2607,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="tsN-4l-rgJ" kind="push" id="j29-aP-kCb"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="RUE-63-s9a">
                                         <rect key="frame" x="0.0" y="493" width="320" height="45"/>
@@ -2657,6 +2660,107 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWZ-Fl-0f5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-617" y="1812"/>
+        </scene>
+        <!--Customer Service View Controller-->
+        <scene sceneID="vCH-6B-OfF">
+            <objects>
+                <viewController id="tsN-4l-rgJ" customClass="CustomerServiceViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4xa-bV-Ep5">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="To leave audio feedback, hit the &quot;Record&quot; button, then leave your message.  When you are done, hit &quot;Stop&quot;." id="scW-gg-dzq" customClass="CorbelTextView">
+                                <rect key="frame" x="19" y="10" width="283" height="68"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5WB-zE-zqC">
+                                <rect key="frame" x="118" y="88" width="84" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Record" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="recordAction" destination="tsN-4l-rgJ" eventType="touchUpInside" id="ACE-xJ-ypO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1yw-G7-2EU">
+                                <rect key="frame" x="94" y="184" width="133" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Send Feedback" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendAction" destination="tsN-4l-rgJ" eventType="touchUpInside" id="5T1-aK-zBe"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="1i3-LG-1Km">
+                                <rect key="frame" x="35" y="396" width="250" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="sRw-iY-sQ1">
+                                <rect key="frame" x="35" y="312" width="238" height="70"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="fno-jW-pgK">
+                                <rect key="frame" x="107" y="146" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Recording..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7La-kf-Ttb">
+                                <rect key="frame" x="133" y="145" width="104" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Do-JX-UvG">
+                                <rect key="frame" x="13" y="146" width="295" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Click 'Send' to submit your feedback, or 'Record' to leave a different message." id="y6b-1o-wXB" customClass="CorbelTextView">
+                                <rect key="frame" x="13" y="225" width="295" height="68"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="fh4-0x-a9V">
+                                <rect key="frame" x="150" y="161" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qfI-8Z-yw9"/>
+                    <connections>
+                        <outlet property="displayLabel" destination="9Do-JX-UvG" id="JCD-SJ-A4n"/>
+                        <outlet property="recordButton" destination="5WB-zE-zqC" id="sgB-ru-apv"/>
+                        <outlet property="recordingActivity" destination="fno-jW-pgK" id="GeB-F4-JlF"/>
+                        <outlet property="recordingLabel" destination="7La-kf-Ttb" id="ovd-mp-HFr"/>
+                        <outlet property="sendButton" destination="1yw-G7-2EU" id="Md0-rm-9oq"/>
+                        <outlet property="sendLabel" destination="y6b-1o-wXB" id="wQ8-WG-dPi"/>
+                        <outlet property="sendingActivity" destination="fh4-0x-a9V" id="GZa-B8-c80"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PeO-ro-0gG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-189" y="2335"/>
         </scene>
         <!--View Credit Cards - Credit Cards-->
         <scene sceneID="2OA-lX-zcd">
@@ -2727,7 +2831,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmq-av-e95" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-39" y="2147"/>
+            <point key="canvasLocation" x="169" y="1795"/>
         </scene>
         <!--Edit Credit Card - Edit Card-->
         <scene sceneID="H7K-3I-7ib">
@@ -3076,6 +3180,49 @@
             </objects>
             <point key="canvasLocation" x="-1174" y="976"/>
         </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="lG0-94-gTq">
+            <objects>
+                <viewController storyboardIdentifier="loadingView" id="Rnx-Af-lBW" customClass="LoadingViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Uj-KH-mfS">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view alpha="0.20000000000000015" contentMode="scaleToFill" id="agn-oY-ZYP">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view alpha="0.60000000000000009" contentMode="scaleToFill" id="PVm-Nb-0wl">
+                                <rect key="frame" x="60" y="69" width="201" height="103"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wAj-0h-ItM" customClass="CorbelBoldLabel">
+                                <rect key="frame" x="65" y="76" width="191" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="x0s-pQ-RgI">
+                                <rect key="frame" x="142" y="121" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="backAlphaView" destination="agn-oY-ZYP" id="NpG-Db-5Qi"/>
+                        <outlet property="displayText" destination="wAj-0h-ItM" id="unq-gQ-pHH"/>
+                        <outlet property="mainBackView" destination="PVm-Nb-0wl" id="gwW-AP-8Pv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Puk-8d-ntp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3040" y="2303"/>
+        </scene>
         <!--Validate Pin View - Account Protection-->
         <scene sceneID="SMP-Ds-m0h">
             <objects>
@@ -3130,6 +3277,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wJe-2x-Cx6">
+                                <rect key="frame" x="19" y="230" width="274" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Forgot PIN? Delete this card." backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteCardAction" destination="IUS-Rm-wgY" eventType="touchUpInside" id="HJu-Wh-Qx2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -3148,6 +3310,7 @@
                         <outlet property="checkNumOne" destination="EHU-FB-c82" id="QAF-dW-82T"/>
                         <outlet property="checkNumThree" destination="1He-X7-FJV" id="G58-6O-hcN"/>
                         <outlet property="checkNumTwo" destination="4Ed-Q7-HK8" id="C6Y-xy-NN2"/>
+                        <outlet property="deleteCardButton" destination="wJe-2x-Cx6" id="Dsk-gZ-dyO"/>
                         <outlet property="descriptionText" destination="M4W-7R-R3v" id="gc7-i3-I2i"/>
                         <outlet property="instructionsLabel" destination="DNz-gc-899" id="VY2-fA-Nz9"/>
                     </connections>
@@ -4053,6 +4216,20 @@
                 <relationship kind="outlet" name="touchBoxesButton" candidateClass="UIButton"/>
             </relationships>
         </class>
+        <class className="CustomerServiceViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CustomerServiceViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="recordAction"/>
+                <relationship kind="action" name="sendAction"/>
+                <relationship kind="outlet" name="displayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="recordButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="recordingActivity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="recordingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="sendLabel" candidateClass="CorbelTextView"/>
+                <relationship kind="outlet" name="sendingActivity" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
         <class className="DwollaPayment" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
             <relationships>
@@ -4187,6 +4364,14 @@
                 <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="tipText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LoadingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backAlphaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="displayText" candidateClass="CorbelBoldLabel"/>
+                <relationship kind="outlet" name="mainBackView" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="LucidaBoldLabel" superclassName="UILabel">
@@ -4429,10 +4614,12 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ValidatePinView.h"/>
             <relationships>
                 <relationship kind="action" name="cancel"/>
+                <relationship kind="action" name="deleteCardAction"/>
                 <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="descriptionText" candidateClass="CorbelTextView"/>
                 <relationship kind="outlet" name="instructionsLabel" candidateClass="LucidaBoldLabel"/>
             </relationships>
@@ -4463,15 +4650,15 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="O8u-Ur-2TQ"/>
+        <segue reference="Yz7-xF-sKA"/>
         <segue reference="fCb-MI-Uhn"/>
-        <segue reference="pOd-6P-e5i"/>
-        <segue reference="FRd-J0-OXc"/>
-        <segue reference="vYI-Ib-Hg3"/>
-        <segue reference="f4G-VL-9D0"/>
-        <segue reference="2SM-S0-l6J"/>
+        <segue reference="O8u-Ur-2TQ"/>
+        <segue reference="8zb-Bv-gLK"/>
+        <segue reference="L6b-sc-kgN"/>
+        <segue reference="eAj-gy-Yqb"/>
+        <segue reference="co8-nZ-5K2"/>
         <segue reference="Ii2-yA-rgx"/>
+        <segue reference="2SM-S0-l6J"/>
         <segue reference="9uW-NG-o9G"/>
-        <segue reference="8Ap-ny-8Aq"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -643,7 +643,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Restaurants" minimumFontSize="17" clearButtonMode="whileEditing" id="jMB-Dt-8Hm" customClass="CorbelTextField">
-                                <rect key="frame" x="15" y="1" width="259" height="45"/>
+                                <rect key="frame" x="32" y="1" width="242" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1049,7 +1049,7 @@
                                     <action selector="touchBoxesAction" destination="zZz-LI-SJ8" eventType="touchUpInside" id="VN5-7q-bc5"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="ARC is experiencing high volume, or a weak internet conneciton, please be patient..." id="oXH-LO-fgv" customClass="CorbelTextView">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Arc is experiencing high volume, or a weak internet conneciton, please be patient..." id="oXH-LO-fgv" customClass="CorbelTextView">
                                 <rect key="frame" x="20" y="37" width="273" height="115"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1644,7 +1644,7 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your amount ($$)" minimumFontSize="17" id="3rE-mH-BTO" customClass="CorbelTextField">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your amount ($$)" minimumFontSize="17" clearButtonMode="whileEditing" id="3rE-mH-BTO" customClass="CorbelTextField">
                                                 <rect key="frame" x="86" y="78" width="139" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2121,7 +2121,7 @@
                                         </connections>
                                     </button>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="67A-AY-gdq">
-                                        <rect key="frame" x="141" y="180" width="175" height="35"/>
+                                        <rect key="frame" x="141" y="175" width="175" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </scrollView>
                                 </subviews>
@@ -2831,7 +2831,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="gDv-AY-ZZx">
-                                    <rect key="frame" x="6" y="7" width="20" height="20"/>
+                                    <rect key="frame" x="6" y="51" width="20" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                             </subviews>
@@ -2960,14 +2960,14 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Settings" id="kyj-hW-GkM">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="D6w-Fa-ArU">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="D6w-Fa-ArU">
                                         <rect key="frame" x="0.0" y="404" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rate ARC!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="lx7-i8-Ide" customClass="CorbelBoldLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rate Arc!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="lx7-i8-Ide" customClass="CorbelBoldLabel">
                                                     <rect key="frame" x="11" y="14" width="279" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -2978,11 +2978,11 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="H6B-Tc-tJT">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="H6B-Tc-tJT">
                                         <rect key="frame" x="0.0" y="449" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Customer Service" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="v8C-Kg-gQF" customClass="CorbelBoldLabel">
@@ -2995,6 +2995,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="Fdh-iv-l9I" kind="push" id="fzO-2y-Ez4"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6kr-Lz-yi3">
                                         <rect key="frame" x="0.0" y="493" width="320" height="45"/>
@@ -3496,6 +3499,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eUT-IM-iFc">
+                                <rect key="frame" x="19" y="152" width="274" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Forgot PIN? Delete this card." backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteCardAction" destination="7eU-Yb-Czd" eventType="touchUpInside" id="Aiy-Lt-lbf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -3514,6 +3532,7 @@
                         <outlet property="checkNumOne" destination="zZP-jz-bfO" id="fd7-iR-0Iu"/>
                         <outlet property="checkNumThree" destination="XBR-Ks-BpK" id="p0a-FF-IKc"/>
                         <outlet property="checkNumTwo" destination="z80-aG-yuV" id="Xbd-54-Kdc"/>
+                        <outlet property="deleteCardButton" destination="eUT-IM-iFc" id="iN6-5E-u2n"/>
                         <outlet property="descriptionText" destination="XZd-QR-NK0" id="GYf-l7-MI0"/>
                         <outlet property="instructionsLabel" destination="YBd-RD-Uib" id="UFb-QA-edD"/>
                     </connections>
@@ -4041,6 +4060,150 @@
             </objects>
             <point key="canvasLocation" x="-2734" y="2267"/>
         </scene>
+        <!--Customer Service View Controller-->
+        <scene sceneID="uF1-8Z-C75">
+            <objects>
+                <viewController id="Fdh-iv-l9I" customClass="CustomerServiceViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Y7-gn-fdl">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="To leave audio feedback, hit the &quot;Record&quot; button, then leave your message.  When you are done, hit &quot;Stop&quot;." id="hfq-Ek-spv" customClass="CorbelTextView">
+                                <rect key="frame" x="19" y="9" width="283" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="F0B-qR-VlV">
+                                <rect key="frame" x="118" y="88" width="84" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Record" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="recordAction" destination="Fdh-iv-l9I" eventType="touchUpInside" id="6xf-eT-GpZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kqN-hP-mPa">
+                                <rect key="frame" x="94" y="180" width="133" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Send Feedback" backgroundImage="rowButton.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendAction" destination="Fdh-iv-l9I" eventType="touchUpInside" id="3v2-Fe-jF3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="O3D-9G-A87">
+                                <rect key="frame" x="35" y="353" width="250" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="GG5-Ka-yoM">
+                                <rect key="frame" x="35" y="277.5" width="238" height="70"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="OGx-Lz-niD">
+                                <rect key="frame" x="107" y="146" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Recording..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="z35-Wm-L3F">
+                                <rect key="frame" x="133" y="145" width="104" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bMo-QN-61v">
+                                <rect key="frame" x="13" y="146" width="295" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Click 'Send' to submit your feedback, or 'Record' to leave a different message." id="4mF-90-umk" customClass="CorbelTextView">
+                                <rect key="frame" x="13" y="217" width="295" height="68"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="Few-BF-ViO">
+                                <rect key="frame" x="150" y="159" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="b9R-pz-IRG"/>
+                    <connections>
+                        <outlet property="displayLabel" destination="bMo-QN-61v" id="NiO-k6-n5X"/>
+                        <outlet property="recordButton" destination="F0B-qR-VlV" id="Uw9-d7-bN5"/>
+                        <outlet property="recordingActivity" destination="OGx-Lz-niD" id="3Yh-dS-JMR"/>
+                        <outlet property="recordingLabel" destination="z35-Wm-L3F" id="Pjm-uv-Foy"/>
+                        <outlet property="sendButton" destination="kqN-hP-mPa" id="sZm-54-zCp"/>
+                        <outlet property="sendLabel" destination="4mF-90-umk" id="7Z6-6v-G9P"/>
+                        <outlet property="sendingActivity" destination="Few-BF-ViO" id="m9w-MV-1Zb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ssN-hg-9Rk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-789" y="884"/>
+        </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="2vc-in-uiy">
+            <objects>
+                <viewController storyboardIdentifier="loadingView" id="bkz-l5-gsG" customClass="LoadingViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="A6B-IZ-JG1">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view alpha="0.20000000298023224" contentMode="scaleToFill" id="sHt-r2-LXl">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view alpha="0.59999999999999998" contentMode="scaleToFill" id="Ozt-6U-Pec">
+                                <rect key="frame" x="60" y="55" width="201" height="103"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WMb-Xb-Nuu" customClass="CorbelBoldLabel">
+                                <rect key="frame" x="65" y="62" width="191" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="S6v-6t-eu1">
+                                <rect key="frame" x="142" y="99" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="backAlphaView" destination="sHt-r2-LXl" id="s95-jI-OGB"/>
+                        <outlet property="displayText" destination="WMb-Xb-Nuu" id="mzC-DT-2ht"/>
+                        <outlet property="mainBackView" destination="Ozt-6U-Pec" id="Cdl-GI-VG8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0YT-33-FC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3199" y="2347"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Default.png" width="320" height="460"/>
@@ -4065,15 +4228,15 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="neU-RJ-74W"/>
+        <segue reference="M5n-Hw-9ay"/>
+        <segue reference="co8-nZ-5K2"/>
         <segue reference="nKu-Gy-muq"/>
         <segue reference="dNz-f5-Iao"/>
-        <segue reference="FRd-J0-OXc"/>
-        <segue reference="pOd-6P-e5i"/>
-        <segue reference="yO3-MZ-Mi9"/>
-        <segue reference="2SM-S0-l6J"/>
-        <segue reference="M5n-Hw-9ay"/>
+        <segue reference="8zb-Bv-gLK"/>
+        <segue reference="Yz7-xF-sKA"/>
         <segue reference="Ii2-yA-rgx"/>
         <segue reference="WJr-CZ-1Tw"/>
-        <segue reference="neU-RJ-74W"/>
+        <segue reference="2SM-S0-l6J"/>
     </inferredMetricsTieBreakers>
 </document>

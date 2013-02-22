@@ -42,6 +42,11 @@
 
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
         self.overlayTextView.layer.masksToBounds = YES;
         self.overlayTextView.layer.cornerRadius = 10.0;
         self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
@@ -135,6 +140,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+  
     [self.view bringSubviewToFront:self.touchBoxesButton];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
@@ -315,7 +321,11 @@
       
         if (ccNumber && ([ccNumber length] > 0)) {
             
-            [self.activity startAnimating];
+            
+            //[self.activity startAnimating];
+            self.loadingViewController.displayText.text = @"Sending Payment...";
+            self.loadingViewController.view.hidden = NO;
+
 
             NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
             NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -368,6 +378,14 @@
             [tempDictionary setObject:self.myInvoice.splitType forKey:@"SplitType"];
             [tempDictionary setObject:self.myInvoice.splitPercent forKey:@"PercentEntry"];
             [tempDictionary setObject:self.myInvoice.tipEntry forKey:@"TipEntry"];
+            
+            if (self.mySplitPercent > 0.0) {
+                [tempDictionary setValue:[NSNumber numberWithDouble:self.mySplitPercent] forKey:@"PercentPaid"];
+            }
+            
+            if ([self.myItemsArray count] > 0) {
+                [tempDictionary setValue:self.myItemsArray forKey:@"Items"];
+            }
 
             
             loginDict = tempDictionary;
@@ -419,8 +437,9 @@
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
-        [self.activity stopAnimating];
-        
+        //[self.activity stopAnimating];
+        self.loadingViewController.view.hidden = NO;
+
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
             [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];
@@ -495,7 +514,7 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
             [alert show];
         }else if (duplicateTransaction){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"ARC has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"Arc has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }
@@ -533,7 +552,7 @@
             // Return FALSE so that the final '\n' character doesn't get added
             return FALSE;
         }else{
-            if ([self.notesText.text length] >= 500) {
+            if ([self.notesText.text length] >= 300) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
                 return FALSE;
@@ -620,7 +639,7 @@
 -(void)createPaymentTimer{
     
     /*
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"ARC is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"Arc is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     
     */

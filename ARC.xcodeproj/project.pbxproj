@@ -121,6 +121,9 @@
 		90D25B84159E065A00192F6E /* qmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B83159E065A00192F6E /* qmark.png */; };
 		90D25B87159E0C0600192F6E /* twittetrconnect.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B86159E0C0600192F6E /* twittetrconnect.png */; };
 		90D25B89159E0C3A00192F6E /* facebookconnect.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B88159E0C3A00192F6E /* facebookconnect.jpg */; };
+		90E5E5C616D706740031B17E /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E5E5C516D706740031B17E /* CustomerServiceViewController.m */; };
+		90E5E5C816D70A010031B17E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E5E5C716D70A010031B17E /* CoreAudio.framework */; };
+		90E5E5CB16D710520031B17E /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E5E5CA16D710520031B17E /* LoadingViewController.m */; };
 		90FBDA5C159A5FDF0051609A /* receiptBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 90FBDA5B159A5FDF0051609A /* receiptBack.png */; };
 		90FBDA5F159A63CB0051609A /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDA5E159A63CB0051609A /* SettingsView.m */; };
 		90FBDA62159A63D50051609A /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDA61159A63D50051609A /* HelpView.m */; };
@@ -343,6 +346,11 @@
 		90D25B83159E065A00192F6E /* qmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qmark.png; sourceTree = "<group>"; };
 		90D25B86159E0C0600192F6E /* twittetrconnect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twittetrconnect.png; sourceTree = "<group>"; };
 		90D25B88159E0C3A00192F6E /* facebookconnect.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = facebookconnect.jpg; sourceTree = "<group>"; };
+		90E5E5C416D706740031B17E /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
+		90E5E5C516D706740031B17E /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
+		90E5E5C716D70A010031B17E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		90E5E5C916D710520031B17E /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
+		90E5E5CA16D710520031B17E /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
 		90FBDA5B159A5FDF0051609A /* receiptBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = receiptBack.png; sourceTree = "<group>"; };
 		90FBDA5D159A63CB0051609A /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
 		90FBDA5E159A63CB0051609A /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
@@ -435,6 +443,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */,
+				90E5E5C816D70A010031B17E /* CoreAudio.framework in Frameworks */,
+				908A4C4516978CFA00B68664 /* AudioToolbox.framework in Frameworks */,
 				908A667F16A0648F002425A2 /* GameKit.framework in Frameworks */,
 				90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */,
 				908A4C4116978CCF00B68664 /* libCardIO.a in Frameworks */,
@@ -443,8 +454,6 @@
 				908A4C4B16978D1600B68664 /* MobileCoreServices.framework in Frameworks */,
 				908A4C4916978D0D00B68664 /* CoreVideo.framework in Frameworks */,
 				908A4C4716978D0400B68664 /* CoreMedia.framework in Frameworks */,
-				908A4C4516978CFA00B68664 /* AudioToolbox.framework in Frameworks */,
-				908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */,
 				908AA7A71668632A0020C1FB /* AddressBook.framework in Frameworks */,
 				908AA7A81668632A0020C1FB /* AddressBookUI.framework in Frameworks */,
 				908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */,
@@ -524,6 +533,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				90E5E5C716D70A010031B17E /* CoreAudio.framework */,
 				908A667E16A0648F002425A2 /* GameKit.framework */,
 				90A65C66169B785500FC519B /* CoreTelephony.framework */,
 				908A4C4C16978D2000B68664 /* OpenGLES.framework */,
@@ -624,6 +634,8 @@
 				90915A1F160952B100A9A070 /* NSString+CharArray.m */,
 				9FA68D0415E083BB0048789D /* rSkybox.h */,
 				9FA68D0515E083BB0048789D /* rSkybox.m */,
+				90E5E5C916D710520031B17E /* LoadingViewController.h */,
+				90E5E5CA16D710520031B17E /* LoadingViewController.m */,
 				9081522015E7D77900211C37 /* InitialController.h */,
 				9081522115E7D77900211C37 /* InitialController.m */,
 				9FA68CE915E083750048789D /* rSkyboxHelpers */,
@@ -642,6 +654,8 @@
 				9096DD0C1633088400106A25 /* CreditCard.m */,
 				907A404315A8CFE900090452 /* AccessData.h */,
 				907A404415A8CFE900090452 /* AccessData.m */,
+				90E5E5C416D706740031B17E /* CustomerServiceViewController.h */,
+				90E5E5C516D706740031B17E /* CustomerServiceViewController.m */,
 				9081522315E817E700211C37 /* RegisterViewNew.h */,
 				9081522415E817E700211C37 /* RegisterViewNew.m */,
 				908AA79116684AE00020C1FB /* NoPaymentSourcesViewController.h */,
@@ -1021,6 +1035,8 @@
 				908D2FC5166E76B8007B6078 /* PrivacyTermsViewController.m in Sources */,
 				908FA86616850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.m in Sources */,
 				9089CB2616C6B6EB00DA11B0 /* NumberLineButton.m in Sources */,
+				90E5E5C616D706740031B17E /* CustomerServiceViewController.m in Sources */,
+				90E5E5CB16D710520031B17E /* LoadingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
