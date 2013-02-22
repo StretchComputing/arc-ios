@@ -1147,7 +1147,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: tyler mendoza";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tyler mendoza";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: tyler mendoza";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1156,8 +1156,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "DBC89D2A-D0EF-4626-AFC2-7437938D88D9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DBC89D2A-D0EF-4626-AFC2-7437938D88D9";
+				PROVISIONING_PROFILE = "DA5527AD-BCBF-4068-BF31-77FA74A5D744";
+				"PROVISIONING_PROFILE[sdk=*]" = "DA5527AD-BCBF-4068-BF31-77FA74A5D744";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
