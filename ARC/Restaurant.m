@@ -94,7 +94,7 @@
     
      }
 
-   // [self connectToPeers:nil];
+    //[self connectToPeers:nil];
     
 }
 
@@ -305,6 +305,11 @@
 {
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
         if (self.view.frame.size.height > 500) {
             self.isIphone5 = YES;
         }else{
@@ -385,7 +390,11 @@
         }else{
             
             @try{
-                [self.activity startAnimating];
+                //[self.activity startAnimating];
+                
+                self.loadingViewController.displayText.text = @"Getting Invoice...";
+                self.loadingViewController.view.hidden = NO;
+                
                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
                 
                 NSString *invoiceNumber = @"";
@@ -429,7 +438,9 @@
 -(void)invoiceComplete:(NSNotification *)notification{
     @try {
         
-        [self.activity stopAnimating];
+        //[self.activity stopAnimating];
+        self.loadingViewController.view.hidden = YES;
+
         self.submitButton.enabled = YES;
         self.keyboardSubmitButton.enabled = YES;
 

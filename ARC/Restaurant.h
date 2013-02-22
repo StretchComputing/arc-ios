@@ -11,11 +11,14 @@
 #import "CorbelBarButtonItem.h"
 #import "CorbelTextView.h"
 #import "ArcClient.h"
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface Restaurant : UIViewController <UITextFieldDelegate >
 
 
-
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) ArcClient *getInvoiceArcClient;
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
 @property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;

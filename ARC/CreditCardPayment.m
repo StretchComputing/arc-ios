@@ -42,6 +42,11 @@
 
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
         self.overlayTextView.layer.masksToBounds = YES;
         self.overlayTextView.layer.cornerRadius = 10.0;
         self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
@@ -316,7 +321,11 @@
       
         if (ccNumber && ([ccNumber length] > 0)) {
             
-            [self.activity startAnimating];
+            
+            //[self.activity startAnimating];
+            self.loadingViewController.displayText.text = @"Sending Payment...";
+            self.loadingViewController.view.hidden = NO;
+
 
             NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
             NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -428,8 +437,9 @@
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
-        [self.activity stopAnimating];
-        
+        //[self.activity stopAnimating];
+        self.loadingViewController.view.hidden = NO;
+
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
             [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];

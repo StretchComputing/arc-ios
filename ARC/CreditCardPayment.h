@@ -10,9 +10,13 @@
 #import "DwollaAPI.h"
 #import "Invoice.h"
 #import "LucidaBoldLabel.h"
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface CreditCardPayment : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate>
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) NSMutableArray *myItemsArray;
 @property double mySplitPercent;
 

@@ -107,7 +107,7 @@
     
         self.alreadyPaidButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.alreadyPaidButton setTitle:@"See Who Paid!" forState:UIControlStateNormal];
-        [self.alreadyPaidButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:14]];
+        [self.alreadyPaidButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:13]];
         [self.alreadyPaidButton setTitleColor:[UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0] forState:UIControlStateNormal];
         [self.bottomHalfView addSubview:self.alreadyPaidButton];
         self.alreadyPaidButton.hidden = YES;
@@ -265,7 +265,7 @@
         self.alreadyPaidNameLabel.frame = frameName;
         
         
-        self.alreadyPaidButton.frame = CGRectMake(110, yValue - 8, 110, self.alreadyPaidNameLabel.frame.size.height + 9);
+        self.alreadyPaidButton.frame = CGRectMake(110, yValue - 4, 110 - 4, self.alreadyPaidNameLabel.frame.size.height + 9 - 4);
         self.alreadyPaidButton.hidden = NO;
      
 

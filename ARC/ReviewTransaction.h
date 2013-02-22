@@ -12,12 +12,16 @@
 #import <Accounts/Accounts.h>
 #import "Invoice.h"
 #import "LucidaBoldLabel.h"
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface ReviewTransaction : UIViewController <UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
-
+@property BOOL shouldShowLoading;
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *paymentPointsLabel;
 
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *submitButton;

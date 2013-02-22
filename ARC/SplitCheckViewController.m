@@ -140,7 +140,7 @@
                 size = 13;
             }
             
-            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 35, 0, 35, 35) andSize:size];
+            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 35, 5, 35, 35) andSize:size];
             numberLabel.textAlignment = UITextAlignmentCenter;
             numberLabel.text = numberText;
             numberLabel.clipsToBounds = YES;
@@ -173,6 +173,7 @@
         self.numberSliderScrollView.contentSize = CGSizeMake(840, 35);
         self.numberSliderScrollView.backgroundColor = [UIColor clearColor];
         self.numberSliderScrollView.delegate = self;
+        self.numberSliderScrollView.showsHorizontalScrollIndicator = NO;
         
     }
     @catch (NSException *exception) {
@@ -1407,17 +1408,19 @@
             basePayment = 0.0;
         }
         
-        
+        /*
         if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
             
             [alert show];
         } else {
+         
+         */
             self.percentYourPaymentDollarAmount.text = [NSString stringWithFormat:@"($%.2f)", basePayment];
             self.percentYourPayment = basePayment;
             self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (basePayment + tip)];
             
-        }
+       // }
         
         [self percentTipSegmentSelect];
     }

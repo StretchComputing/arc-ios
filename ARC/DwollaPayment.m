@@ -30,6 +30,11 @@
 
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
         if (self.view.frame.size.height > 500) {
             self.isIphone5 = YES;
         }else{
@@ -556,8 +561,11 @@
 -(void)createPayment{
     
     @try{        
-        [self.activity startAnimating];
+        //[self.activity startAnimating];
         
+        self.loadingViewController.displayText.text = @"Sending Payment...";
+        self.loadingViewController.view.hidden = NO;
+
          NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
         
         NSString *dwollaToken = [DwollaAPI getAccessToken];
@@ -632,6 +640,8 @@
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
         
+        self.loadingViewController.view.hidden = YES;
+
         bool displayAlert = NO;
         self.payButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
