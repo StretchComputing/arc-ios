@@ -425,7 +425,7 @@
         
         [self.myTimer invalidate];
         
-        [self hideHighVolumeOverlay];
+        //[self hideHighVolumeOverlay];
         
         BOOL editCardOption = NO;
         BOOL duplicateTransaction = NO;
@@ -438,7 +438,7 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         
         //[self.activity stopAnimating];
-        self.loadingViewController.view.hidden = NO;
+        self.loadingViewController.view.hidden = YES;
 
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
@@ -653,8 +653,25 @@
 
 -(void)showHighVolumeOverlay{
     
-    [UIView animateWithDuration:1.0 animations:^{
-        self.overlayTextView.alpha = 1.0;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.loadingViewController.displayText.text = @"Arc is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
+        
+        self.loadingViewController.displayText.numberOfLines = 3;
+        CGRect frame = self.loadingViewController.mainBackView.frame;
+        frame.origin.y -= 20;
+        frame.size.height += 20;
+        frame.origin.x = 10;
+        frame.size.width = 300;
+        self.loadingViewController.mainBackView.frame = frame;
+        
+        CGRect frame2 = self.loadingViewController.displayText.frame;
+        frame2.origin.y -= 20;
+        frame2.size.height += 20;
+        frame2.origin.x = 10;
+        frame2.size.width = 300;
+        self.loadingViewController.displayText.frame = frame2;
+                
     }];
 }
 

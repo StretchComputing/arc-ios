@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 
+@property (nonatomic, strong) NSTimer *myTimer;
 @property int paymentPointsReceived;
 @property double mySplitPercent;
 @property (nonatomic, strong) NSMutableArray *myItemsArray;
