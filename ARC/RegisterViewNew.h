@@ -10,10 +10,13 @@
 #import "CorbelBarButtonItem.h"
 #import "CardIO.h"
 #import <Accounts/Accounts.h>
+#import "LoadingViewController.h"
 
+@class LoadingViewController;
 
 @interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) ACAccountStore *store;
 @property (nonatomic, strong) UIButton *keyboardSubmitButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;

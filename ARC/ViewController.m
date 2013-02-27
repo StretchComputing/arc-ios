@@ -81,6 +81,13 @@
 {
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 44, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
+        NSLog(@"Height: %f", self.loadingViewController.view.frame.size.height);
+        
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Sign In"];
         self.navigationItem.titleView = navLabel;
         
@@ -143,7 +150,8 @@
 
 
 -(void)signIn{
-    
+    NSLog(@"Height: %f", self.loadingViewController.view.frame.size.height);
+
     [self performSelector:@selector(runSignIn)];
    
    
@@ -257,7 +265,9 @@
             [ tempDictionary setObject:self.username.text forKey:@"userName"];
             [ tempDictionary setObject:self.password.text forKey:@"password"];
             
-            [self.activity startAnimating];
+            self.loadingViewController.view.hidden = NO;
+            self.loadingViewController.displayText.text = @"Logging In...";
+            
             self.registerButton.enabled = NO;
             self.loginButton.enabled = NO;
             
@@ -276,7 +286,7 @@
 -(void)signInComplete:(NSNotification *)notification{
     @try {
         
-        [self.activity stopAnimating];
+        self.loadingViewController.view.hidden = YES;
         self.registerButton.enabled = YES;
         self.loginButton.enabled = YES;
         

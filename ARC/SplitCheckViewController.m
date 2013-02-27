@@ -209,15 +209,16 @@
         self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.4f", yourPercent];
         
         
+        
         if ([self.percentYourPaymentText isFirstResponder]) {
             [self endText];
-            
+
         }else{
-            self.isSegmentPercentYour = YES;
+            [self endText];
             [self percentYourPercentDidEnd];
         }
+         
         
-        [self percentTipSegmentSelect];
         
         self.pickerView.hidden = YES;
         self.numberOfPeopleButton.hidden = YES;
@@ -661,6 +662,9 @@
 }
 
 - (IBAction)dollarTipDidBegin {
+    
+    NSLog(@"Counting Tries 1");
+
     [rSkybox addEventToSession:@"dollarTipDidBegin"];
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -670,37 +674,50 @@
 }
 
 - (IBAction)percentTipDidBegin {
+    
+
+    
     [rSkybox addEventToSession:@"percentTipDidBegin"];
     
+    
     [UIView animateWithDuration:0.3 animations:^{
-        
-        self.percentView.frame = CGRectMake(0, -120, 320, self.view.frame.size.height - 88);
+            
+            self.percentView.frame = CGRectMake(0, -120, 320, self.view.frame.size.height - 88);
     }];
+    
+    
+}
+
+-(void)calculateDollarTipValues{
+    
+    if ([self.dollarTipText isFirstResponder]) {
+        self.isSegmentDollar = YES;
+    }
+    
+    double tipPercent = 0.0;
+    if (self.dollarTipSegment.selectedSegmentIndex == 0) {
+        tipPercent = .18;
+    }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
+        tipPercent = .20;
+    }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
+        tipPercent = .22;
+    }
+    
+    double yourPayment = [self.dollarYourPaymentText.text doubleValue];
+    [self.myInvoice setGratuityForSplit:yourPayment withTipPercent:tipPercent];
+    double payment = yourPayment + [self.myInvoice gratuity];
+    
+    self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
+    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", payment];
+    
 }
 
 - (IBAction)dollarTipSegmentSelect:(id)sender {
     
     @try {
         
-        if ([self.dollarTipText isFirstResponder]) {
-            self.isSegmentDollar = YES;
-        }
-        
-        double tipPercent = 0.0;
-        if (self.dollarTipSegment.selectedSegmentIndex == 0) {
-            tipPercent = .18;
-        }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
-            tipPercent = .20;
-        }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
-            tipPercent = .22;
-        }
-        
-        double yourPayment = [self.dollarYourPaymentText.text doubleValue];
-        [self.myInvoice setGratuityForSplit:yourPayment withTipPercent:tipPercent];
-        double payment = yourPayment + [self.myInvoice gratuity];
-        
-        self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
-        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", payment];
+      
+        [self calculateDollarTipValues];
         
         [self endText];
         
@@ -711,10 +728,7 @@
 
 }
 
-- (IBAction)dollarTipSegmentSelect {
-    
-       
-}
+
 
 
 // For tip on the dollar screen
@@ -753,7 +767,7 @@
             self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
         }
         
-        [self dollarTipSegmentSelect:nil];
+        [self calculateDollarTipValues];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"SplitCheckViewController.dollarYourPaymentEditEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -829,8 +843,14 @@
             
             double roundDown = [ArcUtility roundDownToNearestPenny:basePayment];
             
+            NSString *roundDownString = [NSString stringWithFormat:@"%.2f", roundDown];
+            roundDown = [roundDownString  doubleValue];
             
-            if (roundDown > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
+            NSString *amountDueForSplitString = [NSString stringWithFormat:@"%.2f", [self.myInvoice amountDueForSplit]];
+            
+            double amountDueForSplit = [amountDueForSplitString doubleValue];
+
+            if (roundDown >  amountDueForSplit && basePayment != 0.0) {
                 
                 didAlert = YES;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
@@ -1345,60 +1365,12 @@
 }
 
 
--(void)percentYourPercentSegmentSelect{
-    
-    @try {
-        if ([self.percentYourPaymentText isFirstResponder]) {
-            self.isSegmentPercentYour = YES;
-        }
-        
-        
-        
-        if (self.percentYourPercentSegControl.selectedSegmentIndex == 0) {
-            [self.percentYourPercentSegControl setTitle:@"More" forSegmentAtIndex:3];
-            self.percentYourPaymentText.text = @"50";
-        }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 1){
-            self.percentYourPaymentText.text = @"33.333333";
-            [self.percentYourPercentSegControl setTitle:@"More" forSegmentAtIndex:3];
-            
-        }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 2){
-            self.percentYourPaymentText.text = @"25";
-            [self.percentYourPercentSegControl setTitle:@"More" forSegmentAtIndex:3];
-            
-        }else if (self.percentYourPercentSegControl.selectedSegmentIndex == 3){
-            self.pickerView.hidden = NO;
-            self.numberOfPeopleButton.hidden = NO;
-            
-        }
-        
-        if ([self.percentYourPaymentText isFirstResponder]) {
-            [self endText];
-            
-        }else{
-            self.isSegmentPercentYour = YES;
-            [self percentYourPercentDidEnd];
-        }
-        
-        [self percentTipSegmentSelect];
-    }
-    @catch (NSException *exception) {
-        [rSkybox sendClientLog:@"SplitCheckViewController.percentYourPercentSegmentSelect" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
-    }
-  
-
-
-}
 
 - (IBAction)percentYourPercentDidEnd {
     
    
     @try {
-        if (self.isSegmentPercentYour) {
-            self.isSegmentPercentYour = NO;
-        }else{
-            
-            self.percentYourPercentSegControl.selectedSegmentIndex = -1;
-        }
+        
         
         double tip = [self.percentTipText.text doubleValue];
         
@@ -1411,7 +1383,7 @@
         /*
         if (basePayment > [self.myInvoice amountDueForSplit] && basePayment != 0.0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"Payment cannot exceed 'Amount Remaining'." delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:@"Pay Remaining", nil];
-            
+         
             [alert show];
         } else {
          
@@ -1422,7 +1394,7 @@
             
        // }
         
-        [self percentTipSegmentSelect];
+        [self calculateTipValues];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"SplitCheckViewController.percentYourPercentDiDEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -1431,35 +1403,42 @@
     
 }
 
+-(void)calculateTipValues{
+    
+    if ([self.percentTipText isFirstResponder]) {
+        self.isSegmentPercentTip = YES;
+    }
+    
+    if ([self.percentYourPaymentText isFirstResponder]) {
+        self.isSegmentPercentYour = YES;
+    }
+    
+    double tipPercent = 0.0;
+    if (self.percentTipSegment.selectedSegmentIndex == 0) {
+        tipPercent = .18;
+    }else if (self.percentTipSegment.selectedSegmentIndex == 1){
+        tipPercent = .20;
+    }else if (self.percentTipSegment.selectedSegmentIndex == 2){
+        tipPercent = .22;
+    }
+    
+    double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
+    double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+    double baseTipPayment = percentYourPayment * [self.myInvoice subtotal];
+    
+    double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * baseTipPayment)];
+    self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
+    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tipAmount)];
+    
+    
+}
 
 - (IBAction)percentTipSegmentSelect{
     
     @try {
         
-        if ([self.percentTipText isFirstResponder]) {
-            self.isSegmentPercentTip = YES;
-        }
-        
-        if ([self.percentYourPaymentText isFirstResponder]) {
-            self.isSegmentPercentYour = YES;
-        }
-        
-        double tipPercent = 0.0;
-        if (self.percentTipSegment.selectedSegmentIndex == 0) {
-            tipPercent = .18;
-        }else if (self.percentTipSegment.selectedSegmentIndex == 1){
-            tipPercent = .20;
-        }else if (self.percentTipSegment.selectedSegmentIndex == 2){
-            tipPercent = .22;
-        }
-        
-        double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-        double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
-        double baseTipPayment = percentYourPayment * [self.myInvoice subtotal];
-
-        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * baseTipPayment)];
-        self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tipAmount)];
+       
+        [self calculateTipValues];
         
         [self endText];
 
@@ -1478,9 +1457,9 @@
     @try {
         
         if (self.isSegmentPercentTip) {
-            self.isSegmentPercentTip = NO;
+            //self.isSegmentPercentTip = NO;
         }else{
-            self.percentTipSegment.selectedSegmentIndex = -1;
+          //  self.percentTipSegment.selectedSegmentIndex = -1;
         }
         
         double tip = [self.percentTipText.text doubleValue];
@@ -2129,28 +2108,7 @@
     
 }
 
--(void)savePickerView{
 
-
-    [self.percentYourPercentSegControl setTitle:[NSString stringWithFormat:@"%d", self.numberOfPeopleSelected] forSegmentAtIndex:3];
-    double yourPercent = 1.0/self.numberOfPeopleSelected * 100;
-    
-    self.percentYourPaymentText.text = [NSString stringWithFormat:@"%.4f", yourPercent];
-    
-    
-    if ([self.percentYourPaymentText isFirstResponder]) {
-        [self endText];
-        
-    }else{
-        self.isSegmentPercentYour = YES;
-        [self percentYourPercentDidEnd];
-    }
-    
-    [self percentTipSegmentSelect];
-    
-    self.pickerView.hidden = YES;
-    self.numberOfPeopleButton.hidden = YES;
-}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
@@ -2175,11 +2133,6 @@
 }
 
 
-
--(void)retapSegmentAction{
-    self.percentYourPercentSegControl.selectedSegmentIndex = 3;
-    [self percentYourPercentSegmentSelect];
-}
 
 
 

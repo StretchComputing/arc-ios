@@ -110,6 +110,11 @@
 {
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
         if(NSClassFromString(@"UIRefreshControl")) {
             self.isIos6 = YES;
         }else{
@@ -905,7 +910,7 @@
 
 -(void)registerComplete:(NSNotification *)notification{
     @try {
-        [self.activity stopAnimating];
+        self.loadingViewController.view.hidden = YES;
         self.loginButton.enabled = YES;
         self.registerButton.enabled = YES;
         
@@ -981,7 +986,8 @@
                 
                 
                 self.errorLabel.hidden = YES;
-                [self.activity startAnimating];
+                self.loadingViewController.view.hidden = NO;
+                self.loadingViewController.displayText.text = @"Registering...";
                 
                 self.registerButton.enabled = NO;
                 self.loginButton.enabled = NO;

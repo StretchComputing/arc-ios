@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *loginButton;
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *registerButton;
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *registerButton;
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, strong) UITextField *username;
