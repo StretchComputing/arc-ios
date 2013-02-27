@@ -31,6 +31,7 @@
     [self.view.layer insertSublayer:gradient atIndex:0];
     
     self.sendButton.hidden = YES;
+    self.sendLabel.hidden = YES;
     self.recordingActivity.hidden = YES;
     self.recordingLabel.hidden = YES;
     self.displayLabel.hidden = YES;

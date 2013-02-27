@@ -2707,13 +2707,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="1i3-LG-1Km">
-                                <rect key="frame" x="35" y="396" width="250" height="21"/>
+                                <rect key="frame" x="35" y="450" width="250" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="sRw-iY-sQ1">
-                                <rect key="frame" x="35" y="312" width="238" height="70"/>
+                                <rect key="frame" x="35" y="366" width="238" height="70"/>
                             </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="fno-jW-pgK">
                                 <rect key="frame" x="107" y="146" width="20" height="20"/>
