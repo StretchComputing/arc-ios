@@ -690,25 +690,49 @@
 
 -(void)calculateDollarTipValues{
     
-    if ([self.dollarTipText isFirstResponder]) {
-        self.isSegmentDollar = YES;
+    @try {
+        if ([self.dollarTipText isFirstResponder]) {
+            self.isSegmentDollar = YES;
+        }
+        
+        BOOL changeTip = YES;
+        double tipPercent = 0.0;
+        if (self.dollarTipSegment.selectedSegmentIndex == 0) {
+            tipPercent = .18;
+        }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
+            tipPercent = .20;
+        }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
+            tipPercent = .22;
+        }else{
+            changeTip = NO;
+        }
+        
+    
+        double yourPayment = [self.dollarYourPaymentText.text doubleValue];
+
+        double tipAmount;
+        
+        if (changeTip) {
+            [self.myInvoice setGratuityForSplit:yourPayment withTipPercent:tipPercent];
+            self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
+            tipAmount = [self.myInvoice gratuity];
+        }else{
+         
+            if (!self.dollarTipText.text) {
+                self.dollarTipText.text = @"0.00";
+            }
+            tipAmount = [self.dollarTipText.text doubleValue];
+    
+        }
+        
+        double payment = yourPayment + tipAmount;
+        
+        self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", payment];
     }
-    
-    double tipPercent = 0.0;
-    if (self.dollarTipSegment.selectedSegmentIndex == 0) {
-        tipPercent = .18;
-    }else if (self.dollarTipSegment.selectedSegmentIndex == 1){
-        tipPercent = .20;
-    }else if (self.dollarTipSegment.selectedSegmentIndex == 2){
-        tipPercent = .22;
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.calculateDollarTipValues" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
-    
-    double yourPayment = [self.dollarYourPaymentText.text doubleValue];
-    [self.myInvoice setGratuityForSplit:yourPayment withTipPercent:tipPercent];
-    double payment = yourPayment + [self.myInvoice gratuity];
-    
-    self.dollarTipText.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
-    self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", payment];
+   
     
 }
 
@@ -738,7 +762,7 @@
         if (self.isSegmentDollar) {
             self.isSegmentDollar = NO;
         }else{
-            self.dollarTipSegment.selectedSegmentIndex = -1;
+        //    self.dollarTipSegment.selectedSegmentIndex = -1;
         }
         
         double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
@@ -1405,30 +1429,49 @@
 
 -(void)calculateTipValues{
     
-    if ([self.percentTipText isFirstResponder]) {
-        self.isSegmentPercentTip = YES;
+    @try {
+        if ([self.percentTipText isFirstResponder]) {
+            self.isSegmentPercentTip = YES;
+        }
+        
+        if ([self.percentYourPaymentText isFirstResponder]) {
+            self.isSegmentPercentYour = YES;
+        }
+        
+        BOOL changeTip = YES;
+        double tipPercent = 0.0;
+        if (self.percentTipSegment.selectedSegmentIndex == 0) {
+            tipPercent = .18;
+        }else if (self.percentTipSegment.selectedSegmentIndex == 1){
+            tipPercent = .20;
+        }else if (self.percentTipSegment.selectedSegmentIndex == 2){
+            tipPercent = .22;
+        }else{
+            changeTip = NO;
+        }
+        
+        double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
+        double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+        double baseTipPayment = percentYourPayment * [self.myInvoice subtotal];
+        
+        double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * baseTipPayment)];
+        
+        if (changeTip) {
+            self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
+        }else{
+            
+            if (!self.percentTipText.text) {
+                self.percentTipText.text = @"0.00";
+            }
+            tipAmount = [self.percentTipText.text doubleValue];
+        }
+        
+        self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tipAmount)];
     }
-    
-    if ([self.percentYourPaymentText isFirstResponder]) {
-        self.isSegmentPercentYour = YES;
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.calculateTipValues" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
-    
-    double tipPercent = 0.0;
-    if (self.percentTipSegment.selectedSegmentIndex == 0) {
-        tipPercent = .18;
-    }else if (self.percentTipSegment.selectedSegmentIndex == 1){
-        tipPercent = .20;
-    }else if (self.percentTipSegment.selectedSegmentIndex == 2){
-        tipPercent = .22;
-    }
-    
-    double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
-    double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
-    double baseTipPayment = percentYourPayment * [self.myInvoice subtotal];
-    
-    double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * baseTipPayment)];
-    self.percentTipText.text = [NSString stringWithFormat:@"%.2f", tipAmount];
-    self.percentYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", (payment + tipAmount)];
+   
     
     
 }
@@ -1864,56 +1907,88 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    if (textField == self.percentYourPaymentText) {
-        
-        if ([self.percentYourPaymentText.text length] >= 20) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
+    @try {
+        if (textField == self.percentYourPaymentText) {
+            
+            if ([self.percentYourPaymentText.text length] >= 20) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return FALSE;
+            }
+            
+        }else if (textField == self.percentTipText){
+            
+            self.percentTipSegment.selectedSegmentIndex = -1;
+            
+            if ([self.percentTipText.text length] >= 20) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return FALSE;
+            }
+        }else if (textField == self.dollarTipText){
+            
+            self.dollarTipSegment.selectedSegmentIndex = -1;
+            
+            if ([self.dollarTipText.text length] >= 20) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return FALSE;
+            }
+        }else if (textField == self.dollarYourPaymentText){
+            
+            if ([self.dollarYourPaymentText.text length] >= 20) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return FALSE;
+            }
+        }else if (textField == self.itemSplitItemYourAmount){
+            
+            if ([self.itemSplitItemYourAmount.text length] >= 20) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return FALSE;
+            }
+        }else if (textField == self.itemTipText){
+            
+            if ([self.itemTipText.text length] >= 20) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                return FALSE;
+            }
         }
         
-    }else if (textField == self.percentTipText){
         
-        if ([self.percentTipText.text length] >= 20) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
-    }else if (textField == self.dollarTipText){
-        
-        if ([self.dollarTipText.text length] >= 20) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
-    }else if (textField == self.dollarYourPaymentText){
-        
-        if ([self.dollarYourPaymentText.text length] >= 20) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
-    }else if (textField == self.itemSplitItemYourAmount){
-        
-        if ([self.itemSplitItemYourAmount.text length] >= 20) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
-    }else if (textField == self.itemTipText){
-        
-        if ([self.itemTipText.text length] >= 20) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-            return FALSE;
-        }
+        return TRUE;
     }
-
-
-    return TRUE;
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"SplitCheckViewController.shouldChangeCharactersInRange" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return TRUE;
+    }
+   
 }
 
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    
+    @try {
+        if (textField == self.percentTipText){
+            
+            self.percentTipSegment.selectedSegmentIndex = -1;
+            
+        }else if (textField == self.dollarTipText){
+            
+            self.dollarTipSegment.selectedSegmentIndex = -1;
+            
+        }
+        
+        return YES;
+    }
+    @catch (NSException *exception) {
+         [rSkybox sendClientLog:@"SplitCheckViewController.textFieldShouldClear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        return YES;
 
+    }
+  
+}
 -(void)hideKeyboard{
     [self endText];
 
