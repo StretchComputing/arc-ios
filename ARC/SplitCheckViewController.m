@@ -1269,7 +1269,7 @@
                         
                         [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
                         [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
-                        [sendInItem setValue:[NSNumber numberWithDouble:100.0] forKey:@"Percent"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:1.0] forKey:@"Percent"];
                         [self.myItemArray addObject:sendInItem];
                         
                     }else if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"maybe"]){
@@ -1278,7 +1278,7 @@
                         double myAmount = [[tmpItem valueForKey:@"myAmount"] doubleValue];
                         double totalAmount = [[tmpItem valueForKey:@"splitValue"] doubleValue];
                         
-                        double myPercent = myAmount/totalAmount * 100;
+                        double myPercent = myAmount/totalAmount;
                         
                         [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
                         [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
@@ -1327,7 +1327,7 @@
                         
                         [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
                         [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
-                        [sendInItem setValue:[NSNumber numberWithDouble:100.0] forKey:@"Percent"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:1.0] forKey:@"Percent"];
                         [self.myItemArray addObject:sendInItem];
                         
                     }else if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"maybe"]){
@@ -1336,7 +1336,7 @@
                         double myAmount = [[tmpItem valueForKey:@"myAmount"] doubleValue];
                         double totalAmount = [[tmpItem valueForKey:@"splitValue"] doubleValue];
                         
-                        double myPercent = myAmount/totalAmount * 100;
+                        double myPercent = myAmount/totalAmount;
                         
                         [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
                         [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];

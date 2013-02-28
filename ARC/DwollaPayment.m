@@ -642,6 +642,7 @@
         [tempDictionary setObject:self.myInvoice.tipEntry forKey:@"TipEntry"];
         
         if (self.mySplitPercent > 0.0) {
+            self.mySplitPercent = self.mySplitPercent / 100.0;
             [tempDictionary setValue:[NSNumber numberWithDouble:self.mySplitPercent] forKey:@"PercentPaid"];
         }
         
