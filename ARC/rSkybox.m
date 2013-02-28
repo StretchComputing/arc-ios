@@ -371,6 +371,8 @@ NSString* const ARC_VERSION_NUMBER = @"1.3";
         [tempDictionary setObject:encodedRecordedData forKey:@"voice"];
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
+        [tempDictionary setObject:[rSkybox getUserId] forKey:@"userName"];
+
         [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
                 
         NSDate *today = [NSDate date];
@@ -385,6 +387,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.3";
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];
         
         NSString *tmpUrl = [baseUrl stringByAppendingFormat:@"/applications/%@/feedback", applicationId];
+        
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
