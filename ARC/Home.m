@@ -39,6 +39,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
+-(void)newLocation{
+    
+    [self getMerchantList];
+}
 -(void)viewWillAppear:(BOOL)animated{
     
     self.retryCount = 0;
@@ -58,6 +63,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newLocation) name:@"newLocation" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActive) name:@"appActive" object:nil];
 
@@ -302,6 +309,16 @@
 -(void)getMerchantList{
     @try{
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        if ([mainDelegate.lastLongitude length] > 0) {
+            [tempDictionary setValue:[NSNumber numberWithDouble:[mainDelegate.lastLatitude doubleValue]] forKey:@"Latitude"];
+            [tempDictionary setValue:[NSNumber numberWithDouble:[mainDelegate.lastLongitude doubleValue]] forKey:@"Longitude"];
+        }
+        
+        //For limiting number of Merchants retrieved
+        //[tempDictionary setValue:[NSNumber numberWithInt:25] forKey:@"Top"];
+        
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];

@@ -48,6 +48,11 @@ int const INVALID_EXPIRATION_DATE = 610;
 int const UNKOWN_ISIS_ERROR = 699;
 int const DUPLICATE_TRANSACTION = 612;
 
+//Micros
+int const CARD_ALREADY_PROCESSED = 628;
+int const CHECK_IS_LOCKED = 630;
+int const NO_AUTHORIZATION_PROVIDED = 631;
+
 int const MAX_RETRIES_EXCEEDED = 1000;
 
 
@@ -71,7 +76,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
            _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
-        //NSLog(@"***** Arc URL = %@ *****", _arcUrl);
+        NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
 }
@@ -179,7 +184,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox addEventToSession:@"getMerchantList"];
         api = GetMerchantList;
         
-        NSMutableDictionary *loginDictionary = [ NSMutableDictionary dictionary];
+        pairs = [NSDictionary dictionary];
+        NSMutableDictionary *loginDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
@@ -196,7 +202,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
    
         
-        //NSLog(@"Request: %@", request);
+        NSLog(@"Request: %@", requestString);
         
        // NSLog(@"Auth Header: %@", [self authHeader]);
         
@@ -641,7 +647,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        //NSLog(@"ReturnString: %@", returnString);
+        NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -1636,8 +1642,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [ tempDictionary setObject:activity forKey:@"Activity"]; //ACTION
         [ tempDictionary setObject:activityType forKey:@"ActivityType"]; //CATEGORY
 
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         @try {
-            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
             NSString *customerId = [mainDelegate getCustomerId];
             [ tempDictionary setObject:customerId forKey:@"EntityId"]; //get from auth header?
         }
@@ -1667,6 +1673,13 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [ tempDictionary setObject:measureType forKey:@"MeasureType"];//LABEL
         [ tempDictionary setObject:measureValue forKey:@"MeasureValue"];//VALUE
         [ tempDictionary setObject:@"Arc Mobile" forKey:@"Application"];
+        
+        //Location
+        if ([mainDelegate.lastLongitude length] > 0) {
+            [tempDictionary setValue:[NSNumber numberWithDouble:[mainDelegate.lastLatitude doubleValue]] forKey:@"Latitude"];
+            [tempDictionary setValue:[NSNumber numberWithDouble:[mainDelegate.lastLongitude doubleValue]] forKey:@"Longitude"];
+        }
+        
         
         NSString *mobileCarrier = @"UNKNOWN";
         @try {

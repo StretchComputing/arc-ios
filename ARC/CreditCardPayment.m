@@ -492,6 +492,15 @@
                 displayAlert = YES;
             }else if(errorCode == DUPLICATE_TRANSACTION){
                 duplicateTransaction = YES;
+            }else if (errorCode == CHECK_IS_LOCKED){
+                errorMsg = @"This check is currently locked.  Please try again in a few minutes.";
+                displayAlert = YES;
+            }else if (errorCode == CARD_ALREADY_PROCESSED){
+                errorMsg = @"This card has already been used for payment on this invoice.  A card may only be used once per invoice.  Please try again with a different card.";
+                displayAlert = YES;
+            }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
+                errorMsg = @"Invalid Authorization, please try again.";
+                displayAlert = YES;
             }
             else {
                 errorMsg = ARC_ERROR_MSG;

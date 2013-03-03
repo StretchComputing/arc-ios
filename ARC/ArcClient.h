@@ -30,7 +30,9 @@ extern int const INVALID_EXPIRATION_DATE;
 extern int const PAYMENT_MAYBE_PROCESSED;
 extern int const DUPLICATE_TRANSACTION;
 extern int const MAX_RETRIES_EXCEEDED;
-
+extern int const CARD_ALREADY_PROCESSED;
+extern int const CHECK_IS_LOCKED;
+extern int const NO_AUTHORIZATION_PROVIDED;
 
 
 

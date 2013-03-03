@@ -61,6 +61,7 @@
 		908D2FD1166E8D66007B6078 /* boxChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 908D2FCF166E8D66007B6078 /* boxChecked.png */; };
 		908D2FD2166E8D66007B6078 /* boxEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 908D2FD0166E8D66007B6078 /* boxEmpty.png */; };
 		908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D369E1631ED3F00557E8B /* MediaPlayer.framework */; };
+		908D966E16E3A2C7002CADC1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908D966D16E3A2C7002CADC1 /* CoreLocation.framework */; };
 		908F74CF1600C41700DD6B31 /* CorbelTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */; };
 		908F74DD1600DDD700DD6B31 /* ArcMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */; };
 		908FA86616850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.m in Sources */ = {isa = PBXBuildFile; fileRef = 908FA86416850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.m */; };
@@ -252,6 +253,7 @@
 		908D2FD0166E8D66007B6078 /* boxEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boxEmpty.png; sourceTree = "<group>"; };
 		908D369E1631ED3F00557E8B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		908D44E51694881500C30E0A /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		908D966D16E3A2C7002CADC1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		908F74CD1600C41700DD6B31 /* CorbelTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTitleLabel.h; sourceTree = "<group>"; };
 		908F74CE1600C41700DD6B31 /* CorbelTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTitleLabel.m; sourceTree = "<group>"; };
 		908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908D966E16E3A2C7002CADC1 /* CoreLocation.framework in Frameworks */,
 				908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */,
 				90E5E5C816D70A010031B17E /* CoreAudio.framework in Frameworks */,
 				908A4C4516978CFA00B68664 /* AudioToolbox.framework in Frameworks */,
@@ -533,6 +536,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				908D966D16E3A2C7002CADC1 /* CoreLocation.framework */,
 				90E5E5C716D70A010031B17E /* CoreAudio.framework */,
 				908A667E16A0648F002425A2 /* GameKit.framework */,
 				90A65C66169B785500FC519B /* CoreTelephony.framework */,

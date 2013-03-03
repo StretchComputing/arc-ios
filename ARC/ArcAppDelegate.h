@@ -11,10 +11,11 @@
 #import "Reachability.h"
 #import "CreditCard.h"
 #import <GameKit/GameKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 #define UIAppDelegate ((ArcAppDelegate *)[UIApplication sharedApplication].delegate)
 
-@interface ArcAppDelegate : UIResponder <UIApplicationDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate>
+@interface ArcAppDelegate : UIResponder <UIApplicationDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate, CLLocationManagerDelegate>
 {
     
     Reachability* hostReach;
@@ -29,6 +30,11 @@
 @property (nonatomic, strong) NSMutableArray *connectionPeers;
 @property (nonatomic, strong) GKPeerPickerController* connectionPicker;
 
+//Location
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *lastLocation;
+@property (nonatomic, strong) NSString *lastLatitude;
+@property (nonatomic, strong) NSString *lastLongitude;
 
 @property BOOL documentReady;
 @property (strong, nonatomic) UIWindow *window;

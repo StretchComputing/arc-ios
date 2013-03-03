@@ -485,6 +485,8 @@
                 errorMsg = @"Can not find invoice.";
             } else if(errorCode == INVOICE_CLOSED) {
                 errorMsg = @"Invoice closed.";
+            }else if (errorCode == CHECK_IS_LOCKED){
+                errorMsg = @"Invoice locked.  Try again in a few minutes.";
             } else {
                 errorMsg = ARC_ERROR_MSG;
             }

@@ -281,6 +281,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     
+    [self startUpdatingLocation];
+    
     ArcClient *client = [[ArcClient alloc] init];
     [client getServer];
     
@@ -878,4 +880,58 @@ ofType:(NSString *)typeName
 }
 
 
+//Location Updating
+
+- (void)startUpdatingLocation
+{
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    [self.locationManager startUpdatingLocation];
+}
+
+-(void)stopUpdatingLocation{
+    
+    
+    [self.locationManager stopUpdatingLocation];
+    
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    
+    
+    if (manager == self.locationManager) {
+        
+        NSString *currentLong = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
+        NSString *currentLat = [NSString stringWithFormat:@"%f", newLocation.coordinate.latitude];
+        
+        CLLocation *lastLocation = [[CLLocation alloc] initWithLatitude:[self.lastLatitude doubleValue] longitude:[self.lastLongitude doubleValue]];
+        
+        double distance = [lastLocation distanceFromLocation:newLocation];
+                
+        if (distance > 250.0) {
+            self.lastLocation = newLocation;
+            self.lastLatitude = currentLat;
+            self.lastLongitude = currentLong;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newLocation" object:self userInfo:nil];
+
+        }
+        
+    }
+    
+    [self stopUpdatingLocation];
+
+    
+    
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+
+    NSLog(@"Error: %@", [error description]);
+    
+}
 @end
