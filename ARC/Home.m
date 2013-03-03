@@ -35,8 +35,11 @@
 
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+-(void)viewDidUnload{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewDidUnload];
+}
+-(void)viewWillDisappear:(BOOL)animated{
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -50,21 +53,23 @@
     }
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referFriendComplete:) name:@"referFriendNotification" object:nil];
-
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActive) name:@"appActive" object:nil];
+   
 
 }
 
 -(void)customerDeactivated{
-    [self logOut];
+    
+    @try {
+        if (self.navigationController.topViewController == self) {
+            [self logOut];
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"Home.customerDeactivated" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+   
+   
 }
 -(void)logOut{
     
@@ -197,6 +202,18 @@
 {
     @try {
 
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referFriendComplete:) name:@"referFriendNotification" object:nil];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(merchantListComplete:) name:@"merchantListNotification" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActive) name:@"appActive" object:nil];
+        
         self.searchCancelButton.hidden = YES;
         
         self.refreshListButton.hidden = YES;
@@ -675,9 +692,11 @@
 }
 
 -(void)noPaymentSources{
-    self.didShowPayment = YES;
-    UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
-    [self.navigationController presentModalViewController:noPaymentController animated:YES];
+    
+        self.didShowPayment = YES;
+        UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
+        [self.navigationController presentModalViewController:noPaymentController animated:YES];
+   
     
 }
 
@@ -794,10 +813,7 @@
     self.hintOverlayView.hidden = YES;
 }
 
-- (void)viewDidUnload {
-    [self setSearchCancelButton:nil];
-    [super viewDidUnload];
-}
+
 - (IBAction)searchCancelAction {
     
     self.searchTextField.text = @"";
