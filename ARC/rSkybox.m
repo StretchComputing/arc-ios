@@ -27,7 +27,7 @@ static NSMutableArray *traceTimeStamps;
 static NSDate *startTime;
 static NSString *logNameBeingTimed;
 
-NSString* const ARC_VERSION_NUMBER = @"1.4";
+NSString* const ARC_VERSION_NUMBER = @"1.4.1";
 
 @implementation rSkybox
 
