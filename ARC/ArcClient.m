@@ -71,6 +71,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10)];
         self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(5)];
+        self.retryTimesInvoice = @[@(2),@(2),@(2),@(3),@(4),@(5)];
+
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
@@ -221,18 +223,36 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         api = GetInvoice;
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        [dictionary setValue:[pairs valueForKey:@"invoiceNumber"] forKey:@"Number"];
-        [dictionary setValue:[pairs valueForKey:@"merchantId"] forKey:@"MerchantId"];
+
+        if (pairs) {
+            
+            self.getInvoiceInvoiceNumber = [pairs valueForKey:@"invoiceNumber"];
+            self.getInvoiceMerchantId = [pairs valueForKey:@"merchantId"];
+            [dictionary setValue:[pairs valueForKey:@"invoiceNumber"] forKey:@"Number"];
+            [dictionary setValue:[pairs valueForKey:@"merchantId"] forKey:@"MerchantId"];
+            [dictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Process"];
+            
+            NSNumber *pos = [NSNumber numberWithBool:YES];
+            [dictionary setValue:pos forKey:@"POS"];
+        }else{
+            
+            [dictionary setValue:self.getInvoiceInvoiceNumber forKey:@"Number"];
+            [dictionary setValue:self.getInvoiceMerchantId forKey:@"MerchantId"];
+            [dictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Process"];
+            
+            NSNumber *pos = [NSNumber numberWithBool:YES];
+            [dictionary setValue:pos forKey:@"POS"];
+            
+        }
         
-        NSNumber *pos = [NSNumber numberWithBool:YES];
-        [dictionary setValue:pos forKey:@"POS"];
+       
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [dictionary JSONRepresentation], nil];
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         
-        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@invoices/list", _arcUrl];
+        NSString *getInvoiceUrl = [NSString stringWithFormat:@"%@invoices/criteria", _arcUrl];
         //NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
 
         
@@ -675,6 +695,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             }
             notificationType = @"merchantListNotification";
         } else if(api == GetInvoice) {
+            
+            postNotification = NO;
             if (response && httpSuccess) {
                 responseInfo = [self getInvoiceResponse:response];
             } else {
@@ -682,7 +704,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed" successful:successful];
             }
             notificationType = @"invoiceNotification";
+            
         } else if(api == CreatePayment) {
+            
             postNotification = NO;
             if (response && httpSuccess) {
                 responseInfo = [self createPaymentResponse:response];
@@ -691,6 +715,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
             }
             notificationType = @"createPaymentNotification";
+            
         } else if(api == CreateReview) {
             if (response && httpSuccess) {
                 responseInfo = [self createReviewResponse:response];
@@ -1098,7 +1123,65 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
 }
 
+-(void)recallGetInvoice{
+    
+    [self getInvoice:nil];
+}
+
 -(NSDictionary *) getInvoiceResponse:(NSDictionary *)response {
+    
+    
+    @try {
+        
+    
+        if ([self.invoiceTicketId length] == 0) {
+            //first time
+            
+            BOOL success = [[response valueForKey:@"Success"] boolValue];
+            
+            NSDictionary *responseInfo;
+            BOOL successful = TRUE;
+            if (success){
+                
+                self.invoiceTicketId = [[response valueForKey:@"Results"] valueForKey:@"LastUpdated"];
+                
+                self.numberGetInvoiceTries = 0;
+                
+                int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
+                
+                NSLog(@"Retry Time: %d", retryTime);
+                
+                NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(recallGetInvoice) userInfo:nil repeats:NO];
+                
+            } else {
+                NSString *status = @"error";
+                int errorCode = [self getErrorCode:response];
+                responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                successful = FALSE;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
+                [ArcClient endAndReportLatency:CreatePayment logMessage:@"GetInvoice API completed" successful:successful];
+                
+            }
+            
+            
+        }else{
+            
+            NSLog(@"Test");
+        }
+       
+        
+        return [NSDictionary dictionary];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getInvoiceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
+    }
+    
+    
+    
+    /*
     @try {
         
         BOOL success = [[response valueForKey:@"Success"] boolValue];
@@ -1122,13 +1205,13 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         return @{};
 
     }
+     
+     */
 }
 
 -(NSDictionary *) createPaymentResponse:(NSDictionary *)response {
     @try {
-        
-        
-        
+            
         BOOL success = [[response valueForKey:@"Success"] boolValue];
         
         NSDictionary *responseInfo;

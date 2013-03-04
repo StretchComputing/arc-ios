@@ -931,7 +931,7 @@ ofType:(NSString *)typeName
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
 
-    NSLog(@"Error: %@", [error description]);
+    //NSLog(@"Error: %@", [error description]);
     
 }
 @end

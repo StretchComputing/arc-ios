@@ -65,6 +65,10 @@ typedef enum {
 @property (nonatomic, strong) NSArray *retryTimes;
 @property int numberConfirmPaymentTries;
 @property int numberRegisterTries;
+@property int numberGetInvoiceTries;
+
+@property (nonatomic, strong) NSString *getInvoiceInvoiceNumber;
+@property (nonatomic, strong) NSString *getInvoiceMerchantId;
 
 @property (nonatomic, strong) NSArray *retryTimesRegister;
 @property (nonatomic, strong) NSTimer *myRegisterTimer;
@@ -72,6 +76,11 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *ticketId;
 @property (nonatomic, strong) NSString *registerTicketId;
+
+@property (nonatomic, strong) NSArray *retryTimesInvoice;
+@property (nonatomic, strong) NSTimer *myInvoiceTimer;
+@property (nonatomic, strong) NSString *invoiceTicketId;
+
 
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) NSMutableData *serverData;
