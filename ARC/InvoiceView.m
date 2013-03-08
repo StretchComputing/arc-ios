@@ -998,7 +998,7 @@
         
         NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
-            NSDictionary *theInvoice = [[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] objectAtIndex:0];
+            NSDictionary *theInvoice = [[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"];
             
             self.myInvoice = [[Invoice alloc] init];
             self.myInvoice.invoiceId = [[theInvoice valueForKey:@"Id"] intValue];

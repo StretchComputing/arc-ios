@@ -238,7 +238,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
             [dictionary setValue:self.getInvoiceInvoiceNumber forKey:@"Number"];
             [dictionary setValue:self.getInvoiceMerchantId forKey:@"MerchantId"];
-            [dictionary setValue:[NSNumber numberWithBool:YES] forKey:@"Process"];
+            [dictionary setValue:[NSNumber numberWithBool:NO] forKey:@"Process"];
+            [dictionary setValue:self.invoiceRequestId forKey:@"RequestId"];
             
             NSNumber *pos = [NSNumber numberWithBool:YES];
             [dictionary setValue:pos forKey:@"POS"];
@@ -1130,10 +1131,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 -(NSDictionary *) getInvoiceResponse:(NSDictionary *)response {
     
-    
     @try {
         
-    
+        
         if ([self.invoiceTicketId length] == 0) {
             //first time
             
@@ -1143,8 +1143,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             BOOL successful = TRUE;
             if (success){
                 
+                NSLog(@"Response: %@", response);
                 self.invoiceTicketId = [[response valueForKey:@"Results"] valueForKey:@"LastUpdated"];
-                
+                self.invoiceRequestId = [[response valueForKey:@"Results"] valueForKey:@"RequestId"];
                 self.numberGetInvoiceTries = 0;
                 
                 int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
@@ -1154,6 +1155,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(recallGetInvoice) userInfo:nil repeats:NO];
                 
             } else {
+                
+                
                 NSString *status = @"error";
                 int errorCode = [self getErrorCode:response];
                 responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
@@ -1167,46 +1170,93 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
         }else{
             
-            NSLog(@"Test");
-        }
-       
-        
-        return [NSDictionary dictionary];
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.getInvoiceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        return @{};
-        
-    }
-    
-    
-    
-    /*
-    @try {
-        
-        BOOL success = [[response valueForKey:@"Success"] boolValue];
-        
-        NSDictionary *responseInfo;
-        BOOL successful = TRUE;
-        if (success){
-            responseInfo = @{@"status": @"success", @"apiResponse": response};
+            NSLog(@"Response: %@", response);
+            
+            BOOL success = [[response valueForKey:@"Success"] boolValue];
+            
+            NSDictionary *responseInfo;
+            BOOL successful = TRUE;
+            if (success){
+                
+                BOOL haveInvoice = NO;
+                id results = [response valueForKey:@"Results"];
+                
+                NSLog(@"Results Class: %@", [results class]);
+                
+                @try {
+                    if ([results count] > 0) {
+                        haveInvoice = YES;
+                    }
+                }
+                @catch (NSException *exception) {
+                    
+                }
+                
+                if (haveInvoice){
+                    
+                    responseInfo = @{@"status": @"success", @"apiResponse": response};
+
+                     [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
+                    return [NSDictionary dictionary];
+                    
+                }else{
+                        
+                        self.numberGetInvoiceTries++;
+                        
+                        if (self.numberGetInvoiceTries <= [self.retryTimesInvoice count]) {
+                            
+                            int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
+                            
+                            NSLog(@"Retry Time: %d", retryTime);
+                            
+                            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(recallGetInvoice) userInfo:nil repeats:NO];
+                            
+                        }else{
+                            NSString *status = @"error";
+                            int errorCode = [self getErrorCode:response];
+                            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                            successful = FALSE;
+                            
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
+                            [ArcClient endAndReportLatency:CreatePayment logMessage:@"GetInvoice API completed" successful:successful];
+                        }
+                   
+                }
+            
+            
+            
         } else {
+            
+            
             NSString *status = @"error";
             int errorCode = [self getErrorCode:response];
             responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
             successful = FALSE;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
+            [ArcClient endAndReportLatency:CreatePayment logMessage:@"GetInvoice API completed" successful:successful];
+            
         }
         
-        [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed" successful:successful];
-        return responseInfo;
+        
+        
+        
+        
+        
     }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.getInvoiceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-        return @{};
-
-    }
-     
-     */
+    
+    
+    return [NSDictionary dictionary];
+}
+@catch (NSException *e) {
+    [rSkybox sendClientLog:@"ArcClient.getInvoiceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    return @{};
+    
+}
+  
+    
+    
+  
 }
 
 -(NSDictionary *) createPaymentResponse:(NSDictionary *)response {

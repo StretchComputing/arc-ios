@@ -80,7 +80,7 @@ typedef enum {
 @property (nonatomic, strong) NSArray *retryTimesInvoice;
 @property (nonatomic, strong) NSTimer *myInvoiceTimer;
 @property (nonatomic, strong) NSString *invoiceTicketId;
-
+@property (nonatomic, strong) NSString *invoiceRequestId;
 
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) NSMutableData *serverData;
