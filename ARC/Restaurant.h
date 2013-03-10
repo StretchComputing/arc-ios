@@ -23,6 +23,7 @@
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
 @property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
 
+@property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFive;
@@ -37,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameDisplay;
 
 @property (nonatomic, strong) NSString *name;
+@property (strong, nonatomic) IBOutlet UIView *notFoundHelpView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *checkHelpImageView;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFour;
@@ -44,6 +46,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 
 @property BOOL wentInvoice;
+@property (strong, nonatomic) IBOutlet UIView *helpBackView;
 
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 

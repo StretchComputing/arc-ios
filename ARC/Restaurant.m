@@ -301,9 +301,91 @@
     
 }
 
+-(void)loadLogoImage{
+    
+    ArcClient *tmp = [[ArcClient alloc] init];
+    NSString *serverUrl = [tmp getCurrentUrl];
+    
+    
+    NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%@.png", serverUrl, self.merchantId];
+    logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
+    NSLog(@"LogoImageURL: %@", logoImageUrl);
+    
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        
+        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
+        
+        if ( data == nil )
+            return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            UIImage *logoImage = [UIImage imageWithData:data];
+            
+            if (logoImage) {
+                self.logoImageView.image = logoImage;
+                self.logoImageView.contentMode = UIViewContentModeScaleAspectFit;
+            }else{
+                self.logoImageView.image = [UIImage imageNamed:@"silverware.png"];
+            }
+        });
+    });
+    
+}
+
+-(void)loadHelpImage{
+    
+    ArcClient *tmp = [[ArcClient alloc] init];
+    NSString *serverUrl = [tmp getCurrentUrl];
+    
+    NSString *helpImageUrl = [NSString stringWithFormat:@"%@Images/App/Receipts/%@.png", serverUrl, self.merchantId];
+    helpImageUrl = [helpImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
+    
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        
+        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:helpImageUrl]];
+        
+        if ( data == nil ){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.checkHelpImageView.image = nil;
+                self.notFoundHelpView.hidden = NO;
+            });
+                           
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                UIImage *helpImage = [UIImage imageWithData:data];
+                
+                if (helpImage) {
+                    self.checkHelpImageView.image = helpImage;
+                    self.checkHelpImageView.contentMode = UIViewContentModeScaleAspectFit;
+                    self.checkHelpImageView.hidden = NO;
+                }else{
+                    self.checkHelpImageView.image = nil;
+                    self.notFoundHelpView.hidden = NO;
+                    
+                }
+            });
+        }
+       
+    });
+    
+}
 - (void)viewDidLoad
 {
     @try {
+        
+        self.helpBackView.hidden = YES;
+
+        [self loadLogoImage];
+        [self loadHelpImage];
+   
+        
+        
+       
+        
+        
+        
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
@@ -325,7 +407,6 @@
         
        
         
-        self.checkHelpImageView.hidden = YES;
         
         self.checkNumOne.delegate = self;
         self.checkNumTwo.delegate = self;
@@ -536,7 +617,7 @@
         
         self.helpShowing = YES;
         
-        self.checkHelpImageView.hidden = NO;
+        self.helpBackView.hidden = NO;
         [self.checkNumOne resignFirstResponder];
         [self.checkNumTwo resignFirstResponder];
         [self.checkNumThree resignFirstResponder];
@@ -649,7 +730,7 @@
         if (self.helpShowing) {
             
             self.helpShowing = NO;
-            self.checkHelpImageView.hidden = YES;
+            self.helpBackView.hidden = YES;
             
             self.checkNumOne.enabled = YES;
             self.checkNumTwo.enabled = YES;
@@ -703,6 +784,7 @@
     [UIAppDelegate.connectionSession disconnectFromAllPeers];
     [UIAppDelegate.connectionPeers removeAllObjects];
 }
+
 
 
 

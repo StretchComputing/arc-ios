@@ -67,6 +67,7 @@
 		908FA86616850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.m in Sources */ = {isa = PBXBuildFile; fileRef = 908FA86416850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.m */; };
 		9090204E16266AB2001B8428 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9090204D16266AB2001B8428 /* Default-568h@2x.png */; };
 		909046BB16EA78F400517A14 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 909046BA16EA78F400517A14 /* lock.png */; };
+		909046E216ECC80100517A14 /* silverware.png in Resources */ = {isa = PBXBuildFile; fileRef = 909046E116ECC80100517A14 /* silverware.png */; };
 		90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 90915A1F160952B100A9A070 /* NSString+CharArray.m */; };
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
@@ -262,6 +263,7 @@
 		908FA86516850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTextFieldCreditCardiOS6.h; sourceTree = "<group>"; };
 		9090204D16266AB2001B8428 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		909046BA16EA78F400517A14 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
+		909046E116ECC80100517A14 /* silverware.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = silverware.png; sourceTree = "<group>"; };
 		90915A1E160952B100A9A070 /* NSString+CharArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CharArray.h"; sourceTree = "<group>"; };
 		90915A1F160952B100A9A070 /* NSString+CharArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CharArray.m"; sourceTree = "<group>"; };
 		9094250215D86E2500CB052D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 				90FBDA73159A70E50051609A /* MessageUI.framework */,
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				909046BA16EA78F400517A14 /* lock.png */,
+				909046E116ECC80100517A14 /* silverware.png */,
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
 				908B024F169E688B0039EB97 /* finger.png */,
 				90893F9B169DF24F00B08240 /* greyback.png */,
@@ -942,6 +945,7 @@
 				90893FA2169E04CD00B08240 /* blueArrow.png in Resources */,
 				908B0250169E688B0039EB97 /* finger.png in Resources */,
 				909046BB16EA78F400517A14 /* lock.png in Resources */,
+				909046E216ECC80100517A14 /* silverware.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
