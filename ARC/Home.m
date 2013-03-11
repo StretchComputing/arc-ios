@@ -516,6 +516,8 @@
             detailViewController.paymentsAccepted = tmpMerchant.paymentsAccepted;
             
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"merchantName"];
+            [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInt:tmpMerchant.merchantId] forKey:@"merchantId"];
+
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.twitterHandler forKey:@"merchantTwitterHandler"];
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.facebookHandler forKey:@"merchantFacebookHandler"];
             [[NSUserDefaults standardUserDefaults] synchronize];

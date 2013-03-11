@@ -1854,6 +1854,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *trackEventDict = [[NSDictionary alloc] init];
         
+        
+        if ([activity isEqualToString:@"PAY_REMAINING"]) {
+            [ tempDictionary setObject:[[NSUserDefaults standardUserDefaults] valueForKey:@"merchantId"] forKey:@"MerchantId"]; 
+        }
+        
         [ tempDictionary setObject:activity forKey:@"Activity"]; //ACTION
         [ tempDictionary setObject:activityType forKey:@"ActivityType"]; //CATEGORY
 
