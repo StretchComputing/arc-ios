@@ -54,7 +54,9 @@ typedef enum {
     UpdatePushToken = 12,
     ReferFriend = 13,
     ConfirmPayment = 14,
-    ConfirmRegister = 15
+    ConfirmRegister = 15,
+    PingServer = 16
+
 
 } APIS;
 
@@ -66,6 +68,10 @@ typedef enum {
 @property int numberConfirmPaymentTries;
 @property int numberRegisterTries;
 @property int numberGetInvoiceTries;
+
+@property int numberServerPings;
+@property NSDate *pingStartTime;
+@property (nonatomic, strong) NSMutableArray *serverPingArray;
 
 @property (nonatomic, strong) NSString *getInvoiceInvoiceNumber;
 @property (nonatomic, strong) NSString *getInvoiceMerchantId;
@@ -137,5 +143,6 @@ typedef enum {
 
 -(void)sendTrackEvent:(NSMutableArray *)array;
 
+-(void)sendServerPings;
 @end
 

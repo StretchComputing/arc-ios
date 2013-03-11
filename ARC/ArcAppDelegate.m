@@ -286,6 +286,9 @@
     ArcClient *client = [[ArcClient alloc] init];
     [client getServer];
     
+    ArcClient *pingClient = [[ArcClient alloc] init];
+    [pingClient sendServerPings];
+    
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     // *** for rSkybox
     [self performSelectorInBackground:@selector(createEndUser) withObject:nil];

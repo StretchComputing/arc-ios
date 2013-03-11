@@ -73,6 +73,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(5)];
         self.retryTimesInvoice = @[@(2),@(2),@(2),@(3),@(4),@(5)];
 
+        self.serverPingArray = [NSMutableArray array];
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
@@ -389,6 +390,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
         }
         
+        NSLog(@"RequestString: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"SendTrackEvents"];
@@ -638,6 +640,31 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 
 
+-(void)sendServerPings{
+    @try {
+        [rSkybox addEventToSession:@"sendServerPing"];
+        api = PingServer;
+        
+        
+        NSString *pingUrl = @"http://arc.dagher.net.co/rest/v1/tools/ping";
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
+        
+        [request setHTTPMethod: @"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+  
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"sendServerPing"];
+        self.pingStartTime = [NSDate date];
+        [request setTimeoutInterval:2];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.sendServerPings" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
@@ -771,6 +798,11 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             if (response && httpSuccess) {
                 responseInfo = [self confirmRegisterResponse:response];
             }
+        }else if (api == PingServer){
+            postNotification = NO;
+            if (response && httpSuccess) {
+                responseInfo = [self pingServerResponse:response];
+            }
         }
         
         if(!httpSuccess) {
@@ -894,6 +926,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 notificationType = @"registerNotification";
 
             }
+        }else if (api == PingServer){
+            postNotification = NO;
+            responseInfo = [self pingServerResponse:nil];
+
         }
         
         if (postNotification == YES) {
@@ -1018,6 +1054,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
         case ConfirmRegister:
             result = @"ConfirmRegister";
+            break;
+            
+        case PingServer:
+            result = @"PingServer";
             break;
  
         default:
@@ -1459,6 +1499,48 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     
 }
 
+
+-(NSDictionary *)pingServerResponse:(NSDictionary *)response {
+    @try {
+        
+        NSTimeInterval milliseconds = [[NSDate date] timeIntervalSinceDate:self.pingStartTime] * 1000;
+
+        [self.serverPingArray addObject:[NSNumber numberWithDouble:milliseconds]];
+        
+        if (self.numberServerPings < 4) {
+            //send again
+            [self sendServerPings];
+        }else{
+            //calculate average, store in user defaults
+            
+            double total;
+            for (int i = 0; i < [self.serverPingArray count]; i++) {
+                
+                total += [[self.serverPingArray objectAtIndex:i] doubleValue];
+            }
+            
+            double average = total / (double)[self.serverPingArray count];
+            
+            NSString *averageTime = [NSString stringWithFormat:@"%.2f", average];
+            
+            
+            [[NSUserDefaults standardUserDefaults] setValue:averageTime forKey:@"averageServerPingTime"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        self.numberServerPings ++;
+        
+        
+        return [NSDictionary dictionary];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.pingServerResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
+    }
+    
+}
+
 -(NSDictionary *) getPointBalanceResponse:(NSDictionary *)response {
     
     @try {
@@ -1813,6 +1895,16 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             [tempDictionary setValue:[NSNumber numberWithDouble:[mainDelegate.lastLongitude doubleValue]] forKey:@"Longitude"];
         }
         
+        //PingServerResults
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"averageServerPingTime"] length] > 0) {
+            
+            NSString *averageTime = [[NSUserDefaults standardUserDefaults] valueForKey:@"averageServerPingTime"];
+            
+            [ tempDictionary setObject:@"SIGNAL" forKey:@"MeasureType"];//LABEL
+            [ tempDictionary setObject:averageTime forKey:@"MeasureValue"];//VALUE
+            [ tempDictionary setObject:@"GET_SIGNAL_STRENGTH" forKey:@"ActivityType"];//VALUE
+
+        }
         
         NSString *mobileCarrier = @"UNKNOWN";
         @try {
