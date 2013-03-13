@@ -76,7 +76,7 @@
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
 @property (nonatomic, strong) NSString *creditCardExpiration;
 @property (nonatomic, strong) NSString *creditCardSample;
-
+@property BOOL didSetTipDefault;
 
 @property (nonatomic, strong) NSMutableArray *myItemArray;
 

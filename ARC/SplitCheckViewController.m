@@ -63,6 +63,17 @@
 
             
         }
+        
+        
+        if (!self.didSetTipDefault) {
+            //Default Tip to 20%
+            self.dollarTipSegment.selectedSegmentIndex = 1;
+            [self dollarTipSegmentSelect:self.dollarTipSegment];
+            self.percentTipSegment.selectedSegmentIndex = 1;
+            [self percentTipSegmentSelect];
+            
+            self.didSetTipDefault = YES;
+        }
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"SplitCheckViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -480,6 +491,9 @@
         if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
             self.percentTipText.keyboardType = UIKeyboardTypeDecimalPad;
         }
+        
+        
+       
 
     }
     @catch (NSException *e) {

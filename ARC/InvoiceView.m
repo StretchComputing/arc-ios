@@ -167,6 +167,9 @@
             self.isIphone5 = NO;
         }
   
+        //Deafult tip to 20%
+        self.tipSegment.selectedSegmentIndex = 1;
+        [self segmentSelect];
         
     }
     @catch (NSException *e) {

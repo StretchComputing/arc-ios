@@ -656,7 +656,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"sendServerPing"];
         self.pingStartTime = [NSDate date];
-        [request setTimeoutInterval:2];
+        [request setTimeoutInterval:5];
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
@@ -837,7 +837,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         // TODO make logType a function of the restaurant/location -- not sure the best way to do this yet
         NSString *logName = [NSString stringWithFormat:@"api.%@.%@ - %@", [self apiToString], [self readableErrorCode:error], urlString];
-        [rSkybox sendClientLog:logName logMessage:error.localizedDescription logLevel:@"error" exception:nil];
+        
+        if (api != PingServer) {
+            [rSkybox sendClientLog:logName logMessage:error.localizedDescription logLevel:@"error" exception:nil];
+        }
         
         BOOL postNotification = YES;
         BOOL successful = FALSE;
@@ -1526,6 +1529,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
             [[NSUserDefaults standardUserDefaults] setValue:averageTime forKey:@"averageServerPingTime"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            [ArcClient trackEvent:@"GET_SIGNAL_STRENGTH"];
         }
         
         self.numberServerPings ++;
@@ -1901,14 +1905,17 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         }
         
         //PingServerResults
-        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"averageServerPingTime"] length] > 0) {
-            
-            NSString *averageTime = [[NSUserDefaults standardUserDefaults] valueForKey:@"averageServerPingTime"];
-            
-            [ tempDictionary setObject:@"SIGNAL" forKey:@"MeasureType"];//LABEL
-            [ tempDictionary setObject:averageTime forKey:@"MeasureValue"];//VALUE
-            [ tempDictionary setObject:@"GET_SIGNAL_STRENGTH" forKey:@"ActivityType"];//VALUE
-
+        if ([activity isEqualToString:@"GET_SIGNAL_STRENGTH"]) {
+            @try {
+                NSString *averageTime = [[NSUserDefaults standardUserDefaults] valueForKey:@"averageServerPingTime"];
+                
+                [ tempDictionary setObject:@"SIGNAL" forKey:@"MeasureType"];//LABEL
+                [ tempDictionary setObject:averageTime forKey:@"MeasureValue"];//VALUE
+                [ tempDictionary setObject:@"ANALYTICS" forKey:@"ActivityType"];//VALUE
+            }
+            @catch (NSException *exception) {
+                
+            }
         }
         
         NSString *mobileCarrier = @"UNKNOWN";
