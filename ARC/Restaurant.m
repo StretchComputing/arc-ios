@@ -307,7 +307,7 @@
     NSString *serverUrl = [tmp getCurrentUrl];
     
     
-    NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%@.png", serverUrl, self.merchantId];
+    NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%@.jpg", serverUrl, self.merchantId];
     logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
     NSLog(@"LogoImageURL: %@", logoImageUrl);
     
@@ -315,8 +315,18 @@
         
         NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
         
-        if ( data == nil )
+        if ( data == nil ){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                self.logoImageView.image = [UIImage imageNamed:@"silverware.png"];
+
+            
+            });
             return;
+
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             UIImage *logoImage = [UIImage imageWithData:data];
@@ -337,7 +347,7 @@
     ArcClient *tmp = [[ArcClient alloc] init];
     NSString *serverUrl = [tmp getCurrentUrl];
     
-    NSString *helpImageUrl = [NSString stringWithFormat:@"%@Images/App/Receipts/%@.png", serverUrl, self.merchantId];
+    NSString *helpImageUrl = [NSString stringWithFormat:@"%@Images/App/Receipts/%@.jpg", serverUrl, self.merchantId];
     helpImageUrl = [helpImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
     
     dispatch_async(dispatch_get_global_queue(0,0), ^{
@@ -646,7 +656,7 @@
         if (self.helpShowing) {
             
             self.helpShowing = NO;
-            self.checkHelpImageView.hidden = YES;
+            self.helpBackView.hidden = YES;
             
             self.checkNumOne.enabled = YES;
             self.checkNumTwo.enabled = YES;
@@ -661,10 +671,7 @@
             if ([self.hiddenText.text length] > 0) {
                 [self showDoneButton];
             }
-
-            
         }
-        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Restaurant.touchesBegan" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
