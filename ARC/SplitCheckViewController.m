@@ -72,6 +72,8 @@
             self.percentTipSegment.selectedSegmentIndex = 1;
             [self percentTipSegmentSelect];
             
+            self.itemTipSegment.selectedSegmentIndex = 1;
+            [self itemTipSegmentSelect];
             self.didSetTipDefault = YES;
         }
     }
