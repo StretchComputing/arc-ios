@@ -55,7 +55,9 @@
             
             double serviceChargePercent = self.myInvoice.serviceCharge/self.myInvoice.subtotal * 100;
             
-            self.gratNameLabel.text = [NSString stringWithFormat:@"Tip Included - %.0f%%", serviceChargePercent];
+            //self.gratNameLabel.text = [NSString stringWithFormat:@"Tip Included - %.0f%%", serviceChargePercent];
+            
+            self.gratNameLabel.text = [NSString stringWithFormat:@"%.0f%% Tip Included", serviceChargePercent];
             
             BOOL showAlert = YES;
             if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"showedGratuityAlert"] length] > 0) {
@@ -1080,6 +1082,10 @@
 -(void)showAlreadyPaid{
     
     @try {
+        
+        [ArcClient trackEvent:@"SEE_WHO_PAID"];
+
+        
         self.alreadyPaid.hidden = NO;
         self.alreadyPaid.layer.cornerRadius = 2.0;
         self.alreadyPaid.layer.borderWidth = 2.0;

@@ -184,6 +184,9 @@
         if (section == 2){
             
             if (row == 0) {
+                
+                [ArcClient trackEvent:@"RATE_ARC"];
+
                 //rate
                 NSString *str = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa";
                 str = [NSString stringWithFormat:@"%@/wa/viewContentsUserReviews?", str];
@@ -355,6 +358,8 @@
                         if (granted && error == nil) {
                            // NSLog(@"Granted");
                             
+                            [ArcClient trackEvent:@"FACEBOOK_AUTO_ON"];
+
                             [prefs setValue:@"yes" forKey:@"autoPostFacebook"];
                             
                             
@@ -385,7 +390,8 @@
                 }
                 
             }else{
-                
+                [ArcClient trackEvent:@"FACEBOOK_AUTO_OFF"];
+
                 [prefs setValue:@"no" forKey:@"autoPostFacebook"];
             }
             
@@ -418,6 +424,8 @@
                 
                 if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
                     
+                    [ArcClient trackEvent:@"TWITTER_AUTO_ON"];
+
                     [prefs setValue:@"yes" forKey:@"autoPostTwitter"];
                     
                 }else{
@@ -427,6 +435,8 @@
                 
             }else{
                 
+                [ArcClient trackEvent:@"TWITTER_AUTO_OFF"];
+
                 [prefs setValue:@"no" forKey:@"autoPostTwitter"];
             }
             

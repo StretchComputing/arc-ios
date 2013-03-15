@@ -11,6 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "rSkybox.h"
+#import "ArcClient.h"
+
 @interface CustomerServiceViewController ()
 
 @end
@@ -18,6 +20,9 @@
 @implementation CustomerServiceViewController
 
 -(void)viewDidLoad{
+    
+    [ArcClient trackEvent:@"CUSTOMER_SERVICE_VIEW"];
+
     
     CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Feedback"];
     self.navigationItem.titleView = navLabel;
