@@ -17,6 +17,8 @@
 //NSString *_arcUrl = @"http://68.57.205.193:8700/arc-dev/rest/v1/";    //Jim's Place
 //NSString *_arcUrl = @"http://arc-stage.dagher.mobi/rest/v1/";           // STAGE
 
+//NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
+
 //NSString *_arcUrl = @"http://arc-dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
@@ -77,7 +79,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-            _arcUrl = [prefs valueForKey:@"arcUrl"];
+           _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
@@ -389,6 +391,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         @catch (NSException *exception) {
             
         }
+        
+        NSLog(@"TrackEventURL: %@", trackEventUrl);
         
         NSLog(@"RequestString: %@", requestString);
         

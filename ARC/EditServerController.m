@@ -50,9 +50,9 @@
         self.currentServer = 1;
     }else if ([server rangeOfString:@"arc.dagher.net.co"].location != NSNotFound){
         self.currentServer = 2;
-    }else if ([server rangeOfString:@"arc-dev.dagher.mobi"].location != NSNotFound){
+    }else if ([server rangeOfString:@"dev.dagher.mobi"].location != NSNotFound){
         self.currentServer = 5;
-    }else if (([server rangeOfString:@"dtnetwork.dyndns"].location != NSNotFound) || ([server rangeOfString:@"68.57.205.193:8700"].location != NSNotFound)){
+    }else if (([server rangeOfString:@"dtnetwork"].location != NSNotFound) || ([server rangeOfString:@"68.57.205.193:8700"].location != NSNotFound)){
         self.currentServer = 8;
     }
     
