@@ -392,10 +392,7 @@
                 
                 [self.allMerchants addObject:tmpMerchant];
                 [self.matchingMerchants addObject:tmpMerchant];
-                
-        
-                
-                
+  
                 
             }
             
