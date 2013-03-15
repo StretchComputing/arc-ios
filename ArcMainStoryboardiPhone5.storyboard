@@ -3086,7 +3086,7 @@
                                     <rect key="frame" x="40" y="63" width="275" height="75"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <string key="text">Arc is 100% secure.  Your card infomration is encrypted with your personal PIN, and can only be accessed for purchases with your approval.</string>
+                                    <string key="text">Arc is 100% secure.  Your card information is encrypted with your personal PIN, and can only be accessed for purchases with your approval.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
@@ -4087,7 +4087,7 @@
                                                     <rect key="frame" x="33" y="30" width="275" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <string key="text">Arc is 100% secure.  Your card infomration is encrypted with your personal PIN, and can only be accessed for purchases with your approval.</string>
+                                                    <string key="text">Arc is 100% secure.  Your card information is encrypted with your personal PIN, and can only be accessed for purchases with your approval.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
