@@ -1795,13 +1795,15 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 
                 if ([iosVerion length] > 0) {
                     
-                    if (![iosVerion isEqualToString:ARC_VERSION_NUMBER]) {
-                        
+                                    
+                    if ([iosVerion compare:ARC_VERSION_NUMBER options:NSNumericSearch] == NSOrderedDescending) {
+                        // ARC_VERSION_NUMBER is lower than the iosVersion
                         [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowVersionWarning"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
                         [mainDelegate showNewVersionAlert];
                     }
+                    
                     
                     
                 }
