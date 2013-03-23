@@ -11,9 +11,10 @@
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
-
 #import "HomeNavigationController.h"
-
+#import "Tesseract.h"
+#include <math.h>
+static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 
 
@@ -22,6 +23,7 @@
 @end
 
 @implementation Restaurant
+
 
 
 
@@ -384,6 +386,7 @@
 - (void)viewDidLoad
 {
     @try {
+        
         
         self.helpBackView.hidden = YES;
 
@@ -790,6 +793,214 @@
 {
     [UIAppDelegate.connectionSession disconnectFromAllPeers];
     [UIAppDelegate.connectionPeers removeAllObjects];
+}
+
+
+
+
+- (IBAction)takeCheckPicture {
+    
+    self.imagePickerController = [[UIImagePickerController alloc] init];
+    self.imagePickerController.delegate = self;
+    self.imagePickerController.sourceType =  UIImagePickerControllerSourceTypeCamera;
+    
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 50, 320, 5)];
+    lineView.backgroundColor = [ UIColor greenColor];
+    [self.imagePickerController.view addSubview:lineView];
+    
+	[self presentModalViewController:self.imagePickerController animated:YES];
+
+    
+}
+
+
+- (NSString *) applicationDocumentsDirectory
+{
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+	return documentsDirectoryPath;
+}
+
+
+
+
+//http://www.iphonedevsdk.com/forum/iphone-sdk-development/7307-resizing-photo-new-uiimage.html#post33912
+-(UIImage *)resizeImage:(UIImage *)image {
+    
+    
+	CGImageRef imageRef = [image CGImage];
+	CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
+	CGColorSpaceRef colorSpaceInfo = CGColorSpaceCreateDeviceRGB();
+    
+	if (alphaInfo == kCGImageAlphaNone)
+		alphaInfo = kCGImageAlphaNoneSkipLast;
+    
+	int width, height;
+    
+	width = 640;//[image size].width;
+	height = 640;//[image size].height;
+    
+	CGContextRef bitmap;
+    
+	if (image.imageOrientation == UIImageOrientationUp | image.imageOrientation == UIImageOrientationDown) {
+		bitmap = CGBitmapContextCreate(NULL, width, height, CGImageGetBitsPerComponent(imageRef), CGImageGetBytesPerRow(imageRef), colorSpaceInfo, alphaInfo);
+        
+	} else {
+		bitmap = CGBitmapContextCreate(NULL, height, width, CGImageGetBitsPerComponent(imageRef), CGImageGetBytesPerRow(imageRef), colorSpaceInfo, alphaInfo);
+        
+	}
+    
+	if (image.imageOrientation == UIImageOrientationLeft) {
+		NSLog(@"image orientation left");
+		CGContextRotateCTM (bitmap, radians(90));
+		CGContextTranslateCTM (bitmap, 0, -height);
+        
+	} else if (image.imageOrientation == UIImageOrientationRight) {
+		NSLog(@"image orientation right");
+		CGContextRotateCTM (bitmap, radians(-90));
+		CGContextTranslateCTM (bitmap, -width, 0);
+        
+	} else if (image.imageOrientation == UIImageOrientationUp) {
+		NSLog(@"image orientation up");
+        
+	} else if (image.imageOrientation == UIImageOrientationDown) {
+		NSLog(@"image orientation down");
+		CGContextTranslateCTM (bitmap, width,height);
+		CGContextRotateCTM (bitmap, radians(-180.));
+        
+	}
+    
+	CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef);
+	CGImageRef ref = CGBitmapContextCreateImage(bitmap);
+	UIImage *result = [UIImage imageWithCGImage:ref];
+    
+	CGContextRelease(bitmap);
+	CGImageRelease(ref);
+    
+	return result;
+     
+}
+
+
+#pragma mark -
+#pragma mark UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker
+		didFinishPickingImage:(UIImage *)image
+				  editingInfo:(NSDictionary *)editingInfo
+{
+    
+	// Dismiss the image selection, hide the picker and
+    
+	//show the image view with the picked image
+    
+	[picker dismissModalViewControllerAnimated:YES];
+	UIImage *newImage = [self resizeImage:image];
+	//NSString *text = [self ocrImage:newImage];
+ 
+    
+    Tesseract* tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];
+    //[tesseract setVariableValue:@"0123456789CHEK:" forKey:@"tessedit_char_whitelist"];
+    //[tesseract setImage:[UIImage imageNamed:@"untitledReceipt.png"]];
+    [tesseract setImage:newImage];
+    
+    
+    dispatch_queue_t queue = dispatch_queue_create("recognize.task", NULL);
+    dispatch_queue_t main = dispatch_get_main_queue();
+    
+    
+    self.loadingViewController.displayText.text = @"Processing...";
+    self.loadingViewController.view.hidden = NO;
+     dispatch_async(queue,^{
+     
+         @try {
+        
+             [tesseract recognize];
+
+             NSString *foundCheck = @"NOT FOUND";
+             
+             foundCheck = [self getCheckNumberFromString:[tesseract recognizedText]];
+             
+             dispatch_async(main,^{
+     
+                 self.loadingViewController.view.hidden = YES;
+                 
+                 UITextView *tmp = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
+                 tmp.backgroundColor = [UIColor whiteColor];
+                 tmp.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];
+                 tmp.text = [NSString stringWithFormat:@"RESULTS:                                                        Check # FOUND: %@                                                                  Full Results:                                                                 %@", foundCheck, [tesseract recognizedText]];
+                 [self.view addSubview:tmp];
+                 
+                 UIButton *removeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                 [removeButton setTitle:@"Close" forState:UIControlStateNormal];
+                 removeButton.frame = CGRectMake(200, 0, 120, 35);
+                 [tmp addSubview:removeButton];
+                 [removeButton addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
+     
+             });
+    
+         }
+         @catch (NSException *exception) {
+     
+     
+         }
+     
+     
+     });
+     
+    
+
+    
+}
+-(NSString *)getCheckNumberFromString:(NSString *)recognizedText{
+    
+    @try {
+        NSString *returnString = @"";
+        recognizedText = [recognizedText stringByReplacingOccurrencesOfString:@"O" withString:@"0"];
+        if ([recognizedText rangeOfString:@"CHK"].location != NSNotFound) {
+            
+            int location = [recognizedText rangeOfString:@"CHK"].location;
+            
+            NSString *substring = [recognizedText substringFromIndex:location + 4];
+            
+            for (int i = 0; i < 8; i++) {
+                
+                
+                NSCharacterSet *_NumericOnly = [NSCharacterSet decimalDigitCharacterSet];
+                NSCharacterSet *myStringSet = [NSCharacterSet characterSetWithCharactersInString:[substring substringWithRange:NSMakeRange(i, 1)]];
+                
+                if ([_NumericOnly isSupersetOfSet: myStringSet])
+                {
+                    //Is a a number
+                    
+                    returnString = [returnString stringByAppendingString:[substring substringWithRange:NSMakeRange(i, 1)]];
+                }
+                
+                
+                
+            }
+            
+            
+            return returnString;
+            
+            
+        }else{
+            return @"NOT FOUND";
+        }
+    }
+    @catch (NSException *exception) {
+        return @"NOT FOUND";
+    }
+ 
+    
+}
+
+
+-(void)close:(id)sender{
+    
+    UIButton *tmp = (UIButton *)sender;
+    
+    [tmp.superview removeFromSuperview];
 }
 
 

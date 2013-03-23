@@ -15,8 +15,9 @@
 
 @class LoadingViewController;
 
-@interface Restaurant : UIViewController <UITextFieldDelegate >
+@interface Restaurant : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
+@property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) ArcClient *getInvoiceArcClient;
@@ -31,6 +32,7 @@
 @property (nonatomic, strong) NSString *paymentsAccepted;
 @property (nonatomic, strong) UIButton *keyboardSubmitButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
+- (IBAction)takeCheckPicture;
 
 @property BOOL isIphone5;
 @property BOOL helpShowing;
