@@ -52,6 +52,8 @@
 		908AA7A81668632A0020C1FB /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908AA7A61668632A0020C1FB /* AddressBookUI.framework */; };
 		908AB24916696F4C00A318C8 /* FacebookCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = 908AB24816696F4C00A318C8 /* FacebookCheckin.m */; };
 		908B0250169E688B0039EB97 /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 908B024F169E688B0039EB97 /* finger.png */; };
+		908BC0C51701FD1000852B64 /* junkieLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 908BC0C31701FD1000852B64 /* junkieLogo.png */; };
+		908BC0C61701FD1000852B64 /* newBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 908BC0C41701FD1000852B64 /* newBackground.png */; };
 		908C2590164C0C8700AB3684 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 908C258F164C0C8700AB3684 /* blueCheck.png */; };
 		908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2592164C0D1D00AB3684 /* EditServerController.m */; };
 		908D2F67166E4818007B6078 /* Address+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D2F4D166E4817007B6078 /* Address+Additions.m */; };
@@ -389,6 +391,8 @@
 		908AB24716696F4C00A318C8 /* FacebookCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookCheckin.h; sourceTree = "<group>"; };
 		908AB24816696F4C00A318C8 /* FacebookCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookCheckin.m; sourceTree = "<group>"; };
 		908B024F169E688B0039EB97 /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
+		908BC0C31701FD1000852B64 /* junkieLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junkieLogo.png; sourceTree = "<group>"; };
+		908BC0C41701FD1000852B64 /* newBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBackground.png; sourceTree = "<group>"; };
 		908C258F164C0C8700AB3684 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
 		908C2591164C0D1D00AB3684 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
 		908C2592164C0D1D00AB3684 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
@@ -924,6 +928,8 @@
 				9045AEE316FE07910027164B /* Tesseract.mm */,
 				909046E116ECC80100517A14 /* silverware.png */,
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
+				908BC0C31701FD1000852B64 /* junkieLogo.png */,
+				908BC0C41701FD1000852B64 /* newBackground.png */,
 				908B024F169E688B0039EB97 /* finger.png */,
 				90893F9B169DF24F00B08240 /* greyback.png */,
 				90850DD5168E557B00D91F15 /* camera.png */,
@@ -1297,6 +1303,8 @@
 				9045AEDE16FE07860027164B /* .gitignore in Resources */,
 				9045AEE116FE07860027164B /* README.md in Resources */,
 				9045AEE616FE09220027164B /* tessdata in Resources */,
+				908BC0C51701FD1000852B64 /* junkieLogo.png in Resources */,
+				908BC0C61701FD1000852B64 /* newBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

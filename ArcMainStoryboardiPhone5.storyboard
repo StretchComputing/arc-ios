@@ -8,21 +8,44 @@
         <scene sceneID="ovL-Nr-lka">
             <objects>
                 <viewController id="58r-7R-ELZ" customClass="InitialController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="6Ax-3S-w9x">
+                    <view key="view" contentMode="scaleToFill" id="5Hk-9c-s7s">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default.png" id="wBe-e4-uGb">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <view contentMode="scaleToFill" id="4WH-Jo-zDA">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="274"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="Il3-xZ-Fed">
+                                <rect key="frame" x="0.0" y="46" width="320" height="503"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="PEm-0c-8FU" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="15" y="258" width="291" height="42"/>
+                                <fontDescription key="fontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="DmI-i2-GMz">
+                                <rect key="frame" x="7" y="123" width="306" height="148"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="vVi-do-ii3">
+                                <rect key="frame" x="0.0" y="45" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="topLineView" destination="vVi-do-ii3" id="Soy-YV-Xcz"/>
+                        <outlet property="topView" destination="4WH-Jo-zDA" id="t1C-uW-sIV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6s-6I-V3B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2305" y="333"/>
+            <point key="canvasLocation" x="-2773" y="414"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="5">
@@ -103,7 +126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1780" y="649"/>
+            <point key="canvasLocation" x="-1892" y="443"/>
         </scene>
         <!--Register Dwolla View - Register-->
         <scene sceneID="II2-QN-Neg">
@@ -4206,9 +4229,45 @@
             </objects>
             <point key="canvasLocation" x="-1320" y="-584"/>
         </scene>
+        <!--Initial Controller-->
+        <scene sceneID="wI5-zx-TbI">
+            <objects>
+                <viewController id="rQ4-6r-xsG" customClass="InitialController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FW9-dL-KN0">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="mJ9-GM-Cpv">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="571"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="ZxI-3r-Iuz">
+                                        <rect key="frame" x="0.0" y="486" width="320" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.96712477189781032" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="L3l-AL-8wS">
+                                <rect key="frame" x="0.0" y="46" width="320" height="440"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="xgb-Gk-KP6">
+                                <rect key="frame" x="0.0" y="45" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oYW-km-h58" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2326" y="443"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="Default.png" width="320" height="460"/>
         <image name="addCard.png" width="40" height="40"/>
         <image name="arcLogo.png" width="667" height="250"/>
         <image name="blueArrow.png" width="200" height="200"/>
@@ -4217,6 +4276,7 @@
         <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="finger.png" width="210" height="297"/>
         <image name="lock.png" width="48" height="48"/>
+        <image name="newBackground.png" width="640" height="1200"/>
         <image name="qmark.png" width="60" height="60"/>
         <image name="receiptBack.png" width="640" height="832"/>
         <image name="rowButton.png" width="320" height="100"/>
@@ -4230,15 +4290,15 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="o7u-Lj-dwT"/>
         <segue reference="O8u-Ur-2TQ"/>
-        <segue reference="fCb-MI-Uhn"/>
+        <segue reference="NwH-xf-Eq4"/>
         <segue reference="L6b-sc-kgN"/>
         <segue reference="eAj-gy-Yqb"/>
+        <segue reference="9uW-NG-o9G"/>
         <segue reference="dMz-Vz-d6i"/>
         <segue reference="co8-nZ-5K2"/>
-        <segue reference="Ii2-yA-rgx"/>
         <segue reference="Yz7-xF-sKA"/>
         <segue reference="2SM-S0-l6J"/>
-        <segue reference="9uW-NG-o9G"/>
     </inferredMetricsTieBreakers>
 </document>

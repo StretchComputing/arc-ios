@@ -64,4 +64,9 @@
     self.mottoLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:21];
     
 }
+- (void)viewDidUnload {
+    [self setTopView:nil];
+    [self setTopLineView:nil];
+    [super viewDidUnload];
+}
 @end
