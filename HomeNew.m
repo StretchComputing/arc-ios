@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 
-#import "Home.h"
+#import "HomeNew.h"
 #import "Merchant.h"
 #import "Restaurant.h"
 #import "ArcAppDelegate.h"
@@ -16,24 +16,31 @@
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
 #import "SMContactsSelector.h"
+#import "iCarousel.h"
 #import "MFSideMenu.h"
+#import "LucidaBoldLabel.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
 
-@interface Home ()
+
+@interface HomeNew ()
 
 -(void)getMerchantList;
 
+
 @end
 
-@implementation Home
+
+
+
+@implementation HomeNew
 @synthesize sloganLabel;
 
 
 -(void)appActive{
     [self getMerchantList];
-
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -51,11 +58,11 @@
     if (!self.isGettingMerchantList) {
         self.isGettingMerchantList = YES;
         [self getMerchantList];
-
+        
     }
     
     
-   
+    
 }
 
 -(void)customerDeactivated{
@@ -69,15 +76,15 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.customerDeactivated" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
-  
-   
+    
+    
 }
 -(void)logOut{
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account Deactivated" message:@"For security purposes, your account has been remotely deactivated.  If this was done in error, please contact Arc support." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];    
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
@@ -89,15 +96,15 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     
-
+    
     
     @try {
         
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Home"];
-        self.navigationItem.titleView = navLabel;
+        // self.navigationItem.titleView = navLabel;
         
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Home"];
-		self.navigationItem.backBarButtonItem = temp;
+		//self.navigationItem.backBarButtonItem = temp;
         
         
         for (int i = 0; i < [self.allMerchants count]; i++) {
@@ -169,24 +176,25 @@
                 self.overlayTextView.backgroundColor = [UIColor clearColor];
                 double x = 1.4;
                 UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
+                //UIColor *myColor = [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.0];
                 gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
                 [self.overlayTextView.layer insertSublayer:gradient atIndex:0];
                 
                 [self showHintOverlay];
-            
-                NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
-            
-            if (tmp) {
                 
-            }
-            
-            
-            
+                NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
+                
+                if (tmp) {
+                    
+                }
+                
+                
+                
             }
         }
         self.didShowPayment = NO;
         
-    
+        
         
     }
     @catch (NSException *e) {
@@ -199,19 +207,149 @@
     [mainDelegate doPaymentCheck];
 }
 
+-(void)fakeSelection{
+    
+    if (self.carousel.type == iCarouselTypeRotary) {
+        
+        self.carousel.type = iCarouselTypeTimeMachine;
+        self.isRotary = NO;
+    }else{
+        self.carousel.type = iCarouselTypeRotary;
+        self.isRotary = YES;
+    }
+    
+    [self.carousel reloadData];
+    
+    /*
+     [UIView animateWithDuration:1.0 animations:^{
+     CGRect frame = self.checkNumberView.frame;
+     frame.origin.y = 124;
+     frame.size.height = 600;
+     self.checkNumberView.frame = frame;
+     }];
+     
+     */
+}
+
 - (void)viewDidLoad
 {
+    
+    self.payBillButton.text = @"Pay Bill!";
+    self.payBillButton.textColor = [UIColor whiteColor];
+    self.payBillButton.textShadowColor = [UIColor darkGrayColor];
+    self.payBillButton.tintColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+    
+    
+    self.moreInfoButton.text = @"More Info";
+    //self.moreInfoButton.textColor = [UIColor blackColor];
+   // self.moreInfoButton.textShadowColor = [UIColor darkGrayColor];
+    //self.moreInfoButton.tintColor = [UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:225.0/215.0 alpha:1];
+
+    UIViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
+    UIViewController *rightSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rightSide"];
+    
+    
+    
+    [MFSideMenu menuWithNavigationController:self.navigationController
+                      leftSideMenuController:leftSideMenuViewController
+                     rightSideMenuController:rightSideMenuViewController];
+    
+    
+    
+    //Carousel
+    self.roundView.layer.cornerRadius = 9.0;
+    self.navigationController.navigationBarHidden = YES;
+    
+    [self setUp];
+    
+    self.carousel.type = iCarouselTypeCoverFlow2;
+    self.carousel.dataSource = self;
+    self.carousel.delegate = self;
+    self.carousel.backgroundColor = [UIColor clearColor];
+    self.carousel.vertical = NO;
+    [self updateSliders];
+    
+    int y = 96;
+    self.carousel.frame = CGRectMake(0, y, 320, 200);
+    self.carousel.clipsToBounds = YES;
+    
+    
+    self.borderLine1.layer.shadowOffset = CGSizeMake(0, 1);
+    self.borderLine1.layer.shadowRadius = 1;
+    self.borderLine1.layer.shadowOpacity = 0.5;
+    
+    self.borderLine2.layer.shadowOffset = CGSizeMake(0, -1);
+    self.borderLine2.layer.shadowRadius = 1;
+    self.borderLine2.layer.shadowOpacity = 0.5;
+    
+    
     @try {
-
-
+        
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarLogo.png"]
+                                                      forBarMetrics:UIBarMetricsDefault];
+        
+        UIView *verticalLine = [[UIView alloc] initWithFrame:CGRectMake(162, 0, 1, 44)];
+        verticalLine.backgroundColor = [UIColor whiteColor];
+        //[self.navigationController.navigationBar addSubview:verticalLine];
+        
+        UIView *verticalLine1 = [[UIView alloc] initWithFrame:CGRectMake(215, 0, 1, 44)];
+        verticalLine1.backgroundColor = [UIColor whiteColor];
+       // [self.navigationController.navigationBar addSubview:verticalLine1];
+        
+        UIView *verticalLine2 = [[UIView alloc] initWithFrame:CGRectMake(263, 0, 1, 44)];
+        verticalLine2.backgroundColor = [UIColor whiteColor];
+        //[self.navigationController.navigationBar addSubview:verticalLine2];
+        
+        UIView *horizLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+        horizLine.backgroundColor = [UIColor whiteColor];
+       // [self.navigationController.navigationBar addSubview:horizLine];
+        
+        UIView *horizLine2 = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+        horizLine2.backgroundColor = [UIColor whiteColor];
+        horizLine2.layer.shadowOffset = CGSizeMake(-1, 1);
+        horizLine2.layer.shadowRadius = 1;
+        horizLine2.layer.shadowOpacity = 0.5;
+       // [self.navigationController.navigationBar addSubview:horizLine2];
+        
+        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImageView *gearImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 8, 39, 28)];
+        gearImage.image = [UIImage imageNamed:@"newgear.png"];
+        gearImage.contentMode = UIViewContentModeScaleAspectFit;
+        [tmpButton addSubview:gearImage];
+        tmpButton.frame = CGRectMake(263, 0, 53, 44);
+        [tmpButton addTarget:self action:@selector(fakeSelection) forControlEvents:UIControlEventTouchUpInside];
+        // [tmpButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
+        //[self.navigationController.navigationBar addSubview:tmpButton];
         
         
-        UIBarButtonItem *tmp = [[UIBarButtonItem alloc]
-                                initWithImage:[UIImage imageNamed:@"untitledLogo.png"] style:UIBarButtonItemStyleBordered
-                                target:self.navigationController.sideMenu
-                                
-                                action:@selector(toggleRightSideMenu)];
-        self.navigationItem.leftBarButtonItem = tmp;
+        UIButton *tmpButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImageView *lockImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 8, 39, 28)];
+        lockImage.image = [UIImage imageNamed:@"newlock.png"];
+        lockImage.contentMode = UIViewContentModeScaleAspectFit;
+        [tmpButton1 addSubview:lockImage];
+        tmpButton1.frame = CGRectMake(162, 0, 53, 44);
+        // [tmpButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
+       // [self.navigationController.navigationBar addSubview:tmpButton1];
+        
+        
+        
+        UIButton *tmpButton2 = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImageView *friendImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 8, 39, 28)];
+        friendImage.image = [UIImage imageNamed:@"newprofile.png"];
+        friendImage.contentMode = UIViewContentModeScaleAspectFit;
+        [tmpButton2 addSubview:friendImage];
+        tmpButton2.frame = CGRectMake(215, 0, 53, 44);
+        // [tmpButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
+       // [self.navigationController.navigationBar addSubview:tmpButton2];
+        
+        
+        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Arc"];
+        navLabel.frame = CGRectMake(0, 0, 100, 44);
+        //[self.navigationController.navigationBar addSubview:navLabel];
+        
+        self.checkImage.layer.cornerRadius = 6.0;
+        self.checkNumberView.layer.masksToBounds = YES;
+        self.checkNumberView.layer.cornerRadius = 6.0;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referFriendComplete:) name:@"referFriendNotification" object:nil];
         
@@ -225,7 +363,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newLocation) name:@"newLocation" object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActive) name:@"appActive" object:nil];
-
+        
         
         
         self.searchCancelButton.hidden = YES;
@@ -233,8 +371,10 @@
         self.refreshListButton.hidden = YES;
         self.matchingMerchants = [NSMutableArray array];
         self.searchTextField.delegate = self;
-        self.toolbar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+        self.restaurantSegment.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
         
+        // [self.toolbar setBackgroundImage:[UIImage imageNamed:@"navBarLogo.png"]
+        //                  forBarMetrics:UIBarMetricsDefault];
         self.serverData = [NSMutableData data];
         self.allMerchants = [NSMutableArray array];
         self.myTableView.delegate = self;
@@ -257,17 +397,31 @@
         
         self.myTableView.separatorColor = [UIColor darkGrayColor];
         
+        /*
+         CAGradientLayer *gradient = [CAGradientLayer layer];
+         gradient.frame = self.view.bounds;
+         self.view.backgroundColor = [UIColor clearColor];
+         double x = 1.8;
+         UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
+         // UIColor *myColor = [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.0];
+         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+         [self.view.layer insertSublayer:gradient atIndex:0];
+         
+         */
         
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = self.view.bounds;
-        self.view.backgroundColor = [UIColor clearColor];
-        double x = 1.8;
-        UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
-        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-        [self.view.layer insertSublayer:gradient atIndex:0];
+        for (UIView *subview in self.searchBar.subviews)
+        {
+            if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground")])
+            {
+                [subview removeFromSuperview];
+                break;
+            }
+        }
         
-        //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greyback.png"]];
+        //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
         
+        double color = 230.0/255.0;
+        self.view.backgroundColor = [UIColor colorWithRed:color green:color blue:color alpha:1.0];
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
         
         //refresh controller
@@ -277,7 +431,7 @@
         }else{
             self.isIos6 = NO;
         }
-
+        
         if (self.isIos6) {
             self.refreshControl = [[UIRefreshControl alloc] init];
             [self.refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
@@ -286,8 +440,8 @@
             [self setupStrings];
             [self addPullToRefreshHeader];
         }
-     
-
+        
+        
         
     }
     @catch (NSException *e) {
@@ -387,7 +541,7 @@
                 NSDictionary *theMerchant = [merchants objectAtIndex:i];
                 
                 tmpMerchant.name = [theMerchant valueForKey:@"Name"];
-       
+                
                 tmpMerchant.merchantId = [[theMerchant valueForKey:@"Id"] intValue];
                 
                 tmpMerchant.address = [theMerchant valueForKey:@"Street"];
@@ -401,8 +555,14 @@
                 tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
                 
                 [self.allMerchants addObject:tmpMerchant];
+                //[self.allMerchants addObject:tmpMerchant];
+                //[self.allMerchants addObject:tmpMerchant];
+                //[self.allMerchants addObject:tmpMerchant];
+                
                 [self.matchingMerchants addObject:tmpMerchant];
-  
+                //[self.matchingMerchants addObject:tmpMerchant];
+                //[self.matchingMerchants addObject:tmpMerchant];
+                //[self.matchingMerchants addObject:tmpMerchant];
                 
             }
             
@@ -425,7 +585,7 @@
             // must be failure -- user notification handled by ArcClient
             errorMsg = ARC_ERROR_MSG;
         }
-                
+        
         if([errorMsg length] > 0) {
             if ([self.allMerchants count] == 0) {
                 self.errorLabel.text = errorMsg;
@@ -482,8 +642,29 @@
         
         UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
         UILabel *adrLabel = (UILabel *)[cell.contentView viewWithTag:2];
+        UIView *backView = (UIView *)[cell.contentView viewWithTag:5];
+        
+        UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:6];
+        
+        
+        backView.layer.cornerRadius = 5.0;
+        backView.layer.borderWidth = 1.0;
+        backView.layer.borderColor = [[UIColor colorWithRed:150.0/255.0 green:150.0/255.0 blue:150.0/255.0 alpha:1.0] CGColor];
+        
+        backView.layer.shadowOffset = CGSizeMake(-1, 1);
+        backView.layer.shadowRadius = 1;
+        backView.layer.shadowOpacity = 0.5;
         
         nameLabel.text = tmpMerchant.name;
+        
+        
+        imageView.layer.shadowOffset = CGSizeMake(-1, 3);
+        imageView.layer.shadowRadius = 1;
+        imageView.layer.shadowOpacity = 0.5;
+        
+        UIImage *buttonImageNormal = [UIImage imageNamed:@"gradient.png"];
+        UIImage *stretch = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+        imageView.image = stretch;
         
         if (tmpMerchant.address) {
             adrLabel.text = [NSString stringWithFormat:@"%@, %@, %@ %@", tmpMerchant.address, tmpMerchant.city, tmpMerchant.state, tmpMerchant.zipCode];
@@ -491,7 +672,8 @@
             adrLabel.text = @"201 North Ave, Chicago, IL";
         }
         
-        
+        cell.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor = [UIColor clearColor];
         return cell;
         
     }
@@ -501,18 +683,18 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    return 80;
 }
 /*
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-
-{
-    return @"Select a restaurant:";
-}
-
-*/
+ - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+ 
+ {
+ return @"Select a restaurant:";
+ }
+ 
+ */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+    
     
     @try {
         
@@ -528,13 +710,11 @@
             detailViewController.paymentsAccepted = tmpMerchant.paymentsAccepted;
             
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"merchantName"];
-            [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInt:tmpMerchant.merchantId] forKey:@"merchantId"];
-
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.twitterHandler forKey:@"merchantTwitterHandler"];
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.facebookHandler forKey:@"merchantFacebookHandler"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-        } 
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -544,9 +724,9 @@
 - (IBAction)refreshMerchants:(id)sender {
     
     [self.activity startAnimating];
-
+    
     [self getMerchantList];
-
+    
     
 }
 
@@ -593,8 +773,8 @@
             [UIView commitAnimations];
         }
     }
-   
-
+    
+    
 }
 
 
@@ -604,7 +784,7 @@
     self.textPull = @"Pull down to refresh...";
     self.textRelease = @"Release to refresh...";
     self.textLoading = @"Loading...";
- 
+    
 }
 
 
@@ -622,8 +802,8 @@
     
     self.refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
     self.refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT - 27) / 2),
-                                    (floorf(REFRESH_HEADER_HEIGHT - 44) / 2),
-                                    27, 44);
+                                         (floorf(REFRESH_HEADER_HEIGHT - 44) / 2),
+                                         27, 44);
     
     self.refreshSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT - 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
@@ -635,7 +815,7 @@
     
     [self.myTableView addSubview:self.refreshHeaderView];
     
-      
+    
     
     
 }
@@ -657,7 +837,7 @@
         // Released above the header
         [self startLoading];
     }
-
+    
     
 }
 
@@ -673,7 +853,7 @@
         self.refreshArrow.hidden = YES;
         [self.refreshSpinner startAnimating];
     }];
-
+    
     
     // Refresh action!
     [self refresh];
@@ -692,7 +872,7 @@
     
     self.myTableView.contentInset = UIEdgeInsetsZero;
     [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
-   
+    
     [UIView commitAnimations];
 }
 
@@ -702,21 +882,21 @@
     self.refreshLabel.text = self.textPull;
     self.refreshArrow.hidden = NO;
     [self.refreshSpinner stopAnimating];
-
+    
     self.refreshLabel.text = self.textPull;
     self.refreshArrow.hidden = NO;
     [self.refreshSpinner stopAnimating];
-        
+    
 }
 
 //Scroll down to refresh method
 - (void)refresh {
     // Don't forget to call stopLoading at the end.
     self.shouldCallStop = YES;
-            
+    
     [self getMerchantList];
-        
-  
+    
+    
 }
 
 -(void)noPaymentSources{
@@ -728,13 +908,7 @@
 
 
 -(void)inviteFriend{
-
     
-
-    
-    
-  
-    /*
     
     SMContactsSelector *controller = [[SMContactsSelector alloc] initWithNibName:@"SMContactsSelector" bundle:nil];
     controller.delegate = self;
@@ -750,7 +924,7 @@
     //Show tick or not
     controller.showCheckButton = YES; //Mandatory: YES or NO
     [self presentModalViewController:controller animated:YES];
-    */
+    
 }
 
 
@@ -774,7 +948,7 @@
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully invited your friend(s)!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
-                        
+            
             
         }else{
             
@@ -793,7 +967,7 @@
 - (void)numberOfRowsSelected:(NSInteger)numberRows withData:(NSArray *)data andDataType:(DATA_CONTACT)type{
     
     if (numberRows == 0) {
-     //   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Email Addresses" message:@"None of the contacts you selected had email addresses entered." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        //   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Email Addresses" message:@"None of the contacts you selected had email addresses entered." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         //[alert show];
     }else{
         
@@ -816,10 +990,10 @@
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"Home.showHintOverlay" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
-
+        
     }
-   
-  
+    
+    
 }
 
 -(void)hideHintOverlay{
@@ -835,20 +1009,17 @@
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"Home.hideHintOverlay" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
-
+        
     }
-  
-   
+    
+    
 }
 
 -(void)hideOverlay{
     self.hintOverlayView.hidden = YES;
 }
 
-- (void)viewDidUnload {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super viewDidUnload];
-}
+
 
 - (IBAction)searchCancelAction {
     
@@ -858,13 +1029,359 @@
     [self.searchTextField resignFirstResponder];
     
     self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
-
+    
     [self.myTableView reloadData];
+}
+
+-(void)searchEditDidBegin{
+    self.searchCancelButton.hidden = NO;
+}
+- (IBAction)checkNumberDown {
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        CGRect frame = self.checkNumberView.frame;
+        frame.origin.y = 503;
+        self.checkNumberView.frame = frame;
+    }];
 }
 
 
 
--(void)searchEditDidBegin{
-    self.searchCancelButton.hidden = NO;
+
+
+
+
+- (void)setUp
+{
+	//set up data
+	self.wrap = YES;
+	self.items = [NSMutableArray array];
+	for (int i = 0; i < 1000; i++)
+	{
+		[self.items addObject:[NSNumber numberWithInt:i]];
+	}
+}
+
+
+
+- (void)updateSliders
+{
+    switch (self.carousel.type)
+    {
+        case iCarouselTypeLinear:
+        {
+            self.arcSlider.enabled = NO;
+        	self.radiusSlider.enabled = NO;
+            self.tiltSlider.enabled = NO;
+            self.spacingSlider.enabled = YES;
+            break;
+        }
+        case iCarouselTypeCylinder:
+        case iCarouselTypeInvertedCylinder:
+        case iCarouselTypeRotary:
+        case iCarouselTypeInvertedRotary:
+        case iCarouselTypeWheel:
+        case iCarouselTypeInvertedWheel:
+        {
+            self.arcSlider.enabled = YES;
+        	self.radiusSlider.enabled = YES;
+            self.tiltSlider.enabled = NO;
+            self.spacingSlider.enabled = YES;
+            break;
+        }
+        default:
+        {
+            self.arcSlider.enabled = NO;
+        	self.radiusSlider.enabled = NO;
+            self.tiltSlider.enabled = YES;
+            self.spacingSlider.enabled = YES;
+            break;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+- (IBAction)reloadCarousel
+{
+    [self.carousel reloadData];
+}
+
+#pragma mark -
+#pragma mark UIActionSheet methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex	>= 0)
+    {
+        //map button index to carousel type
+        iCarouselType type = buttonIndex;
+        
+        //carousel can smoothly animate between types
+        [UIView beginAnimations:nil context:nil];
+        self.carousel.type = type;
+        [self updateSliders];
+        [UIView commitAnimations];
+        
+        //update title
+        self.navItem.title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    }
+}
+
+#pragma mark -
+#pragma mark iCarousel methods
+
+- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
+{
+    return [self.items count];
+}
+
+- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
+{
+    UILabel *label = nil;
+    
+    //create new view if no view is available for recycling
+    if (view == nil)
+    {
+        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 190.0f)];
+        view.backgroundColor = [UIColor whiteColor];
+        view.layer.borderWidth = 2.0;
+        view.layer.borderColor = [[UIColor blackColor] CGColor];
+        view.layer.cornerRadius = 5.0;
+        
+        view.layer.shadowOffset = CGSizeMake(-1, 3);
+        view.layer.shadowRadius = 1;
+        view.layer.shadowOpacity = 0.5;
+        
+        UIImageView *imageLogo = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 140, 140)];
+        
+        if (index % 2 == 0) {
+            imageLogo.image = [UIImage imageNamed:@"untitledLogo.png"];
+            
+        }else{
+            imageLogo.image = [UIImage imageNamed:@"junkieLogo.png"];
+            
+        }
+        [view addSubview:imageLogo];
+        
+        UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 148, 146, 44)];
+        tmpLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:19];
+        tmpLabel.backgroundColor = [UIColor clearColor];
+        if (index % 2 == 0) {
+            tmpLabel.text = @"Untitled";
+        }else{
+            tmpLabel.text = @"American Junkie";
+        }
+        
+        tmpLabel.textAlignment = UITextAlignmentCenter;
+        [view addSubview:tmpLabel];
+        
+    }
+    else
+    {
+        //get a reference to the label in the recycled view
+    }
+    
+    
+    
+    return view;
+    
+}
+
+- (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+{
+    switch (option)
+    {
+        case iCarouselOptionWrap:
+        {
+            return self.wrap;
+        }
+        case iCarouselOptionFadeMax:
+        {
+            if (self.carousel.type == iCarouselTypeCustom)
+            {
+                return 0.0f;
+            }
+            return value;
+        }
+        case iCarouselOptionArc:
+        {
+            return 2 * M_PI * 0.342;
+        }
+        case iCarouselOptionRadius:
+        {
+            return value * 0.9;
+        }
+        case iCarouselOptionTilt:
+        {
+            return 0.8;
+        }
+        case iCarouselOptionSpacing:
+        {
+            
+            return 0.315;
+            /*
+             if (self.isRotary) {
+             return 1.4;
+             }
+             
+             return value * 0.9;
+             */
+        }
+        default:
+        {
+            return value;
+        }
+            
+    }
+}
+
+
+
+- (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel{
+    
+    if (carousel.currentItemIndex % 2 == 0){
+        self.placeNameLabel.text = @"Untitled";
+        self.placeAddressLabel.text = @"111. W Kinzie Ave, Chicago, IL";
+        
+    }else{
+        self.placeNameLabel.text = @"American Junkie";
+        self.placeAddressLabel.text = @"15. W Illinois St, Chicago, IL";
+        
+    }
+}
+- (IBAction)valueChanged {
+}
+- (IBAction)searchAction {
+    
+    int newy = 46;
+    if (self.searchBar.frame.origin.y == 46) {
+        newy = 7;
+        [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:NO] afterDelay:0.2];
+
+    }else{
+        [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.2];
+    }
+    
+    
+    [UIView animateWithDuration:0.7 animations:^{
+        CGRect frame = self.searchBar.frame;
+        frame.origin.y = newy;
+        self.searchBar.frame = frame;
+    }];
+    
+    
+}
+
+-(void)becomeResp:(NSNumber *)yesOrNo{
+    
+    if ([yesOrNo boolValue]) {
+        [self.searchBar becomeFirstResponder];
+
+    }else{
+        [self.searchBar resignFirstResponder];
+
+    }
+}
+
+-(IBAction)menuAction{
+    [self.navigationController.sideMenu toggleLeftSideMenu];
+    
+}
+- (void)viewDidUnload {
+    [self setPayBillButton:nil];
+    [self setMoreInfoButton:nil];
+    [super viewDidUnload];
+}
+
+-(void)menuBackAction{
+    
+  
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        
+        self.topImageView.frame = CGRectMake(90, 106, 140, 140);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.menuButton.alpha = 1.0;
+        self.backButton.alpha = 0.0;
+        self.carousel.alpha = 1.0;
+        [self.view bringSubviewToFront:self.menuButton];
+        
+    }];
+    self.placeAddressLabel.hidden = NO;
+    self.placeNameLabel.hidden = NO;
+    self.payBillButton.hidden = NO;
+    self.moreInfoButton.hidden = NO;
+    self.searchButton.hidden = NO;
+
+    [self.enterCheckNumberView removeFromSuperview];
+    self.enterCheckNumberView = nil;
+    
+    [self performSelector:@selector(goAway) withObject:nil afterDelay:1.0];
+    
+}
+-(void)goAway{
+    [self.topImageView removeFromSuperview];
+    self.topImageView = nil;
+}
+- (IBAction)payBillAction {
+    
+    self.topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90, 106, 140, 140)];
+    self.topImageView.image = [UIImage imageNamed:@"untitledLogo.png"];
+    [self.view addSubview:self.topImageView];
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        
+        self.topImageView.frame = CGRectMake(0, 46, 320, 130);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.menuButton.alpha = 0.0;
+        self.backButton.alpha = 1.0;
+        self.carousel.alpha = 0.0;
+        [self.view bringSubviewToFront:self.backButton];
+        
+    }];
+    
+    self.placeAddressLabel.hidden = YES;
+    self.placeNameLabel.hidden = YES;
+    self.payBillButton.hidden = YES;
+    self.moreInfoButton.hidden = YES;
+    self.searchButton.hidden = YES;
+    
+    self.enterCheckNumberView = [[UIView alloc] initWithFrame:CGRectMake(0, 175, 320, 35)];
+    self.enterCheckNumberView.backgroundColor = [UIColor clearColor];
+    
+    UIView *backAlphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 35)];
+    backAlphaView.backgroundColor = [UIColor blackColor];
+    backAlphaView.alpha = 0.7;
+    [self.enterCheckNumberView addSubview:backAlphaView];
+    
+    LucidaBoldLabel *tmp = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(5, 0, 320, 35) andSize:18];
+    tmp.textColor = [UIColor whiteColor];
+    tmp.backgroundColor = [UIColor clearColor];
+    tmp.text = @"Please enter your check number:";
+    [self.enterCheckNumberView addSubview:tmp];
+    
+    [self performSelector:@selector(addAlert) withObject:nil afterDelay:0.9];
+    
+    
+    
+}
+
+-(void)addAlert{
+    [self.view addSubview:self.enterCheckNumberView];
+
+}
+- (IBAction)moreInfoAction:(id)sender {
 }
 @end

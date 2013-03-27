@@ -137,6 +137,16 @@
 		90C9736A15A8CC4B00667FF8 /* ArcData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 90C9736815A8CC4B00667FF8 /* ArcData.xcdatamodeld */; };
 		90CCF7DA15D3688600360DE7 /* search.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 90CCF7D915D3688600360DE7 /* search.jpeg */; };
 		90CDE0D817027BC700134AF2 /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0D717027BC700134AF2 /* menuIcon.png */; };
+		90CDE0DB17027C7000134AF2 /* HomeNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CDE0DA17027C7000134AF2 /* HomeNew.m */; };
+		90CDE0DE17027DF900134AF2 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CDE0DD17027DF900134AF2 /* iCarousel.m */; };
+		90CDE0E01702806200134AF2 /* searchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0DF1702806200134AF2 /* searchIcon.png */; };
+		90CDE0E31702869300134AF2 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CDE0E21702869300134AF2 /* LeftViewController.m */; };
+		90CDE0E61702869C00134AF2 /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CDE0E51702869C00134AF2 /* RightViewController.m */; };
+		90CDE0EC17028B0000134AF2 /* menuHelpIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0E717028AFF00134AF2 /* menuHelpIcon.png */; };
+		90CDE0ED17028B0000134AF2 /* menuBillingIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0E817028AFF00134AF2 /* menuBillingIcon.png */; };
+		90CDE0EE17028B0000134AF2 /* menuProfileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0E917028AFF00134AF2 /* menuProfileIcon.png */; };
+		90CDE0EF17028B0000134AF2 /* menuShareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0EA17028B0000134AF2 /* menuShareIcon.png */; };
+		90CDE0F017028B0000134AF2 /* menuHomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */; };
 		90CDF7C915DC91ED00EBF15B /* SplitCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CDF7C815DC91ED00EBF15B /* SplitCheckViewController.m */; };
 		90D25B84159E065A00192F6E /* qmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B83159E065A00192F6E /* qmark.png */; };
 		90D25B87159E0C0600192F6E /* twittetrconnect.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B86159E0C0600192F6E /* twittetrconnect.png */; };
@@ -529,6 +539,20 @@
 		90C9736915A8CC4B00667FF8 /* ArcData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArcData.xcdatamodel; sourceTree = "<group>"; };
 		90CCF7D915D3688600360DE7 /* search.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = search.jpeg; sourceTree = "<group>"; };
 		90CDE0D717027BC700134AF2 /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
+		90CDE0D917027C7000134AF2 /* HomeNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeNew.h; sourceTree = "<group>"; };
+		90CDE0DA17027C7000134AF2 /* HomeNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeNew.m; sourceTree = "<group>"; };
+		90CDE0DC17027DF900134AF2 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		90CDE0DD17027DF900134AF2 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		90CDE0DF1702806200134AF2 /* searchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchIcon.png; sourceTree = "<group>"; };
+		90CDE0E11702869300134AF2 /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
+		90CDE0E21702869300134AF2 /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
+		90CDE0E41702869C00134AF2 /* RightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightViewController.h; sourceTree = "<group>"; };
+		90CDE0E51702869C00134AF2 /* RightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightViewController.m; sourceTree = "<group>"; };
+		90CDE0E717028AFF00134AF2 /* menuHelpIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuHelpIcon.png; sourceTree = "<group>"; };
+		90CDE0E817028AFF00134AF2 /* menuBillingIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuBillingIcon.png; sourceTree = "<group>"; };
+		90CDE0E917028AFF00134AF2 /* menuProfileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuProfileIcon.png; sourceTree = "<group>"; };
+		90CDE0EA17028B0000134AF2 /* menuShareIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuShareIcon.png; sourceTree = "<group>"; };
+		90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuHomeIcon.png; sourceTree = "<group>"; };
 		90CDF7C715DC91ED00EBF15B /* SplitCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitCheckViewController.h; sourceTree = "<group>"; };
 		90CDF7C815DC91ED00EBF15B /* SplitCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitCheckViewController.m; sourceTree = "<group>"; };
 		90D25B83159E065A00192F6E /* qmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qmark.png; sourceTree = "<group>"; };
@@ -910,6 +934,7 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				90CDE0DF1702806200134AF2 /* searchIcon.png */,
 				9045AEE516FE09220027164B /* tessdata */,
 				908D966D16E3A2C7002CADC1 /* CoreLocation.framework */,
 				90E5E5C716D70A010031B17E /* CoreAudio.framework */,
@@ -947,11 +972,20 @@
 				9045AE4616FE07860027164B /* tesseract-ios-lib */,
 				909046BA16EA78F400517A14 /* lock.png */,
 				90CDE0D717027BC700134AF2 /* menuIcon.png */,
+				90CDE0E717028AFF00134AF2 /* menuHelpIcon.png */,
+				90CDE0E817028AFF00134AF2 /* menuBillingIcon.png */,
+				90CDE0E917028AFF00134AF2 /* menuProfileIcon.png */,
+				90CDE0EA17028B0000134AF2 /* menuShareIcon.png */,
+				90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */,
 				9045AEE216FE07910027164B /* Tesseract.h */,
 				908CED8317024213006CC48A /* MFSideMenu.h */,
 				908CED8417024214006CC48A /* MFSideMenu.m */,
 				908CED861702427F006CC48A /* UINavigationController+MFSideMenu.h */,
 				908CED871702427F006CC48A /* UINavigationController+MFSideMenu.m */,
+				90CDE0E11702869300134AF2 /* LeftViewController.h */,
+				90CDE0E21702869300134AF2 /* LeftViewController.m */,
+				90CDE0E41702869C00134AF2 /* RightViewController.h */,
+				90CDE0E51702869C00134AF2 /* RightViewController.m */,
 				908BC0D2170221DB00852B64 /* NVUIGradientButton.h */,
 				908BC0D3170221DB00852B64 /* NVUIGradientButton.m */,
 				9045AEE316FE07910027164B /* Tesseract.mm */,
@@ -964,7 +998,11 @@
 				90893F9B169DF24F00B08240 /* greyback.png */,
 				90850DD5168E557B00D91F15 /* camera.png */,
 				90893FA1169E04CD00B08240 /* blueArrow.png */,
+				90CDE0DC17027DF900134AF2 /* iCarousel.h */,
+				90CDE0DD17027DF900134AF2 /* iCarousel.m */,
 				9096DCFE1632066300106A25 /* CustomMoviePlayerViewController.h */,
+				90CDE0D917027C7000134AF2 /* HomeNew.h */,
+				90CDE0DA17027C7000134AF2 /* HomeNew.m */,
 				9096DCFF1632066300106A25 /* CustomMoviePlayerViewController.m */,
 				908BC0CA1702072600852B64 /* helpImage1.png */,
 				908BC0CB1702072600852B64 /* helpImage3.png */,
@@ -1345,6 +1383,12 @@
 				908BC0CF1702072700852B64 /* helpImage2.png in Resources */,
 				908BC0D11702200400852B64 /* backarrow.png in Resources */,
 				90CDE0D817027BC700134AF2 /* menuIcon.png in Resources */,
+				90CDE0E01702806200134AF2 /* searchIcon.png in Resources */,
+				90CDE0EC17028B0000134AF2 /* menuHelpIcon.png in Resources */,
+				90CDE0ED17028B0000134AF2 /* menuBillingIcon.png in Resources */,
+				90CDE0EE17028B0000134AF2 /* menuProfileIcon.png in Resources */,
+				90CDE0EF17028B0000134AF2 /* menuShareIcon.png in Resources */,
+				90CDE0F017028B0000134AF2 /* menuHomeIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,6 +1497,10 @@
 				908BC0D4170221DB00852B64 /* NVUIGradientButton.m in Sources */,
 				908CED8517024214006CC48A /* MFSideMenu.m in Sources */,
 				908CED881702427F006CC48A /* UINavigationController+MFSideMenu.m in Sources */,
+				90CDE0DB17027C7000134AF2 /* HomeNew.m in Sources */,
+				90CDE0DE17027DF900134AF2 /* iCarousel.m in Sources */,
+				90CDE0E31702869300134AF2 /* LeftViewController.m in Sources */,
+				90CDE0E61702869C00134AF2 /* RightViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
