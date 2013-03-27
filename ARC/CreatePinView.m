@@ -62,6 +62,12 @@
     self.confirmPin = @"";
 
     
+    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.topLineView.layer.shadowRadius = 1;
+    self.topLineView.layer.shadowOpacity = 0.5;
+    
+    self.backView.layer.cornerRadius = 7.0;
+    
     CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Card Protection"];
     self.navigationItem.titleView = navLabel;
     [self.navigationController.navigationItem setHidesBackButton:YES];
@@ -279,4 +285,9 @@
     
 }
 
+- (void)viewDidUnload {
+    [self setTopLineView:nil];
+    [self setBackView:nil];
+    [super viewDidUnload];
+}
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NVUIGradientButton.h"
 
 @interface ResetPasswordViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
@@ -14,9 +15,13 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordText;
 @property (weak, nonatomic) IBOutlet UITextField *confirmText;
 - (IBAction)submitAction;
-@property (weak, nonatomic) IBOutlet UIButton *submitButton;
 
+@property (strong, nonatomic) IBOutlet UIView *backView;
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
 
 @property (nonatomic, strong) NSString *emailAddress;
+@property (strong, nonatomic) IBOutlet UIButton *backAction;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *submitButton;
+- (IBAction)goBackAction;
 
 @end

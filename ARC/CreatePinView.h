@@ -33,6 +33,8 @@
 @property (nonatomic, strong) NSString *securityCode;
 @property (nonatomic, strong) NSString *cardNumber;
 
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
 
+@property (strong, nonatomic) IBOutlet UIView *backView;
 
 @end

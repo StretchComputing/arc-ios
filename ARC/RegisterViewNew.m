@@ -110,6 +110,28 @@
 {
     @try {
         
+        self.nextButton.text = @"Next";
+        self.nextButton.textColor = [UIColor whiteColor];
+        self.nextButton.textShadowColor = [UIColor darkGrayColor];
+        self.nextButton.tintColor = [UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:225.0/215.0 alpha:1];
+        //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
+        self.nextButton.enabled = NO;
+        
+        self.newRegisterButton.text = @"Register!";
+        self.newRegisterButton.textColor = [UIColor whiteColor];
+        self.newRegisterButton.textShadowColor = [UIColor darkGrayColor];
+        self.newRegisterButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1];
+        //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
+        
+        
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 1;
+        self.topLineView.layer.shadowOpacity = 0.5;
+        
+        self.backView.layer.cornerRadius = 7.0;
+        
+        
+        
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         self.loadingViewController.view.hidden = YES;
@@ -249,6 +271,45 @@
    
 }
 
+-(void)goTo3{
+    
+    if ([self isValidEntries] && [self validateEmail:self.emailText.text]){
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            self.nextButton.hidden = YES;
+            [self.myScrollView setContentOffset:CGPointMake(320, 0) animated:NO];
+        }];
+        
+        [self hideDoneButton];
+        self.pageNumber = 3;
+        self.errorLabel.text = @"";
+        //self.regTitleLabel.text = @"Add A Card";
+        
+        self.registerButton = [[CorbelBarButtonItem alloc] initWithTitleText:@"Submit"];
+        [self.registerButton setTarget:self];
+        [self.registerButton setAction:@selector(registerNow:)];
+        
+        self.registerButton.tintColor = [UIColor blueColor];
+        
+        self.navigationItem.rightBarButtonItem = self.registerButton;
+        
+        
+        [self.creditCardNumberText becomeFirstResponder];
+        
+    }else{
+        
+        if (![self validateEmail:self.emailText.text]) {
+            
+            self.errorLabel.text = @"Please enter a valid email address.";
+
+        }else{
+            self.errorLabel.text = @"Please enter all fields.";
+
+        }
+    }
+     
+    
+}
 
 - (IBAction)goNext {
     
@@ -492,7 +553,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
  
-    return 44;
+    return 40;
 }
 
 
@@ -619,9 +680,14 @@
 -(void)checkValid{
     @try {
         if ([self isValidEntries]) {
-            [self showDoneButton];
+            self.nextButton.enabled = YES;
+            self.nextButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1];
+
         }else{
-            [self hideDoneButton];
+            self.nextButton.enabled = NO;
+            self.nextButton.tintColor = [UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:215.0/255.0 alpha:1];
+
+            
         }
     }
     @catch (NSException *exception) {
@@ -1021,6 +1087,9 @@
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 		NSDictionary *loginDict = [[NSDictionary alloc] init];
+        
+        self.firstNameText.text = @"none";
+        self.lastNameText.text = @"none";
         
 		[ tempDictionary setObject:self.firstNameText.text forKey:@"FirstName"];
 		[ tempDictionary setObject:self.lastNameText.text forKey:@"LastName"];

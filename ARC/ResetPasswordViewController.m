@@ -40,6 +40,19 @@
 
 -(void)viewDidLoad{
     
+    self.submitButton.text = @"Submit";
+    self.submitButton.textColor = [UIColor whiteColor];
+    self.submitButton.textShadowColor = [UIColor darkGrayColor];
+    self.submitButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1];
+    ////self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
+    
+    
+    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.topLineView.layer.shadowRadius = 1;
+    self.topLineView.layer.shadowOpacity = 0.5;
+    
+    self.backView.layer.cornerRadius = 7.0;
+    
     CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Password Reset"];
     self.navigationItem.titleView = navLabel;
     
@@ -139,4 +152,8 @@
     
 }
 
+
+- (IBAction)goBackAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

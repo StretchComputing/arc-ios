@@ -15,6 +15,9 @@
 #import "rSkybox.h"
 #import "LucidaBoldLabel.h"
 #import "CorbelTextField.h"
+#import "NVUIGradientButton.h"
+#import "MFSideMenu.h"
+#import "HomeNavigationController.h"
 
 @interface ViewController ()
 
@@ -77,9 +80,65 @@
     [self.password becomeFirstResponder];
 }
 
+
+
+-(void)goHomePage{
+    
+    /*
+    
+    
+    UIViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
+    UIViewController *rightSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rightSide"];
+    
+    UIViewController *tmp2 = [[UIViewController alloc] init];
+    tmp2.view.frame = CGRectMake(0, 0, 320, 480);
+    tmp2.view.backgroundColor = [UIColor purpleColor];
+    
+    UINavigationController *tmp = [[UINavigationController alloc] initWithRootViewController:tmp2];
+
+    
+    MFSideMenu *menu = [MFSideMenu menuWithNavigationController:tmp
+                      leftSideMenuController:leftSideMenuViewController
+                     rightSideMenuController:rightSideMenuViewController];
+    
+    
+ 
+    
+
+    
+    [self presentModalViewController:menu.navigationController animated:NO];
+     
+    
+
+    */
+    
+    
+}
+
+
+
 - (void)viewDidLoad
 {
     @try {
+        
+        
+        self.signInButton.text = @"Sign In";
+        self.signInButton.textColor = [UIColor whiteColor];
+        self.signInButton.textShadowColor = [UIColor darkGrayColor];
+        self.signInButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1];
+        //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
+        
+        
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 1;
+        self.topLineView.layer.shadowOpacity = 0.5;
+        
+        self.backView.layer.cornerRadius = 7.0;
+
+        
+        
+        
+        
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 44, 320, self.view.frame.size.height);
@@ -100,7 +159,7 @@
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
         
-        self.username = [[CorbelTextField alloc] initWithFrame:CGRectMake(95, 10, 205, 20)];
+        self.username = [[CorbelTextField alloc] initWithFrame:CGRectMake(10, 11, 290, 20)];
         self.username.autocorrectionType = UITextAutocorrectionTypeNo;
         self.username.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.username.font = [UIFont fontWithName:@"LucidaGrande" size:14];
@@ -108,7 +167,7 @@
         self.username.keyboardType = UIKeyboardTypeEmailAddress;
         [self.username addTarget:self action:@selector(selectPassword) forControlEvents:UIControlEventEditingDidEndOnExit];
         
-        self.password = [[CorbelTextField alloc] initWithFrame:CGRectMake(95, 10, 205, 20)];
+        self.password = [[CorbelTextField alloc] initWithFrame:CGRectMake(10, 11, 290, 20)];
         self.password.autocorrectionType = UITextAutocorrectionTypeNo;
         self.password.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.password.secureTextEntry = YES;
@@ -158,7 +217,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -213,11 +272,12 @@
                 fieldLabel.text = @"Email";
                 
                 [cell.contentView addSubview:self.username];
-                
+                self.username.placeholder = @"Email Address";
                 cell.isAccessibilityElement = YES;
                 cell.accessibilityLabel = @"user name";
             }else if (row == 1){
                 fieldLabel.text = @"Password";
+                self.password.placeholder = @"Password";
                 [cell.contentView addSubview:self.password];
                 
                 cell.isAccessibilityElement = YES;
@@ -228,6 +288,7 @@
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
+            fieldLabel.hidden = YES;
             
         }else{
             
@@ -250,7 +311,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 35;
+    return 40;
 }
 
 -(void)runSignIn{
@@ -313,7 +374,7 @@
             [tmp updatePushToken];
             
             [self performSegueWithIdentifier: @"signIn" sender: self];
-            
+            //[self goHomePage];
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didJustLogin"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
@@ -374,5 +435,9 @@
 
 -(void)forgotPassword{
     [self performSegueWithIdentifier:@"forgotPassword" sender:self];
+}
+
+- (IBAction)backAction {
+    [self dismissModalViewControllerAnimated:YES];
 }
 @end

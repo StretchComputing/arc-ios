@@ -16,6 +16,7 @@
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
 #import "SMContactsSelector.h"
+#import "MFSideMenu.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -202,6 +203,22 @@
 {
     @try {
 
+        UIViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
+        UIViewController *rightSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rightSide"];
+  
+        
+        
+        [MFSideMenu menuWithNavigationController:self.navigationController
+                                             leftSideMenuController:leftSideMenuViewController
+                                            rightSideMenuController:rightSideMenuViewController];
+        
+        
+        UIBarButtonItem *tmp = [[UIBarButtonItem alloc]
+                                initWithImage:[UIImage imageNamed:@"untitledLogo.png"] style:UIBarButtonItemStyleBordered
+                                target:self.navigationController.sideMenu
+                                
+                                action:@selector(toggleRightSideMenu)];
+        self.navigationItem.leftBarButtonItem = tmp;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referFriendComplete:) name:@"referFriendNotification" object:nil];
         
@@ -720,6 +737,12 @@
 -(void)inviteFriend{
 
     
+
+    
+    
+  
+    /*
+    
     SMContactsSelector *controller = [[SMContactsSelector alloc] initWithNibName:@"SMContactsSelector" bundle:nil];
     controller.delegate = self;
     
@@ -734,7 +757,7 @@
     //Show tick or not
     controller.showCheckButton = YES; //Mandatory: YES or NO
     [self presentModalViewController:controller animated:YES];
-    
+    */
 }
 
 

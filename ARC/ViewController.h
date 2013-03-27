@@ -8,14 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "LoadingViewController.h"
+#import "NVUIGradientButton.h"
+#import "MFSideMenu.h"
 
-@class LoadingViewController;
+@class LoadingViewController, MFSideMenu;
 
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+
+@property (nonatomic, strong) MFSideMenu *mySideMenu;
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *registerButton;
+
+@property (nonatomic, strong) IBOutlet NVUIGradientButton *signInButton;
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, strong) UITextField *username;
@@ -31,5 +37,8 @@
 @property BOOL autoSignIn;
 -(IBAction)signIn;
 -(IBAction)forgotPassword;
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+- (IBAction)backAction;
 
 @end

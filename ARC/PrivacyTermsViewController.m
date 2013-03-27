@@ -7,6 +7,7 @@
 //
 
 #import "PrivacyTermsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PrivacyTermsViewController ()
 
@@ -21,10 +22,10 @@
     NSString *documentPath;
     
     if (self.isPrivacy) {
-        self.title = @"Privacy";
+        self.topLabel.text = @"Privacy";
         documentPath = [[NSBundle mainBundle] pathForResource:@"privacy" ofType:@"pdf"];
     }else{
-        self.title = @"Terms of Use";
+        self.topLabel.text = @"Terms of Use";
         documentPath = [[NSBundle mainBundle] pathForResource:@"terms" ofType:@"pdf"];
     }
     
@@ -38,10 +39,18 @@
 
 -(void)viewDidLoad{
 
-
+    self.navigationController.navigationBarHidden = YES;
+    
+    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.topLineView.layer.shadowRadius = 1;
+    self.topLineView.layer.shadowOpacity = 0.5;
+    
+    self.backView.layer.cornerRadius = 7.0;
+    
 }
 
 -(void)doneReading{
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
 @end

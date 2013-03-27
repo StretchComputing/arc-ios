@@ -22,6 +22,13 @@
     
     @try {
         
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 1;
+        self.topLineView.layer.shadowOpacity = 0.5;
+        
+        self.topView.layer.cornerRadius = 7.0;
+        
+        
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
         NSString *customerId = [prefs stringForKey:@"customerId"];
@@ -38,9 +45,12 @@
             UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
             [self presentModalViewController:home animated:NO];
         }else{
-            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInPage"];
+            
+            
+            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
             [self presentModalViewController:home animated:NO];
         }
+         
          
     }
     @catch (NSException *e) {

@@ -11,11 +11,21 @@
 #import "CardIO.h"
 #import <Accounts/Accounts.h>
 #import "LoadingViewController.h"
+#import "NVUIGradientButton.h"
+#import "LucidaBoldLabel.h"
 
 @class LoadingViewController;
 
 @interface RegisterViewNew : UIViewController <UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
 
+
+@property (nonatomic, strong) IBOutlet UIView *topLineView;
+@property (nonatomic, strong) IBOutlet UIView *backView;
+
+@property (nonatomic, strong) IBOutlet NVUIGradientButton *nextButton;
+@property (nonatomic, strong, getter = getRegButton) IBOutlet NVUIGradientButton *newRegisterButton;
+
+@property (nonatomic, strong) IBOutlet LucidaBoldLabel *regTitleLabel;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) ACAccountStore *store;
 @property (nonatomic, strong) UIButton *keyboardSubmitButton;
@@ -68,5 +78,7 @@
 
 
 -(IBAction)scanCard;
+-(IBAction)goTo3;
+
 
 @end
