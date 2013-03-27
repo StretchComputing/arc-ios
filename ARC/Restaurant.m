@@ -12,7 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
-#import "Tesseract.h"
+
 #include <math.h>
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
@@ -800,6 +800,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (IBAction)takeCheckPicture {
     
+    /*
     self.imagePickerController = [[UIImagePickerController alloc] init];
     self.imagePickerController.delegate = self;
     self.imagePickerController.sourceType =  UIImagePickerControllerSourceTypeCamera;
@@ -810,7 +811,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     [self.imagePickerController.view addSubview:lineView];
     
 	[self presentModalViewController:self.imagePickerController animated:YES];
-
+     */
     
 }
 
@@ -828,7 +829,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 //http://www.iphonedevsdk.com/forum/iphone-sdk-development/7307-resizing-photo-new-uiimage.html#post33912
 -(UIImage *)resizeImage:(UIImage *)image {
     
-    
+    /*
 	CGImageRef imageRef = [image CGImage];
 	CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
 	CGColorSpaceRef colorSpaceInfo = CGColorSpaceCreateDeviceRGB();
@@ -879,7 +880,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 	CGImageRelease(ref);
     
 	return result;
-     
+     */
+    return nil;
 }
 
 
@@ -889,6 +891,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 		didFinishPickingImage:(UIImage *)image
 				  editingInfo:(NSDictionary *)editingInfo
 {
+    
+    /*
     
 	// Dismiss the image selection, hide the picker and
     
@@ -948,7 +952,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
      
      });
      
-    
+    */
 
     
 }
