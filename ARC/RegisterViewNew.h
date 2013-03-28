@@ -35,7 +35,7 @@
 @property BOOL isDelete;
 @property (nonatomic, strong) IBOutlet UIButton *facebookButton;
 
-
+@property BOOL isInsideApp;
 @property CGPoint scrollViewOffset;
 
 @property BOOL didFirstRun;

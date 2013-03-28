@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NVUIGradientButton.h"
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface EditCreditCard : UITableViewController <UITextFieldDelegate>
 
 @property BOOL pinDidChange;
 @property BOOL isFromPayment;
-
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property BOOL isIos6;
 @property BOOL shouldIgnoreValueChanged;
 @property BOOL shouldIgnoreValueChangedExpiration;
@@ -33,6 +37,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationMonthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationYearLabel;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *editPinButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *saveChangesButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *deleteButton;
 
 @property (nonatomic, strong) NSString *creditCardNumber;
 @property (nonatomic, strong) NSString *creditCardSecurityCode;

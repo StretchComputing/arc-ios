@@ -35,4 +35,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)signOutAction {
+}
+
+- (IBAction)logInAction {
+}
+
+- (IBAction)createAction {
+}
+- (IBAction)endText {
+}
 @end

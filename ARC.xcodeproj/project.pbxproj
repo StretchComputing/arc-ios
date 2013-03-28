@@ -54,6 +54,8 @@
 		908BC0CF1702072700852B64 /* helpImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 908BC0CC1702072600852B64 /* helpImage2.png */; };
 		908BC0D11702200400852B64 /* backarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 908BC0D01702200400852B64 /* backarrow.png */; };
 		908BC0D4170221DB00852B64 /* NVUIGradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 908BC0D3170221DB00852B64 /* NVUIGradientButton.m */; };
+		908C0CAA1703C397003E004E /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C0CA91703C397003E004E /* ProfileViewController.m */; };
+		908C0CAD1703F139003E004E /* SupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C0CAC1703F139003E004E /* SupportViewController.m */; };
 		908C2590164C0C8700AB3684 /* blueCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 908C258F164C0C8700AB3684 /* blueCheck.png */; };
 		908C2593164C0D1D00AB3684 /* EditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2592164C0D1D00AB3684 /* EditServerController.m */; };
 		908CED8517024214006CC48A /* MFSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 908CED8417024214006CC48A /* MFSideMenu.m */; };
@@ -264,6 +266,10 @@
 		908BC0D01702200400852B64 /* backarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrow.png; sourceTree = "<group>"; };
 		908BC0D2170221DB00852B64 /* NVUIGradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVUIGradientButton.h; sourceTree = "<group>"; };
 		908BC0D3170221DB00852B64 /* NVUIGradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NVUIGradientButton.m; sourceTree = "<group>"; };
+		908C0CA81703C397003E004E /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		908C0CA91703C397003E004E /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		908C0CAB1703F139003E004E /* SupportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportViewController.h; sourceTree = "<group>"; };
+		908C0CAC1703F139003E004E /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportViewController.m; sourceTree = "<group>"; };
 		908C258F164C0C8700AB3684 /* blueCheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueCheck.png; sourceTree = "<group>"; };
 		908C2591164C0D1D00AB3684 /* EditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditServerController.h; sourceTree = "<group>"; };
 		908C2592164C0D1D00AB3684 /* EditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditServerController.m; sourceTree = "<group>"; };
@@ -635,6 +641,8 @@
 				908CED8417024214006CC48A /* MFSideMenu.m */,
 				908CED861702427F006CC48A /* UINavigationController+MFSideMenu.h */,
 				908CED871702427F006CC48A /* UINavigationController+MFSideMenu.m */,
+				908C0CAB1703F139003E004E /* SupportViewController.h */,
+				908C0CAC1703F139003E004E /* SupportViewController.m */,
 				90CDE0E11702869300134AF2 /* LeftViewController.h */,
 				90CDE0E21702869300134AF2 /* LeftViewController.m */,
 				90CDE0E41702869C00134AF2 /* RightViewController.h */,
@@ -839,6 +847,8 @@
 				9F34F57215CF0CE30084184B /* ArcClient.m */,
 				9F7B4D6D1620F3FA007EC356 /* ArcUtility.h */,
 				9F7B4D6E1620F3FA007EC356 /* ArcUtility.m */,
+				908C0CA81703C397003E004E /* ProfileViewController.h */,
+				908C0CA91703C397003E004E /* ProfileViewController.m */,
 			);
 			path = ARC;
 			sourceTree = "<group>";
@@ -1149,6 +1159,8 @@
 				90CDE0DE17027DF900134AF2 /* iCarousel.m in Sources */,
 				90CDE0E31702869300134AF2 /* LeftViewController.m in Sources */,
 				90CDE0E61702869C00134AF2 /* RightViewController.m in Sources */,
+				908C0CAA1703C397003E004E /* ProfileViewController.m in Sources */,
+				908C0CAD1703F139003E004E /* SupportViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

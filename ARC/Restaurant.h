@@ -12,10 +12,17 @@
 #import "CorbelTextView.h"
 #import "ArcClient.h"
 #import "LoadingViewController.h"
+#import "NVUIGradientButton.h"
 
 @class LoadingViewController;
 
 @interface Restaurant : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *submitButton;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
+@property (strong, nonatomic) IBOutlet UIButton *popAction;
+- (IBAction)goBackAction;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *closeHelpButton;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
@@ -26,7 +33,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
+//@property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumFive;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumSix;
 @property (nonatomic, strong) NSString *paymentsAccepted;

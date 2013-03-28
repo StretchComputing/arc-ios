@@ -36,7 +36,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
     if (!self.selectCardIo) {
         [self.creditCardNumberText becomeFirstResponder];
     }else{
-        [self showDoneButton];
+       // [self showDoneButton];
     }
 
 }
@@ -51,6 +51,8 @@ NSString *const AMERICAN_EXPRESS = @"A";
 }
 -(void)viewWillAppear:(BOOL)animated{
     
+    self.navigationController.navigationBarHidden = NO;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
@@ -59,6 +61,12 @@ NSString *const AMERICAN_EXPRESS = @"A";
 -(void)viewDidLoad{
     @try {
         
+ 
+        
+        self.addCardButton.text = @"Add Card";
+        
+        self.addCardButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1.0];
+        self.addCardButton.textColor = [UIColor whiteColor];
         
         if(NSClassFromString(@"UIRefreshControl")) {
             self.isIos6 = YES;
@@ -67,11 +75,11 @@ NSString *const AMERICAN_EXPRESS = @"A";
         }
        
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Add Card"];
-        self.navigationItem.titleView = navLabel;
+        //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Add Card"];
+        //self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Add Card"];
-		self.navigationItem.backBarButtonItem = temp;
+        //CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Add Card"];
+		//self.navigationItem.backBarButtonItem = temp;
         
         [rSkybox addEventToSession:@"viewAddCreditCardScreen"];
         
@@ -103,13 +111,55 @@ NSString *const AMERICAN_EXPRESS = @"A";
         [self.creditCardSecurityCodeText setClearButtonMode:UITextFieldViewModeWhileEditing];
         [self.expirationText setClearButtonMode:UITextFieldViewModeWhileEditing];
 
+        [self.navigationController.navigationItem setHidesBackButton:YES];
+        [self.navigationItem setHidesBackButton:YES];
         
+        self.title = @"";
+        
+        
+        UIView *backView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+        backView1.backgroundColor = [UIColor blackColor];
+        [self.navigationController.navigationBar addSubview:backView1];
+        
+        
+        
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+        backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
+        backView.layer.cornerRadius = 7.0;
+    
+        [self.navigationController.navigationBar addSubview:backView];
+        
+        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+        lineView.backgroundColor = [UIColor blackColor];
+        [self.navigationController.navigationBar addSubview:lineView];
+        
+        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tmpButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
+        tmpButton.frame = CGRectMake(7, 7, 30, 30);
+        [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationController.navigationBar addSubview:tmpButton];
+        
+        LucidaBoldLabel *tmpLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
+        tmpLabel.text = @"Add A Card";
+        tmpLabel.textAlignment = UITextAlignmentCenter;
+        [self.navigationController.navigationBar addSubview:tmpLabel];
+
+        
+        UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
+        imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
+        
+        self.tableView.backgroundView = imageBackView;
         
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"AddCreditCard.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
+}
+
+-(void)goBackOne{
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (IBAction)editBegin:(id)sender {
@@ -183,7 +233,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
 -(void)keyboardWillShow:(id)sender{
     @try {
         
-        [self showDoneButton];
+        //[self showDoneButton];
         
     }
     @catch (NSException *e) {
@@ -283,7 +333,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         //self.hideKeyboardView = nil;
         self.pickerView = nil;
         
-        [self showDoneButton];
+       // [self showDoneButton];
         
         if (sender.tag == 22) {
             //month
@@ -509,7 +559,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         
        // NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
         //[ArcClient trackEvent:action];
-        
+        [self.navigationController setNavigationBarHidden:YES];
         [self.navigationController pushViewController:tmp animated:NO];
 
         
@@ -873,4 +923,8 @@ NSString *const AMERICAN_EXPRESS = @"A";
     
 }
 
+- (void)viewDidUnload {
+    [self setAddCardButton:nil];
+    [super viewDidUnload];
+}
 @end

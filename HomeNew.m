@@ -19,6 +19,7 @@
 #import "iCarousel.h"
 #import "MFSideMenu.h"
 #import "LucidaBoldLabel.h"
+#import "LeftViewController.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -89,6 +90,8 @@
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"arcLoginType"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"customerEmail"];
+
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self.navigationController dismissModalViewControllerAnimated:NO];
@@ -117,13 +120,18 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out.  You may continue to use Arc as a guest." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
             [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"arcLoginType"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"customerEmail"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            [self.navigationController dismissModalViewControllerAnimated:NO];
+           // [self.navigationController dismissModalViewControllerAnimated:NO];
             
         }
         
@@ -245,16 +253,16 @@
    // self.moreInfoButton.textShadowColor = [UIColor darkGrayColor];
     //self.moreInfoButton.tintColor = [UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:225.0/215.0 alpha:1];
 
-    UIViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
+    LeftViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
     UIViewController *rightSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rightSide"];
     
     
     
-    [MFSideMenu menuWithNavigationController:self.navigationController
+    MFSideMenu *menu = [MFSideMenu menuWithNavigationController:self.navigationController
                       leftSideMenuController:leftSideMenuViewController
                      rightSideMenuController:rightSideMenuViewController];
     
-    
+    leftSideMenuViewController.sideMenu = menu;
     
     //Carousel
     self.roundView.layer.cornerRadius = 9.0;
@@ -700,10 +708,10 @@
         
         if ([[segue identifier] isEqualToString:@"goRestaurant"]) {
             
-            NSIndexPath *selectedRowIndex = [self.myTableView indexPathForSelectedRow];
+            //NSIndexPath *selectedRowIndex = [self.myTableView indexPathForSelectedRow];
             Restaurant *detailViewController = [segue destinationViewController];
             
-            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:[selectedRowIndex row]];
+            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:0];
             
             detailViewController.merchantId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
             detailViewController.name = tmpMerchant.name;
@@ -1262,14 +1270,14 @@
     int newy = 46;
     if (self.searchBar.frame.origin.y == 46) {
         newy = 7;
-        [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:NO] afterDelay:0.2];
+        [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:NO] afterDelay:0.0];
 
     }else{
-        [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.2];
+        [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:YES] afterDelay:0.0];
     }
     
     
-    [UIView animateWithDuration:0.7 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         CGRect frame = self.searchBar.frame;
         frame.origin.y = newy;
         self.searchBar.frame = frame;
@@ -1334,6 +1342,8 @@
 }
 - (IBAction)payBillAction {
     
+    [self performSegueWithIdentifier:@"goRestaurant" sender:self];
+    /*
     self.topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90, 106, 140, 140)];
     self.topImageView.image = [UIImage imageNamed:@"untitledLogo.png"];
     [self.view addSubview:self.topImageView];
@@ -1374,7 +1384,7 @@
     
     [self performSelector:@selector(addAlert) withObject:nil afterDelay:0.9];
     
-    
+    */
     
 }
 

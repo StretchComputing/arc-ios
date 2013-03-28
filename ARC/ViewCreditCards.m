@@ -13,6 +13,8 @@
 #import "rSkybox.h"
 #import "ArcClient.h"
 #import "SettingsView.h"
+#import "MFSideMenu.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ViewCreditCards ()
 
@@ -33,7 +35,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     
-    
+    self.navigationController.navigationBarHidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     
     @try {
@@ -47,8 +49,18 @@
             [self deleteCurrentCard];
         }
         
+        if (self.creditCardAdded) {
+            self.creditCardAdded = NO;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Added!" message:@"You have successfully added a new credit card!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+        
+        [self.myTableView reloadData];
+        NSLog(@"Count: %d", [self.creditCards count]);
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewCreditCards.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -111,6 +123,12 @@
 
 -(void)viewDidLoad{
     @try {
+        
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 1;
+        self.topLineView.layer.shadowOpacity = 0.5;
+        
+        self.backView.layer.cornerRadius = 7.0;
         
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Cards"];
         self.navigationItem.titleView = navLabel;
@@ -229,7 +247,13 @@
         }
         
         if (row == lastRow) {
-            [self performSegueWithIdentifier:@"addCard" sender:self];
+            
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+                [self performSegueWithIdentifier:@"addCard" sender:self];
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users can add credit cards. Please go to the Profile section to log in or create an account." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
         }else{
             if ([self.creditCards count] != 0) {
                 
@@ -290,4 +314,14 @@
 
 
 
+- (IBAction)openMenuAction {
+    
+    [self.navigationController.sideMenu toggleLeftSideMenu];
+
+}
+- (void)viewDidUnload {
+    [self setBackView:nil];
+    [self setTopLineView:nil];
+    [super viewDidUnload];
+}
 @end

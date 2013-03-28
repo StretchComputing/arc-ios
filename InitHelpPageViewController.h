@@ -18,4 +18,5 @@
 @property (strong, nonatomic) IBOutlet UIView *vertLine1;
 @property (strong, nonatomic) IBOutlet UIView *vertLine2;
 
+-(IBAction)startUsingAction;
 @end

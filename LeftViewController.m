@@ -7,32 +7,50 @@
 //
 
 #import "LeftViewController.h"
-
+#import "HomeNavigationController.h"
 @interface LeftViewController ()
 
 @end
 
 @implementation LeftViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+-(void)viewdidLoad{
+    
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+-(IBAction)homeSelected{
+    
+    [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
+    [self.sideMenu toggleLeftSideMenu];
+    
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(IBAction)profileSelected{
+    
+    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"profile"];
+    [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
+    [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
+    [self.sideMenu toggleLeftSideMenu];
+    
 }
-
+-(IBAction)billingSelected{
+    
+    
+    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"allCards"];
+    [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
+    [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
+    [self.sideMenu toggleLeftSideMenu];
+ 
+    
+}
+-(IBAction)supportSelected{
+    
+    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"supportVC"];
+    [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
+    [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
+    [self.sideMenu toggleLeftSideMenu];
+    
+}
+-(IBAction)shareSelected{
+    
+}
 @end

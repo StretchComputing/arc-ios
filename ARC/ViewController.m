@@ -373,11 +373,18 @@
             ArcClient *tmp = [[ArcClient alloc] init];
             [tmp updatePushToken];
             
-            [self performSegueWithIdentifier: @"signIn" sender: self];
             //[self goHomePage];
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didJustLogin"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
+            if (self.isInsideApp) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully signed in." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                [alert show];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [self performSegueWithIdentifier: @"signIn" sender: self];
+
+            }
            // [self performSelector:@selector(checkPayment) withObject:nil afterDelay:1.5];
             
             //Do the next thing (go home?)
@@ -438,6 +445,12 @@
 }
 
 - (IBAction)backAction {
-    [self dismissModalViewControllerAnimated:YES];
+    
+    if (self.isInsideApp) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissModalViewControllerAnimated:YES];
+
+    }
 }
 @end

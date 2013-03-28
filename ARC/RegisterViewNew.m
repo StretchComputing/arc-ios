@@ -218,7 +218,13 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cancel Registration?" message:@"Are you sure you want to cancel? Your registration information will be lost." delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
             [alert show];
         }else{
-            [self.navigationController dismissModalViewControllerAnimated:YES];
+            
+            if (self.isInsideApp) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [self.navigationController dismissModalViewControllerAnimated:YES];
+
+            }
         }
       
         
@@ -232,7 +238,12 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
     if (buttonIndex == 0) {
-        [self.navigationController dismissModalViewControllerAnimated:YES];
+        if (self.isInsideApp) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self.navigationController dismissModalViewControllerAnimated:YES];
+            
+        }
     }
 }
 
@@ -394,6 +405,7 @@
                 RegisterDwollaView *detailViewController = [segue destinationViewController];
                 detailViewController.fromRegister = YES;
             }
+        
             
             if ([[segue identifier] isEqualToString:@"goPrivacy"]) {
                 
@@ -1128,7 +1140,7 @@
         
         CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
         [self.navigationController pushViewController:tmp animated:NO];
-        
+        tmp.isInsideApp = self.isInsideApp;
         NSString *creditDebitString = @"Credit";
         
         //if (self.creditDebitSegment.selectedSegmentIndex == 1) {

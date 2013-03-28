@@ -36,8 +36,8 @@
     self.confirmPin = @"";
     
     
-    CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Card Security"];
-    self.navigationItem.titleView = navLabel;
+   // CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Card Security"];
+    //self.navigationItem.titleView = navLabel;
     
     self.isFirstPin = YES;
     
@@ -63,20 +63,47 @@
     self.checkNumFour.font = [UIFont fontWithName:@"Helvetica-Bold" size:23];
     
     
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    self.view.backgroundColor = [UIColor clearColor];
-    //UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-    double x = 1.0;
-    UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
-    
-    
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
+
     
     [self.navigationController.navigationItem setHidesBackButton:YES];
     
     [self.navigationItem setHidesBackButton:YES];
+    
+    self.navBackView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    self.navBackView1.backgroundColor = [UIColor blackColor];
+    [self.navigationController.navigationBar addSubview:self.navBackView1];
+    
+    
+    
+    self.navBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    self.navBackView .backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
+    self.navBackView .layer.cornerRadius = 7.0;
+    
+    [self.navigationController.navigationBar addSubview:self.navBackView ];
+    
+    
+    self.navLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+    self.navLineView.backgroundColor = [UIColor blackColor];
+    [self.navigationController.navigationBar addSubview:self.navLineView];
+    
+    self.navButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.navButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
+    self.navButton.frame = CGRectMake(7, 7, 30, 30);
+    [self.navButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:self.navButton];
+    
+    self.navLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
+    self.navLabel.text = @"Card Security";
+    self.navLabel.textAlignment = UITextAlignmentCenter;
+    [self.navigationController.navigationBar addSubview:self.navLabel];
+    
+    
+    UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
+    imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
+    
+    [self.view insertSubview:imageBackView atIndex:0];
+    
+    
     
 }
 
@@ -189,6 +216,13 @@
 }
 
 -(void)runSuccess:(NSString *)ccNumber :(NSString *)securityCode{
+    
+    [self.navBackView1 removeFromSuperview];
+    [self.navBackView removeFromSuperview];
+    [self.navLabel removeFromSuperview];
+    [self.navLineView removeFromSuperview];
+    [self.navButton removeFromSuperview];
+
     
      NSArray *views = [self.navigationController viewControllers];
     EditCreditCard *tmp = [views objectAtIndex:[views count] - 2];

@@ -110,5 +110,9 @@
     
 }
 
-
+-(void)startUsingAction{
+    UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
+    home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentModalViewController:home animated:YES];
+}
 @end

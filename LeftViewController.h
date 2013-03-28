@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MFSideMenu.h"
 
 @interface LeftViewController : UIViewController
+
+@property (nonatomic, strong) MFSideMenu *sideMenu;
+
+-(IBAction)homeSelected;
+-(IBAction)profileSelected;
+-(IBAction)billingSelected;
+-(IBAction)supportSelected;
+-(IBAction)shareSelected;
 
 @end

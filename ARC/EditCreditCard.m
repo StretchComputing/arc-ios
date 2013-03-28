@@ -27,6 +27,7 @@
 
 -(void)editPin{
     
+    self.navigationController.navigationBarHidden = YES;
     CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
     
     tmp.isEditPin = YES;
@@ -47,7 +48,10 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [self.navigationController.navigationItem setHidesBackButton:YES];
+    [self.navigationItem setHidesBackButton:YES];
     
+    self.navigationController.navigationBarHidden = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
@@ -102,6 +106,18 @@
 -(void)viewDidLoad{
     @try {
         
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
+        
+        self.editPinButton.text = @"Edit PIN";
+        
+        self.saveChangesButton.text = @"Save Changes";
+        
+        self.deleteButton.text = @"Delete Card";
+        self.deleteButton.textColor = [UIColor whiteColor];
+        self.deleteButton.tintColor = [UIColor redColor];
         
         if(NSClassFromString(@"UIRefreshControl")) {
             self.isIos6 = YES;
@@ -109,13 +125,14 @@
             self.isIos6 = NO;
         }
        
+        self.title = @"";
         
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Card"];
-        self.navigationItem.titleView = navLabel;
+        //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Card"];
+        //self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Edit Card"];
-		self.navigationItem.backBarButtonItem = temp;
+        //CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Edit Card"];
+		//self.navigationItem.backBarButtonItem = temp;
         
         //ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         
@@ -140,6 +157,39 @@
             self.isIphone5 = NO;
         }
         
+        UIView *backView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+        backView1.backgroundColor = [UIColor blackColor];
+        [self.navigationController.navigationBar addSubview:backView1];
+        
+        
+        
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+        backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
+        backView.layer.cornerRadius = 7.0;
+        
+        [self.navigationController.navigationBar addSubview:backView];
+        
+        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+        lineView.backgroundColor = [UIColor blackColor];
+        [self.navigationController.navigationBar addSubview:lineView];
+        
+        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tmpButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
+        tmpButton.frame = CGRectMake(7, 7, 30, 30);
+        [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationController.navigationBar addSubview:tmpButton];
+        
+        LucidaBoldLabel *tmpLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
+        tmpLabel.text = @"Edit Card";
+        tmpLabel.textAlignment = UITextAlignmentCenter;
+        [self.navigationController.navigationBar addSubview:tmpLabel];
+        
+        
+        UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
+        imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
+        
+        self.tableView.backgroundView = imageBackView;
         
     }
     @catch (NSException *e) {
@@ -148,15 +198,20 @@
     
 }
 
+-(void)goBackOne{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (IBAction)deleteCardAction {
     @try {
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         [mainDelegate deleteCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
         
-        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-        tmp.creditCardDeleted = YES;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        self.loadingViewController.view.hidden = NO;
+        self.loadingViewController.displayText.text = @"Deleting Card...";
+        [self performSelector:@selector(cardDeleted) withObject:nil afterDelay:1.0];
+        
+
         
         NSString *action = [NSString stringWithFormat:@"%@_CARD_DELETE", [self getCardType]];
         [ArcClient trackEvent:action];
@@ -167,6 +222,13 @@
     
 }
 
+-(void)cardDeleted{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Deleted!" message:@"Your card was successfully deleted." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    ViewCreditCards *tmp = [[self.navigationController viewControllers] objectAtIndex:1];
+    [self.navigationController popToViewController:tmp animated:YES];
+}
 - (NSString *)getCardType {
     @try {
         NSString *creditDebitString = @"";
@@ -663,13 +725,24 @@
         tmp.didEditCard = YES;
         [self.navigationController popViewControllerAnimated:NO];
     }else{
-        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-        tmp.creditCardEdited = YES;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        self.loadingViewController.view.hidden = NO;
+        self.loadingViewController.displayText.text = @"Saving Card...";
+        
+        [self performSelector:@selector(cardSaved) withObject:nil afterDelay:1.0];
+        
+        
     }
     
 }
 
+-(void)cardSaved{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Saved!" message:@"Your card was successfully updated." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    ViewCreditCards *tmp = [[self.navigationController viewControllers] objectAtIndex:1];
+    [self.navigationController popToViewController:tmp animated:YES];
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
@@ -898,5 +971,6 @@
     }
    
 }
+
 
 @end

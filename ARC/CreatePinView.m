@@ -15,6 +15,8 @@
 #import "EditCreditCard.h"
 #import "NoPaymentSourcesViewController.h"
 #import "RegisterViewNew.h"
+#import "ProfileViewController.h"
+#import "ViewCreditCards.h"
 
 @interface CreatePinView ()
 
@@ -57,6 +59,11 @@
     
 }
 -(void)viewDidLoad{
+    
+    self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+    self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+    self.loadingViewController.view.hidden = YES;
+    [self.view addSubview:self.loadingViewController.view];
     
     self.initialPin = @"";
     self.confirmPin = @"";
@@ -220,27 +227,42 @@
     }else{
         
         if (self.fromRegister) {
-            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-            [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
             
-            NSArray *views = [self.navigationController viewControllers];
-            int cell = [views count] - 2;
-            RegisterViewNew *tmp = [views objectAtIndex:cell];
-            tmp.fromCreditCard = YES;
             
-            // welcome message
-            //NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
-            //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-           // [alert show];
-            
-            [self.navigationController popToViewController:tmp animated:NO];
+            if (self.isInsideApp) {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully registered!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                
+                ProfileViewController *profile = [[self.navigationController viewControllers] objectAtIndex:1];
+                
+                [self.navigationController popToViewController:profile animated:YES];
+            }else{
+                ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
+                
+                NSArray *views = [self.navigationController viewControllers];
+                int cell = [views count] - 2;
+                RegisterViewNew *tmp = [views objectAtIndex:cell];
+                tmp.fromCreditCard = YES;
+                
+                // welcome message
+                //NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
+                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                // [alert show];
+                
+                [self.navigationController popToViewController:tmp animated:NO];
+            }
+          
             
         }else{
             
             ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
             [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
             
-            [self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
+            self.loadingViewController.displayText.text = @"Adding Card...";
+            self.loadingViewController.view.hidden = NO;
+            [self performSelector:@selector(popNow) withObject:nil afterDelay:1.5];
             
         }
         
@@ -253,7 +275,19 @@
 -(void)goHome{
     @try {
         
-        [self performSegueWithIdentifier:@"pinHome" sender:self];
+        if (self.isInsideApp) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully registered!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            ProfileViewController *profile = [[self.navigationController viewControllers] objectAtIndex:1];
+            
+            [self.navigationController popToViewController:profile animated:YES];
+        }else{
+            [self performSegueWithIdentifier:@"pinHome" sender:self];
+
+        }
+        
         
     }
     @catch (NSException *e) {
@@ -266,17 +300,29 @@
 -(void)popNow{
     @try {
         
-        if ([SettingsView class] == [[[self.navigationController viewControllers] objectAtIndex:0] class] ) {
-            SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-            tmp.creditCardAdded = YES;
-            [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        if (self.isInsideApp) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully registered!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            ProfileViewController *profile = [[self.navigationController viewControllers] objectAtIndex:1];
+            
+            [self.navigationController popToViewController:profile animated:YES];
         }else{
-            
-            NoPaymentSourcesViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-            tmp.creditCardAdded = YES;
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            
+            if ([ViewCreditCards class] == [[[self.navigationController viewControllers] objectAtIndex:1] class] ) {
+                ViewCreditCards *tmp = [[self.navigationController viewControllers] objectAtIndex:1];
+                tmp.creditCardAdded = YES;
+                [self.navigationController popToViewController:tmp animated:YES];
+            }else{
+                
+                NoPaymentSourcesViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+                tmp.creditCardAdded = YES;
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+            }
         }
+        
         
     }
     @catch (NSException *e) {

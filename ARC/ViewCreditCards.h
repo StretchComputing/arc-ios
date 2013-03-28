@@ -19,5 +19,8 @@
 @property BOOL deleteCardNow;
 @property int selectedRow;
 @property BOOL showCardLocked;
-
+- (IBAction)openMenuAction;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
+@property BOOL creditCardAdded;
 @end

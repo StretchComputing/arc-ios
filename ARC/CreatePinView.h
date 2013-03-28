@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "LucidaBoldLabel.h"
 #import "CorbelTextView.h"
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface CreatePinView : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property BOOL isEditPin;
 @property BOOL fromRegister;
 @property (nonatomic, strong) UITextField *hiddenText;
@@ -27,7 +31,7 @@
 @property (strong, nonatomic) NSString *confirmPin;
 
 @property (weak, nonatomic) IBOutlet CorbelTextView *descriptionText;
-
+@property BOOL isInsideApp;
 @property (nonatomic, strong) NSString *creditDebitString;
 @property (nonatomic, strong) NSString *expiration;
 @property (nonatomic, strong) NSString *securityCode;

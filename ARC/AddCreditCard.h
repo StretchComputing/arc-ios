@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CardIO.h"
+#import "NVUIGradientButton.h"
+#import "LoadingViewController.h"
 
 extern NSString *const VISA;
 extern NSString *const MASTER_CARD;
@@ -15,8 +17,11 @@ extern NSString *const DISCOVER;
 extern NSString *const DINERS_CLUB;
 extern NSString *const AMERICAN_EXPRESS;
 
+@class LoadingViewController;
+
 @interface AddCreditCard : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property BOOL selectCardIo;
 @property BOOL isIphone5;
 @property BOOL isDelete;
@@ -37,6 +42,7 @@ extern NSString *const AMERICAN_EXPRESS;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardPinText;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardNumberText;
 @property (weak, nonatomic) IBOutlet UITextField *expirationText;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *addCardButton;
 
 @property (nonatomic, strong) UIView *hideKeyboardView;
 

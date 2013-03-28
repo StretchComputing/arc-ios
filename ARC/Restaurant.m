@@ -215,7 +215,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             [self.hideKeyboardView removeFromSuperview];
             self.hideKeyboardView = nil;
         }else{
-            [self showDoneButton];
+            //[self showDoneButton];
         }
    
         if (newLength > 6) {
@@ -335,7 +335,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             
             if (logoImage) {
                 self.logoImageView.image = logoImage;
-                self.logoImageView.contentMode = UIViewContentModeScaleAspectFit;
+                //self.logoImageView.contentMode = UIViewContentModeScaleAspectFit;
             }else{
                 self.logoImageView.image = [UIImage imageNamed:@"silverware.png"];
             }
@@ -370,7 +370,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 
                 if (helpImage) {
                     self.checkHelpImageView.image = helpImage;
-                    self.checkHelpImageView.contentMode = UIViewContentModeScaleAspectFit;
+                    //self.checkHelpImageView.contentMode = UIViewContentModeScaleAspectFit;
                     self.checkHelpImageView.hidden = NO;
                 }else{
                     self.checkHelpImageView.image = nil;
@@ -388,6 +388,13 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     @try {
         
         
+        self.closeHelpButton.text = @"Done";
+     
+        self.submitButton.text = @"Submit";
+        self.submitButton.textColor = [UIColor whiteColor];
+        self.submitButton.textShadowColor = [UIColor darkGrayColor];
+        self.submitButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/215.0 alpha:1];
+        
         self.helpBackView.hidden = YES;
 
         [self loadLogoImage];
@@ -396,7 +403,11 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         
         
        
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 1;
+        self.topLineView.layer.shadowOpacity = 0.5;
         
+        self.backView.layer.cornerRadius = 7.0;
         
         
         
@@ -672,7 +683,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             self.submitButton.enabled = YES;
             
             if ([self.hiddenText.text length] > 0) {
-                [self showDoneButton];
+                //[self showDoneButton];
             }
         }
     }
@@ -754,7 +765,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             self.submitButton.enabled = YES;
             
             if ([self.hiddenText.text length] > 0) {
-                [self showDoneButton];
+                //[self showDoneButton];
             }
             
             
@@ -1010,4 +1021,15 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 
 
+- (void)viewDidUnload {
+    [self setBackView:nil];
+    [self setTopLineView:nil];
+    [self setPopAction:nil];
+    [self setCloseHelpButton:nil];
+    [self setSubmitButton:nil];
+    [super viewDidUnload];
+}
+- (IBAction)goBackAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

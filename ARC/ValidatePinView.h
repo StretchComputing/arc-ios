@@ -39,5 +39,18 @@
 -(IBAction)cancel;
 
 @property int numAttempts;
+@property (nonatomic, strong) UIView *navBackView1;
+@property (nonatomic, strong) UIView *navBackView;
+@property (nonatomic, strong) UIView *navLineView;
+@property (nonatomic, strong) UIButton *navButton;
+
+@property (nonatomic, strong) LucidaBoldLabel *navLabel;
+
+
+
+
+
+
+
 
 @end

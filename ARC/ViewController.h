@@ -20,7 +20,7 @@
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *registerButton;
-
+@property BOOL isInsideApp;
 @property (nonatomic, strong) IBOutlet NVUIGradientButton *signInButton;
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
