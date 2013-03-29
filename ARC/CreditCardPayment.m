@@ -115,6 +115,8 @@
         self.notesText.layer.cornerRadius = 5.0;
         
 
+        NSLog(@"Base Payment: %f", self.myInvoice.basePaymentAmount);
+        
         self.totalPaymentText.text = [NSString stringWithFormat:@"$%.2f", (self.myInvoice.basePaymentAmount + self.myInvoice.gratuity)];
         
         [super viewDidLoad];

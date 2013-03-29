@@ -813,7 +813,16 @@
             self.dollarYourTotalPaymentLabel.text = [NSString stringWithFormat:@"$%.2f", yourPayment];
         }
         
+        NSLog(@"Base Payment: %f", self.myInvoice.basePaymentAmount);
+
+        
         [self calculateDollarTipValues];
+        
+        
+        NSLog(@"Base Payment: %f", self.myInvoice.basePaymentAmount);
+        
+        NSLog(@"Test");
+
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"SplitCheckViewController.dollarYourPaymentEditEnd" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -1288,6 +1297,8 @@
     
     @try {
         
+        NSLog(@"Base Payment: %f", self.myInvoice.basePaymentAmount);
+
         if ([[segue identifier] isEqualToString:@"dollarGoPayDwolla"]) {
             
             DwollaPayment *controller = [segue destinationViewController];

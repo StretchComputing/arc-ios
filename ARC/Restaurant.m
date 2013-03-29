@@ -12,7 +12,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import "HomeNavigationController.h"
-#import "Tesseract.h"
 #include <math.h>
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
@@ -889,7 +888,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 		didFinishPickingImage:(UIImage *)image
 				  editingInfo:(NSDictionary *)editingInfo
 {
-    
+    /*
 	// Dismiss the image selection, hide the picker and
     
 	//show the image view with the picked image
@@ -948,7 +947,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
      
      });
      
-    
+     */        NSLog(@"Base Payment: %f", self.myInvoice.basePaymentAmount);
+
 
     
 }
