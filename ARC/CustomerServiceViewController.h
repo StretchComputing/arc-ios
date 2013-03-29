@@ -10,18 +10,23 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreAudio/CoreAudioTypes.h>
 #import "CorbelTextView.h"
+#import "NVUIGradientButton.h"
+
 
 @interface CustomerServiceViewController : UIViewController <AVAudioRecorderDelegate, AVAudioPlayerDelegate> 
 
+- (IBAction)goBackAction;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
 
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 @property (nonatomic, strong) AVAudioPlayer *myPlayer;
 @property (nonatomic, strong) NSURL *temporaryRecFile;
-@property (strong, nonatomic) IBOutlet UIButton *recordButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *recordButton;
 - (IBAction)recordAction;
 
 @property BOOL isRecording;
-@property (strong, nonatomic) IBOutlet UIButton *sendButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *sendButton;
 
 @property (nonatomic, strong) NSData *recordedData;
 - (IBAction)sendAction;

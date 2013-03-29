@@ -19,8 +19,10 @@
 - (IBAction)logInAction;
 - (IBAction)createAction;
 @property (strong, nonatomic)  UITextField *emailTextField;
+- (IBAction)viewChangeServerAction;
 @property (strong, nonatomic)  UITextField *passwordTextField;
 - (IBAction)endText;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *viewChangeServerButton;
 @property (strong, nonatomic, getter = getProfileText) IBOutlet CorbelTextView *newProfileText;
 @property BOOL isLoggedIn;
 -(IBAction)openMenuAction;

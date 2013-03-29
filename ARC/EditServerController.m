@@ -35,8 +35,16 @@
 }
 -(void)viewDidLoad{
     
+    
+    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.topLineView.layer.shadowRadius = 1;
+    self.topLineView.layer.shadowOpacity = 0.5;
+    
+    self.backView.layer.cornerRadius = 7.0;
+    
+    
     CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Server"];
-    self.navigationItem.titleView = navLabel;
+    //self.navigationItem.titleView = navLabel;
     
     self.toolbar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
 
@@ -176,7 +184,7 @@
             NSString *message = @"You are now pointing to the new server.";
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
-            [self dismissModalViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
             
         }else{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Set Server Failed" message:@"Failed to set server" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -189,4 +197,12 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setBackView:nil];
+    [self setTopLineView:nil];
+    [super viewDidUnload];
+}
+- (IBAction)goBackOne {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

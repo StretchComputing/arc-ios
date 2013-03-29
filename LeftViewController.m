@@ -52,5 +52,10 @@
 }
 -(IBAction)shareSelected{
     
+    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"share"];
+    [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
+    [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
+    [self.sideMenu toggleLeftSideMenu];
+    
 }
 @end

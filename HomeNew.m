@@ -215,33 +215,10 @@
     [mainDelegate doPaymentCheck];
 }
 
--(void)fakeSelection{
-    
-    if (self.carousel.type == iCarouselTypeRotary) {
-        
-        self.carousel.type = iCarouselTypeTimeMachine;
-        self.isRotary = NO;
-    }else{
-        self.carousel.type = iCarouselTypeRotary;
-        self.isRotary = YES;
-    }
-    
-    [self.carousel reloadData];
-    
-    /*
-     [UIView animateWithDuration:1.0 animations:^{
-     CGRect frame = self.checkNumberView.frame;
-     frame.origin.y = 124;
-     frame.size.height = 600;
-     self.checkNumberView.frame = frame;
-     }];
-     
-     */
-}
-
 - (void)viewDidLoad
 {
-    
+    self.searchBar.delegate = self;
+    self.matchingMerchants = [NSMutableArray array];
     self.payBillButton.text = @"Pay Bill!";
     self.payBillButton.textColor = [UIColor whiteColor];
     self.payBillButton.textShadowColor = [UIColor darkGrayColor];
@@ -268,7 +245,6 @@
     self.roundView.layer.cornerRadius = 9.0;
     self.navigationController.navigationBarHidden = YES;
     
-    [self setUp];
     
     self.carousel.type = iCarouselTypeCoverFlow2;
     self.carousel.dataSource = self;
@@ -449,6 +425,9 @@
             [self addPullToRefreshHeader];
         }
         
+        self.carousel.hidden = YES;
+        self.payBillButton.enabled = NO;
+        self.moreInfoButton.enabled = NO;
         
         
     }
@@ -462,6 +441,43 @@
     [self getMerchantList];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    @try {
+        
+        self.matchingMerchants = [NSMutableArray array];
+        if ((searchText == nil) || [searchText isEqualToString:@""]) {
+            self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
+        }else{
+            
+            NSString *currentStringToMatch = [searchText lowercaseString];
+            
+            for (int i = 0; i < [self.allMerchants count]; i++) {
+                Merchant *tmpMerchant = [self.allMerchants objectAtIndex:i];
+                NSString *merchantName = [tmpMerchant.name lowercaseString];
+                
+                if ([merchantName rangeOfString:currentStringToMatch].location != NSNotFound) {
+                    [self.matchingMerchants addObject:tmpMerchant];
+                }
+            }
+        }
+        
+        if ([self.matchingMerchants count] > 0) {
+            self.errorLabel.text = @"";
+        }
+        
+        NSLog(@"Count: %d", [self.matchingMerchants count]);
+        [self.carousel reloadData];
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"Home.textFieldDidChange" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
 -(void)textFieldDidChange{
     @try {
         
@@ -485,7 +501,9 @@
         if ([self.matchingMerchants count] > 0) {
             self.errorLabel.text = @"";
         }
-        [self.myTableView reloadData];
+        
+        NSLog(@"Count: %d", [self.matchingMerchants count]);
+        [self.carousel reloadData];
         
     }
     @catch (NSException *e) {
@@ -494,6 +512,7 @@
 }
 -(void)getMerchantList{
     @try{
+       
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -509,6 +528,7 @@
 		loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];
         [client getMerchantList:loginDict];
+         
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.getMerchantList" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -517,6 +537,10 @@
 
 -(void)merchantListComplete:(NSNotification *)notification{
     @try {
+        
+        self.carousel.hidden = NO;
+        self.payBillButton.enabled = YES;
+        self.moreInfoButton.enabled = YES;
         
         self.isGettingMerchantList = NO;
         self.refreshListButton.hidden = YES;
@@ -577,8 +601,9 @@
             if ([self.allMerchants count] == 0) {
                 self.errorLabel.text = @"*No nearbly restaurants found";
             }else{
-                self.myTableView.hidden = NO;
-                [self.myTableView reloadData];
+                //self.myTableView.hidden = NO;
+                //[self.myTableView reloadData];
+                [self.carousel reloadData];
             }
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
@@ -711,7 +736,7 @@
             //NSIndexPath *selectedRowIndex = [self.myTableView indexPathForSelectedRow];
             Restaurant *detailViewController = [segue destinationViewController];
             
-            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:0];
+            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:self.carousel.currentItemIndex];
             
             detailViewController.merchantId = [NSString stringWithFormat:@"%d", tmpMerchant.merchantId];
             detailViewController.name = tmpMerchant.name;
@@ -1038,7 +1063,7 @@
     
     self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
     
-    [self.myTableView reloadData];
+    [self.carousel reloadData];
 }
 
 -(void)searchEditDidBegin{
@@ -1057,18 +1082,6 @@
 
 
 
-
-
-- (void)setUp
-{
-	//set up data
-	self.wrap = YES;
-	self.items = [NSMutableArray array];
-	for (int i = 0; i < 1000; i++)
-	{
-		[self.items addObject:[NSNumber numberWithInt:i]];
-	}
-}
 
 
 
@@ -1112,7 +1125,16 @@
 
 
 
-
+- (void)setUp
+{
+	//set up data
+	self.wrap = YES;
+	self.items = [NSMutableArray array];
+	for (int i = 0; i < 1000; i++)
+	{
+		[self.items addObject:[NSNumber numberWithInt:i]];
+	}
+}
 
 
 - (IBAction)reloadCarousel
@@ -1146,122 +1168,140 @@
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
-    return [self.items count];
+    return [self.matchingMerchants count];
 }
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    UILabel *label = nil;
-    
-    //create new view if no view is available for recycling
-    if (view == nil)
-    {
-        view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 190.0f)];
-        view.backgroundColor = [UIColor whiteColor];
-        view.layer.borderWidth = 2.0;
-        view.layer.borderColor = [[UIColor blackColor] CGColor];
-        view.layer.cornerRadius = 5.0;
+    @try {
+        UILabel *label = nil;
         
-        view.layer.shadowOffset = CGSizeMake(-1, 3);
-        view.layer.shadowRadius = 1;
-        view.layer.shadowOpacity = 0.5;
-        
-        UIImageView *imageLogo = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 140, 140)];
-        
-        if (index % 2 == 0) {
-            imageLogo.image = [UIImage imageNamed:@"untitledLogo.png"];
+        //create new view if no view is available for recycling
+        if (view == nil)
+        {
+            view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 190.0f)];
+            view.backgroundColor = [UIColor whiteColor];
+            view.layer.borderWidth = 2.0;
+            view.layer.borderColor = [[UIColor blackColor] CGColor];
+            view.layer.cornerRadius = 5.0;
             
-        }else{
-            imageLogo.image = [UIImage imageNamed:@"junkieLogo.png"];
+            view.layer.shadowOffset = CGSizeMake(-1, 3);
+            view.layer.shadowRadius = 1;
+            view.layer.shadowOpacity = 0.5;
+            
+            UIImageView *imageLogo = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 140, 140)];
+            
+            if (index % 2 == 0) {
+                imageLogo.image = [UIImage imageNamed:@"untitledLogo.png"];
+                
+            }else{
+                imageLogo.image = [UIImage imageNamed:@"junkieLogo.png"];
+                
+            }
+            [view addSubview:imageLogo];
+            
+            UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 148, 146, 44)];
+            tmpLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:19];
+            tmpLabel.backgroundColor = [UIColor clearColor];
+            
+            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:index];
+            tmpLabel.text = tmpMerchant.name;
+            
+            tmpLabel.textAlignment = UITextAlignmentCenter;
+            [view addSubview:tmpLabel];
             
         }
-        [view addSubview:imageLogo];
-        
-        UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 148, 146, 44)];
-        tmpLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:19];
-        tmpLabel.backgroundColor = [UIColor clearColor];
-        if (index % 2 == 0) {
-            tmpLabel.text = @"Untitled";
-        }else{
-            tmpLabel.text = @"American Junkie";
+        else
+        {
+            //get a reference to the label in the recycled view
         }
         
-        tmpLabel.textAlignment = UITextAlignmentCenter;
-        [view addSubview:tmpLabel];
         
+        
+        return view;
     }
-    else
-    {
-        //get a reference to the label in the recycled view
+    @catch (NSException *exception) {
+        NSLog(@"Exception: %@", exception);
+        return [[UIView alloc] init];
     }
-    
-    
-    
-    return view;
+ 
     
 }
 
 - (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 {
-    switch (option)
-    {
-        case iCarouselOptionWrap:
+    @try {
+        switch (option)
         {
-            return self.wrap;
-        }
-        case iCarouselOptionFadeMax:
-        {
-            if (self.carousel.type == iCarouselTypeCustom)
+            case iCarouselOptionWrap:
             {
-                return 0.0f;
+                return self.wrap;
             }
-            return value;
+            case iCarouselOptionFadeMax:
+            {
+                if (self.carousel.type == iCarouselTypeCustom)
+                {
+                    return 0.0f;
+                }
+                return value;
+            }
+            case iCarouselOptionArc:
+            {
+                return 2 * M_PI * 0.342;
+            }
+            case iCarouselOptionRadius:
+            {
+                return value * 0.9;
+            }
+            case iCarouselOptionTilt:
+            {
+                return 0.8;
+            }
+            case iCarouselOptionSpacing:
+            {
+                
+                return 0.315;
+                /*
+                 if (self.isRotary) {
+                 return 1.4;
+                 }
+                 
+                 return value * 0.9;
+                 */
+            }
+            default:
+            {
+                return value;
+            }
+                
         }
-        case iCarouselOptionArc:
-        {
-            return 2 * M_PI * 0.342;
-        }
-        case iCarouselOptionRadius:
-        {
-            return value * 0.9;
-        }
-        case iCarouselOptionTilt:
-        {
-            return 0.8;
-        }
-        case iCarouselOptionSpacing:
-        {
-            
-            return 0.315;
-            /*
-             if (self.isRotary) {
-             return 1.4;
-             }
-             
-             return value * 0.9;
-             */
-        }
-        default:
-        {
-            return value;
-        }
-            
     }
+    @catch (NSException *exception) {
+        NSLog(@"E: %@", exception);
+        return 0.0;
+    }
+   
 }
 
 
 
 - (void)carouselDidEndScrollingAnimation:(iCarousel *)carousel{
     
-    if (carousel.currentItemIndex % 2 == 0){
-        self.placeNameLabel.text = @"Untitled";
-        self.placeAddressLabel.text = @"111. W Kinzie Ave, Chicago, IL";
-        
-    }else{
-        self.placeNameLabel.text = @"American Junkie";
-        self.placeAddressLabel.text = @"15. W Illinois St, Chicago, IL";
-        
+    
+    @try {
+        if ([self.matchingMerchants count] > carousel.currentItemIndex) {
+            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:carousel.currentItemIndex];
+            self.placeNameLabel.text = tmpMerchant.name;
+            self.placeAddressLabel.text = tmpMerchant.address;
+        }
+     
     }
+    @catch (NSException *exception) {
+        NSLog(@"E: %@", exception);
+    }
+
+
+
 }
 - (IBAction)valueChanged {
 }
@@ -1293,6 +1333,9 @@
 
     }else{
         [self.searchBar resignFirstResponder];
+        self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
+        [self.carousel reloadData];
+        self.searchBar.text = @"";
 
     }
 }

@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NVUIGradientButton.h"
 
-@interface InitHelpPageViewController : UIViewController
+@interface InitHelpPageViewController : UIViewController <UIScrollViewDelegate>
+@property (strong, nonatomic) IBOutlet UIView *helpView;
+
 @property (strong, nonatomic) IBOutlet UIScrollView *myScrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *helpImage1;
 @property (strong, nonatomic) IBOutlet UIImageView *helpImage2;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *startUsingButton;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIImageView *helpImage3;
 @property (strong, nonatomic) IBOutlet UIView *topLine;
 @property (strong, nonatomic) IBOutlet UIView *bottomLine;

@@ -155,6 +155,8 @@
         //Home Alert
         
         if (!self.didShowPayment) {
+            
+            /*
             if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertHome"] length] == 0) {
                 [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertHome"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -182,7 +184,8 @@
             
             
             
-            }
+            }*/
+            
         }
         self.didShowPayment = NO;
         
@@ -730,12 +733,6 @@
 -(void)inviteFriend{
 
     
-
-    
-    
-  
-    /*
-    
     SMContactsSelector *controller = [[SMContactsSelector alloc] initWithNibName:@"SMContactsSelector" bundle:nil];
     controller.delegate = self;
     
@@ -750,7 +747,7 @@
     //Show tick or not
     controller.showCheckButton = YES; //Mandatory: YES or NO
     [self presentModalViewController:controller animated:YES];
-    */
+    
 }
 
 

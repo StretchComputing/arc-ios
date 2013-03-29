@@ -21,11 +21,21 @@
 
 -(void)viewDidLoad{
     
+    self.recordButton.text = @"Record";
+    self.sendButton.text = @"Send Feedback";
+    
+    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.topLineView.layer.shadowRadius = 1;
+    self.topLineView.layer.shadowOpacity = 0.5;
+    
+    self.backView.layer.cornerRadius = 7.0;
+    
+    
     [ArcClient trackEvent:@"CUSTOMER_SERVICE_VIEW"];
 
     
-    CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Feedback"];
-    self.navigationItem.titleView = navLabel;
+    //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Feedback"];
+    //self.navigationItem.titleView = navLabel;
     
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -56,7 +66,7 @@
             
             self.recordingActivity.hidden = YES;
             self.recordingLabel.hidden = YES;
-            [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+            self.recordButton.text = @"Record";
             [self.recorder stop];
             
             self.recordedData = [[NSData alloc] initWithContentsOfURL:self.temporaryRecFile];
@@ -88,7 +98,7 @@
             //self.previewButton.hidden = YES;
             self.displayLabel.hidden = YES;
             
-            [self.recordButton setTitle:@"Stop" forState:UIControlStateNormal];
+            self.recordButton.text = @"Stop";
             self.temporaryRecFile = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"VoiceFile1.mp4"]];
             
             NSDictionary *recordSettings = @{AVSampleRateKey: @44100.0f,
@@ -204,5 +214,9 @@
 
 
 
+
+- (IBAction)goBackAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

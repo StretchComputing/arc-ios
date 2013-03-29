@@ -18,6 +18,7 @@
 #import "RegisterDwollaView.h"
 #import "ArcClient.h"
 #import "ArcUtility.h"
+#import "MFSideMenu.h"
 
 @interface InvoiceView ()
 
@@ -106,12 +107,15 @@
 {
     @try {
         
+        self.payBillButton.textColor = [UIColor whiteColor];
+        self.payBillButton.text = @"Pay Bill!";
+        self.payBillButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
     
         self.alreadyPaidButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.alreadyPaidButton setTitle:@"See Who Paid!" forState:UIControlStateNormal];
         [self.alreadyPaidButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:13]];
         [self.alreadyPaidButton setTitleColor:[UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-        [self.bottomHalfView addSubview:self.alreadyPaidButton];
+       // [self.bottomHalfView addSubview:self.alreadyPaidButton];
         self.alreadyPaidButton.hidden = YES;
         [self.alreadyPaidButton addTarget:self action:@selector(showAlreadyPaid) forControlEvents:UIControlEventTouchUpInside];
         [self.alreadyPaidButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
@@ -180,6 +184,8 @@
 }
 
 -(void)setUpView{
+    self.bottomHalfView.backgroundColor = [UIColor clearColor];
+
     
     self.subLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice subtotal]];
     self.taxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
@@ -187,6 +193,53 @@
     self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];
     
 
+    
+    
+    //New Code
+    
+  
+    int moveY = 0;
+    
+    if (self.myInvoice.discount == 0.0) {
+        self.discLabel.hidden = YES;
+        self.discNameLabel.hidden = YES;
+        moveY +=20;
+    }
+    
+    if (self.myInvoice.serviceCharge == 0.0) {
+        self.gratLabel.hidden = YES;
+        self.gratNameLabel.hidden = YES;
+        moveY +=20;
+    }else{
+        
+        CGRect myframe2 = self.gratLabel.frame;
+        myframe2.origin.y += moveY;
+        self.gratLabel.frame = myframe2;
+        
+        CGRect myframe3 = self.gratNameLabel.frame;
+        myframe3.origin.y += moveY;
+        self.gratNameLabel.frame = myframe3;
+    }
+    
+    CGRect myframe = self.subtotalBackView.frame;
+    myframe.origin.y += moveY;
+    self.subtotalBackView.frame = myframe;
+    
+    NSLog(@"MoveY: %d", moveY);
+    NSLog(@"Height: %f", self.myTableView.frame.size.height);
+    
+    CGRect myframe1 = self.myTableView.frame;
+    myframe1.size.height += moveY;
+    self.myTableView.frame = myframe1;
+    
+    
+    NSLog(@"Height: %f", self.myTableView.frame.size.height);
+
+    
+    
+    
+    
+    //
     
     int tableCount = [self.myInvoice.items count];
     
@@ -197,28 +250,31 @@
     
     int tableHeight = tableCount * 24 + tableCount + 10;
     
-    self.myTableView.frame = CGRectMake(0, 20, 300, tableHeight);
+    //self.myTableView.frame = CGRectMake(0, 20, 300, tableHeight);
     
-    self.dividerLabel.frame = CGRectMake(0, tableHeight + 10, 300, 21);
+    //self.dividerLabel.frame = CGRectMake(0, tableHeight + 10, 300, 21);
     int bottomViewY = tableHeight + 20;
     
     if (bottomViewY < 120) {
         bottomViewY = 120;
         int height = (120 - tableHeight)/2 + tableHeight;
-        self.dividerLabel.frame = CGRectMake(0, height, 300, 21);
+        //self.dividerLabel.frame = CGRectMake(0, height, 300, 21);
     }
     
-    self.bottomHalfView.frame = CGRectMake(0, bottomViewY, 300, 134);
+    //self.bottomHalfView.frame = CGRectMake(0, bottomViewY, 300, 134);
     
-    
-    
+    double myDue = self.myInvoice.amountDue - amountPaid;
+    self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
+
     //bottom view
+    /*
     int yValue = 34;
     
     if (self.myInvoice.serviceCharge == 0.0) {
         self.gratLabel.hidden = YES;
         self.gratNameLabel.hidden = YES;
     }else{
+        
         yValue += 20;
         
         CGRect frame = self.gratLabel.frame;
@@ -228,7 +284,7 @@
         CGRect frameName = self.gratNameLabel.frame;
         frameName.origin.y = yValue + 2;
         self.gratNameLabel.frame = frameName;
-        
+        *
     }
     
     if (self.myInvoice.discount == 0.0) {
@@ -249,11 +305,11 @@
         
         
     }
-    
+  
     
     if(amountPaid > 0.0) {
         
-        self.payBillButton.title = @"Pay Remaining";
+       // self.payBillButton.title = @"Pay Remaining";
         self.isPartialPayment = YES;
         self.alreadyPaidLabel.hidden = NO;
         self.alreadyPaidNameLabel.hidden = NO;
@@ -285,26 +341,25 @@
     
     CGRect frame = self.bottomHalfView.frame;
     frame.size.height = yValue + 45;
-    self.bottomHalfView.frame = frame;
+   // self.bottomHalfView.frame = frame;
     
     
     CGRect frameAmountName = self.amountNameLabel.frame;
     frameAmountName.origin.y = yValue + 27;
-    self.amountNameLabel.frame = frameAmountName;
+    //self.amountNameLabel.frame = frameAmountName;
     
     CGRect frameAmount = self.amountLabel.frame;
     frameAmount.origin.y = yValue + 23;
-    self.amountLabel.frame = frameAmount;
-    double myDue = self.myInvoice.amountDue - amountPaid;
-    self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
+    //self.amountLabel.frame = frameAmount;
     
     CGRect frameLine = self.dividerView.frame;
     frameLine.origin.y = yValue + 18;
-    self.dividerView.frame = frameLine;
+   // self.dividerView.frame = frameLine;
     
     
     [self.scrollView setContentSize:CGSizeMake(300, bottomViewY + yValue + 50)];
     
+    */
     // this method is called after refresh too, so tip may need to be recalculated
     [self segmentSelect];
     
@@ -314,7 +369,7 @@
     double amountPaid = [self.myInvoice calculateAmountPaid];
     if(amountPaid > 0.0) {
         
-        self.payBillButton.title = @"Pay Remaining";
+       // self.payBillButton.title = @"Pay Remaining";
         self.isPartialPayment = YES;
         
     }
@@ -329,6 +384,7 @@
     
     double totalPayment = remaining + [self.tipText.text doubleValue];
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
+    self.totalLabel.text = [@"My Total:  " stringByAppendingString:self.totalLabel.text];
     
     [self.myTableView reloadData];
     [self.alreadyPaidTableView reloadData];
@@ -493,7 +549,7 @@
             }
             return 33;
         }
-        return 24;
+        return 30;
     }
     @catch (NSException *exception) {
         
@@ -745,6 +801,8 @@
         
         self.tipText.text = [NSString stringWithFormat:@"%.2f", tip];
         self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", ([self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid] + tip)];
+        self.totalLabel.text = [@"My Total:  " stringByAppendingString:self.totalLabel.text];
+
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
@@ -1105,4 +1163,20 @@
     self.alreadyPaid.hidden = YES;
 }
 
+- (IBAction)showBalanceAction {
+    
+    [self.navigationController.sideMenu toggleRightSideMenu];
+}
+
+- (IBAction)goBackAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)payBillAction {
+    [self payNow:nil];
+}
+- (void)viewDidUnload {
+    [self setSubtotalBackView:nil];
+    [super viewDidUnload];
+}
 @end

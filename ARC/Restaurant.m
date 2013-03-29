@@ -68,30 +68,31 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 -(void)viewDidAppear:(BOOL)animated{
     
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowAlertRestaurant"] length] == 0) {
-    [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertRestaurant"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    self.overlayTextView.layer.masksToBounds = YES;
-    self.overlayTextView.layer.cornerRadius = 10.0;
-    self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.overlayTextView.layer.borderWidth = 2.0;
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.overlayTextView.bounds;
-    self.overlayTextView.backgroundColor = [UIColor clearColor];
-    double x = 1.4;
-    UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [self.overlayTextView.layer insertSublayer:gradient atIndex:0];
-    
-    [self showHintOverlay];
-    
-    NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
-    
-    if (tmp) {
+  /*
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowAlertRestaurant"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
-    }
-    
+        self.overlayTextView.layer.masksToBounds = YES;
+        self.overlayTextView.layer.cornerRadius = 10.0;
+        self.overlayTextView.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.overlayTextView.layer.borderWidth = 2.0;
+        
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = self.overlayTextView.bounds;
+        self.overlayTextView.backgroundColor = [UIColor clearColor];
+        double x = 1.4;
+        UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
+        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
+        [self.overlayTextView.layer insertSublayer:gradient atIndex:0];
+        
+        [self showHintOverlay];
+        
+        NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
+        
+        if (tmp) {
+            
+        }
+    */
     
     
      }

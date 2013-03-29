@@ -11,6 +11,7 @@
 #import "CorbelBarButtonItem.h"
 #import "CorbelBoldLabel.h"
 #import "LucidaBoldLabel.h"
+#import "NVUIGradientButton.h"
 
 @interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate>
 
@@ -20,6 +21,11 @@
 @property BOOL isGoSplit;
 @property BOOL isIphone5;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
+- (IBAction)showBalanceAction;
+- (IBAction)goBackAction;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *payBillButton;
+- (IBAction)payBillAction;
+@property (strong, nonatomic) IBOutlet UIView *subtotalBackView;
 
 @property (nonatomic, strong) UIButton *alreadyPaidButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
@@ -31,7 +37,7 @@
 @property (weak, nonatomic) IBOutlet LucidaBoldLabel *alreadyPaidLabel;
 
 @property (weak, nonatomic) IBOutlet CorbelBarButtonItem *splitCheckButton;
-@property (weak, nonatomic) IBOutlet CorbelBarButtonItem *payBillButton;
+//@property (weak, nonatomic) IBOutlet CorbelBarButtonItem *payBillButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UILabel *dividerLabel;

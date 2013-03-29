@@ -13,6 +13,7 @@
 #import "ViewController.h"
 #import "RegisterViewNew.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ArcClient.h"
 
 @interface ProfileViewController ()
 
@@ -48,9 +49,21 @@
         self.signOutButton.hidden = YES;
     }
     
+    ArcClient *tmp = [[ArcClient alloc] init];
+    if (![tmp admin]) {
+        self.viewChangeServerButton.hidden = YES;
+    }else{
+        self.viewChangeServerButton.hidden = NO;
+    }
+    
     [self.myTableView reloadData];
 }
 -(void)viewDidLoad{
+    
+    
+    self.viewChangeServerButton.text = @"View/Change Arc Server";
+ 
+    
     
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
@@ -154,6 +167,12 @@
 - (void)viewDidUnload {
     [self setBackView:nil];
     [self setTopLineView:nil];
+    [self setViewChangeServerButton:nil];
     [super viewDidUnload];
+}
+- (IBAction)viewChangeServerAction {
+    
+    UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"editServer"];
+    [self.navigationController pushViewController:tmp animated:YES];
 }
 @end

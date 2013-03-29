@@ -5,7 +5,7 @@
 #import "CorbelBoldLabel.h"
 #import "NVUIGradientButton.h"
 
-@interface HomeNew : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate, iCarouselDataSource, iCarouselDelegate>
+@interface HomeNew : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate, iCarouselDataSource, iCarouselDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property BOOL successReview;
@@ -21,7 +21,7 @@
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
 @property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
 - (IBAction)valueChanged;
-
+-(IBAction)textFieldDidChange;
 @property int retryCount;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;

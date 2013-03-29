@@ -11,6 +11,7 @@
 #import "rSkybox.h"
 #import "ArcClient.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "LucidaBoldLabel.h"
 
 @interface HelpView ()
 
@@ -19,6 +20,7 @@
 @implementation HelpView
 
 -(void)viewWillDisappear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -30,6 +32,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationItem setHidesBackButton:YES];
+    [self.navigationController.navigationItem setHidesBackButton:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPaymentSources) name:@"NoPaymentSourcesNotification" object:nil];
     
@@ -44,28 +49,54 @@
     @try {
         [rSkybox addEventToSession:@"viewHelpPage"];
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Help"];
-        self.navigationItem.titleView = navLabel;
+        //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Help"];
+       // self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Help"];
-		self.navigationItem.backBarButtonItem = temp;
+        //CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Help"];
+		//self.navigationItem.backBarButtonItem = temp;
         
         
-        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
-        
-        UIView *backView = [[UIView alloc] initWithFrame:self.view.bounds];
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = backView.bounds;
-        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-        [backView.layer insertSublayer:gradient atIndex:0];
-        
-        self.tableView.backgroundView = backView;
-        
+        self.title = @"";
         [super viewDidLoad];
         // Do any additional setup after loading the view.
         
         [ArcClient trackEvent:@"MAIN_HELP_VIEW"];
+        
+        UIView *backView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+        backView1.backgroundColor = [UIColor blackColor];
+        [self.navigationController.navigationBar addSubview:backView1];
+        
+        
+        
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+        backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
+        backView.layer.cornerRadius = 7.0;
+        
+        [self.navigationController.navigationBar addSubview:backView];
+        
+        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+        lineView.backgroundColor = [UIColor blackColor];
+        [self.navigationController.navigationBar addSubview:lineView];
+        
+        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tmpButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
+        tmpButton.frame = CGRectMake(7, 7, 30, 30);
+        [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationController.navigationBar addSubview:tmpButton];
+        
+        LucidaBoldLabel *tmpLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
+        tmpLabel.text = @"Help";
+        tmpLabel.textAlignment = UITextAlignmentCenter;
+        [self.navigationController.navigationBar addSubview:tmpLabel];
+        
+        
+        UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
+        imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
+        
+        self.tableView.backgroundView = imageBackView;
+        
+        
        
         
     }
@@ -75,6 +106,9 @@
 
 }
 
+-(void)goBackOne{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
