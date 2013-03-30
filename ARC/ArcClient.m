@@ -24,7 +24,9 @@ NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
-NSString *_arcServersUrl = @"http://arc-servers.dagher.net.co/rest/v1/"; // Servers API: CLOUD II
+//NSString *_arcServersUrl = @"http://arc-servers.dagher.net.co/rest/v1/"; // Servers API: CLOUD II
+NSString *_arcServersUrl = @"http://gateway.dagher.mobi/rest/v1/"; // NEW dedicated ServerURL CLOUD
+
 //NSString *_arcServersUrl = @"http://dtnetwork.dyndns.org:8700/arc-servers/rest/v1/"; // Servers API: Jim's Place
 
 int const USER_ALREADY_EXISTS = 103;
@@ -713,6 +715,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         BOOL httpSuccess = self.httpStatusCode == 200 || self.httpStatusCode == 201 || self.httpStatusCode == 422;
         
         BOOL postNotification = YES;
+        BOOL isGetServer = NO;
+
         if(api == CreateCustomer) { //jpw5
             postNotification = NO;
             if (response && httpSuccess) {
@@ -778,6 +782,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             postNotification = NO;
         }else if (api == GetServer){
             postNotification = NO;
+            isGetServer = YES;
             if (response && httpSuccess) {
                 [self setUrl:response];
             }
@@ -814,7 +819,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         if(!httpSuccess) {
             // failure scenario -- HTTP error code returned -- for this processing, we don't care which API failed
-            NSString *errorMsg = [NSString stringWithFormat:@"HTTP Status Code:%d for API %@", self.httpStatusCode, [self apiToString]];
+            
+            NSString *sendUrl = _arcUrl;
+            if (isGetServer) {
+                sendUrl = _arcServersUrl;
+            }
+            NSString *errorMsg = [NSString stringWithFormat:@"HTTP Status Code:%d for API %@ on %@", self.httpStatusCode, [self apiToString], sendUrl];
             responseInfo = @{@"status": @"fail", @"error": @0};
             [rSkybox sendClientLog:@"ArcClient.connectionDidFinishLoading" logMessage:errorMsg logLevel:@"error" exception:nil];
         }

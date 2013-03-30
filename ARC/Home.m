@@ -46,13 +46,20 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     
-    self.retryCount = 0;
-    
-    if (!self.isGettingMerchantList) {
-        self.isGettingMerchantList = YES;
-        [self getMerchantList];
+    @try {
+        self.retryCount = 0;
+        
+        if (!self.isGettingMerchantList) {
+            self.isGettingMerchantList = YES;
+            [self getMerchantList];
+            
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"Home.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
 
     }
+  
     
     
    
@@ -61,6 +68,8 @@
 -(void)customerDeactivated{
     
     @try {
+        
+
         if (self.navigationController.topViewController == self) {
             [self logOut];
             

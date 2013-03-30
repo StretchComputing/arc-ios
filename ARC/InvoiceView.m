@@ -230,7 +230,7 @@
             
             BOOL addButton = NO;
             NSString *numberText;
-            if ((i < 4) || (i > 23)) {
+            if ((i < 4) || (i > 21)) {
                 if (i == 3) {
                     numberText = @"-";
                 }else{
@@ -243,12 +243,12 @@
             
             int size;
             if (i == 3) {
-                size = 28;
+                size = 35;
             }else{
-                size = 13;
+                size = 16;
             }
             
-            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 35, 5, 35, 35) andSize:size];
+            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 45, 5, 45, 45) andSize:size];
             numberLabel.textAlignment = UITextAlignmentCenter;
             numberLabel.text = numberText;
             numberLabel.clipsToBounds = YES;
@@ -256,12 +256,12 @@
             
             if (addButton) {
                 NumberLineButton *numberButton = [NumberLineButton buttonWithType:UIButtonTypeCustom];
-                numberButton.frame = CGRectMake(0, 0, 35, 35);
-                numberButton.offset = i * 35;
+                numberButton.frame = CGRectMake(0, 0, 45, 45);
+                numberButton.offset = i * 45;
                 [numberButton addTarget:self action:@selector(scrollToNumber:) forControlEvents:UIControlEventTouchUpInside];
                 [numberLabel addSubview:numberButton];
                 
-                UIView *rightCircle = [[UIView alloc] initWithFrame:CGRectMake(0, 13, 5, 3)];
+                UIView *rightCircle = [[UIView alloc] initWithFrame:CGRectMake(0, 18, 5, 3)];
                 rightCircle.backgroundColor = [UIColor blackColor];
                 rightCircle.layer.cornerRadius = 6.0;
                 [numberLabel addSubview:rightCircle];
@@ -278,7 +278,7 @@
             
         }
         
-        self.numberSliderScrollView.contentSize = CGSizeMake(840, 35);
+        self.numberSliderScrollView.contentSize = CGSizeMake(1115, 45);
         self.numberSliderScrollView.backgroundColor = [UIColor clearColor];
         self.numberSliderScrollView.delegate = self;
         self.numberSliderScrollView.showsHorizontalScrollIndicator = NO;
@@ -296,9 +296,9 @@
 -(void)setValueForOffset:(int)offset{
     
     @try {
-        int xValue = offset + 105;
+        int xValue = offset + 135;
         
-        LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/35];
+        LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/45];
         
         double yourPercent;
         
@@ -335,7 +335,7 @@
     @try {
         NumberLineButton *myButton = (NumberLineButton *)sender;
         
-        int newOffset = myButton.offset - 70;
+        int newOffset = myButton.offset - 135;
         [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
         [self setValueForOffset:newOffset];
     }
@@ -356,15 +356,15 @@
         CGFloat xOffset = targetContentOffset->x;
         int intOffset = round(xOffset);
         
-        int whole = floor(intOffset/35.0);
+        int whole = floor(intOffset/45.0);
         
-        int remainder = intOffset % 35;
+        int remainder = intOffset % 45;
         
-        if (remainder >= 17) {
+        if (remainder >= 22) {
             whole++;
         }
         
-        int newOffset = 35 * whole;
+        int newOffset = 45 * whole;
         
         if (velocity.x == 0) {
             [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
@@ -385,15 +385,15 @@
         CGFloat xOffset = scrollView.contentOffset.x;
         int intOffset = round(xOffset);
         
-        int whole = floor(intOffset/35.0);
+        int whole = floor(intOffset/45.0);
         
-        int remainder = intOffset % 35;
+        int remainder = intOffset % 45;
         
-        if (remainder >= 17) {
+        if (remainder >= 22) {
             whole++;
         }
         
-        int newOffset = 35 * whole;
+        int newOffset = 45 * whole;
         
         [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
         [self setValueForOffset:newOffset];
@@ -409,9 +409,9 @@
     
     @try {
         CGFloat xOffset = scrollView.contentOffset.x;
-        xOffset +=18;
+        xOffset +=23;
         
-        int index = floor(xOffset/35.0);
+        int index = floor(xOffset/45.0);
         index = index + 3;
         
         for (int i = 0; i < [[self.numberSliderScrollView subviews] count]; i++) {
@@ -419,14 +419,14 @@
             if (i != index) {
                 if ([LucidaBoldLabel class] == [[[self.numberSliderScrollView subviews] objectAtIndex:i] class]) {
                     LucidaBoldLabel *otherLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:i];
-                    [otherLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:13]];
+                    [otherLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:16]];
                     
                 }
             }
         }
         
         LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
-        [myLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:27]];
+        [myLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:35]];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"InvoiceView.scrollViewDidScroll" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
