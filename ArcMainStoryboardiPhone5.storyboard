@@ -5263,7 +5263,7 @@
                                 </subviews>
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="L3W-2q-0kW">
-                                <rect key="frame" x="141" y="411" width="38" height="36"/>
+                                <rect key="frame" x="141" y="401" width="38" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </pageControl>
                             <view contentMode="scaleToFill" id="t8q-wS-X3u">

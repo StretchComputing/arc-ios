@@ -21,6 +21,7 @@
 -(IBAction)homeSelected{
     
     [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
+    self.sideMenu.navigationController.navigationBarHidden = YES;
     [self.sideMenu toggleLeftSideMenu];
     
 }
@@ -29,6 +30,7 @@
     UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"profile"];
     [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
     [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
+    self.sideMenu.navigationController.navigationBarHidden = YES;
     [self.sideMenu toggleLeftSideMenu];
     
 }
@@ -38,6 +40,7 @@
     UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"allCards"];
     [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
     [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
+    self.sideMenu.navigationController.navigationBarHidden = YES;
     [self.sideMenu toggleLeftSideMenu];
  
     
@@ -47,6 +50,7 @@
     UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"supportVC"];
     [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
     [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
+    self.sideMenu.navigationController.navigationBarHidden = YES;
     [self.sideMenu toggleLeftSideMenu];
     
 }
@@ -55,6 +59,7 @@
     UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"share"];
     [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
     [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
+    self.sideMenu.navigationController.navigationBarHidden = YES;
     [self.sideMenu toggleLeftSideMenu];
     
 }
