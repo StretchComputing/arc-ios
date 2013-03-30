@@ -1089,7 +1089,7 @@
                                 </connections>
                             </textView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="1aJ-2J-WDf">
-                                <rect key="frame" x="150" y="100.5" width="20" height="20"/>
+                                <rect key="frame" x="150" y="100" width="20" height="20"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" id="CGW-Vg-58R">
                                 <rect key="frame" x="12" y="38" width="288" height="61"/>
@@ -1137,65 +1137,107 @@
             </objects>
             <point key="canvasLocation" x="2788" y="-887"/>
         </scene>
-        <!--Review Transaction - Review-->
+        <!--Review Transaction-->
         <scene sceneID="Ffx-Y5-TBr">
             <objects>
                 <viewController id="CSm-3p-pEO" customClass="ReviewTransaction" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kLc-so-ZH2">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" id="zGQ-PZ-UTH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="571"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Review" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="whW-PH-KgV" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="40" y="2" width="241" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="nve-xC-5Yz" customClass="NVUIGradientButton">
+                                        <rect key="frame" x="247" y="6" width="68" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="submitReview:" destination="CSm-3p-pEO" eventType="touchUpInside" id="W1n-6e-Snw"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="Yak-5h-o3h" customClass="NVUIGradientButton">
+                                        <rect key="frame" x="5" y="6" width="68" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="skipReview:" destination="CSm-3p-pEO" eventType="touchUpInside" id="kIm-Md-hd5"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="SdL-bh-od2">
+                                <rect key="frame" x="0.0" y="46" width="320" height="508"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You just earned ARC points!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Dwe-Rk-4py" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="0.0" y="7.5" width="320" height="23"/>
+                                <rect key="frame" x="0.0" y="51" width="320" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Earn more by giving Untitled feedback:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6oA-d0-eFo" customClass="CorbelRegularLabel">
-                                <rect key="frame" x="10" y="30.5" width="302" height="21"/>
+                                <rect key="frame" x="10" y="74" width="302" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Food" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="CKH-b5-2j6" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="142.5" width="52" height="21"/>
+                                <rect key="frame" x="10" y="186" width="52" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KCo-Er-nzg" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="189" width="67" height="24"/>
+                                <rect key="frame" x="10" y="233" width="67" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Drinks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="aj3-mV-nan" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="236" width="67" height="25"/>
+                                <rect key="frame" x="10" y="280" width="67" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mood" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="g3r-wO-4dh" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="285.5" width="87" height="22"/>
+                                <rect key="frame" x="10" y="329" width="87" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YYN-ke-g8v" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="333" width="67" height="21"/>
+                                <rect key="frame" x="10" y="377" width="67" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Earn +5 pts for an in depth review:" id="hZs-wF-YtT" customClass="CorbelTextView">
-                                <rect key="frame" x="10" y="364" width="300" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="10" y="404" width="300" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="C85-pt-Gct">
-                                <rect key="frame" x="204" y="451.5" width="40" height="40"/>
+                                <rect key="frame" x="204" y="495" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="facebookconnect.jpg">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1209,7 +1251,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iM3-QU-sDl">
-                                <rect key="frame" x="79" y="451.5" width="40" height="40"/>
+                                <rect key="frame" x="79" y="495" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="twittetrconnect.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1223,119 +1266,136 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Share:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nzE-8x-hl9" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="456" width="64" height="31"/>
+                                <rect key="frame" x="10" y="500" width="64" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nUe-QV-OwR" customClass="LucidaLabel">
-                                <rect key="frame" x="252" y="458.5" width="54" height="21"/>
+                                <rect key="frame" x="252" y="502" width="54" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="mfV-dg-uI8" customClass="LucidaLabel">
-                                <rect key="frame" x="127" y="458.5" width="54" height="21"/>
+                                <rect key="frame" x="127" y="502" width="54" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="xdS-fl-JM7">
-                                <rect key="frame" x="0.0" y="422" width="320" height="21"/>
+                                <rect key="frame" x="0.0" y="466" width="320" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="Dbo-qp-7Mc">
-                                <rect key="frame" x="89" y="139" width="200" height="23"/>
+                                <rect key="frame" x="89" y="183" width="200" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="Jfo-Gu-x2I"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="Bh1-L4-1jb">
-                                <rect key="frame" x="89" y="186.5" width="200" height="23"/>
+                                <rect key="frame" x="89" y="230" width="200" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="brD-Xh-lp4"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="K1A-My-0gn">
-                                <rect key="frame" x="89" y="234.5" width="200" height="23"/>
+                                <rect key="frame" x="89" y="278" width="200" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="4cG-qU-LHq"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" tag="40" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="9ec-Wr-TX2">
-                                <rect key="frame" x="89" y="282" width="200" height="23"/>
+                                <rect key="frame" x="89" y="326" width="200" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="vb1-AT-FfL"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="mrX-da-IuP">
-                                <rect key="frame" x="89" y="330" width="200" height="23"/>
+                                <rect key="frame" x="89" y="374" width="200" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="wJn-Rq-8J7"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+1pt each)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4PL-cL-9HQ" customClass="LucidaLabel">
-                                <rect key="frame" x="5" y="113" width="72" height="21"/>
+                                <rect key="frame" x="5" y="157" width="72" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="11" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="L29-u6-VgL" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="139" width="21" height="21"/>
+                                <rect key="frame" x="296" y="183" width="21" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="21" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4cO-kV-eHg" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="186.5" width="21" height="21"/>
+                                <rect key="frame" x="296" y="230" width="21" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="31" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pQL-ra-bNM" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="234" width="21" height="21"/>
+                                <rect key="frame" x="296" y="278" width="21" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="41" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gBc-Wn-0hr" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="282" width="21" height="21"/>
+                                <rect key="frame" x="296" y="326" width="21" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="51" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="VFv-rH-Ejf" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="329.5" width="21" height="21"/>
+                                <rect key="frame" x="296" y="373" width="21" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="VWG-sI-bRy">
-                                <rect key="frame" x="150" y="106" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="150" y="150" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Favorite Item:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pvP-3M-dbw" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="75" width="119" height="22"/>
+                                <rect key="frame" x="10" y="119" width="119" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Favorite Item:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lx6-ka-Nfz" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="137" y="75" width="173" height="22"/>
+                                <rect key="frame" x="137" y="119" width="173" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SqM-hg-dGa">
-                                <rect key="frame" x="134" y="61" width="176" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="134" y="105" width="176" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Click To Select" backgroundImage="rowButton.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1348,26 +1408,21 @@
                                     <action selector="selectFavoriteItem" destination="CSm-3p-pEO" eventType="touchUpInside" id="6M3-5H-5JO"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" id="ci1-pe-p0r">
+                                <rect key="frame" x="0.0" y="45" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Review" id="Dey-tm-WLf">
-                        <barButtonItem key="leftBarButtonItem" title="Skip" id="Lts-ye-M9d" customClass="CorbelBarButtonItem">
-                            <connections>
-                                <action selector="skipReview:" destination="CSm-3p-pEO" id="yhE-7X-9gI"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Submit" id="ia3-JN-ePp" customClass="CorbelBarButtonItem">
-                            <connections>
-                                <action selector="submitReview:" destination="CSm-3p-pEO" id="jP9-Wf-zgC"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationItem key="navigationItem" id="Dey-tm-WLf"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activity" destination="VWG-sI-bRy" id="13a-NG-m7I"/>
+                        <outlet property="backView" destination="zGQ-PZ-UTH" id="7UL-O8-ikL"/>
                         <outlet property="commentsText" destination="hZs-wF-YtT" id="W5E-yd-OnM"/>
                         <outlet property="drinksSlider" destination="K1A-My-0gn" id="mON-ff-ODP"/>
                         <outlet property="earnMoreLabel" destination="6oA-d0-eFo" id="ANB-t6-a90"/>
@@ -1382,8 +1437,9 @@
                         <outlet property="selectedItemTextField" destination="Lx6-ka-Nfz" id="f7Q-Lz-dtD"/>
                         <outlet property="serviceSlider" destination="Bh1-L4-1jb" id="mTh-Xx-xpT"/>
                         <outlet property="shareLabel" destination="nzE-8x-hl9" id="loc-nR-Waq"/>
-                        <outlet property="skipButton" destination="Lts-ye-M9d" id="lTW-nR-yQB"/>
-                        <outlet property="submitButton" destination="ia3-JN-ePp" id="bq7-RH-OyQ"/>
+                        <outlet property="skipButton" destination="Yak-5h-o3h" id="hLh-xy-U3L"/>
+                        <outlet property="submitButton" destination="nve-xC-5Yz" id="ny3-c7-tfd"/>
+                        <outlet property="topLineView" destination="ci1-pe-p0r" id="Rin-of-ahO"/>
                         <outlet property="valueSlider" destination="mrX-da-IuP" id="GVC-ze-Hti"/>
                     </connections>
                 </viewController>
@@ -1391,10 +1447,10 @@
             </objects>
             <point key="canvasLocation" x="3546" y="800"/>
         </scene>
-        <!--View Controller-->
+        <!--Confirm Payment View Controller-->
         <scene sceneID="b1Y-iD-Ofu">
             <objects>
-                <viewController id="ciO-yO-rPd" sceneMemberID="viewController">
+                <viewController id="ciO-yO-rPd" customClass="ConfirmPaymentViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DKF-1f-HW5">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1404,7 +1460,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Confirm Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3GZ-Hv-Jzw" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="75" y="2" width="170" height="46"/>
+                                        <rect key="frame" x="40" y="2" width="241" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1422,9 +1478,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="goBackAction" destination="286-cg-SXD" eventType="touchUpInside" id="NDs-ig-HTG"/>
-                                            <action selector="goBackAction" destination="tsN-4l-rgJ" eventType="touchUpInside" id="bcp-UM-GLZ"/>
-                                            <action selector="openMenuAction" destination="S2y-Ly-oWJ" eventType="touchUpInside" id="k9e-ix-kuL"/>
+                                            <action selector="goBackAction" destination="ciO-yO-rPd" eventType="touchUpInside" id="JbI-IG-URK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2z6-ww-zu5">
@@ -1451,60 +1505,53 @@
                                 <rect key="frame" x="0.0" y="46" width="320" height="508"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="My Total:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cM7-WQ-9sb" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="29" y="132" width="108" height="43"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter your credit card PIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="WTP-0g-7lM" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="5" y="41" width="303" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="frw-aG-lRY" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="20" y="161" width="280" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="frw-aG-lRY" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="156" y="132" width="108" height="43"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TMR-ta-Iqr" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="14" y="202" width="286" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ahc-VS-FKA" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="156" y="177" width="108" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="vu6-TR-Zch" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="29" y="177" width="108" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="5oU-TG-EGS" customClass="CorbelInputTextField">
-                                <rect key="frame" x="222" y="79" width="35" height="38"/>
+                                <rect key="frame" x="222" y="94" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="2XW-vU-Ejn" customClass="CorbelInputTextField">
-                                <rect key="frame" x="107" y="79" width="35" height="38"/>
+                                <rect key="frame" x="107" y="94" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="i4B-eL-0Ft" customClass="CorbelInputTextField">
-                                <rect key="frame" x="49" y="79" width="35" height="38"/>
+                                <rect key="frame" x="49" y="94" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="WnA-Q7-3C2" customClass="CorbelInputTextField">
-                                <rect key="frame" x="163" y="79" width="35" height="38"/>
+                                <rect key="frame" x="163" y="94" width="35" height="38"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="d2n-Z8-8NN">
-                                <rect key="frame" x="14" y="55" width="277" height="73"/>
+                                <rect key="frame" x="14" y="70" width="277" height="73"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal">
@@ -1524,10 +1571,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="NO9-XR-JCS" customClass="NVUIGradientButton">
-                                <rect key="frame" x="54" y="236" width="197" height="44"/>
+                                <rect key="frame" x="62" y="262" width="197" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
+                                    <action selector="confirmAction" destination="ciO-yO-rPd" eventType="touchUpInside" id="61c-5a-u47"/>
                                     <action selector="payBillAction" destination="286-cg-SXD" eventType="touchUpInside" id="CVE-iK-C43"/>
                                 </connections>
                             </view>
@@ -1536,7 +1584,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="n3G-ha-rUH"/>
                     <connections>
-                        <segue destination="CSm-3p-pEO" kind="push" identifier="paymentComplete" id="RNy-6v-Ue6"/>
+                        <outlet property="backView" destination="BHM-qm-shG" id="2g6-3l-3RH"/>
+                        <outlet property="checkNumFour" destination="5oU-TG-EGS" id="A2C-eJ-jzE"/>
+                        <outlet property="checkNumOne" destination="i4B-eL-0Ft" id="IRw-fJ-mPP"/>
+                        <outlet property="checkNumThree" destination="WnA-Q7-3C2" id="Mkz-MF-ytj"/>
+                        <outlet property="checkNumTwo" destination="2XW-vU-Ejn" id="gFR-fe-S5P"/>
+                        <outlet property="confirmButton" destination="NO9-XR-JCS" id="hrE-5i-okV"/>
+                        <outlet property="myTotalLabel" destination="frw-aG-lRY" id="tDl-kp-lPI"/>
+                        <outlet property="paymentLabel" destination="TMR-ta-Iqr" id="B3O-eq-8Ux"/>
+                        <outlet property="topLineView" destination="gRq-1v-N2P" id="Idz-o6-Xq5"/>
+                        <segue destination="CSm-3p-pEO" kind="push" identifier="reviewCreditCardTransaction" id="RNy-6v-Ue6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5oc-W4-VPD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1571,6 +1628,174 @@
                                 </items>
                                 <color key="tintColor" red="0.082352941176470587" green="0.31372549019607843" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
+                            <view contentMode="scaleToFill" id="T8l-yt-cdp">
+                                <rect key="frame" x="0.0" y="44" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Original Bill Amount:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" id="zAA-po-9QN" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="3" y="21" width="206" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Food + Beverage:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="RnF-n3-ppB" customClass="CorbelRegularLabel">
+                                        <rect key="frame" x="17" y="46" width="139" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip Included:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lia-Mj-e4c" customClass="CorbelRegularLabel">
+                                        <rect key="frame" x="21" y="65" width="135" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$96.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="bls-Te-oy3" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="216" y="21" width="93" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$26.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KkD-Nb-fc2" customClass="LucidaLabel">
+                                        <rect key="frame" x="159" y="44" width="50" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$16.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ziI-ZK-xEz" customClass="LucidaLabel">
+                                        <rect key="frame" x="159" y="63" width="50" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="nZ5-42-72D" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="216" y="114" width="93" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="2V9-UU-Pl7" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="216" y="155" width="93" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Amount Already Paid:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" id="Byj-eg-pYe" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="3" y="110" width="206" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Amount Remaining:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" id="pzJ-Ib-bIm" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="3" y="152" width="206" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your Payment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pfq-sM-T7b" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="161" y="256" width="147" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tip Amount" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="683-5M-P0V" customClass="CorbelTextField">
+                                        <rect key="frame" x="25" y="302" width="110" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                        <connections>
+                                            <action selector="dollarEditEnd:" destination="Txq-fd-JyS" eventType="editingDidEnd" id="dBr-ZX-H5k"/>
+                                            <action selector="dollarTipDidBegin" destination="Txq-fd-JyS" eventType="editingDidBegin" id="xJs-At-zDh"/>
+                                            <action selector="endText" destination="Txq-fd-JyS" eventType="editingDidEndOnExit" id="6W7-gE-nWa"/>
+                                            <outlet property="delegate" destination="Txq-fd-JyS" id="jX4-dx-yGq"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$258.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Itq-6n-RHY" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="5" y="356" width="130" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Fav-fw-Qei" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="161" y="358" width="111" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ar1-XP-JVt" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="13" y="309" width="28" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="jG2-QT-ijg" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="13" y="263" width="28" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="w3p-nk-J9Z" customClass="CorbelSegmentedControl">
+                                        <rect key="frame" x="161" y="303" width="147" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="18%"/>
+                                            <segment title="20%"/>
+                                            <segment title="22%"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.08235294118" green="0.31372549020000001" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="dollarTipSegmentSelect:" destination="Txq-fd-JyS" eventType="valueChanged" id="zf2-4A-SQa"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Amount" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="Gko-fJ-B2q" customClass="CorbelTextField">
+                                        <rect key="frame" x="25" y="255" width="110" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                        <connections>
+                                            <action selector="dollarTipDidBegin" destination="Txq-fd-JyS" eventType="editingDidBegin" id="a4F-ot-yB3"/>
+                                            <action selector="dollarYourPaymentEditEnd:" destination="Txq-fd-JyS" eventType="editingDidEnd" id="pHt-7f-0Sl"/>
+                                            <action selector="endText" destination="Txq-fd-JyS" eventType="editingDidEndOnExit" id="2h4-uR-Ff1"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tax:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pg3-Eo-70h" customClass="CorbelRegularLabel">
+                                        <rect key="frame" x="21" y="83" width="135" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$6.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kYJ-pB-nj6" customClass="LucidaLabel">
+                                        <rect key="frame" x="159" y="83" width="50" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="MAQ-hT-g1R">
+                                        <rect key="frame" x="15" y="340" width="120" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" id="ip3-cP-Thb">
                                 <rect key="frame" x="0.0" y="44" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2034,174 +2259,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="T8l-yt-cdp">
-                                <rect key="frame" x="0.0" y="44" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Original Bill Amount:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" id="zAA-po-9QN" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="3" y="21" width="206" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Food + Beverage:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="RnF-n3-ppB" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="17" y="46" width="139" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip Included:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lia-Mj-e4c" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="21" y="65" width="135" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$96.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="bls-Te-oy3" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="216" y="21" width="93" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$26.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KkD-Nb-fc2" customClass="LucidaLabel">
-                                        <rect key="frame" x="159" y="44" width="50" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$16.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ziI-ZK-xEz" customClass="LucidaLabel">
-                                        <rect key="frame" x="159" y="63" width="50" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="nZ5-42-72D" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="216" y="114" width="93" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" id="2V9-UU-Pl7" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="216" y="155" width="93" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Amount Already Paid:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" id="Byj-eg-pYe" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="3" y="110" width="206" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Amount Remaining:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" id="pzJ-Ib-bIm" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="3" y="152" width="206" height="33"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your Payment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pfq-sM-T7b" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="161" y="256" width="147" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tip Amount" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="683-5M-P0V" customClass="CorbelTextField">
-                                        <rect key="frame" x="25" y="302" width="110" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
-                                        <connections>
-                                            <action selector="dollarEditEnd:" destination="Txq-fd-JyS" eventType="editingDidEnd" id="dBr-ZX-H5k"/>
-                                            <action selector="dollarTipDidBegin" destination="Txq-fd-JyS" eventType="editingDidBegin" id="xJs-At-zDh"/>
-                                            <action selector="endText" destination="Txq-fd-JyS" eventType="editingDidEndOnExit" id="6W7-gE-nWa"/>
-                                            <outlet property="delegate" destination="Txq-fd-JyS" id="jX4-dx-yGq"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$258.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Itq-6n-RHY" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="5" y="356" width="130" height="41"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Fav-fw-Qei" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="161" y="358" width="111" height="41"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ar1-XP-JVt" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="13" y="309" width="28" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="jG2-QT-ijg" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="13" y="263" width="28" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="w3p-nk-J9Z" customClass="CorbelSegmentedControl">
-                                        <rect key="frame" x="161" y="303" width="147" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <segments>
-                                            <segment title="18%"/>
-                                            <segment title="20%"/>
-                                            <segment title="22%"/>
-                                        </segments>
-                                        <color key="tintColor" red="0.08235294118" green="0.31372549020000001" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="dollarTipSegmentSelect:" destination="Txq-fd-JyS" eventType="valueChanged" id="zf2-4A-SQa"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Amount" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="Gko-fJ-B2q" customClass="CorbelTextField">
-                                        <rect key="frame" x="25" y="255" width="110" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
-                                        <connections>
-                                            <action selector="dollarTipDidBegin" destination="Txq-fd-JyS" eventType="editingDidBegin" id="a4F-ot-yB3"/>
-                                            <action selector="dollarYourPaymentEditEnd:" destination="Txq-fd-JyS" eventType="editingDidEnd" id="pHt-7f-0Sl"/>
-                                            <action selector="endText" destination="Txq-fd-JyS" eventType="editingDidEndOnExit" id="2h4-uR-Ff1"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tax:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pg3-Eo-70h" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="21" y="83" width="135" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$6.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kYJ-pB-nj6" customClass="LucidaLabel">
-                                        <rect key="frame" x="159" y="83" width="50" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" id="MAQ-hT-g1R">
-                                        <rect key="frame" x="15" y="340" width="120" height="1"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="4OH-kJ-7rg">
                                 <rect key="frame" x="150" y="242" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2342,8 +2399,6 @@
                                         </state>
                                         <connections>
                                             <action selector="goBackAction" destination="286-cg-SXD" eventType="touchUpInside" id="Cqt-hx-cpo"/>
-                                            <action selector="goBackAction" destination="tsN-4l-rgJ" eventType="touchUpInside" id="Up2-3a-t6C"/>
-                                            <action selector="openMenuAction" destination="S2y-Ly-oWJ" eventType="touchUpInside" id="vXc-cL-ilv"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BjT-Ys-SJc">
@@ -2378,8 +2433,8 @@
                                 <rect key="frame" x="0.0" y="52" width="330" height="389"/>
                                 <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=" $258.34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="In9-VS-Nhg" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="0.0" y="444" width="320" height="43"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=" $258.34" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="In9-VS-Nhg" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="0.0" y="444" width="264" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2490,7 +2545,7 @@
                                 <color key="backgroundColor" white="0.95882755474452552" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="N8x-b1-XgY" customClass="NVUIGradientButton">
-                                <rect key="frame" x="62" y="492" width="197" height="44"/>
+                                <rect key="frame" x="62" y="495" width="197" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -2624,6 +2679,111 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="divide.png" id="UdQ-cg-ufa">
+                                <rect key="frame" x="276" y="447" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8wg-zZ-ed7">
+                                <rect key="frame" x="0.0" y="441" width="320" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showSplitView" destination="286-cg-SXD" eventType="touchUpInside" id="fDw-Vj-Yz0"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="NyO-aG-aZG">
+                                <rect key="frame" x="-320" y="325" width="320" height="423"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="IFK-cL-hzQ">
+                                        <rect key="frame" x="0.0" y="1" width="320" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Split Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wDS-7C-TL6" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="87" y="5" width="148" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter your payment:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ilu-zZ-IY1" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="4" y="176" width="162" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.082352941176470587" green="0.31372549019607843" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select the number of people splitting:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Um8-EP-gTq" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="4" y="47" width="314" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.082352941176470587" green="0.31372549019607843" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="cSm-wM-aqn">
+                                        <rect key="frame" x="39" y="80" width="245" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </scrollView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hPZ-Yj-z2c" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="30" y="133" width="263" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5w2-AO-hz7" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="174" y="176" width="17" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="My Payment" textAlignment="right" minimumFontSize="17" id="fXH-rd-3ZX" customClass="CorbelTextField">
+                                        <rect key="frame" x="186" y="176" width="97" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <connections>
+                                            <action selector="splitMyPaymentDidBegin:" destination="286-cg-SXD" eventType="editingDidBegin" id="Nx7-ay-NBd"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yRD-MU-QXF">
+                                        <rect key="frame" x="4" y="5" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="backarrow.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelSplitAction" destination="286-cg-SXD" eventType="touchUpInside" id="7ZB-OW-OZ5"/>
+                                            <action selector="goBackAction" destination="bnQ-MH-hCn" eventType="touchUpInside" id="jHc-W5-3xb"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" id="dgt-Aj-mUf" customClass="NVUIGradientButton">
+                                        <rect key="frame" x="250" y="5" width="63" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="splitSaveAction" destination="286-cg-SXD" eventType="touchUpInside" id="gjq-hB-Li8"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.9289176551094892" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -2636,6 +2796,7 @@
                         <outlet property="alreadyPaidViewLabel" destination="uXs-dj-4Ot" id="E9b-RH-JUC"/>
                         <outlet property="amountLabel" destination="9HQ-MA-PTO" id="bzp-4S-Qi1"/>
                         <outlet property="amountNameLabel" destination="56h-sd-0Qd" id="Ybz-1n-gLv"/>
+                        <outlet property="backView" destination="18T-vT-Imj" id="HBR-4r-6o2"/>
                         <outlet property="bottomHalfView" destination="dgU-M3-eD6" id="Lfz-8n-ebt"/>
                         <outlet property="discLabel" destination="DMj-0R-RwT" id="FZy-tE-yd2"/>
                         <outlet property="discNameLabel" destination="gst-Yk-rTz" id="ZjX-pQ-cfH"/>
@@ -2644,11 +2805,17 @@
                         <outlet property="gratLabel" destination="eqC-WG-efc" id="dFi-ot-Kr0"/>
                         <outlet property="gratNameLabel" destination="bdB-j5-2my" id="Ne0-zs-mIj"/>
                         <outlet property="myTableView" destination="1eY-4l-GSe" id="3FK-S1-TTz"/>
+                        <outlet property="numberSliderScrollView" destination="cSm-wM-aqn" id="aiN-FH-5pG"/>
                         <outlet property="overlayTextView" destination="ZmZ-Ga-SHD" id="SfT-RF-hte"/>
                         <outlet property="payBillButton" destination="N8x-b1-XgY" id="XxY-o6-nx7"/>
+                        <outlet property="splitMyPaymentTextField" destination="fXH-rd-3ZX" id="w6P-eH-Rtm"/>
+                        <outlet property="splitSaveButton" destination="dgt-Aj-mUf" id="SLf-xV-AtV"/>
+                        <outlet property="splitTopLineView" destination="IFK-cL-hzQ" id="ajO-hk-W53"/>
+                        <outlet property="splitView" destination="NyO-aG-aZG" id="sty-ou-lCR"/>
                         <outlet property="subLabel" destination="to3-sc-dHs" id="6BO-Ud-uwg"/>
                         <outlet property="subtotalBackView" destination="82c-dd-gFt" id="bF1-sS-cD2"/>
                         <outlet property="taxLabel" destination="gs2-mK-wwb" id="TRO-b7-cRi"/>
+                        <outlet property="topLineView" destination="f3Q-mm-BCB" id="uvF-T7-drz"/>
                         <outlet property="totalLabel" destination="In9-VS-Nhg" id="VgH-r8-ANu"/>
                         <segue destination="hyn-k9-9Hu" kind="push" identifier="goPayDwolla" id="pOd-6P-e5i"/>
                         <segue destination="bX5-5s-ZOq" kind="push" identifier="confirmDwolla" id="vYI-Ib-Hg3"/>
@@ -2659,10 +2826,10 @@
             </objects>
             <point key="canvasLocation" x="3185" y="-95"/>
         </scene>
-        <!--View Controller-->
+        <!--Additional Tip View Controller-->
         <scene sceneID="fZr-VT-U4o">
             <objects>
-                <viewController id="bnQ-MH-hCn" sceneMemberID="viewController">
+                <viewController id="bnQ-MH-hCn" customClass="AdditionalTipViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DvC-Sg-i2T">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2690,9 +2857,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="goBackAction" destination="tsN-4l-rgJ" eventType="touchUpInside" id="DT1-LP-37R"/>
-                                            <action selector="goBackAction" destination="286-cg-SXD" eventType="touchUpInside" id="LYt-yp-PeB"/>
-                                            <action selector="openMenuAction" destination="S2y-Ly-oWJ" eventType="touchUpInside" id="E6X-2O-FKh"/>
+                                            <action selector="goBackAction" destination="bnQ-MH-hCn" eventType="touchUpInside" id="BsH-sg-1Ss"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qPg-Xs-iOn">
@@ -2738,6 +2903,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Mq6-U5-hNP" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="135" y="105" width="29" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Rnj-FB-Bk0" customClass="LucidaBoldLabel">
                                 <rect key="frame" x="27" y="100" width="108" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -2745,12 +2917,17 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="17" id="4V4-wE-gP9">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="right" minimumFontSize="17" id="4V4-wE-gP9" customClass="LucidaBoldInputTextField">
                                 <rect key="frame" x="165" y="105" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.97408188870000001" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="endText" destination="bnQ-MH-hCn" eventType="editingDidEndOnExit" id="hnS-zv-aTK"/>
+                                    <action selector="tipTextEditBegin" destination="bnQ-MH-hCn" eventType="editingDidBegin" id="Bpe-1u-wEe"/>
+                                    <action selector="tipTextEditChanged" destination="bnQ-MH-hCn" eventType="editingChanged" id="lmx-10-fRE"/>
+                                </connections>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Ves-ga-BAM">
                                 <rect key="frame" x="57" y="151" width="207" height="30"/>
@@ -2760,6 +2937,9 @@
                                     <segment title="20%"/>
                                     <segment title="22%"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="bnQ-MH-hCn" eventType="valueChanged" id="xBn-bw-rD6"/>
+                                </connections>
                             </segmentedControl>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Transaction Notes (*optional):" id="wX5-og-JLh" customClass="CorbelTextView">
                                 <rect key="frame" x="20" y="195" width="286" height="96"/>
@@ -2776,6 +2956,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
+                                    <action selector="continueAction:" destination="bnQ-MH-hCn" eventType="touchUpInside" id="1aq-3p-eFI"/>
                                     <action selector="payBillAction" destination="286-cg-SXD" eventType="touchUpInside" id="jD5-m3-cSm"/>
                                 </connections>
                             </view>
@@ -2784,6 +2965,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="SRy-f1-Prm"/>
                     <connections>
+                        <outlet property="backView" destination="P7S-QN-oPP" id="B5D-yQ-OqM"/>
+                        <outlet property="continueButton" destination="I5E-Bn-9su" id="Ew0-KL-t70"/>
+                        <outlet property="myTotalLabel" destination="5Eb-tJ-ynX" id="TD4-0P-lg1"/>
+                        <outlet property="tipSelectSegment" destination="Ves-ga-BAM" id="wnJ-7n-TTD"/>
+                        <outlet property="tipTextField" destination="4V4-wE-gP9" id="nfn-6Q-AgP"/>
+                        <outlet property="topLineView" destination="KUb-U8-yIU" id="atO-DW-98i"/>
+                        <outlet property="transactionNotesText" destination="wX5-og-JLh" id="zLQ-ZO-aIu"/>
                         <segue destination="ciO-yO-rPd" kind="push" identifier="goConfirm" id="rpI-94-jyo"/>
                     </connections>
                 </viewController>
@@ -2845,13 +3033,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="rC3-Ik-t0B">
-                                <rect key="frame" x="35" y="432.5" width="250" height="21"/>
+                                <rect key="frame" x="35" y="432" width="250" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="mt1-E4-1RH">
-                                <rect key="frame" x="35" y="354.5" width="238" height="70"/>
+                                <rect key="frame" x="35" y="354" width="238" height="70"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Phone #: (630) 215-6979" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="aMM-WG-7gP" customClass="LucidaBoldLabel">
                                 <rect key="frame" x="19" y="29" width="280" height="38"/>
@@ -3543,7 +3731,7 @@
             <objects>
                 <tableViewController id="0JH-v4-76k" customClass="AddCreditCard" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ENy-a6-Sp3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="x0o-9G-wgT">
@@ -4083,66 +4271,88 @@
             <objects>
                 <viewController storyboardIdentifier="" id="fKj-lZ-dBf" customClass="NoPaymentSourcesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fge-oS-dEo">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0TA-RH-NOW">
-                                <rect key="frame" x="35" y="167" width="250" height="44"/>
+                            <view contentMode="scaleToFill" id="x51-wH-Kv4">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="571"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Credit Card" backgroundImage="rowButton.png">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="creditCard" destination="fKj-lZ-dBf" eventType="touchUpInside" id="0Es-8t-PYR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4dt-YT-qTX">
-                                <rect key="frame" x="35" y="248" width="250" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="No Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4JF-Gc-fkT" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="40" y="2" width="241" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="yuV-u5-08E" customClass="NVUIGradientButton">
+                                        <rect key="frame" x="5" y="6" width="68" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="cancel" destination="fKj-lZ-dBf" eventType="touchUpInside" id="dRq-fN-A7a"/>
+                                            <action selector="skipReview:" destination="CSm-3p-pEO" eventType="touchUpInside" id="Nvu-Qn-UpZ"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="qYq-Xn-KdQ">
+                                <rect key="frame" x="0.0" y="46" width="320" height="508"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Dwolla" backgroundImage="rowButton.png">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="n8k-Oz-JIv" customClass="NVUIGradientButton">
+                                <rect key="frame" x="51" y="201" width="218" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
-                                    <action selector="dwolla" destination="fKj-lZ-dBf" eventType="touchUpInside" id="B6y-tR-Qj0"/>
+                                    <action selector="creditCard" destination="fKj-lZ-dBf" eventType="touchUpInside" id="odQ-jq-rQQ"/>
+                                    <action selector="skipReview:" destination="CSm-3p-pEO" eventType="touchUpInside" id="QAS-pg-KhW"/>
                                 </connections>
-                            </button>
+                            </view>
+                            <view contentMode="scaleToFill" id="86T-cf-dKW" customClass="NVUIGradientButton">
+                                <rect key="frame" x="51" y="286" width="218" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="dwolla" destination="fKj-lZ-dBf" eventType="touchUpInside" id="wyI-xg-4Q8"/>
+                                    <action selector="skipReview:" destination="CSm-3p-pEO" eventType="touchUpInside" id="yGJ-hn-ZMm"/>
+                                </connections>
+                            </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="ARC has detected that you have no valid forms of payment entered.  To continue using ARC, please choose one of the following:" id="qnn-Nv-xNH" customClass="CorbelTextView">
-                                <rect key="frame" x="13" y="20" width="295" height="115"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="13" y="64" width="295" height="115"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4fm-mR-uFp">
-                                <rect key="frame" x="35" y="436" width="250" height="21"/>
+                                <rect key="frame" x="35" y="480" width="250" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="CDi-q6-5LN">
-                                <rect key="frame" x="35" y="358" width="238" height="70"/>
+                                <rect key="frame" x="35" y="402" width="238" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" id="uZt-eQ-bbM">
+                                <rect key="frame" x="0.0" y="45" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Payment Info" id="GM8-hd-oEy">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="nPv-IC-8gN">
-                            <connections>
-                                <action selector="cancel" destination="fKj-lZ-dBf" id="JXk-Uh-Bjs"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Payment Info" id="GM8-hd-oEy"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="backView" destination="x51-wH-Kv4" id="Uqk-pG-XW5"/>
+                        <outlet property="cancelButton" destination="yuV-u5-08E" id="gyb-aF-HCb"/>
+                        <outlet property="creditCardButton" destination="n8k-Oz-JIv" id="lmG-CD-R85"/>
+                        <outlet property="dwollaButton" destination="86T-cf-dKW" id="iJ7-MM-Bjb"/>
+                        <outlet property="topLineView" destination="uZt-eQ-bbM" id="8Fd-Hg-fss"/>
                         <segue destination="bX5-5s-ZOq" kind="push" identifier="confirmDwolla" id="hxV-NI-Cfh"/>
                         <segue destination="0JH-v4-76k" kind="push" identifier="addCard" id="8Ap-ny-8Aq"/>
                     </connections>
@@ -5155,7 +5365,7 @@
                             </searchBar>
                             <view contentMode="scaleToFill" id="AG8-tw-Hjx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="arcLogo.png" id="yAc-6n-DFn">
                                         <rect key="frame" x="111" y="3" width="99" height="40"/>
@@ -5762,6 +5972,7 @@
         <image name="blueArrow.png" width="200" height="200"/>
         <image name="blueCheck.png" width="150" height="138"/>
         <image name="camera.png" width="128" height="128"/>
+        <image name="divide.png" width="64" height="64"/>
         <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="finger.png" width="210" height="297"/>
         <image name="helpImage1.png" width="900" height="800"/>
@@ -5806,6 +6017,41 @@
                 <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="AdditionalTipViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdditionalTipViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="continueAction:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="action" name="segmentValueChanged:"/>
+                <relationship kind="action" name="tipTextEditBegin"/>
+                <relationship kind="action" name="tipTextEditChanged"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="continueButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="myTotalLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="tipSelectSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tipTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="transactionNotesText" candidateClass="CorbelTextView"/>
+            </relationships>
+        </class>
+        <class className="ConfirmPaymentViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConfirmPaymentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="confirmAction"/>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="confirmButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myTotalLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="paymentLabel" candidateClass="LucidaBoldLabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="ContactUsView" superclassName="UIViewController">
@@ -6086,15 +6332,20 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceView.h"/>
             <relationships>
                 <relationship kind="action" name="cancelAlreadyPaid"/>
+                <relationship kind="action" name="cancelSplitAction"/>
                 <relationship kind="action" name="editBegin:"/>
                 <relationship kind="action" name="editEnd:"/>
                 <relationship kind="action" name="goBackAction"/>
                 <relationship kind="action" name="payBillAction"/>
+                <relationship kind="action" name="payFullSplitAction"/>
                 <relationship kind="action" name="payNow:"/>
                 <relationship kind="action" name="refreshInvoice"/>
                 <relationship kind="action" name="segmentSelect"/>
                 <relationship kind="action" name="showBalanceAction"/>
+                <relationship kind="action" name="showSplitView"/>
                 <relationship kind="action" name="splitCheckAction:"/>
+                <relationship kind="action" name="splitMyPaymentDidBegin:"/>
+                <relationship kind="action" name="splitSaveAction"/>
                 <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="alreadyPaid" candidateClass="UIView"/>
                 <relationship kind="outlet" name="alreadyPaidLabel" candidateClass="LucidaBoldLabel"/>
@@ -6103,6 +6354,7 @@
                 <relationship kind="outlet" name="alreadyPaidViewLabel" candidateClass="LucidaBoldLabel"/>
                 <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="amountNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="bottomHalfView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="discLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="discNameLabel" candidateClass="UILabel"/>
@@ -6111,16 +6363,24 @@
                 <relationship kind="outlet" name="gratLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="gratNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="numberSliderScrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="overlayTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="payBillButton" candidateClass="NVUIGradientButton"/>
                 <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="splitCancelButton" candidateClass="NVUIGradientButton"/>
                 <relationship kind="outlet" name="splitCheckButton" candidateClass="CorbelBarButtonItem"/>
+                <relationship kind="outlet" name="splitFullButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitMyPaymentTextField" candidateClass="CorbelTextField"/>
+                <relationship kind="outlet" name="splitSaveButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitTopLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="splitView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="subLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="subtotalBackView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="taxLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="tipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -6142,6 +6402,9 @@
                 <relationship kind="outlet" name="mainBackView" candidateClass="UIView"/>
             </relationships>
         </class>
+        <class className="LucidaBoldInputTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaBoldInputTextField.h"/>
+        </class>
         <class className="LucidaBoldLabel" superclassName="UILabel">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaBoldLabel.h"/>
         </class>
@@ -6157,6 +6420,11 @@
                 <relationship kind="action" name="cancel"/>
                 <relationship kind="action" name="creditCard"/>
                 <relationship kind="action" name="dwolla"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="cancelButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="creditCardButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="dwollaButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="PrivacyTermsViewController" superclassName="UIViewController">
@@ -6279,6 +6547,7 @@
                 <relationship kind="outlet" name="atmosphere3" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="atmosphere4" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="atmosphere5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="commentsText" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="drinks1" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="drinks2" candidateClass="UIButton"/>
@@ -6310,8 +6579,9 @@
                 <relationship kind="outlet" name="service5" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="serviceSlider" candidateClass="UISlider"/>
                 <relationship kind="outlet" name="shareLabel" candidateClass="CorbelBoldLabel"/>
-                <relationship kind="outlet" name="skipButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="skipButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="value1" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="value2" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="value3" candidateClass="UIButton"/>
@@ -6501,13 +6771,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4wm-dJ-IiR"/>
-        <segue reference="A7t-ff-FTj"/>
         <segue reference="o7u-Lj-dwT"/>
+        <segue reference="4wm-dJ-IiR"/>
         <segue reference="pOd-6P-e5i"/>
         <segue reference="vYI-Ib-Hg3"/>
         <segue reference="RNy-6v-Ue6"/>
-        <segue reference="f4G-VL-9D0"/>
         <segue reference="8Ap-ny-8Aq"/>
+        <segue reference="Ii2-yA-rgx"/>
+        <segue reference="f4G-VL-9D0"/>
     </inferredMetricsTieBreakers>
 </document>

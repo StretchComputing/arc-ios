@@ -215,6 +215,16 @@
     [mainDelegate doPaymentCheck];
 }
 
+-(void)goToMerchant:(id)sender{
+    
+    UIButton *myButton = (UIButton *)sender;
+    
+    self.carousel.currentItemIndex = myButton.tag;
+    
+    [self payBillAction];
+    
+    
+}
 - (void)viewDidLoad
 {
     self.searchBar.delegate = self;
@@ -1204,11 +1214,19 @@
             tmpLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:19];
             tmpLabel.backgroundColor = [UIColor clearColor];
             
+            UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            selectButton.frame = CGRectMake(0, 0, 150, 190);
+            selectButton.tag = index;
+            [selectButton addTarget:self action:@selector(goToMerchant:) forControlEvents:UIControlEventTouchUpInside];
+            
             Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:index];
             tmpLabel.text = tmpMerchant.name;
             
             tmpLabel.textAlignment = UITextAlignmentCenter;
             [view addSubview:tmpLabel];
+            
+            [view addSubview:selectButton];
+
             
         }
         else

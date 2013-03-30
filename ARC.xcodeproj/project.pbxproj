@@ -24,6 +24,7 @@
 		907A407215AA073C00090452 /* AddCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A407115AA073C00090452 /* AddCreditCard.m */; };
 		907A407515AA08B200090452 /* addCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407315AA08B200090452 /* addCard.png */; };
 		907A407615AA08B200090452 /* addCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A407415AA08B200090452 /* addCard@2x.png */; };
+		907A761117060CF200E8A15C /* divide.png in Resources */ = {isa = PBXBuildFile; fileRef = 907A761017060CF200E8A15C /* divide.png */; };
 		9081521515E7D10900211C37 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081521315E7D10900211C37 /* Reachability.m */; };
 		9081521715E7D26500211C37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9081521615E7D26500211C37 /* SystemConfiguration.framework */; };
 		9081522215E7D77900211C37 /* InitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081522115E7D77900211C37 /* InitialController.m */; };
@@ -134,6 +135,8 @@
 		90B6B104159A3FFA005E4BCB /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B103159A3FFA005E4BCB /* Restaurant.m */; };
 		90B6B10E159A4F87005E4BCB /* InvoiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B10D159A4F86005E4BCB /* InvoiceView.m */; };
 		90B6B111159A4F95005E4BCB /* Invoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B6B110159A4F95005E4BCB /* Invoice.m */; };
+		90BA26D41705D16E006CE73E /* AdditionalTipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BA26D31705D16E006CE73E /* AdditionalTipViewController.m */; };
+		90BA26D71705D432006CE73E /* LucidaBoldInputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BA26D61705D432006CE73E /* LucidaBoldInputTextField.m */; };
 		90BFD0901597928D00F5285E /* HomeNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BFD08F1597928D00F5285E /* HomeNavigationController.m */; };
 		90BFD0931597943600F5285E /* rowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 90BFD0921597943600F5285E /* rowButton.png */; };
 		90C9736A15A8CC4B00667FF8 /* ArcData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 90C9736815A8CC4B00667FF8 /* ArcData.xcdatamodeld */; };
@@ -230,6 +233,7 @@
 		907A407115AA073C00090452 /* AddCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCard.m; sourceTree = "<group>"; };
 		907A407315AA08B200090452 /* addCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addCard.png; sourceTree = "<group>"; };
 		907A407415AA08B200090452 /* addCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addCard@2x.png"; sourceTree = "<group>"; };
+		907A761017060CF200E8A15C /* divide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = divide.png; sourceTree = "<group>"; };
 		9081521315E7D10900211C37 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9081521415E7D10900211C37 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9081521615E7D26500211C37 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -399,6 +403,10 @@
 		90B6B10D159A4F86005E4BCB /* InvoiceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceView.m; sourceTree = "<group>"; };
 		90B6B10F159A4F94005E4BCB /* Invoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invoice.h; sourceTree = "<group>"; };
 		90B6B110159A4F95005E4BCB /* Invoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invoice.m; sourceTree = "<group>"; };
+		90BA26D21705D16E006CE73E /* AdditionalTipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionalTipViewController.h; sourceTree = "<group>"; };
+		90BA26D31705D16E006CE73E /* AdditionalTipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionalTipViewController.m; sourceTree = "<group>"; };
+		90BA26D51705D432006CE73E /* LucidaBoldInputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LucidaBoldInputTextField.h; sourceTree = "<group>"; };
+		90BA26D61705D432006CE73E /* LucidaBoldInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LucidaBoldInputTextField.m; sourceTree = "<group>"; };
 		90BFD08E1597928D00F5285E /* HomeNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeNavigationController.h; sourceTree = "<group>"; };
 		90BFD08F1597928D00F5285E /* HomeNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeNavigationController.m; sourceTree = "<group>"; };
 		90BFD0921597943600F5285E /* rowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rowButton.png; sourceTree = "<group>"; };
@@ -648,6 +656,7 @@
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				909046BA16EA78F400517A14 /* lock.png */,
 				90CDE0D717027BC700134AF2 /* menuIcon.png */,
+				907A761017060CF200E8A15C /* divide.png */,
 				908CAD501704D3C800F34A41 /* balance.png */,
 				90CDE0E717028AFF00134AF2 /* menuHelpIcon.png */,
 				90CDE0E817028AFF00134AF2 /* menuBillingIcon.png */,
@@ -667,6 +676,8 @@
 				90CDE0E51702869C00134AF2 /* RightViewController.m */,
 				908BC0D2170221DB00852B64 /* NVUIGradientButton.h */,
 				908BC0D3170221DB00852B64 /* NVUIGradientButton.m */,
+				90BA26D21705D16E006CE73E /* AdditionalTipViewController.h */,
+				90BA26D31705D16E006CE73E /* AdditionalTipViewController.m */,
 				90A7FE2F17053ED4001EB837 /* AddTipViewController.h */,
 				90A7FE3017053ED4001EB837 /* AddTipViewController.m */,
 				90A7FE3217053EE3001EB837 /* ConfirmPaymentViewController.h */,
@@ -853,6 +864,8 @@
 				908FA86516850F53002DEE40 /* CorbelTextFieldCreditCardiOS6.h */,
 				909456AF15FEBF680059E65C /* CorbelInputTextField.h */,
 				909456B015FEBF680059E65C /* CorbelInputTextField.m */,
+				90BA26D51705D432006CE73E /* LucidaBoldInputTextField.h */,
+				90BA26D61705D432006CE73E /* LucidaBoldInputTextField.m */,
 				906C818115FD76750012AC9D /* CorbelButton.h */,
 				906C818215FD76750012AC9D /* CorbelButton.m */,
 				909456B315FEC0710059E65C /* CorbelTextView.h */,
@@ -1076,6 +1089,7 @@
 				90CDE0F017028B0000134AF2 /* menuHomeIcon.png in Resources */,
 				908CAD4C1704A50800F34A41 /* sywlSwipeARrow.png in Resources */,
 				908CAD511704D3C900F34A41 /* balance.png in Resources */,
+				907A761117060CF200E8A15C /* divide.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1193,6 +1207,8 @@
 				908CAD4F1704B24700F34A41 /* ArcIdentifier.m in Sources */,
 				90A7FE3117053ED4001EB837 /* AddTipViewController.m in Sources */,
 				90A7FE3417053EE3001EB837 /* ConfirmPaymentViewController.m in Sources */,
+				90BA26D41705D16E006CE73E /* AdditionalTipViewController.m in Sources */,
+				90BA26D71705D432006CE73E /* LucidaBoldInputTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

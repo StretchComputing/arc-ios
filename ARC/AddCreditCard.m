@@ -52,6 +52,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
 -(void)viewWillAppear:(BOOL)animated{
     
     self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.clipsToBounds = YES;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
     

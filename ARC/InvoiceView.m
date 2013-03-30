@@ -19,6 +19,8 @@
 #import "ArcClient.h"
 #import "ArcUtility.h"
 #import "MFSideMenu.h"
+#import "AddTipViewController.h"
+#import "NumberLineButton.h"
 
 @interface InvoiceView ()
 
@@ -27,6 +29,9 @@
 @implementation InvoiceView
 
 -(void)viewWillDisappear:(BOOL)animated{
+    if ([self isFirstResponder]) {
+        [self resignFirstResponder];
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -74,7 +79,12 @@
             }
             
         }
-        [self willAppearSetup];
+        
+        if (self.shouldRun) {
+            self.shouldRun = NO;
+            [self willAppearSetup];
+
+        }
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"InvoiceView.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -86,6 +96,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
+    [self becomeFirstResponder];
     if (self.fromDwolla) {
         
         self.fromDwolla = NO;
@@ -107,10 +118,38 @@
 {
     @try {
         
+        self.shouldRun = YES;
+        
+        [self setUpScrollView];
+        
+        self.splitMyPaymentTextField.keyboardAppearance = UIKeyboardTypeDecimalPad;
+        
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 1;
+        self.topLineView.layer.shadowOpacity = 0.5;
+        
+        self.splitTopLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.splitTopLineView.layer.shadowRadius = 1;
+        self.splitTopLineView.layer.shadowOpacity = 0.5;
+        
+        self.backView.layer.cornerRadius = 7.0;
+        
+        self.splitCancelButton.text = @"Cancel";
+        
+        self.splitFullButton.textColor = [UIColor whiteColor];
+        self.splitFullButton.text = @"Pay Full";
+        self.splitFullButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        
+        self.splitSaveButton.textColor = [UIColor whiteColor];
+        self.splitSaveButton.text = @"Save";
+        self.splitSaveButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+    
+        
         self.payBillButton.textColor = [UIColor whiteColor];
         self.payBillButton.text = @"Pay Bill!";
         self.payBillButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
-    
+        
+        
         self.alreadyPaidButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.alreadyPaidButton setTitle:@"See Who Paid!" forState:UIControlStateNormal];
         [self.alreadyPaidButton.titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:13]];
@@ -182,6 +221,220 @@
         [rSkybox sendClientLog:@"InvoiceView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+-(void)setUpScrollView{
+    
+    
+    @try {
+        for (int i = 0; i < 24; i++) {
+            
+            BOOL addButton = NO;
+            NSString *numberText;
+            if ((i < 4) || (i > 23)) {
+                if (i == 3) {
+                    numberText = @"-";
+                }else{
+                    numberText = @"";
+                }
+            }else{
+                addButton = YES;
+                numberText = [NSString stringWithFormat:@"%d", i-1];
+            }
+            
+            int size;
+            if (i == 3) {
+                size = 28;
+            }else{
+                size = 13;
+            }
+            
+            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 35, 5, 35, 35) andSize:size];
+            numberLabel.textAlignment = UITextAlignmentCenter;
+            numberLabel.text = numberText;
+            numberLabel.clipsToBounds = YES;
+            numberLabel.userInteractionEnabled = YES;
+            
+            if (addButton) {
+                NumberLineButton *numberButton = [NumberLineButton buttonWithType:UIButtonTypeCustom];
+                numberButton.frame = CGRectMake(0, 0, 35, 35);
+                numberButton.offset = i * 35;
+                [numberButton addTarget:self action:@selector(scrollToNumber:) forControlEvents:UIControlEventTouchUpInside];
+                [numberLabel addSubview:numberButton];
+                
+                UIView *rightCircle = [[UIView alloc] initWithFrame:CGRectMake(0, 13, 5, 3)];
+                rightCircle.backgroundColor = [UIColor blackColor];
+                rightCircle.layer.cornerRadius = 6.0;
+                [numberLabel addSubview:rightCircle];
+                
+            }
+            
+            [self.numberSliderScrollView addSubview:numberLabel];
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+        self.numberSliderScrollView.contentSize = CGSizeMake(840, 35);
+        self.numberSliderScrollView.backgroundColor = [UIColor clearColor];
+        self.numberSliderScrollView.delegate = self;
+        self.numberSliderScrollView.showsHorizontalScrollIndicator = NO;
+        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.setUpScrollView" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+    
+    
+}
+
+
+-(void)setValueForOffset:(int)offset{
+    
+    @try {
+        int xValue = offset + 105;
+        
+        LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/35];
+        
+        double yourPercent;
+        
+        if ([myLabel.text isEqualToString:@"-"]) {
+            self.numberOfPeopleSelected = 0;
+            yourPercent = 0;
+            
+        }else{
+            self.numberOfPeopleSelected = [myLabel.text intValue];
+            yourPercent = 1.0/self.numberOfPeopleSelected * 100;
+            
+        }
+        
+
+        
+        
+        double myDue = self.myInvoice.amountDue * yourPercent / 100.0;
+
+        self.splitMyPaymentTextField.text = [NSString stringWithFormat:@"%.2f", myDue];
+        
+        
+                
+        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.setValueForOffset" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+    
+}
+
+-(void)scrollToNumber:(id)sender{
+    
+    @try {
+        NumberLineButton *myButton = (NumberLineButton *)sender;
+        
+        int newOffset = myButton.offset - 70;
+        [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
+        [self setValueForOffset:newOffset];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.scrollToNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+    
+    
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    
+    
+    @try {
+        NSLog(@"Velocitiy: %f", velocity.x);
+        
+        CGFloat xOffset = targetContentOffset->x;
+        int intOffset = round(xOffset);
+        
+        int whole = floor(intOffset/35.0);
+        
+        int remainder = intOffset % 35;
+        
+        if (remainder >= 17) {
+            whole++;
+        }
+        
+        int newOffset = 35 * whole;
+        
+        if (velocity.x == 0) {
+            [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
+            [self setValueForOffset:newOffset];
+        }
+        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.scrollViewWillEndDragging" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+    
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
+    @try {
+        CGFloat xOffset = scrollView.contentOffset.x;
+        int intOffset = round(xOffset);
+        
+        int whole = floor(intOffset/35.0);
+        
+        int remainder = intOffset % 35;
+        
+        if (remainder >= 17) {
+            whole++;
+        }
+        
+        int newOffset = 35 * whole;
+        
+        [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
+        [self setValueForOffset:newOffset];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.scrollViewDidEndDecelerating" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+    
+    
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    @try {
+        CGFloat xOffset = scrollView.contentOffset.x;
+        xOffset +=18;
+        
+        int index = floor(xOffset/35.0);
+        index = index + 3;
+        
+        for (int i = 0; i < [[self.numberSliderScrollView subviews] count]; i++) {
+            
+            if (i != index) {
+                if ([LucidaBoldLabel class] == [[[self.numberSliderScrollView subviews] objectAtIndex:i] class]) {
+                    LucidaBoldLabel *otherLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:i];
+                    [otherLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:13]];
+                    
+                }
+            }
+        }
+        
+        LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
+        [myLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:27]];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.scrollViewDidScroll" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+    
+}
+
 
 -(void)setUpView{
     self.bottomHalfView.backgroundColor = [UIColor clearColor];
@@ -877,9 +1130,11 @@
             
             // on this screen, can only pay the full remaining amount due
             double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
-            [self.myInvoice setBasePaymentAmount:basePayment];
-            
-            CreditCardPayment *controller = [segue destinationViewController];
+            //[self.myInvoice setBasePaymentAmount:basePayment];
+                        
+            double myTotal = [[self.totalLabel.text substringFromIndex:12] doubleValue];
+            [self.myInvoice setBasePaymentAmount:myTotal];
+            AddTipViewController *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;
             
             controller.creditCardSample = self.creditCardSample;
@@ -994,10 +1249,13 @@
         [self.hideKeyboardView removeFromSuperview];
         self.hideKeyboardView = nil;
         
-        int keyboardY = 320;
-        if (self.isIphone5) {
-            keyboardY = 408;
+        int keyboardY = 200;
+        if (self.view.frame.size.height > 500) {
+            keyboardY = 288;
         }
+        
+        keyboardY = self.view.frame.size.height - 45;
+        
         self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, keyboardY, 85, 45)];
         self.hideKeyboardView .backgroundColor = [UIColor clearColor];
         self.hideKeyboardView.layer.masksToBounds = YES;
@@ -1014,7 +1272,7 @@
         [tmpButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
         [tmpButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [tmpButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
-        [tmpButton addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventTouchUpInside];
+        [tmpButton addTarget:self action:@selector(doneSplitMyPayment) forControlEvents:UIControlEventTouchUpInside];
         
         [self.hideKeyboardView addSubview:tmpButton];
         [self.view addSubview:self.hideKeyboardView];
@@ -1163,6 +1421,8 @@
     self.alreadyPaid.hidden = YES;
 }
 
+
+
 - (IBAction)showBalanceAction {
     
     [self.navigationController.sideMenu toggleRightSideMenu];
@@ -1175,8 +1435,119 @@
 - (IBAction)payBillAction {
     [self payNow:nil];
 }
-- (void)viewDidUnload {
-    [self setSubtotalBackView:nil];
-    [super viewDidUnload];
+
+
+- (IBAction)showSplitView {
+    
+    [UIView animateWithDuration:0.6 animations:^{
+       
+        CGRect frame = self.splitView.frame;
+        frame.origin.x = 0;
+        self.splitView.frame = frame;
+    }];
 }
+
+
+- (IBAction)cancelSplitAction {
+    
+    
+    [UIView animateWithDuration:0.6 animations:^{
+        
+        CGRect frame = self.splitView.frame;
+        frame.origin.x = -320;
+        self.splitView.frame = frame;
+    }];
+    
+    
+    if ([self.splitMyPaymentTextField isFirstResponder]) {
+        [self doneSplitMyPayment];
+    }
+
+   
+    
+}
+
+- (IBAction)payFullSplitAction {
+   
+}
+- (IBAction)splitMyPaymentDidBegin:(id)sender {
+    [self showDoneButton];
+    self.isEditingMyPayment = YES;
+    [UIView animateWithDuration:0.6 animations:^{
+        
+        CGRect frame = self.view.frame;
+        frame.origin.y = -216;
+        self.view.frame = frame;
+        
+        
+        CGRect frame1 = self.splitView.frame;
+        frame1.origin.y  -= 50;
+        self.splitView.frame = frame1;
+        
+    }];
+    
+    
+}
+
+
+-(void)doneSplitMyPayment{
+    
+    self.isEditingMyPayment = NO;
+    [self.hideKeyboardView removeFromSuperview];
+    self.hideKeyboardView = nil;
+    
+    [self.splitMyPaymentTextField resignFirstResponder];
+    [UIView animateWithDuration:0.6 animations:^{
+        
+        CGRect frame = self.view.frame;
+        frame.origin.y = 0;
+        self.view.frame = frame;
+        
+        CGRect frame1 = self.splitView.frame;
+        frame1.origin.y  += 50;
+        self.splitView.frame = frame1;
+    }];
+    
+    double myDouble = [self.splitMyPaymentTextField.text doubleValue];
+    self.splitMyPaymentTextField.text = [NSString stringWithFormat:@"%.2f", myDouble];
+    
+    [self becomeFirstResponder];
+}
+
+
+- (IBAction)splitSaveAction {
+    
+    double myDouble = [self.splitMyPaymentTextField.text doubleValue];
+    
+    if (myDouble > 0) {
+        self.totalLabel.text = [NSString stringWithFormat:@"My Total:  $%@", self.splitMyPaymentTextField.text];
+        [self showSplitButtons];
+
+    }
+    
+ 
+    [self cancelSplitAction];
+}
+
+
+-(void)showSplitButtons{
+    
+}
+
+-(void)hideSplitButtons{
+    
+}
+
+-(BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake)
+    {
+        [self willAppearSetup];
+    }
+}
+
 @end

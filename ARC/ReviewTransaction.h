@@ -13,20 +13,25 @@
 #import "Invoice.h"
 #import "LucidaBoldLabel.h"
 #import "LoadingViewController.h"
+#import "NVUIGradientButton.h"
 
 @class LoadingViewController;
 
 @interface ReviewTransaction : UIViewController <UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *submitButton;
 
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
 @property BOOL shouldShowLoading;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *paymentPointsLabel;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *skipButton;
 
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *submitButton;
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *skipButton;
+//@property (nonatomic, weak) IBOutlet UIBarButtonItem *submitButton;
+//@property (nonatomic, weak) IBOutlet UIBarButtonItem *skipButton;
 
+@property (strong, nonatomic) IBOutlet UIView *backView;
 @property int paymentPointsReceived;
 
 -(IBAction)sliderValueChanged:(UISlider *)sender;

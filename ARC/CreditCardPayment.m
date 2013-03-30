@@ -270,18 +270,7 @@
     
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    @try {
-        
-        if ([self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]){
-            self.notesText.text = @"";
-        }
-    }
-    @catch (NSException *e) {
-        [rSkybox sendClientLog:@"CreditCardPayment.textViewDidBeginEditing" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
-    }
-}
+
 
 
 
@@ -418,7 +407,44 @@
 }
 
 
+-(void)createPaymentTimer{
+    
+    /*
+     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"Arc is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+     [alert show];
+     
+     */
+    
+    [self showHighVolumeOverlay];
+}
 
+- (IBAction)touchBoxesAction {
+    [self.hiddenText becomeFirstResponder];
+}
+
+-(void)showHighVolumeOverlay{
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.loadingViewController.displayText.text = @"Arc is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
+        
+        self.loadingViewController.displayText.numberOfLines = 3;
+        CGRect frame = self.loadingViewController.mainBackView.frame;
+        frame.origin.y -= 20;
+        frame.size.height += 20;
+        frame.origin.x = 10;
+        frame.size.width = 300;
+        self.loadingViewController.mainBackView.frame = frame;
+        
+        CGRect frame2 = self.loadingViewController.displayText.frame;
+        frame2.origin.y -= 20;
+        frame2.size.height += 20;
+        frame2.origin.x = 10;
+        frame2.size.width = 300;
+        self.loadingViewController.displayText.frame = frame2;
+        
+    }];
+}
 
 -(void)paymentComplete:(NSNotification *)notification{
     
@@ -541,6 +567,19 @@
 }
 
 
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    @try {
+        
+        if ([self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]){
+            self.notesText.text = @"";
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"CreditCardPayment.textViewDidBeginEditing" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
  replacementText:(NSString *)text
 {
@@ -646,44 +685,7 @@
     
 }
 
--(void)createPaymentTimer{
-    
-    /*
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"Arc is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alert show];
-    
-    */
-    
-    [self showHighVolumeOverlay];
-}
 
-- (IBAction)touchBoxesAction {
-    [self.hiddenText becomeFirstResponder];
-}
-
--(void)showHighVolumeOverlay{
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        self.loadingViewController.displayText.text = @"Arc is experiencing high volume, or a weak internet connection, please be patient...";
-        self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
-        
-        self.loadingViewController.displayText.numberOfLines = 3;
-        CGRect frame = self.loadingViewController.mainBackView.frame;
-        frame.origin.y -= 20;
-        frame.size.height += 20;
-        frame.origin.x = 10;
-        frame.size.width = 300;
-        self.loadingViewController.mainBackView.frame = frame;
-        
-        CGRect frame2 = self.loadingViewController.displayText.frame;
-        frame2.origin.y -= 20;
-        frame2.size.height += 20;
-        frame2.origin.x = 10;
-        frame2.size.width = 300;
-        self.loadingViewController.displayText.frame = frame2;
-                
-    }];
-}
 
 -(void)hideHighVolumeOverlay{
     

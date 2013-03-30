@@ -12,9 +12,12 @@
 #import "CorbelBoldLabel.h"
 #import "LucidaBoldLabel.h"
 #import "NVUIGradientButton.h"
+#import "CorbelTextField.h"
 
-@interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate>
+@interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate, UIScrollViewAccessibilityDelegate>
 
+
+@property int numberOfPeopleSelected;
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
 @property BOOL isPartialPayment;
@@ -26,7 +29,13 @@
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *payBillButton;
 - (IBAction)payBillAction;
 @property (strong, nonatomic) IBOutlet UIView *subtotalBackView;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
+@property (strong, nonatomic) IBOutlet UIView *splitView;
+- (IBAction)cancelSplitAction;
+@property (strong, nonatomic) IBOutlet UIScrollView *numberSliderScrollView;
 
+- (IBAction)payFullSplitAction;
 @property (nonatomic, strong) UIButton *alreadyPaidButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
 - (IBAction)payNow:(id)sender;
@@ -35,17 +44,24 @@
 - (IBAction)splitCheckAction:(id)sender;
 @property (weak, nonatomic) IBOutlet CorbelBoldLabel *alreadyPaidNameLabel;
 @property (weak, nonatomic) IBOutlet LucidaBoldLabel *alreadyPaidLabel;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *splitCancelButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *splitFullButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *splitSaveButton;
+- (IBAction)splitSaveAction;
 
+@property (strong, nonatomic) IBOutlet UIView *splitTopLineView;
 @property (weak, nonatomic) IBOutlet CorbelBarButtonItem *splitCheckButton;
 //@property (weak, nonatomic) IBOutlet CorbelBarButtonItem *payBillButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UILabel *dividerLabel;
-
+@property BOOL shouldRun;
 @property (weak, nonatomic) IBOutlet UILabel *subLabel;
 @property (weak, nonatomic) IBOutlet UILabel *taxLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gratLabel;
-
+- (IBAction)splitMyPaymentDidBegin:(id)sender;
+@property (strong, nonatomic) IBOutlet CorbelTextField *splitMyPaymentTextField;
+@property BOOL isEditingMyPayment;
 @property (nonatomic, strong) NSString *paymentsAccepted;
 
 @property (weak, nonatomic) IBOutlet UILabel *discLabel;
@@ -80,5 +96,6 @@
 @property (nonatomic, strong) IBOutlet UITableView *alreadyPaidTableView;
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *alreadyPaidViewLabel;
 -(IBAction)cancelAlreadyPaid;
+- (IBAction)showSplitView;
 
 @end

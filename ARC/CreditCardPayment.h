@@ -27,7 +27,6 @@
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *totalPaymentText;
 
 - (IBAction)touchBoxesAction;
-@property (strong, nonatomic) Invoice *myInvoice;
 
 @property (weak, nonatomic) IBOutlet UIButton *touchBoxesButton;
 @property BOOL didEditCard;
@@ -45,6 +44,8 @@
 @property (nonatomic, strong) NSMutableArray *fundingSources;
 @property (strong, nonatomic) NSString *fundingSourceStatus;
 @property (nonatomic, strong) NSString *selectedFundingSourceId;
+
+@property (strong, nonatomic) Invoice *myInvoice;
 
 @property (nonatomic, strong) NSString *creditCardNumber;
 @property (nonatomic, strong) NSString *creditCardSecurityCode;

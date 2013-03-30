@@ -146,6 +146,21 @@
 -(void)viewDidLoad{
     @try {
         
+        
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 1;
+        self.topLineView.layer.shadowOpacity = 0.5;
+        
+        self.backView.layer.cornerRadius = 7.0;
+        
+        self.submitButton.textColor = [UIColor whiteColor];
+        self.submitButton.text = @"Submit";
+        self.submitButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        
+        
+        self.skipButton.text = @"Skip";
+        
+        
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         self.loadingViewController.view.hidden = YES;
@@ -1356,6 +1371,13 @@
     
 }
 
+- (void)viewDidUnload {
+    [self setSubmitButton:nil];
+    [self setSkipButton:nil];
+    [self setBackView:nil];
+    [self setTopLineView:nil];
+    [super viewDidUnload];
+}
 @end
 
 

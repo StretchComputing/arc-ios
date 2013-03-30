@@ -24,7 +24,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     
-    
+    self.navigationController.navigationBarHidden = YES;
     if (self.fromDwolla) {
         self.fromDwolla = NO;
         if (self.dwollaSuccess) {
@@ -49,22 +49,18 @@
 
 -(void)viewDidLoad{
     
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
+    self.creditCardButton.text = @"Credit Card";
+    self.dwollaButton.text = @"Dwolla";
+    
+    self.cancelButton.text = @"Cancel";
+    self.cancelButton.textColor = [UIColor whiteColor];
+    self.cancelButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.topLineView.layer.shadowRadius = 1;
+    self.topLineView.layer.shadowOpacity = 0.5;
+    
+    self.backView.layer.cornerRadius = 7.0;
 
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    self.view.backgroundColor = [UIColor clearColor];
-    double x = 1.0;
-    UIColor *myColor = [UIColor colorWithRed:114.0*x/255.0 green:168.0*x/255.0 blue:192.0*x/255.0 alpha:1.0];
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
-    
-    CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Payment Info"];
-    self.navigationItem.titleView = navLabel;
-    
-    CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Payment"];
-    self.navigationItem.backBarButtonItem = temp;
     
 }
 
@@ -92,4 +88,12 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setCancelButton:nil];
+    [self setCreditCardButton:nil];
+    [self setDwollaButton:nil];
+    [self setBackView:nil];
+    [self setTopLineView:nil];
+    [super viewDidUnload];
+}
 @end

@@ -41,6 +41,9 @@ typedef enum {
 @synthesize panDirection;
 @synthesize shadowEnabled = _shadowEnabled;
 @synthesize menuWidth = _menuWidth;
+@synthesize menuWidthRight = _menuWidthRight;
+@synthesize menuWidthLeft = _menuWidthLeft;
+
 @synthesize shadowRadius = _shadowRadius;
 @synthesize shadowColor = _shadowColor;
 @synthesize shadowOpacity = _shadowOpacity;
@@ -58,6 +61,9 @@ typedef enum {
         self.menuContainerView = [[UIView alloc] initWithFrame:applicationFrame];
         self.menuState = MFSideMenuStateClosed;
         self.menuWidth = 175.0f;
+        self.menuWidthLeft = 180.0f;
+        self.menuWidthRight = 180.0f;
+
         self.shadowRadius = 10.0f;
         self.shadowOpacity = 0.75f;
         self.shadowColor = [UIColor blackColor];
@@ -121,7 +127,7 @@ typedef enum {
     
     if(self.leftSideMenuViewController) {
         CGRect leftFrame = self.leftSideMenuViewController.view.frame;
-        leftFrame.size.width = self.menuWidth;
+        leftFrame.size.width = self.menuWidthLeft;
         leftFrame.origin = CGPointZero;
         self.leftSideMenuViewController.view.frame = leftFrame;
         self.leftSideMenuViewController.view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleHeight;
@@ -129,8 +135,8 @@ typedef enum {
     
     if(self.rightSideMenuViewController) {
         CGRect rightFrame = self.rightSideMenuViewController.view.frame;
-        rightFrame.size.width = self.menuWidth;
-        rightFrame.origin.x = self.navigationController.view.frame.size.width - self.menuWidth;
+        rightFrame.size.width = self.menuWidthRight;
+        rightFrame.origin.x = self.navigationController.view.frame.size.width - self.menuWidthRight;
         rightFrame.origin.y = 0;
         self.rightSideMenuViewController.view.frame = rightFrame;
         self.rightSideMenuViewController.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleHeight;
@@ -170,6 +176,10 @@ typedef enum {
 
 - (void)setMenuWidth:(CGFloat)menuWidth {
     _menuWidth = menuWidth;
+    
+    _menuWidthRight = menuWidth;
+    _menuWidthLeft = menuWidth;
+
     
     if(self.menuState != MFSideMenuStateClosed) {
         [self setMenuState:self.menuState];
@@ -318,8 +328,8 @@ typedef enum {
     translatedPoint = CGPointMake(adjustedOrigin.x + translatedPoint.x,
                                   adjustedOrigin.y + translatedPoint.y);
     
-    translatedPoint.x = MAX(translatedPoint.x, -1*self.menuWidth);
-    translatedPoint.x = MIN(translatedPoint.x, self.menuWidth);
+    translatedPoint.x = MAX(translatedPoint.x, -1*self.menuWidthLeft);
+    translatedPoint.x = MIN(translatedPoint.x, self.menuWidthLeft);
     if(self.menuState == MFSideMenuStateRightMenuOpen) {
         // menu is already open, the most the user can do is close it in this gesture
         translatedPoint.x = MIN(translatedPoint.x, 0);
@@ -373,8 +383,8 @@ typedef enum {
     translatedPoint = CGPointMake(adjustedOrigin.x + translatedPoint.x,
                                   adjustedOrigin.y + translatedPoint.y);
     
-    translatedPoint.x = MAX(translatedPoint.x, -1*self.menuWidth);
-    translatedPoint.x = MIN(translatedPoint.x, self.menuWidth);
+    translatedPoint.x = MAX(translatedPoint.x, -1*self.menuWidthRight);
+    translatedPoint.x = MIN(translatedPoint.x, self.menuWidthRight);
     if(self.menuState == MFSideMenuStateLeftMenuOpen) {
         // don't let the pan go less than 0 if the menu is already open
         translatedPoint.x = MAX(translatedPoint.x, 0);
@@ -556,10 +566,18 @@ typedef enum {
     [self sendMenuStateEventNotification:MFSideMenuStateEventMenuWillOpen];
     
     CGFloat navigationControllerXPosition = ABS([self pointAdjustedForInterfaceOrientation:self.rootViewController.view.frame.origin].x);
-    CGFloat duration = [self animationDurationFromStartPosition:navigationControllerXPosition toEndPosition:self.menuWidth];
+    
+    CGFloat myMenuWidth;
+    
+    if (leftSideMenu) {
+        myMenuWidth = self.menuWidthLeft;
+    }else{
+        myMenuWidth = self.menuWidthRight;
+    }
+    CGFloat duration = [self animationDurationFromStartPosition:navigationControllerXPosition toEndPosition:myMenuWidth];
     
     [UIView animateWithDuration:duration animations:^{
-        [self setRootControllerOffset:(leftSideMenu ? self.menuWidth : -1*self.menuWidth)];
+        [self setRootControllerOffset:(leftSideMenu ? myMenuWidth : -1*myMenuWidth)];
     } completion:^(BOOL finished) {
         // disable user interaction on the current stack of view controllers if the menu is visible
         for(UIViewController* viewController in self.navigationController.viewControllers) {
