@@ -161,6 +161,10 @@
             storyBoard = [UIStoryboard storyboardWithName:@"ArcMainStoryboardiPhone5" bundle:nil];
             UIViewController *initViewController = [storyBoard instantiateInitialViewController];
             [self.window setRootViewController:initViewController];
+        }else{
+            storyBoard = [UIStoryboard storyboardWithName:@"ArcMainStoryboardiPhone4" bundle:nil];
+            UIViewController *initViewController = [storyBoard instantiateInitialViewController];
+            [self.window setRootViewController:initViewController];
         }
     }
     

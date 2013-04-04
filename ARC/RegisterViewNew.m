@@ -94,7 +94,7 @@
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
-            [self.navigationController dismissModalViewControllerAnimated:NO];
+            //[self.navigationController dismissModalViewControllerAnimated:NO];
         }
         
                 

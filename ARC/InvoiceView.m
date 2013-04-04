@@ -216,10 +216,132 @@
         self.tipSegment.selectedSegmentIndex = 1;
         [self segmentSelect];
         
+        
+        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+            
+            NSDictionary *itemDictionary = [self.myInvoice.items objectAtIndex:i];
+            NSMutableDictionary *myDictionary = [NSMutableDictionary dictionaryWithDictionary:itemDictionary];
+            
+            [myDictionary setValue:@"no" forKey:@"IsPayingFor"];
+            
+            itemDictionary = [NSDictionary dictionaryWithDictionary:myDictionary];
+        }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (tableView == self.myTableView) {
+        
+        
+        NSDictionary *dictionaryItem = [self.myInvoice.items objectAtIndex:indexPath.row];
+        
+        
+        if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+            [dictionaryItem setValue:@"no" forKey:@"IsPayingFor"];
+            
+            int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+            double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
+            
+            self.myItemizedTotal -= value;
+            
+        }else if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+            
+            
+        }else{
+            //Selecting it
+            int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+            double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
+            
+            
+            self.myItemizedTotal += value;
+
+            [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
+
+        }
+    
+        
+        [self.myTableView reloadData];
+    
+        if (![self isAnyRowSelected]) {
+            self.myItemizedTotal = 0.0;
+          
+            
+            [self showFullTotal];
+        }else{
+            //some are still selected
+            
+            [self setItemizedTotalValue];
+           
+            
+            
+        }
+        
+    }
+}
+
+-(void)setItemizedTotalValue{
+    
+    double myPercent = self.myItemizedTotal/self.myInvoice.amountDue;
+    
+    
+    double myTax = self.myInvoice.tax * myPercent;
+    double myServiceCharge = self.myInvoice.serviceCharge * myPercent;
+    double myDiscount = self.myInvoice.discount * myPercent;
+    
+    double myTotal = self.myItemizedTotal + myTax + myServiceCharge - myDiscount;
+    
+    
+    
+    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", myTotal];
+    self.totalLabel.text = [@"My Total:  " stringByAppendingString:self.totalLabel.text];
+    
+    
+    
+}
+
+-(void)deselectAllItems{
+    for (int i = 0; i < [self.myInvoice.items count]; i++) {
+        
+        NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+        
+        [item setValue:@"no" forKey:@"IsPayingFor"];
+    }
+    
+    [self.myTableView reloadData];
+}
+
+-(void)showFullTotal{
+    double amountPaid = [self.myInvoice calculateAmountPaid];
+    if (amountPaid > 0.0) {
+        self.isPartialPayment = YES;
+    }
+    double amountDue = self.myInvoice.amountDue;
+    
+    double newDue = amountDue - amountPaid;
+    if (newDue < 0.0001) {
+        newDue = 0;
+    }
+    
+    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", newDue];
+    self.totalLabel.text = [@"My Total:  " stringByAppendingString:self.totalLabel.text];
+}
+-(BOOL)isAnyRowSelected{
+    
+    for (int i = 0; i < [self.myInvoice.items count]; i++) {
+        
+        NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+        
+        if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+    
 }
 
 -(void)setUpScrollView{
@@ -437,6 +559,9 @@
 
 
 -(void)setUpView{
+    
+    self.myInvoice.serviceCharge = 18.23;
+    
     self.bottomHalfView.backgroundColor = [UIColor clearColor];
 
     
@@ -453,10 +578,30 @@
   
     int moveY = 0;
     
+    double alreadyPaid = [self.myInvoice calculateAmountPaid];
+    if (alreadyPaid == 0.0){
+        self.alreadyPaid.hidden = YES;
+        self.alreadyPaidNameLabel.hidden = YES;
+        moveY +=20;
+    }else{
+        self.alreadyPaidLabel.text = [NSString stringWithFormat:@"- $%.2f", alreadyPaid];
+    }
+    
+    
     if (self.myInvoice.discount == 0.0) {
         self.discLabel.hidden = YES;
         self.discNameLabel.hidden = YES;
         moveY +=20;
+    }else{
+        
+        CGRect myframe2 = self.discLabel.frame;
+        myframe2.origin.y += moveY;
+        self.discLabel.frame = myframe2;
+        
+        CGRect myframe3 = self.discNameLabel.frame;
+        myframe3.origin.y += moveY;
+        self.discNameLabel.frame = myframe3;
+        
     }
     
     if (self.myInvoice.serviceCharge == 0.0) {
@@ -619,25 +764,7 @@
 }
 
 -(void)willAppearSetup{
-    double amountPaid = [self.myInvoice calculateAmountPaid];
-    if(amountPaid > 0.0) {
-        
-       // self.payBillButton.title = @"Pay Remaining";
-        self.isPartialPayment = YES;
-        
-    }
-    
-    //To only show amount due at bottom, and already paid as a line item
-    double amountDue = self.myInvoice.amountDue;
-    
-    double remaining = amountDue - amountPaid;
-    if (remaining < 0.0001) {
-        remaining = 0;
-    }
-    
-    double totalPayment = remaining + [self.tipText.text doubleValue];
-    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", totalPayment];
-    self.totalLabel.text = [@"My Total:  " stringByAppendingString:self.totalLabel.text];
+    [self showFullTotal];
     
     [self.myTableView reloadData];
     [self.alreadyPaidTableView reloadData];
@@ -709,6 +836,8 @@
             static NSInteger itemTag = 1;
             static NSInteger numberTag = 2;
             static NSInteger priceTag = 3;
+            static NSInteger highLightTag = 4;
+
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FirstLevelCell];
             
@@ -719,19 +848,21 @@
                 
                 
                 
-                UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 3, 188, 20)];
+                UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 8, 188, 20)];
                 itemLabel.tag = itemTag;
                 [cell.contentView addSubview:itemLabel];
                 
-                UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 2, 75, 20)];
+                UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 7, 75, 20)];
                 priceLabel.tag = priceTag;
                 [cell.contentView addSubview:priceLabel];
                 
-                UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 2, 32, 20)];
+                UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 7, 32, 20)];
                 numberLabel.tag = numberTag;
                 [cell.contentView addSubview:numberLabel];
                 
-                
+                UIView *highLightView = [[UIView alloc] initWithFrame:CGRectMake(0, 2, 300, 27)];
+                highLightView.tag = highLightTag;
+                [cell.contentView addSubview:highLightView];
                 
                 
             }
@@ -739,6 +870,13 @@
             UILabel *itemLabel = (UILabel *)[cell.contentView viewWithTag:itemTag];
             UILabel *numberLabel = (UILabel *)[cell.contentView viewWithTag:numberTag];
             UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:priceTag];
+            UIView *highLightView = (UIView *)[cell.contentView viewWithTag:highLightTag];
+
+            [cell.contentView sendSubviewToBack:highLightView];
+            
+            highLightView.layer.borderColor = [[UIColor blackColor] CGColor];
+            highLightView.layer.borderWidth = 1.0;
+            highLightView.backgroundColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];//[UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:215.0/255.0 alpha:1.0];
             
             NSUInteger row = [indexPath row];
             
@@ -749,9 +887,7 @@
             numberLabel.backgroundColor = [UIColor clearColor];
             priceLabel.backgroundColor = [UIColor clearColor];
             
-            itemLabel.font = [UIFont fontWithName:@"Corbel" size:14];
-            numberLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
-            priceLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+
             
             priceLabel.textAlignment = UITextAlignmentRight;
             numberLabel.textAlignment = UITextAlignmentLeft;
@@ -770,6 +906,27 @@
             numberLabel.text = [NSString stringWithFormat:@"%d", [[itemDictionary valueForKey:@"Amount"] intValue]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
+            if ([[itemDictionary valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+                highLightView.hidden = NO;
+                itemLabel.textColor = [UIColor whiteColor];
+                numberLabel.textColor = [UIColor whiteColor];
+                priceLabel.textColor = [UIColor whiteColor];
+                
+                itemLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:14];
+                numberLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
+                priceLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
+
+            }else{
+                highLightView.hidden = YES;
+                
+                itemLabel.textColor = [UIColor blackColor];
+                numberLabel.textColor = [UIColor blackColor];
+                priceLabel.textColor = [UIColor blackColor];
+                
+                itemLabel.font = [UIFont fontWithName:@"Corbel" size:14];
+                numberLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+                priceLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+            }
             return cell;
 
         }
@@ -938,7 +1095,23 @@
 
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [self.actionSheet showInView:self.view];
+    
+    if (alertView == self.overpayAlert) {
+        
+        if (buttonIndex == 1) {
+            //HERE
+            
+            [self showFullTotal];
+            
+            
+         
+            [self deselectAllItems];
+            
+        }
+    }else{
+        [self.actionSheet showInView:self.view];
+
+    }
 
 }
 
@@ -1433,11 +1606,33 @@
 }
 
 - (IBAction)payBillAction {
-    [self payNow:nil];
+    
+    double amountPaid = [self.myInvoice calculateAmountPaid];
+    double amountDue = self.myInvoice.amountDue;
+    
+    double newDue = amountDue - amountPaid;
+    if (newDue < 0.0001) {
+        newDue = 0;
+    }
+    
+    double myTotal = [[self.totalLabel.text substringFromIndex:12] doubleValue];
+
+    if (myTotal > newDue) {
+        self.overpayAlert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"You cannot pay more than is due on this bill." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Pay Remaining", nil];
+        [self.overpayAlert show];
+    }else{
+        [self payNow:nil];
+
+    }
+    
+    
 }
 
 
 - (IBAction)showSplitView {
+    
+    [self deselectAllItems];
+    [self showFullTotal];
     
     [UIView animateWithDuration:0.6 animations:^{
        

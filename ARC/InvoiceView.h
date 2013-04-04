@@ -48,6 +48,9 @@
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *splitFullButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *splitSaveButton;
 - (IBAction)splitSaveAction;
+@property double myItemizedTotal;
+
+@property (nonatomic, strong) UIAlertView *overpayAlert;
 
 @property (strong, nonatomic) IBOutlet UIView *splitTopLineView;
 @property (weak, nonatomic) IBOutlet CorbelBarButtonItem *splitCheckButton;

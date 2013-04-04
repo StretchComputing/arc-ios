@@ -63,6 +63,7 @@
 		908CAD4C1704A50800F34A41 /* sywlSwipeARrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CAD4B1704A50800F34A41 /* sywlSwipeARrow.png */; };
 		908CAD4F1704B24700F34A41 /* ArcIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 908CAD4E1704B24700F34A41 /* ArcIdentifier.m */; };
 		908CAD511704D3C900F34A41 /* balance.png in Resources */ = {isa = PBXBuildFile; fileRef = 908CAD501704D3C800F34A41 /* balance.png */; };
+		908CB605170D0493007DA244 /* ArcMainStoryboardiPhone4.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908CB604170D0493007DA244 /* ArcMainStoryboardiPhone4.storyboard */; };
 		908CED8517024214006CC48A /* MFSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 908CED8417024214006CC48A /* MFSideMenu.m */; };
 		908CED881702427F006CC48A /* UINavigationController+MFSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 908CED871702427F006CC48A /* UINavigationController+MFSideMenu.m */; };
 		908D2F67166E4818007B6078 /* Address+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 908D2F4D166E4817007B6078 /* Address+Additions.m */; };
@@ -289,6 +290,7 @@
 		908CAD4D1704B24700F34A41 /* ArcIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcIdentifier.h; sourceTree = "<group>"; };
 		908CAD4E1704B24700F34A41 /* ArcIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcIdentifier.m; sourceTree = "<group>"; };
 		908CAD501704D3C800F34A41 /* balance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balance.png; sourceTree = "<group>"; };
+		908CB604170D0493007DA244 /* ArcMainStoryboardiPhone4.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone4.storyboard; sourceTree = "<group>"; };
 		908CED8317024213006CC48A /* MFSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFSideMenu.h; sourceTree = "<group>"; };
 		908CED8417024214006CC48A /* MFSideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFSideMenu.m; sourceTree = "<group>"; };
 		908CED861702427F006CC48A /* UINavigationController+MFSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MFSideMenu.h"; sourceTree = "<group>"; };
@@ -620,7 +622,6 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
-				90CDE0DF1702806200134AF2 /* searchIcon.png */,
 				908D966D16E3A2C7002CADC1 /* CoreLocation.framework */,
 				90E5E5C716D70A010031B17E /* CoreAudio.framework */,
 				908A667E16A0648F002425A2 /* GameKit.framework */,
@@ -643,8 +644,10 @@
 				9095947A15EA652600F19DD2 /* Twitter.framework */,
 				9081521615E7D26500211C37 /* SystemConfiguration.framework */,
 				9F45D81D15D33F3300682F19 /* Encoder.c */,
+				90CDE0DF1702806200134AF2 /* searchIcon.png */,
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
 				908F74DC1600DDD700DD6B31 /* ArcMainStoryboard.storyboard */,
+				908CB604170D0493007DA244 /* ArcMainStoryboardiPhone4.storyboard */,
 				906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */,
 				9FA68D0915E0880B0048789D /* CrashReporter.framework */,
 				907A405915A8D9C400090452 /* CoreData.framework */,
@@ -1090,6 +1093,7 @@
 				908CAD4C1704A50800F34A41 /* sywlSwipeARrow.png in Resources */,
 				908CAD511704D3C900F34A41 /* balance.png in Resources */,
 				907A761117060CF200E8A15C /* divide.png in Resources */,
+				908CB605170D0493007DA244 /* ArcMainStoryboardiPhone4.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

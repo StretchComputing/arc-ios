@@ -188,7 +188,7 @@
                 gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
                 [self.overlayTextView.layer insertSublayer:gradient atIndex:0];
                 
-                [self showHintOverlay];
+                //[self showHintOverlay];
                 
                 NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
                 
@@ -264,6 +264,9 @@
     [self updateSliders];
     
     int y = 96;
+    if (self.view.frame.size.height < 500) {
+        y = 86;
+    }
     self.carousel.frame = CGRectMake(0, y, 320, 200);
     self.carousel.clipsToBounds = YES;
     
