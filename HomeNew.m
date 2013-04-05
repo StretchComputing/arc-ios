@@ -20,6 +20,7 @@
 #import "MFSideMenu.h"
 #import "LucidaBoldLabel.h"
 #import "LeftViewController.h"
+#import "RightViewController.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -145,7 +146,7 @@
                 message = @"Your transaction has completed successfully!  Check out your profile to see the points you earned for your review!";
                 
                 if (points && [points length] > 0) {
-                    message = [NSString stringWithFormat:@"Your transaction has been completed successfully!  Thank you for your review, you have earned %@ points!  Check out your point totals in your profile.", points];
+                    message = @"Your transaction has been completed successfully!  Thank you for your review!";
                     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"pointsTotal"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     
@@ -241,7 +242,7 @@
     //self.moreInfoButton.tintColor = [UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:225.0/215.0 alpha:1];
 
     LeftViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
-    UIViewController *rightSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rightSide"];
+    RightViewController *rightSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rightSide"];
     
     
     
@@ -249,7 +250,10 @@
                       leftSideMenuController:leftSideMenuViewController
                      rightSideMenuController:rightSideMenuViewController];
     
+    menu.allowSwipeOpenLeft = YES;
     leftSideMenuViewController.sideMenu = menu;
+    rightSideMenuViewController.sideMenu = menu;
+    
     
     //Carousel
     self.roundView.layer.cornerRadius = 9.0;
@@ -599,6 +603,21 @@
                 
                 tmpMerchant.invoiceLength = [[theMerchant valueForKey:@"InvoiceLength"] intValue];
                 
+                
+                //For Test Videos:
+                /*
+                if (i == 0) {
+                    tmpMerchant.name = @"Untitled";
+                    tmpMerchant.address = @"111 W Kidzie Chicago, IL";
+                    tmpMerchant.city = @"Chicago";
+                    tmpMerchant.state = @"IL";
+                    tmpMerchant.zipCode = @"60654";
+                }else{
+                    tmpMerchant.name = @"American Junkie";
+                }
+                */
+                
+                
                 [self.allMerchants addObject:tmpMerchant];
                 //[self.allMerchants addObject:tmpMerchant];
                 //[self.allMerchants addObject:tmpMerchant];
@@ -756,6 +775,9 @@
             detailViewController.paymentsAccepted = tmpMerchant.paymentsAccepted;
             
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.name forKey:@"merchantName"];
+            [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInt:tmpMerchant.merchantId] forKey:@"merchantId"];
+
+            
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.twitterHandler forKey:@"merchantTwitterHandler"];
             [[NSUserDefaults standardUserDefaults] setValue:tmpMerchant.facebookHandler forKey:@"merchantFacebookHandler"];
             [[NSUserDefaults standardUserDefaults] synchronize];

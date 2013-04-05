@@ -21,6 +21,8 @@
 #import "MFSideMenu.h"
 #import "AddTipViewController.h"
 #import "NumberLineButton.h"
+#import "RightViewController.h"
+
 
 @interface InvoiceView ()
 
@@ -570,8 +572,37 @@
     self.gratLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
     self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];
     
-
     
+    //**Set up balance screen
+    RightViewController *right = [self.navigationController.sideMenu getRightSideMenu];
+   
+    double amountPaid = [self.myInvoice calculateAmountPaid];
+
+    double amountDue = self.myInvoice.amountDue;
+    
+    double newDue = amountDue - amountPaid;
+    if (newDue < 0.0001) {
+        newDue = 0;
+    }
+    
+    if (amountPaid > 0.0) {
+        right.noPaymentsLabel.hidden = YES;
+        right.alreadyPaidTable.hidden = NO;
+        right.paymentsArray = self.myInvoice.payments;
+        [right.alreadyPaidTable reloadData];
+    }else{
+        right.alreadyPaidTable.hidden = YES;
+        right.noPaymentsLabel.hidden = NO;
+    }
+    
+    right.totalDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.amountDue];
+    right.totalRemainingLabel.text = [NSString stringWithFormat:@"$%.2f", newDue];
+    right.alreadyPaidLabel.text = [NSString stringWithFormat:@"- $%.2f", amountPaid];
+    
+    
+    
+    
+ 
     
     //New Code
     
@@ -641,7 +672,7 @@
     
     int tableCount = [self.myInvoice.items count];
     
-    double amountPaid = [self.myInvoice calculateAmountPaid];
+   // double amountPaid = [self.myInvoice calculateAmountPaid];
     if(amountPaid > 0.0) {
         tableCount++;
     }
@@ -978,7 +1009,7 @@
         BOOL showSheet = YES;
         
         if([self.myInvoice calculateAmountPaid] > 0) {
-            [ArcClient trackEvent:@"PAY_REMAINING"];
+            //[ArcClient trackEvent:@"PAY_REMAINING"];
         }
 
         

@@ -15,6 +15,8 @@
 #import <Twitter/Twitter.h>
 #import <Social/Social.h>
 #import "Invoice.h"
+#import "MFSideMenu.h"
+
 //#import "Merchant.h"
 
 @interface ReviewTransaction ()
@@ -27,6 +29,9 @@
 @synthesize earnMoreLabel;
 
 -(void)viewWillDisappear:(BOOL)animated{
+    
+    self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -38,6 +43,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
     
     if (self.paymentPointsReceived) {
         self.paymentPointsLabel.text = [NSString stringWithFormat:@"You just received %d points!!", self.paymentPointsReceived];

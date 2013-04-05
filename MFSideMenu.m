@@ -62,7 +62,7 @@ typedef enum {
         self.menuState = MFSideMenuStateClosed;
         self.menuWidth = 175.0f;
         self.menuWidthLeft = 180.0f;
-        self.menuWidthRight = 180.0f;
+        self.menuWidthRight = 250.0f;
 
         self.shadowRadius = 10.0f;
         self.shadowOpacity = 0.75f;
@@ -308,12 +308,17 @@ typedef enum {
     
     if(self.panDirection == MFSideMenuPanDirectionLeft) {
         
-        if (self.menuState == MFSideMenuStateClosed) {
+        if (self.menuState == MFSideMenuStateClosed && !self.allowSwipeOpenRight) {
             return;
         }
         [self handleLeftPan:recognizer];
     } else if(self.panDirection == MFSideMenuPanDirectionRight) {
     
+        if (self.menuState == MFSideMenuStateClosed && !self.allowSwipeOpenLeft) {
+            return;
+        }else if (self.menuState == MFSideMenuStateRightMenuOpen){
+            return;
+        }
         [self handleRightPan:recognizer];
     }
 }
@@ -648,4 +653,8 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(id)getRightSideMenu{
+    
+    return self.rightSideMenuViewController;
+}
 @end
