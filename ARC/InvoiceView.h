@@ -101,4 +101,7 @@
 -(IBAction)cancelAlreadyPaid;
 - (IBAction)showSplitView;
 
+-(void)showFullTotal;
+-(void)deselectAllItems;
+
 @end

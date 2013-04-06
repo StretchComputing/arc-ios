@@ -40,7 +40,9 @@
 @property (nonatomic, strong) UIButton *keyboardSubmitButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
 - (IBAction)takeCheckPicture;
+@property (strong, nonatomic) IBOutlet UIView *leftTopLineView;
 
+@property (strong, nonatomic) IBOutlet UIView *rightTopLineView;
 @property BOOL isIphone5;
 @property BOOL helpShowing;
 - (IBAction)submit:(id)sender;

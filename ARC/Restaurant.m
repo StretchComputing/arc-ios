@@ -408,6 +408,16 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         self.topLineView.layer.shadowRadius = 1;
         self.topLineView.layer.shadowOpacity = 0.5;
         
+        
+        self.leftTopLineView.layer.shadowOffset = CGSizeMake(-1, 0);
+        self.leftTopLineView.layer.shadowRadius = 1;
+        self.leftTopLineView.layer.shadowOpacity = 0.5;
+        
+        
+        self.rightTopLineView.layer.shadowOffset = CGSizeMake(1, 0);
+        self.rightTopLineView.layer.shadowRadius = 1;
+        self.rightTopLineView.layer.shadowOpacity = 0.5;
+        
         self.backView.layer.cornerRadius = 7.0;
         
         
@@ -1028,6 +1038,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     [self setPopAction:nil];
     [self setCloseHelpButton:nil];
     [self setSubmitButton:nil];
+    [self setLeftTopLineView:nil];
+    [self setRightTopLineView:nil];
     [super viewDidUnload];
 }
 - (IBAction)goBackAction {

@@ -62,7 +62,7 @@ typedef enum {
         self.menuState = MFSideMenuStateClosed;
         self.menuWidth = 175.0f;
         self.menuWidthLeft = 180.0f;
-        self.menuWidthRight = 250.0f;
+        self.menuWidthRight = 260.0f;
 
         self.shadowRadius = 10.0f;
         self.shadowOpacity = 0.75f;

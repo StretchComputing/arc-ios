@@ -258,7 +258,7 @@
             int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
             double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
             
-            
+            NSLog(@"Adding Value: %f", value);
             self.myItemizedTotal += value;
 
             [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
@@ -287,16 +287,18 @@
 
 -(void)setItemizedTotalValue{
     
-    double myPercent = self.myItemizedTotal/self.myInvoice.amountDue;
+    double myPercent = self.myItemizedTotal/self.myInvoice.subtotal;
     
+
     
     double myTax = self.myInvoice.tax * myPercent;
     double myServiceCharge = self.myInvoice.serviceCharge * myPercent;
     double myDiscount = self.myInvoice.discount * myPercent;
     
+
+
     double myTotal = self.myItemizedTotal + myTax + myServiceCharge - myDiscount;
-    
-    
+
     
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", myTotal];
     self.totalLabel.text = [@"My Total:  " stringByAppendingString:self.totalLabel.text];
@@ -576,6 +578,8 @@
     //**Set up balance screen
     RightViewController *right = [self.navigationController.sideMenu getRightSideMenu];
    
+    right.invoiceController = self;
+    right.myInvoice = self.myInvoice;
     double amountPaid = [self.myInvoice calculateAmountPaid];
 
     double amountDue = self.myInvoice.amountDue;
@@ -590,14 +594,16 @@
         right.alreadyPaidTable.hidden = NO;
         right.paymentsArray = self.myInvoice.payments;
         [right.alreadyPaidTable reloadData];
+        right.seeWhoPaidLabel.hidden = NO;
     }else{
         right.alreadyPaidTable.hidden = YES;
         right.noPaymentsLabel.hidden = NO;
+        right.seeWhoPaidLabel.hidden = YES;
     }
     
     right.totalDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.amountDue];
     right.totalRemainingLabel.text = [NSString stringWithFormat:@"$%.2f", newDue];
-    right.alreadyPaidLabel.text = [NSString stringWithFormat:@"- $%.2f", amountPaid];
+    right.alreadyPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
     
     
     
