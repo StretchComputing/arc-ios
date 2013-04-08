@@ -564,7 +564,6 @@
 
 -(void)setUpView{
     
-    self.myInvoice.serviceCharge = 18.23;
     
     self.bottomHalfView.backgroundColor = [UIColor clearColor];
 
