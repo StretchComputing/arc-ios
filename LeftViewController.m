@@ -27,40 +27,44 @@
 }
 -(IBAction)profileSelected{
     
-    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"profile"];
-    [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
-    [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
-    self.sideMenu.navigationController.navigationBarHidden = YES;
-    [self.sideMenu toggleLeftSideMenu];
+    [self goToScreenWithIdentifier:@"profile"];
+
+ 
     
 }
 -(IBAction)billingSelected{
     
+    [self goToScreenWithIdentifier:@"allCards"];
+
     
-    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"allCards"];
-    [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
-    [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
-    self.sideMenu.navigationController.navigationBarHidden = YES;
-    [self.sideMenu toggleLeftSideMenu];
- 
+
     
 }
 -(IBAction)supportSelected{
     
-    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"supportVC"];
-    [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
-    [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
-    self.sideMenu.navigationController.navigationBarHidden = YES;
-    [self.sideMenu toggleLeftSideMenu];
+    [self goToScreenWithIdentifier:@"supportVC"];
+
+
     
 }
 -(IBAction)shareSelected{
     
-    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:@"share"];
+    
+    [self goToScreenWithIdentifier:@"share"];
+    
+}
+
+-(void)goToScreenWithIdentifier:(NSString *)identifier{
+    
+    UIViewController *creditCards = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
     [self.sideMenu.navigationController popToRootViewControllerAnimated:NO];
     [self.sideMenu.navigationController pushViewController:creditCards animated:NO];
     self.sideMenu.navigationController.navigationBarHidden = YES;
-    [self.sideMenu toggleLeftSideMenu];
+    
+    if (self.sideMenu.menuState == MFSideMenuStateLeftMenuOpen) {
+        [self.sideMenu toggleLeftSideMenu];
+
+    }
     
 }
 @end

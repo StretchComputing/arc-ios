@@ -64,10 +64,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         
  
         
-        self.addCardButton.text = @"Add Card";
-        
-        self.addCardButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1.0];
-        self.addCardButton.textColor = [UIColor whiteColor];
+      
         
         if(NSClassFromString(@"UIRefreshControl")) {
             self.isIos6 = YES;
@@ -151,6 +148,25 @@ NSString *const AMERICAN_EXPRESS = @"A";
         imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
         
         self.tableView.backgroundView = imageBackView;
+        
+        
+        if (self.view.frame.size.height < 480) {
+            self.addCardButton = [[NVUIGradientButton alloc] initWithFrame:CGRectMake(252, 6, 66, 33)];
+            [self.addCardButton addTarget:self action:@selector(addCard) forControlEvents:UIControlEventTouchUpInside];
+
+            self.addCardButton.text = @"Add";
+            [self.navigationController.navigationBar addSubview:self.addCardButton];
+
+        }else{
+            self.addCardButton.text = @"Add Card";
+
+        }
+        
+        
+        
+        self.addCardButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.addCardButton.textColor = [UIColor whiteColor];
+        
         
     }
     @catch (NSException *e) {
@@ -633,6 +649,9 @@ NSString *const AMERICAN_EXPRESS = @"A";
             
             if ([self.creditCardNumberText.text length] >= 20) {
                 
+                if ([string isEqualToString:@""]) {
+                    return YES;
+                }
                 return FALSE;
             }
             
@@ -645,7 +664,9 @@ NSString *const AMERICAN_EXPRESS = @"A";
                 return TRUE;
             }
             if ([self.expirationText.text length] >= 5) {
-                
+                if ([string isEqualToString:@""]) {
+                    return YES;
+                }
                 return FALSE;
             }
             
@@ -658,7 +679,9 @@ NSString *const AMERICAN_EXPRESS = @"A";
             }
             
             if ([self.creditCardSecurityCodeText.text length] >= 4) {
-                
+                if ([string isEqualToString:@""]) {
+                    return YES;
+                }
                 return FALSE;
             }
             

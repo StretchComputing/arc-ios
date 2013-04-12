@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LucidaBoldLabel.h"
 #import "CorbelTextView.h"
+#import "NVUIGradientButton.h"
 
 @interface ValidatePinView : UIViewController <UITextFieldDelegate>
 
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 @property (weak, nonatomic) IBOutlet LucidaBoldLabel *instructionsLabel;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *forgotPinButton;
 
 
 @property (nonatomic, strong) IBOutlet UIButton *deleteCardButton;

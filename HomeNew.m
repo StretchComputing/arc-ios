@@ -124,12 +124,17 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out.  You may continue to use Arc as a guest." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
+            mainDelegate.logout = @"";
+            
             [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
             [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"arcLoginType"];
             [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"customerEmail"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"autoPostFacebook"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"autoPostTwitter"];
+
             [[NSUserDefaults standardUserDefaults] synchronize];
             
            // [self.navigationController dismissModalViewControllerAnimated:NO];
@@ -143,7 +148,7 @@
             NSString *points = [[NSUserDefaults standardUserDefaults] valueForKey:@"pointsEarned"];
             
             if (self.successReview) {
-                message = @"Your transaction has completed successfully!  Check out your profile to see the points you earned for your review!";
+                message = @"Your transaction has completed successfully!  Thank you for your review!";
                 
                 if (points && [points length] > 0) {
                     message = @"Your transaction has been completed successfully!  Thank you for your review!";
@@ -153,7 +158,7 @@
                 }
                 
             }else{
-                message = @"Your transaction has completed successfully!  Check out your profile to see the points you have earned!";
+                message = @"Your transaction has completed successfully!  Thank you for your review!";
             }
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank You!" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -608,15 +613,15 @@
                 /*
                 if (i == 0) {
                     tmpMerchant.name = @"Untitled";
-                    tmpMerchant.address = @"111 W Kidzie Chicago, IL";
+                    tmpMerchant.address = @"111 W Kinzie Chicago, IL";
                     tmpMerchant.city = @"Chicago";
                     tmpMerchant.state = @"IL";
                     tmpMerchant.zipCode = @"60654";
                 }else{
                     tmpMerchant.name = @"American Junkie";
                 }
+            
                 */
-                
                 
                 [self.allMerchants addObject:tmpMerchant];
                 //[self.allMerchants addObject:tmpMerchant];

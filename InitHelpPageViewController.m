@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PrivacyTermsViewController.h"
 #import "rSkybox.h"
-#import "ArcIdentifier.h"
 
 @interface InitHelpPageViewController ()
 
@@ -40,9 +39,7 @@
 - (void)viewDidLoad
 {
     
-    NSString *identifier = [ArcIdentifier getArcIdentifier];
     
-    NSLog(@"Ident: %@", identifier);
     
     self.helpView.layer.cornerRadius = 7.0;
     self.helpView.layer.masksToBounds = YES;
@@ -57,7 +54,7 @@
     
     @try {
         self.pageControl.pageIndicatorTintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:125.0/255.0 alpha:1.0];
-        self.pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:225.0/255.0 alpha:1.0];
+        self.pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:125.0/255.0 alpha:1.0];
     }
     @catch (NSException *exception) {
         

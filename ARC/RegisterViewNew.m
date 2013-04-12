@@ -120,7 +120,7 @@
         self.newRegisterButton.text = @"Register!";
         self.newRegisterButton.textColor = [UIColor whiteColor];
         self.newRegisterButton.textShadowColor = [UIColor darkGrayColor];
-        self.newRegisterButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1];
+        self.newRegisterButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
         //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
         
         
@@ -286,6 +286,7 @@
     
     if ([self isValidEntries] && [self validateEmail:self.emailText.text]){
         
+        self.newRegisterButton.hidden = NO;
         [UIView animateWithDuration:0.4 animations:^{
             self.nextButton.hidden = YES;
             [self.myScrollView setContentOffset:CGPointMake(320, 0) animated:NO];
@@ -294,7 +295,7 @@
         [self hideDoneButton];
         self.pageNumber = 3;
         self.errorLabel.text = @"";
-        //self.regTitleLabel.text = @"Add A Card";
+        self.regTitleLabel.text = @"Payment";
         
         self.registerButton = [[CorbelBarButtonItem alloc] initWithTitleText:@"Submit"];
         [self.registerButton setTarget:self];
@@ -693,7 +694,7 @@
     @try {
         if ([self isValidEntries]) {
             self.nextButton.enabled = YES;
-            self.nextButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1];
+            self.nextButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
 
         }else{
             self.nextButton.enabled = NO;
