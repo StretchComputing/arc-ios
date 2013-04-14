@@ -204,6 +204,7 @@
 		9FA68D0615E083BB0048789D /* rSkybox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA68D0515E083BB0048789D /* rSkybox.m */; };
 		9FA68D0A15E0880B0048789D /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA68D0915E0880B0048789D /* CrashReporter.framework */; };
 		9FE9DFA6162BB48300115E97 /* libCrashReporter-iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE9DFA5162BB48300115E97 /* libCrashReporter-iphoneos.a */; };
+		9FFFB9C2171B2B6100D8B58B /* LiveDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFB9C1171B2B6100D8B58B /* LiveDebugViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -522,6 +523,8 @@
 		9FA68D0515E083BB0048789D /* rSkybox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rSkybox.m; sourceTree = "<group>"; };
 		9FA68D0915E0880B0048789D /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
 		9FE9DFA5162BB48300115E97 /* libCrashReporter-iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCrashReporter-iphoneos.a"; sourceTree = "<group>"; };
+		9FFFB9C0171B2B6100D8B58B /* LiveDebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveDebugViewController.h; sourceTree = "<group>"; };
+		9FFFB9C1171B2B6100D8B58B /* LiveDebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveDebugViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -822,6 +825,8 @@
 				90993F5B1597795B00FC1D49 /* Home.m */,
 				90B6B102159A3FFA005E4BCB /* Restaurant.h */,
 				90B6B103159A3FFA005E4BCB /* Restaurant.m */,
+				9FFFB9C0171B2B6100D8B58B /* LiveDebugViewController.h */,
+				9FFFB9C1171B2B6100D8B58B /* LiveDebugViewController.m */,
 				90B6B0FB159A1D6B005E4BCB /* Merchant.h */,
 				90B6B0FC159A1D6C005E4BCB /* Merchant.m */,
 				90B6B10F159A4F94005E4BCB /* Invoice.h */,
@@ -1209,6 +1214,7 @@
 				90A7FE3417053EE3001EB837 /* ConfirmPaymentViewController.m in Sources */,
 				90BA26D41705D16E006CE73E /* AdditionalTipViewController.m in Sources */,
 				90BA26D71705D432006CE73E /* LucidaBoldInputTextField.m in Sources */,
+				9FFFB9C2171B2B6100D8B58B /* LiveDebugViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

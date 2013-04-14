@@ -466,7 +466,7 @@ NSString *const CLOSED_STATUS = @"closed";
         
         // TODO drive from Customer Service screen
         isLiveDebugActive = FALSE;
-        [rSkybox createStream:@"joe test 2 stream"];
+        //[rSkybox createStream:@"joe test 2 stream"];
     }
     @catch (NSException *e) {
         NSLog(@"Exception caught in rSkybox.initiateSession - %@ - %@", [e name], [e description]);

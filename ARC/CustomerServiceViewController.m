@@ -219,4 +219,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)liveDebug {
+    //Customer Service
+    UIViewController *liveDebug = [self.storyboard instantiateViewControllerWithIdentifier:@"liveDebug"];
+    [self.navigationController pushViewController:liveDebug animated:YES];
+
+}
 @end

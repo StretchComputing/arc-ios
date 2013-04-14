@@ -38,4 +38,6 @@
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *sendingActivity;
 
+- (IBAction)liveDebug;
+
 @end
