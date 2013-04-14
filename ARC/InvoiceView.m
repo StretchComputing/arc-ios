@@ -1044,7 +1044,7 @@
             haveDwolla = NO;
         }
         
-        if (haveDwolla || haveCards) {
+        if (haveCards) {
             
             NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
             BOOL didRemove = NO;
@@ -1065,21 +1065,36 @@
             
             if ([self.creditCards count] > 0) {
                 
-                self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
                 
-                int x = 0;
-                if (haveDwolla) {
-                    x++;
-                    [self.actionSheet addButtonWithTitle:@"Dwolla"];
-                }
-                
-                for (int i = 0; i < [self.creditCards count]; i++) {
-                    CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                if ([self.creditCards count] == 1) {
+                    CreditCard *selectedCard = [self.creditCards objectAtIndex:0];
                     
+                    self.creditCardNumber = selectedCard.number;
+                    self.creditCardSecurityCode = selectedCard.securityCode;
+                    self.creditCardExpiration = selectedCard.expiration;
+                    self.creditCardSample = selectedCard.sample;
+                    
+                    [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
+                    return;
+                }else{
+                    
+                    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                    
+                    int x = 0;
+                    if (haveDwolla) {
+                        x++;
+                        [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                    }
+                    
+                    for (int i = 0; i < [self.creditCards count]; i++) {
+                        CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                        
+                    }
+                    [self.actionSheet addButtonWithTitle:@"Cancel"];
+                    self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
                 }
-                [self.actionSheet addButtonWithTitle:@"Cancel"];
-                self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+                
                 
             }else {
                 
@@ -1106,7 +1121,7 @@
                 //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 //[alert show];
                 
-                [self showTextOverlay];
+                //[self showTextOverlay];
                 [self.actionSheet showInView:self.view];
                 
             }else{
@@ -1170,7 +1185,7 @@
         int x = 0;
         if ([token length] > 0) {
             x++;
-            haveDwolla = YES;
+            //haveDwolla = YES;
         }
         
         
@@ -1433,6 +1448,10 @@
     
     if (textField == self.tipText) {
         
+        if ([string isEqualToString:@""]) {
+            return YES;
+        }
+        
         if ([self.tipText.text length] >= 20) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
@@ -1653,7 +1672,12 @@
     
     double myTotal = [[self.totalLabel.text substringFromIndex:12] doubleValue];
 
-    if (myTotal > newDue) {
+    
+    NSString *myTotalString = [NSString stringWithFormat:@"%.6f", myTotal];
+    NSString *newDueString = [NSString stringWithFormat:@"%.6f", newDue];
+
+    
+    if ([myTotalString doubleValue] > [newDueString doubleValue]) {
         self.overpayAlert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"You cannot pay more than is due on this bill." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Pay Remaining", nil];
         [self.overpayAlert show];
     }else{

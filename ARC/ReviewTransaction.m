@@ -46,7 +46,9 @@
     self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
     
     if (self.paymentPointsReceived) {
+        
         self.paymentPointsLabel.text = [NSString stringWithFormat:@"You just received %d points!!", self.paymentPointsReceived];
+        self.paymentPointsLabel.text = @"";
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reviewComplete:) name:@"createReviewNotification" object:nil];
@@ -234,7 +236,7 @@
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Review"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        self.earnMoreLabel.text = [NSString stringWithFormat:@"Earn more by giving %@ feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+        self.earnMoreLabel.text = [NSString stringWithFormat:@"Please give %@ some feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
         
         [rSkybox addEventToSession:@"viewReviewScreen"];
        
@@ -542,6 +544,10 @@
  replacementText:(NSString *)text
 {
     @try {
+
+        if ([text isEqualToString:@""]) {
+            return YES;
+        }
         
         // Any new character added is passed in as the "text" parameter
         if ([text isEqualToString:@"\n"]) {

@@ -759,7 +759,9 @@
             }
             
             if ([self.cardNumberTextField.text length] >= 20) {
-                
+                if ([string isEqualToString:@""]) {
+                    return YES;
+                }
                 return FALSE;
             }
             
@@ -771,7 +773,9 @@
                 return TRUE;
             }
             if ([self.expirationText.text length] >= 5) {
-                
+                if ([string isEqualToString:@""]) {
+                    return YES;
+                }
                 return FALSE;
             }
             
@@ -781,7 +785,9 @@
             }
             
             if ([self.securityCodeTextField.text length] >= 4) {
-                
+                if ([string isEqualToString:@""]) {
+                    return YES;
+                }
                 return FALSE;
             }
             

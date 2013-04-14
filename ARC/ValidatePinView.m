@@ -29,6 +29,9 @@
 
 -(void)viewDidLoad{
     
+    self.forgotPinButton.text = @"Forgot PIN? Delete this card";
+    self.forgotPinButton.hidden = YES;
+    
     self.deleteCardButton.hidden = YES;
     
     self.numAttempts = 0;
@@ -195,7 +198,7 @@
                     self.hiddenText.text = @"";
                     
                     self.descriptionText.text = @"*Incorrect PIN, try again.";
-                    self.deleteCardButton.hidden = NO;
+                    self.forgotPinButton.hidden = NO;
                     self.descriptionText.textColor = [UIColor redColor];
                     self.descriptionText.textAlignment = UITextAlignmentCenter;
                 }
@@ -274,4 +277,8 @@
     
 }
 
+- (void)viewDidUnload {
+    [self setForgotPinButton:nil];
+    [super viewDidUnload];
+}
 @end

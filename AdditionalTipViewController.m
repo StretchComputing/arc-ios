@@ -175,6 +175,10 @@
 {
     @try {
         
+        if ([text isEqualToString:@""]) {
+            return YES;
+        }
+        
         // Any new character added is passed in as the "text" parameter
         if ([text isEqualToString:@"\n"]) {
             // Be sure to test for equality using the "isEqualToString" message

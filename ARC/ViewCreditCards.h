@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface ViewCreditCards : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, weak) IBOutlet UITableView *myTableView;
 @property (nonatomic, strong) NSArray *creditCards;
 @property (nonatomic, strong) NSString *creditCardNumber;
@@ -23,4 +27,5 @@
 @property (strong, nonatomic) IBOutlet UIView *backView;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
 @property BOOL creditCardAdded;
+@property (nonatomic, strong) UIAlertView *logInAlert;
 @end

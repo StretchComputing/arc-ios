@@ -14,6 +14,7 @@
 @class  LoadingViewController;
 @interface ShareViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, SMContactsSelectorDelegate>
 
+@property (nonatomic, strong) UIAlertView *logInAlert;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 - (IBAction)openMenuAction;
 @property (strong, nonatomic) IBOutlet UIView *backView;

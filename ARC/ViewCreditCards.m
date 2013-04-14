@@ -15,6 +15,7 @@
 #import "SettingsView.h"
 #import "MFSideMenu.h"
 #import <QuartzCore/QuartzCore.h>
+#import "LeftViewController.h"
 
 @interface ViewCreditCards ()
 
@@ -70,12 +71,24 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
     @try {
-        if (buttonIndex == 0) {
-            //Delete
-            [self deleteCurrentCard];
+        
+        if (alertView == self.logInAlert) {
             
-           
+            if (buttonIndex == 1) {
+                //Go Profile
+                
+                LeftViewController *tmp = [self.navigationController.sideMenu getLeftSideMenu];
+                [tmp profileSelected];
+            }
+        }else{
+            if (buttonIndex == 0) {
+                //Delete
+                [self deleteCurrentCard];
+                
+                
+            }
         }
+       
     }
     @catch (NSException *exception) {
          [rSkybox sendClientLog:@"ViewCreditCards.clickedButtonAtIndex" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -86,14 +99,16 @@
 -(void)deleteCurrentCard{
     
     @try {
+        
+        self.loadingViewController.displayText.text = @"Deleting Card...";
+        self.loadingViewController.view.hidden = NO;
+        
         CreditCard *tmpCard = [self.creditCards objectAtIndex:self.selectedRow];
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         [mainDelegate deleteCreditCardWithNumber:tmpCard.number andSecurityCode:tmpCard.securityCode andExpiration:tmpCard.expiration];
-        
-        SettingsView *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
-        tmp.creditCardDeleted = YES;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+    
+        [self performSelector:@selector(doneDelete) withObject:nil afterDelay:1.0];
         
         NSString *action = [NSString stringWithFormat:@"%@_CARD_DELETE", [self getCardType]];
         [ArcClient trackEvent:action];
@@ -101,6 +116,15 @@
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"ViewCreditCards.deleteCurrentCard" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
+    
+}
+
+-(void)doneDelete{
+    [self viewWillAppear:NO];
+    self.loadingViewController.view.hidden = YES;
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Card deleted!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
     
 }
 - (NSString *)getCardType {
@@ -123,6 +147,11 @@
 
 -(void)viewDidLoad{
     @try {
+        
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
         
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
@@ -251,8 +280,8 @@
             if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
                 [self performSegueWithIdentifier:@"addCard" sender:self];
             }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users can add credit cards. Please go to the Profile section to log in or create an account." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
+                self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users can add credit cards. Please go to the Profile section to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
+                [self.logInAlert show];
             }
         }else{
             if ([self.creditCards count] != 0) {

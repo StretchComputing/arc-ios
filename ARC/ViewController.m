@@ -125,7 +125,7 @@
         self.signInButton.text = @"Sign In";
         self.signInButton.textColor = [UIColor whiteColor];
         self.signInButton.textShadowColor = [UIColor darkGrayColor];
-        self.signInButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:225.0/255.0 alpha:1];
+        self.signInButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
         //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
         
         

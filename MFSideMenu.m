@@ -657,4 +657,9 @@ typedef enum {
     
     return self.rightSideMenuViewController;
 }
+
+-(id)getLeftSideMenu{
+    
+    return self.leftSideMenuViewController;
+}
 @end

@@ -554,6 +554,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 -(void)invoiceComplete:(NSNotification *)notification{
     @try {
         
+        ArcClient *pingClient = [[ArcClient alloc] init];
+        [pingClient sendServerPings];
+        
         //[self.activity stopAnimating];
         self.loadingViewController.view.hidden = YES;
 
