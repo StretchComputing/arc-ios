@@ -13,6 +13,7 @@
 #import "ArcUtility.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ReviewTransaction.h"
+#import "InvoiceView.h"
 
 @interface ConfirmPaymentViewController ()
 
@@ -32,6 +33,7 @@
 }
 - (void)viewDidLoad
 {
+    self.incorrectPinCount = 0;
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
     self.topLineView.layer.shadowOpacity = 0.5;
@@ -130,7 +132,7 @@
         if (newLength > 4) {
             return FALSE;
         }else{
-            
+            self.errorLabel.text = @"";
             [self setValues:[self.hiddenText.text stringByReplacingCharactersInRange:range withString:string]];
             return TRUE;
             
@@ -261,14 +263,42 @@
             [client createPayment:loginDict];
             
         }else{
-            self.errorLabel.text = @"*Invalid PIN.";
             
-            self.checkNumOne.text = @"";
-            self.checkNumTwo.text = @"";
-            self.checkNumThree.text = @"";
-            self.checkNumFour.text = @"";
+            if (self.incorrectPinCount < 3) {
+                self.incorrectPinCount ++;
+                
+                self.errorLabel.text = @"*Invalid PIN.";
+                
+                self.checkNumOne.text = @"";
+                self.checkNumTwo.text = @"";
+                self.checkNumThree.text = @"";
+                self.checkNumFour.text = @"";
+                
+                self.hiddenText.text = @"";
+            }else{
+                
+                
+                ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                [mainDelegate deleteCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
+                
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Deleted" message:@"You have entered your PIN wrong too many times.  For security reasons, this card has been deleted.  Please re-add the card with a new PIN, and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                
+                
+                for (int i = 0; i < [[self.navigationController viewControllers] count]; i++) {
+                    
+                    UIViewController *tmp = [[self.navigationController viewControllers] objectAtIndex:i];
+                    
+                    if ([tmp class] == [InvoiceView class]) {
+                        [self.navigationController popToViewController:tmp animated:YES];
+                        break;
+                    }
+                }
+                
+            }
             
-            self.hiddenText.text = @"";
+          
         }
         
     }
@@ -430,13 +460,7 @@
 
 
 
-- (void)viewDidUnload {
-    [self setMyTotalLabel:nil];
-    [self setPaymentLabel:nil];
-    [self setBackView:nil];
-    [self setTopLineView:nil];
-    [super viewDidUnload];
-}
+
 - (IBAction)goBackAction {
     [self.navigationController popViewControllerAnimated:YES];
 }

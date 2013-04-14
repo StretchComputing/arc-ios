@@ -19,6 +19,8 @@
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) Invoice *myInvoice;
 
+@property int incorrectPinCount;
+
 @property (nonatomic, strong) NSString *creditCardNumber;
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
 @property (nonatomic, strong) NSString *creditCardExpiration;

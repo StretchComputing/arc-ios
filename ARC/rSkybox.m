@@ -255,7 +255,6 @@ NSString *const CLOSED_STATUS = @"closed";
         
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         if (connection) {
-            
         }
         
 //        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
