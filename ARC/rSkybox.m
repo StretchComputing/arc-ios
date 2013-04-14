@@ -36,7 +36,27 @@ static NSString *streamId;
 
 
 NSString* const ARC_VERSION_NUMBER = @"1.5";
+
+NSString *const SUCCESS = @"100";
+NSString *const INVALID_STATUS = @"201";
+NSString *const USER_NOT_AUTHORIZED_FOR_APPLICATION = @"203";
+NSString *const APPLICATION_NOT_AUTHORIZED = @"221";
+NSString *const NAME_ALREADY_IN_USE = @"224";
 NSString *const STREAM_CLOSED = @"225";
+NSString *const APPLICATION_ID_REQUIRED = @"305";
+NSString *const STREAM_ID_REQUIRED = @"323";
+NSString *const EITHER_USER_ID_OR_MEMBER_ID_IS_REQUIRED = @"324";
+NSString *const NAME_IS_REQUIRED = @"325";
+NSString *const BODY_REQUIRED = @"326";
+NSString *const STREAM_ALREADY_HAS_END_USER = @"427";
+NSString *const STREAM_ALREADY_HAS_MEMBER = @"428";
+NSString *const BOTH_USER_ID_AND_MEMBER_ID_SPECIFIED = @"429";
+NSString *const APPLICATION_NOT_FOUND = @"605";
+NSString *const STREAM_NOT_FOUND = @"605";
+
+
+NSString *const CLOSED_STATUS = @"closed";
+
 
 @implementation rSkybox
 
@@ -127,7 +147,6 @@ NSString *const STREAM_CLOSED = @"225";
             NSString *logMessage = [NSString stringWithFormat:@"threshold: %0.0f ms latency: %0.0f ms", maxValue, milliseconds];
             NSLog(@"%@", logMessage);
             // deactivate thresshold reporting for now
-            //[rSkybox sendClientLog:logName logMessage:logMessage logLevel:@"error" exception:nil];
         }
         //NSLog(@"Duration of %@: %0.1f", logName, milliseconds);
     }
@@ -447,7 +466,8 @@ NSString *const STREAM_CLOSED = @"225";
         traceTimeStamps = [NSMutableArray array];
         
         // TODO drive from Customer Service screen
-        [rSkybox initiateStream:@"joe test stream"];
+        isLiveDebugActive = FALSE;
+        [rSkybox createStream:@"joe test 2 stream"];
     }
     @catch (NSException *e) {
         NSLog(@"Exception caught in rSkybox.initiateSession - %@ - %@", [e name], [e description]);
@@ -650,10 +670,43 @@ NSString *const STREAM_CLOSED = @"225";
 //        if ([apiStatus isEqualToString:@"100"]) {
 //            //NSLog(@"Send Feedback Failed.");
 //        }
-        
     }
     @catch (NSException *e) {
-        NSLog(@"Exception caught in rSkybox.initiateStream - %@ - %@", [e name], [e description]);
+        NSLog(@"Exception caught in rSkybox.createStream - %@ - %@", [e name], [e description]);
+    }
+}
+
++(void)closeStream:(NSString *)name {
+    @try {
+        api = CloseStream;
+        if(!isLiveDebugActive) {
+            NSLog(@"closeStream -- returning because stream is not active");
+            return;
+        }
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        
+        [tempDictionary setObject:CLOSED_STATUS forKey:@"status"];
+        
+        loginDict = tempDictionary;
+        NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];
+        NSString *tmpUrl = [baseUrl stringByAppendingFormat:@"/applications/%@/streams/%@", applicationId, streamId];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
+        [request setHTTPMethod: @"PUT"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        NSString *basicAuth = [rSkybox getBasicAuthHeader];
+        [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
+        
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        if (connection) {
+        }
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.closeStream - %@ - %@", [e name], [e description]);
     }
 }
 
@@ -680,9 +733,18 @@ NSString *const STREAM_CLOSED = @"225";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        if (connection) {
-        }
+//        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//        if (connection) {
+//        }
+        
+        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+        
+        // parse the returned JSON object
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+        
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+        [rSkybox createPacketResponse:response];
     }
     @catch (NSException *e) {
         NSLog(@"Exception caught in rSkybox.createPacket - %@ - %@", [e name], [e description]);
@@ -690,23 +752,32 @@ NSString *const STREAM_CLOSED = @"225";
 }
 
 + (NSString*)apiToString {
-    NSString *result = nil;
-    
-    switch(api) {
-        case CreateStream:
-            result = @"CreateStream";
-            break;
-            
-        case CreatePacket:
-            result = @"CreatePacket";
-            break;
-            
-        default:
-            //[NSException raise:NSGenericException format:@"Unexpected FormatType."];
-            break;
+    @try {
+        NSString *result = nil;
+        switch(api) {
+            case CreateStream:
+                result = @"CreateStream";
+                break;
+                
+            case CloseStream:
+                result = @"CloseStream";
+                break;
+                
+            case CreatePacket:
+                result = @"CreatePacket";
+                break;
+                
+            default:
+                //[NSException raise:NSGenericException format:@"Unexpected FormatType."];
+                break;
+        }
+        
+        return result;
     }
-    
-    return result;
+    @catch (NSException *e) {
+        NSLog(@"rSkybox.apiToString Exception - %@ - %@", [e name], [e description]);
+        return @"";
+    }
 }
 
 + (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
@@ -716,7 +787,7 @@ NSString *const STREAM_CLOSED = @"225";
         serverData = [[NSMutableData alloc] init];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"rSkybox.connection:didReceiveResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        NSLog(@"rSkybox.connection:didReceiveResponse Exception - %@ - %@", [e name], [e description]);
     }
 }
 
@@ -725,14 +796,13 @@ NSString *const STREAM_CLOSED = @"225";
         [serverData appendData:mdata];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"rSkybox.connection:didReceiveData" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        NSLog(@"rSkybox.connection:didReceiveData Exception - %@ - %@", [e name], [e description]);
     }
 }
 
 
 + (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     @try {
-        NSString *logName = [NSString stringWithFormat:@"api.%@.threshold", [rSkybox apiToString]];
         NSData *returnData = [NSData dataWithData:serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
@@ -746,22 +816,24 @@ NSString *const STREAM_CLOSED = @"225";
         if(api == CreateStream) {
             if (response && httpSuccess) {
                 [rSkybox createStreamResponse:response];
-                isLiveDebugActive = TRUE;
             }
         } else if(api == CreatePacket) {
             if (response && httpSuccess) {
                 [rSkybox createPacketResponse:response];
             }
+        } else if(api == CloseStream) {
+            if (response && httpSuccess) {
+                [rSkybox closeStreamResponse:response];
+            }
         }
         
         if(!httpSuccess) {
             // failure scenario -- HTTP error code returned -- for this processing, we don't care which API failed
-            NSString *errorMsg = [NSString stringWithFormat:@"HTTP Status Code:%d for API %@", httpStatusCode, [rSkybox apiToString]];
-            [rSkybox sendClientLog:@"rSkybox.connectionDidFinishLoading" logMessage:errorMsg logLevel:@"error" exception:nil];
+            NSLog(@"HTTP Status Code:%d for API %@", httpStatusCode, [rSkybox apiToString]);
         }
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"rSkybox.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        NSLog(@"rSkybox.connection:connectionDidFinishLoading Exception - %@ - %@", [e name], [e description]);
     }
 }
 
@@ -779,48 +851,141 @@ NSString *const STREAM_CLOSED = @"225";
         }
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"rSkybox.connection:didFailWithError" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        NSLog(@"rSkybox.connection:didFailWithError Exception - %@ - %@", [e name], [e description]);
     }
     
 }
 
 +(NSString *)readableErrorCode:(NSError *)error {
-    int errorCode = error.code;
-    if(errorCode == -1000) return @"NSURLErrorBadURL";
-    else if(errorCode == -1001) return @"TimedOut";
-    else if(errorCode == -1002) return @"UnsupportedURL";
-    else if(errorCode == -1003) return @"CannotFindHost";
-    else if(errorCode == -1004) return @"CannotConnectToHost";
-    else if(errorCode == -1005) return @"NetworkConnectionLost";
-    else if(errorCode == -1006) return @"DNSLookupFailed";
-    else if(errorCode == -1007) return @"HTTPTooManyRedirects";
-    else if(errorCode == -1008) return @"ResourceUnavailable";
-    else if(errorCode == -1009) return @"NotConnectedToInternet";
-    else if(errorCode == -1011) return @"BadServerResponse";
-    else return [NSString stringWithFormat:@"%i", error.code];
+    @try {
+        int errorCode = error.code;
+        if(errorCode == -1000) return @"NSURLErrorBadURL";
+        else if(errorCode == -1001) return @"TimedOut";
+        else if(errorCode == -1002) return @"UnsupportedURL";
+        else if(errorCode == -1003) return @"CannotFindHost";
+        else if(errorCode == -1004) return @"CannotConnectToHost";
+        else if(errorCode == -1005) return @"NetworkConnectionLost";
+        else if(errorCode == -1006) return @"DNSLookupFailed";
+        else if(errorCode == -1007) return @"HTTPTooManyRedirects";
+        else if(errorCode == -1008) return @"ResourceUnavailable";
+        else if(errorCode == -1009) return @"NotConnectedToInternet";
+        else if(errorCode == -1011) return @"BadServerResponse";
+        else return [NSString stringWithFormat:@"%i", error.code];
+    }
+    @catch (NSException *e) {
+        NSLog(@"rSkybox.readableErrorCode Exception - %@ - %@", [e name], [e description]);
+        return @"";
+    }
 }
 
 
 +(void) createStreamResponse:(NSDictionary *)response {
     @try {
-        
-        streamId = [response valueForKey:@"id"];
-        BOOL created = [[response valueForKey:@"created"] boolValue];
+        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        if([apiStatus isEqualToString:SUCCESS]) {
+            isLiveDebugActive = TRUE;
+            streamId = [response valueForKey:@"id"];
+            BOOL created = [[response valueForKey:@"created"] boolValue];
+            NSLog(@"CreateStream API successfully created");
+        }
+        else if([apiStatus isEqualToString:NAME_ALREADY_IN_USE]){
+            NSLog(@"CreateStream API application error -- %@", @"NAME_ALREADY_IN_USE");
+        }
+        else if([apiStatus isEqualToString:APPLICATION_ID_REQUIRED]){
+            NSLog(@"CreateStream API application error -- %@", @"APPLICATION_ID_REQUIRED");
+        }
+        else if([apiStatus isEqualToString:EITHER_USER_ID_OR_MEMBER_ID_IS_REQUIRED]){
+            NSLog(@"CreateStream API application error -- %@", @"EITHER_USER_ID_OR_MEMBER_ID_IS_REQUIRED");
+        }
+        else if([apiStatus isEqualToString:NAME_IS_REQUIRED]){
+            NSLog(@"CreateStream API application error -- %@", @"NAME_IS_REQUIRED");
+        }
+        else if([apiStatus isEqualToString:STREAM_ALREADY_HAS_END_USER]){
+            NSLog(@"CreateStream API application error -- %@", @"STREAM_ALREADY_HAS_END_USER");
+        }
+        else if([apiStatus isEqualToString:STREAM_ALREADY_HAS_MEMBER]){
+            NSLog(@"CreateStream API application error -- %@", @"STREAM_ALREADY_HAS_MEMBER");
+        }
+        else if([apiStatus isEqualToString:BOTH_USER_ID_AND_MEMBER_ID_SPECIFIED]){
+            NSLog(@"CreateStream API application error -- %@", @"BOTH_USER_ID_AND_MEMBER_ID_SPECIFIED");
+        }
+        else if([apiStatus isEqualToString:APPLICATION_NOT_FOUND]){
+            NSLog(@"CreateStream API application error -- %@", @"APPLICATION_NOT_FOUND");
+        }
+        else {
+            NSLog(@"CreateStream API application error -- %@", @"unknown -- should NOT happen!!!");
+        }
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"rSkybox.createStreamResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        NSLog(@"rSkybox.createStreamResponse Exception - %@ - %@", [e name], [e description]);
+    }
+}
+
++(void) closeStreamResponse:(NSDictionary *)response {
+    @try {
+        // even if the server request to close the stream fails, mark the stream as inactive
+        isLiveDebugActive = FALSE;
+        
+        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        if([apiStatus isEqualToString:SUCCESS]) {
+            streamId = NULL;
+            NSLog(@"CloseStream API successful");
+        }
+        else if([apiStatus isEqualToString:INVALID_STATUS]){
+            NSLog(@"CloseStream API application error -- %@", @"INVALID_STATUS");
+        }
+        else if([apiStatus isEqualToString:USER_NOT_AUTHORIZED_FOR_APPLICATION]){
+            NSLog(@"CloseStream API application error -- %@", @"USER_NOT_AUTHORIZED_FOR_APPLICATION");
+        }
+        else if([apiStatus isEqualToString:APPLICATION_NOT_AUTHORIZED]){
+            NSLog(@"CloseStream API application error -- %@", @"APPLICATION_NOT_AUTHORIZED");
+        }
+        else if([apiStatus isEqualToString:APPLICATION_ID_REQUIRED]){
+            NSLog(@"CloseStream API application error -- %@", @"APPLICATION_ID_REQUIRED");
+        }
+        else if([apiStatus isEqualToString:STREAM_ID_REQUIRED]){
+            NSLog(@"CloseStream API application error -- %@", @"STREAM_ID_REQUIRED");
+        }
+        else if([apiStatus isEqualToString:APPLICATION_NOT_FOUND]){
+            NSLog(@"CloseStream API application error -- %@", @"APPLICATION_NOT_FOUND");
+        }
+        else if([apiStatus isEqualToString:STREAM_NOT_FOUND]){
+            NSLog(@"CloseStream API application error -- %@", @"STREAM_NOT_FOUND");
+        }
+        else {
+            NSLog(@"CloseStream API application error -- %@", @"unknown -- should NOT happen!!!");
+        }
+    }
+    @catch (NSException *e) {
+        NSLog(@"rSkybox.closeStreamResponse Exception - %@ - %@", [e name], [e description]);
     }
 }
 
 +(void) createPacketResponse:(NSDictionary *)response {
     @try {
         NSString *apiStatus = [response valueForKey:@"apiStatus"];
-        if([apiStatus isEqualToString:STREAM_CLOSED]) {
+        if([apiStatus isEqualToString:SUCCESS]) {
+            NSLog(@"CreatePacket API successfully created");
+        }
+        else if([apiStatus isEqualToString:STREAM_CLOSED]){
+            NSLog(@"CreatePacket API STREAM_CLOSED");
             isLiveDebugActive = FALSE;
+        }
+        else if([apiStatus isEqualToString:APPLICATION_ID_REQUIRED]){
+            NSLog(@"CreatePacket API application error -- %@", @"APPLICATION_ID_REQUIRED");
+        }
+        else if([apiStatus isEqualToString:STREAM_ID_REQUIRED]){
+            NSLog(@"CreatePacket API application error -- %@", @"STREAM_ID_REQUIRED");
+        }
+        else if([apiStatus isEqualToString:BODY_REQUIRED]){
+            NSLog(@"CreatePacket API application error -- %@", @"BODY_REQUIRED");
+        }
+        else {
+            NSLog(@"CreatePacket API application error -- %@", @"unknown -- should NOT happen!!!");
         }
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"rSkybox.createPacketResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        NSLog(@"rSkybox.createPacketResponse Exception - %@ - %@", [e name], [e description]);
     }
 }
 

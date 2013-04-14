@@ -23,7 +23,8 @@ extern NSString *const ARC_VERSION_NUMBER;
 
 typedef enum {
     CreateStream = 0,
-    CreatePacket = 1
+    CreatePacket = 1,
+    CloseStream = 2
 } RSKYBOX_APIS;
 
 
