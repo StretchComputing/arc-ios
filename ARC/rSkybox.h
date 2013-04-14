@@ -21,11 +21,18 @@
 
 extern NSString *const ARC_VERSION_NUMBER;
 
-@interface rSkybox : NSObject
+typedef enum {
+    CreateStream = 0,
+    CreatePacket = 1
+} RSKYBOX_APIS;
+
+
+@interface rSkybox : NSObject <NSURLConnectionDelegate> {
+}
 
 
 //rSkybox server communication methods
-+ (NSDictionary *)createEndUser;
++ (void)createEndUser;
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception;
 +(void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData;
 +(void)sendFeedback:(NSData *)recordedData;
@@ -47,5 +54,8 @@ extern NSString *const ARC_VERSION_NUMBER;
 + (NSString *)encodeBase64:(NSString *)stringToEncode;
 + (NSString *)getBasicAuthHeader;
 
+// LiveDebug Methods
++(void)initiateStream:(NSString *)name;
++(void)createPacket:(NSString *)packet;
 
 @end

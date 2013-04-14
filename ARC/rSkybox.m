@@ -3,6 +3,7 @@
 //  rTeam
 //
 //  Created by Nick Wroblewski on 4/30/12.
+//  Extend by Joe Wroblewski on 4/13/13
 //  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 
@@ -14,7 +15,8 @@
 
 static NSString *basicAuthUserName = @"token";
 static NSString *baseUrl = @"https://rskybox-stretchcom.appspot.com/rest/v1";
-//TODO: rSkybox ids - replace the current basicAuthToken and applicationId with the token and application id you received when you registered for rSkybox
+//TODO: rSkybox ids - replace the current basicAuthToken and applicationId with the token and application id you
+//      received when you registered for rSkybox
 static NSString *basicAuthToken = @"ekokq167k46gbrmr6hvbht9lab";
 static NSString *applicationId = @"ahRzfnJza3lib3gtc3RyZXRjaGNvbXITCxILQXBwbGljYXRpb24YgPYvDA";
 
@@ -26,8 +28,15 @@ static NSMutableArray *traceSession;
 static NSMutableArray *traceTimeStamps;
 static NSDate *startTime;
 static NSString *logNameBeingTimed;
+static BOOL isLiveDebugActive = FALSE;
+static RSKYBOX_APIS api;
+static NSMutableData *serverData;
+static int httpStatusCode;
+static NSString *streamId;
+
 
 NSString* const ARC_VERSION_NUMBER = @"1.5";
+NSString *const STREAM_CLOSED = @"225";
 
 @implementation rSkybox
 
@@ -36,7 +45,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
     return [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"];
 }
 
-+ (NSDictionary *)createEndUser{
++ (void)createEndUser{
     
     NSMutableDictionary *returnDictionary = [NSMutableDictionary dictionary];
     NSString *statusReturn = @"";
@@ -65,63 +74,76 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
-        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
-        // parse the returned JSON object
-        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-        
-        //NSLog(@"ReturnString: %@", returnString);
-        
-        SBJsonParser *jsonParser = [SBJsonParser new];
-        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-        
-        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-        if ([apiStatus isEqualToString:@"100"]) {
-            //NSLog(@"Create End User Failed");
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        if (connection) {
+            
         }
-        
-        statusReturn = apiStatus;
-        [returnDictionary setValue:statusReturn forKey:@"status"];
-        return returnDictionary;
+
+//        
+//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+//        
+//        // parse the returned JSON object
+//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+//        
+//        //NSLog(@"ReturnString: %@", returnString);
+//        
+//        SBJsonParser *jsonParser = [SBJsonParser new];
+//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+//        
+//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+//        if ([apiStatus isEqualToString:@"100"]) {
+//            //NSLog(@"Create End User Failed");
+//        }
+//        
+//        statusReturn = apiStatus;
+//        [returnDictionary setValue:statusReturn forKey:@"status"];
+//        return returnDictionary;
     }
     
     @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.createEndUser - %@ - %@", [e name], [e description]);
         statusReturn = @"1";
         [returnDictionary setValue:statusReturn forKey:@"status"];
-        return returnDictionary;
     }
-
-    
 }
 
 
 +(void)startThreshold:(NSString *)logName {
-    startTime = [NSDate date];
-    logNameBeingTimed = logName;
+    @try {
+        startTime = [NSDate date];
+        logNameBeingTimed = logName;
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.startThreshold - %@ - %@", [e name], [e description]);
+    }
 }
 
 +(void)endThreshold:(NSString *)logName logMessage:(NSString *)logMessage maxValue:(double)maxValue {
-    NSTimeInterval milliseconds = [[NSDate date] timeIntervalSinceDate:startTime] * 1000;
-    
-    if(milliseconds > maxValue && ![logName isEqualToString:@"ErrorEncountered"]) {
-        NSString *logMessage = [NSString stringWithFormat:@"threshold: %0.0f ms latency: %0.0f ms", maxValue, milliseconds];
-        NSLog(@"%@", logMessage);
-        // deactivate thresshold reporting for now
-        //[rSkybox sendClientLog:logName logMessage:logMessage logLevel:@"error" exception:nil];
+    @try {
+        NSTimeInterval milliseconds = [[NSDate date] timeIntervalSinceDate:startTime] * 1000;
+        
+        if(milliseconds > maxValue && ![logName isEqualToString:@"ErrorEncountered"]) {
+            NSString *logMessage = [NSString stringWithFormat:@"threshold: %0.0f ms latency: %0.0f ms", maxValue, milliseconds];
+            NSLog(@"%@", logMessage);
+            // deactivate thresshold reporting for now
+            //[rSkybox sendClientLog:logName logMessage:logMessage logLevel:@"error" exception:nil];
+        }
+        //NSLog(@"Duration of %@: %0.1f", logName, milliseconds);
     }
-    //NSLog(@"Duration of %@: %0.1f", logName, milliseconds);
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.endThreshold - %@ - %@", [e name], [e description]);
+    }
 }
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
     @try {
+        NSString *logPrefix = @"iOS";
 #if DEBUG==1
-        logName = [@"ArcDev." stringByAppendingString:logName];
+        logPrefix = [@"Dev." stringByAppendingString:logPrefix];
 #endif
-        
-#if RELEASE==1
-        logName = [@"Arc." stringByAppendingString:logName];
-#endif
+        logName = [logPrefix stringByAppendingString:logName];
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -171,8 +193,6 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
             [tempDictionary setObject:stackTraceArray  forKey:@"stackBackTrace"];
         }
         
-        
-        
         //Adding the App Actions
         NSMutableArray *finalArray = [NSMutableArray array];
         NSMutableArray *appActions = [NSMutableArray arrayWithArray:[rSkybox getActions]];
@@ -215,44 +235,41 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        
         if (connection) {
             
         }
-        //NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
-        // parse the returned JSON object
-        /*
-        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+//        
+//        // parse the returned JSON object
+//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+//        
+//        SBJsonParser *jsonParser = [SBJsonParser new];
+//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+//        
+//        NSString *logStatus = [response valueForKey:@"logStatus"];
+//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+//        
+//        if (![apiStatus isEqualToString:@"100"]) {
+//            //NSLog(@"Send Client Log Failed.");
+//        }
+//        
+//        
+//        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+//        NSMutableDictionary *logChecklist = [NSMutableDictionary dictionaryWithDictionary:[standardUserDefaults valueForKey:@"logChecklist"]];
+//        
+//        //If the log is b
+//        if ([logStatus isEqualToString:@"inactive"]) {
+//            
+//            [logChecklist setObject:@"off" forKey:logName];
+//            [standardUserDefaults setObject:logChecklist forKey:@"logChecklist"];
+//        }
         
-        SBJsonParser *jsonParser = [SBJsonParser new];
-        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-        
-        NSString *logStatus = [response valueForKey:@"logStatus"];
-        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-        
-        if (![apiStatus isEqualToString:@"100"]) {
-            //NSLog(@"Send Client Log Failed.");
-        }
-        
-        
-        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-        NSMutableDictionary *logChecklist = [NSMutableDictionary dictionaryWithDictionary:[standardUserDefaults valueForKey:@"logChecklist"]];
-        
-        //If the log is b
-        if ([logStatus isEqualToString:@"inactive"]) {
-            
-            [logChecklist setObject:@"off" forKey:logName];
-            [standardUserDefaults setObject:logChecklist forKey:@"logChecklist"];
-            
-            
-        }
-         */
         
     }
     
     @catch (NSException *e) {
-        
+        NSLog(@"Exception caught in rSkybox.endThreshold - %@ - %@", [e name], [e description]);
     }
 }
 
@@ -326,34 +343,33 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         
-        
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-   
-        
-       // NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        if (connection) {
+            
+        }
 
         
-        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+//        
+//        // parse the returned JSON object
+//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+//        
+//        
+//        SBJsonParser *jsonParser = [SBJsonParser new];
+//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+//        
+//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+//        if (![apiStatus isEqualToString:@"100"]) {
+//            // NSLog(@"Send Crash Failed.");
+//        }
         
-        // parse the returned JSON object
-        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-        
-        
-        SBJsonParser *jsonParser = [SBJsonParser new];
-        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-        
-        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-        if (![apiStatus isEqualToString:@"100"]) {
-            // NSLog(@"Send Crash Failed.");
-        }
-         
         
     }
     
     @catch (NSException *e) {
-        
-        
+        NSLog(@"Exception caught in rSkybox.sendCrashDetect - %@ - %@", [e name], [e description]);
     }
 }
 
@@ -397,82 +413,98 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
-    
-        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
-        // parse the returned JSON object
-        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-        
-        SBJsonParser *jsonParser = [SBJsonParser new];
-        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-        
-        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-        if ([apiStatus isEqualToString:@"100"]) {
-            //NSLog(@"Send Feedback Failed.");
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        if (connection) {
+            
         }
+    
+//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+//        
+//        // parse the returned JSON object
+//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+//        
+//        SBJsonParser *jsonParser = [SBJsonParser new];
+//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+//        
+//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+//        if ([apiStatus isEqualToString:@"100"]) {
+//            //NSLog(@"Send Feedback Failed.");
+//        }
         
     }
     
     @catch (NSException *e) {
-        
+        NSLog(@"Exception caught in rSkybox.sendFeedback - %@ - %@", [e name], [e description]);
     }
 }
 
 
 //App Actions Methods
 +(void)initiateSession{
-    
-    traceSession = [NSMutableArray array];
-    traceTimeStamps = [NSMutableArray array];
-    
+    @try {
+        traceSession = [NSMutableArray array];
+        traceTimeStamps = [NSMutableArray array];
+        
+        // TODO drive from Customer Service screen
+        [rSkybox initiateStream:@"joe test stream"];
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.initiateSession - %@ - %@", [e name], [e description]);
+    }
 }
 
 +(void)addEventToSession:(NSString *)event{
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
-    
-    NSDate *myDate = [NSDate date];
-  
-    
-    if ([traceSession count] < NUMBER_EVENTS_STORED) {
-        [traceSession addObject:event];
-        [traceTimeStamps addObject:myDate];
-    }else{
-        [traceSession removeObjectAtIndex:0];
-        [traceSession addObject:event];
-        [traceTimeStamps removeObjectAtIndex:0];
-        [traceTimeStamps addObject:myDate];
-    }
-    
-    
-    //TODO: rSkybox - instantiate your app delegate (uncomment the line below and replace MyAppDelegate with your app delegate);
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    NSString *tmpTrace = @"";
-    NSString *tmpTraceTime = @"";
-    
-    
-    for (int i = 0; i < [traceSession count]; i++) {
+    @try {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
         
-        if (i == ([traceSession count] - 1)) {
-            tmpTrace = [tmpTrace stringByAppendingFormat:@"%@", [traceSession objectAtIndex:i]];
-            
-            tmpTraceTime = [tmpTraceTime stringByAppendingFormat:@"%@", [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]]];
-            
+        NSDate *myDate = [NSDate date];
+        
+        
+        if ([traceSession count] < NUMBER_EVENTS_STORED) {
+            [traceSession addObject:event];
+            [traceTimeStamps addObject:myDate];
         }else{
-            tmpTrace = [tmpTrace stringByAppendingFormat:@"%@,", [traceSession objectAtIndex:i]];
-            tmpTraceTime = [tmpTraceTime stringByAppendingFormat:@"%@,", [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]]];
-            
+            [traceSession removeObjectAtIndex:0];
+            [traceSession addObject:event];
+            [traceTimeStamps removeObjectAtIndex:0];
+            [traceTimeStamps addObject:myDate];
         }
+        
+        
+        //TODO: rSkybox - instantiate your app delegate (uncomment the line below and replace MyAppDelegate with your app delegate);
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        NSString *tmpTrace = @"";
+        NSString *tmpTraceTime = @"";
+        
+        
+        for (int i = 0; i < [traceSession count]; i++) {
+            
+            if (i == ([traceSession count] - 1)) {
+                tmpTrace = [tmpTrace stringByAppendingFormat:@"%@", [traceSession objectAtIndex:i]];
+                
+                tmpTraceTime = [tmpTraceTime stringByAppendingFormat:@"%@", [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]]];
+                
+            }else{
+                tmpTrace = [tmpTrace stringByAppendingFormat:@"%@,", [traceSession objectAtIndex:i]];
+                tmpTraceTime = [tmpTraceTime stringByAppendingFormat:@"%@,", [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]]];
+                
+            }
+        }
+        
+        if(isLiveDebugActive) {
+            [rSkybox createPacket:event];
+        }
+        
+        mainDelegate.appActions = [NSString stringWithString:tmpTrace];
+        mainDelegate.appActionsTime = [NSString stringWithString:tmpTraceTime];
+        [mainDelegate saveUserInfo];
     }
-    
-
-    
-    mainDelegate.appActions = [NSString stringWithString:tmpTrace];
-    mainDelegate.appActionsTime = [NSString stringWithString:tmpTraceTime];
-    [mainDelegate saveUserInfo];
-    
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.addEventToSession - %@ - %@", [e name], [e description]);
+    }
 }
 
 +(NSMutableArray *)getActions{
@@ -486,23 +518,29 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
 }
 
 +(void)setSavedArray:(NSMutableArray *)savedArray :(NSMutableArray *)savedArrayTime{
-    
-    traceSession = [NSMutableArray arrayWithArray:savedArray];
-    traceTimeStamps = [NSMutableArray arrayWithArray:savedArrayTime];
+    @try {
+        traceSession = [NSMutableArray arrayWithArray:savedArray];
+        traceTimeStamps = [NSMutableArray arrayWithArray:savedArrayTime];
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.setSavedArray - %@ - %@", [e name], [e description]);
+    }
 }
 
 +(void)printTraceSession{
-    
-    
-    for (int i = 0; i < [traceSession count]; i++) {
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSS"];
-       // NSString *dateString = [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]];
-        
-       // NSLog(@"%d: %@ - %@", i, [traceSession objectAtIndex:i], dateString);
+    @try {
+        for (int i = 0; i < [traceSession count]; i++) {
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSS"];
+            // NSString *dateString = [dateFormatter stringFromDate:[traceTimeStamps objectAtIndex:i]];
+            
+            // NSLog(@"%d: %@ - %@", i, [traceSession objectAtIndex:i], dateString);
+        }
     }
-    
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.printTraceSession - %@ - %@", [e name], [e description]);
+    }
 }
 
 
@@ -528,8 +566,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         return encodedString;
     }
     @catch (NSException *e) {
-
-        
+        NSLog(@"Exception caught in rSkybox.encodeBase64data - %@ - %@", [e name], [e description]);
         return @"";
     }
     
@@ -555,8 +592,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         return encodedString;
     }
     @catch (NSException *e) {
-     
-        
+        NSLog(@"Exception caught in rSkybox.encodeBase64 - %@ - %@", [e name], [e description]);
         return @"";
     }
     
@@ -564,10 +600,228 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
 
 //Initialize and return the Basic Authentication header
 +(NSString *)getBasicAuthHeader {
-    NSString *stringToEncode = [NSString stringWithFormat:@"%@:%@", basicAuthUserName, basicAuthToken];   
+    @try {
+        NSString *stringToEncode = [NSString stringWithFormat:@"%@:%@", basicAuthUserName, basicAuthToken];
+        
+        NSString *encodedAuth = [rSkybox encodeBase64:stringToEncode];
+        return encodedAuth;
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.getBasicAuthHeader - %@ - %@", [e name], [e description]);
+        return @"";
+    }
+}
+
++(void)createStream:(NSString *)name {
+    @try {
+        api = CreateStream;
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        
+        [tempDictionary setObject:name forKey:@"name"];
+        [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
+        
+        loginDict = tempDictionary;
+        NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];
+        NSString *tmpUrl = [baseUrl stringByAppendingFormat:@"/applications/%@/streams", applicationId];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
+        [request setHTTPMethod: @"POST"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        NSString *basicAuth = [rSkybox getBasicAuthHeader];
+        [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
+        
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        if (connection) {
+        }
+        
+//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+//        
+//        // parse the returned JSON object
+//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+//        
+//        SBJsonParser *jsonParser = [SBJsonParser new];
+//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+//        
+//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+//        if ([apiStatus isEqualToString:@"100"]) {
+//            //NSLog(@"Send Feedback Failed.");
+//        }
+        
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.initiateStream - %@ - %@", [e name], [e description]);
+    }
+}
+
+// Creates a new packet
+// Checks return and sees if Stream has been ended. If so, deactivates the stream.
++(void)createPacket:(NSString *)packet {
+    @try {
+        api = CreatePacket;
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        
+        [tempDictionary setObject:packet forKey:@"body"];
+        
+        loginDict = tempDictionary;
+        NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];
+        NSString *tmpUrl = [baseUrl stringByAppendingFormat:@"/applications/%@/streams/%@/packets", applicationId, streamId];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:tmpUrl]];
+        [request setHTTPMethod: @"POST"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        NSString *basicAuth = [rSkybox getBasicAuthHeader];
+        [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
+        
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        if (connection) {
+        }
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in rSkybox.createPacket - %@ - %@", [e name], [e description]);
+    }
+}
+
++ (NSString*)apiToString {
+    NSString *result = nil;
     
-    NSString *encodedAuth = [rSkybox encodeBase64:stringToEncode];
-    return encodedAuth;
+    switch(api) {
+        case CreateStream:
+            result = @"CreateStream";
+            break;
+            
+        case CreatePacket:
+            result = @"CreatePacket";
+            break;
+            
+        default:
+            //[NSException raise:NSGenericException format:@"Unexpected FormatType."];
+            break;
+    }
+    
+    return result;
+}
+
++ (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    @try {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        httpStatusCode = [httpResponse statusCode];
+        serverData = [[NSMutableData alloc] init];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"rSkybox.connection:didReceiveResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
++ (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
+    @try {
+        [serverData appendData:mdata];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"rSkybox.connection:didReceiveData" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
++ (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    @try {
+        NSString *logName = [NSString stringWithFormat:@"api.%@.threshold", [rSkybox apiToString]];
+        NSData *returnData = [NSData dataWithData:serverData];
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"ReturnString: %@", returnString);
+        
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+        
+        BOOL httpSuccess = httpStatusCode == 200 || httpStatusCode == 201 || httpStatusCode == 422;
+        
+        if(api == CreateStream) {
+            if (response && httpSuccess) {
+                [rSkybox createStreamResponse:response];
+                isLiveDebugActive = TRUE;
+            }
+        } else if(api == CreatePacket) {
+            if (response && httpSuccess) {
+                [rSkybox createPacketResponse:response];
+            }
+        }
+        
+        if(!httpSuccess) {
+            // failure scenario -- HTTP error code returned -- for this processing, we don't care which API failed
+            NSString *errorMsg = [NSString stringWithFormat:@"HTTP Status Code:%d for API %@", httpStatusCode, [rSkybox apiToString]];
+            [rSkybox sendClientLog:@"rSkybox.connectionDidFinishLoading" logMessage:errorMsg logLevel:@"error" exception:nil];
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"rSkybox.connectionDidFinishLoading" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
++ (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    @try {
+        NSString *urlString = [[[connection currentRequest] URL] absoluteString];
+        
+        NSString *logName = [NSString stringWithFormat:@"api.%@.%@ - %@", [self apiToString], [rSkybox readableErrorCode:error], urlString];
+        NSLog(@"%@", logName);
+        
+        if(api == CreateStream) {
+            streamId = NULL;
+        } else if(api == CreatePacket) {
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"rSkybox.connection:didFailWithError" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
++(NSString *)readableErrorCode:(NSError *)error {
+    int errorCode = error.code;
+    if(errorCode == -1000) return @"NSURLErrorBadURL";
+    else if(errorCode == -1001) return @"TimedOut";
+    else if(errorCode == -1002) return @"UnsupportedURL";
+    else if(errorCode == -1003) return @"CannotFindHost";
+    else if(errorCode == -1004) return @"CannotConnectToHost";
+    else if(errorCode == -1005) return @"NetworkConnectionLost";
+    else if(errorCode == -1006) return @"DNSLookupFailed";
+    else if(errorCode == -1007) return @"HTTPTooManyRedirects";
+    else if(errorCode == -1008) return @"ResourceUnavailable";
+    else if(errorCode == -1009) return @"NotConnectedToInternet";
+    else if(errorCode == -1011) return @"BadServerResponse";
+    else return [NSString stringWithFormat:@"%i", error.code];
+}
+
+
++(void) createStreamResponse:(NSDictionary *)response {
+    @try {
+        
+        streamId = [response valueForKey:@"id"];
+        BOOL created = [[response valueForKey:@"created"] boolValue];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"rSkybox.createStreamResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
++(void) createPacketResponse:(NSDictionary *)response {
+    @try {
+        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        if([apiStatus isEqualToString:STREAM_CLOSED]) {
+            isLiveDebugActive = FALSE;
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"rSkybox.createPacketResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
 
 @end
