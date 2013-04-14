@@ -23,6 +23,7 @@
 #import "NumberLineButton.h"
 #import "RightViewController.h"
 
+#define REFRESH_HEADER_HEIGHT 52.0f
 
 @interface InvoiceView ()
 
@@ -120,6 +121,23 @@
 {
     @try {
         
+        
+        if(NSClassFromString(@"UIRefreshControl")) {
+            self.isIos6 = YES;
+        }else{
+            self.isIos6 = NO;
+        }
+        
+        if (self.isIos6) {
+            self.refreshControl = [[UIRefreshControl alloc] init];
+            [self.refreshControl addTarget:self action:@selector(refreshInvoice) forControlEvents:UIControlEventValueChanged];
+            [self.myTableView addSubview:self.refreshControl];
+        }else{
+            [self setupStrings];
+            [self addPullToRefreshHeader];
+        }
+        
+        
         self.shouldRun = YES;
         
         [self setUpScrollView];
@@ -214,9 +232,6 @@
             self.isIphone5 = NO;
         }
   
-        //Deafult tip to 20%
-        self.tipSegment.selectedSegmentIndex = 1;
-        [self segmentSelect];
         
         
         for (int i = 0; i < [self.myInvoice.items count]; i++) {
@@ -258,7 +273,6 @@
             int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
             double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
             
-            NSLog(@"Adding Value: %f", value);
             self.myItemizedTotal += value;
 
             [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
@@ -477,7 +491,6 @@
     
     
     @try {
-        NSLog(@"Velocitiy: %f", velocity.x);
         
         CGFloat xOffset = targetContentOffset->x;
         int intOffset = round(xOffset);
@@ -534,25 +547,54 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     @try {
-        CGFloat xOffset = scrollView.contentOffset.x;
-        xOffset +=23;
         
-        int index = floor(xOffset/45.0);
-        index = index + 3;
-        
-        for (int i = 0; i < [[self.numberSliderScrollView subviews] count]; i++) {
+        if (scrollView == self.myTableView) {
             
-            if (i != index) {
-                if ([LucidaBoldLabel class] == [[[self.numberSliderScrollView subviews] objectAtIndex:i] class]) {
-                    LucidaBoldLabel *otherLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:i];
-                    [otherLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:16]];
-                    
+            if (!self.isIos6) {
+                if (self.isLoading) {
+                    // Update the content inset, good for section headers
+                    if (scrollView.contentOffset.y > 0)
+                        self.myTableView.contentInset = UIEdgeInsetsZero;
+                    else if (scrollView.contentOffset.y >= -REFRESH_HEADER_HEIGHT)
+                        self.myTableView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+                } else if (self.isDragging && scrollView.contentOffset.y < 0) {
+                    // Update the arrow direction and label
+                    [UIView beginAnimations:nil context:NULL];
+                    if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
+                        // User is scrolling above the header
+                        self.refreshLabel.text = self.textRelease;
+                        [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+                    } else { // User is scrolling somewhere within the header
+                        self.refreshLabel.text = self.textPull;
+                        [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+                    }
+                    [UIView commitAnimations];
                 }
             }
+    
+            
+        }else{
+            CGFloat xOffset = scrollView.contentOffset.x;
+            xOffset +=23;
+            
+            int index = floor(xOffset/45.0);
+            index = index + 3;
+            
+            for (int i = 0; i < [[self.numberSliderScrollView subviews] count]; i++) {
+                
+                if (i != index) {
+                    if ([LucidaBoldLabel class] == [[[self.numberSliderScrollView subviews] objectAtIndex:i] class]) {
+                        LucidaBoldLabel *otherLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:i];
+                        [otherLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:16]];
+                        
+                    }
+                }
+            }
+            
+            LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
+            [myLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:35]];
         }
-        
-        LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
-        [myLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:35]];
+  
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"InvoiceView.scrollViewDidScroll" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -564,7 +606,7 @@
 
 -(void)setUpView{
     
-    
+
     self.bottomHalfView.backgroundColor = [UIColor clearColor];
 
     
@@ -612,190 +654,72 @@
     //New Code
     
   
-    int moveY = 0;
-    
-    double alreadyPaid = [self.myInvoice calculateAmountPaid];
-    if (alreadyPaid == 0.0){
-        self.alreadyPaid.hidden = YES;
-        self.alreadyPaidNameLabel.hidden = YES;
-        moveY +=20;
-    }else{
-        self.alreadyPaidLabel.text = [NSString stringWithFormat:@"- $%.2f", alreadyPaid];
+    if (!self.isRefresh) {
+        int moveY = 0;
+        
+        double alreadyPaid = [self.myInvoice calculateAmountPaid];
+        if (alreadyPaid == 0.0){
+            self.alreadyPaid.hidden = YES;
+            self.alreadyPaidNameLabel.hidden = YES;
+            moveY +=20;
+        }else{
+            self.alreadyPaidLabel.text = [NSString stringWithFormat:@"- $%.2f", alreadyPaid];
+        }
+        
+        
+        if (self.myInvoice.discount == 0.0) {
+            self.discLabel.hidden = YES;
+            self.discNameLabel.hidden = YES;
+            moveY +=20;
+        }else{
+            
+            CGRect myframe2 = self.discLabel.frame;
+            myframe2.origin.y += moveY;
+            self.discLabel.frame = myframe2;
+            
+            CGRect myframe3 = self.discNameLabel.frame;
+            myframe3.origin.y += moveY;
+            self.discNameLabel.frame = myframe3;
+            
+        }
+        
+        if (self.myInvoice.serviceCharge == 0.0) {
+            self.gratLabel.hidden = YES;
+            self.gratNameLabel.hidden = YES;
+            moveY +=20;
+        }else{
+            
+            CGRect myframe2 = self.gratLabel.frame;
+            myframe2.origin.y += moveY;
+            self.gratLabel.frame = myframe2;
+            
+            CGRect myframe3 = self.gratNameLabel.frame;
+            myframe3.origin.y += moveY;
+            self.gratNameLabel.frame = myframe3;
+        }
+        
+        CGRect myframe = self.subtotalBackView.frame;
+        myframe.origin.y += moveY;
+        self.subtotalBackView.frame = myframe;
+        
+        
+        
+        CGRect myframe1 = self.myTableView.frame;
+        myframe1.size.height += moveY;
+        self.myTableView.frame = myframe1;
     }
     
     
-    if (self.myInvoice.discount == 0.0) {
-        self.discLabel.hidden = YES;
-        self.discNameLabel.hidden = YES;
-        moveY +=20;
-    }else{
-        
-        CGRect myframe2 = self.discLabel.frame;
-        myframe2.origin.y += moveY;
-        self.discLabel.frame = myframe2;
-        
-        CGRect myframe3 = self.discNameLabel.frame;
-        myframe3.origin.y += moveY;
-        self.discNameLabel.frame = myframe3;
-        
-    }
-    
-    if (self.myInvoice.serviceCharge == 0.0) {
-        self.gratLabel.hidden = YES;
-        self.gratNameLabel.hidden = YES;
-        moveY +=20;
-    }else{
-        
-        CGRect myframe2 = self.gratLabel.frame;
-        myframe2.origin.y += moveY;
-        self.gratLabel.frame = myframe2;
-        
-        CGRect myframe3 = self.gratNameLabel.frame;
-        myframe3.origin.y += moveY;
-        self.gratNameLabel.frame = myframe3;
-    }
-    
-    CGRect myframe = self.subtotalBackView.frame;
-    myframe.origin.y += moveY;
-    self.subtotalBackView.frame = myframe;
-    
-    NSLog(@"MoveY: %d", moveY);
-    NSLog(@"Height: %f", self.myTableView.frame.size.height);
-    
-    CGRect myframe1 = self.myTableView.frame;
-    myframe1.size.height += moveY;
-    self.myTableView.frame = myframe1;
-    
-    
-    NSLog(@"Height: %f", self.myTableView.frame.size.height);
+
 
     
-    
-    
-    
-    //
-    
-    int tableCount = [self.myInvoice.items count];
-    
-   // double amountPaid = [self.myInvoice calculateAmountPaid];
-    if(amountPaid > 0.0) {
-        tableCount++;
-    }
-    
-    int tableHeight = tableCount * 24 + tableCount + 10;
-    
-    //self.myTableView.frame = CGRectMake(0, 20, 300, tableHeight);
-    
-    //self.dividerLabel.frame = CGRectMake(0, tableHeight + 10, 300, 21);
-    int bottomViewY = tableHeight + 20;
-    
-    if (bottomViewY < 120) {
-        bottomViewY = 120;
-        int height = (120 - tableHeight)/2 + tableHeight;
-        //self.dividerLabel.frame = CGRectMake(0, height, 300, 21);
-    }
-    
-    //self.bottomHalfView.frame = CGRectMake(0, bottomViewY, 300, 134);
     
     double myDue = self.myInvoice.amountDue - amountPaid;
     self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
 
-    //bottom view
-    /*
-    int yValue = 34;
-    
-    if (self.myInvoice.serviceCharge == 0.0) {
-        self.gratLabel.hidden = YES;
-        self.gratNameLabel.hidden = YES;
-    }else{
-        
-        yValue += 20;
-        
-        CGRect frame = self.gratLabel.frame;
-        frame.origin.y = yValue;
-        self.gratLabel.frame = frame;
-        
-        CGRect frameName = self.gratNameLabel.frame;
-        frameName.origin.y = yValue + 2;
-        self.gratNameLabel.frame = frameName;
-        *
-    }
-    
-    if (self.myInvoice.discount == 0.0) {
-        self.discLabel.hidden = YES;
-        self.discNameLabel.hidden = YES;
-    }else{
-        
-        yValue += 20;
-        
-        CGRect frame = self.discLabel.frame;
-        frame.origin.y = yValue;
-        self.discLabel.frame = frame;
-        
-        CGRect frameName = self.discNameLabel.frame;
-        frameName.origin.y = yValue + 2;
-        self.discNameLabel.frame = frameName;
-        
-        
-        
-    }
-  
-    
-    if(amountPaid > 0.0) {
-        
-       // self.payBillButton.title = @"Pay Remaining";
-        self.isPartialPayment = YES;
-        self.alreadyPaidLabel.hidden = NO;
-        self.alreadyPaidNameLabel.hidden = NO;
-        self.alreadyPaidLabel.text = [NSString stringWithFormat:@"-$%.2f", amountPaid];
-        
-        yValue += 20;
-        
-        CGRect frame = self.alreadyPaidLabel.frame;
-        frame.origin.y = yValue;
-        self.alreadyPaidLabel.frame = frame;
-        
-        CGRect frameName = self.alreadyPaidNameLabel.frame;
-        frameName.origin.y = yValue+2;
-        self.alreadyPaidNameLabel.frame = frameName;
-        
-        
-        self.alreadyPaidButton.frame = CGRectMake(110, yValue - 4, 110 - 4, self.alreadyPaidNameLabel.frame.size.height + 9 - 4);
-        self.alreadyPaidButton.hidden = NO;
-     
 
+   
 
-    }else{
-        
-        self.alreadyPaidButton.hidden = YES;
-        self.alreadyPaidLabel.hidden = YES;
-        self.alreadyPaidNameLabel.hidden = YES;
-    }
-    
-    
-    CGRect frame = self.bottomHalfView.frame;
-    frame.size.height = yValue + 45;
-   // self.bottomHalfView.frame = frame;
-    
-    
-    CGRect frameAmountName = self.amountNameLabel.frame;
-    frameAmountName.origin.y = yValue + 27;
-    //self.amountNameLabel.frame = frameAmountName;
-    
-    CGRect frameAmount = self.amountLabel.frame;
-    frameAmount.origin.y = yValue + 23;
-    //self.amountLabel.frame = frameAmount;
-    
-    CGRect frameLine = self.dividerView.frame;
-    frameLine.origin.y = yValue + 18;
-   // self.dividerView.frame = frameLine;
-    
-    
-    [self.scrollView setContentSize:CGSizeMake(300, bottomViewY + yValue + 50)];
-    
-    */
-    // this method is called after refresh too, so tip may need to be recalculated
-    [self segmentSelect];
     
 }
 
@@ -820,6 +744,9 @@
     }
     
 }
+
+
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -1517,7 +1444,7 @@
 
 -(void)refreshInvoice{
     
-    [self.activity startAnimating];
+  
     NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
 
     NSString *merchantId = [NSString stringWithFormat:@"%d", self.myInvoice.merchantId];
@@ -1537,9 +1464,12 @@
 -(void)invoiceComplete:(NSNotification *)notification{
     @try {
         
-        [self.activity stopAnimating];
-        self.refreshButton.enabled = YES;
 
+        self.isRefresh = YES;
+        [self.refreshControl endRefreshing];
+        if (self.shouldCallStop) {
+            [self stopLoading];
+        }
         
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
@@ -1804,5 +1734,132 @@
         [self willAppearSetup];
     }
 }
+
+
+
+
+//iOS 5 pull to refresh code
+
+- (void)setupStrings{
+    self.textPull = @"Pull down to refresh...";
+    self.textRelease = @"Release to refresh...";
+    self.textLoading = @"Loading...";
+    
+}
+
+
+//Scroll down to refresh method
+- (void)addPullToRefreshHeader {
+    
+    
+    self.refreshHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - REFRESH_HEADER_HEIGHT, 320, REFRESH_HEADER_HEIGHT)];
+    self.refreshHeaderView.backgroundColor = [UIColor clearColor];
+    
+    self.refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
+    self.refreshLabel.backgroundColor = [UIColor clearColor];
+    self.refreshLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    self.refreshLabel.textAlignment = UITextAlignmentCenter;
+    
+    self.refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
+    self.refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT - 27) / 2),
+                                         (floorf(REFRESH_HEADER_HEIGHT - 44) / 2),
+                                         27, 44);
+    
+    self.refreshSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT - 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
+    self.refreshSpinner.hidesWhenStopped = YES;
+    
+    [self.refreshHeaderView addSubview:self.refreshLabel];
+    [self.refreshHeaderView addSubview:self.refreshArrow];
+    [self.refreshHeaderView addSubview:self.refreshSpinner];
+    
+    [self.myTableView addSubview:self.refreshHeaderView];
+    
+    
+    
+    
+}
+
+//Scroll down to refresh method
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (self.isLoading) return;
+    self.isDragging = YES;
+}
+
+
+
+//Scroll down to refresh method
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    
+    if (self.isLoading) return;
+    self.isDragging = NO;
+    if (scrollView.contentOffset.y <= -REFRESH_HEADER_HEIGHT) {
+        // Released above the header
+        [self startLoading];
+    }
+    
+    
+}
+
+//Scroll down to refresh method
+- (void)startLoading {
+    self.isLoading = YES;
+    
+    // Show the header
+    [UIView animateWithDuration:0.3 animations:^{
+        self.myTableView.contentInset = UIEdgeInsetsMake(REFRESH_HEADER_HEIGHT, 0, 0, 0);
+        
+        self.refreshLabel.text = self.textLoading;
+        self.refreshArrow.hidden = YES;
+        [self.refreshSpinner startAnimating];
+    }];
+    
+    
+    // Refresh action!
+    [self refresh];
+}
+
+//Scroll down to refresh method
+- (void)stopLoading {
+    self.shouldCallStop = NO;
+    self.isLoading = NO;
+    
+    // Hide the header
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDidStopSelector:@selector(stopLoadingComplete:finished:context:)];
+    
+    self.myTableView.contentInset = UIEdgeInsetsZero;
+    [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+    
+    [UIView commitAnimations];
+}
+
+//Scroll down to refresh method
+- (void)stopLoadingComplete:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    // Reset the header
+    self.refreshLabel.text = self.textPull;
+    self.refreshArrow.hidden = NO;
+    [self.refreshSpinner stopAnimating];
+    
+    self.refreshLabel.text = self.textPull;
+    self.refreshArrow.hidden = NO;
+    [self.refreshSpinner stopAnimating];
+    
+}
+
+//Scroll down to refresh method
+- (void)refresh {
+    // Don't forget to call stopLoading at the end.
+    self.shouldCallStop = YES;
+    
+    [self refreshInvoice];
+    
+    
+}
+
+
+
 
 @end

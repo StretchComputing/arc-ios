@@ -78,9 +78,6 @@
         LucidaBoldLabel *amountLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:2];
         CorbelTextView *notesText = (CorbelTextView *)[cell.contentView viewWithTag:3];
         
-        NSLog(@"Class1: %@", [nameLabel class]);
-        NSLog(@"Class2: %@", [amountLabel class]);
-        NSLog(@"Class3: %@", [notesText class]);
 
         NSUInteger row = [indexPath row];
         

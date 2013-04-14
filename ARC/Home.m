@@ -578,10 +578,6 @@
 
 
 //iOS 5 pull to refresh code
-
-
-
-
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     
     if (!self.isIos6) {

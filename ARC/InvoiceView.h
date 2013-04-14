@@ -16,7 +16,10 @@
 
 @interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate, UIScrollViewAccessibilityDelegate>
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
+@property BOOL isRefresh;
+@property BOOL isIos6;
 @property int numberOfPeopleSelected;
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
@@ -100,6 +103,18 @@
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *alreadyPaidViewLabel;
 -(IBAction)cancelAlreadyPaid;
 - (IBAction)showSplitView;
+
+
+@property (nonatomic, strong) UIView *refreshHeaderView;
+@property (nonatomic, strong) UILabel *refreshLabel;
+@property (nonatomic, strong) UIImageView *refreshArrow;
+@property (nonatomic, strong) UIActivityIndicatorView *refreshSpinner;
+@property (nonatomic, strong) NSString *textPull;
+@property (nonatomic, strong) NSString *textRelease;
+@property (nonatomic, strong) NSString *textLoading;
+@property BOOL isDragging;
+@property BOOL isLoading;
+@property BOOL shouldCallStop;
 
 -(void)showFullTotal;
 -(void)deselectAllItems;
