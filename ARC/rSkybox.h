@@ -20,6 +20,9 @@
 #import "CorbelBarButtonItem.h"
 
 extern NSString *const ARC_VERSION_NUMBER;
+extern NSString *const SUCCESS;
+extern NSString *const NAME_ALREADY_IN_USE;
+
 
 typedef enum {
     CreateStream = 0,
@@ -56,7 +59,7 @@ typedef enum {
 + (NSString *)getBasicAuthHeader;
 
 // LiveDebug Methods
-+(void)initiateStream:(NSString *)name;
++(void)createStream:(NSString *)name;
 +(void)createPacket:(NSString *)packet;
 
 @end

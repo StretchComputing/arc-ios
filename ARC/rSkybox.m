@@ -464,9 +464,7 @@ NSString *const CLOSED_STATUS = @"closed";
         traceSession = [NSMutableArray array];
         traceTimeStamps = [NSMutableArray array];
         
-        // TODO drive from Customer Service screen
         isLiveDebugActive = FALSE;
-        //[rSkybox createStream:@"joe test 2 stream"];
     }
     @catch (NSException *e) {
         NSLog(@"Exception caught in rSkybox.initiateSession - %@ - %@", [e name], [e description]);
@@ -810,13 +808,19 @@ NSString *const CLOSED_STATUS = @"closed";
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
         
+        NSDictionary *responseInfo;
+        NSString *notificationType;
+
         BOOL httpSuccess = httpStatusCode == 200 || httpStatusCode == 201 || httpStatusCode == 422;
+        BOOL postNotification = YES;
         
         if(api == CreateStream) {
             if (response && httpSuccess) {
-                [rSkybox createStreamResponse:response];
+                responseInfo = [rSkybox createStreamResponse:response];
             }
+            notificationType = @"createStreamNotification";
         } else if(api == CreatePacket) {
+            postNotification = NO;
             if (response && httpSuccess) {
                 [rSkybox createPacketResponse:response];
             }
@@ -829,6 +833,10 @@ NSString *const CLOSED_STATUS = @"closed";
         if(!httpSuccess) {
             // failure scenario -- HTTP error code returned -- for this processing, we don't care which API failed
             NSLog(@"HTTP Status Code:%d for API %@", httpStatusCode, [rSkybox apiToString]);
+        }
+        
+        if (postNotification) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
         }
     }
     @catch (NSException *e) {
@@ -878,9 +886,11 @@ NSString *const CLOSED_STATUS = @"closed";
 }
 
 
-+(void) createStreamResponse:(NSDictionary *)response {
++(NSDictionary *) createStreamResponse:(NSDictionary *)response {
     @try {
         NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        NSDictionary *responseInfo = @{@"apiStatus": apiStatus};
+        
         if([apiStatus isEqualToString:SUCCESS]) {
             isLiveDebugActive = TRUE;
             streamId = [response valueForKey:@"id"];
@@ -914,9 +924,12 @@ NSString *const CLOSED_STATUS = @"closed";
         else {
             NSLog(@"CreateStream API application error -- %@", @"unknown -- should NOT happen!!!");
         }
+
+        return responseInfo;
     }
     @catch (NSException *e) {
         NSLog(@"rSkybox.createStreamResponse Exception - %@ - %@", [e name], [e description]);
+        return @{};
     }
 }
 
