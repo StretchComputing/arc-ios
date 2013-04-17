@@ -864,7 +864,7 @@
             double value = [[itemDictionary valueForKey:@"Value"] doubleValue] * num;
             
             
-            priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
+            priceLabel.text = [NSString stringWithFormat:@"%.2f", value];
             
             numberLabel.text = [NSString stringWithFormat:@"%d", [[itemDictionary valueForKey:@"Amount"] intValue]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -1302,6 +1302,45 @@
             }
             
             controller.mySplitPercent = percentPaid;
+            
+            /*
+            if ([self isAnyRowSelected]) {
+                
+                self.myItemArray = [NSMutableArray array];
+                
+                for (int i = 0; i < [self.itemArray  count]; i++) {
+                    
+                    NSDictionary *tmpItem = [self.itemArray objectAtIndex:i];
+                    NSMutableDictionary *sendInItem = [NSMutableDictionary dictionary];
+                    if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"yes"]) {
+                        
+                        [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                        [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:1.0] forKey:@"Percent"];
+                        [self.myItemArray addObject:sendInItem];
+                        
+                    }else if ([[tmpItem valueForKey:@"selected"] isEqualToString:@"maybe"]){
+                        
+                        
+                        double myAmount = [[tmpItem valueForKey:@"myAmount"] doubleValue];
+                        double totalAmount = [[tmpItem valueForKey:@"splitValue"] doubleValue];
+                        
+                        double myPercent = myAmount/totalAmount;
+                        
+                        [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                        [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:myPercent] forKey:@"Percent"];
+                        [self.myItemArray addObject:sendInItem];
+                        
+                    }
+                    
+                }
+                
+                controller.myItemsArray = [NSArray arrayWithArray:self.myItemArray];
+                
+            }
+            */
+            
             
            
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {

@@ -1620,7 +1620,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="82c-dd-gFt">
-                                        <rect key="frame" x="0.0" y="7" width="300" height="50"/>
+                                        <rect key="frame" x="0.0" y="15" width="300" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sub Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="el7-jN-ZAc" customClass="CorbelBoldLabel">
@@ -1663,62 +1663,62 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="56h-sd-0Qd" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="9" y="114" width="115" height="21"/>
+                                        <rect key="frame" x="9" y="122" width="115" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="9HQ-MA-PTO" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="219" y="112" width="71" height="21"/>
+                                        <rect key="frame" x="219" y="120" width="71" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Charge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="bdB-j5-2my" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="10" y="55" width="149" height="21"/>
+                                        <rect key="frame" x="10" y="63" width="149" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Discount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gst-Yk-rTz" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="10" y="75" width="95" height="21"/>
+                                        <rect key="frame" x="10" y="83" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="eqC-WG-efc" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="219" y="52" width="71" height="21"/>
+                                        <rect key="frame" x="219" y="60" width="71" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="DMj-0R-RwT" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="219" y="73" width="71" height="21"/>
+                                        <rect key="frame" x="219" y="81" width="71" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Already Paid" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="380-oQ-pGA" customClass="CorbelBoldLabel">
-                                        <rect key="frame" x="10" y="94" width="95" height="21"/>
+                                        <rect key="frame" x="10" y="102" width="95" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Fl2-hu-QPa" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="219" y="92" width="71" height="21"/>
+                                        <rect key="frame" x="219" y="100" width="71" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" id="zy9-zJ-vTh">
-                                        <rect key="frame" x="232" y="112" width="58" height="1"/>
+                                        <rect key="frame" x="232" y="120" width="58" height="1"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -3910,17 +3910,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.95982550180000004" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="qrq-k5-LEi">
-                                <rect key="frame" x="0.0" y="46" width="320" height="414"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
                             <searchBar contentMode="redraw" placeholder="Search Restaurants" id="3SD-jn-dou">
                                 <rect key="frame" x="23" y="7" width="273" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <view contentMode="scaleToFill" id="AG8-tw-Hjx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="arcLogo.png" id="yAc-6n-DFn">
@@ -3928,7 +3924,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1r0-OA-E2D">
-                                        <rect key="frame" x="10" y="8" width="30" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="menuIcon.png">
@@ -3958,7 +3954,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vvy-gt-X5N">
-                                        <rect key="frame" x="274" y="1" width="44" height="44"/>
+                                        <rect key="frame" x="280" y="4" width="35" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="searchIcon.png">
@@ -3975,6 +3971,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.95982550180000004" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="qrq-k5-LEi">
+                                <rect key="frame" x="0.0" y="46" width="320" height="414"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pWj-ed-kNU">
                                 <rect key="frame" x="21" y="117" width="280" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

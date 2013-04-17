@@ -87,6 +87,7 @@
 - (IBAction)editBegin:(id)sender;
 - (IBAction)editEnd:(id)sender;
 
+@property (nonatomic, strong) NSMutableArray *myItemArray;
 @property (nonatomic, strong) NSArray *creditCards;
 @property (nonatomic, strong) NSString *creditCardNumber;
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
