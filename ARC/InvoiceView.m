@@ -332,14 +332,16 @@
                 //Selecting it
                 int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
                 
-                if (num > 1) {
+                if (num < 1) {
                     self.payAllSelectedIndex = indexPath.row;
                     NSString *title = [NSString stringWithFormat:@"%d %@", num, [dictionaryItem valueForKey:@"Description"]];
                     self.payAllAlert = [[UIAlertView alloc] initWithTitle:title message:@"Pay for all?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
                     [self.payAllAlert show];
                 }else{
                     
-                    double value = [[dictionaryItem valueForKey:@"Value"] doubleValue];
+                    int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+
+                    double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
                     
                     self.myItemizedTotal += value;
                     
@@ -1209,7 +1211,12 @@
                 priceLabel.textColor = [UIColor darkGrayColor];
             }
             
-            if ([[[itemDictionary valueForKey:@"Amount"] stringValue] isEqualToString:@"1"]) {
+           
+            for (UIGestureRecognizer *recognizer in [cell gestureRecognizers]) {
+                [cell removeGestureRecognizer:recognizer];
+            }
+            
+            if (![[itemDictionary valueForKey:@"IsTopLevel"]isEqualToString:@"yes"]) {
                 MyGestureRecognizer *lpgr = [[MyGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
                 lpgr.minimumPressDuration = 0.5f; //seconds
                 lpgr.delegate = self;
@@ -1233,25 +1240,65 @@
 -(void)longPress:(id)sender{
     
     @try {
-        
         MyGestureRecognizer *myPress = (MyGestureRecognizer *)sender;
-        
-        self.itemSplitView.hidden = NO;
-        self.itemSplitIndex = myPress.selectedCell;
-        
+
         NSDictionary *selectedItem = [self.myInvoice.items objectAtIndex:myPress.selectedCell];
+        int num = [[selectedItem valueForKey:@"Amount"] intValue];
         
-        
-        self.itemSplitName.text = [NSString stringWithFormat:@"%@: $%.2f", [selectedItem valueForKey:@"Description"], [[selectedItem valueForKey:@"Value"] doubleValue]];
- 
-        
-        if ([[selectedItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]) {
-            self.itemSplitMyPaymentText.text = [NSString stringWithFormat:@"%.2f", [[selectedItem valueForKey:@"AmountPayingFor"] doubleValue]];
+        if (num == 1) {
+
+            
+            self.itemSplitView.hidden = NO;
+            self.itemSplitIndex = myPress.selectedCell;
+            
+            
+            
+            self.itemSplitName.text = [NSString stringWithFormat:@"%@: $%.2f", [selectedItem valueForKey:@"Description"], [[selectedItem valueForKey:@"Value"] doubleValue]];
+            
+            
+            if ([[selectedItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]) {
+                self.itemSplitMyPaymentText.text = [NSString stringWithFormat:@"%.2f", [[selectedItem valueForKey:@"AmountPayingFor"] doubleValue]];
+            }
+            
+            self.itemSplitScrollView.contentOffset = CGPointMake(0.0, 0.0);
+            
+            [self.itemSplitMyPaymentText becomeFirstResponder];
+            
+            
+        }else{
+            
+            //open up the rows
+            
+            NSMutableArray *newArray =  [NSMutableArray arrayWithArray:self.myInvoice.items];
+            
+            [selectedItem setValue:@"yes" forKey:@"IsTopLevel"];
+            
+            NSMutableArray *newObjectArray = [NSMutableArray array];
+            
+            for (int i = 0; i < num; i++) {
+                
+                NSMutableDictionary *newItem = [NSMutableDictionary dictionary];
+                [newItem setValue:[NSDecimalNumber numberWithInt:1] forKey:@"Amount"];
+                [newItem setValue:[selectedItem valueForKey:@"Value"] forKey:@"Value"];
+                [newItem setValue:[selectedItem valueForKey:@"Description"] forKey:@"Description"];
+                [newItem setValue:[selectedItem valueForKey:@"Id"] forKey:@"Id"];
+                [newItem setValue:@"yes" forKey:@"IsSubLevel"];
+                
+                
+                [newObjectArray addObject:newItem];
+            }
+            
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(myPress.selectedCell + 1, [newObjectArray count])];
+            
+            [newArray insertObjects:newObjectArray atIndexes:indexSet];
+            
+            self.myInvoice.items = [NSArray arrayWithArray:newArray];
+            
+            [self.myTableView reloadData];
+            
+            
         }
         
-        self.itemSplitScrollView.contentOffset = CGPointMake(0.0, 0.0);
-        
-        [self.itemSplitMyPaymentText becomeFirstResponder];
       
     }
     @catch (NSException *exception) {
