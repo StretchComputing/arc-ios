@@ -253,9 +253,9 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        if (connection) {
-        }
+        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        //if (connection) {
+        //}
         
 //        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
 //        
@@ -363,10 +363,10 @@ NSString *const CLOSED_STATUS = @"closed";
         
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        if (connection) {
+        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+       // if (connection) {
             
-        }
+       // }
 
         
 //        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
