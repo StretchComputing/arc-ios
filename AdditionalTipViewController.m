@@ -223,6 +223,7 @@
             controller.creditCardNumber = self.creditCardNumber;
             controller.creditCardExpiration = self.creditCardExpiration;
            controller.creditCardSecurityCode = self.creditCardSecurityCode;
+           controller.myItemsArray = [NSArray arrayWithArray:self.myItemsArray];
            
            if (self.transactionNotesText.text == nil || [self.transactionNotesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
                self.transactionNotesText.text = @"";

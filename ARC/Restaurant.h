@@ -24,6 +24,7 @@
 - (IBAction)goBackAction;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *closeHelpButton;
 
+@property (nonatomic, strong) NSMutableArray *paidItemsArray;
 @property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;

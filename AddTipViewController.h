@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString *creditCardSample;
 
 @property double mySplitPercent;
+@property (nonatomic, strong) NSArray *myItemsArray;
 
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *myTotalLabel;
 

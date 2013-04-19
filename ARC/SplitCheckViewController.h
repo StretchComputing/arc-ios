@@ -157,4 +157,7 @@
 @property (nonatomic, strong) IBOutlet UITextView *cardsOverlayTextView;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *numberSliderScrollView;
+
+
+
 @end

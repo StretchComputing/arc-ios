@@ -19,9 +19,10 @@
 #import "ArcClient.h"
 #import "ArcUtility.h"
 #import "MFSideMenu.h"
-#import "AddTipViewController.h"
+#import "AdditionalTipViewController.h"
 #import "NumberLineButton.h"
 #import "RightViewController.h"
+#import "MyGestureRecognizer.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -165,6 +166,12 @@
         self.splitSaveButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
     
         
+        self.itemSplitSaveButton.textColor = [UIColor whiteColor];
+        self.itemSplitSaveButton.text = @"Save";
+        self.itemSplitSaveButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        
+        
+        
         self.payBillButton.textColor = [UIColor whiteColor];
         self.payBillButton.text = @"Pay Bill!";
         self.payBillButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
@@ -256,51 +263,133 @@
         
         NSDictionary *dictionaryItem = [self.myInvoice.items objectAtIndex:indexPath.row];
         
-        
-        if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
-            [dictionaryItem setValue:@"no" forKey:@"IsPayingFor"];
+        if ([dictionaryItem valueForKey:@"IsTopLevel"] && [[dictionaryItem valueForKey:@"IsTopLevel"] isEqualToString:@"yes"]) {
             
-            int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
-            double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
+            [dictionaryItem setValue:@"no" forKey:@"IsTopLevel"];
+            NSMutableArray *newArray = [NSMutableArray arrayWithArray:self.myInvoice.items];
             
-            self.myItemizedTotal -= value;
-            
-        }else if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
-            
-            
-        }else{
-            //Selecting it
-            int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
-            double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
-            
-            self.myItemizedTotal += value;
+            for (int i = indexPath.row; i < [self.myInvoice.items count]; i++) {
+                
+                NSDictionary *newItem = [newArray objectAtIndex:i];
+                
+                if ([[newItem valueForKey:@"Description"] isEqualToString:[dictionaryItem valueForKey:@"Description"]] && [[newItem valueForKey:@"IsSubLevel"] isEqualToString:@"yes"]) {
+                    
+                    
+                    if ([[newItem valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+                        
+                        int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+                        double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
+                        
+                        self.myItemizedTotal -= value;
+                        
+                    }else if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+                        
+                        
+                        double amountPayingFor = [[dictionaryItem valueForKey:@"AmountPayingFor"] doubleValue];
+                        self.myItemizedTotal -= amountPayingFor;
+                        
+                    }
+                    
+                    [newArray removeObjectAtIndex:i];
 
-            [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
-
-        }
-    
-        
-        [self.myTableView reloadData];
-    
-        if (![self isAnyRowSelected]) {
-            self.myItemizedTotal = 0.0;
-          
+                    i--;
+                    
             
-            [self showFullTotal];
+                }
+                
+                
+                self.myInvoice.items = [NSArray arrayWithArray:newArray];
+                [self.myTableView reloadData];
+                
+                if (![self isAnyRowSelected]) {
+                    self.myItemizedTotal = 0.0;
+                    [self showFullTotal];
+                }else{
+                    //some are still selected
+                    [self setItemizedTotalValue];                    
+                }
+            }
         }else{
-            //some are still selected
             
-            [self setItemizedTotalValue];
-           
+            
+            if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+                [dictionaryItem setValue:@"no" forKey:@"IsPayingFor"];
+                
+                int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+                double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
+                
+                self.myItemizedTotal -= value;
+                
+            }else if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+                
+                [dictionaryItem setValue:@"no" forKey:@"IsPayingFor"];
+
+                double amountPayingFor = [[dictionaryItem valueForKey:@"AmountPayingFor"] doubleValue];
+                self.myItemizedTotal -= amountPayingFor;
+                
+                
+            }else{
+                //Selecting it
+                int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+                
+                if (num < 1) {
+                    self.payAllSelectedIndex = indexPath.row;
+                    NSString *title = [NSString stringWithFormat:@"%d %@", num, [dictionaryItem valueForKey:@"Description"]];
+                    self.payAllAlert = [[UIAlertView alloc] initWithTitle:title message:@"Pay for all?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                    [self.payAllAlert show];
+                }else{
+                    
+                    int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+
+                    double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
+                    
+                    self.myItemizedTotal += value;
+                    
+                    [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
+                    
+                }
+                
+                
+            }
+            
+            
+            [self.myTableView reloadData];
+            
+            if (![self isAnyRowSelected]) {
+                self.myItemizedTotal = 0.0;
+                
+                
+                [self showFullTotal];
+            }else{
+                //some are still selected
+                
+                [self setItemizedTotalValue];
+                
+                
+                
+            }
+
             
             
         }
         
+                
     }
 }
 
+
+/*
+ int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+ 
+ double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
+ 
+ self.myItemizedTotal += value;
+ 
+ [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
+ 
+ */
 -(void)setItemizedTotalValue{
-    
+ 
     double myPercent = self.myItemizedTotal/self.myInvoice.subtotal;
     
 
@@ -353,7 +442,7 @@
         
         NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
         
-        if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+        if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"yes"] || [[item valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]) {
             return YES;
         }
     }
@@ -366,11 +455,11 @@
     
     
     @try {
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 25; i++) {
             
             BOOL addButton = NO;
             NSString *numberText;
-            if ((i < 4) || (i > 21)) {
+            if ((i < 4) || (i > 22)) {
                 if (i == 3) {
                     numberText = @"-";
                 }else{
@@ -378,7 +467,7 @@
                 }
             }else{
                 addButton = YES;
-                numberText = [NSString stringWithFormat:@"%d", i-1];
+                numberText = [NSString stringWithFormat:@"%d", i-2];
             }
             
             int size;
@@ -418,10 +507,71 @@
             
         }
         
-        self.numberSliderScrollView.contentSize = CGSizeMake(1115, 45);
+        
+        for (int i = 0; i < 25; i++) {
+            
+            BOOL addButton = NO;
+            NSString *numberText;
+            if ((i < 4) || (i > 22)) {
+                if (i == 3) {
+                    numberText = @"-";
+                }else{
+                    numberText = @"";
+                }
+            }else{
+                addButton = YES;
+                numberText = [NSString stringWithFormat:@"%d", i-2];
+            }
+            
+            int size;
+            if (i == 3) {
+                size = 35;
+            }else{
+                size = 16;
+            }
+            
+            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 45, 5, 45, 45) andSize:size];
+            numberLabel.textAlignment = UITextAlignmentCenter;
+            numberLabel.text = numberText;
+            numberLabel.clipsToBounds = YES;
+            numberLabel.userInteractionEnabled = YES;
+            
+            if (addButton) {
+                NumberLineButton *numberButton = [NumberLineButton buttonWithType:UIButtonTypeCustom];
+                numberButton.frame = CGRectMake(0, 0, 45, 45);
+                numberButton.offset = i * 45;
+                [numberButton addTarget:self action:@selector(scrollToNumberSplit:) forControlEvents:UIControlEventTouchUpInside];
+                [numberLabel addSubview:numberButton];
+                
+                UIView *rightCircle = [[UIView alloc] initWithFrame:CGRectMake(0, 18, 5, 3)];
+                rightCircle.backgroundColor = [UIColor blackColor];
+                rightCircle.layer.cornerRadius = 6.0;
+                [numberLabel addSubview:rightCircle];
+                
+            }
+            
+            [self.itemSplitScrollView addSubview:numberLabel];
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+        
+        self.numberSliderScrollView.contentSize = CGSizeMake(1160, 45);
         self.numberSliderScrollView.backgroundColor = [UIColor clearColor];
         self.numberSliderScrollView.delegate = self;
         self.numberSliderScrollView.showsHorizontalScrollIndicator = NO;
+        
+        self.itemSplitScrollView.contentSize = CGSizeMake(1160, 45);
+        self.itemSplitScrollView.backgroundColor = [UIColor clearColor];
+        self.itemSplitScrollView.delegate = self;
+        self.itemSplitScrollView.showsHorizontalScrollIndicator = NO;
         
     }
     @catch (NSException *exception) {
@@ -433,31 +583,68 @@
 }
 
 
--(void)setValueForOffset:(int)offset{
+-(void)setValueForOffset:(int)offset :(UIScrollView *)scrollView{
     
     @try {
-        int xValue = offset + 135;
         
-        LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/45];
-        
-        double yourPercent;
-        
-        if ([myLabel.text isEqualToString:@"-"]) {
-            self.numberOfPeopleSelected = 0;
-            yourPercent = 0;
+        if (scrollView == self.numberSliderScrollView) {
+            
+            int xValue = offset + 135;
+            
+            LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/45];
+            
+            double yourPercent;
+            
+            if ([myLabel.text isEqualToString:@"-"]) {
+                self.numberOfPeopleSelected = 0;
+                yourPercent = 0;
+                
+            }else{
+                self.numberOfPeopleSelected = [myLabel.text intValue];
+                yourPercent = 1.0/self.numberOfPeopleSelected * 100;
+                
+            }
+            
+            
+            
+            
+            double myDue = self.myInvoice.amountDue * yourPercent / 100.0;
+            
+            self.splitMyPaymentTextField.text = [NSString stringWithFormat:@"%.2f", myDue];
             
         }else{
-            self.numberOfPeopleSelected = [myLabel.text intValue];
-            yourPercent = 1.0/self.numberOfPeopleSelected * 100;
+            int xValue = offset + 135;
             
+            LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.itemSplitScrollView subviews] objectAtIndex:xValue/45];
+            
+            double yourPercent;
+            
+            if ([myLabel.text isEqualToString:@"-"]) {
+                self.numberOfPeopleSelected = 0;
+                yourPercent = 0;
+                
+            }else{
+                self.numberOfPeopleSelected = [myLabel.text intValue];
+                yourPercent = 1.0/self.numberOfPeopleSelected * 100;
+                
+            }
+            
+            
+            
+            
+            NSDictionary *item = [self.myInvoice.items objectAtIndex:self.itemSplitIndex];
+            
+            double value = [[item valueForKey:@"Value"] doubleValue];
+            
+            double myOwe = value * yourPercent / 100.0;
+            
+            self.itemSplitMyPaymentText.text = [NSString stringWithFormat:@"%.2f", myOwe];
+            
+            //your percent /100 * price of the item
+            
+         
         }
         
-
-        
-        
-        double myDue = self.myInvoice.amountDue * yourPercent / 100.0;
-
-        self.splitMyPaymentTextField.text = [NSString stringWithFormat:@"%.2f", myDue];
         
         
                 
@@ -470,6 +657,7 @@
     
 }
 
+
 -(void)scrollToNumber:(id)sender{
     
     @try {
@@ -477,10 +665,28 @@
         
         int newOffset = myButton.offset - 135;
         [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
-        [self setValueForOffset:newOffset];
+        [self setValueForOffset:newOffset :self.numberSliderScrollView];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"InvoiceView.scrollToNumber" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+    
+    
+    
+}
+
+
+-(void)scrollToNumberSplit:(id)sender{
+    
+    @try {
+        NumberLineButton *myButton = (NumberLineButton *)sender;
+        
+        int newOffset = myButton.offset - 135;
+        [self.itemSplitScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
+        [self setValueForOffset:newOffset :self.itemSplitScrollView];
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.scrollToNumberSplit" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
     
     
@@ -492,23 +698,27 @@
     
     @try {
         
-        CGFloat xOffset = targetContentOffset->x;
-        int intOffset = round(xOffset);
-        
-        int whole = floor(intOffset/45.0);
-        
-        int remainder = intOffset % 45;
-        
-        if (remainder >= 22) {
-            whole++;
+        if (scrollView == self.itemSplitScrollView || scrollView == self.numberSliderScrollView) {
+            CGFloat xOffset = targetContentOffset->x;
+            int intOffset = round(xOffset);
+            
+            int whole = floor(intOffset/45.0);
+            
+            int remainder = intOffset % 45;
+            
+            if (remainder >= 22) {
+                whole++;
+            }
+            
+            int newOffset = 45 * whole;
+            
+            if (velocity.x == 0) {
+                [scrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
+                [self setValueForOffset:newOffset :scrollView];
+            }
         }
         
-        int newOffset = 45 * whole;
-        
-        if (velocity.x == 0) {
-            [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
-            [self setValueForOffset:newOffset];
-        }
+   
         
     }
     @catch (NSException *exception) {
@@ -521,21 +731,27 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
     @try {
-        CGFloat xOffset = scrollView.contentOffset.x;
-        int intOffset = round(xOffset);
         
-        int whole = floor(intOffset/45.0);
-        
-        int remainder = intOffset % 45;
-        
-        if (remainder >= 22) {
-            whole++;
+        if (scrollView == self.itemSplitScrollView || scrollView == self.numberSliderScrollView) {
+
+            CGFloat xOffset = scrollView.contentOffset.x;
+            int intOffset = round(xOffset);
+            
+            int whole = floor(intOffset/45.0);
+            
+            int remainder = intOffset % 45;
+            
+            if (remainder >= 22) {
+                whole++;
+            }
+            
+            int newOffset = 45 * whole;
+            
+            [scrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
+            [self setValueForOffset:newOffset :scrollView];
+            
         }
-        
-        int newOffset = 45 * whole;
-        
-        [self.numberSliderScrollView setContentOffset:CGPointMake(newOffset, 0) animated:YES];
-        [self setValueForOffset:newOffset];
+    
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"InvoiceView.scrollViewDidEndDecelerating" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
@@ -580,18 +796,18 @@
             int index = floor(xOffset/45.0);
             index = index + 3;
             
-            for (int i = 0; i < [[self.numberSliderScrollView subviews] count]; i++) {
+            for (int i = 0; i < [[scrollView subviews] count]; i++) {
                 
                 if (i != index) {
-                    if ([LucidaBoldLabel class] == [[[self.numberSliderScrollView subviews] objectAtIndex:i] class]) {
-                        LucidaBoldLabel *otherLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:i];
+                    if ([LucidaBoldLabel class] == [[[scrollView subviews] objectAtIndex:i] class]) {
+                        LucidaBoldLabel *otherLabel = (LucidaBoldLabel *)[[scrollView subviews] objectAtIndex:i];
                         [otherLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:16]];
                         
                     }
                 }
             }
             
-            LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
+            LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[scrollView subviews] objectAtIndex:index];
             [myLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:35]];
         }
   
@@ -729,6 +945,11 @@
     [self.myTableView reloadData];
     [self.alreadyPaidTableView reloadData];
     
+    if ([self.paidItemsArray count] > 0) {
+        [self markPaidItems];
+    }
+    
+        
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -794,39 +1015,98 @@
 
             
         }else{
-            static NSString *FirstLevelCell=@"FirstLevelCell";
             
+            BOOL isSubLevel = NO;
+            BOOL isTopLevel = NO;
+            
+            static NSString *NormalCell=@"NormalCell";
+            static NSString *SubCell=@"SubCell";
+
             static NSInteger itemTag = 1;
             static NSInteger numberTag = 2;
             static NSInteger priceTag = 3;
             static NSInteger highLightTag = 4;
+            static NSInteger myPayTag = 5;
 
+
+            NSUInteger row = [indexPath row];
+            NSDictionary *itemDictionary = [self.myInvoice.items objectAtIndex:row];
+
+            if ([itemDictionary valueForKey:@"IsSubLevel"] && [[itemDictionary valueForKey:@"IsSubLevel"] isEqualToString:@"yes"]) {
+                isSubLevel = YES;
+            }
             
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:FirstLevelCell];
+            UITableViewCell *cell;
+            
+            if (isSubLevel) {
+                cell = [tableView dequeueReusableCellWithIdentifier:SubCell];
+            }else{
+                cell = [tableView dequeueReusableCellWithIdentifier:NormalCell];
+
+            }
             
             if (cell == nil) {
-                cell = [[UITableViewCell alloc]
-                        initWithStyle:UITableViewCellStyleDefault
-                        reuseIdentifier: FirstLevelCell];
                 
                 
-                
-                UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 8, 188, 20)];
-                itemLabel.tag = itemTag;
-                [cell.contentView addSubview:itemLabel];
-                
-                UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 7, 75, 20)];
-                priceLabel.tag = priceTag;
-                [cell.contentView addSubview:priceLabel];
-                
-                UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 7, 32, 20)];
-                numberLabel.tag = numberTag;
-                [cell.contentView addSubview:numberLabel];
-                
-                UIView *highLightView = [[UIView alloc] initWithFrame:CGRectMake(0, 2, 300, 27)];
-                highLightView.tag = highLightTag;
-                [cell.contentView addSubview:highLightView];
-                
+                if (isSubLevel) {
+                    
+                    cell = [[UITableViewCell alloc]
+                            initWithStyle:UITableViewCellStyleDefault
+                            reuseIdentifier: SubCell];
+                    
+                    
+                    
+                    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(67, 8, 158, 20)];
+                    itemLabel.tag = itemTag;
+                    [cell.contentView addSubview:itemLabel];
+                    
+                    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 7, 75, 20)];
+                    priceLabel.tag = priceTag;
+                    [cell.contentView addSubview:priceLabel];
+                    
+                    UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 7, 32, 20)];
+                    numberLabel.tag = numberTag;
+                    [cell.contentView addSubview:numberLabel];
+                    
+                    UIView *highLightView = [[UIView alloc] initWithFrame:CGRectMake(27, 2, 273, 27)];
+                    highLightView.tag = highLightTag;
+                    [cell.contentView addSubview:highLightView];
+                    
+                    UILabel *myPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(27, 23, 273, 25)];
+                    myPayLabel.tag = myPayTag;
+                    [cell.contentView addSubview:myPayLabel];
+
+                    
+                    
+                }else{
+                    cell = [[UITableViewCell alloc]
+                            initWithStyle:UITableViewCellStyleDefault
+                            reuseIdentifier: NormalCell];
+                    
+                    
+                    
+                    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 8, 188, 20)];
+                    itemLabel.tag = itemTag;
+                    [cell.contentView addSubview:itemLabel];
+                    
+                    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 7, 75, 20)];
+                    priceLabel.tag = priceTag;
+                    [cell.contentView addSubview:priceLabel];
+                    
+                    UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 7, 32, 20)];
+                    numberLabel.tag = numberTag;
+                    [cell.contentView addSubview:numberLabel];
+                    
+                    UIView *highLightView = [[UIView alloc] initWithFrame:CGRectMake(0, 2, 300, 27)];
+                    highLightView.tag = highLightTag;
+                    [cell.contentView addSubview:highLightView];
+                    
+                    UILabel *myPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 23, 300, 25)];
+                    myPayLabel.tag = myPayTag;
+                    [cell.contentView addSubview:myPayLabel];
+
+                }
+                                
                 
             }
             
@@ -834,6 +1114,8 @@
             UILabel *numberLabel = (UILabel *)[cell.contentView viewWithTag:numberTag];
             UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:priceTag];
             UIView *highLightView = (UIView *)[cell.contentView viewWithTag:highLightTag];
+            UILabel *myPayLabel = (UILabel *)[cell.contentView viewWithTag:myPayTag];
+
 
             [cell.contentView sendSubviewToBack:highLightView];
             
@@ -841,7 +1123,6 @@
             highLightView.layer.borderWidth = 1.0;
             highLightView.backgroundColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];//[UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:215.0/255.0 alpha:1.0];
             
-            NSUInteger row = [indexPath row];
             
             
             
@@ -849,14 +1130,20 @@
             itemLabel.backgroundColor = [UIColor clearColor];
             numberLabel.backgroundColor = [UIColor clearColor];
             priceLabel.backgroundColor = [UIColor clearColor];
+            myPayLabel.backgroundColor = [UIColor clearColor];
+
             
 
             
             priceLabel.textAlignment = UITextAlignmentRight;
             numberLabel.textAlignment = UITextAlignmentLeft;
+            myPayLabel.textAlignment = UITextAlignmentCenter;
             
             
-            NSDictionary *itemDictionary = [self.myInvoice.items objectAtIndex:row];
+            myPayLabel.textColor = [UIColor whiteColor];
+            myPayLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:13];
+            myPayLabel.hidden = YES;
+            
             
             itemLabel.text = [itemDictionary valueForKey:@"Description"];
             
@@ -864,12 +1151,17 @@
             double value = [[itemDictionary valueForKey:@"Value"] doubleValue] * num;
             
             
-            priceLabel.text = [NSString stringWithFormat:@"$%.2f", value];
+            priceLabel.text = [NSString stringWithFormat:@"%.2f", value];
             
             numberLabel.text = [NSString stringWithFormat:@"%d", [[itemDictionary valueForKey:@"Amount"] intValue]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             if ([[itemDictionary valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+                
+                CGRect frame = highLightView.frame;
+                frame.size.height = 27;
+                highLightView.frame = frame;
+                
                 highLightView.hidden = NO;
                 itemLabel.textColor = [UIColor whiteColor];
                 numberLabel.textColor = [UIColor whiteColor];
@@ -879,6 +1171,28 @@
                 numberLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
                 priceLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
 
+            }else if ([[itemDictionary valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+                
+                //If paying for partial
+                CGRect frame = highLightView.frame;
+                frame.size.height = 45;
+                highLightView.frame = frame;
+                
+                highLightView.hidden = NO;
+                itemLabel.textColor = [UIColor whiteColor];
+                numberLabel.textColor = [UIColor whiteColor];
+                priceLabel.textColor = [UIColor whiteColor];
+                
+                itemLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:14];
+                numberLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
+                priceLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
+                
+                myPayLabel.hidden = NO;
+                myPayLabel.text = [NSString stringWithFormat:@"You Pay: %.2f", [[itemDictionary valueForKey:@"AmountPayingFor"] doubleValue]];
+                
+            
+                
+            
             }else{
                 highLightView.hidden = YES;
                 
@@ -889,6 +1203,25 @@
                 itemLabel.font = [UIFont fontWithName:@"Corbel" size:14];
                 numberLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
                 priceLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+            }
+            
+            if ([itemDictionary valueForKey:@"IsTopLevel"] && [[itemDictionary valueForKey:@"IsTopLevel"] isEqualToString:@"yes"]) {
+                itemLabel.textColor = [UIColor darkGrayColor];
+                numberLabel.textColor = [UIColor darkGrayColor];
+                priceLabel.textColor = [UIColor darkGrayColor];
+            }
+            
+           
+            for (UIGestureRecognizer *recognizer in [cell gestureRecognizers]) {
+                [cell removeGestureRecognizer:recognizer];
+            }
+            
+            if (![[itemDictionary valueForKey:@"IsTopLevel"]isEqualToString:@"yes"]) {
+                MyGestureRecognizer *lpgr = [[MyGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+                lpgr.minimumPressDuration = 0.5f; //seconds
+                lpgr.delegate = self;
+                lpgr.selectedCell = row;
+                [cell addGestureRecognizer:lpgr];
             }
             return cell;
 
@@ -902,6 +1235,78 @@
     
 	
 }
+
+
+-(void)longPress:(id)sender{
+    
+    @try {
+        MyGestureRecognizer *myPress = (MyGestureRecognizer *)sender;
+
+        NSDictionary *selectedItem = [self.myInvoice.items objectAtIndex:myPress.selectedCell];
+        int num = [[selectedItem valueForKey:@"Amount"] intValue];
+        
+        if (num == 1) {
+
+            
+            self.itemSplitView.hidden = NO;
+            self.itemSplitIndex = myPress.selectedCell;
+            
+            
+            
+            self.itemSplitName.text = [NSString stringWithFormat:@"%@: $%.2f", [selectedItem valueForKey:@"Description"], [[selectedItem valueForKey:@"Value"] doubleValue]];
+            
+            
+            if ([[selectedItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]) {
+                self.itemSplitMyPaymentText.text = [NSString stringWithFormat:@"%.2f", [[selectedItem valueForKey:@"AmountPayingFor"] doubleValue]];
+            }
+            
+            self.itemSplitScrollView.contentOffset = CGPointMake(0.0, 0.0);
+            
+            [self.itemSplitMyPaymentText becomeFirstResponder];
+            
+            
+        }else{
+            
+            //open up the rows
+            
+            NSMutableArray *newArray =  [NSMutableArray arrayWithArray:self.myInvoice.items];
+            
+            [selectedItem setValue:@"yes" forKey:@"IsTopLevel"];
+            
+            NSMutableArray *newObjectArray = [NSMutableArray array];
+            
+            for (int i = 0; i < num; i++) {
+                
+                NSMutableDictionary *newItem = [NSMutableDictionary dictionary];
+                [newItem setValue:[NSDecimalNumber numberWithInt:1] forKey:@"Amount"];
+                [newItem setValue:[selectedItem valueForKey:@"Value"] forKey:@"Value"];
+                [newItem setValue:[selectedItem valueForKey:@"Description"] forKey:@"Description"];
+                [newItem setValue:[selectedItem valueForKey:@"Id"] forKey:@"Id"];
+                [newItem setValue:@"yes" forKey:@"IsSubLevel"];
+                
+                
+                [newObjectArray addObject:newItem];
+            }
+            
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(myPress.selectedCell + 1, [newObjectArray count])];
+            
+            [newArray insertObjects:newObjectArray atIndexes:indexSet];
+            
+            self.myInvoice.items = [NSArray arrayWithArray:newArray];
+            
+            [self.myTableView reloadData];
+            
+            
+        }
+        
+      
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.longPress" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+    }
+}
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -921,8 +1326,18 @@
                 }
             }
             return 33;
+        }else{
+            
+            NSDictionary *item = [self.myInvoice.items objectAtIndex:indexPath.row];
+            
+            if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+                return 60;
+            }
+            
+            return 30;
+
+            
         }
-        return 30;
     }
     @catch (NSException *exception) {
         
@@ -1074,23 +1489,100 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    if (alertView == self.overpayAlert) {
-        
-        if (buttonIndex == 1) {
-            //HERE
+    @try {
+        if (alertView == self.overpayAlert) {
             
-            [self showFullTotal];
+            if (buttonIndex == 1) {
+                //HERE
+                
+                [self showFullTotal];
+                
+                
+                
+                [self deselectAllItems];
+                
+            }
+        }else if (alertView == self.payAllAlert){
+            
+            NSDictionary *dictionaryItem = [self.myInvoice.items objectAtIndex:self.payAllSelectedIndex];
+            int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
             
             
-         
-            [self deselectAllItems];
+            if (buttonIndex == 0) {
+                //NO - sub items
+                
+                NSMutableArray *newArray =  [NSMutableArray arrayWithArray:self.myInvoice.items];
+                
+                [dictionaryItem setValue:@"yes" forKey:@"IsTopLevel"];
+                
+                NSMutableArray *newObjectArray = [NSMutableArray array];
+                
+                for (int i = 0; i < num; i++) {
+                    
+                    NSMutableDictionary *newItem = [NSMutableDictionary dictionary];
+                    [newItem setValue:[NSDecimalNumber numberWithInt:1] forKey:@"Amount"];
+                    [newItem setValue:[dictionaryItem valueForKey:@"Value"] forKey:@"Value"];
+                    [newItem setValue:[dictionaryItem valueForKey:@"Description"] forKey:@"Description"];
+                    [newItem setValue:[dictionaryItem valueForKey:@"Id"] forKey:@"Id"];
+                    [newItem setValue:@"yes" forKey:@"IsSubLevel"];
+                    
+                    
+                    [newObjectArray addObject:newItem];
+                }
+                
+                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(self.payAllSelectedIndex + 1, [newObjectArray count])];
+                
+                [newArray insertObjects:newObjectArray atIndexes:indexSet];
+                
+                self.myInvoice.items = [NSArray arrayWithArray:newArray];
+                
+                [self.myTableView reloadData];
+                
+             
+
+            }else{
+                //YES
+                
+                
+                
+                
+                double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
+                
+                self.myItemizedTotal += value;
+                
+                [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
+                
+                [self.myTableView reloadData];
+                
+                if (![self isAnyRowSelected]) {
+                    self.myItemizedTotal = 0.0;
+                    
+                    
+                    [self showFullTotal];
+                }else{
+                    //some are still selected
+                    
+                    [self setItemizedTotalValue];
+                    
+                    
+                    
+                }
+                
+                
+            }
+            
+            
+            
+        }else{
+            [self.actionSheet showInView:self.view];
             
         }
-    }else{
-        [self.actionSheet showInView:self.view];
 
     }
-
+    @catch (NSException *exception) {
+        NSLog(@"Exceptions; %@", exception);
+    }
+  
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -1285,7 +1777,7 @@
                         
             double myTotal = [[self.totalLabel.text substringFromIndex:12] doubleValue];
             [self.myInvoice setBasePaymentAmount:myTotal];
-            AddTipViewController *controller = [segue destinationViewController];
+            AdditionalTipViewController *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;
             
             controller.creditCardSample = self.creditCardSample;
@@ -1302,6 +1794,48 @@
             }
             
             controller.mySplitPercent = percentPaid;
+            
+            
+            if ([self isAnyRowSelected]) {
+                
+                self.myItemArray = [NSMutableArray array];
+                
+                for (int i = 0; i < [self.myInvoice.items  count]; i++) {
+                    
+                    NSDictionary *tmpItem = [self.myInvoice.items objectAtIndex:i];
+                    NSMutableDictionary *sendInItem = [NSMutableDictionary dictionary];
+                    if ([[tmpItem valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+                        
+                        [sendInItem setValue:[tmpItem valueForKey:@"Amount"] forKey:@"Amount"];
+                        [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:1.0] forKey:@"Percent"];
+                        [self.myItemArray addObject:sendInItem];
+                        
+                    }else if ([[tmpItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+                        
+                        
+                        double myAmount = [[tmpItem valueForKey:@"AmountPayingFor"] doubleValue];
+                        double totalAmount = [[tmpItem valueForKey:@"Value"] doubleValue];
+                        
+                        double myPercent = myAmount/totalAmount;
+                        
+                        [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                        [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                        [sendInItem setValue:[NSNumber numberWithDouble:myPercent] forKey:@"Percent"];
+                        [self.myItemArray addObject:sendInItem];
+                        
+                    }
+                    
+                }
+                
+            
+                controller.myItemsArray = [NSArray arrayWithArray:self.myItemArray];
+
+
+
+            }
+            
+            
             
            
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
@@ -1500,6 +2034,33 @@
             self.myInvoice.payments = [NSArray arrayWithArray:[theInvoice valueForKey:@"Payments"]];
             self.myInvoice.paymentsAccepted = self.paymentsAccepted;
             
+            self.paidItemsArray = [NSMutableArray array];
+            @try {
+                NSArray *payments = [theInvoice valueForKey:@"Payments"];
+                for (int i = 0; i < [payments count]; i++) {
+                    NSDictionary *payment = [payments objectAtIndex:i];
+                    
+                    NSArray *paidItems = [payment valueForKey:@"PaidItems"];
+                    
+                    NSString *paidBy = [[payments valueForKey:@"Name"] objectAtIndex:0];
+                    NSString *paidByAct = [[payments valueForKey:@"Account"] objectAtIndex:0];
+                    
+                    for (int j = 0; j < [paidItems count]; j++) {
+                        NSDictionary *paidItem = [paidItems objectAtIndex:j];
+                        [paidItem setValue:paidBy forKey:@"PaidBy"];
+                        [paidItem setValue:paidByAct forKey:@"PaidByAct"];
+                        
+                        [self.paidItemsArray addObject:paidItem];
+                    }
+                }
+                
+                
+                
+            }
+            @catch (NSException *exception) {
+                
+            }
+        
             [self setUpView];
             [self willAppearSetup];
             
@@ -1527,6 +2088,26 @@
 }
 
 
+-(void)markPaidItems{
+    
+    @try {
+        
+        for (int i = 0; i < [self.paidItemsArray count]; i++) {
+            NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
+            NSLog(@"Paid Item: %@", paidItem);
+        }
+        
+        
+        NSLog(@"Test");
+        
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"InvoiceView.markPaidItems" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+ 
+    
+}
 -(void)noPaymentSources{
     UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
     [self.navigationController presentModalViewController:noPaymentController animated:YES];
@@ -1861,5 +2442,57 @@
 
 
 
+- (IBAction)itemSplitSaveAction {
+    
+    NSDictionary *item = [self.myInvoice.items objectAtIndex:self.itemSplitIndex];
+    
+    double myItemPayemnt = [self.itemSplitMyPaymentText.text doubleValue];
+    double itemPrice = [[item valueForKey:@"Value"] doubleValue];
+    
+    
+    if (myItemPayemnt > itemPrice) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Overpayment" message:@"You cannot pay for more than the cost of this item." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+        
+    }else{
+        
+        
+        if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+            
+            double value = [[item valueForKey:@"Value"] doubleValue];
+            self.myItemizedTotal -= value;
+            
+        }else if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+            
+            double myValue = [[item valueForKey:@"AmountPayingFor"] doubleValue];
+            self.myItemizedTotal -= myValue;
+        }
+        
+        [item setValue:@"maybe" forKey:@"IsPayingFor"];
+        [item setValue:[NSNumber numberWithDouble:myItemPayemnt] forKey:@"AmountPayingFor"];
+        
+        self.itemSplitView.hidden = YES;
+        [self.itemSplitMyPaymentText resignFirstResponder];
+        
+        self.myItemizedTotal += myItemPayemnt;
+        
+        [self.myTableView reloadData];
+        
+        if (![self isAnyRowSelected]) {
+            self.myItemizedTotal = 0.0;
+            [self showFullTotal];
+        }else{
+            //some are still selected
+            [self setItemizedTotalValue];
+        }
+    }
+    
+    
 
+}
+- (IBAction)closeItemSplitAction {
+    self.itemSplitView.hidden = YES;
+    [self.itemSplitMyPaymentText resignFirstResponder];
+}
 @end

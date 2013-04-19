@@ -14,7 +14,7 @@
 #import "NVUIGradientButton.h"
 #import "CorbelTextField.h"
 
-@interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate, UIScrollViewAccessibilityDelegate>
+@interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate, UIScrollViewAccessibilityDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -81,12 +81,16 @@
 @property (nonatomic, strong) UIActionSheet *actionSheet;
 @property (weak, nonatomic) IBOutlet UILabel *amountNameLabel;
 
+@property (nonatomic, strong) UIAlertView *payAllAlert;
+@property int payAllSelectedIndex;
+
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *gratNameLabel;
 @property (weak, nonatomic) IBOutlet UIView *dividerView;
 - (IBAction)editBegin:(id)sender;
 - (IBAction)editEnd:(id)sender;
 
+@property (nonatomic, strong) NSMutableArray *myItemArray;
 @property (nonatomic, strong) NSArray *creditCards;
 @property (nonatomic, strong) NSString *creditCardNumber;
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
@@ -119,4 +123,81 @@
 -(void)showFullTotal;
 -(void)deselectAllItems;
 
+
+@property (nonatomic, strong) NSMutableArray *paidItemsArray;
+//Split single Item
+@property (nonatomic, strong) IBOutlet UIView *itemSplitView;
+@property (nonatomic, strong) IBOutlet UILabel *itemSplitItemItemTotal;
+@property (strong, nonatomic) IBOutlet CorbelTextField *itemSplitMyPaymentText;
+- (IBAction)closeItemSplitAction;
+
+- (IBAction)itemSplitSaveAction;
+@property (strong, nonatomic) IBOutlet UIScrollView *itemSplitScrollView;
+@property (strong, nonatomic) IBOutlet LucidaBoldLabel *itemSplitName;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *itemSplitSaveButton;
+@property int itemSplitIndex;
+
+
+
+
+/**** Selecting a MUTL-Amoutn Line Item
+ 
+ 3 options:  (currenet implementation is option #1)
+ 
+ 
+ 1.)  Single Click:  Alert, "are you paying for all?".   Yes = select whole line, no = break out into sub lines
+      Touch & Hold:  Nothing
+ 
+ 2.)  Single Click:  Select whole line
+      Touch & Hold:  Break out into sub lines
+ 
+ 3.)  Single Click:  Break out into sub lines
+      Touch & Hold:  Nothing
+ 
+ */
+
+
+
+
+/*****  ITEM Dictionary Key/Values
+ 
+ 
+ KEY                VALUE
+ 
+ Amount               # of that item ordered
+ Value                cost per item
+ Descrption           name of item
+ 
+ 
+ IsPaidFor            yes - this line item has already been paid for
+                      no - has not been paid for
+                      maybe - is partiallin paid for
+ 
+ 
+ IsPayingFor          yes - paying for ALL of this line item (could be quantity 1 or more)
+                      no - not paying for any of this item
+                      maybe - paying for PART of a single item
+ 
+ AmountPayingFor      amount of this single item being paid for (only applicable if IsPayingFor = maybe)
+ 
+ IsTopLevel           yes - is a multiple Amount item, with single Amount breakouts of the same item listed below it  (is greyed out)
+                      no - is not sub divided into single items
+ 
+ IsSubLevel           yes - is a breakout of a multi-Amount line item    (indented - selectable with single click or touch and hold)
+ 
+ 
+ EX:
+ 
+ 
+ 3   Fish Dinner     15.00              (IsTopLevel = YES)
+    1 Fish Dinner     5.00              (IsSubLevel = YES)
+    1 Fish Dinner     5.00              (IsSubLevel = YES)
+    1 Fish Dinner     5.00              (IsSubLevel = YES)
+ 
+ 
+ 
+ 
+ 
+ 
+ */
 @end
