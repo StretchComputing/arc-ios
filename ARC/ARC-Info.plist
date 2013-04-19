@@ -51,7 +51,7 @@
 		<string>Lucida Grande.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>ArcMainStoryboard</string>
+	<string>ArcMainStoryboardiPhone4</string>
 	<key>UIPrerenderedIcon</key>
 	<false/>
 	<key>UIStatusBarStyle</key>
