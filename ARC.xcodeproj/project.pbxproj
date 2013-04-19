@@ -1362,6 +1362,8 @@
 		90FBDA8D159AA2A50051609A /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: tyler mendoza";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: tyler mendoza";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
@@ -1381,6 +1383,8 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "E6089399-000F-4FFC-8419-2D57611ACDFE";
+				"PROVISIONING_PROFILE[sdk=*]" = "E6089399-000F-4FFC-8419-2D57611ACDFE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = AdHoc;
