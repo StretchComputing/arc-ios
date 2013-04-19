@@ -25,16 +25,25 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamComplete:) name:@"createStreamNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamCreateComplete:) name:@"createStreamNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamCloseComplete:) name:@"closeStreamNotification" object:nil];
+    
+    self.closeStreamButton.hidden = YES;
 }
 
--(void)streamComplete:(NSNotification *)notification{
+-(void)streamCreateComplete:(NSNotification *)notification{
     @try {
+        [self.sendingActivity stopAnimating];
+        
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *apiStatus = [responseInfo valueForKey:@"apiStatus"];
         if([apiStatus isEqualToString:SUCCESS]){
             NSString *activeMessage = [NSString stringWithFormat:@"Stream %@ Active", self.streamNameText.text];
             self.streamStatusLabel.text = activeMessage;
+            
+            self.closeStreamButton.hidden = NO;
+            self.createStreamButton.hidden = YES;
+            self.streamNameText.hidden = YES;
         }
         else {
             NSString *userMessage = @"";
@@ -42,6 +51,32 @@
             if([apiStatus isEqualToString:NAME_ALREADY_IN_USE]) {
                 userMessage = @"Stream name already being used";
             }
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create Stream Failed" message:userMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+        }
+    }
+    @catch (NSException *e) {
+        NSLog(@"LiveDebugViewController.steamCreateComplete Exception - %@ - %@", [e name], [e description]);
+    }
+}
+
+-(void)streamCloseComplete:(NSNotification *)notification{
+    @try {
+        [self.sendingActivity stopAnimating];
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        NSString *apiStatus = [responseInfo valueForKey:@"apiStatus"];
+        if([apiStatus isEqualToString:SUCCESS]){
+            NSString *activeMessage = [NSString stringWithFormat:@"Stream %@ Closed", self.streamNameText.text];
+            self.streamStatusLabel.text = activeMessage;
+            
+            self.closeStreamButton.hidden = YES;
+            self.createStreamButton.hidden = NO;
+            self.streamNameText.hidden = NO;
+        }
+        else {
+            NSString *userMessage = [NSString stringWithFormat:@"Stream close failed with status %@", apiStatus];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Create Stream Failed" message:userMessage delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
@@ -81,6 +116,7 @@
 - (IBAction)createStreamAction:(id)sender {
     NSString *streamName = self.streamNameText.text;
     if([streamName length] > 0) {
+        [self.sendingActivity startAnimating];
         [rSkybox createStream:streamName];
     }
     else{
@@ -91,5 +127,10 @@
 }
 
 - (IBAction)closeStreamAction:(id)sender {
+    // TODO -- not good, need to persist stream name somewhere that allows user to come back to screen and still see stream
+    NSString *streamName = self.streamNameText.text;
+    [self.sendingActivity startAnimating];
+    [rSkybox closeStream:streamName];
 }
+
 @end

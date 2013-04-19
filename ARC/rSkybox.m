@@ -826,8 +826,9 @@ NSString *const CLOSED_STATUS = @"closed";
             }
         } else if(api == CloseStream) {
             if (response && httpSuccess) {
-                [rSkybox closeStreamResponse:response];
+                responseInfo = [rSkybox closeStreamResponse:response];
             }
+            notificationType = @"closeStreamNotification";
         }
         
         if(!httpSuccess) {
@@ -933,12 +934,14 @@ NSString *const CLOSED_STATUS = @"closed";
     }
 }
 
-+(void) closeStreamResponse:(NSDictionary *)response {
++(NSDictionary *) closeStreamResponse:(NSDictionary *)response {
     @try {
         // even if the server request to close the stream fails, mark the stream as inactive
         isLiveDebugActive = FALSE;
         
         NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        NSDictionary *responseInfo = @{@"apiStatus": apiStatus};
+
         if([apiStatus isEqualToString:SUCCESS]) {
             streamId = NULL;
             NSLog(@"CloseStream API successful");
@@ -967,9 +970,12 @@ NSString *const CLOSED_STATUS = @"closed";
         else {
             NSLog(@"CloseStream API application error -- %@", @"unknown -- should NOT happen!!!");
         }
+        
+        return responseInfo;
     }
     @catch (NSException *e) {
         NSLog(@"rSkybox.closeStreamResponse Exception - %@ - %@", [e name], [e description]);
+        return @{};
     }
 }
 

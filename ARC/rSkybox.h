@@ -61,5 +61,6 @@ typedef enum {
 // LiveDebug Methods
 +(void)createStream:(NSString *)name;
 +(void)createPacket:(NSString *)packet;
++(void)closeStream:(NSString *)name;
 
 @end
