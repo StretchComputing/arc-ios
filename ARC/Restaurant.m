@@ -636,7 +636,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             } else if(errorCode == INVOICE_CLOSED) {
                 errorMsg = @"Invoice closed.";
             }else if (errorCode == CHECK_IS_LOCKED){
-                errorMsg = @"Invoice locked.  Try again in a few minutes.";
+                errorMsg = @"Invoice being access by your server.  Try again in a few minutes.";
             } else {
                 errorMsg = ARC_ERROR_MSG;
             }

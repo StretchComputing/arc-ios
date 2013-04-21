@@ -519,10 +519,10 @@
             }else if(errorCode == DUPLICATE_TRANSACTION){
                 duplicateTransaction = YES;
             }else if (errorCode == CHECK_IS_LOCKED){
-                errorMsg = @"This check is currently locked.  Please try again in a few minutes.";
+                errorMsg = @"Invoice being access by your server.  Please try again in a few minutes.";
                 displayAlert = YES;
             }else if (errorCode == CARD_ALREADY_PROCESSED){
-                errorMsg = @"This card has already been used for payment on this invoice.  A card may only be used once per invoice.  Please try again with a different card.";
+                errorMsg = @"This credit card has already been used to make a payment on this invoice. To make an additional payment, either use a different credit card or have your server void your initial payment.";
                 displayAlert = YES;
             }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
                 errorMsg = @"Invalid Authorization, please try again.";
