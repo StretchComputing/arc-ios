@@ -30,6 +30,24 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="DmI-i2-GMz">
                                 <rect key="frame" x="7" y="96" width="306" height="148"/>
                             </imageView>
+                            <view contentMode="scaleToFill" id="9Kz-gK-Za3">
+                                <rect key="frame" x="15" y="338" width="291" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ntU-Wp-oVP" customClass="LucidaBoldLabel">
+                                        <rect key="frame" x="117" y="28" width="94" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="lxr-KK-Sa8">
+                                        <rect key="frame" x="80" y="32" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" id="vVi-do-ii3">
                                 <rect key="frame" x="0.0" y="45" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -39,6 +57,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="loadingView" destination="9Kz-gK-Za3" id="KnN-rh-I9x"/>
                         <outlet property="topLineView" destination="vVi-do-ii3" id="Soy-YV-Xcz"/>
                         <outlet property="topView" destination="4WH-Jo-zDA" id="t1C-uW-sIV"/>
                     </connections>

@@ -53,7 +53,8 @@ typedef enum {
     ReferFriend = 13,
     ConfirmPayment = 14,
     ConfirmRegister = 15,
-    PingServer = 16
+    PingServer = 16,
+    GetGuestToken = 17
 
 
 } APIS;
@@ -128,7 +129,7 @@ typedef enum {
 
 +(void)trackEvent:(NSString *)action;
 
-
+-(void)getGuestToken:(NSDictionary *)pairs;
 -(void)confirmPayment;
 
 // Footprint analytics

@@ -115,10 +115,12 @@
 		90993F571597781400FC1D49 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90993F561597781400FC1D49 /* Default.png */; };
 		90993F591597782100FC1D49 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90993F581597782100FC1D49 /* Default@2x.png */; };
 		90993F5D1597795B00FC1D49 /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 90993F5B1597795B00FC1D49 /* Home.m */; };
+		909A500B17244BF100D70811 /* GuestCardObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A500A17244BF100D70811 /* GuestCardObject.m */; };
+		909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A500D172470C000D70811 /* AddCreditCardGuest.m */; };
+		909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A50101724CBC400D70811 /* GuestCreateAccount.m */; };
 		90A19F72162CF186007995DC /* GetPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F71162CF186007995DC /* GetPasscodeViewController.m */; };
 		90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F75162CF197007995DC /* ResetPasswordViewController.m */; };
 		90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A65C66169B785500FC519B /* CoreTelephony.framework */; };
-		90A7FE3117053ED4001EB837 /* AddTipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A7FE3017053ED4001EB837 /* AddTipViewController.m */; };
 		90A7FE3417053EE3001EB837 /* ConfirmPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */; };
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
 		90B01D07159E3E61005FCCCF /* fullStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D06159E3E61005FCCCF /* fullStar.png */; };
@@ -371,13 +373,17 @@
 		90993F581597782100FC1D49 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		90993F5A1597795B00FC1D49 /* Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
 		90993F5B1597795B00FC1D49 /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
+		909A500917244BF100D70811 /* GuestCardObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestCardObject.h; sourceTree = "<group>"; };
+		909A500A17244BF100D70811 /* GuestCardObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestCardObject.m; sourceTree = "<group>"; };
+		909A500C172470C000D70811 /* AddCreditCardGuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCreditCardGuest.h; sourceTree = "<group>"; };
+		909A500D172470C000D70811 /* AddCreditCardGuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCardGuest.m; sourceTree = "<group>"; };
+		909A500F1724CBC400D70811 /* GuestCreateAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestCreateAccount.h; sourceTree = "<group>"; };
+		909A50101724CBC400D70811 /* GuestCreateAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestCreateAccount.m; sourceTree = "<group>"; };
 		90A19F70162CF186007995DC /* GetPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPasscodeViewController.h; sourceTree = "<group>"; };
 		90A19F71162CF186007995DC /* GetPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPasscodeViewController.m; sourceTree = "<group>"; };
 		90A19F74162CF197007995DC /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		90A19F75162CF197007995DC /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		90A65C66169B785500FC519B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		90A7FE2F17053ED4001EB837 /* AddTipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTipViewController.h; sourceTree = "<group>"; };
-		90A7FE3017053ED4001EB837 /* AddTipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTipViewController.m; sourceTree = "<group>"; };
 		90A7FE3217053EE3001EB837 /* ConfirmPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmPaymentViewController.h; sourceTree = "<group>"; };
 		90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmPaymentViewController.m; sourceTree = "<group>"; };
 		90B01D03159E3CF1005FCCCF /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
@@ -681,8 +687,6 @@
 				908BC0D3170221DB00852B64 /* NVUIGradientButton.m */,
 				90BA26D21705D16E006CE73E /* AdditionalTipViewController.h */,
 				90BA26D31705D16E006CE73E /* AdditionalTipViewController.m */,
-				90A7FE2F17053ED4001EB837 /* AddTipViewController.h */,
-				90A7FE3017053ED4001EB837 /* AddTipViewController.m */,
 				90A7FE3217053EE3001EB837 /* ConfirmPaymentViewController.h */,
 				90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */,
 				908BC0D01702200400852B64 /* backarrow.png */,
@@ -762,6 +766,12 @@
 			isa = PBXGroup;
 			children = (
 				9081521315E7D10900211C37 /* Reachability.m */,
+				909A500C172470C000D70811 /* AddCreditCardGuest.h */,
+				909A500F1724CBC400D70811 /* GuestCreateAccount.h */,
+				909A50101724CBC400D70811 /* GuestCreateAccount.m */,
+				909A500D172470C000D70811 /* AddCreditCardGuest.m */,
+				909A500917244BF100D70811 /* GuestCardObject.h */,
+				909A500A17244BF100D70811 /* GuestCardObject.m */,
 				9081521415E7D10900211C37 /* Reachability.h */,
 				9089CB2416C6B6E700DA11B0 /* NumberLineButton.h */,
 				9089CB2516C6B6E900DA11B0 /* NumberLineButton.m */,
@@ -1210,11 +1220,13 @@
 				908C0CAD1703F139003E004E /* SupportViewController.m in Sources */,
 				908CAD4A17048C1A00F34A41 /* ShareViewController.m in Sources */,
 				908CAD4F1704B24700F34A41 /* ArcIdentifier.m in Sources */,
-				90A7FE3117053ED4001EB837 /* AddTipViewController.m in Sources */,
 				90A7FE3417053EE3001EB837 /* ConfirmPaymentViewController.m in Sources */,
 				90BA26D41705D16E006CE73E /* AdditionalTipViewController.m in Sources */,
 				90BA26D71705D432006CE73E /* LucidaBoldInputTextField.m in Sources */,
 				9FFFB9C2171B2B6100D8B58B /* LiveDebugViewController.m in Sources */,
+				909A500B17244BF100D70811 /* GuestCardObject.m in Sources */,
+				909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */,
+				909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

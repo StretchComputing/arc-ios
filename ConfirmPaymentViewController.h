@@ -25,10 +25,9 @@
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
 @property (nonatomic, strong) NSString *creditCardExpiration;
 @property (nonatomic, strong) NSString *creditCardSample;
-
+@property (nonatomic, strong) NSString *transactionNotes;
 @property int paymentPointsReceived;
 
-@property (nonatomic, strong) NSString *transactionNotes;
 
 @property (nonatomic, strong) IBOutlet UILabel *errorLabel;
 @property (nonatomic, strong) UITextField *hiddenText;

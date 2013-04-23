@@ -19,13 +19,22 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    [UIView animateWithDuration:1.0 animations:^{
-        CGRect frame = self.helpView.frame;
-        frame.origin.x = 30;
-        self.helpView.frame = frame;
-    }];
     
-    [self performSelector:@selector(doneHelp) withObject:nil afterDelay:3.5];
+    if (![[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowInitHelp"] length] > 0) {
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowInitHelp"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [UIView animateWithDuration:1.0 animations:^{
+            CGRect frame = self.helpView.frame;
+            frame.origin.x = 30;
+            self.helpView.frame = frame;
+        }];
+        
+        [self performSelector:@selector(doneHelp) withObject:nil afterDelay:3.5];
+        
+    }
+    
    
 }
 

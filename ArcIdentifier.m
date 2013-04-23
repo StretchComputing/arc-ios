@@ -79,7 +79,7 @@
     // Release the buffer memory
     free(msgBuffer);
     
-    NSString *returnString = [FBEncryptorAES encryptBase64String:identString keyString:@"93473" separateLines:NO];
+    NSString *returnString = [FBEncryptorAES encryptBase64String:identString keyString:@"93473kjhg67" separateLines:NO];
     
     return returnString;
 }

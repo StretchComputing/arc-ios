@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import "ConfirmPaymentViewController.h"
-
+#import "AddCreditCardGuest.h"
 
 @interface AdditionalTipViewController ()
 
@@ -18,6 +18,12 @@
 
 @implementation AdditionalTipViewController
 
+
+-(void)viewDidAppear:(BOOL)animated{
+    if ([self.transactionNotesText.text length] == 0) {
+        self.transactionNotesText.text = @"Transaction Notes (*optional):";
+    }
+}
 -(void)viewDidLoad{
     
     self.transactionNotesText.delegate = self;
@@ -59,13 +65,24 @@
 
 - (IBAction)continueAction:(id)sender {
     
+    self.myInvoice.gratuity = [self.tipTextField.text doubleValue];
+
     if (self.tipTextField.text == nil) {
         self.tipTextField.text = @"";
     }
     
-    self.myInvoice.gratuity = [self.tipTextField.text doubleValue];
-    
-    [self performSegueWithIdentifier:@"goConfirm" sender:self];
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] > 0) {
+        
+        
+        
+        [self performSegueWithIdentifier:@"goConfirm" sender:self];
+    }else{
+        //Guest
+        
+        [self performSegueWithIdentifier:@"goEnterCard" sender:self];
+
+    }
+  
     
 }
 
@@ -231,7 +248,19 @@
            controller.transactionNotes = self.transactionNotesText.text;
            
             
-        }
+       }else if ([[segue identifier] isEqualToString:@"goEnterCard"]){
+           
+           AddCreditCardGuest *controller = [segue destinationViewController];
+           controller.myInvoice = self.myInvoice;
+           if (self.transactionNotesText.text == nil || [self.transactionNotesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
+               self.transactionNotesText.text = @"";
+           }
+           
+           controller.myItemsArray = [NSArray arrayWithArray:self.myItemsArray];
+        
+           controller.transactionNotes = self.transactionNotesText.text;
+      
+       }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

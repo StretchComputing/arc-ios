@@ -21,6 +21,7 @@
 //NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
 
 NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+//NSString *_arcUrl = @"http://24.14.40.71:8700/arc-dev/rest/v1/";
 //NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
@@ -75,7 +76,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     if (self = [super init]) {
         
         self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10)];
-        self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(5)];
+        self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(6)];
         self.retryTimesInvoice = @[@(2),@(2),@(2),@(3),@(4),@(5)];
 
         self.serverPingArray = [NSMutableArray array];
@@ -186,6 +187,50 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox sendClientLog:@"ArcClient.getCustomerToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+
+-(void)getGuestToken:(NSDictionary *)pairs{
+    @try {
+        [rSkybox addEventToSession:@"getGuestToken"];
+        api = GetGuestToken;
+        
+        
+        NSString * login = [ pairs objectForKey:@"userName"];
+        NSString * password = [ pairs objectForKey:@"password"];
+        
+        
+        NSMutableDictionary *loginDictionary = [ NSMutableDictionary dictionary];
+        [loginDictionary setValue:login forKey:@"Login"];
+        [loginDictionary setValue:password forKey:@"Password"];
+        [loginDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"IsGuest"];
+        // the phone always sets activate to true. The website never does. Only the phone can reactivate a user.
+        NSNumber *activate = [NSNumber numberWithBool:YES];
+        [loginDictionary setValue:activate forKey:@"Activate"];
+        
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        // NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
+        NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers/token", _arcUrl, nil];
+        
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:getCustomerTokenUrl]];
+        [request setHTTPMethod: @"SEARCH"];
+        [request setHTTPBody: requestData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        NSLog(@"Params: %@", requestString);
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"GetGuestToken"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getCustomerToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 
 -(void)getMerchantList:(NSDictionary *)pairs{
     @try {
@@ -726,7 +771,15 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 responseInfo = [self getCustomerTokenResponse:response];
             }
             notificationType = @"signInNotification";
-        } else if(api == GetMerchantList) {
+        } else if(api == GetGuestToken) {
+            
+            NSLog(@"ReturnString: %@", returnString);
+            
+            if (response && httpSuccess) {
+                responseInfo = [self getGuestTokenResponse:response];
+            }
+            notificationType = @"signInNotificationGuest";
+        }else if(api == GetMerchantList) {
             if (response && httpSuccess) {
                 responseInfo = [self getMerchantListResponse:response];
             }
@@ -866,7 +919,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             notificationType = @"registerNotification";
         } else if(api == GetCustomerToken) {
             notificationType = @"signInNotification";
-        } else if(api == GetMerchantList) {
+        }else if(api == GetCustomerToken) {
+            notificationType = @"signInNotificationGuest";
+        }
+        else if(api == GetMerchantList) {
             notificationType = @"merchantListNotification";
         } else if(api == GetInvoice) {
             notificationType = @"invoiceNotification";
@@ -1030,6 +1086,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         case GetCustomerToken:
             result = @"GetCustomerToken";
             break;
+        case GetGuestToken:
+            result = @"GetGuestToken";
+            break;
         case GetMerchantList:
             result = @"GetMerchantList";
             break;
@@ -1159,6 +1218,51 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
     }
 }
+
+
+-(NSDictionary *) getGuestTokenResponse:(NSDictionary *)response {
+    @try {
+        
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            
+            NSDictionary *customer = [response valueForKey:@"Results"];
+            NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
+            NSString *customerToken = [customer valueForKey:@"Token"];
+ 
+            NSLog(@"CustomerToken: %@", customerToken);
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            [prefs setObject:customerId forKey:@"guestId"];
+            [prefs setObject:customerToken forKey:@"guestToken"];
+            
+            NSNumber *adminAsNum = [NSNumber numberWithBool:NO];
+            [prefs setObject:adminAsNum forKey:@"admin"];
+            [prefs synchronize];
+            
+            //Add this customer to the DB
+            //[self performSelector:@selector(addToDatabase) withObject:nil afterDelay:1.5];
+            
+            responseInfo = @{@"status": @"success"};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getGuestTokenResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
+    }
+}
+
+
 
 -(NSDictionary *) getMerchantListResponse:(NSDictionary *)response {
     @try {
@@ -1455,7 +1559,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 
             }else{
                 
-                if (self.numberRegisterTries > 6) {
+                
+                if (self.numberRegisterTries > 5) {
                     
                     NSString *status = @"error";
                     int errorCode = MAX_RETRIES_EXCEEDED;
@@ -1706,6 +1811,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     @try {
         
         NSString *customerToken = [self customerToken];
+        NSString *guestToken = [self guestToken];
+
         if (customerToken) {
             NSString *stringToEncode = [@"customer:" stringByAppendingString:customerToken];
             NSString *authentication = [self encodeBase64:stringToEncode];
@@ -1714,16 +1821,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             return authentication;
         }else{
             
-            NSString *identifier = [ArcIdentifier getArcIdentifier];
-
-            NSString *stringToEncode = [@"ourArcKey:" stringByAppendingString:identifier];
+            //Guest
+            NSString *stringToEncode = [@"customer:" stringByAppendingString:guestToken];
             NSString *authentication = [self encodeBase64:stringToEncode];
             
-            return [@"Basic " stringByAppendingString:customerToken];
+            return [@"Basic " stringByAppendingString:guestToken];
             return authentication;
-            
-            
-            return @"";
         }
         
     }
@@ -1757,6 +1860,19 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.customerToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @"";
+    }
+}
+
+-(NSString *) guestToken {
+    @try {
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *guestToken = [prefs valueForKey:@"guestToken"];
+        return guestToken;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.guestToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @"";
     }
 }

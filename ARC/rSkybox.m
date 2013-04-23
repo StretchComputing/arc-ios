@@ -62,7 +62,20 @@ NSString *const CLOSED_STATUS = @"closed";
 
 + (NSString *)getUserId{
     //TODO: rSkybox userId - return instead a uniqiue identifier for this user
-    return [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"];
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+        return [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"];
+
+    }else{
+        NSString *guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        NSString *guestToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestToken"];
+        
+        if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
+            return [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }
+
+    }
+    return @"unknown";
 }
 
 + (void)createEndUser{

@@ -1351,134 +1351,153 @@
         
         [rSkybox addEventToSession:@"clickedPayButton"];
         
-        BOOL haveCards;
-        BOOL haveDwolla;
-        BOOL showSheet = YES;
-        
-        if([self.myInvoice calculateAmountPaid] > 0) {
-            //[ArcClient trackEvent:@"PAY_REMAINING"];
-        }
-
-        
-        [self.tipText resignFirstResponder];
-        
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
-        
-        if ([self.creditCards count] == 0) {
-            haveCards = NO;
-        }else{
-            haveCards = YES;
-        }
-        
-        NSString *token;
-        
-        @try {
-            token = [DwollaAPI getAccessToken];
-        }
-        @catch (NSException *exception) {
+      
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
             
-        }
-       
-        if ([token length] > 0) {
-            haveDwolla = YES;
-        }else{
-            haveDwolla = NO;
-        }
-        
-        if (haveCards) {
+            BOOL haveCards;
+            BOOL haveDwolla;
+            BOOL showSheet = YES;
             
-            NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
-            BOOL didRemove = NO;
-            for (int i = 0; i < [tmpCards count]; i++) {
-                
-                CreditCard *tmp = [tmpCards objectAtIndex:i];
-                
-                if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
-                    [tmpCards removeObjectAtIndex:i];
-                    i--;
-                    didRemove = YES;
-                }
+            if([self.myInvoice calculateAmountPaid] > 0) {
+                //[ArcClient trackEvent:@"PAY_REMAINING"];
+            }
+            
+            
+            [self.tipText resignFirstResponder];
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+            
+            if ([self.creditCards count] == 0) {
+                haveCards = NO;
+            }else{
+                haveCards = YES;
+            }
+            
+            NSString *token;
+            
+            @try {
+                token = [DwollaAPI getAccessToken];
+            }
+            @catch (NSException *exception) {
                 
             }
-            self.creditCards = [NSArray arrayWithArray:tmpCards];
             
+            if ([token length] > 0) {
+                haveDwolla = YES;
+            }else{
+                haveDwolla = NO;
+            }
             
-            
-            if ([self.creditCards count] > 0) {
+            if (haveCards) {
                 
-                
-                if ([self.creditCards count] == 1) {
-                    CreditCard *selectedCard = [self.creditCards objectAtIndex:0];
+                NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
+                BOOL didRemove = NO;
+                for (int i = 0; i < [tmpCards count]; i++) {
                     
-                    self.creditCardNumber = selectedCard.number;
-                    self.creditCardSecurityCode = selectedCard.securityCode;
-                    self.creditCardExpiration = selectedCard.expiration;
-                    self.creditCardSample = selectedCard.sample;
+                    CreditCard *tmp = [tmpCards objectAtIndex:i];
                     
-                    [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
-                    return;
-                }else{
-                    
-                    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-                    
-                    int x = 0;
-                    if (haveDwolla) {
-                        x++;
-                        [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                    if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
+                        [tmpCards removeObjectAtIndex:i];
+                        i--;
+                        didRemove = YES;
                     }
                     
-                    for (int i = 0; i < [self.creditCards count]; i++) {
-                        CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                }
+                self.creditCards = [NSArray arrayWithArray:tmpCards];
+                
+                
+                
+                if ([self.creditCards count] > 0) {
+                    
+                    
+                    if ([self.creditCards count] == 1) {
+                        CreditCard *selectedCard = [self.creditCards objectAtIndex:0];
+                        
+                        self.creditCardNumber = selectedCard.number;
+                        self.creditCardSecurityCode = selectedCard.securityCode;
+                        self.creditCardExpiration = selectedCard.expiration;
+                        self.creditCardSample = selectedCard.sample;
+                        
+                        [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
+                        return;
+                    }else{
+                        
+                        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                        
+                        int x = 0;
+                        if (haveDwolla) {
+                            x++;
+                            [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                        }
+                        
+                        for (int i = 0; i < [self.creditCards count]; i++) {
+                            CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+                            [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                            
+                        }
+                        [self.actionSheet addButtonWithTitle:@"Cancel"];
+                        self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+                    }
+                    
+                    
+                }else {
+                    
+                    if (haveDwolla) {
+                        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                    }else{
+                        
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Accepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                        
+                        didRemove = NO;
+                        showSheet = NO;
+                        [self noPaymentSources];
+                        
                         
                     }
-                    [self.actionSheet addButtonWithTitle:@"Cancel"];
-                    self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+                    
                 }
                 
                 
-            }else {
+                self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
                 
-                if (haveDwolla) {
-                      self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                if (didRemove) {
+                    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    //[alert show];
+                    
+                    //[self showTextOverlay];
+                    [self.actionSheet showInView:self.view];
+                    
                 }else{
                     
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Accepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                    [alert show];
-                    
-                    didRemove = NO;
-                    showSheet = NO;
-                    [self noPaymentSources];
-            
+                    if (showSheet) {
+                        [self.actionSheet showInView:self.view];
+                        
+                    }
                     
                 }
-              
-            }
-            
-            
-            self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-            
-            if (didRemove) {
-                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                //[alert show];
-                
-                //[self showTextOverlay];
-                [self.actionSheet showInView:self.view];
                 
             }else{
-                
-                if (showSheet) {
-                    [self.actionSheet showInView:self.view];
-
-                }
-                
+                [self noPaymentSources];
             }
+
             
         }else{
-            [self noPaymentSources];
+            
+            //Guest
+            
+            
+            self.creditCardNumber = @"";
+            self.creditCardSecurityCode = @"";
+            self.creditCardExpiration = @"";
+            self.creditCardSample = @"";
+            
+            [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
+            
+            
+            
         }
-               
         
     }
     @catch (NSException *e) {
@@ -2092,13 +2111,85 @@
     
     @try {
         
-        for (int i = 0; i < [self.paidItemsArray count]; i++) {
-            NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
-            NSLog(@"Paid Item: %@", paidItem);
+        //First loop to see if anything needs to be itemized out because part of it is already paid for
+        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+            
+            NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+            
+            if ([[[item valueForKey:@"Amount"] stringValue] isEqualToString:@"2"]) {
+                
+                for (int j = 0; j < [self.paidItemsArray count]; j++) {
+                    
+                    NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:j];
+                    
+                    if ([[[paidItem valueForKey:@"ItemId"] stringValue] isEqualToString:[[item valueForKey:@"Id"] stringValue]] && ![[[paidItem valueForKey:@"Amount"] stringValue] isEqualToString:[[item valueForKey:@"Amount"] stringValue]]) {
+                        //Itemize it
+                        
+                        [item setValue:@"yes" forKey:@"IsTopLevel"];
+                        
+                        NSMutableArray *newObjectArray = [NSMutableArray array];
+                        NSMutableArray *newArray =  [NSMutableArray arrayWithArray:self.myInvoice.items];
+
+                        int num = [[item valueForKey:@"Amount"] intValue];
+                        
+                        for (int i = 0; i < num; i++) {
+                            
+                            NSMutableDictionary *newItem = [NSMutableDictionary dictionary];
+                            [newItem setValue:[NSDecimalNumber numberWithInt:1] forKey:@"Amount"];
+                            [newItem setValue:[item valueForKey:@"Value"] forKey:@"Value"];
+                            [newItem setValue:[item valueForKey:@"Description"] forKey:@"Description"];
+                            [newItem setValue:[item valueForKey:@"Id"] forKey:@"Id"];
+                            [newItem setValue:@"yes" forKey:@"IsSubLevel"];
+                            
+                            
+                            [newObjectArray addObject:newItem];
+                        }
+                        
+                        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i + 1, [newObjectArray count])];
+                        
+                        [newArray insertObjects:newObjectArray atIndexes:indexSet];
+                        
+                        self.myInvoice.items = [NSArray arrayWithArray:newArray];
+                        
+                        break;
+                        
+                        
+                        
+                        
+                    }
+                }
+                
+            }
+            
+            
+        }
+        
+        //Receipt is now itemized out where it needs to be
+        
+        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+            
+            NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+            
+            for (int j = 0; j < [self.paidItemsArray count]; j++) {
+                
+                NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:j];
+                
+                
+            }
+            
+            
+            
+            
         }
         
         
-        NSLog(@"Test");
+        
+        
+        for (int i = 0; i < [self.paidItemsArray count]; i++) {
+            NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
+        }
+        
+        
         
     }
     @catch (NSException *exception) {
@@ -2192,6 +2283,7 @@
         self.overpayAlert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"You cannot pay more than is due on this bill." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Pay Remaining", nil];
         [self.overpayAlert show];
     }else{
+        
         [self payNow:nil];
 
     }
