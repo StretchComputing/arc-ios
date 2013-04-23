@@ -176,7 +176,7 @@
         
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tmpButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
-        tmpButton.frame = CGRectMake(7, 7, 30, 30);
+        tmpButton.frame = CGRectMake(0, 0, 44, 44);
         [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationController.navigationBar addSubview:tmpButton];
         

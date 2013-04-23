@@ -1,12 +1,13 @@
 //
-//  AddCreditCard.m
+//  AddCreditCardGuest.m
 //  ARC
 //
-//  Created by Nick Wroblewski on 7/8/12.
-//  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
+//  Created by Nick Wroblewski on 4/21/13.
+//
 //
 
-#import "AddCreditCard.h"
+
+#import "AddCreditCardGuest.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ArcAppDelegate.h"
 #import "SettingsView.h"
@@ -14,31 +15,29 @@
 #import "ArcClient.h"
 #import "NSString+CharArray.h"
 #import "CreatePinView.h"
+#import "ArcUtility.h"
 
-NSString *const VISA = @"V";
-NSString *const MASTER_CARD = @"M";
-NSString *const DISCOVER = @"D";
-NSString *const DINERS_CLUB = @"N";
-NSString *const AMERICAN_EXPRESS = @"A";
-
-@interface AddCreditCard ()
+@interface AddCreditCardGuest ()
 
 -(void)showDoneButton;
 -(NSString *)creditCardStatus;
 
 @end
 
-@implementation AddCreditCard
+@implementation AddCreditCardGuest
 @synthesize creditDebitSegment;
 
 -(void)viewDidAppear:(BOOL)animated{
     
+    
+    self.totalPaymentLabel.text = [NSString stringWithFormat:@"Total Payment: $%.2f", self.myInvoice.basePaymentAmount + self.myInvoice.gratuity];
+
     if (!self.selectCardIo) {
         [self.creditCardNumberText becomeFirstResponder];
     }else{
-       // [self showDoneButton];
+        // [self showDoneButton];
     }
-
+    
 }
 
 -(void)customerDeactivated{
@@ -47,13 +46,18 @@ NSString *const AMERICAN_EXPRESS = @"A";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
 -(void)viewWillDisappear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = YES;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)viewWillAppear:(BOOL)animated{
     
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.clipsToBounds = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
 
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
@@ -62,16 +66,19 @@ NSString *const AMERICAN_EXPRESS = @"A";
 -(void)viewDidLoad{
     @try {
         
- 
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = YES;
+        [self.view addSubview:self.loadingViewController.view];
         
-      
+        
         
         if(NSClassFromString(@"UIRefreshControl")) {
             self.isIos6 = YES;
         }else{
             self.isIos6 = NO;
         }
-       
+        
         
         //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Add Card"];
         //self.navigationItem.titleView = navLabel;
@@ -108,7 +115,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         [self.creditCardNumberText setClearButtonMode:UITextFieldViewModeWhileEditing];
         [self.creditCardSecurityCodeText setClearButtonMode:UITextFieldViewModeWhileEditing];
         [self.expirationText setClearButtonMode:UITextFieldViewModeWhileEditing];
-
+        
         [self.navigationController.navigationItem setHidesBackButton:YES];
         [self.navigationItem setHidesBackButton:YES];
         
@@ -124,7 +131,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
         backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
         backView.layer.cornerRadius = 7.0;
-    
+        
         [self.navigationController.navigationBar addSubview:backView];
         
         
@@ -139,10 +146,10 @@ NSString *const AMERICAN_EXPRESS = @"A";
         [self.navigationController.navigationBar addSubview:tmpButton];
         
         LucidaBoldLabel *tmpLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
-        tmpLabel.text = @"Add A Card";
+        tmpLabel.text = @"Payment Info";
         tmpLabel.textAlignment = UITextAlignmentCenter;
         [self.navigationController.navigationBar addSubview:tmpLabel];
-
+        
         
         UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
         imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
@@ -153,18 +160,18 @@ NSString *const AMERICAN_EXPRESS = @"A";
         if (self.view.frame.size.height < 480) {
             self.addCardButton = [[NVUIGradientButton alloc] initWithFrame:CGRectMake(252, 6, 66, 33)];
             [self.addCardButton addTarget:self action:@selector(addCard) forControlEvents:UIControlEventTouchUpInside];
-
-            self.addCardButton.text = @"Add";
+            
+            self.addCardButton.text = @"Pay";
             [self.navigationController.navigationBar addSubview:self.addCardButton];
-
+            
         }else{
-            self.addCardButton.text = @"Add Card";
-
+            self.addCardButton.text = @"Confirm Payment";
+            
         }
         
         
         
-        self.addCardButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.addCardButton.tintColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
         self.addCardButton.textColor = [UIColor whiteColor];
         
         
@@ -327,7 +334,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         [self.creditCardNumberText resignFirstResponder];
         [self.creditCardSecurityCodeText resignFirstResponder];
         [self.expirationText resignFirstResponder];
-
+        
         self.pickerView.hidden = YES;
         //[self.hideKeyboardView removeFromSuperview];
         //self.hideKeyboardView = nil;
@@ -350,7 +357,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         //self.hideKeyboardView = nil;
         self.pickerView = nil;
         
-       // [self showDoneButton];
+        // [self showDoneButton];
         
         if (sender.tag == 22) {
             //month
@@ -364,7 +371,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         [self.creditCardNumberText resignFirstResponder];
         [self.creditCardSecurityCodeText resignFirstResponder];
         [self.expirationText resignFirstResponder];
-
+        
         
         int pickerY = 200;
         if (self.isIphone5) {
@@ -511,22 +518,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
                 
                 if ([self luhnCheck:self.creditCardNumberText.text]) {
                     
-                    NSString *creditDebitString = @"";
-                    
-                    if (self.creditDebitSegment.selectedSegmentIndex == 0) {
-                        creditDebitString = @"CREDIT";
-                    }else{
-                        creditDebitString = @"DEBIT";
-                    }
-                    
-                    //NSString *expiration = [NSString stringWithFormat:@"%@/%@", self.expirationMonth, self.expirationYear];
-                  //  ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                   // [mainDelegate insertCreditCardWithNumber:self.creditCardNumberText.text andSecurityCode:self.creditCardSecurityCodeText.text andExpiration:expiration andPin:self.creditCardPinText.text andCreditDebit:creditDebitString];
-                    
-                    //[self performSelector:@selector(popNow) withObject:nil afterDelay:0.5];
-                    //NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
-
-                    [self goPin];
+                    [self createPayment];
                     
                 }else{
                     
@@ -534,21 +526,267 @@ NSString *const AMERICAN_EXPRESS = @"A";
                     [alert show];
                     
                 }
-             
-
+                
+                
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing Field" message:@"Please fill out all credit card information first" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
             }
-
+            
         }
         
-     
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"AddCreditCard.addCard" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
+
+
+-(void)createPayment{
+    @try{
+        
+        
+        
+        //[self.activity startAnimating];
+        self.loadingViewController.displayText.text = @"Sending Payment...";
+        self.loadingViewController.view.hidden = NO;
+        
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        
+        NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
+        [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
+        
+        NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
+        
+        [ tempDictionary setObject:amount forKey:@"Amount"];
+        
+        [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
+        
+        NSString *ccNumber = [self.creditCardNumberText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
+        
+        NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
+        [tempDictionary setObject:grat forKey:@"Gratuity"];
+        
+        
+        [ tempDictionary setObject:self.transactionNotes forKey:@"Notes"];
+        
+        
+        
+
+        NSString *guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        [ tempDictionary setObject:guestId forKey:@"CustomerId"];
+        
+        [ tempDictionary setObject:@"" forKey:@"Tag"];
+        
+        [ tempDictionary setObject:self.expirationText.text forKey:@"Expiration"];
+        
+        NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myInvoice.invoiceId];
+        [ tempDictionary setObject:invoiceIdString forKey:@"InvoiceId"];
+        NSString *merchantIdString = [NSString stringWithFormat:@"%d", self.myInvoice.merchantId];
+        [ tempDictionary setObject:merchantIdString forKey:@"MerchantId"];
+        
+        [ tempDictionary setObject:self.creditCardSecurityCodeText.text forKey:@"Pin"];
+        
+        [ tempDictionary setObject:@"CREDIT" forKey:@"Type"];
+       
+        
+        NSString *cardType = [ArcUtility getCardTypeForNumber:ccNumber];
+        
+        [ tempDictionary setObject:cardType forKey:@"CardType"];
+        
+        //For Metrics
+        [tempDictionary setObject:self.myInvoice.splitType forKey:@"SplitType"];
+        [tempDictionary setObject:self.myInvoice.splitPercent forKey:@"PercentEntry"];
+        [tempDictionary setObject:self.myInvoice.tipEntry forKey:@"TipEntry"];
+        
+        
+        if (self.mySplitPercent > 0.0) {
+            self.mySplitPercent = self.mySplitPercent / 100.0;
+            [tempDictionary setValue:[NSNumber numberWithDouble:self.mySplitPercent] forKey:@"PercentPaid"];
+        }
+        
+        if ([self.myItemsArray count] > 0) {
+            [tempDictionary setValue:self.myItemsArray forKey:@"Items"];
+        }
+        
+        
+        loginDict = tempDictionary;
+        self.addCardButton.enabled = NO;
+        self.navigationItem.hidesBackButton = YES;
+        ArcClient *client = [[ArcClient alloc] init];
+        
+        self.myTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(createPaymentTimer) userInfo:nil repeats:NO];
+        
+        [client createPayment:loginDict];
+        
+    }
+    @catch (NSException *e) {
+        //self.errorLabel.text = @"*Error retreiving credit card.";
+        
+        [rSkybox sendClientLog:@"AddCreditCardGuest.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+-(void)paymentSuccess{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your payment has successfully been processed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [self performSegueWithIdentifier:@"saveInfo" sender:nil];
+}
+
+-(void)paymentComplete:(NSNotification *)notification{
+    
+    @try {
+        
+        [self.myTimer invalidate];
+        
+        //[self hideHighVolumeOverlay];
+        
+        BOOL editCardOption = NO;
+        BOOL duplicateTransaction = NO;
+        BOOL displayAlert = NO;
+        self.addCardButton.enabled = YES;
+       // self.navigationItem.hidesBackButton = NO;
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        //[self.activity stopAnimating];
+        self.loadingViewController.view.hidden = YES;
+        
+        NSString *errorMsg= @"";
+        if ([status isEqualToString:@"success"]) {
+            [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];
+            
+            //success
+           // self.errorLabel.text = @"";
+            BOOL paidInFull = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"InvoicePaid"] boolValue];
+           // self.paymentPointsReceived =  [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"Points"] intValue];
+            
+            if(paidInFull) [self.myInvoice setPaidInFull:paidInFull];
+            int paymentId = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"PaymentId"] intValue];
+            [self.myInvoice setPaymentId:paymentId];
+            
+            
+            [self paymentSuccess];
+        } else if([status isEqualToString:@"error"]){
+            [rSkybox addEventToSession:@"creditCardPaymentCompleteFail"];
+            
+            
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
+                errorMsg = @"Credit card not approved.";
+                editCardOption = YES;
+            } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
+                // TODO need explanation from Jim to put proper error msg
+                errorMsg = @"Failed to validate credit card";
+                editCardOption = YES;
+            } else if (errorCode == FIELD_FORMAT_ERROR){
+                errorMsg = @"Invalid Credit Card Field Format";
+                editCardOption = YES;
+            }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
+                // TODO need explanation from Jim to put proper error msg
+                errorMsg = @"Invalid credit/debit card number";
+                editCardOption = YES;
+            } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
+                // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
+                errorMsg = @"Merchant does not accept credit/debit card";
+            } else if(errorCode == OVER_PAID) {
+                errorMsg = @"Over payment. Please check invoice and try again.";
+            } else if(errorCode == INVALID_AMOUNT) {
+                errorMsg = @"Invalid amount. Please re-enter payment and try again.";
+            } else if(errorCode == INVALID_EXPIRATION_DATE) {
+                errorMsg = @"Invalid expiration date.";
+                editCardOption = YES;
+            }  else if (errorCode == UNKOWN_ISIS_ERROR){
+                editCardOption = YES;
+                errorMsg = @"Arc Error, Try Again.";
+            }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
+                errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
+                displayAlert = YES;
+            }else if(errorCode == DUPLICATE_TRANSACTION){
+                duplicateTransaction = YES;
+            }else if (errorCode == CHECK_IS_LOCKED){
+                errorMsg = @"This check is currently locked.  Please try again in a few minutes.";
+                displayAlert = YES;
+            }else if (errorCode == CARD_ALREADY_PROCESSED){
+                errorMsg = @"This card has already been used for payment on this invoice.  A card may only be used once per invoice.  Please try again with a different card.";
+                displayAlert = YES;
+            }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
+                errorMsg = @"Invalid Authorization, please try again.";
+                displayAlert = YES;
+            }
+            else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if (displayAlert) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Warning" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+        }else{
+           // self.errorLabel.text = errorMsg;
+            
+        }
+        
+        if (editCardOption) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
+            [alert show];
+        }else if (duplicateTransaction){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"Arc has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"CreditCardPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+
+
+
+-(void)createPaymentTimer{
+    
+    
+    [self showHighVolumeOverlay];
+}
+
+
+-(void)showHighVolumeOverlay{
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.loadingViewController.displayText.text = @"Arc is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
+        
+        self.loadingViewController.displayText.numberOfLines = 3;
+        CGRect frame = self.loadingViewController.mainBackView.frame;
+        frame.origin.y -= 20;
+        frame.size.height += 20;
+        frame.origin.x = 10;
+        frame.size.width = 300;
+        self.loadingViewController.mainBackView.frame = frame;
+        
+        CGRect frame2 = self.loadingViewController.displayText.frame;
+        frame2.origin.y -= 20;
+        frame2.size.height += 20;
+        frame2.origin.x = 10;
+        frame2.size.width = 300;
+        self.loadingViewController.displayText.frame = frame2;
+        
+    }];
+}
+
 
 
 -(void)goPin{
@@ -574,11 +812,11 @@ NSString *const AMERICAN_EXPRESS = @"A";
         
         // determine what type of credit card this is
         
-       // NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
+        // NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
         //[ArcClient trackEvent:action];
         [self.navigationController setNavigationBarHidden:YES];
         [self.navigationController pushViewController:tmp animated:NO];
-
+        
         
     }
     @catch (NSException *e) {
@@ -687,13 +925,13 @@ NSString *const AMERICAN_EXPRESS = @"A";
             
         }
         return TRUE;
-
+        
     }
     @catch (NSException *exception) {
-         [rSkybox sendClientLog:@"AddCreditCard.shouldChangeCharacters" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        [rSkybox sendClientLog:@"AddCreditCard.shouldChangeCharacters" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
-  
-   
+    
+    
 }
 
 
@@ -949,6 +1187,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
 
 - (void)viewDidUnload {
     [self setAddCardButton:nil];
+    [self setTotalPaymentLabel:nil];
     [super viewDidUnload];
 }
 @end

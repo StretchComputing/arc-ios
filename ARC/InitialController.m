@@ -10,7 +10,7 @@
 #import "ArcClient.h"
 #import "rSkybox.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "ArcIdentifier.h"
 @interface InitialController ()
 
 @end
@@ -18,10 +18,11 @@
 @implementation InitialController
 
 
+
 -(void)viewDidAppear:(BOOL)animated{
     
     @try {
-        
+        self.loadingView.hidden = YES;
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
         self.topLineView.layer.shadowOpacity = 0.5;
@@ -34,10 +35,31 @@
         NSString *customerId = [prefs stringForKey:@"customerId"];
         NSString *customerToken = [prefs stringForKey:@"customerToken"];
         
+        NSString *guestId = [prefs stringForKey:@"guestId"];
+        NSString *guestToken = [prefs stringForKey:@"guestToken"];
+        
         
         if (![customerId isEqualToString:@""] && (customerId != nil) && ![customerToken isEqualToString:@""] && (customerToken != nil)) {
             //[self performSegueWithIdentifier: @"signInNoAnimation" sender: self];
             //self.autoSignIn = YES;
+            
+            if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
+
+                
+            }else{
+                NSString *identifier = [ArcIdentifier getArcIdentifier];
+                
+                
+                NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+                NSDictionary *loginDict = [[NSDictionary alloc] init];
+                [ tempDictionary setObject:identifier forKey:@"userName"];
+                [ tempDictionary setObject:identifier forKey:@"password"];
+                
+                loginDict = tempDictionary;
+                ArcClient *client = [[ArcClient alloc] init];
+                [client getGuestToken:loginDict];
+            }
+            
             
             ArcClient *tmp = [[ArcClient alloc] init];
             [tmp updatePushToken];
@@ -46,9 +68,28 @@
             [self presentModalViewController:home animated:NO];
         }else{
             
-            
-            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
-            [self presentModalViewController:home animated:NO];
+            if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
+                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+                [self presentModalViewController:home animated:NO];
+                
+            }else{
+                //Get the Guest Token, then push to InitHelpPage
+                self.loadingView.hidden = NO;
+                
+                NSString *identifier = [ArcIdentifier getArcIdentifier];
+
+                
+                NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+                NSDictionary *loginDict = [[NSDictionary alloc] init];
+                [ tempDictionary setObject:identifier forKey:@"userName"];
+                [ tempDictionary setObject:identifier forKey:@"password"];
+          
+                loginDict = tempDictionary;
+                ArcClient *client = [[ArcClient alloc] init];
+                [client getGuestToken:loginDict];
+
+            }
+      
         }
          
          
@@ -61,6 +102,8 @@
 }
 -(void)viewDidLoad{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotificationGuest" object:nil];
+
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.view.bounds;
     self.view.backgroundColor = [UIColor clearColor];
@@ -74,9 +117,65 @@
     self.mottoLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:21];
     
 }
+
+
+
+-(void)signInComplete:(NSNotification *)notification{
+    @try {
+        
+     
+        self.loadingView.hidden = YES;
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        NSLog(@"Response Info: %@", responseInfo);
+        
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            //success
+   
+            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+            [self presentModalViewController:home animated:NO];
+            
+            //[self goHomePage];
+            //[[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didJustLogin"];
+            //[[NSUserDefaults standardUserDefaults] synchronize];
+            
+            // [self performSelector:@selector(checkPayment) withObject:nil afterDelay:1.5];
+            
+            //Do the next thing (go home?)
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INCORRECT_LOGIN_INFO) {
+                errorMsg = @"Invalid Email and/or Password";
+            } else {
+                // TODO -- programming error client/server coordination -- rskybox call
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            //self.errorLabel.text = errorMsg;
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InitialController.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+        
+    }
+    
+}
+
+
+
 - (void)viewDidUnload {
-    [self setTopView:nil];
-    [self setTopLineView:nil];
+    [self setLoadingView:nil];
     [super viewDidUnload];
 }
 @end

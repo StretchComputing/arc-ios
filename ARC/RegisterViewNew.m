@@ -1109,6 +1109,9 @@
 		[ tempDictionary setObject:self.emailText.text forKey:@"eMail"];
 		[ tempDictionary setObject:self.passwordText.text forKey:@"Password"];
         [ tempDictionary setObject:@"Phone" forKey:@"Source"];
+        
+        [ tempDictionary setObject:[NSNumber numberWithBool:NO] forKey:@"IsGuest"];
+
 
       
         //[ tempDictionary setObject:genderString forKey:@"Gender"];
