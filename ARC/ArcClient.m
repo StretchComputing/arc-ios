@@ -1913,6 +1913,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
             if ([guestToken length] > 0) {
                 //Guest
+                sleep(5);
                 NSString *stringToEncode = [@"customer:" stringByAppendingString:guestToken];
                 NSString *authentication = [self encodeBase64:stringToEncode];
                 
@@ -1921,6 +1922,23 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             }else{
                 
                 //Guest Token must have failed at some point, need to get it before returning
+                
+                NSString *identifier = [ArcIdentifier getArcIdentifier];
+                
+                
+                NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+                NSDictionary *loginDict = [[NSDictionary alloc] init];
+                [ tempDictionary setObject:identifier forKey:@"userName"];
+                [ tempDictionary setObject:identifier forKey:@"password"];
+                
+                loginDict = tempDictionary;
+                ArcClient *client = [[ArcClient alloc] init];
+                [client getGuestToken:loginDict];
+                
+                
+                NSException *exception = [NSException exceptionWithName:@"No Guest Token" reason:@"Could not find guest token" userInfo:nil];
+                [rSkybox sendClientLog:@"ArcClient.authHeader" logMessage:@"NO Guest Token" logLevel:@"error" exception:exception];
+
                 return @"";
             }
             
