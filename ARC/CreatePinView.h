@@ -15,6 +15,7 @@
 
 @interface CreatePinView : UIViewController <UITextFieldDelegate>
 
+@property BOOL fromCreateGuest;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property BOOL isEditPin;
 @property BOOL fromRegister;

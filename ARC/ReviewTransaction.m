@@ -104,8 +104,13 @@
             title = @"Success!";
             payString = [NSString stringWithFormat:@"Congratulations, your payment of $%@ was successfully processed!", payAmount];
         }        
-                
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        
+        if (self.isFromGuest == NO) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+
+        }
         
         self.foodInt = @(0.0);
         self.drinksInt = @(0.0);
@@ -115,7 +120,6 @@
         self.twitterInt = @(0.0);
         self.facebookInt = @(0.0);
 
-        [alert show];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ReviewTransaction.viewDidAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -170,7 +174,7 @@
         
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
-        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height + 200);
         self.loadingViewController.view.hidden = YES;
         [self.view addSubview:self.loadingViewController.view];
         
@@ -645,6 +649,10 @@
 
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
+        
+        if ([customerId length] == 0) {
+            customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }
         [tempDictionary setObject:customerId forKey:@"CustomerId"];
 
         NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myInvoice.invoiceId];

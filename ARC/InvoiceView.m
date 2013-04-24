@@ -1494,9 +1494,7 @@
             self.creditCardSample = @"";
             
             [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
-            
-            
-            
+                        
         }
         
     }

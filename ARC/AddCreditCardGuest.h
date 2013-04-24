@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *expirationText;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *addCardButton;
 
+@property (nonatomic, strong) UIView *loadingTopView;
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) UIView *hideKeyboardView;
 @property (nonatomic, strong) NSString *transactionNotes;

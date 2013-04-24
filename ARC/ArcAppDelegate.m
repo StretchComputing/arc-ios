@@ -112,6 +112,10 @@
 
 
 
+-(void)registerNotifications{
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -129,7 +133,8 @@
     self.connectionPeers = [[NSMutableArray alloc] init];
     
     
-     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+
+    [self performSelector:@selector(registerNotifications) withObject:nil afterDelay:4];
     
     // one reason this method is called is if a push notification is received while the app is in the background
     // if custom data in push notification payload, then establish appropriate "context" in this app
@@ -285,7 +290,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     
-    [self startUpdatingLocation];
+    [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:4];
     
     ArcClient *client = [[ArcClient alloc] init];
     [client getServer];
@@ -593,7 +598,7 @@ ofType:(NSString *)typeName
         
         if (!customer) {
             
-            NSLog(@"Test");
+            NSLog(@"INSERTING AGAIN");
            // NSLog(@"Inserting Customer");
             Customer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"Customer" inManagedObjectContext:self.managedObjectContext];
             

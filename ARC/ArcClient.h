@@ -54,7 +54,8 @@ typedef enum {
     ConfirmPayment = 14,
     ConfirmRegister = 15,
     PingServer = 16,
-    GetGuestToken = 17
+    GetGuestToken = 17,
+    UpdateGuestCustomer = 18
 
 
 } APIS;
@@ -143,5 +144,7 @@ typedef enum {
 -(void)sendTrackEvent:(NSMutableArray *)array;
 
 -(void)sendServerPings;
+
+-(void)updateGuestCustomer:(NSDictionary *)pairs;
 @end
 

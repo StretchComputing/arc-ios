@@ -47,6 +47,7 @@
 
                 
             }else{
+                /*
                 NSString *identifier = [ArcIdentifier getArcIdentifier];
                 
                 
@@ -58,6 +59,7 @@
                 loginDict = tempDictionary;
                 ArcClient *client = [[ArcClient alloc] init];
                 [client getGuestToken:loginDict];
+                 */
             }
             
             
@@ -69,7 +71,10 @@
         }else{
             
             if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
-                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+                //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+                //[self presentModalViewController:home animated:NO];
+                
+                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
                 [self presentModalViewController:home animated:NO];
                 
             }else{

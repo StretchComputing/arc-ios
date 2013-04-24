@@ -209,7 +209,6 @@
 
 
 -(void)signIn{
-    NSLog(@"Height: %f", self.loadingViewController.view.frame.size.height);
 
     [self performSelector:@selector(runSignIn)];
    

@@ -158,7 +158,7 @@
                 }
                 
             }else{
-                message = @"Your transaction has completed successfully!  Thank you for your review!";
+                message = @"Your transaction has completed successfully!  Thank you for your purchase!";
             }
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank You!" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];

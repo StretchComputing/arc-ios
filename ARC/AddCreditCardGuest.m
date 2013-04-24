@@ -16,6 +16,7 @@
 #import "NSString+CharArray.h"
 #import "CreatePinView.h"
 #import "ArcUtility.h"
+#import "GuestCreateAccount.h"
 
 @interface AddCreditCardGuest ()
 
@@ -150,6 +151,12 @@
         tmpLabel.textAlignment = UITextAlignmentCenter;
         [self.navigationController.navigationBar addSubview:tmpLabel];
         
+        
+        self.loadingTopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 45)];
+        self.loadingTopView.backgroundColor = [UIColor blackColor];
+        self.loadingTopView.alpha = 0.2;
+        self.loadingTopView.hidden = YES;
+        [self.navigationController.navigationBar addSubview:self.loadingTopView];
         
         UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
         imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
@@ -505,6 +512,8 @@
 
 
 -(void)addCard{
+    
+    
     @try {
         
         
@@ -540,10 +549,13 @@
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"AddCreditCard.addCard" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+     
 }
 
 
 -(void)createPayment{
+    
+    
     @try{
         
         
@@ -551,6 +563,9 @@
         //[self.activity startAnimating];
         self.loadingViewController.displayText.text = @"Sending Payment...";
         self.loadingViewController.view.hidden = NO;
+        self.loadingTopView.hidden = NO;
+        self.loadingTopView.alpha = 0.2;
+
         
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
@@ -629,14 +644,50 @@
         
         [rSkybox sendClientLog:@"AddCreditCardGuest.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
+    
 }
 
 -(void)paymentSuccess{
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Your payment has successfully been processed!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    double totalPayment = [self.myInvoice basePaymentAmount] + [self.myInvoice gratuity];
+    NSString *payAmount = [NSString stringWithFormat:@"%.2f", totalPayment];
+    
+    NSString *payString = @"";
+    NSString *title = @"";
+    if([self.myInvoice paidInFull]) {
+        title = @"Paid in Full";
+        payString = [NSString stringWithFormat:@"Please confirm payment with server before leaving the restaurant."];
+    } else {
+        title = @"Success!";
+        payString = [NSString stringWithFormat:@"Congratulations, your payment of $%@ was successfully processed!", payAmount];
+    }
+            
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
+
     [self performSegueWithIdentifier:@"saveInfo" sender:nil];
 }
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    @try {
+        
+        if ([[segue identifier] isEqualToString:@"saveInfo"]) {
+            
+            GuestCreateAccount *next = [segue destinationViewController];
+            next.myInvoice = self.myInvoice;
+            next.ccNumber = self.creditCardNumberText.text;
+            next.ccSecurityCode = self.creditCardSecurityCodeText.text;
+            next.ccExpiration = self.expirationText.text;
+        }
+        
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"GuestCreateAccount.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 
 -(void)paymentComplete:(NSNotification *)notification{
     
@@ -658,6 +709,7 @@
         
         //[self.activity stopAnimating];
         self.loadingViewController.view.hidden = YES;
+        self.loadingTopView.hidden = YES;
         
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {

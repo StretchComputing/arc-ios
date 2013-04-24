@@ -76,6 +76,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *food5;
 - (IBAction)postTwitter;
 
+@property BOOL isFromGuest;
 @property (nonatomic, strong) IBOutlet UIButton *service1;
 @property (nonatomic, strong) IBOutlet UIButton *service2;
 @property (nonatomic, strong) IBOutlet UIButton *service3;
