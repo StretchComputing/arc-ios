@@ -475,7 +475,7 @@
         
         self.errorLabel.text = @"";
         
-        if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
+        if ([self.checkNumOne.text isEqualToString:@""]) {
             
             self.errorLabel.text = @"*Please enter the full check number";
         }else{

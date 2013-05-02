@@ -71,7 +71,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 - (id)init {
     if (self = [super init]) {
         
-        self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10)];
+        self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(15),@(16),@(17)];
         self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(5)];
         self.retryTimesInvoice = @[@(2),@(2),@(2),@(3),@(4),@(5)];
 
