@@ -108,26 +108,26 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        if (connection) {
+     //   NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+     //   if (connection) {
             
-        }
+       // }
 
 //        
-//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
-//        
-//        // parse the returned JSON object
-//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-//        
-//        //NSLog(@"ReturnString: %@", returnString);
-//        
-//        SBJsonParser *jsonParser = [SBJsonParser new];
-//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-//        
-//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-//        if ([apiStatus isEqualToString:@"100"]) {
-//            //NSLog(@"Create End User Failed");
-//        }
+        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+        
+        // parse the returned JSON object
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+        
+        //NSLog(@"ReturnString: %@", returnString);
+        
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+
+        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        if ([apiStatus isEqualToString:@"100"]) {
+            //NSLog(@"Create End User Failed");
+        }
 //        
 //        statusReturn = apiStatus;
 //        [returnDictionary setValue:statusReturn forKey:@"status"];
@@ -266,9 +266,9 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        //if (connection) {
-        //}
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        if (connection) {
+        }
         
 //        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
 //        
@@ -382,19 +382,19 @@ NSString *const CLOSED_STATUS = @"closed";
        // }
 
         
-//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
-//        
-//        // parse the returned JSON object
-//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-//        
-//        
-//        SBJsonParser *jsonParser = [SBJsonParser new];
-//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-//        
-//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-//        if (![apiStatus isEqualToString:@"100"]) {
-//            // NSLog(@"Send Crash Failed.");
-//        }
+        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+        
+        // parse the returned JSON object
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+        
+        
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+        
+        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        if (![apiStatus isEqualToString:@"100"]) {
+            // NSLog(@"Send Crash Failed.");
+        }
         
         
     }
@@ -445,23 +445,23 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        if (connection) {
+    //    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+      //  if (connection) {
             
-        }
+        //}
     
-//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
-//        
-//        // parse the returned JSON object
-//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-//        
-//        SBJsonParser *jsonParser = [SBJsonParser new];
-//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-//        
-//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-//        if ([apiStatus isEqualToString:@"100"]) {
-//            //NSLog(@"Send Feedback Failed.");
-//        }
+        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+        
+        // parse the returned JSON object
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+        
+        SBJsonParser *jsonParser = [SBJsonParser new];
+        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+        
+        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        if ([apiStatus isEqualToString:@"100"]) {
+            //NSLog(@"Send Feedback Failed.");
+        }
         
     }
     
