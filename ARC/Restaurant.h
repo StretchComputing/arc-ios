@@ -74,7 +74,7 @@
 @property (strong, nonatomic) Invoice *myInvoice;
 - (IBAction)closeHelp;
 
-@property (nonatomic, strong) UITextField *hiddenText;
+@property (nonatomic, strong) IBOutlet UITextField *hiddenText;
 
 //-(IBAction)showCamera;
 @end

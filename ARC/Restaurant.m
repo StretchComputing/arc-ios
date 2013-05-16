@@ -391,22 +391,33 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         
         self.closeHelpButton.text = @"Done";
      
+        self.closeHelpButton.borderColor = [UIColor darkGrayColor];
+        self.closeHelpButton.borderWidth = 0.5;
+        self.closeHelpButton.cornerRadius = 3.0;
+        
         self.submitButton.text = @"Submit";
         self.submitButton.textColor = [UIColor whiteColor];
         self.submitButton.textShadowColor = [UIColor darkGrayColor];
         self.submitButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/215.0 alpha:1];
+        self.submitButton.borderColor = [UIColor darkGrayColor];
+        self.submitButton.borderWidth = 0.5;
+        self.submitButton.cornerRadius = 3.0;
         
         self.helpBackView.hidden = YES;
 
         [self loadLogoImage];
         [self loadHelpImage];
    
+        self.logoImageView.layer.borderWidth = 1.0;
+        self.logoImageView.layer.borderColor = [[UIColor darkGrayColor] CGColor];
+        self.logoImageView.layer.cornerRadius = 3.0;
+        self.logoImageView.layer.masksToBounds = YES;
         
         
        
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.5;
+        self.topLineView.layer.shadowOpacity = 0.2;
         
         
         self.leftTopLineView.layer.shadowOffset = CGSizeMake(-1, 0);
@@ -450,11 +461,11 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         self.checkNumFive.delegate = self;
         self.checkNumSix.delegate = self;
         
-        self.hiddenText = [[UITextField alloc] init];
+       // self.hiddenText = [[UITextField alloc] init];
         self.hiddenText.keyboardType = UIKeyboardTypeNumberPad;
         self.hiddenText.delegate = self;
         self.hiddenText.text = @"";
-        [self.view addSubview:self.hiddenText];
+       // [self.view addSubview:self.hiddenText];
         
 
         
@@ -498,9 +509,10 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (IBAction)submit:(id)sender {
     @try {
         
+      
         self.errorLabel.text = @"";
         
-        if ([self.checkNumOne.text isEqualToString:@""] || [self.checkNumTwo.text isEqualToString:@""] || [self.checkNumThree.text isEqualToString:@""] || [self.checkNumFour.text isEqualToString:@""]) {
+        if ([self.hiddenText.text length] < 2) {
             
             self.errorLabel.text = @"*Please enter the full check number";
         }else{
@@ -513,15 +525,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 
                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
                 
-                NSString *invoiceNumber = @"";
+                NSString *invoiceNumber = self.hiddenText.text;
                 
-                if ([self.checkNumFive.text isEqualToString:@" "]) {
-                       invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
-                }else if ([self.checkNumSix.text isEqualToString:@" "]){
-                    invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text, self.checkNumFive.text];
-                }else{
-                    invoiceNumber = [NSString stringWithFormat:@"%@%@%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text, self.checkNumFive.text, self.checkNumSix.text];
-                }
+                
                 
              
                 
@@ -1065,16 +1071,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 
 
-- (void)viewDidUnload {
-    [self setBackView:nil];
-    [self setTopLineView:nil];
-    [self setPopAction:nil];
-    [self setCloseHelpButton:nil];
-    [self setSubmitButton:nil];
-    [self setLeftTopLineView:nil];
-    [self setRightTopLineView:nil];
-    [super viewDidUnload];
-}
+
 - (IBAction)goBackAction {
     [self.navigationController popViewControllerAnimated:YES];
 }

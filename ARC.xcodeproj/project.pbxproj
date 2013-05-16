@@ -17,6 +17,7 @@
 		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
 		906D108A160FC87100561C31 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D1089160FC87100561C31 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		90748A051740364300541C68 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90748A041740364300541C68 /* ISO8601DateFormatter.m */; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
 		907A406C15AA072300090452 /* ViewCreditCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406B15AA072200090452 /* ViewCreditCards.m */; };
@@ -86,6 +87,10 @@
 		909046BB16EA78F400517A14 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 909046BA16EA78F400517A14 /* lock.png */; };
 		909046E216ECC80100517A14 /* silverware.png in Resources */ = {isa = PBXBuildFile; fileRef = 909046E116ECC80100517A14 /* silverware.png */; };
 		90915A20160952B100A9A070 /* NSString+CharArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 90915A1F160952B100A9A070 /* NSString+CharArray.m */; };
+		9093E504174408BB00BC18E3 /* Divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 9093E503174408BB00BC18E3 /* Divider.png */; };
+		9093E5061744133800BC18E3 /* Divider2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9093E5051744133800BC18E3 /* Divider2.png */; };
+		9093E50917442A9200BC18E3 /* jaggedEdge.png in Resources */ = {isa = PBXBuildFile; fileRef = 9093E50717442A9200BC18E3 /* jaggedEdge.png */; };
+		9093E50A17442A9200BC18E3 /* jaggedEdgeBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9093E50817442A9200BC18E3 /* jaggedEdgeBottom.png */; };
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
@@ -225,6 +230,8 @@
 		906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone5.storyboard; sourceTree = "<group>"; };
 		906D1089160FC87100561C31 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		906D108C160FE03600561C31 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		90748A031740364300541C68 /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
+		90748A041740364300541C68 /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -326,6 +333,10 @@
 		909046E116ECC80100517A14 /* silverware.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = silverware.png; sourceTree = "<group>"; };
 		90915A1E160952B100A9A070 /* NSString+CharArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CharArray.h"; sourceTree = "<group>"; };
 		90915A1F160952B100A9A070 /* NSString+CharArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CharArray.m"; sourceTree = "<group>"; };
+		9093E503174408BB00BC18E3 /* Divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Divider.png; sourceTree = "<group>"; };
+		9093E5051744133800BC18E3 /* Divider2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Divider2.png; sourceTree = "<group>"; };
+		9093E50717442A9200BC18E3 /* jaggedEdge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jaggedEdge.png; sourceTree = "<group>"; };
+		9093E50817442A9200BC18E3 /* jaggedEdgeBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jaggedEdgeBottom.png; sourceTree = "<group>"; };
 		9094250215D86E2500CB052D /* arcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arcLogo.png; sourceTree = "<group>"; };
 		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
@@ -671,6 +682,8 @@
 				90CDE0E817028AFF00134AF2 /* menuBillingIcon.png */,
 				90CDE0E917028AFF00134AF2 /* menuProfileIcon.png */,
 				90CDE0EA17028B0000134AF2 /* menuShareIcon.png */,
+				9093E50717442A9200BC18E3 /* jaggedEdge.png */,
+				9093E50817442A9200BC18E3 /* jaggedEdgeBottom.png */,
 				90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */,
 				908CED8317024213006CC48A /* MFSideMenu.h */,
 				908CED8417024214006CC48A /* MFSideMenu.m */,
@@ -678,6 +691,8 @@
 				908CED871702427F006CC48A /* UINavigationController+MFSideMenu.m */,
 				908C0CAB1703F139003E004E /* SupportViewController.h */,
 				908C0CAC1703F139003E004E /* SupportViewController.m */,
+				9093E503174408BB00BC18E3 /* Divider.png */,
+				9093E5051744133800BC18E3 /* Divider2.png */,
 				90CDE0E11702869300134AF2 /* LeftViewController.h */,
 				90CDE0E21702869300134AF2 /* LeftViewController.m */,
 				90CDE0E41702869C00134AF2 /* RightViewController.h */,
@@ -694,6 +709,8 @@
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
 				908BC0C31701FD1000852B64 /* junkieLogo.png */,
 				908BC0C41701FD1000852B64 /* newBackground.png */,
+				90748A031740364300541C68 /* ISO8601DateFormatter.h */,
+				90748A041740364300541C68 /* ISO8601DateFormatter.m */,
 				908B024F169E688B0039EB97 /* finger.png */,
 				90893F9B169DF24F00B08240 /* greyback.png */,
 				90850DD5168E557B00D91F15 /* camera.png */,
@@ -1105,6 +1122,10 @@
 				908CAD511704D3C900F34A41 /* balance.png in Resources */,
 				907A761117060CF200E8A15C /* divide.png in Resources */,
 				908CB605170D0493007DA244 /* ArcMainStoryboardiPhone4.storyboard in Resources */,
+				9093E504174408BB00BC18E3 /* Divider.png in Resources */,
+				9093E5061744133800BC18E3 /* Divider2.png in Resources */,
+				9093E50917442A9200BC18E3 /* jaggedEdge.png in Resources */,
+				9093E50A17442A9200BC18E3 /* jaggedEdgeBottom.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1227,6 +1248,7 @@
 				909A500B17244BF100D70811 /* GuestCardObject.m in Sources */,
 				909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */,
 				909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */,
+				90748A051740364300541C68 /* ISO8601DateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

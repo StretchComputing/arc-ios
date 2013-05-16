@@ -145,9 +145,14 @@
         
         self.splitMyPaymentTextField.keyboardAppearance = UIKeyboardTypeDecimalPad;
         
+        
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.5;
+        self.topLineView.layer.shadowOpacity = 0.2;
+        
+        //self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        //self.topLineView.layer.shadowRadius = 1;
+        //self.topLineView.layer.shadowOpacity = 0.5;
         
         self.splitTopLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.splitTopLineView.layer.shadowRadius = 1;
@@ -175,6 +180,9 @@
         self.payBillButton.textColor = [UIColor whiteColor];
         self.payBillButton.text = @"Pay Bill!";
         self.payBillButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.payBillButton.cornerRadius = 3.0;
+        self.payBillButton.borderColor = [UIColor darkGrayColor];
+        self.payBillButton.borderWidth = 0.5;
         
         
         self.alreadyPaidButton = [UIButton buttonWithType:UIButtonTypeCustom];
