@@ -170,8 +170,11 @@
         }
   
         //Deafult tip to 20%
-        self.tipSegment.selectedSegmentIndex = 1;
-        [self segmentSelect];
+        if (self.myInvoice.serviceCharge == 0.0) {
+            self.tipSegment.selectedSegmentIndex = 1;
+            [self segmentSelect];
+        }
+        
         
     }
     @catch (NSException *e) {

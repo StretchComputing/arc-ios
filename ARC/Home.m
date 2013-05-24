@@ -115,6 +115,7 @@
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
+            mainDelegate.logout = @"false";
             [self.navigationController dismissModalViewControllerAnimated:NO];
             
         }

@@ -203,6 +203,8 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         //Make the call to the server
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];
         
+        NSLog(@"Request String: %@", requestString);
+        
         NSString *tmpUrl = [baseUrl stringByAppendingFormat:@"/applications/%@/clientLogs", applicationId];
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];

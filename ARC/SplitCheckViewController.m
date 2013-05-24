@@ -71,17 +71,23 @@
         }
         
         
-        if (!self.didSetTipDefault) {
-            //Default Tip to 20%
-            self.dollarTipSegment.selectedSegmentIndex = 1;
-            [self dollarTipSegmentSelect:self.dollarTipSegment];
-            self.percentTipSegment.selectedSegmentIndex = 1;
-            [self percentTipSegmentSelect];
+        if (self.myInvoice.serviceCharge == 0.0) {
+           
+            if (!self.didSetTipDefault) {
+                //Default Tip to 20%
+                self.dollarTipSegment.selectedSegmentIndex = 1;
+                [self dollarTipSegmentSelect:self.dollarTipSegment];
+                self.percentTipSegment.selectedSegmentIndex = 1;
+                [self percentTipSegmentSelect];
+                
+                self.itemTipSegment.selectedSegmentIndex = 1;
+                [self itemTipSegmentSelect];
+                self.didSetTipDefault = YES;
+            }
             
-            self.itemTipSegment.selectedSegmentIndex = 1;
-            [self itemTipSegmentSelect];
-            self.didSetTipDefault = YES;
         }
+        
+        
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"SplitCheckViewController.viewWillAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];

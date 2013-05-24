@@ -17,6 +17,11 @@
 		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
 		906D108A160FC87100561C31 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D1089160FC87100561C31 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9079FC15174C298A00AE5FAA /* helpImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9079FC12174C298A00AE5FAA /* helpImage1.png */; };
+		9079FC16174C298A00AE5FAA /* helpImage3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9079FC13174C298A00AE5FAA /* helpImage3.png */; };
+		9079FC17174C298A00AE5FAA /* helpImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9079FC14174C298A00AE5FAA /* helpImage2.png */; };
+		9079FC1A174C2A0300AE5FAA /* InitHelpPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079FC19174C2A0300AE5FAA /* InitHelpPageViewController.m */; };
+		9079FC1D174C2A3300AE5FAA /* ArcIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079FC1C174C2A3300AE5FAA /* ArcIdentifier.m */; };
 		907A404515A8CFE900090452 /* AccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A404415A8CFE900090452 /* AccessData.m */; };
 		907A405A15A8D9C400090452 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A405915A8D9C400090452 /* CoreData.framework */; };
 		907A406C15AA072300090452 /* ViewCreditCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A406B15AA072200090452 /* ViewCreditCards.m */; };
@@ -190,6 +195,13 @@
 		906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone5.storyboard; sourceTree = "<group>"; };
 		906D1089160FC87100561C31 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		906D108C160FE03600561C31 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		9079FC12174C298A00AE5FAA /* helpImage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpImage1.png; sourceTree = "<group>"; };
+		9079FC13174C298A00AE5FAA /* helpImage3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpImage3.png; sourceTree = "<group>"; };
+		9079FC14174C298A00AE5FAA /* helpImage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpImage2.png; sourceTree = "<group>"; };
+		9079FC18174C2A0300AE5FAA /* InitHelpPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitHelpPageViewController.h; sourceTree = "<group>"; };
+		9079FC19174C2A0300AE5FAA /* InitHelpPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitHelpPageViewController.m; sourceTree = "<group>"; };
+		9079FC1B174C2A3300AE5FAA /* ArcIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcIdentifier.h; sourceTree = "<group>"; };
+		9079FC1C174C2A3300AE5FAA /* ArcIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArcIdentifier.m; sourceTree = "<group>"; };
 		907A404315A8CFE900090452 /* AccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessData.h; sourceTree = "<group>"; };
 		907A404415A8CFE900090452 /* AccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessData.m; sourceTree = "<group>"; };
 		907A405915A8D9C400090452 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -575,6 +587,13 @@
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				909046BA16EA78F400517A14 /* lock.png */,
 				909046E116ECC80100517A14 /* silverware.png */,
+				9079FC12174C298A00AE5FAA /* helpImage1.png */,
+				9079FC13174C298A00AE5FAA /* helpImage3.png */,
+				9079FC14174C298A00AE5FAA /* helpImage2.png */,
+				9079FC1B174C2A3300AE5FAA /* ArcIdentifier.h */,
+				9079FC1C174C2A3300AE5FAA /* ArcIdentifier.m */,
+				9079FC18174C2A0300AE5FAA /* InitHelpPageViewController.h */,
+				9079FC19174C2A0300AE5FAA /* InitHelpPageViewController.m */,
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
 				908B024F169E688B0039EB97 /* finger.png */,
 				90893F9B169DF24F00B08240 /* greyback.png */,
@@ -946,6 +965,9 @@
 				908B0250169E688B0039EB97 /* finger.png in Resources */,
 				909046BB16EA78F400517A14 /* lock.png in Resources */,
 				909046E216ECC80100517A14 /* silverware.png in Resources */,
+				9079FC15174C298A00AE5FAA /* helpImage1.png in Resources */,
+				9079FC16174C298A00AE5FAA /* helpImage3.png in Resources */,
+				9079FC17174C298A00AE5FAA /* helpImage2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1049,6 +1071,8 @@
 				9089CB2616C6B6EB00DA11B0 /* NumberLineButton.m in Sources */,
 				90E5E5C616D706740031B17E /* CustomerServiceViewController.m in Sources */,
 				90E5E5CB16D710520031B17E /* LoadingViewController.m in Sources */,
+				9079FC1A174C2A0300AE5FAA /* InitHelpPageViewController.m in Sources */,
+				9079FC1D174C2A3300AE5FAA /* ArcIdentifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

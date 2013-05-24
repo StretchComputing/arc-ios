@@ -7,13 +7,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "ARC/ArcClient.m"
-         timestampString = "389464153.883345"
+         filePath = "ARC/rSkybox.m"
+         timestampString = "391090602.818434"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "478"
-         endingLineNumber = "478"
-         landmarkName = "-setServer:"
+         startingLineNumber = "208"
+         endingLineNumber = "208"
+         landmarkName = "+sendClientLog:logMessage:logLevel:exception:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
