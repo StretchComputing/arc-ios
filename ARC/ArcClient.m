@@ -1913,7 +1913,6 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
             if ([guestToken length] > 0) {
                 //Guest
-                sleep(5);
                 NSString *stringToEncode = [@"customer:" stringByAppendingString:guestToken];
                 NSString *authentication = [self encodeBase64:stringToEncode];
                 
