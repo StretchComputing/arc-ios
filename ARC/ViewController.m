@@ -70,9 +70,12 @@
 }
 
 -(void)noUsersFound:(NSNotification *)notification{
-    [self performSegueWithIdentifier:@"goRegister" sender:self];
+   // [self performSegueWithIdentifier:@"goRegister" sender:self];
 }
 
+-(void)newUser{
+    [self performSegueWithIdentifier:@"goRegister" sender:self];
+}
 -(void)selectPassword{
     [self.password becomeFirstResponder];
 }
@@ -82,7 +85,7 @@
     @try {
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
-        self.loadingViewController.view.frame = CGRectMake(0, 44, 320, self.view.frame.size.height);
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         self.loadingViewController.view.hidden = YES;
         [self.view addSubview:self.loadingViewController.view];
         
@@ -158,7 +161,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -312,12 +315,16 @@
             ArcClient *tmp = [[ArcClient alloc] init];
             [tmp updatePushToken];
             
-            [self performSegueWithIdentifier: @"signIn" sender: self];
+            //[self performSegueWithIdentifier: @"signIn" sender: self];
             
             [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didJustLogin"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
            // [self performSelector:@selector(checkPayment) withObject:nil afterDelay:1.5];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully signed in." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            [self.navigationController popViewControllerAnimated:YES];
             
             //Do the next thing (go home?)
         } else if([status isEqualToString:@"error"]){

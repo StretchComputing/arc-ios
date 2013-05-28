@@ -45,6 +45,8 @@
 
     @try {
         
+        
+        
         [self.myScrollView setContentOffset:self.scrollViewOffset animated:NO];
         
         
@@ -88,7 +90,10 @@
         
         if (self.fromCreditCard) {
             self.fromCreditCard = NO;
-            [self goHome];
+            //[self goHome];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully created an account!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         
         
@@ -177,7 +182,9 @@
         [self.loginButton setTitle:@"Login"];
         
         
+        
       
+    
        
 
         

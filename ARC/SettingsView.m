@@ -15,6 +15,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import <Social/Social.h>
+#import "ViewController.h"
+#import "ArcIdentifier.h"
 
 @interface SettingsView ()
 
@@ -37,11 +39,21 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    self.myProfileLabel.text = @"Sign In!";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    
+    [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:2] animated:NO];
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
+
+        self.myProfileLabel.text = @"Log Out";
+
+    }else{
+        self.myProfileLabel.text = @"Sign In!";
+
+    }
     
     
     @try {
@@ -208,9 +220,35 @@
             
             }else if (row == 2){
                 //logout
-                ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                mainDelegate.logout = @"true";
-                [self.navigationController dismissModalViewControllerAnimated:NO];
+                if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
+                    
+                    //get a new Guest Token if dont already have it
+                    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"guestToken"] length] == 0) {
+                        NSString *identifier = [ArcIdentifier getArcIdentifier];
+                        
+                        
+                        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+                        NSDictionary *loginDict = [[NSDictionary alloc] init];
+                        [ tempDictionary setObject:identifier forKey:@"userName"];
+                        [ tempDictionary setObject:identifier forKey:@"password"];
+                        
+                        loginDict = tempDictionary;
+                        ArcClient *client = [[ArcClient alloc] init];
+                        [client getGuestToken:loginDict];
+                        
+                    }
+                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                    mainDelegate.logout = @"true";
+                    [self.navigationController dismissModalViewControllerAnimated:NO];
+                    
+                }else{
+                    
+                    ViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInPage"];
+                    [self.navigationController pushViewController:tmp animated:YES];
+                    
+                    
+                }
+                
             }
           
         }

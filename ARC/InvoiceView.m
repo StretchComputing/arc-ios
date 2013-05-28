@@ -18,6 +18,7 @@
 #import "RegisterDwollaView.h"
 #import "ArcClient.h"
 #import "ArcUtility.h"
+#import "AddCreditCard.h"
 
 @interface InvoiceView ()
 
@@ -521,108 +522,119 @@
         
         [self.tipText resignFirstResponder];
         
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
-        
-        if ([self.creditCards count] == 0) {
-            haveCards = NO;
-        }else{
-            haveCards = YES;
-        }
-        
-        NSString *token;
-        
-        @try {
-            token = [DwollaAPI getAccessToken];
-        }
-        @catch (NSException *exception) {
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] == 0) {
+
+            //Guest
             
-        }
-       
-        if ([token length] > 0) {
-            haveDwolla = YES;
-        }else{
-            haveDwolla = NO;
-        }
-        
-        if (haveDwolla || haveCards) {
+            AddCreditCard *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"addCreditCard"];
+            [self.navigationController pushViewController:tmp animated:YES];
             
-            NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
-            BOOL didRemove = NO;
-            for (int i = 0; i < [tmpCards count]; i++) {
-                
-                CreditCard *tmp = [tmpCards objectAtIndex:i];
-                
-                if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
-                    [tmpCards removeObjectAtIndex:i];
-                    i--;
-                    didRemove = YES;
-                }
+        }else{
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+            
+            if ([self.creditCards count] == 0) {
+                haveCards = NO;
+            }else{
+                haveCards = YES;
+            }
+            
+            NSString *token;
+            
+            @try {
+                token = [DwollaAPI getAccessToken];
+            }
+            @catch (NSException *exception) {
                 
             }
-            self.creditCards = [NSArray arrayWithArray:tmpCards];
             
+            if ([token length] > 0) {
+                haveDwolla = YES;
+            }else{
+                haveDwolla = NO;
+            }
             
-            
-            if ([self.creditCards count] > 0) {
+            if (haveDwolla || haveCards) {
                 
-                self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-                
-                int x = 0;
-                if (haveDwolla) {
-                    x++;
-                    [self.actionSheet addButtonWithTitle:@"Dwolla"];
-                }
-                
-                for (int i = 0; i < [self.creditCards count]; i++) {
-                    CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                    [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
+                BOOL didRemove = NO;
+                for (int i = 0; i < [tmpCards count]; i++) {
+                    
+                    CreditCard *tmp = [tmpCards objectAtIndex:i];
+                    
+                    if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
+                        [tmpCards removeObjectAtIndex:i];
+                        i--;
+                        didRemove = YES;
+                    }
                     
                 }
-                [self.actionSheet addButtonWithTitle:@"Cancel"];
-                self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+                self.creditCards = [NSArray arrayWithArray:tmpCards];
                 
-            }else {
                 
-                if (haveDwolla) {
-                      self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                
+                if ([self.creditCards count] > 0) {
+                    
+                    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                    
+                    int x = 0;
+                    if (haveDwolla) {
+                        x++;
+                        [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                    }
+                    
+                    for (int i = 0; i < [self.creditCards count]; i++) {
+                        CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                        
+                    }
+                    [self.actionSheet addButtonWithTitle:@"Cancel"];
+                    self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+                    
+                }else {
+                    
+                    if (haveDwolla) {
+                        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                    }else{
+                        
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Accepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                        
+                        didRemove = NO;
+                        showSheet = NO;
+                        [self noPaymentSources];
+                        
+                        
+                    }
+                    
+                }
+                
+                
+                self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+                
+                if (didRemove) {
+                    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    //[alert show];
+                    
+                    [self showTextOverlay];
+                    [self.actionSheet showInView:self.view];
+                    
                 }else{
                     
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Accepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                    [alert show];
-                    
-                    didRemove = NO;
-                    showSheet = NO;
-                    [self noPaymentSources];
-            
+                    if (showSheet) {
+                        [self.actionSheet showInView:self.view];
+                        
+                    }
                     
                 }
-              
-            }
-            
-            
-            self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-            
-            if (didRemove) {
-                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                //[alert show];
-                
-                [self showTextOverlay];
-                [self.actionSheet showInView:self.view];
                 
             }else{
-                
-                if (showSheet) {
-                    [self.actionSheet showInView:self.view];
-
-                }
-                
+                [self noPaymentSources];
             }
             
-        }else{
-            [self noPaymentSources];
+            
         }
-               
         
     }
     @catch (NSException *e) {

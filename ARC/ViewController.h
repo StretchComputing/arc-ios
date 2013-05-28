@@ -31,5 +31,6 @@
 @property BOOL autoSignIn;
 -(IBAction)signIn;
 -(IBAction)forgotPassword;
+-(IBAction)newUser;
 
 @end

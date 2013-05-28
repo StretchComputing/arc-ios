@@ -262,6 +262,10 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
 
 + (void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData{
     
+    //TODO - Uncomment
+    
+    return;
+    
     @try {
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];
