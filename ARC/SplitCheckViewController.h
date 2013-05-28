@@ -18,6 +18,9 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
+@property double payRemainingAmount;
+@property BOOL isPayRemaining;
+
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
 @property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
 

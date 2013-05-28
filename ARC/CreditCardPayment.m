@@ -411,6 +411,8 @@
         
     }
     @catch (NSException *e) {
+        NSLog(@"E: %@", e);
+        
         self.errorLabel.text = @"*Error retreiving credit card.";
 
         [rSkybox sendClientLog:@"CreditCardPayment.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

@@ -216,11 +216,12 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        //-- TODO - Uncomment
+        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         
-        if (connection) {
+        //if (connection) {
             
-        }
+        //}
         //NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object

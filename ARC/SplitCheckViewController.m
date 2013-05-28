@@ -850,6 +850,11 @@
                     yourBaseAmount = [NSString stringWithFormat:@"%.2f", basePayment];
                 }
                 
+                NSLog(@"Your Base Amount: %@", yourBaseAmount);
+                
+                self.isPayRemaining = YES;
+                self.payRemainingAmount = basePayment;
+                
                 if(self.dollarView.hidden == NO) {
                     self.dollarYourPaymentText.text = yourBaseAmount;
                     double yourPayment = [self.dollarTipText.text doubleValue] + [self.dollarYourPaymentText.text doubleValue];
@@ -889,10 +894,19 @@
             
             double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
             double basePayment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+                        
+            NSString *tmpString = [self.percentYourPaymentDollarAmount.text stringByReplacingOccurrencesOfString:@"$" withString:@""];
+            tmpString = [tmpString stringByReplacingOccurrencesOfString:@")" withString:@""];
+            tmpString = [tmpString stringByReplacingOccurrencesOfString:@"(" withString:@""];
+            
+            basePayment = [tmpString doubleValue];
+            
             if (basePayment < 0.0) {
                 basePayment = 0.0;
             }
             
+            NSLog(@"Base Payment: %f", basePayment);
+
             double roundDown = [ArcUtility roundDownToNearestPenny:basePayment];
             
             NSString *roundDownString = [NSString stringWithFormat:@"%.2f", roundDown];
@@ -902,6 +916,9 @@
             
             double amountDueForSplit = [amountDueForSplitString doubleValue];
 
+            
+                
+            
             if (roundDown >  amountDueForSplit && basePayment != 0.0) {
                 
                 didAlert = YES;
@@ -909,6 +926,9 @@
                 
                 [alert show];
             }
+            
+            
+           
             
         }else if (self.dollarView.hidden == NO){
             
@@ -944,6 +964,7 @@
             }
         }
         
+        
         if (!didAlert) {
             [self.dollarTipText resignFirstResponder];
             
@@ -955,6 +976,7 @@
             BOOL showSheet = YES;
             [self readyInvoiceForPayment];
             double totalPay = self.myInvoice.basePaymentAmount + self.myInvoice.gratuity;
+            
             
             if (totalPay <= 0) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Amount" message:@"You must pay more than $0.00 to continue" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -1428,6 +1450,9 @@
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
         double basePayment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+        
+       // basePayment = [self.percentYourPaymentDollarAmount.text doubleValue];
+
         if (basePayment < 0.0) {
             basePayment = 0.0;
         }
@@ -1480,6 +1505,8 @@
         
         double percentYourPayment = [self.percentYourPaymentText.text doubleValue]/100.0;
         double payment = [ArcUtility roundUpToNearestPenny:(percentYourPayment * [self.myInvoice amountDue])];
+        
+        
         double baseTipPayment = percentYourPayment * [self.myInvoice subtotal];
         
         double tipAmount = [ArcUtility roundUpToNearestPenny:(tipPercent * baseTipPayment)];

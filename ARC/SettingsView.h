@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <Accounts/Accounts.h>
 #import "ArcClient.h"
+#import "CorbelBoldLabel.h"
+
 
 @interface SettingsView : UITableViewController
 
+@property (strong, nonatomic) IBOutlet CorbelBoldLabel *myProfileLabel;
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;
 @property BOOL creditCardAdded;

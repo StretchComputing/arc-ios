@@ -745,7 +745,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox startThreshold:@"sendServerPing"];
         self.pingStartTime = [NSDate date];
         [request setTimeoutInterval:5];
-        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+        //self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.sendServerPings" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -783,7 +783,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        // NSLog(@"ReturnString: %@", returnString);
+         NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -818,6 +818,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             }
             notificationType = @"signInNotification";
         } else if(api == GetGuestToken) {
+            
+            NSLog(@"ReturnStringGuest: %@", returnString);
             
             if (response && httpSuccess) {
                 responseInfo = [self getGuestTokenResponse:response];
@@ -1037,7 +1039,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             if(error.code == -1003){
                 //try again
                 postNotification = NO;
-                if (self.numberRegisterTries > 6) {
+                if (self.numberRegisterTries > 5) {
                     
                     NSString *status = @"error";
                     int errorCode = MAX_RETRIES_EXCEEDED;
@@ -1899,6 +1901,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 -(NSString *) authHeader {
     @try {
         
+        NSLog(@"GEtting Auth Header For: %@", [self apiToString]);
+        
         NSString *customerToken = [self customerToken];
         NSString *guestToken = [self guestToken];
         
@@ -1915,6 +1919,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
             if ([guestToken length] > 0) {
                 //Guest
+                NSLog(@"Guest Token: %@", guestToken);
+                
                 NSString *stringToEncode = [@"customer:" stringByAppendingString:guestToken];
                 NSString *authentication = [self encodeBase64:stringToEncode];
                 
@@ -1934,7 +1940,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 
                 loginDict = tempDictionary;
                 ArcClient *client = [[ArcClient alloc] init];
-                [client getGuestToken:loginDict];
+                //[client getGuestToken:loginDict];
                 
                 
                 NSException *exception = [NSException exceptionWithName:@"No Guest Token" reason:@"Could not find guest token" userInfo:nil];

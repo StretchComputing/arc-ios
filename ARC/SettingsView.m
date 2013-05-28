@@ -36,11 +36,17 @@
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    self.myProfileLabel.text = @"Sign In!";
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     
     
     
     @try {
+        
+       
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
         
@@ -469,5 +475,9 @@
 }
 
 - (IBAction)changeServer {
+}
+- (void)viewDidUnload {
+    [self setMyProfileLabel:nil];
+    [super viewDidUnload];
 }
 @end
