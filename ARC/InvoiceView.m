@@ -18,7 +18,7 @@
 #import "RegisterDwollaView.h"
 #import "ArcClient.h"
 #import "ArcUtility.h"
-#import "AddCreditCard.h"
+#import "AddCardGuest.h"
 
 @interface InvoiceView ()
 
@@ -526,7 +526,10 @@
 
             //Guest
             
-            AddCreditCard *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"addCreditCard"];
+            AddCardGuest *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"addCardGuest"];
+            double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
+            [self.myInvoice setBasePaymentAmount:basePayment];
+            tmp.myInvoice = self.myInvoice;
             [self.navigationController pushViewController:tmp animated:YES];
             
         }else{
@@ -780,6 +783,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {
         
+        
         double tipAmount = 0.0f;
         if (self.tipText.text != nil) {
             tipAmount = [self.tipText.text doubleValue];
@@ -811,6 +815,8 @@
             }
 
         }
+        
+
         
         if ([[segue identifier] isEqualToString:@"goPayDwolla"]) {
             
@@ -854,6 +860,7 @@
             
             controller.mySplitPercent = percentPaid;
             
+      
            
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
             

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
+		904D1EB017550B0600D0E32F /* AddCardGuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 904D1EAF17550B0600D0E32F /* AddCardGuest.m */; };
 		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
 		906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */; };
 		906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */; };
@@ -77,6 +78,7 @@
 		9094250315D86E2500CB052D /* arcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250215D86E2500CB052D /* arcLogo.png */; };
 		9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */; };
 		9094250915D8729400CB052D /* untitledLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9094250815D8729400CB052D /* untitledLogo.png */; };
+		909455521755A13A0058BFB7 /* fbButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 909455511755A13A0058BFB7 /* fbButton.png */; };
 		909456B115FEBF690059E65C /* CorbelInputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 909456B015FEBF680059E65C /* CorbelInputTextField.m */; };
 		909456B515FEC0710059E65C /* CorbelTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909456B415FEC0710059E65C /* CorbelTextView.m */; };
 		9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9095947A15EA652600F19DD2 /* Twitter.framework */; };
@@ -182,6 +184,8 @@
 /* Begin PBXFileReference section */
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
+		904D1EAE17550B0600D0E32F /* AddCardGuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardGuest.h; sourceTree = "<group>"; };
+		904D1EAF17550B0600D0E32F /* AddCardGuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardGuest.m; sourceTree = "<group>"; };
 		905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CHATOKYO_0.TTF; sourceTree = "<group>"; };
 		906C80F015FD582F0012AC9D /* CorbelSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelSegmentedControl.h; sourceTree = "<group>"; };
 		906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelSegmentedControl.m; sourceTree = "<group>"; };
@@ -282,6 +286,7 @@
 		9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentSegueNoAnimation.h; sourceTree = "<group>"; };
 		9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentSegueNoAnimation.m; sourceTree = "<group>"; };
 		9094250815D8729400CB052D /* untitledLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = untitledLogo.png; sourceTree = "<group>"; };
+		909455511755A13A0058BFB7 /* fbButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbButton.png; sourceTree = "<group>"; };
 		909456AF15FEBF680059E65C /* CorbelInputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelInputTextField.h; sourceTree = "<group>"; };
 		909456B015FEBF680059E65C /* CorbelInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelInputTextField.m; sourceTree = "<group>"; };
 		909456B315FEC0710059E65C /* CorbelTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTextView.h; sourceTree = "<group>"; };
@@ -461,6 +466,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE9DFA6162BB48300115E97 /* libCrashReporter-iphoneos.a in Frameworks */,
 				908D966E16E3A2C7002CADC1 /* CoreLocation.framework in Frameworks */,
 				908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */,
 				90E5E5C816D70A010031B17E /* CoreAudio.framework in Frameworks */,
@@ -476,7 +482,6 @@
 				908AA7A71668632A0020C1FB /* AddressBook.framework in Frameworks */,
 				908AA7A81668632A0020C1FB /* AddressBookUI.framework in Frameworks */,
 				908D369F1631ED3F00557E8B /* MediaPlayer.framework in Frameworks */,
-				9FE9DFA6162BB48300115E97 /* libCrashReporter-iphoneos.a in Frameworks */,
 				906D108D160FE03600561C31 /* Accounts.framework in Frameworks */,
 				906D108A160FC87100561C31 /* Social.framework in Frameworks */,
 				9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */,
@@ -657,6 +662,8 @@
 			children = (
 				9081521315E7D10900211C37 /* Reachability.m */,
 				9081521415E7D10900211C37 /* Reachability.h */,
+				904D1EAE17550B0600D0E32F /* AddCardGuest.h */,
+				904D1EAF17550B0600D0E32F /* AddCardGuest.m */,
 				9089CB2416C6B6E700DA11B0 /* NumberLineButton.h */,
 				9089CB2516C6B6E900DA11B0 /* NumberLineButton.m */,
 				90915A1E160952B100A9A070 /* NSString+CharArray.h */,
@@ -705,6 +712,7 @@
 				9094250615D870AB00CB052D /* PresentSegueNoAnimation.m */,
 				90BFD08E1597928D00F5285E /* HomeNavigationController.h */,
 				90BFD08F1597928D00F5285E /* HomeNavigationController.m */,
+				909455511755A13A0058BFB7 /* fbButton.png */,
 				90FBDA5D159A63CB0051609A /* SettingsView.h */,
 				90FBDA5E159A63CB0051609A /* SettingsView.m */,
 				90FBDA60159A63D50051609A /* HelpView.h */,
@@ -968,6 +976,7 @@
 				9079FC15174C298A00AE5FAA /* helpImage1.png in Resources */,
 				9079FC16174C298A00AE5FAA /* helpImage3.png in Resources */,
 				9079FC17174C298A00AE5FAA /* helpImage2.png in Resources */,
+				909455521755A13A0058BFB7 /* fbButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1073,6 +1082,7 @@
 				90E5E5CB16D710520031B17E /* LoadingViewController.m in Sources */,
 				9079FC1A174C2A0300AE5FAA /* InitHelpPageViewController.m in Sources */,
 				9079FC1D174C2A3300AE5FAA /* ArcIdentifier.m in Sources */,
+				904D1EB017550B0600D0E32F /* AddCardGuest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,7 +51,7 @@
         self.myProfileLabel.text = @"Log Out";
 
     }else{
-        self.myProfileLabel.text = @"Sign In!";
+        self.myProfileLabel.text = @"Sign In/Create Account";
 
     }
     

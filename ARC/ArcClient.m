@@ -140,6 +140,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
+        NSLog(@"RequestString: %@", requestString);
+        
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"CreateCusotmer"];
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -954,7 +956,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     @try {
         [rSkybox endThreshold:@"ErrorEncountered" logMessage:@"NA" maxValue:0.00];
         
-        //NSLog(@"Error: %@", error);
+        NSLog(@"Error: %@", error);
         //NSLog(@"Code: %i", error.code);
         //NSLog(@"Description: %@", error.localizedDescription);
         
@@ -1387,6 +1389,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     @try {
         
         
+        NSLog(@"TicektId: %@", self.invoiceTicketId);
+        
         if ([self.invoiceTicketId length] == 0) {
             //first time
             
@@ -1456,7 +1460,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                     
                     self.numberGetInvoiceTries++;
                     
-                    if (self.numberGetInvoiceTries <= [self.retryTimesInvoice count]) {
+                    if (self.numberGetInvoiceTries < [self.retryTimesInvoice count]) {
                         
                         int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
                         
@@ -1466,7 +1470,14 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                         
                     }else{
                         NSString *status = @"error";
-                        int errorCode = [self getErrorCode:response];
+                        int errorCode= 999;
+                        @try {
+                            errorCode = [self getErrorCode:response];
+                        }
+                        @catch (NSException *exception) {
+                            
+                        }
+                        
                         responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
                         successful = FALSE;
                         

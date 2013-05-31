@@ -18,6 +18,8 @@
 #import "PrivacyTermsViewController.h"
 #import "CorbelBarButtonItem.h"
 #import <Social/Social.h>
+#import <Accounts/Accounts.h>
+
 
 @interface RegisterViewNew ()
 

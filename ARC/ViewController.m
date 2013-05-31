@@ -15,6 +15,7 @@
 #import "rSkybox.h"
 #import "LucidaBoldLabel.h"
 #import "CorbelTextField.h"
+#import "SBJson.h"
 
 @interface ViewController ()
 
@@ -30,8 +31,24 @@
 
 
 }
+
+-(void)keyboardWillShow:(id)sender{
+    
+    self.signInButton.hidden = NO;
+}
+
+-(void)keyboardWillHide:(id)sender{
+    self.signInButton.hidden = YES;
+}
 -(void)viewWillAppear:(BOOL)animated{
     @try {
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerComplete:) name:@"registerNotification" object:nil];
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(keyboardWillShow:) name: UIKeyboardWillShowNotification object:nil];
+        [nc addObserver:self selector:@selector(keyboardWillHide:) name: UIKeyboardWillHideNotification object:nil];
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotification" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noUsersFound:) name:@"noUsersFound" object:nil];
@@ -39,7 +56,7 @@
         
         [self.myTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO];
         self.errorLabel.text = @"";
-        [self.username becomeFirstResponder];
+       // [self.username becomeFirstResponder];
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
@@ -58,7 +75,21 @@
             [alert show];
         }
         
-  
+        if(NSClassFromString(@"UIRefreshControl")) {
+            self.isIos6 = YES;
+        }else{
+            self.isIos6 = NO;
+        }
+        
+        if (self.isIos6) {
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                self.facebookButton.hidden = NO;
+            }else{
+                self.facebookButton.hidden = YES;
+            }
+        }else{
+            self.facebookButton.hidden = YES;
+        }
 
 
     }
@@ -77,7 +108,9 @@
     [self performSegueWithIdentifier:@"goRegister" sender:self];
 }
 -(void)selectPassword{
-    [self.password becomeFirstResponder];
+    //[self.password becomeFirstResponder];
+    [self.username resignFirstResponder];
+    [self.password resignFirstResponder];
 }
 
 - (void)viewDidLoad
@@ -107,7 +140,7 @@
         self.username.autocorrectionType = UITextAutocorrectionTypeNo;
         self.username.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.username.font = [UIFont fontWithName:@"LucidaGrande" size:14];
-        self.username.returnKeyType = UIReturnKeyNext;
+        self.username.returnKeyType = UIReturnKeyDone;
         self.username.keyboardType = UIKeyboardTypeEmailAddress;
         [self.username addTarget:self action:@selector(selectPassword) forControlEvents:UIControlEventEditingDidEndOnExit];
         
@@ -116,7 +149,7 @@
         self.password.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.password.secureTextEntry = YES;
         self.password.font = [UIFont fontWithName:@"LucidaGrande" size:14];
-        self.password.returnKeyType = UIReturnKeyGo;
+        self.password.returnKeyType = UIReturnKeyDone;
         self.password.delegate = self;
        // [self.password addTarget:self action:@selector(signIn) forControlEvents:UIControlEventEditingDidEndOnExit];
         
@@ -147,7 +180,9 @@
 
 
 - (BOOL)textFieldShouldReturn:(UITextField*)textField {
-    [self performSelector:@selector(runSignIn)];
+    //[self performSelector:@selector(runSignIn)];
+    [self.username resignFirstResponder];
+    [self.password resignFirstResponder];
     return NO;
 }
 
@@ -227,7 +262,7 @@
                 cell.accessibilityLabel = @"pass word";
             }
             
-            [self.username becomeFirstResponder];
+           // [self.username becomeFirstResponder];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -382,4 +417,211 @@
 -(void)forgotPassword{
     [self performSegueWithIdentifier:@"forgotPassword" sender:self];
 }
+
+
+- (IBAction)facebookAction {
+    
+    self.store = [[ACAccountStore alloc] init];
+
+    ACAccountType *accType = [self.store accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    
+    NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                    @"515025721859862", ACFacebookAppIdKey,
+                                    [NSArray arrayWithObjects:@"email", nil], ACFacebookPermissionsKey, ACFacebookAudienceFriends, ACFacebookAudienceKey, nil];
+    
+    [self.store requestAccessToAccountsWithType:accType options:options completion:^(BOOL granted, NSError *error) {
+        
+        if (granted && error == nil) {
+            // NSLog(@"Granted");
+            NSURL* URL = [NSURL URLWithString:@"https://graph.facebook.com/me"];
+            
+            SLRequest* request = [SLRequest requestForServiceType:SLServiceTypeFacebook
+                                                    requestMethod:SLRequestMethodGET
+                                                              URL:URL
+                                                       parameters:nil];
+    
+            NSArray *accounts = [self.store accountsWithAccountType:accType];
+            ACAccount *facebookAccount = [accounts objectAtIndex:0];
+        
+            [request setAccount:facebookAccount]; // Authentication - Requires user context
+            
+            [request performRequestWithHandler:^(NSData* responseData, NSHTTPURLResponse* urlResponse, NSError* error) {
+                // parse the response or handle the error
+                
+                /*
+                 sample response -
+                 
+                 {
+                 "id": "100004384750110",
+                 "name": "Nick Wroble",
+                 "first_name": "Nick",
+                 "last_name": "Wroble",
+                 "link": "http://www.facebook.com/nick.wroble.9",
+                 "username": "nick.wroble.9",
+                 "birthday": "08/01/1984",
+                 "gender": "male",
+                 "email": "nick@rteam.com",
+                 "timezone": -6,
+                 "locale": "en_US",
+                 "verified": true,
+                 "updated_time": "2012-12-03T01:30:43+0000"
+                 }
+                 
+                 */
+                NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
+                if (output) {
+                    
+                }
+                NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+                NSLog(@"Output: %@", output);
+                NSLog(@"Error: %@", error);
+                NSLog(@"Output: %@", dataString);
+                
+                if ([output isEqualToString:@"HTTP response status: 200"]) {
+                    [self facebookSuccess:dataString];
+                }
+                
+                if ([output isEqualToString:@"HTTP response status: 400"]) {
+                    
+                    NSArray *accounts = [self.store accountsWithAccountType:accType];
+                    ACAccount *facebookAccount = [accounts objectAtIndex:0];
+                    
+                    [self.store renewCredentialsForAccount:facebookAccount completion:^(ACAccountCredentialRenewResult renewResult, NSError *error) {
+                        
+                        if (renewResult == ACAccountCredentialRenewResultRenewed ) {
+                            [self facebookAction];
+                        }
+                    }];
+                    
+                }
+                
+                
+                
+            }];
+            
+            
+        } else {
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                
+                
+            });
+            
+       
+        }
+    }];
+    
+    
+    
+}
+
+-(void)facebookSuccess:(NSString *)output{
+    
+
+    NSLog(@"OutPut: %@", output);
+    
+    
+    SBJsonParser *jsonParser = [SBJsonParser new];
+    NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:output error:NULL];
+    
+    NSString *firstName = [response valueForKey:@"first_name"];
+    NSString *lastName = [response valueForKey:@"last_name"];
+    NSString *emailAddress = [response valueForKey:@"email"];
+    NSString *facebookId = [response valueForKey:@"id"];
+    
+    
+    //Create the user
+    
+    NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+    NSDictionary *loginDict = [[NSDictionary alloc] init];
+    
+    [ tempDictionary setObject:firstName forKey:@"FirstName"];
+    [ tempDictionary setObject:lastName forKey:@"LastName"];
+    [ tempDictionary setObject:emailAddress forKey:@"eMail"];
+    [ tempDictionary setObject:facebookId forKey:@"Password"];
+    [ tempDictionary setObject:facebookId forKey:@"FacebookId"];
+    [ tempDictionary setObject:@"Phone" forKey:@"Source"];
+    
+    
+    //[ tempDictionary setObject:genderString forKey:@"Gender"];
+    
+    // TODO hard coded for now
+    [ tempDictionary setObject:@"123" forKey:@"PassPhrase"];
+    
+    
+    
+    //[ tempDictionary setObject:birthDayString forKey:@"BirthDate"];
+    [ tempDictionary setObject:@(YES) forKey:@"AcceptTerms"];
+    [ tempDictionary setObject:@(YES) forKey:@"Notifications"];
+    [ tempDictionary setObject:@(NO) forKey:@"Facebook"];
+    [ tempDictionary setObject:@(NO) forKey:@"Twitter"];
+    
+    loginDict = tempDictionary;
+    ArcClient *client = [[ArcClient alloc] init];
+    [client createCustomer:loginDict];
+
+    
+    
+}
+
+
+-(void)registerComplete:(NSNotification *)notification{
+    //@try {
+        
+    NSLog(@"Notification: %@", notification);
+    NSLog(@"Test");
+        /*
+        self.loadingViewController.view.hidden = YES;
+        self.loginButton.enabled = YES;
+        self.registerButton.enabled = YES;
+        
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            [[NSUserDefaults standardUserDefaults] setValue:self.emailText.text forKey:@"customerEmail"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            ArcClient *client = [[ArcClient alloc] init];
+            [client getServer];
+            
+            self.registerSuccess = YES;
+            
+            //Save credit card info
+            [self performSelector:@selector(addCreditCard) withObject:nil afterDelay:0.0];
+            
+            
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == USER_ALREADY_EXISTS) {
+                errorMsg = @"Email Address already used.";
+            } else {
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            //self.activityView.hidden = NO;
+            //self.errorLabel.hidden = NO;
+            //self.errorLabel.text = errorMsg;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+            self.registerSuccess = NO;
+        }
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ViewController.registerComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+         */
+        
+    
+}
+
+
 @end
