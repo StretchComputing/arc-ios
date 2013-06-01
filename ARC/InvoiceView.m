@@ -530,6 +530,18 @@
             double basePayment = [self.myInvoice amountDue] - [self.myInvoice calculateAmountPaid];
             [self.myInvoice setBasePaymentAmount:basePayment];
             tmp.myInvoice = self.myInvoice;
+            
+            double percentPaid = 0.0;
+            if ([self.myInvoice calculateAmountPaid] == 0.0) {
+                percentPaid = 100.0;
+            }else{
+                
+                percentPaid = basePayment/[self.myInvoice amountDue] * 100.0;
+            }
+            
+            tmp.mySplitPercent = percentPaid;
+            
+            
             [self.navigationController pushViewController:tmp animated:YES];
             
         }else{

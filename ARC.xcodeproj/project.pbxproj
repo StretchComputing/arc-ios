@@ -81,6 +81,7 @@
 		909455521755A13A0058BFB7 /* fbButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 909455511755A13A0058BFB7 /* fbButton.png */; };
 		909456B115FEBF690059E65C /* CorbelInputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 909456B015FEBF680059E65C /* CorbelInputTextField.m */; };
 		909456B515FEC0710059E65C /* CorbelTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909456B415FEC0710059E65C /* CorbelTextView.m */; };
+		9094F17317593937004502D6 /* GuestCreateAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F17217593937004502D6 /* GuestCreateAccount.m */; };
 		9095947B15EA652600F19DD2 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9095947A15EA652600F19DD2 /* Twitter.framework */; };
 		90964E1615F842A400676E0A /* CORBELB.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 90964E1415F842A300676E0A /* CORBELB.TTF */; };
 		90964E1715F842A400676E0A /* CORBEL.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 90964E1515F842A400676E0A /* CORBEL.TTF */; };
@@ -291,6 +292,8 @@
 		909456B015FEBF680059E65C /* CorbelInputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelInputTextField.m; sourceTree = "<group>"; };
 		909456B315FEC0710059E65C /* CorbelTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelTextView.h; sourceTree = "<group>"; };
 		909456B415FEC0710059E65C /* CorbelTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelTextView.m; sourceTree = "<group>"; };
+		9094F17117593936004502D6 /* GuestCreateAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestCreateAccount.h; sourceTree = "<group>"; };
+		9094F17217593937004502D6 /* GuestCreateAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestCreateAccount.m; sourceTree = "<group>"; };
 		9095947A15EA652600F19DD2 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		90964E1415F842A300676E0A /* CORBELB.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CORBELB.TTF; sourceTree = "<group>"; };
 		90964E1515F842A400676E0A /* CORBEL.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CORBEL.TTF; sourceTree = "<group>"; };
@@ -608,6 +611,8 @@
 				9096DCFF1632066300106A25 /* CustomMoviePlayerViewController.m */,
 				906D106E160DF82000561C31 /* arrow.png */,
 				90993F581597782100FC1D49 /* Default@2x.png */,
+				9094F17117593936004502D6 /* GuestCreateAccount.h */,
+				9094F17217593937004502D6 /* GuestCreateAccount.m */,
 				90993F561597781400FC1D49 /* Default.png */,
 				90BFD0921597943600F5285E /* rowButton.png */,
 				90B6B0D61599F121005E4BCB /* plainArc.png */,
@@ -1083,6 +1088,7 @@
 				9079FC1A174C2A0300AE5FAA /* InitHelpPageViewController.m in Sources */,
 				9079FC1D174C2A3300AE5FAA /* ArcIdentifier.m in Sources */,
 				904D1EB017550B0600D0E32F /* AddCardGuest.m in Sources */,
+				9094F17317593937004502D6 /* GuestCreateAccount.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

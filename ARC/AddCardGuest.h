@@ -10,11 +10,14 @@
 #import "CardIO.h"
 #import "LucidaBoldLabel.h"
 #import "Invoice.h"
+#import "LoadingViewController.h"
 
+@class LoadingViewController;
 
 
 @interface AddCardGuest : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) Invoice *myInvoice;
 @property (strong, nonatomic) IBOutlet LucidaBoldLabel *totalPaymentLabel;
 @property BOOL selectCardIo;
@@ -23,6 +26,12 @@
 @property BOOL isIos6;
 @property BOOL shouldIgnoreValueChanged;
 @property BOOL shouldIgnoreValueChangedExpiration;
+
+@property (nonatomic, strong) NSArray *myItemsArray;
+@property BOOL mySplitPercent;
+
+@property (nonatomic, strong) UIButton *addCardButton;
+@property NSTimer *myTimer;
 
 @property (nonatomic, strong) NSString *expirationMonth;
 @property (nonatomic, strong) NSString *expirationYear;

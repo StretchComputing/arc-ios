@@ -95,9 +95,14 @@
         } else {
             title = @"Success!";
             payString = [NSString stringWithFormat:@"Congratulations, your payment of $%@ was successfully processed!", payAmount];
-        }        
-                
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        }
+        
+        if (self.isFromGuest == NO) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+        }
         
         self.foodInt = @(0.0);
         self.drinksInt = @(0.0);
@@ -107,7 +112,7 @@
         self.twitterInt = @(0.0);
         self.facebookInt = @(0.0);
 
-        [alert show];
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ReviewTransaction.viewDidAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

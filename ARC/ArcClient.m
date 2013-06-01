@@ -1460,7 +1460,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                     
                     self.numberGetInvoiceTries++;
                     
-                    if (self.numberGetInvoiceTries < [self.retryTimesInvoice count]) {
+                    if (self.numberGetInvoiceTries < 5) {
                         
                         int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
                         

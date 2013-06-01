@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 @property (weak, nonatomic) IBOutlet LucidaBoldLabel *instructionsLabel;
-
+@property BOOL fromCreateGuest;
 @property BOOL isFirstPin;
 
 @property (strong, nonatomic) NSString *initialPin;

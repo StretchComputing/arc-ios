@@ -127,7 +127,7 @@
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Sign In"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Sign In"];
+        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Cancel"];
 		self.navigationItem.backBarButtonItem = temp;
         
 

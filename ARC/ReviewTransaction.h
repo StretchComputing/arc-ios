@@ -20,6 +20,7 @@
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
+@property BOOL isFromGuest;
 @property BOOL shouldShowLoading;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) IBOutlet LucidaBoldLabel *paymentPointsLabel;

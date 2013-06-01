@@ -127,17 +127,17 @@
             NSString *points = [[NSUserDefaults standardUserDefaults] valueForKey:@"pointsEarned"];
             
             if (self.successReview) {
-                message = @"Your transaction has completed successfully!  Check out your profile to see the points you earned for your review!";
+                message = @"Your transaction has completed successfully!";
                 
                 if (points && [points length] > 0) {
-                    message = [NSString stringWithFormat:@"Your transaction has been completed successfully!  Thank you for your review, you have earned %@ points!  Check out your point totals in your profile.", points];
-                    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"pointsTotal"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
+               //     message = [NSString stringWithFormat:@"Your transaction has been completed successfully!  Thank you for your review, you have earned %@ points!  Check out your point totals in your profile.", points];
+                //    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"pointsTotal"];
+                //    [[NSUserDefaults standardUserDefaults] synchronize];
                     
                 }
                 
             }else{
-                message = @"Your transaction has completed successfully!  Check out your profile to see the points you have earned!";
+                message = @"Your transaction has completed successfully!";
             }
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank You!" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
