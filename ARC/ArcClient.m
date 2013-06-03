@@ -59,6 +59,8 @@ int const CARD_ALREADY_PROCESSED = 628;
 int const CHECK_IS_LOCKED = 630;
 int const NO_AUTHORIZATION_PROVIDED = 631;
 
+int const NETWORK_ERROR_CONFIRM_PAYMENT = 998;
+int const NETWORK_ERROR = 999;
 int const MAX_RETRIES_EXCEEDED = 1000;
 
 
@@ -76,7 +78,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
     if (self = [super init]) {
         
         self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10)];
-        self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(6)];
+        self.retryTimesRegister = @[@(8),@(3),@(2),@(3),@(4),@(6)];
         self.retryTimesInvoice = @[@(2),@(2),@(2),@(3),@(4),@(5)];
         
         self.serverPingArray = [NSMutableArray array];
@@ -976,7 +978,14 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSDictionary *responseInfo = @{@"status": @"fail", @"error": @0};
         NSString *notificationType;
         if(api == CreateCustomer) {
-            notificationType = @"registerNotification";
+            postNotification = NO;
+            NSString *status = @"error";
+            int errorCode = NETWORK_ERROR;
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+            [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
         } else if(api == UpdateGuestCustomer) {
             notificationType = @"updateGuestCustomerNotification";
         }else if(api == GetCustomerToken) {
@@ -987,13 +996,29 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         else if(api == GetMerchantList) {
             notificationType = @"merchantListNotification";
         } else if(api == GetInvoice) {
-            notificationType = @"invoiceNotification";
-            BOOL successful = FALSE;
+            postNotification = NO;
+            NSString *status = @"error";
+            int errorCode = NETWORK_ERROR;
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
+  
             [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed" successful:successful];
         } else if(api == CreatePayment) {
-            notificationType = @"createPaymentNotification";
-            BOOL successful = FALSE;
+            
+            
+            postNotification = NO;
+            NSString *status = @"error";
+            int errorCode = NETWORK_ERROR;
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
             [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+            
+            
+            
         } else if(api == CreateReview) {
             notificationType = @"createReviewNotification";
         } else if(api == GetPointBalance) {
@@ -1015,7 +1040,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 if (self.numberConfirmPaymentTries > 10) {
                     
                     NSString *status = @"error";
-                    int errorCode = MAX_RETRIES_EXCEEDED;
+                    int errorCode = NETWORK_ERROR_CONFIRM_PAYMENT;
                     responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
                     successful = FALSE;
                     
@@ -1031,7 +1056,17 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 
             }else{
                 
-                notificationType = @"createPaymentNotification";
+                
+                postNotification = NO;
+                NSString *status = @"error";
+                int errorCode = NETWORK_ERROR_CONFIRM_PAYMENT;
+                responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                successful = FALSE;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
+                [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+                
+               // notificationType = @"createPaymentNotification";
                 
                 
             }
@@ -1044,7 +1079,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 if (self.numberRegisterTries > 5) {
                     
                     NSString *status = @"error";
-                    int errorCode = MAX_RETRIES_EXCEEDED;
+                    int errorCode = NETWORK_ERROR;
                     responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
                     successful = FALSE;
                     
@@ -1059,7 +1094,17 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 }
                 
             }else{
-                notificationType = @"registerNotification";
+                
+                postNotification = NO;
+                NSString *status = @"error";
+                int errorCode = NETWORK_ERROR;
+                responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                successful = FALSE;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+                [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+                
+                //notificationType = @"registerNotification";
                 
             }
         }else if (api == PingServer){

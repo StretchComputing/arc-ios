@@ -535,6 +535,7 @@
         self.submitButton.enabled = YES;
         self.keyboardSubmitButton.enabled = YES;
 
+        BOOL displayAlert = NO;
 
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
@@ -603,6 +604,7 @@
             [self performSegueWithIdentifier:@"goInvoice" sender:self];
             
         } else if([status isEqualToString:@"error"]){
+            
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == INVOICE_NOT_FOUND) {
                 errorMsg = @"Can not find invoice.";
@@ -610,7 +612,11 @@
                 errorMsg = @"Invoice closed.";
             }else if (errorCode == CHECK_IS_LOCKED){
                 errorMsg = @"Invoice locked.  Try again in a few minutes.";
-            } else {
+            } else if (errorCode == NETWORK_ERROR){
+                displayAlert = YES;
+                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                
+            }else {
                 errorMsg = ARC_ERROR_MSG;
             }
         } else {
@@ -619,7 +625,14 @@
         }
         
         if([errorMsg length] > 0) {
-            self.errorLabel.text = errorMsg;
+            
+            if (displayAlert) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Get Invoice" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                [alert show];
+            }else{
+                self.errorLabel.text = errorMsg;
+
+            }
         }
     }
     @catch (NSException *e) {

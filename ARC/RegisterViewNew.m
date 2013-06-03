@@ -944,7 +944,11 @@
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == USER_ALREADY_EXISTS) {
                 errorMsg = @"Email Address already used.";
-            } else {
+            }else if (errorCode == NETWORK_ERROR){
+             
+                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                
+            }else {
                 errorMsg = ARC_ERROR_MSG;
             }
         } else {

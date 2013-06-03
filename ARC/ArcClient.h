@@ -33,6 +33,9 @@ extern int const MAX_RETRIES_EXCEEDED;
 extern int const CARD_ALREADY_PROCESSED;
 extern int const CHECK_IS_LOCKED;
 extern int const NO_AUTHORIZATION_PROVIDED;
+extern int const NETWORK_ERROR;
+extern int const NETWORK_ERROR_CONFIRM_PAYMENT;
+
 
 extern NSString *const ARC_ERROR_MSG;
 
