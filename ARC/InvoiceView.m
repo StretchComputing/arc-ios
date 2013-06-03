@@ -880,6 +880,7 @@
             SplitCheckViewController *controller = [segue destinationViewController];
             controller.myInvoice = self.myInvoice;
             controller.paymentsAccepted = self.paymentsAccepted;
+            controller.paidItemsArray = [NSMutableArray arrayWithArray:self.paidItemsArray];
             
         }else if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
             
@@ -1059,6 +1060,34 @@
             self.myInvoice.items = [NSArray arrayWithArray:[theInvoice valueForKey:@"Items"]];
             self.myInvoice.payments = [NSArray arrayWithArray:[theInvoice valueForKey:@"Payments"]];
             self.myInvoice.paymentsAccepted = self.paymentsAccepted;
+            
+            self.paidItemsArray = [NSMutableArray array];
+            @try {
+                NSArray *payments = [theInvoice valueForKey:@"Payments"];
+                for (int i = 0; i < [payments count]; i++) {
+                    NSDictionary *payment = [payments objectAtIndex:i];
+                    
+                    NSArray *paidItems = [payment valueForKey:@"PaidItems"];
+                    
+                    NSString *paidBy = [[payments valueForKey:@"Name"] objectAtIndex:0];
+                    NSString *paidByAct = [[payments valueForKey:@"Account"] objectAtIndex:0];
+                    
+                    for (int j = 0; j < [paidItems count]; j++) {
+                        NSDictionary *paidItem = [paidItems objectAtIndex:j];
+                        [paidItem setValue:paidBy forKey:@"PaidBy"];
+                        [paidItem setValue:paidByAct forKey:@"PaidByAct"];
+                        
+                        [self.paidItemsArray addObject:paidItem];
+                    }
+                }
+                
+                
+                
+            }
+            @catch (NSException *exception) {
+                
+            }
+            
             
             [self setUpView];
             [self willAppearSetup];

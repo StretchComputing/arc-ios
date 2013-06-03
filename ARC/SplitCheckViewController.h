@@ -21,6 +21,13 @@
 @property double payRemainingAmount;
 @property BOOL isPayRemaining;
 
+@property BOOL didShowPaidItems;
+
+@property (nonatomic, strong) UIAlertView *paidForAlertView;
+@property BOOL isPaidForAlertShowing;
+
+@property (nonatomic, strong) NSMutableArray *paidItemsArray;
+
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
 @property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
 

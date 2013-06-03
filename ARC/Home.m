@@ -109,14 +109,21 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out.  You may continue to use Arc as a guest." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            mainDelegate.logout = @"";
+            
             [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"arcLoginType"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"customerEmail"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"autoPostFacebook"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"autoPostTwitter"];
             
-            mainDelegate.logout = @"false";
-            [self.navigationController dismissModalViewControllerAnimated:NO];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
         }
         

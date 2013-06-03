@@ -364,7 +364,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 -(void) createPayment:(NSDictionary *)pairs{
     
-    NSLog(@"Calling Create Payment at: %@", [NSDate date]);
+   // NSLog(@"Calling Create Payment at: %@", [NSDate date]);
     
     @try {
         [rSkybox addEventToSession:@"createPayment"];

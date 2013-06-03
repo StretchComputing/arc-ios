@@ -21,6 +21,7 @@
 @property BOOL isIphone5;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
+@property (nonatomic, strong) NSMutableArray *paidItemsArray;
 @property (nonatomic, strong) UIButton *alreadyPaidButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
 - (IBAction)payNow:(id)sender;

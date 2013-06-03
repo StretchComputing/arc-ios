@@ -37,6 +37,7 @@
 - (IBAction)submit:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *nameDisplay;
 
+@property (nonatomic, strong) NSMutableArray *paidItemsArray;
 @property (nonatomic, strong) NSString *name;
 @property (strong, nonatomic) IBOutlet UIView *notFoundHelpView;
 

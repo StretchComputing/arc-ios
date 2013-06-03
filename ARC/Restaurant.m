@@ -570,6 +570,36 @@
             self.myInvoice.paymentsAccepted = self.paymentsAccepted;
             
             self.wentInvoice = YES;
+            
+            self.paidItemsArray = [NSMutableArray array];
+            @try {
+                NSArray *payments = [theInvoice valueForKey:@"Payments"];
+                for (int i = 0; i < [payments count]; i++) {
+                    NSDictionary *payment = [payments objectAtIndex:i];
+                    
+                    NSArray *paidItems = [payment valueForKey:@"PaidItems"];
+                    
+                    NSString *paidBy = [[payments valueForKey:@"Name"] objectAtIndex:0];
+                    NSString *paidByAct = [[payments valueForKey:@"Account"] objectAtIndex:0];
+                    
+                    for (int j = 0; j < [paidItems count]; j++) {
+                        NSDictionary *paidItem = [paidItems objectAtIndex:j];
+                        [paidItem setValue:paidBy forKey:@"PaidBy"];
+                        [paidItem setValue:paidByAct forKey:@"PaidByAct"];
+                        
+                        [self.paidItemsArray addObject:paidItem];
+                    }
+                }
+                
+                
+                
+            }
+            @catch (NSException *exception) {
+                
+            }
+            
+            
+            
             [self performSegueWithIdentifier:@"goInvoice" sender:self];
             
         } else if([status isEqualToString:@"error"]){
@@ -608,7 +638,8 @@
             InvoiceView *nextView = [segue destinationViewController];
             nextView.myInvoice = self.myInvoice;
             nextView.paymentsAccepted = self.paymentsAccepted;
-            
+            nextView.paidItemsArray = [NSMutableArray arrayWithArray:self.paidItemsArray];
+
             
         } 
     }
