@@ -264,7 +264,8 @@
         gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
         [self.view.layer insertSublayer:gradient atIndex:0];
         
-        //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greyback.png"]];
+        
+       // self.view.backgroundColor = [UIColor colorWithRed:245.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1.0];
         
         self.sloganLabel.font = [UIFont fontWithName:@"Chalet-Tokyo" size:20];
         
