@@ -2941,9 +2941,6 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <connections>
-                                            <segue destination="XBG-hI-VBH" kind="push" id="h28-8J-KCc"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -3036,13 +3033,13 @@
         <!--View Credit Cards - Credit Cards-->
         <scene sceneID="2OA-lX-zcd">
             <objects>
-                <viewController id="XBG-hI-VBH" customClass="ViewCreditCards" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="viewCreditCards" id="XBG-hI-VBH" customClass="ViewCreditCards" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WWt-NS-Oew">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ko3-qv-5hA">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -3249,7 +3246,7 @@
             <objects>
                 <tableViewController id="0JH-v4-76k" customClass="AddCreditCard" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ENy-a6-Sp3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="oBF-xN-JmO">
@@ -4113,7 +4110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ssN-hg-9Rk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-789" y="884"/>
+            <point key="canvasLocation" x="-653" y="818"/>
         </scene>
         <!--Loading View Controller-->
         <scene sceneID="2vc-in-uiy">
@@ -4674,15 +4671,15 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="o7u-Lj-dwT"/>
         <segue reference="bih-2H-etF"/>
         <segue reference="A7t-ff-FTj"/>
-        <segue reference="o7u-Lj-dwT"/>
         <segue reference="WJr-CZ-1Tw"/>
+        <segue reference="Yz7-xF-sKA"/>
         <segue reference="RgT-l3-35c"/>
         <segue reference="co8-nZ-5K2"/>
-        <segue reference="Yz7-xF-sKA"/>
         <segue reference="2SM-S0-l6J"/>
-        <segue reference="M5n-Hw-9ay"/>
-        <segue reference="neU-RJ-74W"/>
+        <segue reference="eAj-gy-Yqb"/>
+        <segue reference="L6b-sc-kgN"/>
     </inferredMetricsTieBreakers>
 </document>

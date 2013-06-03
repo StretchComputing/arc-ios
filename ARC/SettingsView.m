@@ -17,6 +17,7 @@
 #import <Social/Social.h>
 #import "ViewController.h"
 #import "ArcIdentifier.h"
+#import "ViewCreditCards.h"
 
 @interface SettingsView ()
 
@@ -276,6 +277,22 @@
             
             UIViewController *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"referFriend"];
             [self.navigationController presentModalViewController:tmp animated:YES];
+        }
+        
+        if (section == 1) {
+            
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
+
+                ViewCreditCards *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"viewCreditCards"];
+                
+                [self.navigationController pushViewController:tmp animated:YES];
+            
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Log In" message:@"In order for Arc to store billing information, you need to sign in or create a new account.  Thank you!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+
+            
         }
     }
     @catch (NSException *e) {

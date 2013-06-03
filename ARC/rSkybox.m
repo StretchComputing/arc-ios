@@ -216,8 +216,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        //-- TODO - Uncomment
-        //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         
         //if (connection) {
             
@@ -261,10 +260,6 @@ NSString* const ARC_VERSION_NUMBER = @"1.5";
 
 
 + (void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData{
-    
-    //TODO - Uncomment
-    
-    return;
     
     @try {
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
