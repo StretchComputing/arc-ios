@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PrivacyTermsViewController.h"
 #import "rSkybox.h"
+#import "ArcIdentifier.h"
+#import "ArcClient.h"
 
 @interface InitHelpPageViewController ()
 
@@ -17,6 +19,34 @@
 
 @implementation InitHelpPageViewController
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotificationGuest" object:nil];
+    
+    //self.loadingViewController.view.hidden = NO;
+    //self.loadingViewController.displayText.text = @"
+    
+    NSString *identifier = [ArcIdentifier getArcIdentifier];
+    
+    
+    NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+    NSDictionary *loginDict = [[NSDictionary alloc] init];
+    [ tempDictionary setObject:identifier forKey:@"userName"];
+    [ tempDictionary setObject:identifier forKey:@"password"];
+    
+    loginDict = tempDictionary;
+    ArcClient *client = [[ArcClient alloc] init];
+    [client getGuestToken:loginDict];
+    
+    
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 -(void)viewDidAppear:(BOOL)animated{
     
     
@@ -47,6 +77,9 @@
 }
 - (void)viewDidLoad
 {
+    
+    
+    
     
     self.myToolbar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
 
@@ -118,6 +151,12 @@
     self.vertLine2.layer.shadowOffset = CGSizeMake(1, 0);
     self.vertLine2.layer.shadowRadius = 1;
     self.vertLine2.layer.shadowOpacity = 0.5;
+    
+    
+    self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+    self.loadingViewController.view.frame = CGRectMake(0, 30, 320, self.view.frame.size.height + 100);
+    self.loadingViewController.view.hidden = YES;
+    [self.view addSubview:self.loadingViewController.view];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -168,13 +207,114 @@
 }
 
 -(void)startUsingAction{
-    UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
-    home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentModalViewController:home animated:YES];
+    
+    if (self.doesHaveGuestToken || self.guestTokenError) {
+        
+        if (self.guestTokenError) {
+            
+            self.didPushStart = YES;
+            self.loadingViewController.view.hidden = NO;
+            self.loadingViewController.displayText.text = @"Loading Arc...";
+            
+            NSString *identifier = [ArcIdentifier getArcIdentifier];
+            
+            
+            NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+            NSDictionary *loginDict = [[NSDictionary alloc] init];
+            [ tempDictionary setObject:identifier forKey:@"userName"];
+            [ tempDictionary setObject:identifier forKey:@"password"];
+            
+            loginDict = tempDictionary;
+            ArcClient *client = [[ArcClient alloc] init];
+            [client getGuestToken:loginDict];
+            
+            
+            
+        }else{
+            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
+            home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self presentModalViewController:home animated:YES];
+        }
+        
+    }else{
+        
+        //Call is still loading
+        self.didPushStart = YES;
+        self.loadingViewController.view.hidden = NO;
+        self.loadingViewController.displayText.text = @"Loading Arc...";
+    }
 }
 
-- (void)viewDidUnload {
-    [self setMyToolbar:nil];
-    [super viewDidUnload];
+
+-(void)signInComplete:(NSNotification *)notification{
+    @try {
+        
+        
+        self.loadingViewController.view.hidden = YES;
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        NSLog(@"Response Info: %@", responseInfo);
+        
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            //success
+            
+            
+            if (self.didPushStart) {
+                
+                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
+                home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                [self presentModalViewController:home animated:YES];
+                
+                
+            }else{
+                self.doesHaveGuestToken = YES;
+            }
+            
+            //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+            //[self presentModalViewController:home animated:NO];
+            
+            
+            
+            //[self goHomePage];
+            //[[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didJustLogin"];
+            //[[NSUserDefaults standardUserDefaults] synchronize];
+            
+            // [self performSelector:@selector(checkPayment) withObject:nil afterDelay:1.5];
+            
+            //Do the next thing (go home?)
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INCORRECT_LOGIN_INFO) {
+                errorMsg = @"Invalid Email and/or Password";
+            } else {
+                // TODO -- programming error client/server coordination -- rskybox call
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            //self.errorLabel.text = errorMsg;
+            
+            self.guestTokenError = YES;
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading Error" message:@"We experienced an error loading your guest account, please try again!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InitialHelpPageVC.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+        
+    }
+    
 }
+
 @end

@@ -10,10 +10,13 @@
 #import <Accounts/Accounts.h>
 #import "ArcClient.h"
 #import "CorbelBoldLabel.h"
+#import "LoadingViewController.h"
 
+@class LoadingViewController;
 
 @interface SettingsView : UITableViewController
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet CorbelBoldLabel *myProfileLabel;
 @property BOOL fromDwolla;
 @property BOOL dwollaSuccess;

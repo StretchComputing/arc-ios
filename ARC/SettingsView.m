@@ -59,6 +59,9 @@
     @try {
         
        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotificationGuest" object:nil];
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
         
@@ -186,7 +189,15 @@
         self.serverData = [NSMutableData data];
         [super viewDidLoad];
         // Do any additional setup after loading the view.
+        
+        
+        self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        self.loadingViewController.view.hidden = NO;
+        //[self.view addSubview:self.loadingViewController.view];
+        
   }
+    
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"SettingsView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
@@ -223,7 +234,17 @@
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
                     
                     //get a new Guest Token if dont already have it
-                    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"guestToken"] length] == 0) {
+                    //if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"guestToken"] length] == 0) {
+                    if (true) {
+                        
+                        UIView *loader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
+                        
+                        loader.backgroundColor = [UIColor clearColor];
+                        self.loadingViewController.displayText.text = @"Logging Out";
+                        self.tableView.scrollEnabled = NO;
+                        [loader addSubview:self.loadingViewController.view];
+
+                        self.tableView.tableHeaderView = loader;
                         NSString *identifier = [ArcIdentifier getArcIdentifier];
                         
                         
@@ -237,9 +258,7 @@
                         [client getGuestToken:loginDict];
                         
                     }
-                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                    mainDelegate.logout = @"true";
-                    [self.navigationController dismissModalViewControllerAnimated:NO];
+              
                     
                 }else{
                     
@@ -518,4 +537,56 @@
     [self setMyProfileLabel:nil];
     [super viewDidUnload];
 }
+
+
+
+-(void)signInComplete:(NSNotification *)notification{
+    @try {
+        
+        
+        self.tableView.scrollEnabled = YES;
+        self.tableView.tableHeaderView = nil;
+        self.loadingViewController.view.hidden = YES;
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+                
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            //success            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            mainDelegate.logout = @"true";
+            [self.navigationController dismissModalViewControllerAnimated:NO];
+            
+         
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INCORRECT_LOGIN_INFO) {
+                errorMsg = @"Invalid Email and/or Password";
+            } else {
+                // TODO -- programming error client/server coordination -- rskybox call
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+       
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading Error" message:@"We experienced an error loading your guest account, please try again!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SettingsView.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+        
+    }
+    
+}
+
+
 @end

@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface InitHelpPageViewController : UIViewController <UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *helpView;
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
+@property BOOL doesHaveGuestToken;
+@property BOOL didPushStart;
+@property BOOL guestTokenError;
 @property (strong, nonatomic) IBOutlet UIScrollView *myScrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *helpImage1;
 @property (strong, nonatomic) IBOutlet UIImageView *helpImage2;

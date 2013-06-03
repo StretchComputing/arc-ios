@@ -260,13 +260,13 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetGuestToken"];
+        
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.getCustomerToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
-
 
 -(void)getMerchantList:(NSDictionary *)pairs{
     @try {

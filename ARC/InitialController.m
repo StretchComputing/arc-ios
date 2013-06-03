@@ -78,7 +78,14 @@
                 [self presentModalViewController:home animated:NO];
                 
             }else{
-                //Get the Guest Token, then push to InitHelpPage
+                
+            
+                //Go to initHelpPage, where GuestTOken is retrieved
+                
+                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+                [self presentModalViewController:home animated:NO];
+                
+                /*
                 self.loadingView.hidden = NO;
                 
                 NSString *identifier = [ArcIdentifier getArcIdentifier];
@@ -92,6 +99,7 @@
                 loginDict = tempDictionary;
                 ArcClient *client = [[ArcClient alloc] init];
                 [client getGuestToken:loginDict];
+                 */
                 
             }
             

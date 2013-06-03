@@ -356,8 +356,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="aUD-tP-oq8">
-                                <rect key="frame" x="42" y="353" width="236" height="55"/>
+                                <rect key="frame" x="42" y="246" width="236" height="55"/>
                             </imageView>
+                            <view alpha="0.69999998807907104" contentMode="scaleToFill" id="1fR-ua-n8H">
+                                <rect key="frame" x="0.0" y="365" width="320" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ygd-5e-vBc">
                                 <rect key="frame" x="15" y="99" width="290" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -374,11 +379,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gNK-Hi-D3G">
-                                <rect key="frame" x="15" y="290" width="290" height="31"/>
+                                <rect key="frame" x="0.0" y="365" width="320" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="New to ARC?  Create an Account!">
-                                    <color key="titleColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -5248,15 +5253,15 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="o7u-Lj-dwT"/>
         <segue reference="bih-2H-etF"/>
-        <segue reference="RgT-l3-35c"/>
-        <segue reference="Yz7-xF-sKA"/>
-        <segue reference="co8-nZ-5K2"/>
-        <segue reference="Ii2-yA-rgx"/>
-        <segue reference="M5n-Hw-9ay"/>
-        <segue reference="2SM-S0-l6J"/>
+        <segue reference="A7t-ff-FTj"/>
+        <segue reference="o7u-Lj-dwT"/>
         <segue reference="WJr-CZ-1Tw"/>
+        <segue reference="RgT-l3-35c"/>
+        <segue reference="co8-nZ-5K2"/>
+        <segue reference="Yz7-xF-sKA"/>
+        <segue reference="2SM-S0-l6J"/>
+        <segue reference="M5n-Hw-9ay"/>
         <segue reference="neU-RJ-74W"/>
     </inferredMetricsTieBreakers>
 </document>
