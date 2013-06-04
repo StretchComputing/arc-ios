@@ -151,6 +151,8 @@
 -(void)viewDidLoad{
     @try {
         
+        self.numFbTries = 0;
+        
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         self.loadingViewController.view.hidden = YES;
@@ -218,7 +220,7 @@
         CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Review"];
 		self.navigationItem.backBarButtonItem = temp;
         
-        self.earnMoreLabel.text = [NSString stringWithFormat:@"Earn more by giving %@ feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+        self.earnMoreLabel.text = [NSString stringWithFormat:@"Please give %@ some feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
         
         [rSkybox addEventToSession:@"viewReviewScreen"];
        
@@ -503,7 +505,7 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     @try {
         
-        if ([self.commentsText.text isEqualToString:@"Earn +5 pts for an in depth review:"]){
+        if ([self.commentsText.text isEqualToString:@"Additional Comments:"]){
             self.commentsText.text = @"";
         }
         
@@ -533,7 +535,7 @@
             [textView resignFirstResponder];
             
             if ([self.commentsText.text isEqualToString:@""]){
-                self.commentsText.text = @"Earn +5 pts for an in depth review:";
+                self.commentsText.text = @"Additional Comments:";
             }
             
             [UIView beginAnimations:nil context:NULL];
@@ -614,7 +616,7 @@
         
         NSString *commentsString = @"";
         
-        if ([self.commentsText.text isEqualToString:@"Earn +5 pts for an in depth review:"]){
+        if ([self.commentsText.text isEqualToString:@"Additional Comments:"]){
             self.commentsText.text = @"";
         }else {
             commentsString = self.commentsText.text;
@@ -623,6 +625,11 @@
 
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
+        
+        if ([customerId length] == 0) {
+            //guest
+            customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }
         [tempDictionary setObject:customerId forKey:@"CustomerId"];
 
         NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myInvoice.invoiceId];
@@ -1135,6 +1142,27 @@
                          NSLog(@"Output: %@", dataString);
                          
                          
+                         if ([output isEqualToString:@"HTTP response status: 400"]) {
+                             
+                             if (self.numFbTries < 3) {
+                                 self.numFbTries++;
+                                 
+                                 NSArray *accounts = [self.store accountsWithAccountType:accType];
+                                 ACAccount *facebookAccount = [accounts objectAtIndex:0];
+                                 
+                                 [self.store renewCredentialsForAccount:facebookAccount completion:^(ACAccountCredentialRenewResult renewResult, NSError *error) {
+                                     
+                                     if (renewResult == ACAccountCredentialRenewResultRenewed ) {
+                                         [self autoPostFacebook];
+                                     }
+                                 }];
+                                 
+                             }
+                             
+                             
+                         }
+                         
+                         
                          
                      }];
                     
@@ -1228,6 +1256,26 @@
                          NSLog(@"Error: %@", error);
                          NSLog(@"Output: %@", dataString);
                          
+                         
+                         if ([output isEqualToString:@"HTTP response status: 400"]) {
+                             
+                             if (self.numFbTries < 3) {
+                                 self.numFbTries++;
+                                 
+                                 NSArray *accounts = [self.store accountsWithAccountType:accType];
+                                 ACAccount *facebookAccount = [accounts objectAtIndex:0];
+                                 
+                                 [self.store renewCredentialsForAccount:facebookAccount completion:^(ACAccountCredentialRenewResult renewResult, NSError *error) {
+                                     
+                                     if (renewResult == ACAccountCredentialRenewResultRenewed ) {
+                                         [self autoPostFacebookSkip];
+                                     }
+                                 }];
+                                 
+                             }
+                            
+                             
+                         }
                          
                          
                      }];

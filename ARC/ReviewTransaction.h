@@ -20,6 +20,7 @@
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 
+@property int numFbTries;
 @property BOOL isFromGuest;
 @property BOOL shouldShowLoading;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;

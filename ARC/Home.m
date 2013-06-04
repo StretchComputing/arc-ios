@@ -81,6 +81,9 @@
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"admin"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"arcLoginType"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"no" forKey:@"autoPostFacebook"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"no" forKey:@"autoPostTwitter"];
+
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self.navigationController dismissModalViewControllerAnimated:NO];

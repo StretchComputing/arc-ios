@@ -371,7 +371,27 @@
             
             NSDictionary *payment = [self.myInvoice.payments objectAtIndex:row];
             
-            nameLabel.text = [payment valueForKey:@"Name"];
+            
+            NSString *name = [payment valueForKey:@"Name"];
+            
+            @try {
+                
+                if ([name length] == 6) {
+                    
+                    if ([[name substringFromIndex:5] isEqualToString:@"G"] && [[name substringToIndex:4] intValue]) {
+                        
+                
+                        NSString *accountNumber = [payment valueForKey:@"Account"];
+                        int length = [accountNumber length];
+                        nameLabel.text = [NSString stringWithFormat:@"Guest *%@",  [accountNumber substringFromIndex:length - 4]];
+                    }
+                }
+            }
+            @catch (NSException *exception) {
+                nameLabel.text = [payment valueForKey:@"Name"];
+
+            }
+           
         
             double amountDouble = [[payment valueForKey:@"Amount"] doubleValue];
             

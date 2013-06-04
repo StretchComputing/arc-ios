@@ -1321,7 +1321,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Earn +5 pts for an in depth review:" id="hZs-wF-YtT" customClass="CorbelTextView">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Additional Comments:" id="hZs-wF-YtT" customClass="CorbelTextView">
                                 <rect key="frame" x="10" y="309" width="300" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1362,13 +1362,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nUe-QV-OwR" customClass="LucidaLabel">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nUe-QV-OwR" customClass="LucidaLabel">
                                 <rect key="frame" x="249" y="380" width="54" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="mfV-dg-uI8" customClass="LucidaLabel">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="mfV-dg-uI8" customClass="LucidaLabel">
                                 <rect key="frame" x="126" y="380" width="54" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2564,7 +2564,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wI7-hP-9Y5" customClass="LucidaBoldLabel">
-                                                            <rect key="frame" x="8" y="7" width="109" height="21"/>
+                                                            <rect key="frame" x="8" y="7" width="122" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -4671,13 +4671,13 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="o7u-Lj-dwT"/>
-        <segue reference="bih-2H-etF"/>
-        <segue reference="A7t-ff-FTj"/>
         <segue reference="WJr-CZ-1Tw"/>
-        <segue reference="Yz7-xF-sKA"/>
-        <segue reference="RgT-l3-35c"/>
-        <segue reference="co8-nZ-5K2"/>
+        <segue reference="A7t-ff-FTj"/>
+        <segue reference="bih-2H-etF"/>
+        <segue reference="o7u-Lj-dwT"/>
+        <segue reference="yO3-MZ-Mi9"/>
+        <segue reference="pOd-6P-e5i"/>
+        <segue reference="FRd-J0-OXc"/>
         <segue reference="2SM-S0-l6J"/>
         <segue reference="eAj-gy-Yqb"/>
         <segue reference="L6b-sc-kgN"/>
