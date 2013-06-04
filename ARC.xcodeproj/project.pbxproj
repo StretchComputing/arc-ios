@@ -127,6 +127,7 @@
 		90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F75162CF197007995DC /* ResetPasswordViewController.m */; };
 		90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A65C66169B785500FC519B /* CoreTelephony.framework */; };
 		90A7FE3417053EE3001EB837 /* ConfirmPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */; };
+		90AAADFB175D37D40096991D /* receipt.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAADFA175D37D40096991D /* receipt.png */; };
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
 		90B01D07159E3E61005FCCCF /* fullStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D06159E3E61005FCCCF /* fullStar.png */; };
 		90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D09159E3E92005FCCCF /* ReviewTransaction.m */; };
@@ -397,6 +398,7 @@
 		90A65C66169B785500FC519B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		90A7FE3217053EE3001EB837 /* ConfirmPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmPaymentViewController.h; sourceTree = "<group>"; };
 		90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmPaymentViewController.m; sourceTree = "<group>"; };
+		90AAADFA175D37D40096991D /* receipt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = receipt.png; sourceTree = "<group>"; };
 		90B01D03159E3CF1005FCCCF /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		90B01D06159E3E61005FCCCF /* fullStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullStar.png; sourceTree = "<group>"; };
 		90B01D08159E3E92005FCCCF /* ReviewTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTransaction.h; sourceTree = "<group>"; };
@@ -676,6 +678,7 @@
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				909046BA16EA78F400517A14 /* lock.png */,
 				90CDE0D717027BC700134AF2 /* menuIcon.png */,
+				90AAADFA175D37D40096991D /* receipt.png */,
 				907A761017060CF200E8A15C /* divide.png */,
 				908CAD501704D3C800F34A41 /* balance.png */,
 				90CDE0E717028AFF00134AF2 /* menuHelpIcon.png */,
@@ -1126,6 +1129,7 @@
 				9093E5061744133800BC18E3 /* Divider2.png in Resources */,
 				9093E50917442A9200BC18E3 /* jaggedEdge.png in Resources */,
 				9093E50A17442A9200BC18E3 /* jaggedEdgeBottom.png in Resources */,
+				90AAADFB175D37D40096991D /* receipt.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
