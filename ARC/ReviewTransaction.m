@@ -1269,10 +1269,22 @@
 
 
 -(void)selectFavoriteItem{
-    [self.favoriteItemPickerView reloadAllComponents];
-    self.favoriteItemBackview.hidden = NO;
-    self.skipButton.enabled = NO;
-    self.submitButton.enabled = NO;
+    
+    @try {
+        if (self.myInvoice && [self.myInvoice.items count] > 0) {
+            [self.favoriteItemPickerView reloadAllComponents];
+            self.favoriteItemBackview.hidden = NO;
+            self.skipButton.enabled = NO;
+            self.submitButton.enabled = NO;
+        }
+    }
+    @catch (NSException *exception) {
+        [rSkybox sendClientLog:@"ReviewTransaction.selectFavoriteItem" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+
+    }
+ 
+   
+ 
 }
 
 

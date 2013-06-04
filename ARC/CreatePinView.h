@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LucidaBoldLabel.h"
 #import "CorbelTextView.h"
+#import "Invoice.h"
 
 @interface CreatePinView : UIViewController <UITextFieldDelegate>
 
@@ -25,7 +26,7 @@
 
 @property (strong, nonatomic) NSString *initialPin;
 @property (strong, nonatomic) NSString *confirmPin;
-
+@property (nonatomic, strong) Invoice *myInvoice;
 @property (weak, nonatomic) IBOutlet CorbelTextView *descriptionText;
 
 @property (nonatomic, strong) NSString *creditDebitString;

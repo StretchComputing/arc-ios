@@ -383,6 +383,7 @@
         tmp.securityCode = self.ccSecurityCode;
         tmp.cardNumber = [self.ccNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
         tmp.fromCreateGuest = YES;
+        tmp.myInvoice = self.myInvoice;
         
         // determine what type of credit card this is
         

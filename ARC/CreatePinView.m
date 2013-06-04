@@ -208,6 +208,7 @@
         [alert show];
         
         ReviewTransaction *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"review"];
+        tmp.myInvoice = self.myInvoice;
         tmp.isFromGuest = YES;
         
         [self.navigationController pushViewController:tmp animated:YES];
