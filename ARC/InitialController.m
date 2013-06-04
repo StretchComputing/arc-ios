@@ -70,7 +70,7 @@
             [self presentModalViewController:home animated:NO];
         }else{
             
-            if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
+            if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil) && [[[NSUserDefaults standardUserDefaults] valueForKey:@"didAgreeTerms"] length] > 0) {
                 //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
                 //[self presentModalViewController:home animated:NO];
                 

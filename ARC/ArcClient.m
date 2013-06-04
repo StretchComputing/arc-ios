@@ -20,9 +20,9 @@
 
 //NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
 
-//NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://24.14.40.71:8700/arc-dev/rest/v1/";
-NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -85,7 +85,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-            _arcUrl = [prefs valueForKey:@"arcUrl"];
+           // _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
@@ -110,9 +110,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPMethod: @"GET"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        if (![[self authHeader] isEqualToString:@""]) {
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
             [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         }
+    
         
         
         self.serverData = [NSMutableData data];
@@ -1984,23 +1985,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 return authentication;
             }else{
                 
-                //Guest Token must have failed at some point, need to get it before returning
+                //Only calls here will be ones made before guest token is retrieved, and before sign in/create account
                 
-                NSString *identifier = [ArcIdentifier getArcIdentifier];
-                
-                
-                NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-                NSDictionary *loginDict = [[NSDictionary alloc] init];
-                [ tempDictionary setObject:identifier forKey:@"userName"];
-                [ tempDictionary setObject:identifier forKey:@"password"];
-                
-                loginDict = tempDictionary;
-                ArcClient *client = [[ArcClient alloc] init];
-                //[client getGuestToken:loginDict];
-                
-                
-                NSException *exception = [NSException exceptionWithName:@"No Guest Token" reason:@"Could not find guest token" userInfo:nil];
-                [rSkybox sendClientLog:@"ArcClient.authHeader" logMessage:@"NO Guest Token" logLevel:@"error" exception:exception];
+        
                 
                 return @"";
             }
