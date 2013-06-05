@@ -879,13 +879,13 @@
     
   
     if (!self.isRefresh) {
-        int moveY = 0;
+        self.moveY = 0;
         
         double alreadyPaid = [self.myInvoice calculateAmountPaid];
         if (alreadyPaid == 0.0){
             self.alreadyPaid.hidden = YES;
             self.alreadyPaidNameLabel.hidden = YES;
-            moveY +=20;
+            self.moveY +=20;
         }else{
             self.alreadyPaidLabel.text = [NSString stringWithFormat:@"- $%.2f", alreadyPaid];
         }
@@ -894,15 +894,15 @@
         if (self.myInvoice.discount == 0.0) {
             self.discLabel.hidden = YES;
             self.discNameLabel.hidden = YES;
-            moveY +=20;
+            self.moveY +=20;
         }else{
             
             CGRect myframe2 = self.discLabel.frame;
-            myframe2.origin.y += moveY;
+            myframe2.origin.y += self.moveY;
             self.discLabel.frame = myframe2;
             
             CGRect myframe3 = self.discNameLabel.frame;
-            myframe3.origin.y += moveY;
+            myframe3.origin.y += self.moveY;
             self.discNameLabel.frame = myframe3;
             
         }
@@ -910,40 +910,88 @@
         if (self.myInvoice.serviceCharge == 0.0) {
             self.gratLabel.hidden = YES;
             self.gratNameLabel.hidden = YES;
-            moveY +=20;
+            self.moveY +=20;
         }else{
             
             CGRect myframe2 = self.gratLabel.frame;
-            myframe2.origin.y += moveY;
+            myframe2.origin.y += self.moveY;
             self.gratLabel.frame = myframe2;
             
             CGRect myframe3 = self.gratNameLabel.frame;
-            myframe3.origin.y += moveY;
+            myframe3.origin.y += self.moveY;
             self.gratNameLabel.frame = myframe3;
         }
         
         CGRect myframe = self.subtotalBackView.frame;
-        myframe.origin.y += moveY;
+        myframe.origin.y += self.moveY;
         self.subtotalBackView.frame = myframe;
         
         
         
         CGRect myframe1 = self.myTableView.frame;
-        myframe1.size.height += moveY;
+        myframe1.size.height += self.moveY;
         self.myTableView.frame = myframe1;
     }
     
     
 
+    [self adjustLength];
 
     
     
     double myDue = self.myInvoice.amountDue - amountPaid;
     self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
 
+}
 
-   
-
+-(void)adjustLength{
+    
+    float height = self.myTableView.frame.size.height;
+    
+    int numItems = [self.myInvoice.items count];
+    float neededHeight = numItems * 30 + 15;
+    
+    if (neededHeight < 100) {
+        neededHeight = 100;
+    }
+    
+    
+    int maxTableHeight = 0;
+    if (self.view.frame.size.height > 500) {
+        maxTableHeight = 229 + self.moveY;
+    }else{
+        maxTableHeight = 141 + self.moveY;
+    }
+    
+    if (neededHeight < maxTableHeight) {
+        
+        if (height > neededHeight) {
+            
+            float wastedSpace = height - neededHeight;
+            
+            
+            CGRect frame = self.myTableView.frame;
+            frame.size.height -= wastedSpace;
+            self.myTableView.frame = frame;
+            
+            CGRect frame1 = self.receiptView.frame;
+            frame1.size.height -= wastedSpace;
+            self.receiptView.frame = frame1;
+            
+            
+            CGRect frame2 = self.bottomHalfView.frame;
+            frame2.origin.y -= wastedSpace;
+            self.bottomHalfView.frame = frame2;
+            
+            
+            //move the payView
+            
+            CGRect frame3 = self.payView.frame;
+            frame3.origin.y -= wastedSpace/2.0;
+            self.payView.frame = frame3;
+        }
+        
+    }
     
 }
 

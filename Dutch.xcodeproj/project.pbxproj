@@ -128,6 +128,7 @@
 		90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A65C66169B785500FC519B /* CoreTelephony.framework */; };
 		90A7FE3417053EE3001EB837 /* ConfirmPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */; };
 		90AAADFB175D37D40096991D /* receipt.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAADFA175D37D40096991D /* receipt.png */; };
+		90AAAE16175E82FC0096991D /* dutchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAAE15175E82FC0096991D /* dutchLogo.png */; };
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
 		90B01D07159E3E61005FCCCF /* fullStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D06159E3E61005FCCCF /* fullStar.png */; };
 		90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D09159E3E92005FCCCF /* ReviewTransaction.m */; };
@@ -369,14 +370,14 @@
 		9097099C1610B3270092A970 /* CreatePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePinView.m; sourceTree = "<group>"; };
 		909709A21610E6B30092A970 /* ValidatePinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidatePinView.h; sourceTree = "<group>"; };
 		909709A31610E6B30092A970 /* ValidatePinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidatePinView.m; sourceTree = "<group>"; };
-		90993F31159777BC00FC1D49 /* ARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90993F31159777BC00FC1D49 /* Dutch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dutch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90993F35159777BC00FC1D49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		90993F37159777BC00FC1D49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90993F39159777BC00FC1D49 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		90993F3D159777BC00FC1D49 /* ARC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ARC-Info.plist"; sourceTree = "<group>"; };
+		90993F3D159777BC00FC1D49 /* Dutch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Dutch-Info.plist"; sourceTree = "<group>"; };
 		90993F3F159777BC00FC1D49 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		90993F41159777BC00FC1D49 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		90993F43159777BC00FC1D49 /* ARC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ARC-Prefix.pch"; sourceTree = "<group>"; };
+		90993F43159777BC00FC1D49 /* Dutch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dutch-Prefix.pch"; sourceTree = "<group>"; };
 		90993F44159777BC00FC1D49 /* ArcAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcAppDelegate.h; sourceTree = "<group>"; };
 		90993F45159777BC00FC1D49 /* ArcAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArcAppDelegate.m; sourceTree = "<group>"; };
 		90993F4A159777BC00FC1D49 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -399,6 +400,7 @@
 		90A7FE3217053EE3001EB837 /* ConfirmPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmPaymentViewController.h; sourceTree = "<group>"; };
 		90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmPaymentViewController.m; sourceTree = "<group>"; };
 		90AAADFA175D37D40096991D /* receipt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = receipt.png; sourceTree = "<group>"; };
+		90AAAE15175E82FC0096991D /* dutchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dutchLogo.png; sourceTree = "<group>"; };
 		90B01D03159E3CF1005FCCCF /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		90B01D06159E3E61005FCCCF /* fullStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullStar.png; sourceTree = "<group>"; };
 		90B01D08159E3E92005FCCCF /* ReviewTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTransaction.h; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				909046BA16EA78F400517A14 /* lock.png */,
 				90CDE0D717027BC700134AF2 /* menuIcon.png */,
+				90AAAE15175E82FC0096991D /* dutchLogo.png */,
 				90AAADFA175D37D40096991D /* receipt.png */,
 				907A761017060CF200E8A15C /* divide.png */,
 				908CAD501704D3C800F34A41 /* balance.png */,
@@ -767,7 +770,7 @@
 		90993F32159777BC00FC1D49 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				90993F31159777BC00FC1D49 /* ARC.app */,
+				90993F31159777BC00FC1D49 /* Dutch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -930,10 +933,10 @@
 		90993F3C159777BC00FC1D49 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				90993F3D159777BC00FC1D49 /* ARC-Info.plist */,
+				90993F3D159777BC00FC1D49 /* Dutch-Info.plist */,
 				90993F3E159777BC00FC1D49 /* InfoPlist.strings */,
 				90993F41159777BC00FC1D49 /* main.m */,
-				90993F43159777BC00FC1D49 /* ARC-Prefix.pch */,
+				90993F43159777BC00FC1D49 /* Dutch-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1018,9 +1021,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		90993F30159777BC00FC1D49 /* ARC */ = {
+		90993F30159777BC00FC1D49 /* Dutch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 90993F4F159777BC00FC1D49 /* Build configuration list for PBXNativeTarget "ARC" */;
+			buildConfigurationList = 90993F4F159777BC00FC1D49 /* Build configuration list for PBXNativeTarget "Dutch" */;
 			buildPhases = (
 				90993F2D159777BC00FC1D49 /* Sources */,
 				90993F2E159777BC00FC1D49 /* Frameworks */,
@@ -1030,9 +1033,9 @@
 			);
 			dependencies = (
 			);
-			name = ARC;
+			name = Dutch;
 			productName = ARC;
-			productReference = 90993F31159777BC00FC1D49 /* ARC.app */;
+			productReference = 90993F31159777BC00FC1D49 /* Dutch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1043,7 +1046,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "ARC" */;
+			buildConfigurationList = 90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "Dutch" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1055,7 +1058,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				90993F30159777BC00FC1D49 /* ARC */,
+				90993F30159777BC00FC1D49 /* Dutch */,
 			);
 		};
 /* End PBXProject section */
@@ -1130,6 +1133,7 @@
 				9093E50917442A9200BC18E3 /* jaggedEdge.png in Resources */,
 				9093E50A17442A9200BC18E3 /* jaggedEdgeBottom.png in Resources */,
 				90AAADFB175D37D40096991D /* receipt.png in Resources */,
+				90AAAE16175E82FC0096991D /* dutchLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,8 +1297,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "55C5611D-7A5B-4D44-BA03-B9CE824884A0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "55C5611D-7A5B-4D44-BA03-B9CE824884A0";
+				PROVISIONING_PROFILE = "B8C73B8E-8777-4453-B215-5018C319E041";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B8C73B8E-8777-4453-B215-5018C319E041";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1332,9 +1336,9 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
+				GCC_PREFIX_HEADER = "ARC/Dutch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
-				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				INFOPLIST_FILE = "ARC/Dutch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1343,7 +1347,7 @@
 					"\"$(SRCROOT)/tesseract-ios-lib/lib\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Dutch;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1358,9 +1362,9 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
+				GCC_PREFIX_HEADER = "ARC/Dutch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
-				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				INFOPLIST_FILE = "ARC/Dutch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1369,7 +1373,7 @@
 					"\"$(SRCROOT)/tesseract-ios-lib/lib\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Dutch;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1409,9 +1413,9 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ARC/ARC-Prefix.pch";
+				GCC_PREFIX_HEADER = "ARC/Dutch-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
-				INFOPLIST_FILE = "ARC/ARC-Info.plist";
+				INFOPLIST_FILE = "ARC/Dutch-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1420,7 +1424,7 @@
 					"\"$(SRCROOT)/tesseract-ios-lib/lib\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Dutch;
 				PROVISIONING_PROFILE = "E6089399-000F-4FFC-8419-2D57611ACDFE";
 				"PROVISIONING_PROFILE[sdk=*]" = "E6089399-000F-4FFC-8419-2D57611ACDFE";
 				WRAPPER_EXTENSION = app;
@@ -1430,7 +1434,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "ARC" */ = {
+		90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "Dutch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				90993F4D159777BC00FC1D49 /* Debug */,
@@ -1440,7 +1444,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		90993F4F159777BC00FC1D49 /* Build configuration list for PBXNativeTarget "ARC" */ = {
+		90993F4F159777BC00FC1D49 /* Build configuration list for PBXNativeTarget "Dutch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				90993F50159777BC00FC1D49 /* Debug */,

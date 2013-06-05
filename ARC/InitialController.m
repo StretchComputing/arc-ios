@@ -21,6 +21,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
+
     @try {
         self.loadingView.hidden = YES;
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);

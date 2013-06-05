@@ -170,6 +170,11 @@ NSString *const CLOSED_STATUS = @"closed";
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
+    //TODO - Uncomment
+    
+    return;
+    
+    
     @try {
         NSString *logPrefix = @"iOS";
 #if DEBUG==1
@@ -266,7 +271,8 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        
+       NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         if (connection) {
         }
         
@@ -306,6 +312,10 @@ NSString *const CLOSED_STATUS = @"closed";
 
 
 + (void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData{
+    
+    //TODO - Uncomment
+
+    return;
     
     @try {
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
