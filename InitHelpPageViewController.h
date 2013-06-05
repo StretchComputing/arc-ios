@@ -14,6 +14,7 @@
 @interface InitHelpPageViewController : UIViewController <UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *helpView;
 
+@property BOOL isGoingPrivacyTerms;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property BOOL doesHaveGuestToken;
 @property BOOL didPushStart;

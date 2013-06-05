@@ -45,7 +45,12 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    if (!self.isGoingPrivacyTerms) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }else{
+        self.isGoingPrivacyTerms = NO;
+    }
 }
 -(void)viewDidAppear:(BOOL)animated{
     
@@ -183,6 +188,7 @@
                 UINavigationController *tmp = [segue destinationViewController];
                 PrivacyTermsViewController *detailViewController = [[tmp viewControllers] objectAtIndex:0];
                 detailViewController.isPrivacy = YES;
+                self.isGoingPrivacyTerms = YES;
                 
             }
             
@@ -191,6 +197,7 @@
                 UINavigationController *tmp = [segue destinationViewController];
                 PrivacyTermsViewController *detailViewController = [[tmp viewControllers] objectAtIndex:0];
                 detailViewController.isPrivacy = NO;
+                self.isGoingPrivacyTerms = YES;
                 
             }
         }
