@@ -444,6 +444,7 @@
         //[self.activity stopAnimating];
         self.loadingViewController.view.hidden = YES;
 
+        
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
             [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];

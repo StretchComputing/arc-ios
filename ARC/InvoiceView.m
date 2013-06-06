@@ -373,7 +373,8 @@
             
             
             NSString *name = [payment valueForKey:@"Name"];
-            
+            nameLabel.text = [payment valueForKey:@"Name"];
+
             @try {
                 
                 if ([name length] == 6) {
@@ -388,8 +389,8 @@
                 }
             }
             @catch (NSException *exception) {
-                nameLabel.text = [payment valueForKey:@"Name"];
 
+                
             }
            
         
