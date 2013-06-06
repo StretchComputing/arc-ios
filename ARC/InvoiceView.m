@@ -179,7 +179,7 @@
         
         self.payBillButton.textColor = [UIColor whiteColor];
         self.payBillButton.text = @"Pay Bill!";
-        self.payBillButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.payBillButton.tintColor = dutchLightBlueColor;
         self.payBillButton.cornerRadius = 3.0;
         self.payBillButton.borderColor = [UIColor darkGrayColor];
         self.payBillButton.borderWidth = 0.5;

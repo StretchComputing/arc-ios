@@ -17,6 +17,10 @@
 #import "ArcUtility.h"
 #import "DwollaAPI.h"
 
+
+UIColor *dutchLightBlueColor;
+UIColor *dutchDarkBlueColor;
+
 @implementation ArcAppDelegate
 
 //Reachability
@@ -119,6 +123,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    dutchLightBlueColor = [UIColor colorWithRed:11.0/255.0 green:132.0/255.0 blue:255.0/255.0 alpha:1.0];
+    dutchDarkBlueColor = [UIColor colorWithRed:0.0/255.0 green:48.0/255.0 blue:170.0/255.0 alpha:1.0];
+
     
     self.trackEventArray = [NSMutableArray array];
     //Checking versionNumber

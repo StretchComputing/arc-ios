@@ -22,7 +22,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dutchLogo.png" id="DmI-i2-GMz">
-                                <rect key="frame" x="7" y="113" width="306" height="198"/>
+                                <rect key="frame" x="7" y="99" width="306" height="198"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile payments are going" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="PEm-0c-8FU">
                                 <rect key="frame" x="-14" y="335" width="291" height="42"/>
@@ -31,9 +31,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hcN-EJ-IaR">
-                                <rect key="frame" x="234" y="335" width="72" height="42"/>
+                                <rect key="frame" x="235" y="335" width="72" height="42"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.043137254901960784" green="0.51764705882352935" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" id="vVi-do-ii3">
@@ -3872,7 +3873,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="571"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="xzV-OZ-tQf">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dutchIcon.png" id="xzV-OZ-tQf">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                                     </imageView>
                                 </subviews>
@@ -4368,8 +4369,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="yAc-6n-DFn">
-                                        <rect key="frame" x="111" y="6" width="99" height="32"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dutchIcon.png" id="yAc-6n-DFn">
+                                        <rect key="frame" x="111" y="4" width="99" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1r0-OA-E2D">
@@ -5368,7 +5369,8 @@
         <image name="blueCheck.png" width="150" height="138"/>
         <image name="camera.png" width="128" height="128"/>
         <image name="divide.png" width="64" height="64"/>
-        <image name="dutchLogo.png" width="359" height="470"/>
+        <image name="dutchIcon.png" width="120" height="120"/>
+        <image name="dutchLogo.png" width="305" height="420"/>
         <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="helpImage1.png" width="900" height="800"/>
         <image name="helpImage2.png" width="1100" height="800"/>

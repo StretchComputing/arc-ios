@@ -398,7 +398,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         self.submitButton.text = @"Submit";
         self.submitButton.textColor = [UIColor whiteColor];
         self.submitButton.textShadowColor = [UIColor darkGrayColor];
-        self.submitButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/215.0 alpha:1];
+        self.submitButton.tintColor = dutchDarkBlueColor;
         self.submitButton.borderColor = [UIColor darkGrayColor];
         self.submitButton.borderWidth = 0.5;
         self.submitButton.cornerRadius = 3.0;
@@ -464,6 +464,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
        // self.hiddenText = [[UITextField alloc] init];
         self.hiddenText.keyboardType = UIKeyboardTypeNumberPad;
         self.hiddenText.delegate = self;
+        self.hiddenText.textColor = dutchDarkBlueColor;
         self.hiddenText.text = @"";
        // [self.view addSubview:self.hiddenText];
         

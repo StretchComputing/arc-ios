@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PrivacyTermsViewController.h"
 #import "rSkybox.h"
+#import "ArcAppDelegate.h"
 
 @interface InitHelpPageViewController ()
 
@@ -58,12 +59,12 @@
     self.myScrollView.delegate = self;
     self.startUsingButton.text = @"Start Using Arc!";
     
-    self.startUsingButton.tintColor =  [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:125.0/255.0 alpha:1.0];
+    self.startUsingButton.tintColor =  dutchDarkBlueColor;
     self.startUsingButton.textColor = [UIColor whiteColor];
     
     @try {
-        self.pageControl.pageIndicatorTintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:125.0/255.0 alpha:1.0];
-        self.pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:125.0/255.0 alpha:1.0];
+        self.pageControl.pageIndicatorTintColor = dutchLightBlueColor;
+        self.pageControl.currentPageIndicatorTintColor = dutchDarkBlueColor;
     }
     @catch (NSException *exception) {
         

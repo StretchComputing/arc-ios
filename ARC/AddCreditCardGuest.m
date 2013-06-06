@@ -757,7 +757,7 @@
                 editCardOption = YES;
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
                 editCardOption = YES;
-                errorMsg = @"Arc Error, Try Again.";
+                errorMsg = @"Dutch Error, Try Again.";
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
                 displayAlert = YES;
