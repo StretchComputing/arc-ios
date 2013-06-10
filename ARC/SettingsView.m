@@ -313,15 +313,18 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
         
-        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-		NSDictionary *loginDict = [[NSDictionary alloc] init];
-        [ tempDictionary setObject:customerId forKey:@"customerId"];
+        if ([customerId length] > 0) {
+            NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+            NSDictionary *loginDict = [[NSDictionary alloc] init];
+            [ tempDictionary setObject:customerId forKey:@"customerId"];
+            
+            [self.activity startAnimating];
+            
+            loginDict = tempDictionary;
+            self.getPointsBalanceArcClient = [[ArcClient alloc] init];
+            [self.getPointsBalanceArcClient getPointBalance:loginDict];
+        }
         
-        [self.activity startAnimating];
-
-		loginDict = tempDictionary;
-        self.getPointsBalanceArcClient = [[ArcClient alloc] init];
-        [self.getPointsBalanceArcClient getPointBalance:loginDict];
         
     }
     @catch (NSException *e) {
