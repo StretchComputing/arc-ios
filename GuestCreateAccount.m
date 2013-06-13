@@ -290,7 +290,7 @@
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-        NSLog(@"ResponseInfo: %@", responseInfo);
+       // NSLog(@"ResponseInfo: %@", responseInfo);
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
@@ -304,7 +304,7 @@
             NSString *newToken = [responseInfo valueForKey:@"Results"];
             
             
-            NSLog(@"NewToken: %@", newToken);
+         //   NSLog(@"NewToken: %@", newToken);
             
             //Successful conversion from guest->customer
             

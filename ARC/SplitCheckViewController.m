@@ -278,7 +278,7 @@
     
     
     @try {
-        NSLog(@"Velocitiy: %f", velocity.x);
+       // NSLog(@"Velocitiy: %f", velocity.x);
         
         CGFloat xOffset = targetContentOffset->x;
         int intOffset = round(xOffset);
@@ -694,7 +694,7 @@
 
 - (IBAction)dollarTipDidBegin {
     
-    NSLog(@"Counting Tries 1");
+   // NSLog(@"Counting Tries 1");
 
     [rSkybox addEventToSession:@"dollarTipDidBegin"];
     
@@ -858,7 +858,7 @@
                     yourBaseAmount = [NSString stringWithFormat:@"%.2f", basePayment];
                 }
                 
-                NSLog(@"Your Base Amount: %@", yourBaseAmount);
+               // NSLog(@"Your Base Amount: %@", yourBaseAmount);
                 
                 self.isPayRemaining = YES;
                 self.payRemainingAmount = basePayment;
@@ -913,7 +913,7 @@
                 basePayment = 0.0;
             }
             
-            NSLog(@"Base Payment: %f", basePayment);
+            //NSLog(@"Base Payment: %f", basePayment);
 
             double roundDown = [ArcUtility roundDownToNearestPenny:basePayment];
             
@@ -984,7 +984,7 @@
                 [self readyInvoiceForPayment];
                 
                 
-                NSLog(@"Base Pay: %f", self.myInvoice.basePaymentAmount);
+              //  NSLog(@"Base Pay: %f", self.myInvoice.basePaymentAmount);
                 
                 double totalPay = self.myInvoice.basePaymentAmount + self.myInvoice.gratuity;
                 
@@ -1047,7 +1047,7 @@
                 
                 
                 
-                NSLog(@"Base Pay: %f", self.myInvoice.basePaymentAmount);
+                //NSLog(@"Base Pay: %f", self.myInvoice.basePaymentAmount);
 
                 
                 [self.navigationController pushViewController:tmp animated:YES];
@@ -1414,9 +1414,9 @@
             if (self.percentView.hidden == NO) {
                 controller.mySplitPercent = [self.percentYourPaymentText.text doubleValue];
                 
-                NSLog(@"MySplitPercent: %f", controller.mySplitPercent);
+               // NSLog(@"MySplitPercent: %f", controller.mySplitPercent);
                 
-                NSLog(@"Test");
+               // NSLog(@"Test");
             }else{
                 controller.mySplitPercent = 0.0;
             }
@@ -1471,9 +1471,9 @@
             if (self.percentView.hidden == NO) {
                 controller.mySplitPercent = [self.percentYourPaymentText.text doubleValue];
                 
-                NSLog(@"MySplitPercent: %f", controller.mySplitPercent);
+               // NSLog(@"MySplitPercent: %f", controller.mySplitPercent);
                 
-                NSLog(@"Test");
+               // NSLog(@"Test");
             }else{
                 controller.mySplitPercent = 0.0;
             }
@@ -1694,7 +1694,7 @@
             
             NSDictionary *tmpItem = [self.itemArray objectAtIndex:row];
         
-        NSLog(@"Item: %@", tmpItem);
+       // NSLog(@"Item: %@", tmpItem);
             
             UILabel *itemlabel = (UILabel *)[cell.contentView viewWithTag:1];
             UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:2];
@@ -2028,8 +2028,8 @@
             
             [tmp setValue:[NSString stringWithFormat:@"%f", value] forKey:@"myAmount"];
             
-            NSLog(@"Tmp: %@", tmp);
-            NSLog(@"Value: %f", value);
+            //NSLog(@"Tmp: %@", tmp);
+           // NSLog(@"Value: %f", value);
             
             if ([[tmp valueForKey:@"selected"] isEqualToString:@"yes"]) {
                 [tmp setValue:@"maybe" forKey:@"selected"];
@@ -2632,8 +2632,8 @@
                         
                         double initialPercent = [[paidItem valueForKey:@"Percent"] doubleValue];
                         double newPercent = [[paidItemCheck valueForKey:@"Percent"] doubleValue];
-                        NSLog(@"InitPercent: %f", initialPercent);
-                        NSLog(@"NewPercent: %f", newPercent);
+                        //NSLog(@"InitPercent: %f", initialPercent);
+                        //NSLog(@"NewPercent: %f", newPercent);
                         
                         initialPercent += newPercent;
                         

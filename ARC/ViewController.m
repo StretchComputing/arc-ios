@@ -520,7 +520,7 @@
 -(void)facebookSuccess:(NSString *)output{
     
 
-    NSLog(@"OutPut: %@", output);
+  //  NSLog(@"OutPut: %@", output);
     
     
     SBJsonParser *jsonParser = [SBJsonParser new];
@@ -570,8 +570,8 @@
 -(void)registerComplete:(NSNotification *)notification{
     //@try {
         
-    NSLog(@"Notification: %@", notification);
-    NSLog(@"Test");
+  //  NSLog(@"Notification: %@", notification);
+   // NSLog(@"Test");
         /*
         self.loadingViewController.view.hidden = YES;
         self.loginButton.enabled = YES;

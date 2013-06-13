@@ -411,7 +411,7 @@
         
     }
     @catch (NSException *e) {
-        NSLog(@"E: %@", e);
+       // NSLog(@"E: %@", e);
         
         self.errorLabel.text = @"*Error retreiving credit card.";
 

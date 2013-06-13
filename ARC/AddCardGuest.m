@@ -1003,7 +1003,7 @@
         
         self.navigationItem.hidesBackButton = NO;
 
-        NSLog(@"Notification: %@", notification);
+       // NSLog(@"Notification: %@", notification);
         
         [self.myTimer invalidate];
         

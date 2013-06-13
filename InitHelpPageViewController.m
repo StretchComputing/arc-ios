@@ -272,7 +272,7 @@
         self.loadingViewController.view.hidden = YES;
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-        NSLog(@"Response Info: %@", responseInfo);
+       // NSLog(@"Response Info: %@", responseInfo);
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
