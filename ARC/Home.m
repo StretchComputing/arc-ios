@@ -849,6 +849,7 @@
 - (IBAction)searchCancelAction {
     
     self.searchTextField.text = @"";
+    self.errorLabel.text = @"";
     
     self.searchCancelButton.hidden = YES;
     [self.searchTextField resignFirstResponder];

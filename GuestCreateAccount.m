@@ -130,6 +130,18 @@
                 
                 [tempDictionary setValue:self.username.text forKey:@"eMail"];
                 [tempDictionary setValue:self.password.text forKey:@"Password"];
+                
+                NSString *firstName = self.username.text;
+                @try {
+                    firstName = [self.username.text substringToIndex:[self.username.text rangeOfString:@"@"].location];
+
+                }
+                @catch (NSException *exception) {
+                    
+                }
+               
+                [tempDictionary setObject:firstName forKey:@"FirstName"];
+                [tempDictionary setObject:@" " forKey:@"LastName"];
                 [tempDictionary setValue:[NSNumber numberWithBool:NO] forKey:@"IsGuest"];
                 
                 

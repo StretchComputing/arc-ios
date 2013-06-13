@@ -412,6 +412,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
+            
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetReview"];
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
@@ -781,7 +782,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     @try {
-        
+    
         NSString *logName = [NSString stringWithFormat:@"api.%@.threshold", [self apiToString]];
         [rSkybox endThreshold:logName logMessage:@"fake logMessage" maxValue:14000.00];
         

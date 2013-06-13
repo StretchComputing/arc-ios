@@ -12,6 +12,7 @@
 #import "Encoder.h"
 #import "ArcAppDelegate.h"
 
+
 static NSString *basicAuthUserName = @"token";
 static NSString *baseUrl = @"https://rskybox-stretchcom.appspot.com/rest/v1";
 //TODO: rSkybox ids - replace the current basicAuthToken and applicationId with the token and application id you received when you registered for rSkybox
@@ -33,7 +34,13 @@ NSString* const ARC_VERSION_NUMBER = @"1.6";
 
 + (NSString *)getUserId{
     //TODO: rSkybox userId - return instead a uniqiue identifier for this user
-    return [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"];
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+        return  [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"];
+    }else{
+        return @"guest@guest.com";
+    }
+
 }
 
 + (NSDictionary *)createEndUser{
@@ -52,7 +59,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.6";
         [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
         
         
-        
+    
         loginDict = tempDictionary;
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];
         
@@ -407,6 +414,7 @@ NSString* const ARC_VERSION_NUMBER = @"1.6";
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+        
         
         NSString *apiStatus = [response valueForKey:@"apiStatus"];
         if ([apiStatus isEqualToString:@"100"]) {
