@@ -87,7 +87,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
             _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
-       // NSLog(@"***** Arc URL = %@ *****", _arcUrl);
+        NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
 }
@@ -384,7 +384,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
-       // NSLog(@"RequestString: %@", requestString);
+        NSLog(@"Create RequestString: %@", requestString);
         
         
         self.serverData = [NSMutableData data];
@@ -789,7 +789,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-       //  NSLog(@"ReturnString: %@", returnString);
+         NSLog(@"ReturnString: %@", returnString);
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];

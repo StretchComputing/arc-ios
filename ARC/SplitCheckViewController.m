@@ -1683,6 +1683,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     @try {
         
+        
+
+        
         NSUInteger row = [indexPath row];
         
        
@@ -1694,8 +1697,7 @@
             
             NSDictionary *tmpItem = [self.itemArray objectAtIndex:row];
         
-       // NSLog(@"Item: %@", tmpItem);
-            
+        
             UILabel *itemlabel = (UILabel *)[cell.contentView viewWithTag:1];
             UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:2];
         
@@ -1847,6 +1849,8 @@
     
     @try {
         
+        
+
         
         NSDictionary *tmpItem = [self.itemArray objectAtIndex:indexPath.row];
         
@@ -2315,21 +2319,20 @@
                         [self.paidItemsArray addObject:paidItem];
                     }
                 }
-                
-                
-                
+                                
             }
             @catch (NSException *exception) {
                 
             }
+                        
+            [self setUpView:NO];
+            [self changePreviousView];
+            
             
             self.didShowPaidItems = NO;
             if (self.itemView.hidden == NO) {
                 [self showPaidItems];
             }
-            
-            [self setUpView:NO];
-            [self changePreviousView];
             
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
@@ -2512,6 +2515,7 @@
 
 -(void)showPaidItems{
     
+    
     if (!self.didShowPaidItems) {
         
         self.didShowPaidItems = YES;
@@ -2602,6 +2606,7 @@
         NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"isPaidFor" ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:sorter];
         self.itemArray = [NSMutableArray arrayWithArray:[self.itemArray sortedArrayUsingDescriptors:sortDescriptors]];
+        
         
         
         [self.itemTableView reloadData];
