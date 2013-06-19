@@ -35,7 +35,7 @@ static int httpStatusCode;
 static NSString *streamId;
 
 
-NSString* const ARC_VERSION_NUMBER = @"1.5";
+NSString* const ARC_VERSION_NUMBER = @"2.0";
 
 NSString *const SUCCESS = @"100";
 NSString *const INVALID_STATUS = @"201";

@@ -70,7 +70,9 @@
         }
         
         
-        [self performSelector:@selector(getPointsBalance)];
+        if ([[prefs valueForKey:@"customerToken"] length] > 0) {
+            //[self performSelector:@selector(getPointsBalance)];
+        }
         
         NSString *dwollaAuthToken = @"";
         @try {

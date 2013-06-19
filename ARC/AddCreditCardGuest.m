@@ -701,7 +701,7 @@
         BOOL duplicateTransaction = NO;
         BOOL displayAlert = NO;
         self.addCardButton.enabled = YES;
-       // self.navigationItem.hidesBackButton = NO;
+        self.navigationItem.hidesBackButton = NO;
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         

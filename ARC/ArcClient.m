@@ -581,39 +581,48 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         
-        [pairs setValue:mainDelegate.pushToken forKey:@"DeviceId"];
-        
-        [pairs setValue:@"Production" forKey:@"PushType"];
-
+        if ([mainDelegate.pushToken length] > 0) {
+            
+            [pairs setValue:mainDelegate.pushToken forKey:@"DeviceId"];
+            
+            [pairs setValue:@"Production" forKey:@"PushType"];
+            
 #if DEBUG==1
-        [pairs setValue:@"Development" forKey:@"PushType"];
+            [pairs setValue:@"Development" forKey:@"PushType"];
 #endif
+            
+            
+            
+            NSNumber *noMail = [NSNumber numberWithBool:YES];
+            [pairs setValue:noMail forKey:@"NoMail"];
+            
+            NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+            NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+            
+            ArcClient *tmp = [[ArcClient alloc] init];
+            NSString *arcUrl = [tmp getCurrentUrl];
+            
+            NSString *merchantId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+            merchantId = @"current";
+            
+            NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/update/%@", arcUrl, merchantId, nil];
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
+            [request setHTTPMethod: @"POST"];
+            
+            [request setHTTPBody: requestData];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            [request setValue:[tmp authHeader] forHTTPHeaderField:@"Authorization"];
+            
+            NSLog(@"Request String: %@", requestString);
+            
+            self.serverData = [NSMutableData data];
+            [rSkybox startThreshold:@"updatePushToken"];
+            self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+            
+            
+        }
         
-
         
-        NSNumber *noMail = [NSNumber numberWithBool:YES];
-        [pairs setValue:noMail forKey:@"NoMail"];
-        
-        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
-        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
-        
-        ArcClient *tmp = [[ArcClient alloc] init];
-        NSString *arcUrl = [tmp getCurrentUrl];        
-        
-        NSString *merchantId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
-        merchantId = @"current";
-        
-        NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/update/%@", arcUrl, merchantId, nil];
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createReviewUrl]];
-        [request setHTTPMethod: @"POST"];
-        
-        [request setHTTPBody: requestData];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[tmp authHeader] forHTTPHeaderField:@"Authorization"];
-                
-        self.serverData = [NSMutableData data];
-        [rSkybox startThreshold:@"updatePushToken"];
-        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ArcClient.updatePushToken" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
