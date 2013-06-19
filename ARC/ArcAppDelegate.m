@@ -20,6 +20,10 @@
 
 UIColor *dutchLightBlueColor;
 UIColor *dutchDarkBlueColor;
+UIColor *dutchGreenColor;
+UIColor *dutchTopLineColor;
+UIColor *dutchTopNavColor;
+
 
 @implementation ArcAppDelegate
 
@@ -126,8 +130,10 @@ UIColor *dutchDarkBlueColor;
     
     dutchLightBlueColor = [UIColor colorWithRed:11.0/255.0 green:132.0/255.0 blue:255.0/255.0 alpha:1.0];
     dutchDarkBlueColor = [UIColor colorWithRed:0.0/255.0 green:48.0/255.0 blue:170.0/255.0 alpha:1.0];
+    dutchGreenColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+    dutchTopLineColor = [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0];
+    dutchTopNavColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1.0];
 
-    
     self.trackEventArray = [NSMutableArray array];
     //Checking versionNumber
     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"didShowVersionWarning"];

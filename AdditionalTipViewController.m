@@ -6,6 +6,7 @@
 //
 //
 
+#import "ArcAppDelegate.h"
 #import "AdditionalTipViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
@@ -34,16 +35,17 @@
     self.continueButton.text = @"Continue";
     self.continueButton.textColor = [UIColor whiteColor];
     self.continueButton.textShadowColor = [UIColor darkGrayColor];
-    self.continueButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
+    self.continueButton.tintColor = dutchDarkBlueColor;
     
-    self.tipSelectSegment.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
+    self.tipSelectSegment.tintColor = [UIColor grayColor];
     
     
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.5;
+    self.topLineView.layer.shadowOpacity = 0.2;
+    self.topLineView.backgroundColor = dutchTopLineColor;
+    self.backView.backgroundColor = dutchTopNavColor;
     
-    self.backView.layer.cornerRadius = 7.0;
     
     
     self.myTotalLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.basePaymentAmount];
@@ -59,6 +61,8 @@
         self.tipSelectSegment.selectedSegmentIndex = -1;
     }
     
+    self.transactionNotesText.layer.borderWidth = 1;
+    self.transactionNotesText.layer.borderColor = [dutchTopLineColor CGColor];
 }
 
 

@@ -23,11 +23,13 @@
     
     self.callButton.text = @"Call Us";
     self.emailButton.text = @"Send Us An Email";
+   
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.5;
+    self.topLineView.layer.shadowOpacity = 0.2;
+    self.topLineView.backgroundColor = dutchTopLineColor;
+    self.backView.backgroundColor = dutchTopNavColor;
     
-    self.backView.layer.cornerRadius = 7.0;
     
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];

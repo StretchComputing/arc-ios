@@ -16,6 +16,11 @@
 
 extern UIColor *dutchLightBlueColor;
 extern UIColor *dutchDarkBlueColor;
+extern UIColor *dutchGreenColor;
+extern UIColor *dutchTopLineColor;
+extern UIColor *dutchTopNavColor;
+
+
 
 #define UIAppDelegate ((ArcAppDelegate *)[UIApplication sharedApplication].delegate)
 

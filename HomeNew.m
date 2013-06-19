@@ -242,7 +242,7 @@
     self.payBillButton.borderColor = [UIColor darkGrayColor];
     self.payBillButton.borderWidth = 0.5;
 
-    self.payBillButton.tintColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+    self.payBillButton.tintColor = dutchGreenColor;
     
     
     self.moreInfoButton.text = @"More Info";

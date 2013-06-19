@@ -418,6 +418,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
         self.topLineView.layer.shadowOpacity = 0.2;
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
         
         
         self.leftTopLineView.layer.shadowOffset = CGSizeMake(-1, 0);
@@ -429,7 +431,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         self.rightTopLineView.layer.shadowRadius = 1;
         self.rightTopLineView.layer.shadowOpacity = 0.5;
         
-        self.backView.layer.cornerRadius = 7.0;
         
         
         

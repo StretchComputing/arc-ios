@@ -149,37 +149,31 @@
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
         self.topLineView.layer.shadowOpacity = 0.2;
-        
-        //self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        //self.topLineView.layer.shadowRadius = 1;
-        //self.topLineView.layer.shadowOpacity = 0.5;
-        
-        self.splitTopLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.splitTopLineView.layer.shadowRadius = 1;
-        self.splitTopLineView.layer.shadowOpacity = 0.5;
-        
-        self.backView.layer.cornerRadius = 7.0;
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
+
+     
         
         self.splitCancelButton.text = @"Cancel";
         
         self.splitFullButton.textColor = [UIColor whiteColor];
         self.splitFullButton.text = @"Pay Full";
-        self.splitFullButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.splitFullButton.tintColor = dutchDarkBlueColor;
         
         self.splitSaveButton.textColor = [UIColor whiteColor];
         self.splitSaveButton.text = @"Save";
-        self.splitSaveButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.splitSaveButton.tintColor = dutchDarkBlueColor;
     
         
         self.itemSplitSaveButton.textColor = [UIColor whiteColor];
         self.itemSplitSaveButton.text = @"Save";
-        self.itemSplitSaveButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.itemSplitSaveButton.tintColor = dutchDarkBlueColor;
         
         
         
         self.payBillButton.textColor = [UIColor whiteColor];
         self.payBillButton.text = @"Pay Bill!";
-        self.payBillButton.tintColor = dutchLightBlueColor;
+        self.payBillButton.tintColor = dutchGreenColor;
         self.payBillButton.cornerRadius = 3.0;
         self.payBillButton.borderColor = [UIColor darkGrayColor];
         self.payBillButton.borderWidth = 0.5;
