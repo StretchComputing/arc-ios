@@ -27,6 +27,8 @@
 @property (nonatomic, strong) Invoice *myInvoice;
 @property (nonatomic, strong) IBOutlet UILabel *errorLabel;
 
+@property (nonatomic, strong) IBOutlet UIView *backView;
+@property (nonatomic, strong) IBOutlet UIView *topLineView;
 @property BOOL isSignIn;
 @property (nonatomic, strong) NSString *ccNumber;
 @property (nonatomic, strong) NSString *ccSecurityCode;

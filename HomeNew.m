@@ -196,11 +196,11 @@
                 
                 //[self showHintOverlay];
                 
-                NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
+                //NSTimer *tmp = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHintOverlay) userInfo:nil repeats:NO];
                 
-                if (tmp) {
+                //if (tmp) {
                     
-                }
+              //  }
                 
                 
                 

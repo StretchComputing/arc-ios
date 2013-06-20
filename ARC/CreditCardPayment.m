@@ -446,6 +446,8 @@
     }];
 }
 
+
+
 -(void)paymentComplete:(NSNotification *)notification{
     
     @try {
@@ -457,6 +459,7 @@
         BOOL editCardOption = NO;
         BOOL duplicateTransaction = NO;
         BOOL displayAlert = NO;
+        BOOL networkError = NO;
         self.keyboardSubmitButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
         
@@ -466,11 +469,12 @@
         
         //[self.activity stopAnimating];
         self.loadingViewController.view.hidden = YES;
-
+        
+        
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
             [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];
-
+            
             //success
             self.errorLabel.text = @"";
             BOOL paidInFull = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"InvoicePaid"] boolValue];
@@ -483,7 +487,7 @@
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
             [rSkybox addEventToSession:@"creditCardPaymentCompleteFail"];
-
+            
             
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
@@ -519,14 +523,22 @@
             }else if(errorCode == DUPLICATE_TRANSACTION){
                 duplicateTransaction = YES;
             }else if (errorCode == CHECK_IS_LOCKED){
-                errorMsg = @"Invoice being access by your server.  Please try again in a few minutes.";
+                errorMsg = @"This check is currently locked.  Please try again in a few minutes.";
                 displayAlert = YES;
             }else if (errorCode == CARD_ALREADY_PROCESSED){
-                errorMsg = @"This credit card has already been used to make a payment on this invoice. To make an additional payment, either use a different credit card or have your server void your initial payment.";
+                errorMsg = @"This card has already been used for payment on this invoice.  A card may only be used once per invoice.  Please try again with a different card.";
                 displayAlert = YES;
             }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
                 errorMsg = @"Invalid Authorization, please try again.";
                 displayAlert = YES;
+            }else if (errorCode == NETWORK_ERROR){
+                networkError = YES;
+                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                
+            }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
+                networkError = YES;
+                errorMsg = @"Arc experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+                
             }
             else {
                 errorMsg = ARC_ERROR_MSG;
@@ -542,7 +554,17 @@
             [alert show];
             
         }else{
-            self.errorLabel.text = errorMsg;
+            
+            if ([errorMsg length] > 0) {
+                if (networkError) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet  Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }else{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }
+            }
+            
             
         }
         
@@ -559,6 +581,8 @@
     }
     
 }
+
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     if (buttonIndex == 1) {

@@ -701,6 +701,10 @@
     
     @try {
         
+        self.navigationItem.hidesBackButton = NO;
+        
+        // NSLog(@"Notification: %@", notification);
+        
         [self.myTimer invalidate];
         
         //[self hideHighVolumeOverlay];
@@ -708,8 +712,10 @@
         BOOL editCardOption = NO;
         BOOL duplicateTransaction = NO;
         BOOL displayAlert = NO;
+        BOOL networkError = NO;
+        
         self.addCardButton.enabled = YES;
-        self.navigationItem.hidesBackButton = NO;
+        // self.navigationItem.hidesBackButton = NO;
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
@@ -717,18 +723,16 @@
         
         //[self.activity stopAnimating];
         self.loadingViewController.view.hidden = YES;
-        self.loadingTopView.hidden = YES;
-        
-        NSLog(@"Notification: %@", notification);
+        //self.loadingTopView.hidden = YES;
         
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
             [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];
             
             //success
-           // self.errorLabel.text = @"";
+            // self.errorLabel.text = @"";
             BOOL paidInFull = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"InvoicePaid"] boolValue];
-           // self.paymentPointsReceived =  [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"Points"] intValue];
+            // self.paymentPointsReceived =  [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"Points"] intValue];
             
             if(paidInFull) [self.myInvoice setPaidInFull:paidInFull];
             int paymentId = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"PaymentId"] intValue];
@@ -767,7 +771,7 @@
                 editCardOption = YES;
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
                 editCardOption = YES;
-                errorMsg = @"Dutch Error, Try Again.";
+                errorMsg = @"Arc Error, Try Again.";
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
                 displayAlert = YES;
@@ -782,6 +786,16 @@
             }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
                 errorMsg = @"Invalid Authorization, please try again.";
                 displayAlert = YES;
+            }else if (errorCode == NETWORK_ERROR){
+                
+                networkError = YES;
+                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                
+            }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
+                
+                networkError = YES;
+                errorMsg = @"Arc experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+                
             }
             else {
                 errorMsg = ARC_ERROR_MSG;
@@ -797,7 +811,19 @@
             [alert show];
             
         }else{
-           // self.errorLabel.text = errorMsg;
+            
+            if ([errorMsg length] > 0) {
+                if (networkError) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet  Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }else{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }
+            }
+            
+            
+            // self.errorLabel.text = errorMsg;
             
         }
         
@@ -810,10 +836,12 @@
         }
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"CreditCardPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"AddCardGuest.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
 }
+
+
 
 
 

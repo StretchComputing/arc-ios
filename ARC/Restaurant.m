@@ -567,6 +567,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         
         //[self.activity stopAnimating];
         self.loadingViewController.view.hidden = YES;
+        BOOL displayAlert = NO;
 
         self.submitButton.enabled = YES;
         self.keyboardSubmitButton.enabled = YES;
@@ -645,6 +646,10 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 errorMsg = @"Invoice closed.";
             }else if (errorCode == CHECK_IS_LOCKED){
                 errorMsg = @"Invoice being access by your server.  Try again in a few minutes.";
+            } else if (errorCode == NETWORK_ERROR){
+                displayAlert = YES;
+                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                
             } else {
                 errorMsg = ARC_ERROR_MSG;
             }
@@ -654,7 +659,14 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         }
         
         if([errorMsg length] > 0) {
-            self.errorLabel.text = errorMsg;
+            
+            if (displayAlert) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Get Invoice" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                [alert show];
+            }else{
+                self.errorLabel.text = errorMsg;
+                
+            }
         }
     }
     @catch (NSException *e) {

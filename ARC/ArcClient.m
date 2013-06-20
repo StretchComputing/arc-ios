@@ -59,6 +59,9 @@ int const CARD_ALREADY_PROCESSED = 628;
 int const CHECK_IS_LOCKED = 630;
 int const NO_AUTHORIZATION_PROVIDED = 631;
 
+
+int const NETWORK_ERROR_CONFIRM_PAYMENT = 998;
+int const NETWORK_ERROR = 999;
 int const MAX_RETRIES_EXCEEDED = 1000;
 
 
@@ -377,6 +380,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
+        NSLog(@"Auth Header: %@", [self authHeader]);
         NSLog(@"RequestString: %@", requestString);
         
         
@@ -977,7 +981,14 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSDictionary *responseInfo = @{@"status": @"fail", @"error": @0};
         NSString *notificationType;
         if(api == CreateCustomer) {
-            notificationType = @"registerNotification";
+            postNotification = NO;
+            NSString *status = @"error";
+            int errorCode = NETWORK_ERROR;
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+            [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
         } else if(api == UpdateGuestCustomer) {
             notificationType = @"updateGuestCustomerNotification";
         }else if(api == GetCustomerToken) {
@@ -987,10 +998,30 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         }
         else if(api == GetMerchantList) {
             notificationType = @"merchantListNotification";
-        } else if(api == GetInvoice) {
-            notificationType = @"invoiceNotification";
-            BOOL successful = FALSE;
+        }else if(api == GetInvoice) {
+            postNotification = NO;
+            NSString *status = @"error";
+            int errorCode = NETWORK_ERROR;
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
+            
             [ArcClient endAndReportLatency:GetInvoice logMessage:@"GetInvoice API completed" successful:successful];
+        } else if(api == CreatePayment) {
+            
+            
+            postNotification = NO;
+            NSString *status = @"error";
+            int errorCode = NETWORK_ERROR;
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+            successful = FALSE;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
+            [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+            
+            
+            
         } else if(api == CreatePayment) {
             notificationType = @"createPaymentNotification";
             BOOL successful = FALSE;
@@ -1014,9 +1045,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 postNotification = NO;
                 
                 if (self.numberConfirmPaymentTries > 10) {
-                
+                    
                     NSString *status = @"error";
-                    int errorCode = MAX_RETRIES_EXCEEDED;
+                    int errorCode = NETWORK_ERROR_CONFIRM_PAYMENT;
                     responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
                     successful = FALSE;
                     
@@ -1032,8 +1063,18 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 
             }else{
                 
-                notificationType = @"createPaymentNotification";
-            
+                
+                postNotification = NO;
+                NSString *status = @"error";
+                int errorCode = NETWORK_ERROR_CONFIRM_PAYMENT;
+                responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                successful = FALSE;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
+                [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+                
+                // notificationType = @"createPaymentNotification";
+                
                 
             }
             
@@ -1042,10 +1083,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             if(error.code == -1003){
                 //try again
                 postNotification = NO;
-                if (self.numberRegisterTries > 6) {
+                if (self.numberRegisterTries > 5) {
                     
                     NSString *status = @"error";
-                    int errorCode = MAX_RETRIES_EXCEEDED;
+                    int errorCode = NETWORK_ERROR;
                     responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
                     successful = FALSE;
                     
@@ -1060,8 +1101,18 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 }
                 
             }else{
-                notificationType = @"registerNotification";
-
+                
+                postNotification = NO;
+                NSString *status = @"error";
+                int errorCode = NETWORK_ERROR;
+                responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                successful = FALSE;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+                [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+                
+                //notificationType = @"registerNotification";
+                
             }
         }else if (api == PingServer){
             postNotification = NO;
@@ -1457,25 +1508,32 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                     
                 }else{
                         
-                        self.numberGetInvoiceTries++;
+                    self.numberGetInvoiceTries++;
+                    
+                    if (self.numberGetInvoiceTries < 5) {
                         
-                        if (self.numberGetInvoiceTries <= [self.retryTimesInvoice count]) {
-                            
-                            int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
-                            
-                            NSLog(@"Retry Time: %d", retryTime);
-                            
-                            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(recallGetInvoice) userInfo:nil repeats:NO];
-                            
-                        }else{
-                            NSString *status = @"error";
-                            int errorCode = [self getErrorCode:response];
-                            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
-                            successful = FALSE;
-                            
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
-                            [ArcClient endAndReportLatency:CreatePayment logMessage:@"GetInvoice API completed" successful:successful];
+                        int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
+                        
+                        // NSLog(@"Retry Time: %d", retryTime);
+                        
+                        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(recallGetInvoice) userInfo:nil repeats:NO];
+                        
+                    }else{
+                        NSString *status = @"error";
+                        int errorCode= 999;
+                        @try {
+                            errorCode = [self getErrorCode:response];
                         }
+                        @catch (NSException *exception) {
+                            
+                        }
+                        
+                        responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+                        successful = FALSE;
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
+                        [ArcClient endAndReportLatency:CreatePayment logMessage:@"GetInvoice API completed" successful:successful];
+                    }
                    
                 }
             
@@ -1904,8 +1962,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 -(NSString *) authHeader {
     @try {
         
+        
         NSString *customerToken = [self customerToken];
         NSString *guestToken = [self guestToken];
+
 
         if (customerToken) {
             
@@ -1918,19 +1978,30 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             return authentication;
         }else{
             
+            
+            
             if ([guestToken length] > 0) {
                 //Guest
+                NSLog(@"GuestTOken: %@", guestToken);
+                
                 NSString *stringToEncode = [@"customer:" stringByAppendingString:guestToken];
                 NSString *authentication = [self encodeBase64:stringToEncode];
                 
                 return [@"Basic " stringByAppendingString:guestToken];
                 return authentication;
             }else{
-                
+                return @"";
                 
             }
             
+            
+            
+           
+            
+            
         }
+        
+        return @"";
         
     }
     @catch (NSException *e) {
@@ -1972,6 +2043,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         NSString *guestToken = [prefs valueForKey:@"guestToken"];
+        NSLog(@"Guest Token: %@", guestToken);
+        
         return guestToken;
     }
     @catch (NSException *e) {
