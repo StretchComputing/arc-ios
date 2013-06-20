@@ -1483,7 +1483,18 @@
                         
                         for (int i = 0; i < [self.creditCards count]; i++) {
                             CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                            [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                            
+                            if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                                
+                                [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                                
+                            }else{
+                                [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                                
+                            }
+                            
+                            
+
                             
                         }
                         [self.actionSheet addButtonWithTitle:@"Cancel"];
@@ -2248,8 +2259,13 @@
     
 }
 -(void)noPaymentSources{
+    
+    [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
+
+    /*
     UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
     [self.navigationController presentModalViewController:noPaymentController animated:YES];
+     */
     
 }
 

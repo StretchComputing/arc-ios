@@ -121,15 +121,30 @@ NSString *const AMERICAN_EXPRESS = @"A";
         
         
         
+        
+        
+        
+        
+        
+        
+     
+        
+        
+        
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
         backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
-        backView.layer.cornerRadius = 7.0;
+        backView.backgroundColor = dutchTopNavColor;
     
         [self.navigationController.navigationBar addSubview:backView];
         
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-        lineView.backgroundColor = [UIColor blackColor];
+        lineView.layer.shadowOffset = CGSizeMake(0, 1);
+        lineView.layer.shadowRadius = 1;
+        lineView.layer.shadowOpacity = 0.2;
+        lineView.backgroundColor = dutchTopLineColor;
+        
+        
         [self.navigationController.navigationBar addSubview:lineView];
         
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];

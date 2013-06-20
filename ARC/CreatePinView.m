@@ -46,6 +46,14 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    if (self.isLoggedInUser) {
+        self.skipButton.hidden = NO;
+        if (self.view.frame.size.height < 480) {
+            self.skipButton.text = @"Skip";
+        }
+    }else{
+        self.skipButton.hidden = YES;
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     
     [self.hiddenText becomeFirstResponder];
@@ -61,6 +69,7 @@
 }
 -(void)viewDidLoad{
     
+    self.skipButton.text = @"SKIP - Your card info will not be saved.";
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
     self.loadingViewController.view.hidden = YES;
@@ -210,8 +219,9 @@
 
 -(void)runSuccess{
     
-    if (self.fromCreateGuest) {
-        
+    if (self.fromCreateGuest || self.isLoggedInUser) {
+ 
+
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
@@ -351,6 +361,16 @@
 - (void)viewDidUnload {
     [self setTopLineView:nil];
     [self setBackView:nil];
+    [self setSkipButton:nil];
     [super viewDidUnload];
+}
+- (IBAction)skipAction {
+    
+    ReviewTransaction *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"review"];
+    tmp.isFromGuest = YES;
+    
+    [self.navigationController pushViewController:tmp animated:YES];
+    
+    
 }
 @end

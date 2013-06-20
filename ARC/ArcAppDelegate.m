@@ -673,7 +673,17 @@ ofType:(NSString *)typeName
 
             CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
             
-            NSString *sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+            NSString *sample = @"";
+            
+            if (![andCreditDebit isEqualToString:@"Credit"] && ![andCreditDebit isEqualToString:@"Debit"]) {
+                sample = [NSString stringWithFormat:@"%@  ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+
+            }else{
+                sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+
+            }
+            
+            NSLog(@"SAVING SAMPLE: %@", sample);
             
             creditCard.expiration = expiration;
             creditCard.sample = sample;

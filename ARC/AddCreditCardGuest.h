@@ -17,6 +17,7 @@
 @property BOOL shouldIgnoreValueChanged;
 @property BOOL shouldIgnoreValueChangedExpiration;
 
+@property BOOL isGuest;
 @property (nonatomic, strong) NSString *expirationMonth;
 @property (nonatomic, strong) NSString *expirationYear;
 

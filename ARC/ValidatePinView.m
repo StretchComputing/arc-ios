@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "EditCreditCard.h"
 #import "FBEncryptorAES.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ValidatePinView ()
 
@@ -80,13 +81,16 @@
     
     self.navBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
     self.navBackView .backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
-    self.navBackView .layer.cornerRadius = 7.0;
+    self.navBackView.backgroundColor = dutchTopNavColor;
     
     [self.navigationController.navigationBar addSubview:self.navBackView ];
     
     
     self.navLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-    self.navLineView.backgroundColor = [UIColor blackColor];
+    self.navLineView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.navLineView.layer.shadowRadius = 1;
+    self.navLineView.layer.shadowOpacity = 0.2;
+    self.navLineView.backgroundColor = dutchTopLineColor;
     [self.navigationController.navigationBar addSubview:self.navLineView];
     
     self.navButton = [UIButton buttonWithType:UIButtonTypeCustom];

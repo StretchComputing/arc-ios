@@ -491,18 +491,18 @@
             
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
-                errorMsg = @"Credit card not approved.";
+                //errorMsg = @"Credit card not approved.";
                 editCardOption = YES;
             } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
                 // TODO need explanation from Jim to put proper error msg
-                errorMsg = @"Failed to validate credit card";
+                //errorMsg = @"Failed to validate credit card";
                 editCardOption = YES;
             } else if (errorCode == FIELD_FORMAT_ERROR){
-                errorMsg = @"Invalid Credit Card Field Format";
+               // errorMsg = @"Invalid Credit Card Field Format";
                 editCardOption = YES;
             }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
                 // TODO need explanation from Jim to put proper error msg
-                errorMsg = @"Invalid credit/debit card number";
+               // errorMsg = @"Invalid credit/debit card number";
                 editCardOption = YES;
             } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
                 // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
@@ -512,10 +512,10 @@
             } else if(errorCode == INVALID_AMOUNT) {
                 errorMsg = @"Invalid amount. Please re-enter payment and try again.";
             } else if(errorCode == INVALID_EXPIRATION_DATE) {
-                errorMsg = @"Invalid expiration date.";
+               // errorMsg = @"Invalid expiration date.";
                 editCardOption = YES;
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
-                editCardOption = YES;
+               // editCardOption = YES;
                 errorMsg = @"Arc Error, Try Again.";
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
@@ -563,9 +563,7 @@
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                     [alert show];
                 }
-            }
-            
-            
+            }            
         }
         
         if (editCardOption) {

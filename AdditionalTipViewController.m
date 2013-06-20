@@ -77,9 +77,14 @@
     
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] > 0) {
         
+        if ([self.creditCardSample length] > 0) {
+            [self performSegueWithIdentifier:@"goConfirm" sender:self];
+        }else{
+            //logged in, but need to enter card
+            [self performSegueWithIdentifier:@"goEnterCard" sender:self];
+
+        }
         
-        
-        [self performSegueWithIdentifier:@"goConfirm" sender:self];
     }else{
         //Guest
         
@@ -263,6 +268,13 @@
            controller.myItemsArray = [NSArray arrayWithArray:self.myItemsArray];
         
            controller.transactionNotes = self.transactionNotesText.text;
+           
+           if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"]length] > 0) {
+               controller.isGuest = NO;
+           }else{
+               controller.isGuest = YES;
+           }
+
       
        }
     }

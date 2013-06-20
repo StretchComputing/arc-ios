@@ -290,159 +290,6 @@
             </objects>
             <point key="canvasLocation" x="715" y="-1187"/>
         </scene>
-        <!--Left View Controller-->
-        <scene sceneID="UDx-v5-8EV">
-            <objects>
-                <viewController storyboardIdentifier="leftSide" id="ian-D9-KL2" customClass="LeftViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="l83-Wy-WMy">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XL9-Z2-UUI" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="59" y="51" width="208" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5BJ-Fa-SBR" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="59" y="106" width="208" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Payments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i8m-mp-21i" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="59" y="155" width="208" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Support" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AFR-2o-QQO" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="59" y="212" width="208" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Share" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DMM-Gt-WWs" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="59" y="263" width="208" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuHomeIcon.png" id="kKN-Sa-9mR">
-                                <rect key="frame" x="11" y="51" width="35" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuProfileIcon.png" id="d1Y-1l-pVp">
-                                <rect key="frame" x="11" y="109" width="35" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuBillingIcon.png" id="BZ3-sI-YZE">
-                                <rect key="frame" x="11" y="157" width="35" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuHelpIcon.png" id="8Gz-fy-rGm">
-                                <rect key="frame" x="11" y="215" width="35" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuShareIcon.png" id="fko-5U-jle">
-                                <rect key="frame" x="11" y="263" width="35" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fCE-r1-iao">
-                                <rect key="frame" x="0.0" y="51" width="168" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="homeSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="eBg-i1-2ix"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e6H-js-JG5">
-                                <rect key="frame" x="0.0" y="104" width="168" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="profileSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="KGD-GR-UOT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dpA-K9-jxk">
-                                <rect key="frame" x="0.0" y="155" width="168" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="billingSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="f68-ft-rW7"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Ud-qM-z7y">
-                                <rect key="frame" x="0.0" y="212" width="168" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="supportSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="CfJ-CW-Pyc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gzL-yW-Dab">
-                                <rect key="frame" x="0.0" y="263" width="168" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="shareSelected" destination="ian-D9-KL2" eventType="touchUpInside" id="7i8-sM-4cy"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="version 2.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xbC-fl-9z5" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="-2" y="423" width="163" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.16109717153284675" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Eb8-sA-xJ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-184" y="-259"/>
-        </scene>
         <!--Credit Card Payment - Credit Card-->
         <scene sceneID="TxQ-Tr-QZw">
             <objects>
@@ -1309,13 +1156,17 @@
                                             <action selector="openMenuAction" destination="S2y-Ly-oWJ" eventType="touchUpInside" id="PYE-BL-zGe"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="oSI-4d-lXh">
+                                        <rect key="frame" x="0.0" y="43" width="320" height="508"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dutchIcon.png" id="aAA-gv-LJX">
+                                        <rect key="frame" x="41" y="346" width="238" height="89"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="oSI-4d-lXh">
-                                <rect key="frame" x="0.0" y="46" width="320" height="508"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="To leave audio feedback, hit the &quot;Record&quot; button, then leave your message.  When you are done, hit &quot;Stop&quot;." id="scW-gg-dzq" customClass="CorbelTextView">
                                 <rect key="frame" x="19" y="53" width="283" height="24"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1323,15 +1174,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="1i3-LG-1Km">
-                                <rect key="frame" x="35" y="436" width="250" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="sRw-iY-sQ1">
-                                <rect key="frame" x="35" y="364" width="238" height="70"/>
-                            </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="fno-jW-pgK">
                                 <rect key="frame" x="107" y="189" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1383,7 +1225,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OOO-ge-S8b">
-                                <rect key="frame" x="107" y="320" width="101" height="37"/>
+                                <rect key="frame" x="107" y="307" width="101" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="LiveDebug">
@@ -1397,6 +1239,13 @@
                                     <action selector="liveDebug" destination="tsN-4l-rgJ" eventType="touchUpInside" id="NNt-Hi-3F3"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile payments are going dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="MOU-li-wNe">
+                                <rect key="frame" x="13" y="434" width="295" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     </view>
@@ -1536,7 +1385,7 @@
             <objects>
                 <tableViewController id="gw4-gZ-IxK" customClass="EditCreditCard" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="RQ4-tS-Jss">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Hrd-YM-6xQ">
@@ -1544,7 +1393,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="cFq-v1-L2c" customClass="NVUIGradientButton">
-                                    <rect key="frame" x="8" y="0.0" width="305" height="45"/>
+                                    <rect key="frame" x="8" y="39" width="305" height="45"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <connections>
@@ -1552,15 +1401,32 @@
                                     </connections>
                                 </view>
                                 <view contentMode="scaleToFill" id="OOU-pv-EHi" customClass="NVUIGradientButton">
-                                    <rect key="frame" x="80" y="76" width="157" height="44"/>
+                                    <rect key="frame" x="80" y="124" width="157" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <connections>
                                         <action selector="saveCardAction" destination="gw4-gZ-IxK" eventType="touchUpInside" id="Vd1-Pf-fqt"/>
                                     </connections>
                                 </view>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Card Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jdd-Kf-b5m" customClass="CorbelBoldLabel">
+                                    <rect key="frame" x="11" y="-1" width="130" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.2867529653" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="*optional" minimumFontSize="17" clearButtonMode="whileEditing" id="eUm-dh-jeY">
+                                    <rect key="frame" x="114" y="-4" width="120" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                    <connections>
+                                        <action selector="editBegin:" destination="gw4-gZ-IxK" eventType="editingDidBegin" id="iTT-Hv-1Uu"/>
+                                    </connections>
+                                </textField>
                                 <view contentMode="scaleToFill" id="bjg-zH-oeV" customClass="NVUIGradientButton">
-                                    <rect key="frame" x="80" y="167" width="157" height="44"/>
+                                    <rect key="frame" x="80" y="215" width="157" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <connections>
@@ -1644,7 +1510,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Edit Card" id="EvA-JO-KJm"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="cardNameText" destination="eUm-dh-jeY" id="jwU-Nw-qMR"/>
                         <outlet property="cardNumberTextField" destination="75H-Ui-sss" id="yWS-aK-Ug3"/>
                         <outlet property="deleteButton" destination="bjg-zH-oeV" id="QIU-Ao-WMc"/>
                         <outlet property="editPinButton" destination="cFq-v1-L2c" id="6Ln-V9-Jbx"/>
@@ -1809,12 +1677,20 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Account Protection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ldS-j5-wkt" customClass="LucidaBoldLabel">
-                                        <rect key="frame" x="0.0" y="2" width="320" height="46"/>
+                                        <rect key="frame" x="2" y="2" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" id="V3d-Np-xQR" customClass="NVUIGradientButton">
+                                        <rect key="frame" x="2" y="5" width="58" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="skipAction" destination="Awa-j0-crl" eventType="touchUpInside" id="dLt-jK-a35"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -1822,10 +1698,10 @@
                                 <rect key="frame" x="0.0" y="46" width="320" height="508"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please create a 4 digit PIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="R4Q-Df-L4U" customClass="LucidaBoldLabel">
-                                <rect key="frame" x="0.0" y="57" width="320" height="28"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please create a 4 digit PIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="R4Q-Df-L4U" customClass="CorbelRegularLabel">
+                                <rect key="frame" x="0.0" y="63" width="320" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.59999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="ahw-uC-6c1">
@@ -1903,6 +1779,7 @@
                         <outlet property="checkNumTwo" destination="58E-OO-0mD" id="fRg-gj-b9U"/>
                         <outlet property="descriptionText" destination="XTx-dv-tAO" id="wA2-9A-vgc"/>
                         <outlet property="instructionsLabel" destination="R4Q-Df-L4U" id="Etz-Pf-WcL"/>
+                        <outlet property="skipButton" destination="V3d-Np-xQR" id="615-bj-PJH"/>
                         <outlet property="topLineView" destination="TqX-7j-zbZ" id="eXX-7c-5Ma"/>
                         <segue destination="t3u-BW-Rju" kind="modal" identifier="pinHome" id="C7C-NV-eEl"/>
                     </connections>
@@ -1964,8 +1841,9 @@
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter your credit card PIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="DNz-gc-899" customClass="LucidaBoldLabel">
                                 <rect key="frame" x="0.0" y="10" width="320" height="28"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.59999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="EHU-FB-c82">
@@ -2105,6 +1983,17 @@
                                         <rect key="frame" x="0.0" y="46" width="320" height="508"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dutchIcon.png" id="CEx-Ie-AoT">
+                                        <rect key="frame" x="41" y="316" width="238" height="89"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile payments are going dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="U1q-iO-Rs9">
+                                        <rect key="frame" x="13" y="418" width="295" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -2126,24 +2015,14 @@
                                     <action selector="skipReview:" destination="CSm-3p-pEO" eventType="touchUpInside" id="yGJ-hn-ZMm"/>
                                 </connections>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="ARC has detected that you have no valid forms of payment entered.  To continue using ARC, please add a form of payment:" id="qnn-Nv-xNH" customClass="CorbelTextView">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Dutch has detected that you have no valid forms of payment entered.  To continue using ARC, please add a form of payment:" id="qnn-Nv-xNH" customClass="CorbelTextView">
                                 <rect key="frame" x="13" y="64" width="295" height="104"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.45834283759124089" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4fm-mR-uFp">
-                                <rect key="frame" x="35" y="417" width="250" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="CDi-q6-5LN">
-                                <rect key="frame" x="35" y="339" width="238" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                            </imageView>
                             <view contentMode="scaleToFill" id="uZt-eQ-bbM">
                                 <rect key="frame" x="0.0" y="45" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2454,19 +2333,21 @@
                                     <outlet property="delegate" destination="Ny3-AT-wGc" id="8Kr-oI-dG7"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ZIb-Cr-VBz">
-                                <rect key="frame" x="35" y="384" width="250" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="AEr-A0-EmU">
-                                <rect key="frame" x="35" y="312" width="238" height="70"/>
-                            </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="P2f-rZ-eqp">
                                 <rect key="frame" x="144" y="348" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dutchIcon.png" id="gMW-jE-zhi">
+                                <rect key="frame" x="41" y="324" width="238" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile payments are going dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="xe2-NH-zRp">
+                                <rect key="frame" x="13" y="426" width="295" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" id="Kry-aY-g0P">
                                 <rect key="frame" x="0.0" y="45" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3752,9 +3633,17 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="qC6-dj-K99">
-                                <rect key="frame" x="38" y="373" width="238" height="70"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dutchIcon.png" id="wRx-oi-yhZ">
+                                <rect key="frame" x="41" y="365" width="238" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile payments are going dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="dUi-wQ-l0T">
+                                <rect key="frame" x="13" y="467" width="295" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -4208,18 +4097,20 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="dutchIcon.png" id="bE9-wf-PLj">
+                                        <rect key="frame" x="41" y="329" width="238" height="89"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile payments are going dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="W7I-bT-8Ld">
+                                        <rect key="frame" x="13" y="431" width="295" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Payments Simplified" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="3D3-LV-kdZ">
-                                <rect key="frame" x="35" y="436" width="250" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arcLogo.png" id="rGm-6p-prC">
-                                <rect key="frame" x="35" y="364" width="238" height="70"/>
-                            </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="azN-rV-G6F">
                                 <rect key="frame" x="107" y="189" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4610,7 +4501,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="cuN-D4-QwP">
-                                <rect key="frame" x="148" y="166.5" width="20" height="20"/>
+                                <rect key="frame" x="148" y="166" width="20" height="20"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" id="nhm-Lw-FRO">
                                 <rect key="frame" x="0.0" y="44" width="320" height="504"/>
@@ -4621,21 +4512,21 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="test" id="PZm-G9-K4V">
-                                        <rect key="frame" x="113" y="6" width="87" height="60"/>
+                                        <rect key="frame" x="113" y="5" width="87" height="60"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter your check number:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WNh-cM-nam" customClass="CorbelRegularLabel">
-                                        <rect key="frame" x="0.0" y="82" width="320" height="21"/>
+                                        <rect key="frame" x="0.0" y="68" width="320" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="0.60429972629999995" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Divider2.png" id="jrw-2Y-2Dt">
-                                        <rect key="frame" x="39" y="135" width="242" height="23"/>
+                                        <rect key="frame" x="39" y="123" width="242" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" id="Yem-a4-V8l" customClass="LucidaBoldInputTextField">
-                                        <rect key="frame" x="39" y="113" width="242" height="30"/>
+                                        <rect key="frame" x="39" y="101" width="242" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="0.08235294118" green="0.31372549020000001" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -4647,7 +4538,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="MXP-8S-Idv">
-                                        <rect key="frame" x="0.0" y="181" width="315" height="21"/>
+                                        <rect key="frame" x="0.0" y="180" width="315" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4656,7 +4547,7 @@
                                 <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="P0d-dN-rma" customClass="NVUIGradientButton">
-                                <rect key="frame" x="84" y="199" width="148" height="40"/>
+                                <rect key="frame" x="84" y="183" width="148" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -4690,7 +4581,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" id="qyz-mI-dcs">
-                                <rect key="frame" x="5" y="540" width="310" height="406"/>
+                                <rect key="frame" x="5" y="48" width="310" height="406"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="rZI-D3-Xpe">
@@ -5355,6 +5246,249 @@
             </objects>
             <point key="canvasLocation" x="2755" y="197"/>
         </scene>
+        <!--Left View Controller-->
+        <scene sceneID="mob-gt-BFQ">
+            <objects>
+                <viewController storyboardIdentifier="leftSide" id="NPT-ez-a0u" customClass="LeftViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="O1Y-Td-nFT">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="5Br-sG-9Ss">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.12" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Suq-aF-daB" customClass="LucidaLabel">
+                                <rect key="frame" x="60" y="46" width="208" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CZb-9t-eW7" customClass="LucidaLabel">
+                                <rect key="frame" x="53" y="8" width="215" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Payments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qzf-w9-onW" customClass="LucidaLabel">
+                                <rect key="frame" x="60" y="90" width="208" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Support" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BF3-zo-Quh" customClass="LucidaLabel">
+                                <rect key="frame" x="60" y="134" width="208" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Share" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZX6-Of-Uif" customClass="LucidaLabel">
+                                <rect key="frame" x="60" y="178" width="208" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuHomeIcon.png" id="d75-sw-9ja">
+                                <rect key="frame" x="13" y="52" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="profileDefault.png" id="xgL-F0-vb4">
+                                <rect key="frame" x="10" y="6" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuBillingIcon.png" id="ABP-1A-N0U">
+                                <rect key="frame" x="13" y="96" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuHelpIcon.png" id="aZc-1H-m1c">
+                                <rect key="frame" x="13" y="140" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="menuShareIcon.png" id="JSN-HF-Yhv">
+                                <rect key="frame" x="13" y="184" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I5q-NA-UMi">
+                                <rect key="frame" x="0.0" y="45" width="264" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="homeSelected" destination="NPT-ez-a0u" eventType="touchUpInside" id="m4x-U1-ZOy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dv3-ZN-cIs">
+                                <rect key="frame" x="0.0" y="0.0" width="264" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="profileSelected" destination="NPT-ez-a0u" eventType="touchUpInside" id="SHT-sa-z9Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KPD-02-bxE">
+                                <rect key="frame" x="0.0" y="89" width="264" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="billingSelected" destination="NPT-ez-a0u" eventType="touchUpInside" id="zLQ-oi-2S0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KOy-FZ-uHJ">
+                                <rect key="frame" x="0.0" y="133" width="268" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="supportSelected" destination="NPT-ez-a0u" eventType="touchUpInside" id="7v7-Iw-vhF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ewK-r8-yRV">
+                                <rect key="frame" x="0.0" y="177" width="268" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareSelected" destination="NPT-ez-a0u" eventType="touchUpInside" id="V66-Ac-xhC"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="version 2.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n5D-gz-8Ji" customClass="LucidaBoldLabel">
+                                <rect key="frame" x="0.0" y="424" width="248" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" id="G18-6N-6Pr">
+                                <rect key="frame" x="0.0" y="219" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="GL5-GV-Pdl">
+                                <rect key="frame" x="0.0" y="220" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.015686274510000001" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="2lf-he-fOA">
+                                <rect key="frame" x="0.0" y="221" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="KHG-2I-BXD">
+                                <rect key="frame" x="0.0" y="131" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="Xvq-5G-S5D">
+                                <rect key="frame" x="0.0" y="132" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.015686274510000001" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="ltW-W9-8xm">
+                                <rect key="frame" x="0.0" y="133" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="P9N-TR-H3o">
+                                <rect key="frame" x="0.0" y="87" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="HVB-E0-XyD">
+                                <rect key="frame" x="0.0" y="88" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.015686274510000001" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="3BG-uw-TuF">
+                                <rect key="frame" x="0.0" y="89" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="yQT-KT-Jmh">
+                                <rect key="frame" x="0.0" y="45" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.015686274510000001" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="YtL-CQ-OOu">
+                                <rect key="frame" x="0.0" y="429" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="hCY-wP-ggu">
+                                <rect key="frame" x="0.0" y="430" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.015686274510000001" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="0xZ-0D-rD3">
+                                <rect key="frame" x="0.0" y="431" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="nRj-BO-CZc">
+                                <rect key="frame" x="0.0" y="175" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="uAO-cI-qRf">
+                                <rect key="frame" x="0.0" y="176" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.015686274510000001" green="0.015686274510000001" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="613-ek-NbC">
+                                <rect key="frame" x="0.0" y="177" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="profileImageView" destination="xgL-F0-vb4" id="h7f-qy-qUh"/>
+                        <outlet property="profileLabel" destination="CZb-9t-eW7" id="9BP-jc-d64"/>
+                        <outlet property="topLineView" destination="yQT-KT-Jmh" id="nXz-Rv-3qf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="siA-mm-35w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-598" y="-277"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Default@2x.png" width="640" height="920"/>
@@ -5378,10 +5512,10 @@
         <image name="menuHelpIcon.png" width="70" height="70"/>
         <image name="menuHomeIcon.png" width="70" height="70"/>
         <image name="menuIcon.png" width="88" height="88"/>
-        <image name="menuProfileIcon.png" width="70" height="70"/>
         <image name="menuShareIcon.png" width="70" height="70"/>
         <image name="newBackground.png" width="640" height="1200"/>
         <image name="pageNew1.png" width="16" height="16"/>
+        <image name="profileDefault.png" width="225" height="224"/>
         <image name="qmark.png" width="60" height="60"/>
         <image name="receipt.png" width="600" height="620"/>
         <image name="rowButton.png" width="320" height="100"/>
@@ -5391,732 +5525,17 @@
         <image name="twittetrconnect.png" width="80" height="80"/>
         <image name="untitledLogo.png" width="300" height="175"/>
     </resources>
-    <classes>
-        <class className="AddCreditCard" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddCreditCard.h"/>
-            <relationships>
-                <relationship kind="action" name="addCard"/>
-                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
-                <relationship kind="action" name="editBegin:"/>
-                <relationship kind="action" name="editEnd:"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="scanCard"/>
-                <relationship kind="action" name="valueChanged:"/>
-                <relationship kind="outlet" name="addCardButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardNumberText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditCardPinText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="AddCreditCardGuest" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddCreditCardGuest.h"/>
-            <relationships>
-                <relationship kind="action" name="addCard"/>
-                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
-                <relationship kind="action" name="editBegin:"/>
-                <relationship kind="action" name="editEnd:"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="scanCard"/>
-                <relationship kind="action" name="valueChanged:"/>
-                <relationship kind="outlet" name="addCardButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardNumberText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditCardPinText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="totalPaymentLabel" candidateClass="LucidaBoldLabel"/>
-            </relationships>
-        </class>
-        <class className="AdditionalTipViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdditionalTipViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="continueAction:"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="goBackAction"/>
-                <relationship kind="action" name="segmentValueChanged:"/>
-                <relationship kind="action" name="tipTextEditBegin"/>
-                <relationship kind="action" name="tipTextEditChanged"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="continueButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="myTotalLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="tipSelectSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tipTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="transactionNotesText" candidateClass="CorbelTextView"/>
-            </relationships>
-        </class>
-        <class className="ConfirmPaymentViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConfirmPaymentViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="confirmAction"/>
-                <relationship kind="action" name="goBackAction"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="confirmButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="myTotalLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="paymentLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="CorbelBarButtonItem" superclassName="UIBarButtonItem">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelBarButtonItem.h"/>
-        </class>
-        <class className="CorbelBoldLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelBoldLabel.h"/>
-        </class>
-        <class className="CorbelInputTextField" superclassName="UITextField">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelInputTextField.h"/>
-        </class>
-        <class className="CorbelRegularLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelRegularLabel.h"/>
-        </class>
-        <class className="CorbelTextField" superclassName="UITextField">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelTextField.h"/>
-        </class>
-        <class className="CorbelTextFieldCreditCardiOS6" superclassName="UITextField">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelTextFieldCreditCardiOS6.h"/>
-        </class>
-        <class className="CorbelTextView" superclassName="UITextView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CorbelTextView.h"/>
-        </class>
-        <class className="CreatePinView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreatePinView.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="descriptionText" candidateClass="CorbelTextView"/>
-                <relationship kind="outlet" name="instructionsLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="CreditCardPayment" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreditCardPayment.h"/>
-            <relationships>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="action" name="touchBoxesAction"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="overlayTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="totalPaymentText" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="touchBoxesButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="CustomerServiceViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CustomerServiceViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goBackAction"/>
-                <relationship kind="action" name="liveDebug"/>
-                <relationship kind="action" name="recordAction"/>
-                <relationship kind="action" name="sendAction"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="displayLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="recordButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="recordingActivity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="recordingLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="sendButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="sendLabel" candidateClass="CorbelTextView"/>
-                <relationship kind="outlet" name="sendingActivity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="DwollaPayment" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
-            <relationships>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="action" name="touchBoxesAction"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dwollaBalanceActivity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="dwollaBalanceText" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="totalPaymentText" candidateClass="LucidaBoldLabel"/>
-            </relationships>
-        </class>
-        <class className="EditCreditCard" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditCreditCard.h"/>
-            <relationships>
-                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
-                <relationship kind="action" name="deleteCardAction"/>
-                <relationship kind="action" name="editBegin:"/>
-                <relationship kind="action" name="editEnd:"/>
-                <relationship kind="action" name="editPin"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="saveCardAction"/>
-                <relationship kind="action" name="valueChanged:"/>
-                <relationship kind="outlet" name="cardNumberTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="cardTypesSegmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="deleteButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="editPinButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="expirationMonthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="expirationYearLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="saveChangesButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="securityCodeTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="EditServerController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditServerController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel"/>
-                <relationship kind="action" name="goBackOne"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UINavigationBar"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="GetPasscodeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GetPasscodeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goBackAction"/>
-                <relationship kind="action" name="submitAction"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="backAction" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="GuestCreateAccount" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GuestCreateAccount.h"/>
-            <relationships>
-                <relationship kind="action" name="goBack"/>
-                <relationship kind="action" name="noThanksAction"/>
-                <relationship kind="action" name="registerAction"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="createAccountText" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="minCharText" candidateClass="CorbelBoldLabel"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="noThanksButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="registerButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="HelpView" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpView.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="action" name="contactUs"/>
-            </relationships>
-        </class>
-        <class className="HomeNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeNavigationController.h"/>
-        </class>
-        <class className="HomeNew" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeNew.h"/>
-            <relationships>
-                <relationship kind="action" name="checkNumberDown"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="insertItem"/>
-                <relationship kind="action" name="inviteFriend"/>
-                <relationship kind="action" name="menuAction"/>
-                <relationship kind="action" name="menuBackAction"/>
-                <relationship kind="action" name="moreInfoAction:"/>
-                <relationship kind="action" name="payBillAction"/>
-                <relationship kind="action" name="refreshList"/>
-                <relationship kind="action" name="refreshMerchants:"/>
-                <relationship kind="action" name="reloadCarousel"/>
-                <relationship kind="action" name="removeItem"/>
-                <relationship kind="action" name="searchAction"/>
-                <relationship kind="action" name="searchCancelAction"/>
-                <relationship kind="action" name="searchEditDidBegin"/>
-                <relationship kind="action" name="switchCarouselType"/>
-                <relationship kind="action" name="textFieldDidChange"/>
-                <relationship kind="action" name="toggleOrientation"/>
-                <relationship kind="action" name="toggleWrap"/>
-                <relationship kind="action" name="valueChanged"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="activityView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="arcSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="borderLine1" candidateClass="UIView"/>
-                <relationship kind="outlet" name="borderLine2" candidateClass="UIView"/>
-                <relationship kind="outlet" name="carousel" candidateClass="iCarousel"/>
-                <relationship kind="outlet" name="checkImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="checkNumberView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="hintOverlayView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="menuButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="moreInfoButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="navItem" candidateClass="UINavigationItem"/>
-                <relationship kind="outlet" name="orientationBarItem" candidateClass="UIBarItem"/>
-                <relationship kind="outlet" name="overlayTextView" candidateClass="CorbelTextView"/>
-                <relationship kind="outlet" name="payBillButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="placeAddressLabel" candidateClass="CorbelBoldLabel"/>
-                <relationship kind="outlet" name="placeNameLabel" candidateClass="CorbelBoldLabel"/>
-                <relationship kind="outlet" name="radiusSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="refreshListButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="restaurantSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="roundView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="searchCancelButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="sloganLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="spacingSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="tiltSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="topImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="wholeCheckNumberView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="wrapBarItem" candidateClass="UIBarItem"/>
-            </relationships>
-        </class>
-        <class className="InitHelpPageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitHelpPageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="startUsingAction"/>
-                <relationship kind="outlet" name="bottomLine" candidateClass="UIView"/>
-                <relationship kind="outlet" name="helpImage1" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="helpImage2" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="helpImage3" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="helpView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="myScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="startUsingButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="topLine" candidateClass="UIView"/>
-                <relationship kind="outlet" name="vertLine1" candidateClass="UIView"/>
-                <relationship kind="outlet" name="vertLine2" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="InitialController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="mottoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="topView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="InvoiceView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceView.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelAlreadyPaid"/>
-                <relationship kind="action" name="cancelSplitAction"/>
-                <relationship kind="action" name="closeItemSplitAction"/>
-                <relationship kind="action" name="editBegin:"/>
-                <relationship kind="action" name="editEnd:"/>
-                <relationship kind="action" name="goBackAction"/>
-                <relationship kind="action" name="itemSplitSaveAction"/>
-                <relationship kind="action" name="payBillAction"/>
-                <relationship kind="action" name="payFullSplitAction"/>
-                <relationship kind="action" name="payNow:"/>
-                <relationship kind="action" name="refreshInvoice"/>
-                <relationship kind="action" name="segmentSelect"/>
-                <relationship kind="action" name="showBalanceAction"/>
-                <relationship kind="action" name="showSplitView"/>
-                <relationship kind="action" name="splitCheckAction:"/>
-                <relationship kind="action" name="splitMyPaymentDidBegin:"/>
-                <relationship kind="action" name="splitSaveAction"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="alreadyPaid" candidateClass="UIView"/>
-                <relationship kind="outlet" name="alreadyPaidLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="alreadyPaidNameLabel" candidateClass="CorbelBoldLabel"/>
-                <relationship kind="outlet" name="alreadyPaidTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="alreadyPaidViewLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="amountNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="bottomHalfView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="discLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="discNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dividerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="gratLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="gratNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemSplitItemItemTotal" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemSplitMyPaymentText" candidateClass="CorbelTextField"/>
-                <relationship kind="outlet" name="itemSplitName" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="itemSplitSaveButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="itemSplitScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="itemSplitView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="numberSliderScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="overlayTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="payBillButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="payView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="receiptView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="splitCancelButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="splitCheckButton" candidateClass="CorbelBarButtonItem"/>
-                <relationship kind="outlet" name="splitFullButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="splitMyPaymentTextField" candidateClass="CorbelTextField"/>
-                <relationship kind="outlet" name="splitSaveButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="splitTopLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="splitView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="subLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="subtotalBackView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="taxLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tipText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="LeftViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LeftViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="billingSelected"/>
-                <relationship kind="action" name="homeSelected"/>
-                <relationship kind="action" name="profileSelected"/>
-                <relationship kind="action" name="shareSelected"/>
-                <relationship kind="action" name="supportSelected"/>
-            </relationships>
-        </class>
-        <class className="LiveDebugViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LiveDebugViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="closeStreamAction:"/>
-                <relationship kind="action" name="createStreamAction:"/>
-                <relationship kind="action" name="goBackAction"/>
-                <relationship kind="outlet" name="closeStreamButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="createStreamButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="sendingActivity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="streamNameText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="streamStatusLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="LoadingViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backAlphaView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="displayText" candidateClass="CorbelBoldLabel"/>
-                <relationship kind="outlet" name="mainBackView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="LucidaBoldInputTextField" superclassName="UITextField">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaBoldInputTextField.h"/>
-        </class>
-        <class className="LucidaBoldLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaBoldLabel.h"/>
-        </class>
-        <class className="LucidaLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LucidaLabel.h"/>
-        </class>
-        <class className="NVUIGradientButton" superclassName="UIControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NVUIGradientButton.h"/>
-        </class>
-        <class className="NoPaymentSourcesViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoPaymentSourcesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel"/>
-                <relationship kind="action" name="creditCard"/>
-                <relationship kind="action" name="dwolla"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="cancelButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="creditCardButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="dwollaButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="PrivacyTermsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivacyTermsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="doneReading"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="topLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="webview" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="ProfileViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="createAction"/>
-                <relationship kind="action" name="endText"/>
-                <relationship kind="action" name="logInAction"/>
-                <relationship kind="action" name="openMenuAction"/>
-                <relationship kind="action" name="signOutAction"/>
-                <relationship kind="action" name="viewChangeServerAction"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="createAccountButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="logInButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="newProfileText" candidateClass="CorbelTextView"/>
-                <relationship kind="outlet" name="signOutButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="viewChangeServerButton" candidateClass="NVUIGradientButton"/>
-            </relationships>
-        </class>
-        <class className="RegisterDwollaView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
-        </class>
-        <class className="RegisterNavigation" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterNavigation.h"/>
-        </class>
-        <class className="RegisterViewNew" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewNew.h"/>
-            <relationships>
-                <relationship kind="action" name="goNext"/>
-                <relationship kind="action" name="goTo3"/>
-                <relationship kind="action" name="login:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="scanCard"/>
-                <relationship kind="action" name="signUpFacebookAction"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="facebookButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="facebookSignupButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="myScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="myTableViewThree" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="myTableViewTwo" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="newRegisterButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="regTitleLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ResetPasswordViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResetPasswordViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goBackAction"/>
-                <relationship kind="action" name="submitAction"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="backAction" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="confirmText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passcodeText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="Restaurant" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/Restaurant.h"/>
-            <relationships>
-                <relationship kind="action" name="checkNumberHelp"/>
-                <relationship kind="action" name="closeHelp"/>
-                <relationship kind="action" name="goBackAction"/>
-                <relationship kind="action" name="submit:"/>
-                <relationship kind="action" name="takeCheckPicture"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="checkHelpImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="checkNumFive" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumSix" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="closeHelpButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="helpBackView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="hiddenText" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="hintOverlayView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="leftTopLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="nameDisplay" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notFoundHelpView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="overlayTextView" candidateClass="CorbelTextView"/>
-                <relationship kind="outlet" name="popAction" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="rightTopLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ReviewTransaction" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReviewTransaction.h"/>
-            <relationships>
-                <relationship kind="action" name="postFacebook"/>
-                <relationship kind="action" name="postTwitter"/>
-                <relationship kind="action" name="selectFavoriteItem"/>
-                <relationship kind="action" name="skipReview:"/>
-                <relationship kind="action" name="sliderValueChanged:" candidateClass="UISlider"/>
-                <relationship kind="action" name="starClicked:"/>
-                <relationship kind="action" name="submitReview:"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="atmosphere1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="atmosphere5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="commentsText" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="drinks1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinks5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="drinksSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="earnMoreLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="favoriteItemBackview" candidateClass="UIView"/>
-                <relationship kind="outlet" name="food1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="food5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="foodSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="moodSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="paymentPointsLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="postFacebookButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="postFacebookPoints" candidateClass="LucidaLabel"/>
-                <relationship kind="outlet" name="postTwitterButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="postTwitterPoints" candidateClass="LucidaLabel"/>
-                <relationship kind="outlet" name="selectFavoriteButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="selectedItemTextField" candidateClass="CorbelBoldLabel"/>
-                <relationship kind="outlet" name="service1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="service5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="serviceSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="shareLabel" candidateClass="CorbelBoldLabel"/>
-                <relationship kind="outlet" name="skipButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="value1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="value5" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="valueSlider" candidateClass="UISlider"/>
-            </relationships>
-        </class>
-        <class className="RightViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RightViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelSplitAction"/>
-                <relationship kind="action" name="payRemainingAction"/>
-                <relationship kind="action" name="saveSplitAction"/>
-                <relationship kind="action" name="splitRemainingAction"/>
-                <relationship kind="outlet" name="alreadyPaidLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="alreadyPaidTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="learnToSplitButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="noPaymentsLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="numberSliderScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="payRemainingButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="saveSplitButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="seeWhoPaidLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="splitRemainingButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="splitTopLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="splitView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="splitYourPaymentLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="totalDueLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="totalRemainingLabel" candidateClass="LucidaBoldLabel"/>
-            </relationships>
-        </class>
-        <class className="ShareViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShareViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="openMenuAction"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="SupportViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SupportViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="callAction"/>
-                <relationship kind="action" name="emailAction"/>
-                <relationship kind="action" name="openMenuAction"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="callButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="emailAddressLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="emailButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="phoneNumberLabel" candidateClass="LucidaBoldLabel"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ValidatePinView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ValidatePinView.h"/>
-            <relationships>
-                <relationship kind="action" name="cancel"/>
-                <relationship kind="action" name="deleteCardAction"/>
-                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="descriptionText" candidateClass="CorbelTextView"/>
-                <relationship kind="outlet" name="forgotPinButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="instructionsLabel" candidateClass="LucidaBoldLabel"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backAction"/>
-                <relationship kind="action" name="forgotPassword"/>
-                <relationship kind="action" name="signIn"/>
-                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
-                <relationship kind="outlet" name="registerButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="signInButton" candidateClass="NVUIGradientButton"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ViewCreditCards" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewCreditCards.h"/>
-            <relationships>
-                <relationship kind="action" name="openMenuAction"/>
-                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="iCarousel" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/iCarousel.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dataSource"/>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="hxV-NI-Cfh"/>
+        <segue reference="8Ap-ny-8Aq"/>
         <segue reference="4wm-dJ-IiR"/>
-        <segue reference="fCb-MI-Uhn"/>
-        <segue reference="QKr-XT-PbV"/>
-        <segue reference="daO-sk-AFV"/>
         <segue reference="eAj-gy-Yqb"/>
-        <segue reference="L6b-sc-kgN"/>
+        <segue reference="RNy-6v-Ue6"/>
+        <segue reference="C7C-NV-eEl"/>
     </inferredMetricsTieBreakers>
 </document>

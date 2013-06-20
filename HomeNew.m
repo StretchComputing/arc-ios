@@ -39,6 +39,9 @@
 @implementation HomeNew
 @synthesize sloganLabel;
 
+-(void)goMerchantRefresh:(NSNotification *)notification{
+    [self getMerchantList];
+}
 
 -(void)appActive{
     [self getMerchantList];
@@ -363,6 +366,10 @@
         self.checkImage.layer.cornerRadius = 6.0;
         self.checkNumberView.layer.masksToBounds = YES;
         self.checkNumberView.layer.cornerRadius = 6.0;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goMerchantRefresh:) name:@"RefreshMerchants" object:nil];
+
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referFriendComplete:) name:@"referFriendNotification" object:nil];
         

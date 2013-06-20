@@ -61,7 +61,7 @@ typedef enum {
         self.menuContainerView = [[UIView alloc] initWithFrame:applicationFrame];
         self.menuState = MFSideMenuStateClosed;
         self.menuWidth = 175.0f;
-        self.menuWidthLeft = 180.0f;
+        self.menuWidthLeft = 260.0f;
         self.menuWidthRight = 260.0f;
 
         self.shadowRadius = 10.0f;
@@ -326,6 +326,11 @@ typedef enum {
 - (void) handleRightPan:(UIPanGestureRecognizer *)recognizer {
     if(!self.leftSideMenuViewController && self.menuState == MFSideMenuStateClosed) return;
     
+    
+    if (self.rootViewController.view.frame.origin.x == 0.0) {
+        [self postDidOpenNotification];
+    }
+    
     UIView *view = self.rootViewController.view;
     
     CGPoint translatedPoint = [recognizer translationInView:view];
@@ -533,12 +538,14 @@ typedef enum {
 }
 
 - (void)setMenuState:(MFSideMenuState)menuState {
+    self.didSendOpenNotification = NO;
     switch (menuState) {
         case MFSideMenuStateClosed:
             [self closeSideMenu];
             break;
         case MFSideMenuStateLeftMenuOpen:
             if(!self.leftSideMenuViewController) return;
+
             [self openLeftSideMenu];
             break;
         case MFSideMenuStateRightMenuOpen:
@@ -557,6 +564,9 @@ typedef enum {
 }
 
 - (void)openLeftSideMenu {
+    
+    [self postDidOpenNotification];
+    
     [self.menuContainerView bringSubviewToFront:self.leftSideMenuViewController.view];
     [self openSideMenu:YES];
 }
@@ -661,5 +671,13 @@ typedef enum {
 -(id)getLeftSideMenu{
     
     return self.leftSideMenuViewController;
+}
+
+
+-(void)postDidOpenNotification{
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftMenuDidBeginOpen" object:self userInfo:@{}];
+
+
 }
 @end

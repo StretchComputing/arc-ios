@@ -673,7 +673,30 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
 
-    [self performSegueWithIdentifier:@"saveInfo" sender:nil];
+    
+    if (self.isGuest) {
+        [self performSegueWithIdentifier:@"saveInfo" sender:nil];
+
+    }else{
+        
+        CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
+        
+        NSString *creditDebitString = @"Credit";
+        
+        tmp.creditDebitString = creditDebitString;
+        tmp.expiration = self.expirationText.text;
+        tmp.securityCode = self.creditCardSecurityCodeText.text;
+        tmp.cardNumber = [self.creditCardNumberText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        tmp.isLoggedInUser = YES;
+        
+        // determine what type of credit card this is
+        
+        // NSString *action = [NSString stringWithFormat:@"%@_CARD_ADD", creditDebitString];
+        //[ArcClient trackEvent:action];
+        [self.navigationController setNavigationBarHidden:YES];
+        [self.navigationController pushViewController:tmp animated:NO];        
+
+    }
 }
 
 
@@ -740,24 +763,26 @@
             
             
             [self paymentSuccess];
+        
+            
         } else if([status isEqualToString:@"error"]){
             [rSkybox addEventToSession:@"creditCardPaymentCompleteFail"];
             
             
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
-                errorMsg = @"Credit card not approved.";
+                //errorMsg = @"Credit card not approved.";
                 editCardOption = YES;
             } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
                 // TODO need explanation from Jim to put proper error msg
-                errorMsg = @"Failed to validate credit card";
+                //errorMsg = @"Failed to validate credit card";
                 editCardOption = YES;
             } else if (errorCode == FIELD_FORMAT_ERROR){
-                errorMsg = @"Invalid Credit Card Field Format";
+               // errorMsg = @"Invalid Credit Card Field Format";
                 editCardOption = YES;
             }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
                 // TODO need explanation from Jim to put proper error msg
-                errorMsg = @"Invalid credit/debit card number";
+               // errorMsg = @"Invalid credit/debit card number";
                 editCardOption = YES;
             } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
                 // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
@@ -767,10 +792,10 @@
             } else if(errorCode == INVALID_AMOUNT) {
                 errorMsg = @"Invalid amount. Please re-enter payment and try again.";
             } else if(errorCode == INVALID_EXPIRATION_DATE) {
-                errorMsg = @"Invalid expiration date.";
+                //errorMsg = @"Invalid expiration date.";
                 editCardOption = YES;
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
-                editCardOption = YES;
+                //editCardOption = YES;
                 errorMsg = @"Arc Error, Try Again.";
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";

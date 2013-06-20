@@ -700,25 +700,30 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (IBAction)checkNumberHelp {
     @try {
         
-        [self.hideKeyboardView removeFromSuperview];
-        self.hideKeyboardView = nil;
-        
-        self.helpShowing = YES;
-        
-        self.helpBackView.hidden = NO;
-        [self.checkNumOne resignFirstResponder];
-        [self.checkNumTwo resignFirstResponder];
-        [self.checkNumThree resignFirstResponder];
-        [self.checkNumFour resignFirstResponder];
-        [self.hiddenText resignFirstResponder];
-        
-        self.checkNumOne.enabled = NO;
-        self.checkNumTwo.enabled = NO;
-        self.checkNumThree.enabled = NO;
-        self.checkNumFour.enabled = NO;
-        
-        self.submitButton.enabled = NO;
-        self.nameDisplay.hidden = YES;
+        if (self.helpShowing) {
+            [self touchesBegan:nil withEvent:nil];
+        }else{
+            [self.hideKeyboardView removeFromSuperview];
+            self.hideKeyboardView = nil;
+            
+            self.helpShowing = YES;
+            
+            self.helpBackView.hidden = NO;
+            [self.checkNumOne resignFirstResponder];
+            [self.checkNumTwo resignFirstResponder];
+            [self.checkNumThree resignFirstResponder];
+            [self.checkNumFour resignFirstResponder];
+            [self.hiddenText resignFirstResponder];
+            
+            self.checkNumOne.enabled = NO;
+            self.checkNumTwo.enabled = NO;
+            self.checkNumThree.enabled = NO;
+            self.checkNumFour.enabled = NO;
+            
+            self.submitButton.enabled = NO;
+        }
+     
+        //self.nameDisplay.hidden = YES;
         
     }
     @catch (NSException *e) {

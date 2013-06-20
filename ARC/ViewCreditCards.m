@@ -16,6 +16,7 @@
 #import "MFSideMenu.h"
 #import <QuartzCore/QuartzCore.h>
 #import "LeftViewController.h"
+#import "ArcUtility.h"
 
 @interface ViewCreditCards ()
 
@@ -248,8 +249,20 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
             }else{
+            
                 CreditCard *tmp = [self.creditCards objectAtIndex:row];
-                displayLabel.text = [NSString stringWithFormat:@"%@", tmp.sample];
+        
+                NSLog(@"RETREIVING SAMPLE: %@", tmp.sample);
+                
+                if ([tmp.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmp.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                    
+                    displayLabel.text = [NSString stringWithFormat:@"%@", tmp.sample];
+
+                }else{
+                    displayLabel.text = [NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmp.cardType], [tmp.sample substringFromIndex:[tmp.sample length] - 8] ];
+
+                }
+
             }
         }
         

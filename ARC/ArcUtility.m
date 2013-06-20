@@ -94,4 +94,21 @@
   
 }
 
++(NSString *)getCardNameForType:(NSString *)cardType{
+    
+    if ([cardType isEqualToString:VISA]) {
+        return @"Visa";
+    }else if ([cardType isEqualToString:MASTER_CARD]) {
+        return @"MasterCard";
+    }else if ([cardType isEqualToString:AMERICAN_EXPRESS]) {
+        return @"Amex";
+    }else if ([cardType isEqualToString:DISCOVER]) {
+        return @"Discover";
+    }else if ([cardType isEqualToString:DINERS_CLUB]) {
+        return @"Diners";
+    }else{
+        return @"";
+    }
+}
+
 @end

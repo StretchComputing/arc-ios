@@ -124,6 +124,7 @@
 		909A500B17244BF100D70811 /* GuestCardObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A500A17244BF100D70811 /* GuestCardObject.m */; };
 		909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A500D172470C000D70811 /* AddCreditCardGuest.m */; };
 		909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A50101724CBC400D70811 /* GuestCreateAccount.m */; };
+		909ABC7F1773566200E66FDA /* profileDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 909ABC7E1773566200E66FDA /* profileDefault.png */; };
 		90A19F72162CF186007995DC /* GetPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F71162CF186007995DC /* GetPasscodeViewController.m */; };
 		90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F75162CF197007995DC /* ResetPasswordViewController.m */; };
 		90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A65C66169B785500FC519B /* CoreTelephony.framework */; };
@@ -394,6 +395,7 @@
 		909A500D172470C000D70811 /* AddCreditCardGuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCreditCardGuest.m; sourceTree = "<group>"; };
 		909A500F1724CBC400D70811 /* GuestCreateAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestCreateAccount.h; sourceTree = "<group>"; };
 		909A50101724CBC400D70811 /* GuestCreateAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestCreateAccount.m; sourceTree = "<group>"; };
+		909ABC7E1773566200E66FDA /* profileDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileDefault.png; sourceTree = "<group>"; };
 		90A19F70162CF186007995DC /* GetPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPasscodeViewController.h; sourceTree = "<group>"; };
 		90A19F71162CF186007995DC /* GetPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPasscodeViewController.m; sourceTree = "<group>"; };
 		90A19F74162CF197007995DC /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 				90CDE0E717028AFF00134AF2 /* menuHelpIcon.png */,
 				90CDE0E817028AFF00134AF2 /* menuBillingIcon.png */,
 				90CDE0E917028AFF00134AF2 /* menuProfileIcon.png */,
+				909ABC7E1773566200E66FDA /* profileDefault.png */,
 				90CDE0EA17028B0000134AF2 /* menuShareIcon.png */,
 				9093E50717442A9200BC18E3 /* jaggedEdge.png */,
 				9093E50817442A9200BC18E3 /* jaggedEdgeBottom.png */,
@@ -1138,6 +1141,7 @@
 				90AAADFB175D37D40096991D /* receipt.png in Resources */,
 				90AAAE16175E82FC0096991D /* dutchLogo.png in Resources */,
 				9023CE0B175FA96900F15386 /* dutchIcon.png in Resources */,
+				909ABC7F1773566200E66FDA /* profileDefault.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
