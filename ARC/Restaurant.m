@@ -389,6 +389,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     @try {
         
         
+        
         self.closeHelpButton.text = @"Done";
      
         self.closeHelpButton.borderColor = [UIColor darkGrayColor];
@@ -436,7 +437,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         if (self.view.frame.size.height > 500) {
@@ -523,7 +524,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 //[self.activity startAnimating];
                 
                 self.loadingViewController.displayText.text = @"Getting Invoice...";
-                self.loadingViewController.view.hidden = NO;
+                [self.loadingViewController startSpin];
                 
                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
                 
@@ -566,7 +567,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         [pingClient sendServerPings];
         
         //[self.activity stopAnimating];
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         BOOL displayAlert = NO;
 
         self.submitButton.enabled = YES;
@@ -994,7 +995,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     
     
     self.loadingViewController.displayText.text = @"Processing...";
-    self.loadingViewController.view.hidden = NO;
+     [self.loadingViewController startSpin];
      dispatch_async(queue,^{
      
          @try {
@@ -1007,8 +1008,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
              
              dispatch_async(main,^{
      
-                 self.loadingViewController.view.hidden = YES;
-                 
+     [self.loadingViewController stopSpin];
+     
                  UITextView *tmp = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
                  tmp.backgroundColor = [UIColor whiteColor];
                  tmp.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];

@@ -57,7 +57,9 @@ typedef enum {
     ConfirmRegister = 15,
     PingServer = 16,
     GetGuestToken = 17,
-    UpdateGuestCustomer = 18
+    UpdateGuestCustomer = 18,
+    GetListOfServers = 19
+
 
 
 } APIS;
@@ -148,5 +150,7 @@ typedef enum {
 -(void)sendServerPings;
 
 -(void)updateGuestCustomer:(NSDictionary *)pairs;
+
+-(void)getListOfServers;
 @end
 

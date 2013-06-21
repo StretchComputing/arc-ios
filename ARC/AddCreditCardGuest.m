@@ -69,7 +69,7 @@
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         
@@ -570,7 +570,7 @@
         
         //[self.activity startAnimating];
         self.loadingViewController.displayText.text = @"Sending Payment...";
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
         self.loadingTopView.hidden = NO;
         self.loadingTopView.alpha = 0.2;
 
@@ -641,6 +641,10 @@
         self.addCardButton.enabled = NO;
         self.navigationItem.hidesBackButton = YES;
         ArcClient *client = [[ArcClient alloc] init];
+        
+        self.creditCardNumberText.enabled = NO;
+        self.creditCardSecurityCodeText.enabled = NO;
+        self.expirationText.enabled = NO;
         
         self.myTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(createPaymentTimer) userInfo:nil repeats:NO];
         
@@ -724,6 +728,11 @@
     
     @try {
         
+        self.creditCardNumberText.enabled = YES;
+        self.creditCardSecurityCodeText.enabled = YES;
+        self.expirationText.enabled = YES;
+        
+        
         self.navigationItem.hidesBackButton = NO;
         
         // NSLog(@"Notification: %@", notification);
@@ -745,7 +754,7 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         
         //[self.activity stopAnimating];
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         //self.loadingTopView.hidden = YES;
         
         NSString *errorMsg= @"";

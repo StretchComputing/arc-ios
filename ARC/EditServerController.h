@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
+
 
 @interface EditServerController : UIViewController
+
+
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property int currentServer;
@@ -16,6 +23,7 @@
 @property BOOL isCallingServer;
 -(IBAction)cancel;
 
+@property (nonatomic, strong) NSMutableArray *serverListArray;
 @property (nonatomic, strong) IBOutlet UINavigationBar *toolbar;
 @property (strong, nonatomic) IBOutlet UIView *backView;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;

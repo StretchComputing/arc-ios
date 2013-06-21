@@ -44,6 +44,9 @@
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
 
+-(void)duplicateCard:(NSNotification *)notification{
+    self.isDuplicate = YES;
+}
 -(void)viewWillAppear:(BOOL)animated{
     
     if (self.isLoggedInUser) {
@@ -54,6 +57,9 @@
     }else{
         self.skipButton.hidden = YES;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(duplicateCard:) name:@"duplicateCardNotification" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     
     [self.hiddenText becomeFirstResponder];
@@ -72,7 +78,7 @@
     self.skipButton.text = @"SKIP - Your card info will not be saved.";
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-    self.loadingViewController.view.hidden = YES;
+    [self.loadingViewController stopSpin];
     [self.view addSubview:self.loadingViewController.view];
     
     self.initialPin = @"";
@@ -286,7 +292,7 @@
                 [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
                 
                 self.loadingViewController.displayText.text = @"Adding Card...";
-                self.loadingViewController.view.hidden = NO;
+                [self.loadingViewController startSpin];
                 [self performSelector:@selector(popNow) withObject:nil afterDelay:1.5];
                 
             }
@@ -340,6 +346,7 @@
             if ([ViewCreditCards class] == [[[self.navigationController viewControllers] objectAtIndex:1] class] ) {
                 ViewCreditCards *tmp = [[self.navigationController viewControllers] objectAtIndex:1];
                 tmp.creditCardAdded = YES;
+                tmp.duplicateCard = self.isDuplicate;
                 [self.navigationController popToViewController:tmp animated:YES];
             }else{
                 

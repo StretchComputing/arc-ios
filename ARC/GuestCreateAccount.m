@@ -42,7 +42,7 @@
     self.backButton.hidden = YES;
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-    self.loadingViewController.view.hidden = YES;
+    [self.loadingViewController stopSpin];
     [self.view addSubview:self.loadingViewController.view];
     
     self.registerButton.textColor = [UIColor whiteColor];
@@ -103,7 +103,7 @@
                 [ tempDictionary setObject:self.username.text forKey:@"userName"];
                 [ tempDictionary setObject:self.password.text forKey:@"password"];
                 
-                self.loadingViewController.view.hidden = NO;
+                [self.loadingViewController startSpin];
                 self.loadingViewController.displayText.text = @"Logging In...";
                 
                 self.registerButton.enabled = NO;
@@ -126,7 +126,7 @@
                 
                 
                 self.loadingViewController.displayText.text = @"Creating...";
-                self.loadingViewController.view.hidden = NO;
+                [self.loadingViewController startSpin];
                 
                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
                 
@@ -298,7 +298,7 @@
     @try {
 
         
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         
         self.registerButton.enabled = YES;
         self.noThanksButton.enabled = YES;
@@ -459,7 +459,7 @@
 -(void)signInComplete:(NSNotification *)notification{
     @try {
         
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         self.registerButton.enabled = YES;
         self.noThanksButton.enabled = YES;
         

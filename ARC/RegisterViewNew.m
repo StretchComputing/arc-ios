@@ -134,7 +134,7 @@
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         if(NSClassFromString(@"UIRefreshControl")) {
@@ -1069,7 +1069,7 @@
                 
                 
                 self.errorLabel.hidden = YES;
-                self.loadingViewController.view.hidden = NO;
+                [self.loadingViewController startSpin];
                 self.loadingViewController.displayText.text = @"Registering...";
                 
                 self.registerButton.enabled = NO;

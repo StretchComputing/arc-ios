@@ -669,31 +669,46 @@ ofType:(NSString *)typeName
 
         }else{
             
-            [ArcClient trackEvent:@"CREDIT_CARD_ADD"];
-
-            CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
             
-            NSString *sample = @"";
+            NSArray *currentCards = [self getCreditCardWithNumber:[FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO] andSecurityCode:[FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO] andExpiration:expiration];
             
-            if (![andCreditDebit isEqualToString:@"Credit"] && ![andCreditDebit isEqualToString:@"Debit"]) {
-                sample = [NSString stringWithFormat:@"%@  ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+            NSLog(@"Current Cards Count: %d", [currentCards count]);
+            
+            if ([currentCards count] > 0) {
+                //This is a duplicate, dont add again.
+                
 
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"duplicateCardNotification" object:self userInfo:@{}];
+
+                
             }else{
-                sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
-
+                [ArcClient trackEvent:@"CREDIT_CARD_ADD"];
+                
+                CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
+                
+                NSString *sample = @"";
+                
+                if (![andCreditDebit isEqualToString:@"Credit"] && ![andCreditDebit isEqualToString:@"Debit"]) {
+                    sample = [NSString stringWithFormat:@"%@  ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+                    
+                }else{
+                    sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+                    
+                }
+                
+                NSLog(@"SAVING SAMPLE: %@", sample);
+                
+                creditCard.expiration = expiration;
+                creditCard.sample = sample;
+                creditCard.number = [FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO];
+                creditCard.securityCode = [FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO];
+                creditCard.whoOwns = customer;
+                creditCard.cardType = [ArcUtility getCardTypeForNumber:number];
+                
+                
+                [self saveDocument];
             }
             
-            NSLog(@"SAVING SAMPLE: %@", sample);
-            
-            creditCard.expiration = expiration;
-            creditCard.sample = sample;
-            creditCard.number = [FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO];
-            creditCard.securityCode = [FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO];
-            creditCard.whoOwns = customer;
-            creditCard.cardType = [ArcUtility getCardTypeForNumber:number];
-            
-
-            [self saveDocument];
             
         }
         

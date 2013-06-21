@@ -107,10 +107,10 @@
     
     @try {
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Home"];
+        //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Home"];
         // self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Home"];
+        //CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Home"];
 		//self.navigationItem.backBarButtonItem = temp;
         
         
@@ -124,7 +124,7 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         if ([mainDelegate.logout isEqualToString:@"true"]) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out.  You may continue to use Arc as a guest." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully logged out.  You may continue to use Dutch as a guest." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             
             mainDelegate.logout = @"";

@@ -142,7 +142,7 @@
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 44, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         NSLog(@"Height: %f", self.loadingViewController.view.frame.size.height);
@@ -325,7 +325,7 @@
             [ tempDictionary setObject:self.username.text forKey:@"userName"];
             [ tempDictionary setObject:self.password.text forKey:@"password"];
             
-            self.loadingViewController.view.hidden = NO;
+            [self.loadingViewController startSpin];
             self.loadingViewController.displayText.text = @"Logging In...";
             
             self.registerButton.enabled = NO;
@@ -346,7 +346,7 @@
 -(void)signInComplete:(NSNotification *)notification{
     @try {
         
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         self.registerButton.enabled = YES;
         self.loginButton.enabled = YES;
         

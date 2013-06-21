@@ -180,7 +180,7 @@
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height + 200);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         
@@ -267,9 +267,9 @@
         //self.commentsText.layer.borderWidth = 3.0;
          
         
-        [[self.commentsText layer] setBorderColor:[[UIColor blackColor] CGColor]];
-        [[self.commentsText layer] setBorderWidth:1.0];
-        [[self.commentsText layer] setCornerRadius:7];
+       // [[self.commentsText layer] setBorderColor:[[UIColor blackColor] CGColor]];
+        //[[self.commentsText layer] setBorderWidth:1.0];
+        //[[self.commentsText layer] setCornerRadius:7];
         [self.commentsText setClipsToBounds: YES];
         
         [self.food1 setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
@@ -697,7 +697,7 @@
     [self.activity stopAnimating];
     if (self.shouldShowLoading) {
         self.loadingViewController.displayText.text = @"Sending Review...";
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
     }
 
 }
@@ -705,7 +705,7 @@
     @try {
         
         self.shouldShowLoading = NO;
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
 
         
         self.submitButton.enabled = YES;

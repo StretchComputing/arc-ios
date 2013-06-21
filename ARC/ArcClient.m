@@ -762,6 +762,32 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 }
 
 
+-(void)getListOfServers{
+    @try {
+        [rSkybox addEventToSession:@"getListOfServers"];
+        api = GetListOfServers;
+        
+        
+        NSString *pingUrl = @"http://arc-servers.dagher.net.co/rest/v1/servers/list";
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
+        
+        [request setHTTPMethod: @"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"getListOfServers"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.sendServerPings" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
@@ -930,6 +956,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             postNotification = NO;
             if (response && httpSuccess) {
                 responseInfo = [self pingServerResponse:response];
+            }
+        }else if (api == GetListOfServers){
+            if (response && httpSuccess) {
+                notificationType = @"getServerListNotification";
+
+                responseInfo = [self getServerListResponse:response];
             }
         }
         
@@ -1118,6 +1150,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             postNotification = NO;
             responseInfo = [self pingServerResponse:nil];
 
+        }else if (api == GetListOfServers){
+            notificationType = @"getServerListNotification";
         }
         
         if (postNotification == YES) {
@@ -1253,6 +1287,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
         case PingServer:
             result = @"PingServer";
+            break;
+            
+        case GetListOfServers:
+            result = @"GetListOfServers";
             break;
  
         default:
@@ -1430,6 +1468,33 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
     }
 }
+
+
+
+-(NSDictionary *) getServerListResponse:(NSDictionary *)response {
+    @try {
+        
+        NSLog(@"Response: %@", response);
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getMerchantListResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
+    }
+}
+
 
 -(void)recallGetInvoice{
     

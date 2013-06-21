@@ -123,7 +123,7 @@
         self.cardNameText.delegate = self;
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         self.editPinButton.text = @"Edit PIN";
@@ -225,7 +225,8 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         [mainDelegate deleteCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
         
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
+        [self.loadingViewController startSpin];
         self.loadingViewController.displayText.text = @"Deleting Card...";
         [self performSelector:@selector(cardDeleted) withObject:nil afterDelay:1.0];
         
@@ -746,7 +747,7 @@
         [self.navigationController popViewControllerAnimated:NO];
     }else{
         
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
         self.loadingViewController.displayText.text = @"Saving Card...";
         
         [self performSelector:@selector(cardSaved) withObject:nil afterDelay:1.0];
