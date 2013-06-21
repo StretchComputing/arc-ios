@@ -548,6 +548,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="571"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Favorite Item:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lx6-ka-Nfz" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="137" y="229" width="173" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Review" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="whW-PH-KgV" customClass="LucidaBoldLabel">
                                         <rect key="frame" x="40" y="2" width="241" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -571,105 +578,169 @@
                                             <action selector="skipReview:" destination="CSm-3p-pEO" eventType="touchUpInside" id="kIm-Md-hd5"/>
                                         </connections>
                                     </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="SdL-bh-od2">
+                                        <rect key="frame" x="0.0" y="46" width="320" height="508"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Favorite Item:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pvP-3M-dbw" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="12" y="229" width="119" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="fpY-wJ-47p" customClass="NVUIGradientButton">
+                                        <rect key="frame" x="137" y="221" width="171" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Additional Comments:" id="hZs-wF-YtT" customClass="CorbelTextView">
+                                        <rect key="frame" x="12" y="287" width="300" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="C85-pt-Gct">
+                                        <rect key="frame" x="206" y="392" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="facebookconnect.jpg">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="postFacebook" destination="CSm-3p-pEO" eventType="touchUpInside" id="hGI-9Q-Xve"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iM3-QU-sDl">
+                                        <rect key="frame" x="81" y="392" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="twittetrconnect.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="postTwitter" destination="CSm-3p-pEO" eventType="touchUpInside" id="5qK-Gd-auI"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Share:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nzE-8x-hl9" customClass="CorbelBoldLabel">
+                                        <rect key="frame" x="12" y="397" width="64" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nUe-QV-OwR" customClass="LucidaLabel">
+                                        <rect key="frame" x="254" y="399" width="54" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="mfV-dg-uI8" customClass="LucidaLabel">
+                                        <rect key="frame" x="129" y="399" width="54" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PZX-li-uLQ">
+                                        <rect key="frame" x="42" y="113" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" backgroundImage="emptyStar.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="starOneAction" destination="CSm-3p-pEO" eventType="touchUpInside" id="Yve-Kk-sVN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qb3-Bc-m18">
+                                        <rect key="frame" x="90" y="113" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" backgroundImage="emptyStar.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="starTwoAction" destination="CSm-3p-pEO" eventType="touchUpInside" id="8pr-xb-Y6p"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2Lh-1r-cmV">
+                                        <rect key="frame" x="138" y="113" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" backgroundImage="emptyStar.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="starThreeAction" destination="CSm-3p-pEO" eventType="touchUpInside" id="FXU-5k-S4V"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EKh-mv-cDy">
+                                        <rect key="frame" x="186" y="113" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" backgroundImage="emptyStar.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="starFourAction" destination="CSm-3p-pEO" eventType="touchUpInside" id="CnE-1g-TT0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Js-Nr-fOP">
+                                        <rect key="frame" x="234" y="113" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" backgroundImage="emptyStar.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="starFiveAction" destination="CSm-3p-pEO" eventType="touchUpInside" id="bOI-mC-f0s"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Click a star to rate your experience" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eNg-N1-i50" customClass="CorbelRegularLabel">
+                                        <rect key="frame" x="22" y="154" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="SdL-bh-od2">
-                                <rect key="frame" x="0.0" y="46" width="320" height="508"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Earn points by giving Untitled feedback:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6oA-d0-eFo" customClass="CorbelRegularLabel">
                                 <rect key="frame" x="10" y="57" width="302" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Food" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="CKH-b5-2j6" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="155" width="52" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KCo-Er-nzg" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="193" width="67" height="24"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Drinks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="aj3-mV-nan" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="233" width="67" height="25"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mood" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="g3r-wO-4dh" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="274" width="87" height="22"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YYN-ke-g8v" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="314" width="67" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Earn +5 pts for an in depth review:" id="hZs-wF-YtT" customClass="CorbelTextView">
-                                <rect key="frame" x="10" y="339" width="300" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="C85-pt-Gct">
-                                <rect key="frame" x="204" y="407" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="facebookconnect.jpg">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="postFacebook" destination="CSm-3p-pEO" eventType="touchUpInside" id="hGI-9Q-Xve"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iM3-QU-sDl">
-                                <rect key="frame" x="79" y="407" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="twittetrconnect.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="postTwitter" destination="CSm-3p-pEO" eventType="touchUpInside" id="5qK-Gd-auI"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Share:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nzE-8x-hl9" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="412" width="64" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nUe-QV-OwR" customClass="LucidaLabel">
-                                <rect key="frame" x="252" y="414" width="54" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+5pts)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="mfV-dg-uI8" customClass="LucidaLabel">
-                                <rect key="frame" x="127" y="414" width="54" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -680,110 +751,10 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="Dbo-qp-7Mc">
-                                <rect key="frame" x="89" y="152" width="200" height="23"/>
-                                <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="Jfo-Gu-x2I"/>
-                                </connections>
-                            </slider>
-                            <slider opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="Bh1-L4-1jb">
-                                <rect key="frame" x="89" y="191" width="200" height="23"/>
-                                <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="brD-Xh-lp4"/>
-                                </connections>
-                            </slider>
-                            <slider opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="K1A-My-0gn">
-                                <rect key="frame" x="89" y="231" width="200" height="23"/>
-                                <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="4cG-qU-LHq"/>
-                                </connections>
-                            </slider>
-                            <slider opaque="NO" tag="40" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="9ec-Wr-TX2">
-                                <rect key="frame" x="89" y="271" width="200" height="23"/>
-                                <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="vb1-AT-FfL"/>
-                                </connections>
-                            </slider>
-                            <slider opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="mrX-da-IuP">
-                                <rect key="frame" x="89" y="311" width="200" height="23"/>
-                                <color key="minimumTrackTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="sliderValueChanged:" destination="CSm-3p-pEO" eventType="valueChanged" id="wJn-Rq-8J7"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(+1pt each)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4PL-cL-9HQ" customClass="LucidaLabel">
-                                <rect key="frame" x="5" y="130" width="72" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="11" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="L29-u6-VgL" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="152" width="21" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="21" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4cO-kV-eHg" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="191" width="21" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="31" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pQL-ra-bNM" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="231" width="21" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="41" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gBc-Wn-0hr" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="271" width="21" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="51" contentMode="left" text="0/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="VFv-rH-Ejf" customClass="LucidaLabel">
-                                <rect key="frame" x="296" y="310" width="21" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="VWG-sI-bRy">
                                 <rect key="frame" x="150" y="62" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </activityIndicatorView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Favorite Item:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pvP-3M-dbw" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="10" y="99" width="119" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Favorite Item:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lx6-ka-Nfz" customClass="CorbelBoldLabel">
-                                <rect key="frame" x="137" y="99" width="173" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SqM-hg-dGa">
-                                <rect key="frame" x="134" y="90" width="176" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Click To Select" backgroundImage="rowButton.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="selectFavoriteItem" destination="CSm-3p-pEO" eventType="touchUpInside" id="6M3-5H-5JO"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" id="ci1-pe-p0r">
                                 <rect key="frame" x="0.0" y="45" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -800,27 +771,27 @@
                         <outlet property="activity" destination="VWG-sI-bRy" id="13a-NG-m7I"/>
                         <outlet property="backView" destination="zGQ-PZ-UTH" id="7UL-O8-ikL"/>
                         <outlet property="commentsText" destination="hZs-wF-YtT" id="W5E-yd-OnM"/>
-                        <outlet property="drinksSlider" destination="K1A-My-0gn" id="mON-ff-ODP"/>
                         <outlet property="earnMoreLabel" destination="6oA-d0-eFo" id="ANB-t6-a90"/>
-                        <outlet property="foodSlider" destination="Dbo-qp-7Mc" id="K90-gD-HpK"/>
-                        <outlet property="moodSlider" destination="9ec-Wr-TX2" id="BaJ-ng-fhb"/>
                         <outlet property="postFacebookButton" destination="C85-pt-Gct" id="dzL-9W-fti"/>
                         <outlet property="postFacebookPoints" destination="nUe-QV-OwR" id="77p-e8-Ike"/>
                         <outlet property="postTwitterButton" destination="iM3-QU-sDl" id="RcD-dn-E0j"/>
                         <outlet property="postTwitterPoints" destination="mfV-dg-uI8" id="Rcp-1P-FGY"/>
-                        <outlet property="selectFavoriteButton" destination="SqM-hg-dGa" id="e7U-9r-jfY"/>
+                        <outlet property="selectFavoriteButton" destination="fpY-wJ-47p" id="iUr-Eq-vZm"/>
                         <outlet property="selectedItemTextField" destination="Lx6-ka-Nfz" id="f7Q-Lz-dtD"/>
-                        <outlet property="serviceSlider" destination="Bh1-L4-1jb" id="mTh-Xx-xpT"/>
                         <outlet property="shareLabel" destination="nzE-8x-hl9" id="loc-nR-Waq"/>
                         <outlet property="skipButton" destination="Yak-5h-o3h" id="hLh-xy-U3L"/>
+                        <outlet property="starFiveButton" destination="9Js-Nr-fOP" id="016-H9-P9X"/>
+                        <outlet property="starFourButton" destination="EKh-mv-cDy" id="AYE-T7-UJC"/>
+                        <outlet property="starOneButton" destination="PZX-li-uLQ" id="8lo-6R-0H1"/>
+                        <outlet property="starThreeButton" destination="2Lh-1r-cmV" id="3Dc-Do-ovr"/>
+                        <outlet property="starTwoButton" destination="Qb3-Bc-m18" id="63x-Y5-uzd"/>
                         <outlet property="submitButton" destination="nve-xC-5Yz" id="ny3-c7-tfd"/>
                         <outlet property="topLineView" destination="ci1-pe-p0r" id="Rin-of-ahO"/>
-                        <outlet property="valueSlider" destination="mrX-da-IuP" id="GVC-ze-Hti"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1T-PC-DJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4909" y="895"/>
+            <point key="canvasLocation" x="4650" y="1024"/>
         </scene>
         <!--Confirm Payment View Controller-->
         <scene sceneID="b1Y-iD-Ofu">
@@ -5502,6 +5473,7 @@
         <image name="camera.png" width="128" height="128"/>
         <image name="divide.png" width="64" height="64"/>
         <image name="dutchIcon.png" width="120" height="120"/>
+        <image name="emptyStar.png" width="100" height="95"/>
         <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="helpImage1.png" width="900" height="800"/>
         <image name="helpImage2.png" width="1100" height="800"/>

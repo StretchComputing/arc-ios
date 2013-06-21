@@ -158,6 +158,11 @@
 -(void)viewDidLoad{
     @try {
         
+        self.selectedStars = 0.0;
+        self.selectFavoriteButton.text = @"Click to Select";
+        
+        self.commentsText.layer.borderWidth = 1.0;
+        self.commentsText.layer.borderColor = [dutchTopLineColor CGColor];
         
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
@@ -655,13 +660,15 @@
         }
         [tempDictionary setObject:customerId forKey:@"CustomerId"];
 
+        
+        NSNumber *ratingNumber = [NSNumber numberWithInt:self.selectedStars];
         NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myInvoice.invoiceId];
         [ tempDictionary setObject:invoiceIdString forKey:@"InvoiceId"];
-        [ tempDictionary setObject:self.drinksInt forKey:@"Drinks"];
-        [ tempDictionary setObject:self.foodInt forKey:@"Food"];
-        [ tempDictionary setObject:self.priceInt forKey:@"Price"];
-        [ tempDictionary setObject:self.serviceInt forKey:@"Service"];
-        [ tempDictionary setObject:self.moodInt forKey:@"Mood"];        
+        [ tempDictionary setObject:ratingNumber forKey:@"Drinks"];
+        [ tempDictionary setObject:ratingNumber forKey:@"Food"];
+        [ tempDictionary setObject:ratingNumber forKey:@"Price"];
+        [ tempDictionary setObject:ratingNumber forKey:@"Service"];
+        [ tempDictionary setObject:ratingNumber forKey:@"Mood"];        
         [ tempDictionary setObject:self.twitterInt forKey:@"Twitter"];
         [ tempDictionary setObject:self.facebookInt forKey:@"Facebook"];
         
@@ -1316,7 +1323,7 @@
             self.selectedItemName  = [item valueForKey:@"Description"];
         }
         
-        [self.selectFavoriteButton setTitle:self.selectedItemName forState:UIControlStateNormal];
+        self.selectFavoriteButton.text = self.selectedItemName;
         
         self.selectedItemTextField.text = self.selectedItemName;
         
@@ -1392,6 +1399,64 @@
 }
 
 
+
+- (IBAction)starOneAction {
+    self.selectedStars = 1;
+    [self resetAllStars];
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+
+}
+
+- (IBAction)starTwoAction {
+    self.selectedStars = 2;
+    [self resetAllStars];
+
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+
+
+
+}
+
+- (IBAction)starThreeAction {
+    self.selectedStars = 3;
+    [self resetAllStars];
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starThreeButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+
+}
+
+- (IBAction)starFourAction {
+    self.selectedStars = 4;
+    [self resetAllStars];
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starThreeButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starFourButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+
+}
+
+- (IBAction)starFiveAction {
+    self.selectedStars = 5;
+    [self resetAllStars];
+    [self.starFiveButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starThreeButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starFourButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    
+}
+
+-(void)resetAllStars{
+    
+    [self.starOneButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+    [self.starThreeButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+    [self.starFourButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+    [self.starFiveButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+
+}
 @end
 
 

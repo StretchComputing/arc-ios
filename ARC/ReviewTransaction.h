@@ -35,6 +35,16 @@
 @property int paymentPointsReceived;
 
 -(IBAction)sliderValueChanged:(UISlider *)sender;
+@property (strong, nonatomic) IBOutlet UIButton *starOneButton;
+@property (strong, nonatomic) IBOutlet UIButton *starTwoButton;
+@property (strong, nonatomic) IBOutlet UIButton *starThreeButton;
+@property (strong, nonatomic) IBOutlet UIButton *starFourButton;
+@property (strong, nonatomic) IBOutlet UIButton *starFiveButton;
+- (IBAction)starOneAction;
+- (IBAction)starTwoAction;
+- (IBAction)starThreeAction;
+- (IBAction)starFourAction;
+- (IBAction)starFiveAction;
 
 @property BOOL isIos6;
 
@@ -66,7 +76,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *foodSlider;
 @property (strong, nonatomic) Invoice *myInvoice;
 
-
+@property int selectedStars;
 -(IBAction)postFacebook;
 
 @property (nonatomic, strong) IBOutlet UIButton *food1;
@@ -114,7 +124,7 @@
 
 
 //Favorite Item Picker
-@property (nonatomic, strong) IBOutlet UIButton *selectFavoriteButton;
+@property (nonatomic, strong) IBOutlet NVUIGradientButton *selectFavoriteButton;
 @property (nonatomic, strong) IBOutlet CorbelBoldLabel *selectedItemTextField;
 @property (nonatomic, strong) NSString *selectedItemId;
 @property (nonatomic, strong) NSString *selectedItemName;
