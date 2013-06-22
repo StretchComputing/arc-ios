@@ -302,6 +302,7 @@
                 
                 self.myInvoice.items = [NSArray arrayWithArray:newArray];
                 [self.myTableView reloadData];
+                [self adjustLength];
                 
                 if (![self isAnyRowSelected]) {
                     self.myItemizedTotal = 0.0;
@@ -943,12 +944,14 @@
     float height = self.myTableView.frame.size.height;
     
     int numItems = [self.myInvoice.items count];
+    
+    NSLog(@"NUM ITEMS: %d", numItems);
+    
     float neededHeight = numItems * 30 + 15;
     
     if (neededHeight < 100) {
         neededHeight = 100;
     }
-    
     
     int maxTableHeight = 0;
     if (self.view.frame.size.height > 500) {
@@ -956,6 +959,11 @@
     }else{
         maxTableHeight = 141 + self.moveY;
     }
+    
+    NSLog(@"Needed Height: %f",neededHeight);
+
+    NSLog(@"Max Height: %d", maxTableHeight);
+
     
     if (neededHeight < maxTableHeight) {
         
@@ -983,7 +991,70 @@
             CGRect frame3 = self.payView.frame;
             frame3.origin.y -= wastedSpace/2.0;
             self.payView.frame = frame3;
+        }else{
+            //current height is less than what is needed
+            
+            float neededSpace = neededHeight - height;
+            float spaceToMove = neededSpace;
+            
+            if (spaceToMove + height > maxTableHeight) {
+                spaceToMove = maxTableHeight - height;
+            }
+            
+            NSLog(@"Space TO MOVE: %f", spaceToMove);
+            
+            CGRect frame = self.myTableView.frame;
+            frame.size.height += spaceToMove;
+            self.myTableView.frame = frame;
+            
+            CGRect frame1 = self.receiptView.frame;
+            frame1.size.height += spaceToMove;
+            self.receiptView.frame = frame1;
+            
+            
+            CGRect frame2 = self.bottomHalfView.frame;
+            frame2.origin.y += spaceToMove;
+            self.bottomHalfView.frame = frame2;
+            
+            
+            //move the payView
+            
+            CGRect frame3 = self.payView.frame;
+            frame3.origin.y += spaceToMove/2.0;
+            self.payView.frame = frame3;
+            
+            
+            
+            
         }
+        
+    }else{
+        
+        
+        //need more than can have...move up to max table height
+        
+        float spaceToMove = maxTableHeight - height;
+        
+        CGRect frame = self.myTableView.frame;
+        frame.size.height += spaceToMove;
+        self.myTableView.frame = frame;
+        
+        CGRect frame1 = self.receiptView.frame;
+        frame1.size.height += spaceToMove;
+        self.receiptView.frame = frame1;
+        
+        
+        CGRect frame2 = self.bottomHalfView.frame;
+        frame2.origin.y += spaceToMove;
+        self.bottomHalfView.frame = frame2;
+        
+        
+        //move the payView
+        
+        CGRect frame3 = self.payView.frame;
+        frame3.origin.y += spaceToMove/2.0;
+        self.payView.frame = frame3;
+        
         
     }
     
@@ -1345,6 +1416,7 @@
             self.myInvoice.items = [NSArray arrayWithArray:newArray];
             
             [self.myTableView reloadData];
+            [self adjustLength];
             
             
         }
