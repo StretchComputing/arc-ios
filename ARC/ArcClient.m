@@ -12,7 +12,6 @@
 #import "rSkybox.h"
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import "Home.h"
 #import "ArcIdentifier.h"
 
 //NSString *_arcUrl = @"http://68.57.205.193:8700/arc-dev/rest/v1/";    //Jim's Place
@@ -158,7 +157,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [rSkybox addEventToSession:@"updateGuestCustomer"];
         api = UpdateGuestCustomer;
         
-        NSString *guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        //NSString *guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
@@ -1525,6 +1524,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 NSLog(@"Retry Time: %d", retryTime);
                 
                 NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(recallGetInvoice) userInfo:nil repeats:NO];
+                if (timer) {
+                    
+                }
                 
             } else {
                 
@@ -1582,6 +1584,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                         // NSLog(@"Retry Time: %d", retryTime);
                         
                         NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(recallGetInvoice) userInfo:nil repeats:NO];
+                        if (timer) {
+                            
+                        }
                         
                     }else{
                         NSString *status = @"error";

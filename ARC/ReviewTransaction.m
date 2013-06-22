@@ -8,7 +8,6 @@
 
 #import "ReviewTransaction.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Home.h"
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
 #import "rSkybox.h"
@@ -16,7 +15,7 @@
 #import <Social/Social.h>
 #import "Invoice.h"
 #import "MFSideMenu.h"
-
+#import "HomeNew.h"
 //#import "Merchant.h"
 
 @interface ReviewTransaction ()
@@ -751,7 +750,7 @@
             }
        
      
-            Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+            HomeNew *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
             tmp.successReview = YES;
             [self.navigationController popToRootViewControllerAnimated:NO];
         } else if([status isEqualToString:@"error"]){
@@ -802,7 +801,7 @@
      
         
         
-        Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+        HomeNew *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
         tmp.skipReview = YES;
         [self.navigationController popToRootViewControllerAnimated:NO];
         

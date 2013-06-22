@@ -120,7 +120,6 @@
 		90993F4C159777BC00FC1D49 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90993F4B159777BC00FC1D49 /* ViewController.m */; };
 		90993F571597781400FC1D49 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 90993F561597781400FC1D49 /* Default.png */; };
 		90993F591597782100FC1D49 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90993F581597782100FC1D49 /* Default@2x.png */; };
-		90993F5D1597795B00FC1D49 /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 90993F5B1597795B00FC1D49 /* Home.m */; };
 		909A500B17244BF100D70811 /* GuestCardObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A500A17244BF100D70811 /* GuestCardObject.m */; };
 		909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A500D172470C000D70811 /* AddCreditCardGuest.m */; };
 		909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A50101724CBC400D70811 /* GuestCreateAccount.m */; };
@@ -163,7 +162,6 @@
 		90CDE0EE17028B0000134AF2 /* menuProfileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0E917028AFF00134AF2 /* menuProfileIcon.png */; };
 		90CDE0EF17028B0000134AF2 /* menuShareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0EA17028B0000134AF2 /* menuShareIcon.png */; };
 		90CDE0F017028B0000134AF2 /* menuHomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */; };
-		90CDF7C915DC91ED00EBF15B /* SplitCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CDF7C815DC91ED00EBF15B /* SplitCheckViewController.m */; };
 		90D25B84159E065A00192F6E /* qmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B83159E065A00192F6E /* qmark.png */; };
 		90D25B87159E0C0600192F6E /* twittetrconnect.png in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B86159E0C0600192F6E /* twittetrconnect.png */; };
 		90D25B89159E0C3A00192F6E /* facebookconnect.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 90D25B88159E0C3A00192F6E /* facebookconnect.jpg */; };
@@ -387,8 +385,6 @@
 		90993F4B159777BC00FC1D49 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		90993F561597781400FC1D49 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		90993F581597782100FC1D49 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		90993F5A1597795B00FC1D49 /* Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
-		90993F5B1597795B00FC1D49 /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
 		909A500917244BF100D70811 /* GuestCardObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestCardObject.h; sourceTree = "<group>"; };
 		909A500A17244BF100D70811 /* GuestCardObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestCardObject.m; sourceTree = "<group>"; };
 		909A500C172470C000D70811 /* AddCreditCardGuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCreditCardGuest.h; sourceTree = "<group>"; };
@@ -453,8 +449,6 @@
 		90CDE0E917028AFF00134AF2 /* menuProfileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuProfileIcon.png; sourceTree = "<group>"; };
 		90CDE0EA17028B0000134AF2 /* menuShareIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuShareIcon.png; sourceTree = "<group>"; };
 		90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuHomeIcon.png; sourceTree = "<group>"; };
-		90CDF7C715DC91ED00EBF15B /* SplitCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitCheckViewController.h; sourceTree = "<group>"; };
-		90CDF7C815DC91ED00EBF15B /* SplitCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitCheckViewController.m; sourceTree = "<group>"; };
 		90D25B83159E065A00192F6E /* qmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qmark.png; sourceTree = "<group>"; };
 		90D25B86159E0C0600192F6E /* twittetrconnect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twittetrconnect.png; sourceTree = "<group>"; };
 		90D25B88159E0C3A00192F6E /* facebookconnect.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = facebookconnect.jpg; sourceTree = "<group>"; };
@@ -844,8 +838,6 @@
 				90A19F71162CF186007995DC /* GetPasscodeViewController.m */,
 				90A19F74162CF197007995DC /* ResetPasswordViewController.h */,
 				90A19F75162CF197007995DC /* ResetPasswordViewController.m */,
-				90CDF7C715DC91ED00EBF15B /* SplitCheckViewController.h */,
-				90CDF7C815DC91ED00EBF15B /* SplitCheckViewController.m */,
 				90FBDC46159CE4F90051609A /* PushSegueNoAnimation.h */,
 				90FBDC47159CE4FA0051609A /* PushSegueNoAnimation.m */,
 				9094250515D870AB00CB052D /* PresentSegueNoAnimation.h */,
@@ -860,8 +852,6 @@
 				908AB24816696F4C00A318C8 /* FacebookCheckin.m */,
 				90FBDA63159A63E40051609A /* ContactUsView.h */,
 				90FBDA64159A63E40051609A /* ContactUsView.m */,
-				90993F5A1597795B00FC1D49 /* Home.h */,
-				90993F5B1597795B00FC1D49 /* Home.m */,
 				90B6B102159A3FFA005E4BCB /* Restaurant.h */,
 				90B6B103159A3FFA005E4BCB /* Restaurant.m */,
 				9FFFB9C0171B2B6100D8B58B /* LiveDebugViewController.h */,
@@ -1050,7 +1040,7 @@
 		90993F28159777BB00FC1D49 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 90993F2B159777BB00FC1D49 /* Build configuration list for PBXProject "ARC" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1155,7 +1145,6 @@
 				90993F42159777BC00FC1D49 /* main.m in Sources */,
 				90993F46159777BC00FC1D49 /* ArcAppDelegate.m in Sources */,
 				90993F4C159777BC00FC1D49 /* ViewController.m in Sources */,
-				90993F5D1597795B00FC1D49 /* Home.m in Sources */,
 				90BFD0901597928D00F5285E /* HomeNavigationController.m in Sources */,
 				90B6B0B715994A0B005E4BCB /* RegisterNavigation.m in Sources */,
 				90B6B0FD159A1D6C005E4BCB /* Merchant.m in Sources */,
@@ -1206,7 +1195,6 @@
 				9F34F57315CF0CE30084184B /* ArcClient.m in Sources */,
 				9F45D81F15D33F3300682F19 /* Encoder.c in Sources */,
 				9094250715D870AB00CB052D /* PresentSegueNoAnimation.m in Sources */,
-				90CDF7C915DC91ED00EBF15B /* SplitCheckViewController.m in Sources */,
 				9FA68D0215E083750048789D /* UIDevice-Hardware.m in Sources */,
 				9FA68D0615E083BB0048789D /* rSkybox.m in Sources */,
 				9081521515E7D10900211C37 /* Reachability.m in Sources */,
@@ -1288,6 +1276,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: tyler mendoza (8VDW7T8787)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tyler mendoza (8VDW7T8787)";
 				COPY_PHASE_STRIP = NO;
@@ -1317,6 +1309,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: tyler mendoza";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tyler mendoza";
 				COPY_PHASE_STRIP = YES;
@@ -1396,6 +1392,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: tyler mendoza";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: tyler mendoza";
 				COPY_PHASE_STRIP = YES;

@@ -13,7 +13,6 @@
 #import "CreditCard.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
-#import "SplitCheckViewController.h"
 #import "HomeNavigationController.h"
 #import "RegisterDwollaView.h"
 #import "ArcClient.h"
@@ -1138,7 +1137,7 @@
         }else{
             
             BOOL isSubLevel = NO;
-            BOOL isTopLevel = NO;
+            //BOOL isTopLevel = NO;
             
             static NSString *NormalCell=@"NormalCell";
             static NSString *SubCell=@"SubCell";
@@ -1990,10 +1989,7 @@
            
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
             
-            
-            SplitCheckViewController *controller = [segue destinationViewController];
-            controller.myInvoice = self.myInvoice;
-            controller.paymentsAccepted = self.paymentsAccepted;
+          
             
         }else if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
             
@@ -2298,12 +2294,12 @@
         //Receipt is now itemized out where it needs to be
         
         for (int i = 0; i < [self.myInvoice.items count]; i++) {
-            
-            NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+          //
+          //  NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
             
             for (int j = 0; j < [self.paidItemsArray count]; j++) {
                 
-                NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:j];
+            //    NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:j];
                 
                 
             }
@@ -2317,7 +2313,7 @@
         
         
         for (int i = 0; i < [self.paidItemsArray count]; i++) {
-            NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
+         //   NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
         }
         
         
