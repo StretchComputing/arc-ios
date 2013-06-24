@@ -13,6 +13,15 @@
 #import <GameKit/GameKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+
+extern UIColor *dutchLightBlueColor;
+extern UIColor *dutchDarkBlueColor;
+extern UIColor *dutchGreenColor;
+extern UIColor *dutchTopLineColor;
+extern UIColor *dutchTopNavColor;
+
+
+
 #define UIAppDelegate ((ArcAppDelegate *)[UIApplication sharedApplication].delegate)
 
 @interface ArcAppDelegate : UIResponder <UIApplicationDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate, CLLocationManagerDelegate>

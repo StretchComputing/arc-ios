@@ -15,6 +15,9 @@
 
 +(NSString *)getCardTypeForNumber:(NSString *)cardNumber;
 
++(NSString *)getCardNameForType:(NSString *)cardType;
+
+
 @end
 
 

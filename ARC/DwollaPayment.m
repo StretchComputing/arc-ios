@@ -56,7 +56,7 @@
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         if (self.view.frame.size.height > 500) {
@@ -592,7 +592,7 @@
         //[self.activity startAnimating];
         
         self.loadingViewController.displayText.text = @"Sending Payment...";
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
 
          NSString *pinNumber = [NSString stringWithFormat:@"%@%@%@%@", self.checkNumOne.text, self.checkNumTwo.text, self.checkNumThree.text, self.checkNumFour.text];
         
@@ -680,7 +680,7 @@
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
         
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
 
         bool displayAlert = NO;
         self.payButton.enabled = YES;

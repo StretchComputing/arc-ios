@@ -6,11 +6,12 @@
 //
 //
 
+#import "ArcAppDelegate.h"
 #import "AdditionalTipViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import "ConfirmPaymentViewController.h"
-
+#import "AddCreditCardGuest.h"
 
 @interface AdditionalTipViewController ()
 
@@ -18,54 +19,125 @@
 
 @implementation AdditionalTipViewController
 
+
+-(void)viewDidAppear:(BOOL)animated{
+    if ([self.transactionNotesText.text length] == 0) {
+        self.transactionNotesText.text = @"Transaction Notes (*optional):";
+    }
+}
 -(void)viewDidLoad{
     
-    self.transactionNotesText.delegate = self;
-    
-    self.tipTextField.keyboardType = UIKeyboardTypeDecimalPad;
-
-    
-    self.continueButton.text = @"Continue";
-    self.continueButton.textColor = [UIColor whiteColor];
-    self.continueButton.textShadowColor = [UIColor darkGrayColor];
-    self.continueButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
-    
-    self.tipSelectSegment.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
-    
-    
-    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.5;
-    
-    self.backView.layer.cornerRadius = 7.0;
-    
-    
-    self.myTotalLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.basePaymentAmount];
-    
-    
-    if (self.myInvoice.serviceCharge == 0.0) {
+    @try {
+        self.transactionNotesText.delegate = self;
         
-        self.tipSelectSegment.selectedSegmentIndex = 1;
-        double doubleValue = self.myInvoice.basePaymentAmount * 0.20;
+        self.tipTextField.keyboardType = UIKeyboardTypeDecimalPad;
         
-        self.tipTextField.text = [NSString stringWithFormat:@"%.2f", doubleValue];
-    }else{
-        self.tipSelectSegment.selectedSegmentIndex = -1;
+        
+        self.continueButton.text = @"Continue";
+        self.continueButton.textColor = [UIColor whiteColor];
+        self.continueButton.textShadowColor = [UIColor darkGrayColor];
+        self.continueButton.tintColor = dutchDarkBlueColor;
+        
+        self.tipSelectSegment.tintColor = [UIColor grayColor];
+        
+        
+        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.topLineView.layer.shadowRadius = 1;
+        self.topLineView.layer.shadowOpacity = 0.2;
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
+        
+        
+        
+        self.myTotalLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.basePaymentAmount];
+        
+        
+        if (self.myInvoice.serviceCharge == 0.0) {
+            
+            NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+            NSString *defaultTipName = [NSString stringWithFormat:@"%@%@", customerId, @"defaultTip"];
+            
+            if ([[[NSUserDefaults standardUserDefaults] valueForKey:defaultTipName] length] > 0 ) {
+                //There is a default tip
+                
+                NSString *tipValueString = [[NSUserDefaults standardUserDefaults] valueForKey:defaultTipName];
+                double tipValueDouble = [tipValueString doubleValue];
+                
+                BOOL didFind = NO;
+                for (int i = 0; i < 3; i++) {
+                    
+                    if ([[[self.tipSelectSegment titleForSegmentAtIndex:i] stringByReplacingOccurrencesOfString:@"%" withString:@""] isEqualToString:tipValueString]) {
+                        self.tipSelectSegment.selectedSegmentIndex = i;
+                        didFind = YES;
+                        break;
+                    }
+                    
+                }
+                
+                
+                if (!didFind) {
+                    
+                    [self.tipSelectSegment insertSegmentWithTitle:[NSString stringWithFormat:@"%@%%", tipValueString] atIndex:3 animated:NO];
+                    self.tipSelectSegment.selectedSegmentIndex = 3;
+                    
+                }
+                
+                tipValueDouble = tipValueDouble/100.0;
+                double tipTotalValue = self.myInvoice.basePaymentAmount * tipValueDouble;
+                self.tipTextField.text = [NSString stringWithFormat:@"%.2f", tipTotalValue];
+                
+            }else{
+                self.tipSelectSegment.selectedSegmentIndex = 1;
+                double doubleValue = self.myInvoice.basePaymentAmount * 0.20;
+                
+                self.tipTextField.text = [NSString stringWithFormat:@"%.2f", doubleValue];
+            }
+            
+            
+            
+        }else{
+            
+            
+            self.tipSelectSegment.selectedSegmentIndex = -1;
+            
+        }
+        
+        self.transactionNotesText.layer.borderWidth = 1;
+        self.transactionNotesText.layer.borderColor = [dutchTopLineColor CGColor];
     }
-    
+    @catch (NSException *exception) {
+        NSLog(@"E: %@", exception);
+    }
+   
 }
 
 
 
 - (IBAction)continueAction:(id)sender {
     
+    self.myInvoice.gratuity = [self.tipTextField.text doubleValue];
+
     if (self.tipTextField.text == nil) {
         self.tipTextField.text = @"";
     }
     
-    self.myInvoice.gratuity = [self.tipTextField.text doubleValue];
-    
-    [self performSegueWithIdentifier:@"goConfirm" sender:self];
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] > 0) {
+        
+        if ([self.creditCardSample length] > 0) {
+            [self performSegueWithIdentifier:@"goConfirm" sender:self];
+        }else{
+            //logged in, but need to enter card
+            [self performSegueWithIdentifier:@"goEnterCard" sender:self];
+
+        }
+        
+    }else{
+        //Guest
+        
+        [self performSegueWithIdentifier:@"goEnterCard" sender:self];
+
+    }
+  
     
 }
 
@@ -231,7 +303,26 @@
            controller.transactionNotes = self.transactionNotesText.text;
            
             
-        }
+       }else if ([[segue identifier] isEqualToString:@"goEnterCard"]){
+           
+           AddCreditCardGuest *controller = [segue destinationViewController];
+           controller.myInvoice = self.myInvoice;
+           if (self.transactionNotesText.text == nil || [self.transactionNotesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
+               self.transactionNotesText.text = @"";
+           }
+           
+           controller.myItemsArray = [NSArray arrayWithArray:self.myItemsArray];
+        
+           controller.transactionNotes = self.transactionNotesText.text;
+           
+           if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"]length] > 0) {
+               controller.isGuest = NO;
+           }else{
+               controller.isGuest = YES;
+           }
+
+      
+       }
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.prepareForSegue" logMessage:@"Exception Caught" logLevel:@"error" exception:e];

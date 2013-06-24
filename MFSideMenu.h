@@ -33,6 +33,7 @@ typedef void (^MFSideMenuStateEventBlock)(MFSideMenuStateEvent);
 @interface MFSideMenu : NSObject<UIGestureRecognizerDelegate>
 
 
+@property BOOL didSendOpenNotification;
 @property BOOL allowSwipeOpenLeft;
 @property BOOL allowSwipeOpenRight;
 @property (nonatomic, readonly) UINavigationController *navigationController;

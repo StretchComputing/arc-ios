@@ -126,15 +126,15 @@
         
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.5;
-        
-        self.backView.layer.cornerRadius = 7.0;
+        self.topLineView.layer.shadowOpacity = 0.2;
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
         
         
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         if(NSClassFromString(@"UIRefreshControl")) {
@@ -1014,7 +1014,11 @@
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == USER_ALREADY_EXISTS) {
                 errorMsg = @"Email Address already used.";
-            } else {
+            }else if (errorCode == NETWORK_ERROR){
+                
+                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                
+            }else {
                 errorMsg = ARC_ERROR_MSG;
             }
         } else {
@@ -1065,7 +1069,7 @@
                 
                 
                 self.errorLabel.hidden = YES;
-                self.loadingViewController.view.hidden = NO;
+                [self.loadingViewController startSpin];
                 self.loadingViewController.displayText.text = @"Registering...";
                 
                 self.registerButton.enabled = NO;
@@ -1109,6 +1113,9 @@
 		[ tempDictionary setObject:self.emailText.text forKey:@"eMail"];
 		[ tempDictionary setObject:self.passwordText.text forKey:@"Password"];
         [ tempDictionary setObject:@"Phone" forKey:@"Source"];
+        
+        [ tempDictionary setObject:[NSNumber numberWithBool:NO] forKey:@"IsGuest"];
+
 
       
         //[ tempDictionary setObject:genderString forKey:@"Gender"];

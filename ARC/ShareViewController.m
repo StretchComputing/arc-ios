@@ -45,7 +45,7 @@
     
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-    self.loadingViewController.view.hidden = YES;
+    [self.loadingViewController stopSpin];
     [self.view addSubview:self.loadingViewController.view];
     
     if(NSClassFromString(@"SLComposeViewController")) {
@@ -55,11 +55,16 @@
         
     }
     
+    
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.5;
+    self.topLineView.layer.shadowOpacity = 0.2;
+    self.topLineView.backgroundColor = dutchTopLineColor;
+    self.backView.backgroundColor = dutchTopNavColor;
     
-    self.backView.layer.cornerRadius = 7.0;
+   
+    
+    
 }
 
 
@@ -351,7 +356,7 @@
 -(void)referFriendComplete:(NSNotification *)notification{
     @try {
         
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
 
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         NSString *status = [responseInfo valueForKey:@"status"];
@@ -386,7 +391,7 @@
     }else{
         
         self.loadingViewController.displayText.text = @"Inviting...";
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
         ArcClient *tmp = [[ArcClient alloc] init];
         [tmp referFriend:data];
     }

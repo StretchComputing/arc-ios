@@ -33,6 +33,8 @@ extern int const MAX_RETRIES_EXCEEDED;
 extern int const CARD_ALREADY_PROCESSED;
 extern int const CHECK_IS_LOCKED;
 extern int const NO_AUTHORIZATION_PROVIDED;
+extern int const NETWORK_ERROR_CONFIRM_PAYMENT;
+extern int const NETWORK_ERROR;
 
 extern NSString *const ARC_ERROR_MSG;
 
@@ -53,7 +55,11 @@ typedef enum {
     ReferFriend = 13,
     ConfirmPayment = 14,
     ConfirmRegister = 15,
-    PingServer = 16
+    PingServer = 16,
+    GetGuestToken = 17,
+    UpdateGuestCustomer = 18,
+    GetListOfServers = 19
+
 
 
 } APIS;
@@ -128,7 +134,7 @@ typedef enum {
 
 +(void)trackEvent:(NSString *)action;
 
-
+-(void)getGuestToken:(NSDictionary *)pairs;
 -(void)confirmPayment;
 
 // Footprint analytics
@@ -142,5 +148,9 @@ typedef enum {
 -(void)sendTrackEvent:(NSMutableArray *)array;
 
 -(void)sendServerPings;
+
+-(void)updateGuestCustomer:(NSDictionary *)pairs;
+
+-(void)getListOfServers;
 @end
 

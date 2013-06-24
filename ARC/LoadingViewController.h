@@ -13,5 +13,9 @@
 @property (strong, nonatomic) IBOutlet UIView *backAlphaView;
 @property (strong, nonatomic) IBOutlet UIView *mainBackView;
 @property (strong, nonatomic) IBOutlet CorbelBoldLabel *displayText;
+@property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 
+
+-(void)startSpin;
+-(void)stopSpin;
 @end

@@ -8,7 +8,6 @@
 
 #import "ReviewTransaction.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Home.h"
 #import "ArcAppDelegate.h"
 #import "ArcClient.h"
 #import "rSkybox.h"
@@ -16,7 +15,7 @@
 #import <Social/Social.h>
 #import "Invoice.h"
 #import "MFSideMenu.h"
-
+#import "HomeNew.h"
 //#import "Merchant.h"
 
 @interface ReviewTransaction ()
@@ -104,8 +103,13 @@
             title = @"Success!";
             payString = [NSString stringWithFormat:@"Congratulations, your payment of $%@ was successfully processed!", payAmount];
         }        
-                
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        
+        if (self.isFromGuest == NO) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:payString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+
+        }
         
         self.foodInt = @(0.0);
         self.drinksInt = @(0.0);
@@ -115,7 +119,6 @@
         self.twitterInt = @(0.0);
         self.facebookInt = @(0.0);
 
-        [alert show];
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ReviewTransaction.viewDidAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -154,12 +157,17 @@
 -(void)viewDidLoad{
     @try {
         
+        self.selectedStars = 0.0;
+        self.selectFavoriteButton.text = @"Click to Select";
+        
+        self.commentsText.layer.borderWidth = 1.0;
+        self.commentsText.layer.borderColor = [dutchTopLineColor CGColor];
         
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.5;
-        
-        self.backView.layer.cornerRadius = 7.0;
+        self.topLineView.layer.shadowOpacity = 0.2;
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
         
         self.submitButton.textColor = [UIColor whiteColor];
         self.submitButton.text = @"Submit";
@@ -170,8 +178,8 @@
         
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
-        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height + 200);
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         
@@ -258,9 +266,9 @@
         //self.commentsText.layer.borderWidth = 3.0;
          
         
-        [[self.commentsText layer] setBorderColor:[[UIColor blackColor] CGColor]];
-        [[self.commentsText layer] setBorderWidth:1.0];
-        [[self.commentsText layer] setCornerRadius:7];
+       // [[self.commentsText layer] setBorderColor:[[UIColor blackColor] CGColor]];
+        //[[self.commentsText layer] setBorderWidth:1.0];
+        //[[self.commentsText layer] setCornerRadius:7];
         [self.commentsText setClipsToBounds: YES];
         
         [self.food1 setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
@@ -645,15 +653,21 @@
 
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         NSString *customerId = [mainDelegate getCustomerId];
+        
+        if ([customerId length] == 0) {
+            customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }
         [tempDictionary setObject:customerId forKey:@"CustomerId"];
 
+        
+        NSNumber *ratingNumber = [NSNumber numberWithInt:self.selectedStars];
         NSString *invoiceIdString = [NSString stringWithFormat:@"%d", self.myInvoice.invoiceId];
         [ tempDictionary setObject:invoiceIdString forKey:@"InvoiceId"];
-        [ tempDictionary setObject:self.drinksInt forKey:@"Drinks"];
-        [ tempDictionary setObject:self.foodInt forKey:@"Food"];
-        [ tempDictionary setObject:self.priceInt forKey:@"Price"];
-        [ tempDictionary setObject:self.serviceInt forKey:@"Service"];
-        [ tempDictionary setObject:self.moodInt forKey:@"Mood"];        
+        [ tempDictionary setObject:ratingNumber forKey:@"Drinks"];
+        [ tempDictionary setObject:ratingNumber forKey:@"Food"];
+        [ tempDictionary setObject:ratingNumber forKey:@"Price"];
+        [ tempDictionary setObject:ratingNumber forKey:@"Service"];
+        [ tempDictionary setObject:ratingNumber forKey:@"Mood"];        
         [ tempDictionary setObject:self.twitterInt forKey:@"Twitter"];
         [ tempDictionary setObject:self.facebookInt forKey:@"Facebook"];
         
@@ -682,7 +696,7 @@
     [self.activity stopAnimating];
     if (self.shouldShowLoading) {
         self.loadingViewController.displayText.text = @"Sending Review...";
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
     }
 
 }
@@ -690,7 +704,7 @@
     @try {
         
         self.shouldShowLoading = NO;
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
 
         
         self.submitButton.enabled = YES;
@@ -736,7 +750,7 @@
             }
        
      
-            Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+            HomeNew *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
             tmp.successReview = YES;
             [self.navigationController popToRootViewControllerAnimated:NO];
         } else if([status isEqualToString:@"error"]){
@@ -787,7 +801,7 @@
      
         
         
-        Home *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
+        HomeNew *tmp = [[self.navigationController viewControllers] objectAtIndex:0];
         tmp.skipReview = YES;
         [self.navigationController popToRootViewControllerAnimated:NO];
         
@@ -1308,7 +1322,7 @@
             self.selectedItemName  = [item valueForKey:@"Description"];
         }
         
-        [self.selectFavoriteButton setTitle:self.selectedItemName forState:UIControlStateNormal];
+        self.selectFavoriteButton.text = self.selectedItemName;
         
         self.selectedItemTextField.text = self.selectedItemName;
         
@@ -1383,12 +1397,64 @@
     
 }
 
-- (void)viewDidUnload {
-    [self setSubmitButton:nil];
-    [self setSkipButton:nil];
-    [self setBackView:nil];
-    [self setTopLineView:nil];
-    [super viewDidUnload];
+
+
+- (IBAction)starOneAction {
+    self.selectedStars = 1;
+    [self resetAllStars];
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+
+}
+
+- (IBAction)starTwoAction {
+    self.selectedStars = 2;
+    [self resetAllStars];
+
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+
+
+
+}
+
+- (IBAction)starThreeAction {
+    self.selectedStars = 3;
+    [self resetAllStars];
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starThreeButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+
+}
+
+- (IBAction)starFourAction {
+    self.selectedStars = 4;
+    [self resetAllStars];
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starThreeButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starFourButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+
+}
+
+- (IBAction)starFiveAction {
+    self.selectedStars = 5;
+    [self resetAllStars];
+    [self.starFiveButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starOneButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starThreeButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    [self.starFourButton setImage:[UIImage imageNamed:@"fullStar.png"] forState:UIControlStateNormal];
+    
+}
+
+-(void)resetAllStars{
+    
+    [self.starOneButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+    [self.starTwoButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+    [self.starThreeButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+    [self.starFourButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+    [self.starFiveButton setImage:[UIImage imageNamed:@"emptyStar.png"] forState:UIControlStateNormal];
+
 }
 @end
 

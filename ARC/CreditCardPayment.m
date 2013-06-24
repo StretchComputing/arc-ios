@@ -44,7 +44,7 @@
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         self.overlayTextView.layer.masksToBounds = YES;
@@ -313,7 +313,7 @@
             
             //[self.activity startAnimating];
             self.loadingViewController.displayText.text = @"Sending Payment...";
-            self.loadingViewController.view.hidden = NO;
+            [self.loadingViewController startSpin];
 
 
             NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
@@ -446,6 +446,8 @@
     }];
 }
 
+
+
 -(void)paymentComplete:(NSNotification *)notification{
     
     @try {
@@ -457,6 +459,7 @@
         BOOL editCardOption = NO;
         BOOL duplicateTransaction = NO;
         BOOL displayAlert = NO;
+        BOOL networkError = NO;
         self.keyboardSubmitButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
         
@@ -465,12 +468,13 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         
         //[self.activity stopAnimating];
-        self.loadingViewController.view.hidden = YES;
-
+        [self.loadingViewController stopSpin];
+        
+        
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
             [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];
-
+            
             //success
             self.errorLabel.text = @"";
             BOOL paidInFull = [[[[responseInfo valueForKey:@"apiResponse"] valueForKey:@"Results"] valueForKey:@"InvoicePaid"] boolValue];
@@ -483,22 +487,22 @@
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
             [rSkybox addEventToSession:@"creditCardPaymentCompleteFail"];
-
+            
             
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
             if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
-                errorMsg = @"Credit card not approved.";
+                //errorMsg = @"Credit card not approved.";
                 editCardOption = YES;
             } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
                 // TODO need explanation from Jim to put proper error msg
-                errorMsg = @"Failed to validate credit card";
+                //errorMsg = @"Failed to validate credit card";
                 editCardOption = YES;
             } else if (errorCode == FIELD_FORMAT_ERROR){
-                errorMsg = @"Invalid Credit Card Field Format";
+               // errorMsg = @"Invalid Credit Card Field Format";
                 editCardOption = YES;
             }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
                 // TODO need explanation from Jim to put proper error msg
-                errorMsg = @"Invalid credit/debit card number";
+               // errorMsg = @"Invalid credit/debit card number";
                 editCardOption = YES;
             } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
                 // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
@@ -508,10 +512,10 @@
             } else if(errorCode == INVALID_AMOUNT) {
                 errorMsg = @"Invalid amount. Please re-enter payment and try again.";
             } else if(errorCode == INVALID_EXPIRATION_DATE) {
-                errorMsg = @"Invalid expiration date.";
+               // errorMsg = @"Invalid expiration date.";
                 editCardOption = YES;
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
-                editCardOption = YES;
+               // editCardOption = YES;
                 errorMsg = @"Arc Error, Try Again.";
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
@@ -519,14 +523,22 @@
             }else if(errorCode == DUPLICATE_TRANSACTION){
                 duplicateTransaction = YES;
             }else if (errorCode == CHECK_IS_LOCKED){
-                errorMsg = @"Invoice being access by your server.  Please try again in a few minutes.";
+                errorMsg = @"This check is currently locked.  Please try again in a few minutes.";
                 displayAlert = YES;
             }else if (errorCode == CARD_ALREADY_PROCESSED){
-                errorMsg = @"This credit card has already been used to make a payment on this invoice. To make an additional payment, either use a different credit card or have your server void your initial payment.";
+                errorMsg = @"This card has already been used for payment on this invoice.  A card may only be used once per invoice.  Please try again with a different card.";
                 displayAlert = YES;
             }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
                 errorMsg = @"Invalid Authorization, please try again.";
                 displayAlert = YES;
+            }else if (errorCode == NETWORK_ERROR){
+                networkError = YES;
+                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                
+            }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
+                networkError = YES;
+                errorMsg = @"Arc experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+                
             }
             else {
                 errorMsg = ARC_ERROR_MSG;
@@ -542,8 +554,16 @@
             [alert show];
             
         }else{
-            self.errorLabel.text = errorMsg;
             
+            if ([errorMsg length] > 0) {
+                if (networkError) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet  Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }else{
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                }
+            }            
         }
         
         if (editCardOption) {
@@ -559,6 +579,8 @@
     }
     
 }
+
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     if (buttonIndex == 1) {

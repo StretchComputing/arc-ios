@@ -13,7 +13,6 @@
 #import "CreditCard.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
-#import "SplitCheckViewController.h"
 #import "HomeNavigationController.h"
 #import "RegisterDwollaView.h"
 #import "ArcClient.h"
@@ -145,36 +144,38 @@
         
         self.splitMyPaymentTextField.keyboardAppearance = UIKeyboardTypeDecimalPad;
         
+        
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.5;
-        
-        self.splitTopLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.splitTopLineView.layer.shadowRadius = 1;
-        self.splitTopLineView.layer.shadowOpacity = 0.5;
-        
-        self.backView.layer.cornerRadius = 7.0;
+        self.topLineView.layer.shadowOpacity = 0.2;
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
+
+     
         
         self.splitCancelButton.text = @"Cancel";
         
         self.splitFullButton.textColor = [UIColor whiteColor];
         self.splitFullButton.text = @"Pay Full";
-        self.splitFullButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.splitFullButton.tintColor = dutchDarkBlueColor;
         
         self.splitSaveButton.textColor = [UIColor whiteColor];
         self.splitSaveButton.text = @"Save";
-        self.splitSaveButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.splitSaveButton.tintColor = dutchDarkBlueColor;
     
         
         self.itemSplitSaveButton.textColor = [UIColor whiteColor];
         self.itemSplitSaveButton.text = @"Save";
-        self.itemSplitSaveButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.itemSplitSaveButton.tintColor = dutchDarkBlueColor;
         
         
         
         self.payBillButton.textColor = [UIColor whiteColor];
         self.payBillButton.text = @"Pay Bill!";
-        self.payBillButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
+        self.payBillButton.tintColor = dutchGreenColor;
+        self.payBillButton.cornerRadius = 3.0;
+        self.payBillButton.borderColor = [UIColor darkGrayColor];
+        self.payBillButton.borderWidth = 0.5;
         
         
         self.alreadyPaidButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -300,6 +301,7 @@
                 
                 self.myInvoice.items = [NSArray arrayWithArray:newArray];
                 [self.myTableView reloadData];
+                [self adjustLength];
                 
                 if (![self isAnyRowSelected]) {
                     self.myItemizedTotal = 0.0;
@@ -871,13 +873,13 @@
     
   
     if (!self.isRefresh) {
-        int moveY = 0;
+        self.moveY = 0;
         
         double alreadyPaid = [self.myInvoice calculateAmountPaid];
         if (alreadyPaid == 0.0){
             self.alreadyPaid.hidden = YES;
             self.alreadyPaidNameLabel.hidden = YES;
-            moveY +=20;
+            self.moveY +=20;
         }else{
             self.alreadyPaidLabel.text = [NSString stringWithFormat:@"- $%.2f", alreadyPaid];
         }
@@ -886,15 +888,15 @@
         if (self.myInvoice.discount == 0.0) {
             self.discLabel.hidden = YES;
             self.discNameLabel.hidden = YES;
-            moveY +=20;
+            self.moveY +=20;
         }else{
             
             CGRect myframe2 = self.discLabel.frame;
-            myframe2.origin.y += moveY;
+            myframe2.origin.y += self.moveY;
             self.discLabel.frame = myframe2;
             
             CGRect myframe3 = self.discNameLabel.frame;
-            myframe3.origin.y += moveY;
+            myframe3.origin.y += self.moveY;
             self.discNameLabel.frame = myframe3;
             
         }
@@ -902,40 +904,158 @@
         if (self.myInvoice.serviceCharge == 0.0) {
             self.gratLabel.hidden = YES;
             self.gratNameLabel.hidden = YES;
-            moveY +=20;
+            self.moveY +=20;
         }else{
             
             CGRect myframe2 = self.gratLabel.frame;
-            myframe2.origin.y += moveY;
+            myframe2.origin.y += self.moveY;
             self.gratLabel.frame = myframe2;
             
             CGRect myframe3 = self.gratNameLabel.frame;
-            myframe3.origin.y += moveY;
+            myframe3.origin.y += self.moveY;
             self.gratNameLabel.frame = myframe3;
         }
         
         CGRect myframe = self.subtotalBackView.frame;
-        myframe.origin.y += moveY;
+        myframe.origin.y += self.moveY;
         self.subtotalBackView.frame = myframe;
         
         
         
         CGRect myframe1 = self.myTableView.frame;
-        myframe1.size.height += moveY;
+        myframe1.size.height += self.moveY;
         self.myTableView.frame = myframe1;
     }
     
     
 
+    [self adjustLength];
 
     
     
     double myDue = self.myInvoice.amountDue - amountPaid;
     self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
 
+}
 
-   
+-(void)adjustLength{
+    
+    float height = self.myTableView.frame.size.height;
+    
+    int numItems = [self.myInvoice.items count];
+    
+    NSLog(@"NUM ITEMS: %d", numItems);
+    
+    float neededHeight = numItems * 30 + 15;
+    
+    if (neededHeight < 100) {
+        neededHeight = 100;
+    }
+    
+    int maxTableHeight = 0;
+    if (self.view.frame.size.height > 500) {
+        maxTableHeight = 229 + self.moveY;
+    }else{
+        maxTableHeight = 141 + self.moveY;
+    }
+    
+    NSLog(@"Needed Height: %f",neededHeight);
 
+    NSLog(@"Max Height: %d", maxTableHeight);
+
+    
+    if (neededHeight < maxTableHeight) {
+        
+        if (height > neededHeight) {
+            
+            float wastedSpace = height - neededHeight;
+            
+            
+            CGRect frame = self.myTableView.frame;
+            frame.size.height -= wastedSpace;
+            self.myTableView.frame = frame;
+            
+            CGRect frame1 = self.receiptView.frame;
+            frame1.size.height -= wastedSpace;
+            self.receiptView.frame = frame1;
+            
+            
+            CGRect frame2 = self.bottomHalfView.frame;
+            frame2.origin.y -= wastedSpace;
+            self.bottomHalfView.frame = frame2;
+            
+            
+            //move the payView
+            
+            CGRect frame3 = self.payView.frame;
+            frame3.origin.y -= wastedSpace/2.0;
+            self.payView.frame = frame3;
+        }else{
+            //current height is less than what is needed
+            
+            float neededSpace = neededHeight - height;
+            float spaceToMove = neededSpace;
+            
+            if (spaceToMove + height > maxTableHeight) {
+                spaceToMove = maxTableHeight - height;
+            }
+            
+            NSLog(@"Space TO MOVE: %f", spaceToMove);
+            
+            CGRect frame = self.myTableView.frame;
+            frame.size.height += spaceToMove;
+            self.myTableView.frame = frame;
+            
+            CGRect frame1 = self.receiptView.frame;
+            frame1.size.height += spaceToMove;
+            self.receiptView.frame = frame1;
+            
+            
+            CGRect frame2 = self.bottomHalfView.frame;
+            frame2.origin.y += spaceToMove;
+            self.bottomHalfView.frame = frame2;
+            
+            
+            //move the payView
+            
+            CGRect frame3 = self.payView.frame;
+            frame3.origin.y += spaceToMove/2.0;
+            self.payView.frame = frame3;
+            
+            
+            
+            
+        }
+        
+    }else{
+        
+        
+        //need more than can have...move up to max table height
+        
+        float spaceToMove = maxTableHeight - height;
+        
+        CGRect frame = self.myTableView.frame;
+        frame.size.height += spaceToMove;
+        self.myTableView.frame = frame;
+        
+        CGRect frame1 = self.receiptView.frame;
+        frame1.size.height += spaceToMove;
+        self.receiptView.frame = frame1;
+        
+        
+        CGRect frame2 = self.bottomHalfView.frame;
+        frame2.origin.y += spaceToMove;
+        self.bottomHalfView.frame = frame2;
+        
+        
+        //move the payView
+        
+        CGRect frame3 = self.payView.frame;
+        frame3.origin.y += spaceToMove/2.0;
+        self.payView.frame = frame3;
+        
+        
+    }
     
 }
 
@@ -1017,7 +1137,7 @@
         }else{
             
             BOOL isSubLevel = NO;
-            BOOL isTopLevel = NO;
+            //BOOL isTopLevel = NO;
             
             static NSString *NormalCell=@"NormalCell";
             static NSString *SubCell=@"SubCell";
@@ -1295,6 +1415,7 @@
             self.myInvoice.items = [NSArray arrayWithArray:newArray];
             
             [self.myTableView reloadData];
+            [self adjustLength];
             
             
         }
@@ -1351,134 +1472,162 @@
         
         [rSkybox addEventToSession:@"clickedPayButton"];
         
-        BOOL haveCards;
-        BOOL haveDwolla;
-        BOOL showSheet = YES;
-        
-        if([self.myInvoice calculateAmountPaid] > 0) {
-            //[ArcClient trackEvent:@"PAY_REMAINING"];
-        }
-
-        
-        [self.tipText resignFirstResponder];
-        
-        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
-        
-        if ([self.creditCards count] == 0) {
-            haveCards = NO;
-        }else{
-            haveCards = YES;
-        }
-        
-        NSString *token;
-        
-        @try {
-            token = [DwollaAPI getAccessToken];
-        }
-        @catch (NSException *exception) {
+      
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
             
-        }
-       
-        if ([token length] > 0) {
-            haveDwolla = YES;
-        }else{
-            haveDwolla = NO;
-        }
-        
-        if (haveCards) {
+            BOOL haveCards;
+            BOOL haveDwolla;
+            BOOL showSheet = YES;
             
-            NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
-            BOOL didRemove = NO;
-            for (int i = 0; i < [tmpCards count]; i++) {
-                
-                CreditCard *tmp = [tmpCards objectAtIndex:i];
-                
-                if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
-                    [tmpCards removeObjectAtIndex:i];
-                    i--;
-                    didRemove = YES;
-                }
+            if([self.myInvoice calculateAmountPaid] > 0) {
+                //[ArcClient trackEvent:@"PAY_REMAINING"];
+            }
+            
+            
+            [self.tipText resignFirstResponder];
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+            
+            if ([self.creditCards count] == 0) {
+                haveCards = NO;
+            }else{
+                haveCards = YES;
+            }
+            
+            NSString *token;
+            
+            @try {
+                token = [DwollaAPI getAccessToken];
+            }
+            @catch (NSException *exception) {
                 
             }
-            self.creditCards = [NSArray arrayWithArray:tmpCards];
             
+            if ([token length] > 0) {
+                haveDwolla = YES;
+            }else{
+                haveDwolla = NO;
+            }
             
-            
-            if ([self.creditCards count] > 0) {
+            if (haveCards) {
                 
-                
-                if ([self.creditCards count] == 1) {
-                    CreditCard *selectedCard = [self.creditCards objectAtIndex:0];
+                NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
+                BOOL didRemove = NO;
+                for (int i = 0; i < [tmpCards count]; i++) {
                     
-                    self.creditCardNumber = selectedCard.number;
-                    self.creditCardSecurityCode = selectedCard.securityCode;
-                    self.creditCardExpiration = selectedCard.expiration;
-                    self.creditCardSample = selectedCard.sample;
+                    CreditCard *tmp = [tmpCards objectAtIndex:i];
                     
-                    [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
-                    return;
-                }else{
-                    
-                    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-                    
-                    int x = 0;
-                    if (haveDwolla) {
-                        x++;
-                        [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                    if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
+                        [tmpCards removeObjectAtIndex:i];
+                        i--;
+                        didRemove = YES;
                     }
                     
-                    for (int i = 0; i < [self.creditCards count]; i++) {
-                        CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
-                        [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                }
+                self.creditCards = [NSArray arrayWithArray:tmpCards];
+                
+                
+                
+                if ([self.creditCards count] > 0) {
+                    
+                    
+                    if ([self.creditCards count] == 1) {
+                        CreditCard *selectedCard = [self.creditCards objectAtIndex:0];
+                        
+                        self.creditCardNumber = selectedCard.number;
+                        self.creditCardSecurityCode = selectedCard.securityCode;
+                        self.creditCardExpiration = selectedCard.expiration;
+                        self.creditCardSample = selectedCard.sample;
+                        
+                        [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
+                        return;
+                    }else{
+                        
+                        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                        
+                        int x = 0;
+                        if (haveDwolla) {
+                            x++;
+                            [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                        }
+                        
+                        for (int i = 0; i < [self.creditCards count]; i++) {
+                            CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+                            
+                            if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                                
+                                [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                                
+                            }else{
+                                [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                                
+                            }
+                            
+                            
+
+                            
+                        }
+                        [self.actionSheet addButtonWithTitle:@"Cancel"];
+                        self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+                    }
+                    
+                    
+                }else {
+                    
+                    if (haveDwolla) {
+                        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                    }else{
+                        
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Accepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                        
+                        didRemove = NO;
+                        showSheet = NO;
+                        [self noPaymentSources];
+                        
                         
                     }
-                    [self.actionSheet addButtonWithTitle:@"Cancel"];
-                    self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+                    
                 }
                 
                 
-            }else {
+                self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
                 
-                if (haveDwolla) {
-                      self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                if (didRemove) {
+                    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    //[alert show];
+                    
+                    //[self showTextOverlay];
+                    [self.actionSheet showInView:self.view];
+                    
                 }else{
                     
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Accepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                    [alert show];
-                    
-                    didRemove = NO;
-                    showSheet = NO;
-                    [self noPaymentSources];
-            
+                    if (showSheet) {
+                        [self.actionSheet showInView:self.view];
+                        
+                    }
                     
                 }
-              
-            }
-            
-            
-            self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-            
-            if (didRemove) {
-                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                //[alert show];
-                
-                //[self showTextOverlay];
-                [self.actionSheet showInView:self.view];
                 
             }else{
-                
-                if (showSheet) {
-                    [self.actionSheet showInView:self.view];
-
-                }
-                
+                [self noPaymentSources];
             }
+
             
         }else{
-            [self noPaymentSources];
+            
+            //Guest
+            
+            
+            self.creditCardNumber = @"";
+            self.creditCardSecurityCode = @"";
+            self.creditCardExpiration = @"";
+            self.creditCardSample = @"";
+            
+            [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
+                        
         }
-               
         
     }
     @catch (NSException *e) {
@@ -1840,10 +1989,7 @@
            
         }else if ([[segue identifier] isEqualToString:@"goSplitCheck"]) {
             
-            
-            SplitCheckViewController *controller = [segue destinationViewController];
-            controller.myInvoice = self.myInvoice;
-            controller.paymentsAccepted = self.paymentsAccepted;
+          
             
         }else if ([[segue identifier] isEqualToString:@"confirmDwolla"]) {
             
@@ -2092,13 +2238,85 @@
     
     @try {
         
-        for (int i = 0; i < [self.paidItemsArray count]; i++) {
-            NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
-            NSLog(@"Paid Item: %@", paidItem);
+        //First loop to see if anything needs to be itemized out because part of it is already paid for
+        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+            
+            NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+            
+            if ([[[item valueForKey:@"Amount"] stringValue] isEqualToString:@"2"]) {
+                
+                for (int j = 0; j < [self.paidItemsArray count]; j++) {
+                    
+                    NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:j];
+                    
+                    if ([[[paidItem valueForKey:@"ItemId"] stringValue] isEqualToString:[[item valueForKey:@"Id"] stringValue]] && ![[[paidItem valueForKey:@"Amount"] stringValue] isEqualToString:[[item valueForKey:@"Amount"] stringValue]]) {
+                        //Itemize it
+                        
+                        [item setValue:@"yes" forKey:@"IsTopLevel"];
+                        
+                        NSMutableArray *newObjectArray = [NSMutableArray array];
+                        NSMutableArray *newArray =  [NSMutableArray arrayWithArray:self.myInvoice.items];
+
+                        int num = [[item valueForKey:@"Amount"] intValue];
+                        
+                        for (int i = 0; i < num; i++) {
+                            
+                            NSMutableDictionary *newItem = [NSMutableDictionary dictionary];
+                            [newItem setValue:[NSDecimalNumber numberWithInt:1] forKey:@"Amount"];
+                            [newItem setValue:[item valueForKey:@"Value"] forKey:@"Value"];
+                            [newItem setValue:[item valueForKey:@"Description"] forKey:@"Description"];
+                            [newItem setValue:[item valueForKey:@"Id"] forKey:@"Id"];
+                            [newItem setValue:@"yes" forKey:@"IsSubLevel"];
+                            
+                            
+                            [newObjectArray addObject:newItem];
+                        }
+                        
+                        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i + 1, [newObjectArray count])];
+                        
+                        [newArray insertObjects:newObjectArray atIndexes:indexSet];
+                        
+                        self.myInvoice.items = [NSArray arrayWithArray:newArray];
+                        
+                        break;
+                        
+                        
+                        
+                        
+                    }
+                }
+                
+            }
+            
+            
+        }
+        
+        //Receipt is now itemized out where it needs to be
+        
+        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+          //
+          //  NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+            
+            for (int j = 0; j < [self.paidItemsArray count]; j++) {
+                
+            //    NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:j];
+                
+                
+            }
+            
+            
+            
+            
         }
         
         
-        NSLog(@"Test");
+        
+        
+        for (int i = 0; i < [self.paidItemsArray count]; i++) {
+         //   NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
+        }
+        
+        
         
     }
     @catch (NSException *exception) {
@@ -2109,8 +2327,13 @@
     
 }
 -(void)noPaymentSources{
+    
+    [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
+
+    /*
     UIViewController *noPaymentController = [self.storyboard instantiateViewControllerWithIdentifier:@"noPayment"];
     [self.navigationController presentModalViewController:noPaymentController animated:YES];
+     */
     
 }
 
@@ -2192,6 +2415,7 @@
         self.overpayAlert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"You cannot pay more than is due on this bill." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Pay Remaining", nil];
         [self.overpayAlert show];
     }else{
+        
         [self payNow:nil];
 
     }

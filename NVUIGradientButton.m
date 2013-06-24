@@ -60,8 +60,11 @@
 
 #pragma mark - Creation
 
-#define NVUIGradientButtonDefaultCorderRadius	10.0
-#define NVUIGradientButtonDefaultBorderWidth	2.0
+#define NVUIGradientButtonDefaultCorderRadius	3.0
+#define NVUIGradientButtonDefaultBorderWidth	0.5
+
+
+
 
 - (void)performDefaultInit
 {
@@ -178,7 +181,8 @@
 	{
 		_cornerRadius = NVUIGradientButtonDefaultCorderRadius;
 		_borderWidth = NVUIGradientButtonDefaultBorderWidth;
-		
+        _borderColor = [UIColor darkGrayColor];
+        
 		[self performDefaultInit];
 		
 		self.style = NVUIGradientButtonStyleDefault;

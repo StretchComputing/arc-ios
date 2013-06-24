@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LoadingViewController.h"
+#import "NVUIGradientButton.h"
 
 @class LoadingViewController;
 
@@ -28,4 +29,21 @@
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
 @property BOOL creditCardAdded;
 @property (nonatomic, strong) UIAlertView *logInAlert;
+
+@property BOOL isEditingTip;
+
+
+@property (strong, nonatomic) IBOutlet UITextField *defaultTipText;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *defaultTipClearButton;
+- (IBAction)defaultTipClearAction;
+
+@property (strong, nonatomic) IBOutlet UISegmentedControl *defaultTipSegmentControl;
+
+- (IBAction)defaultTipSegmentControlValueChanged;
+
+@property (nonatomic, strong) IBOutlet UIView *defaultTipView;
+@property BOOL duplicateCard;
+- (IBAction)defaultTipEditBegin;
+- (IBAction)defaultTipEditChanged;
+
 @end

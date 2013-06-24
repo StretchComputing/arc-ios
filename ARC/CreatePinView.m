@@ -17,6 +17,7 @@
 #import "RegisterViewNew.h"
 #import "ProfileViewController.h"
 #import "ViewCreditCards.h"
+#import "ReviewTransaction.h"
 
 @interface CreatePinView ()
 
@@ -43,8 +44,22 @@
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
 
+-(void)duplicateCard:(NSNotification *)notification{
+    self.isDuplicate = YES;
+}
 -(void)viewWillAppear:(BOOL)animated{
     
+    if (self.isLoggedInUser) {
+        self.skipButton.hidden = NO;
+        if (self.view.frame.size.height < 480) {
+            self.skipButton.text = @"Skip";
+        }
+    }else{
+        self.skipButton.hidden = YES;
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(duplicateCard:) name:@"duplicateCardNotification" object:nil];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     
     [self.hiddenText becomeFirstResponder];
@@ -60,9 +75,10 @@
 }
 -(void)viewDidLoad{
     
+    self.skipButton.text = @"SKIP - Your card info will not be saved.";
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-    self.loadingViewController.view.hidden = YES;
+    [self.loadingViewController stopSpin];
     [self.view addSubview:self.loadingViewController.view];
     
     self.initialPin = @"";
@@ -71,9 +87,9 @@
     
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.5;
-    
-    self.backView.layer.cornerRadius = 7.0;
+    self.topLineView.layer.shadowOpacity = 0.2;
+    self.topLineView.backgroundColor = dutchTopLineColor;
+    self.backView.backgroundColor = dutchTopNavColor;
     
     CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Card Protection"];
     self.navigationItem.titleView = navLabel;
@@ -209,65 +225,82 @@
 
 -(void)runSuccess{
     
-    if (self.isEditPin) {
+    if (self.fromCreateGuest || self.isLoggedInUser) {
+ 
+
         
-        NSArray *views = [self.navigationController viewControllers];
-        int cell = [views count] - 2;
-        EditCreditCard *tmp = [views objectAtIndex:cell];
-        tmp.pinDidChange = YES;
-        tmp.newPin = self.confirmPin;
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
         
-        NSString *welcomeMsg = @"Your PIN for this card has been edited, but your new PIN will only be activated if you choose 'Save Changes' on this page.";
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"PIN Changed." message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sucess!" message:@"Your PIN has been created, and your payment information is securely stored on your device.  Please take a second to review your transaction!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         
-        [self.navigationController popToViewController:tmp animated:NO];
-        
-        
+        ReviewTransaction *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"review"];
+        tmp.isFromGuest = YES;
+
+        [self.navigationController pushViewController:tmp animated:YES];
     }else{
-        
-        if (self.fromRegister) {
+        if (self.isEditPin) {
             
+            NSArray *views = [self.navigationController viewControllers];
+            int cell = [views count] - 2;
+            EditCreditCard *tmp = [views objectAtIndex:cell];
+            tmp.pinDidChange = YES;
+            tmp.newPin = self.confirmPin;
             
-            if (self.isInsideApp) {
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully registered!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-                
-                ProfileViewController *profile = [[self.navigationController viewControllers] objectAtIndex:1];
-                
-                [self.navigationController popToViewController:profile animated:YES];
-            }else{
-                ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-                [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
-                
-                NSArray *views = [self.navigationController viewControllers];
-                int cell = [views count] - 2;
-                RegisterViewNew *tmp = [views objectAtIndex:cell];
-                tmp.fromCreditCard = YES;
-                
-                // welcome message
-                //NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
-                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-                // [alert show];
-                
-                [self.navigationController popToViewController:tmp animated:NO];
-            }
-          
+            NSString *welcomeMsg = @"Your PIN for this card has been edited, but your new PIN will only be activated if you choose 'Save Changes' on this page.";
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"PIN Changed." message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+            
+            [self.navigationController popToViewController:tmp animated:NO];
+            
             
         }else{
             
-            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-            [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
-            
-            self.loadingViewController.displayText.text = @"Adding Card...";
-            self.loadingViewController.view.hidden = NO;
-            [self performSelector:@selector(popNow) withObject:nil afterDelay:1.5];
+            if (self.fromRegister) {
+                
+                
+                if (self.isInsideApp) {
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"You have successfully registered!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    
+                    ProfileViewController *profile = [[self.navigationController viewControllers] objectAtIndex:1];
+                    
+                    [self.navigationController popToViewController:profile animated:YES];
+                }else{
+                    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                    [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
+                    
+                    NSArray *views = [self.navigationController viewControllers];
+                    int cell = [views count] - 2;
+                    RegisterViewNew *tmp = [views objectAtIndex:cell];
+                    tmp.fromCreditCard = YES;
+                    
+                    // welcome message
+                    //NSString *welcomeMsg = @"Thank you for choosing Arc. You are now ready to start using mobile payments.";
+                    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:welcomeMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                    // [alert show];
+                    
+                    [self.navigationController popToViewController:tmp animated:NO];
+                }
+                
+                
+            }else{
+                
+                ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+                [mainDelegate insertCreditCardWithNumber:self.cardNumber andSecurityCode:self.securityCode andExpiration:self.expiration andPin:self.confirmPin andCreditDebit:self.creditDebitString];
+                
+                self.loadingViewController.displayText.text = @"Adding Card...";
+                [self.loadingViewController startSpin];
+                [self performSelector:@selector(popNow) withObject:nil afterDelay:1.5];
+                
+            }
             
         }
+
         
     }
-    
 
 }
 
@@ -313,6 +346,7 @@
             if ([ViewCreditCards class] == [[[self.navigationController viewControllers] objectAtIndex:1] class] ) {
                 ViewCreditCards *tmp = [[self.navigationController viewControllers] objectAtIndex:1];
                 tmp.creditCardAdded = YES;
+                tmp.duplicateCard = self.isDuplicate;
                 [self.navigationController popToViewController:tmp animated:YES];
             }else{
                 
@@ -334,6 +368,16 @@
 - (void)viewDidUnload {
     [self setTopLineView:nil];
     [self setBackView:nil];
+    [self setSkipButton:nil];
     [super viewDidUnload];
+}
+- (IBAction)skipAction {
+    
+    ReviewTransaction *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"review"];
+    tmp.isFromGuest = YES;
+    
+    [self.navigationController pushViewController:tmp animated:YES];
+    
+    
 }
 @end

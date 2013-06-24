@@ -35,6 +35,7 @@
 @property BOOL isExpirationMonth;
 @property BOOL isIphone5;
 
+@property (strong, nonatomic) IBOutlet UITextField *cardNameText;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationMonthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationYearLabel;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *editPinButton;

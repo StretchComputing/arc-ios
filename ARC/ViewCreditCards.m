@@ -16,6 +16,7 @@
 #import "MFSideMenu.h"
 #import <QuartzCore/QuartzCore.h>
 #import "LeftViewController.h"
+#import "ArcUtility.h"
 
 @interface ViewCreditCards ()
 
@@ -36,6 +37,30 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     
+    NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+    NSString *defaultTipName = [NSString stringWithFormat:@"%@%@", customerId, @"defaultTip"];
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:defaultTipName] length] > 0 ) {
+        self.defaultTipText.text = [[NSUserDefaults standardUserDefaults] valueForKey:defaultTipName];
+        
+        for (int i = 0; i < 4; i++) {
+            
+            if ([[[self.defaultTipSegmentControl titleForSegmentAtIndex:i] stringByReplacingOccurrencesOfString:@"%" withString:@""] isEqualToString:self.defaultTipText.text]) {
+                self.defaultTipSegmentControl.selectedSegmentIndex = i;
+                break;
+            }
+            
+            self.defaultTipSegmentControl.selectedSegmentIndex = -1;
+        }
+    }
+    
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
+        self.defaultTipView.hidden = NO;
+    }else{
+        self.defaultTipView.hidden = YES;
+    }
+    
     self.navigationController.navigationBarHidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
     
@@ -52,8 +77,16 @@
         
         if (self.creditCardAdded) {
             self.creditCardAdded = NO;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Added!" message:@"You have successfully added a new credit card!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+            
+            if (self.duplicateCard ) {
+                self.duplicateCard = NO;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Card" message:@"You have already added this card!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Card Added!" message:@"You have successfully added a new credit card!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+            
         }
         
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -101,7 +134,7 @@
     @try {
         
         self.loadingViewController.displayText.text = @"Deleting Card...";
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
         
         CreditCard *tmpCard = [self.creditCards objectAtIndex:self.selectedRow];
         
@@ -121,7 +154,7 @@
 
 -(void)doneDelete{
     [self viewWillAppear:NO];
-    self.loadingViewController.view.hidden = YES;
+    [self.loadingViewController stopSpin];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Card deleted!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
@@ -148,16 +181,21 @@
 -(void)viewDidLoad{
     @try {
         
+        self.defaultTipClearButton.text = @"Clear";
+        
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
+ 
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
         self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.5;
+        self.topLineView.layer.shadowOpacity = 0.2;
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
         
-        self.backView.layer.cornerRadius = 7.0;
+        
         
         CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Cards"];
         self.navigationItem.titleView = navLabel;
@@ -169,6 +207,8 @@
         
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
+        
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewCreditCards.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -245,8 +285,20 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
             }else{
+            
                 CreditCard *tmp = [self.creditCards objectAtIndex:row];
-                displayLabel.text = [NSString stringWithFormat:@"%@", tmp.sample];
+        
+                NSLog(@"RETREIVING SAMPLE: %@", tmp.sample);
+                
+                if ([tmp.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmp.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                    
+                    displayLabel.text = [NSString stringWithFormat:@"%@", tmp.sample];
+
+                }else{
+                    displayLabel.text = [NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmp.cardType], [tmp.sample substringFromIndex:[tmp.sample length] - 8] ];
+
+                }
+
             }
         }
         
@@ -351,6 +403,88 @@
 - (void)viewDidUnload {
     [self setBackView:nil];
     [self setTopLineView:nil];
+    [self setDefaultTipText:nil];
+    [self setDefaultTipClearButton:nil];
+    [self setDefaultTipSegmentControl:nil];
     [super viewDidUnload];
+}
+- (IBAction)defaultTipClearAction {
+    
+    
+    if (self.isEditingTip) {
+        self.isEditingTip = NO;
+        
+        [self.defaultTipText resignFirstResponder];
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            CGRect frame = self.view.frame;
+            frame.origin.y += 216;
+            self.view.frame = frame;
+        }];
+        if (self.defaultTipText.text == nil) {
+            self.defaultTipText.text = @"";
+        }
+        
+        self.defaultTipClearButton.text = @"Clear";
+        
+        self.defaultTipClearButton.tintColor = [UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:1.0];
+        self.defaultTipClearButton.textColor = [UIColor blackColor];
+
+        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+        NSString *defaultTipName = [NSString stringWithFormat:@"%@%@", customerId, @"defaultTip"];
+        [[NSUserDefaults standardUserDefaults] setValue:self.defaultTipText.text forKey:defaultTipName];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+        
+    }else{
+        
+        
+        self.defaultTipText.text = @"";
+        self.defaultTipSegmentControl.selectedSegmentIndex = -1;
+        
+        
+        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+        NSString *defaultTipName = [NSString stringWithFormat:@"%@%@", customerId, @"defaultTip"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:defaultTipName];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+   
+    
+}
+- (IBAction)defaultTipSegmentControlValueChanged {
+    
+    
+    NSString *defaultString = [[self.defaultTipSegmentControl titleForSegmentAtIndex:self.defaultTipSegmentControl.selectedSegmentIndex] stringByReplacingOccurrencesOfString:@"%" withString:@""];
+    
+    self.defaultTipText.text = defaultString;
+    
+    NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+    NSString *defaultTipName = [NSString stringWithFormat:@"%@%@", customerId, @"defaultTip"];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:defaultString forKey:defaultTipName];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+- (IBAction)defaultTipEditBegin {
+    
+    self.isEditingTip = YES;
+    
+    self.defaultTipClearButton.text = @"Save";
+    
+    self.defaultTipClearButton.tintColor = dutchDarkBlueColor;
+    self.defaultTipClearButton.textColor = [UIColor whiteColor];
+    [UIView animateWithDuration:0.3 animations:^{
+       
+        CGRect frame = self.view.frame;
+        frame.origin.y -= 216;
+        self.view.frame = frame;
+    }];
+}
+
+- (IBAction)defaultTipEditChanged {
+    
+    self.defaultTipSegmentControl.selectedSegmentIndex = -1;
+    
+    
 }
 @end

@@ -34,11 +34,13 @@
 - (void)viewDidLoad
 {
     self.incorrectPinCount = 0;
+   
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.5;
+    self.topLineView.layer.shadowOpacity = 0.2;
+    self.topLineView.backgroundColor = dutchTopLineColor;
+    self.backView.backgroundColor = dutchTopNavColor;
     
-    self.backView.layer.cornerRadius = 7.0;
     
     
     
@@ -54,7 +56,7 @@
     
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-    self.loadingViewController.view.hidden = YES;
+    [self.loadingViewController stopSpin];
     [self.view addSubview:self.loadingViewController.view];
     
     
@@ -189,7 +191,7 @@
             
             //[self.activity startAnimating];
             self.loadingViewController.displayText.text = @"Sending Payment...";
-            self.loadingViewController.view.hidden = NO;
+            [self.loadingViewController startSpin];
             
             
             NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
@@ -363,7 +365,7 @@
         NSString *status = [responseInfo valueForKey:@"status"];
         
         //[self.activity stopAnimating];
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
@@ -410,7 +412,7 @@
                 editCardOption = YES;
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
                 editCardOption = YES;
-                errorMsg = @"Arc Error, Try Again.";
+                errorMsg = @"Dutch Error, Try Again.";
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
                 displayAlert = YES;

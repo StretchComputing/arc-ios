@@ -10,6 +10,7 @@
 #import "rSkybox.h"
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ArcAppDelegate.h"
 
 @interface ResetPasswordViewController ()
 
@@ -23,7 +24,7 @@
 }
 
 -(void)customerDeactivated{
-    ArcAppDelegate *mainDelegate = [[UIApplication sharedApplication] delegate];
+    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";
     [self.navigationController dismissModalViewControllerAnimated:NO];
 }
@@ -49,9 +50,9 @@
     
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.5;
-    
-    self.backView.layer.cornerRadius = 7.0;
+    self.topLineView.layer.shadowOpacity = 0.2;
+    self.topLineView.backgroundColor = dutchTopLineColor;
+    self.backView.backgroundColor = dutchTopNavColor;
     
     CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Password Reset"];
     self.navigationItem.titleView = navLabel;

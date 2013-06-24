@@ -17,6 +17,14 @@
 #import "ArcUtility.h"
 #import "DwollaAPI.h"
 
+
+UIColor *dutchLightBlueColor;
+UIColor *dutchDarkBlueColor;
+UIColor *dutchGreenColor;
+UIColor *dutchTopLineColor;
+UIColor *dutchTopNavColor;
+
+
 @implementation ArcAppDelegate
 
 //Reachability
@@ -112,10 +120,20 @@
 
 
 
+-(void)registerNotifications{
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    dutchLightBlueColor = [UIColor colorWithRed:11.0/255.0 green:132.0/255.0 blue:255.0/255.0 alpha:1.0];
+    dutchDarkBlueColor = [UIColor colorWithRed:0.0/255.0 green:48.0/255.0 blue:170.0/255.0 alpha:1.0];
+    dutchGreenColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+    dutchTopLineColor = [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0];
+    dutchTopNavColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1.0];
+
     self.trackEventArray = [NSMutableArray array];
     //Checking versionNumber
     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"didShowVersionWarning"];
@@ -129,7 +147,8 @@
     self.connectionPeers = [[NSMutableArray alloc] init];
     
     
-     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+
+    [self performSelector:@selector(registerNotifications) withObject:nil afterDelay:4];
     
     // one reason this method is called is if a push notification is received while the app is in the background
     // if custom data in push notification payload, then establish appropriate "context" in this app
@@ -285,7 +304,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     
-    [self startUpdatingLocation];
+    [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:4];
     
     ArcClient *client = [[ArcClient alloc] init];
     [client getServer];
@@ -593,7 +612,7 @@ ofType:(NSString *)typeName
         
         if (!customer) {
             
-            NSLog(@"Test");
+            NSLog(@"INSERTING AGAIN");
            // NSLog(@"Inserting Customer");
             Customer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"Customer" inManagedObjectContext:self.managedObjectContext];
             
@@ -650,21 +669,46 @@ ofType:(NSString *)typeName
 
         }else{
             
-            [ArcClient trackEvent:@"CREDIT_CARD_ADD"];
+            
+            NSArray *currentCards = [self getCreditCardWithNumber:[FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO] andSecurityCode:[FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO] andExpiration:expiration];
+            
+            NSLog(@"Current Cards Count: %d", [currentCards count]);
+            
+            if ([currentCards count] > 0) {
+                //This is a duplicate, dont add again.
+                
 
-            CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
-            
-            NSString *sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
-            
-            creditCard.expiration = expiration;
-            creditCard.sample = sample;
-            creditCard.number = [FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO];
-            creditCard.securityCode = [FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO];
-            creditCard.whoOwns = customer;
-            creditCard.cardType = [ArcUtility getCardTypeForNumber:number];
-            
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"duplicateCardNotification" object:self userInfo:@{}];
 
-            [self saveDocument];
+                
+            }else{
+                [ArcClient trackEvent:@"CREDIT_CARD_ADD"];
+                
+                CreditCard *creditCard = [NSEntityDescription insertNewObjectForEntityForName:@"CreditCard" inManagedObjectContext:self.managedObjectContext];
+                
+                NSString *sample = @"";
+                
+                if (![andCreditDebit isEqualToString:@"Credit"] && ![andCreditDebit isEqualToString:@"Debit"]) {
+                    sample = [NSString stringWithFormat:@"%@  ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+                    
+                }else{
+                    sample = [NSString stringWithFormat:@"%@ Card ****%@", andCreditDebit, [number substringFromIndex:[number length]-4]];
+                    
+                }
+                
+                NSLog(@"SAVING SAMPLE: %@", sample);
+                
+                creditCard.expiration = expiration;
+                creditCard.sample = sample;
+                creditCard.number = [FBEncryptorAES encryptBase64String:number keyString:pin separateLines:NO];
+                creditCard.securityCode = [FBEncryptorAES encryptBase64String:securityCode keyString:pin separateLines:NO];
+                creditCard.whoOwns = customer;
+                creditCard.cardType = [ArcUtility getCardTypeForNumber:number];
+                
+                
+                [self saveDocument];
+            }
+            
             
         }
         

@@ -96,11 +96,11 @@
 @property (nonatomic, retain) IBOutlet UISlider *spacingSlider;
 
 
-- (IBAction)switchCarouselType;
-- (IBAction)toggleOrientation;
-- (IBAction)toggleWrap;
-- (IBAction)insertItem;
-- (IBAction)removeItem;
+//- (IBAction)switchCarouselType;
+//- (IBAction)toggleOrientation;
+//- (IBAction)toggleWrap;
+//- (IBAction)insertItem;
+//- (IBAction)removeItem;
 - (IBAction)reloadCarousel;
 
 

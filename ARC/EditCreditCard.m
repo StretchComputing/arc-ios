@@ -48,24 +48,39 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [self.navigationController.navigationItem setHidesBackButton:YES];
-    [self.navigationItem setHidesBackButton:YES];
     
-    self.navigationController.navigationBarHidden = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
-    
-    if (self.isFromPayment) {
-        self.deleteCardButton.hidden = YES;
-    }else{
-        self.deleteCardButton.hidden = NO;
+    @try {
+        [self.navigationController.navigationItem setHidesBackButton:YES];
+        [self.navigationItem setHidesBackButton:YES];
+        
+        self.navigationController.navigationBarHidden = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
+        
+        if (self.isFromPayment) {
+            self.deleteCardButton.hidden = YES;
+        }else{
+            self.deleteCardButton.hidden = NO;
+        }
+        if (self.pinDidChange) {
+            self.pinDidChange = NO;
+            self.oldPin = self.newPin;
+            
+        }
+        
+        if ([self.creditCardSample rangeOfString:@"Credit Card"].location == NSNotFound && [self.creditCardSample rangeOfString:@"Debit Card"].location == NSNotFound) {
+            
+            self.cardNameText.text = [self.creditCardSample substringWithRange:NSMakeRange(0, [self.creditCardSample length] - 10)];
+                                     
+                                      
+        }
     }
-    if (self.pinDidChange) {
-        self.pinDidChange = NO;
-        self.oldPin = self.newPin;
-    
+    @catch (NSException *exception) {
+        
     }
+  
+
 }
 -(void)viewDidAppear:(BOOL)animated{
     
@@ -105,10 +120,10 @@
 }
 -(void)viewDidLoad{
     @try {
-        
+        self.cardNameText.delegate = self;
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
-        self.loadingViewController.view.hidden = YES;
+        [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
         self.editPinButton.text = @"Edit PIN";
@@ -165,18 +180,21 @@
         
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
         backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
-        backView.layer.cornerRadius = 7.0;
-        
+        backView.backgroundColor = dutchTopNavColor;
         [self.navigationController.navigationBar addSubview:backView];
         
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-        lineView.backgroundColor = [UIColor blackColor];
+        lineView.layer.shadowOffset = CGSizeMake(0, 1);
+        lineView.layer.shadowRadius = 1;
+        lineView.layer.shadowOpacity = 0.2;
+        lineView.backgroundColor = dutchTopLineColor;
+        
         [self.navigationController.navigationBar addSubview:lineView];
         
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tmpButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
-        tmpButton.frame = CGRectMake(7, 7, 30, 30);
+        tmpButton.frame = CGRectMake(0, 0, 44, 44);
         [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationController.navigationBar addSubview:tmpButton];
         
@@ -207,7 +225,8 @@
         ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
         [mainDelegate deleteCreditCardWithNumber:self.creditCardNumber andSecurityCode:self.creditCardSecurityCode andExpiration:self.creditCardExpiration];
         
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
+        [self.loadingViewController startSpin];
         self.loadingViewController.displayText.text = @"Deleting Card...";
         [self performSelector:@selector(cardDeleted) withObject:nil afterDelay:1.0];
         
@@ -459,6 +478,8 @@
         [self.cardNumberTextField resignFirstResponder];
         [self.securityCodeTextField resignFirstResponder];
         [self.expirationText resignFirstResponder];
+        [self.cardNameText resignFirstResponder];
+
 
         self.pickerView.hidden = YES;
         [self.hideKeyboardView removeFromSuperview];
@@ -712,8 +733,8 @@
     NSString *expiration = self.expirationText.text;
     NSString *creditDebitString = @"Credit";
     
-    if (self.cardTypesSegmentedControl.selectedSegmentIndex == 1) {
-        creditDebitString = @"Debit";
+    if ([self.cardNameText.text length] > 0) {
+        creditDebitString = self.cardNameText.text;
     }
     
     NSString *cardNumber = [self.cardNumberTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -726,7 +747,7 @@
         [self.navigationController popViewControllerAnimated:NO];
     }else{
         
-        self.loadingViewController.view.hidden = NO;
+        [self.loadingViewController startSpin];
         self.loadingViewController.displayText.text = @"Saving Card...";
         
         [self performSelector:@selector(cardSaved) withObject:nil afterDelay:1.0];
@@ -790,6 +811,28 @@
                 }
                 return FALSE;
             }
+            
+        }else if (textField == self.cardNameText){
+            
+            if ([string isEqualToString:@""]) {
+                return TRUE;
+            }
+            
+            if ([string isEqualToString:@" "]) {
+                return FALSE;
+            }
+            
+            if ([self.cardNameText.text length] >= 10) {
+                
+                return FALSE;
+            }
+            
+            
+            NSCharacterSet *alphaSet = [NSCharacterSet alphanumericCharacterSet];
+            BOOL valid = [[string stringByTrimmingCharactersInSet:alphaSet] isEqualToString:@""];
+          
+            return valid;
+            
             
         }
         return TRUE;
@@ -978,5 +1021,10 @@
    
 }
 
+
+- (void)viewDidUnload {
+    [self setCardNameText:nil];
+    [super viewDidUnload];
+}
 
 @end

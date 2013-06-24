@@ -18,6 +18,9 @@
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
+@property (nonatomic, strong) IBOutlet UIView *payView;
+@property int moveY;
+@property (nonatomic, strong) IBOutlet UIImageView *receiptView;
 @property BOOL isRefresh;
 @property BOOL isIos6;
 @property int numberOfPeopleSelected;

@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PrivacyTermsViewController.h"
 #import "rSkybox.h"
+#import "ArcAppDelegate.h"
 
 @interface InitHelpPageViewController ()
 
@@ -19,13 +20,22 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    [UIView animateWithDuration:1.0 animations:^{
-        CGRect frame = self.helpView.frame;
-        frame.origin.x = 30;
-        self.helpView.frame = frame;
-    }];
     
-    [self performSelector:@selector(doneHelp) withObject:nil afterDelay:3.5];
+    if (![[[NSUserDefaults standardUserDefaults] valueForKey:@"didShowInitHelp"] length] > 0) {
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didShowInitHelp"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [UIView animateWithDuration:1.0 animations:^{
+            CGRect frame = self.helpView.frame;
+            frame.origin.x = 30;
+            self.helpView.frame = frame;
+        }];
+        
+        [self performSelector:@selector(doneHelp) withObject:nil afterDelay:3.5];
+        
+    }
+    
    
 }
 
@@ -47,14 +57,14 @@
     [super viewDidLoad];
 	
     self.myScrollView.delegate = self;
-    self.startUsingButton.text = @"Start Using Arc!";
+    self.startUsingButton.text = @"Start Using Dutch!";
     
-    self.startUsingButton.tintColor =  [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:125.0/255.0 alpha:1.0];
+    self.startUsingButton.tintColor =  dutchDarkBlueColor;
     self.startUsingButton.textColor = [UIColor whiteColor];
     
     @try {
-        self.pageControl.pageIndicatorTintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:125.0/255.0 alpha:1.0];
-        self.pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/225.0 blue:125.0/255.0 alpha:1.0];
+        self.pageControl.pageIndicatorTintColor = dutchLightBlueColor;
+        self.pageControl.currentPageIndicatorTintColor = dutchDarkBlueColor;
     }
     @catch (NSException *exception) {
         
@@ -96,12 +106,16 @@
     
     self.topLine.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLine.layer.shadowRadius = 1;
-    self.topLine.layer.shadowOpacity = 0.5;
+    self.topLine.layer.shadowOpacity = 0.2;
+    self.topLine.backgroundColor = dutchTopLineColor;
+    self.view.backgroundColor = dutchTopNavColor;
     
-    self.bottomLine.layer.shadowOffset = CGSizeMake(0, -1);
+    
+    self.bottomLine.layer.shadowOffset = CGSizeMake(0, 1);
     self.bottomLine.layer.shadowRadius = 1;
-    self.bottomLine.layer.shadowOpacity = 0.5;
-    
+    self.bottomLine.layer.shadowOpacity = 0.2;
+    self.bottomLine.backgroundColor = dutchTopLineColor;
+
     
     self.vertLine1.layer.shadowOffset = CGSizeMake(1, 0);
     self.vertLine1.layer.shadowRadius = 1;

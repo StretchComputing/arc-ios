@@ -14,6 +14,7 @@
 #import "RegisterViewNew.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
+#import "ArcIdentifier.h"
 
 @interface ProfileViewController ()
 
@@ -67,9 +68,9 @@
     
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.5;
-    
-    self.backView.layer.cornerRadius = 7.0;
+    self.topLineView.layer.shadowOpacity = 0.2;
+    self.topLineView.backgroundColor = dutchTopLineColor;
+    self.backView.backgroundColor = dutchTopNavColor;
     
   
 }
@@ -79,6 +80,31 @@
 }
 
 - (IBAction)signOutAction{
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    
+    NSString *guestId = [prefs stringForKey:@"guestId"];
+    NSString *guestToken = [prefs stringForKey:@"guestToken"];
+    
+    if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
+        
+        
+    }else{
+        //Get the Guest Token, then push to InitHelpPage        
+        NSString *identifier = [ArcIdentifier getArcIdentifier];
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        [ tempDictionary setObject:identifier forKey:@"userName"];
+        [ tempDictionary setObject:identifier forKey:@"password"];
+        
+        loginDict = tempDictionary;
+        ArcClient *client = [[ArcClient alloc] init];
+        [client getGuestToken:loginDict];
+        
+    }
+    
     
     ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
     mainDelegate.logout = @"true";

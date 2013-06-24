@@ -10,11 +10,14 @@
 #import "LucidaBoldLabel.h"
 #import "CorbelTextView.h"
 #import "LoadingViewController.h"
+#import "NVUIGradientButton.h"
 
 @class LoadingViewController;
 
 @interface CreatePinView : UIViewController <UITextFieldDelegate>
 
+@property BOOL isLoggedInUser;
+@property BOOL fromCreateGuest;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property BOOL isEditPin;
 @property BOOL fromRegister;
@@ -24,12 +27,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 @property (weak, nonatomic) IBOutlet LucidaBoldLabel *instructionsLabel;
-
+@property BOOL isDuplicate;
 @property BOOL isFirstPin;
 
 @property (strong, nonatomic) NSString *initialPin;
 @property (strong, nonatomic) NSString *confirmPin;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *skipButton;
 
+- (IBAction)skipAction;
 @property (weak, nonatomic) IBOutlet CorbelTextView *descriptionText;
 @property BOOL isInsideApp;
 @property (nonatomic, strong) NSString *creditDebitString;
