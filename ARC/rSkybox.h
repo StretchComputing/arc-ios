@@ -62,5 +62,6 @@ typedef enum {
 +(void)createStream:(NSString *)name;
 +(void)createPacket:(NSString *)packet;
 +(void)closeStream:(NSString *)name;
++(NSString *)getActiveStream;
 
 @end

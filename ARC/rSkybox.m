@@ -33,6 +33,7 @@ static RSKYBOX_APIS api;
 static NSMutableData *serverData;
 static int httpStatusCode;
 static NSString *streamId;
+static NSString *streamName;
 
 
 NSString* const ARC_VERSION_NUMBER = @"1.5";
@@ -464,6 +465,7 @@ NSString *const CLOSED_STATUS = @"closed";
         traceSession = [NSMutableArray array];
         traceTimeStamps = [NSMutableArray array];
         
+        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"liveDebugStream"];
         isLiveDebugActive = FALSE;
     }
     @catch (NSException *e) {
@@ -635,7 +637,8 @@ NSString *const CLOSED_STATUS = @"closed";
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];
-        
+
+        streamName = [NSString stringWithString: name];
         [tempDictionary setObject:name forKey:@"name"];
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
         
@@ -673,6 +676,8 @@ NSString *const CLOSED_STATUS = @"closed";
     }
 }
 
+// Stream name is passed in but not used.
+// Assumption is only one stream can be active at a time and its ID is held in static variable 'jjj'
 +(void)closeStream:(NSString *)name {
     @try {
         api = CloseStream;
@@ -854,7 +859,7 @@ NSString *const CLOSED_STATUS = @"closed";
         NSLog(@"%@", logName);
         
         if(api == CreateStream) {
-            streamId = NULL;
+            streamId = nil;
         } else if(api == CreatePacket) {
         }
     }
@@ -943,7 +948,7 @@ NSString *const CLOSED_STATUS = @"closed";
         NSDictionary *responseInfo = @{@"apiStatus": apiStatus};
 
         if([apiStatus isEqualToString:SUCCESS]) {
-            streamId = NULL;
+            streamId = nil;
             NSLog(@"CloseStream API successful");
         }
         else if([apiStatus isEqualToString:INVALID_STATUS]){
@@ -1006,6 +1011,21 @@ NSString *const CLOSED_STATUS = @"closed";
         NSLog(@"rSkybox.createPacketResponse Exception - %@ - %@", [e name], [e description]);
     }
 }
+
++(NSString *)getActiveStream {
+    @try {
+        if([streamId length] == 0) {
+            return nil;
+        } else {
+            return streamName;
+        }
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in getActiveStream - %@ - %@", [e name], [e description]);
+        return @"";
+    }
+}
+
 
 @end
 
