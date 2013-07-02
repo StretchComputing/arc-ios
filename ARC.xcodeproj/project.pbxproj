@@ -677,6 +677,7 @@
 				90FBDA73159A70E50051609A /* MessageUI.framework */,
 				90B6B0D41599EF26005E4BCB /* Icon@2x.png */,
 				909046BA16EA78F400517A14 /* lock.png */,
+<<<<<<< HEAD
 				90CDE0D717027BC700134AF2 /* menuIcon.png */,
 				90AAAE15175E82FC0096991D /* dutchLogo.png */,
 				90AAADFA175D37D40096991D /* receipt.png */,
@@ -711,6 +712,8 @@
 				90A7FE3217053EE3001EB837 /* ConfirmPaymentViewController.h */,
 				90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */,
 				908BC0D01702200400852B64 /* backarrow.png */,
+=======
+>>>>>>> nickprivate
 				909046E116ECC80100517A14 /* silverware.png */,
 				90B6B0D21599EF22005E4BCB /* Icon.png */,
 				908BC0C31701FD1000852B64 /* junkieLogo.png */,
@@ -1107,6 +1110,7 @@
 				908B0250169E688B0039EB97 /* finger.png in Resources */,
 				909046BB16EA78F400517A14 /* lock.png in Resources */,
 				909046E216ECC80100517A14 /* silverware.png in Resources */,
+<<<<<<< HEAD
 				908BC0C51701FD1000852B64 /* junkieLogo.png in Resources */,
 				908BC0C61701FD1000852B64 /* newBackground.png in Resources */,
 				908BC0CD1702072700852B64 /* helpImage1.png in Resources */,
@@ -1132,6 +1136,8 @@
 				90AAAE16175E82FC0096991D /* dutchLogo.png in Resources */,
 				9023CE0B175FA96900F15386 /* dutchIcon.png in Resources */,
 				909ABC7F1773566200E66FDA /* profileDefault.png in Resources */,
+=======
+>>>>>>> nickprivate
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1233,6 +1239,7 @@
 				9089CB2616C6B6EB00DA11B0 /* NumberLineButton.m in Sources */,
 				90E5E5C616D706740031B17E /* CustomerServiceViewController.m in Sources */,
 				90E5E5CB16D710520031B17E /* LoadingViewController.m in Sources */,
+<<<<<<< HEAD
 				908BC0C91702034800852B64 /* InitHelpPageViewController.m in Sources */,
 				908BC0D4170221DB00852B64 /* NVUIGradientButton.m in Sources */,
 				908CED8517024214006CC48A /* MFSideMenu.m in Sources */,
@@ -1253,6 +1260,8 @@
 				909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */,
 				909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */,
 				90748A051740364300541C68 /* ISO8601DateFormatter.m in Sources */,
+=======
+>>>>>>> nickprivate
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
