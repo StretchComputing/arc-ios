@@ -85,7 +85,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-          // _arcUrl = [prefs valueForKey:@"arcUrl"];
+           //_arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
@@ -234,6 +234,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         NSMutableDictionary *loginDictionary = [ NSMutableDictionary dictionary];
         [loginDictionary setValue:login forKey:@"Login"];
         [loginDictionary setValue:password forKey:@"Password"];
+        [loginDictionary setValue:@"Forgetmenot00" forKey:@"GuestKey"];
         [loginDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"IsGuest"];
         // the phone always sets activate to true. The website never does. Only the phone can reactivate a user.
         NSNumber *activate = [NSNumber numberWithBool:YES];
@@ -252,7 +253,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        NSLog(@"Params: %@", requestString);
+       // NSLog(@"Params: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetGuestToken"];
@@ -287,7 +288,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];   
         
-        NSLog(@"Request: %@", requestString);
+      //  NSLog(@"Request: %@", requestString);
         
        // NSLog(@"Auth Header: %@", [self authHeader]);
         
@@ -347,7 +348,10 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPBody: requestData];
 
         
-        NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
+     //   NSLog(@"Request String: %@", requestString);
+        
+        
+     //   NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
 
         
         self.serverData = [NSMutableData data];
@@ -362,7 +366,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 -(void) createPayment:(NSDictionary *)pairs{
     
-    NSLog(@"Calling Create Payment at: %@", [NSDate date]);
+  //  NSLog(@"Calling Create Payment at: %@", [NSDate date]);
 
     @try {
         [rSkybox addEventToSession:@"createPayment"];
@@ -379,8 +383,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
-        NSLog(@"Auth Header: %@", [self authHeader]);
-        NSLog(@"RequestString: %@", requestString);
+     //   NSLog(@"Auth Header: %@", [self authHeader]);
+    //    NSLog(@"RequestString: %@", requestString);
         
         
         self.serverData = [NSMutableData data];
@@ -477,9 +481,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
         }
         
-        NSLog(@"TrackEventURL: %@", trackEventUrl);
+      //  NSLog(@"TrackEventURL: %@", trackEventUrl);
         
-        NSLog(@"RequestString: %@", requestString);
+      //  NSLog(@"RequestString: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"SendTrackEvents"];
@@ -614,7 +618,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             [request setValue:[tmp authHeader] forHTTPHeaderField:@"Authorization"];
             
-            NSLog(@"Request String: %@", requestString);
+          //  NSLog(@"Request String: %@", requestString);
             
             self.serverData = [NSMutableData data];
             [rSkybox startThreshold:@"updatePushToken"];
@@ -674,7 +678,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 -(void)confirmPayment{
     
-    NSLog(@"Calling Confirm Payment at: %@", [NSDate date]);
+   // NSLog(@"Calling Confirm Payment at: %@", [NSDate date]);
     
     @try {
         [rSkybox addEventToSession:@"confirmPayment"];
@@ -1405,6 +1409,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 -(NSDictionary *) getGuestTokenResponse:(NSDictionary *)response {
     @try {
         
+    //    NSLog(@"GUEST TOKEN RESPONSE: %@", response);
         
         BOOL success = [[response valueForKey:@"Success"] boolValue];
         
@@ -1415,7 +1420,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             NSString *customerId = [[customer valueForKey:@"Id"] stringValue];
             NSString *customerToken = [customer valueForKey:@"Token"];
  
-            NSLog(@"CustomerToken: %@", customerToken);
+           // NSLog(@"CustomerToken: %@", customerToken);
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             
@@ -1472,8 +1477,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 -(NSDictionary *) getServerListResponse:(NSDictionary *)response {
     @try {
-        
-        NSLog(@"Response: %@", response);
+       //
+       // NSLog(@"Response: %@", response);
         
         BOOL success = [[response valueForKey:@"Success"] boolValue];
         
@@ -1514,14 +1519,12 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             BOOL successful = TRUE;
             if (success){
                 
-                NSLog(@"Response: %@", response);
                 self.invoiceTicketId = [[response valueForKey:@"Results"] valueForKey:@"LastUpdated"];
                 self.invoiceRequestId = [[response valueForKey:@"Results"] valueForKey:@"RequestId"];
                 self.numberGetInvoiceTries = 0;
                 
                 int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
                 
-                NSLog(@"Retry Time: %d", retryTime);
                 
                 NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:retryTime target:self selector:@selector(recallGetInvoice) userInfo:nil repeats:NO];
                 if (timer) {
@@ -1544,7 +1547,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
         }else{
             
-            NSLog(@"Response: %@", response);
+          //  NSLog(@"Response: %@", response);
             
             BOOL success = [[response valueForKey:@"Success"] boolValue];
             
@@ -1555,7 +1558,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                 BOOL haveInvoice = NO;
                 id results = [response valueForKey:@"Results"];
                 
-                NSLog(@"Results Class: %@", [results class]);
+               // NSLog(@"Results Class: %@", [results class]);
                 
                 @try {
                     if ([results count] > 0) {
@@ -2039,7 +2042,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
         if (customerToken) {
             
-            NSLog(@"CustomerToken: %@", customerToken);
+            //NSLog(@"CustomerToken: %@", customerToken);
             
             NSString *stringToEncode = [@"customer:" stringByAppendingString:customerToken];
             NSString *authentication = [self encodeBase64:stringToEncode];
@@ -2052,7 +2055,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             
             if ([guestToken length] > 0) {
                 //Guest
-                NSLog(@"GuestTOken: %@", guestToken);
+               // NSLog(@"GuestTOken: %@", guestToken);
                 
                 NSString *stringToEncode = [@"customer:" stringByAppendingString:guestToken];
                 NSString *authentication = [self encodeBase64:stringToEncode];
@@ -2113,7 +2116,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         NSString *guestToken = [prefs valueForKey:@"guestToken"];
-        NSLog(@"Guest Token: %@", guestToken);
+        //NSLog(@"Guest Token: %@", guestToken);
         
         return guestToken;
     }

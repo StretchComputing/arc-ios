@@ -601,6 +601,9 @@
         
 
         NSString *guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        
+        NSLog(@"GuestId: %@", guestId);
+        
         [ tempDictionary setObject:guestId forKey:@"CustomerId"];
         
         [ tempDictionary setObject:@"" forKey:@"Tag"];
@@ -639,7 +642,7 @@
         
         loginDict = tempDictionary;
         self.addCardButton.enabled = NO;
-        self.navigationItem.hidesBackButton = YES;
+        //self.navigationItem.hidesBackButton = YES;
         ArcClient *client = [[ArcClient alloc] init];
         
         self.creditCardNumberText.enabled = NO;
@@ -653,6 +656,8 @@
     }
     @catch (NSException *e) {
         //self.errorLabel.text = @"*Error retreiving credit card.";
+        
+        NSLog(@"E: %@", e);
         
         [rSkybox sendClientLog:@"AddCreditCardGuest.createPayment" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
@@ -726,6 +731,7 @@
 
 -(void)paymentComplete:(NSNotification *)notification{
     
+    
     @try {
         
         self.creditCardNumberText.enabled = YES;
@@ -733,7 +739,7 @@
         self.expirationText.enabled = YES;
         
         
-        self.navigationItem.hidesBackButton = NO;
+        //self.navigationItem.hidesBackButton = NO;
         
         // NSLog(@"Notification: %@", notification);
         
@@ -755,7 +761,7 @@
         
         //[self.activity stopAnimating];
         [self.loadingViewController stopSpin];
-        //self.loadingTopView.hidden = YES;
+        self.loadingTopView.hidden = YES;
         
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
@@ -873,6 +879,7 @@
         [rSkybox sendClientLog:@"AddCardGuest.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
+
 }
 
 

@@ -2902,7 +2902,7 @@
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dutchIcon.png" id="rKd-SA-QFl">
                                 <rect key="frame" x="136" y="156" width="47" height="45"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wAj-0h-ItM" customClass="CorbelBoldLabel">
                                 <rect key="frame" x="65" y="117" width="191" height="33"/>

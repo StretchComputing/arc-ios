@@ -18,9 +18,8 @@
 @implementation InitialController
 
 
-
 -(void)viewDidAppear:(BOOL)animated{
-
+    
     @try {
         self.loadingView.hidden = YES;
         self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
@@ -44,21 +43,21 @@
             //self.autoSignIn = YES;
             
             if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
-
+                
                 
             }else{
                 /*
-                NSString *identifier = [ArcIdentifier getArcIdentifier];
-                
-                
-                NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-                NSDictionary *loginDict = [[NSDictionary alloc] init];
-                [ tempDictionary setObject:identifier forKey:@"userName"];
-                [ tempDictionary setObject:identifier forKey:@"password"];
-                
-                loginDict = tempDictionary;
-                ArcClient *client = [[ArcClient alloc] init];
-                [client getGuestToken:loginDict];
+                 NSString *identifier = [ArcIdentifier getArcIdentifier];
+                 
+                 
+                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+                 NSDictionary *loginDict = [[NSDictionary alloc] init];
+                 [ tempDictionary setObject:identifier forKey:@"userName"];
+                 [ tempDictionary setObject:identifier forKey:@"password"];
+                 
+                 loginDict = tempDictionary;
+                 ArcClient *client = [[ArcClient alloc] init];
+                 [client getGuestToken:loginDict];
                  */
             }
             
@@ -70,7 +69,7 @@
             [self presentModalViewController:home animated:NO];
         }else{
             
-            if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
+            if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil) && [[[NSUserDefaults standardUserDefaults] valueForKey:@"didAgreeTerms"] length] > 0) {
                 //UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
                 //[self presentModalViewController:home animated:NO];
                 
@@ -78,26 +77,34 @@
                 [self presentModalViewController:home animated:NO];
                 
             }else{
-                //Get the Guest Token, then push to InitHelpPage
-                self.loadingView.hidden = NO;
                 
-                NSString *identifier = [ArcIdentifier getArcIdentifier];
-
                 
-                NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-                NSDictionary *loginDict = [[NSDictionary alloc] init];
-                [ tempDictionary setObject:identifier forKey:@"userName"];
-                [ tempDictionary setObject:identifier forKey:@"password"];
-          
-                loginDict = tempDictionary;
-                ArcClient *client = [[ArcClient alloc] init];
-                [client getGuestToken:loginDict];
-
+                //Go to initHelpPage, where GuestTOken is retrieved
+                
+                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"InitHelpPage"];
+                [self presentModalViewController:home animated:NO];
+                
+                /*
+                 self.loadingView.hidden = NO;
+                 
+                 NSString *identifier = [ArcIdentifier getArcIdentifier];
+                 
+                 
+                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+                 NSDictionary *loginDict = [[NSDictionary alloc] init];
+                 [ tempDictionary setObject:identifier forKey:@"userName"];
+                 [ tempDictionary setObject:identifier forKey:@"password"];
+                 
+                 loginDict = tempDictionary;
+                 ArcClient *client = [[ArcClient alloc] init];
+                 [client getGuestToken:loginDict];
+                 */
+                
             }
-      
+            
         }
-         
-         
+        
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"ViewController.viewDidAppear" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -105,6 +112,7 @@
     }
     
 }
+
 -(void)viewDidLoad{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotificationGuest" object:nil];

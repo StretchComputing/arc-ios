@@ -245,6 +245,7 @@
 		self.navigationItem.backBarButtonItem = temp;
         
         self.earnMoreLabel.text = [NSString stringWithFormat:@"Please give %@ some feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+
         
         [rSkybox addEventToSession:@"viewReviewScreen"];
        

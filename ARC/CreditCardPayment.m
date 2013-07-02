@@ -377,6 +377,7 @@
                 [tempDictionary setValue:self.myItemsArray forKey:@"Items"];
             }
 
+            NSLog(@"loginDict: %@", loginDict);
             
             loginDict = tempDictionary;
             self.keyboardSubmitButton.enabled = NO;
