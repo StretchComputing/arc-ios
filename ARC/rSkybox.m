@@ -7,6 +7,7 @@
 //  Copyright (c) 2012 Stretch Computing, Inc. All rights reserved.
 //
 
+
 #import "rSkybox.h"
 #import "SBJson.h"
 #import "UIDevice-Hardware.h"
@@ -33,6 +34,7 @@ static RSKYBOX_APIS api;
 static NSMutableData *serverData;
 static int httpStatusCode;
 static NSString *streamId;
+static NSString *streamName;
 
 
 NSString* const ARC_VERSION_NUMBER = @"2.0";
@@ -65,7 +67,7 @@ NSString *const CLOSED_STATUS = @"closed";
     
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
         return [[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"];
-
+        
     }else{
         NSString *guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
         NSString *guestToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestToken"];
@@ -73,7 +75,7 @@ NSString *const CLOSED_STATUS = @"closed";
         if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
             return [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
         }
-
+        
     }
     return @"unknown";
 }
@@ -108,12 +110,12 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-     //   NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-     //   if (connection) {
-            
-       // }
-
-//        
+        //   NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        //   if (connection) {
+        
+        // }
+        
+        //
         NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object
@@ -123,15 +125,15 @@ NSString *const CLOSED_STATUS = @"closed";
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-
+        
         NSString *apiStatus = [response valueForKey:@"apiStatus"];
         if ([apiStatus isEqualToString:@"100"]) {
             //NSLog(@"Create End User Failed");
         }
-//        
-//        statusReturn = apiStatus;
-//        [returnDictionary setValue:statusReturn forKey:@"status"];
-//        return returnDictionary;
+        //
+        //        statusReturn = apiStatus;
+        //        [returnDictionary setValue:statusReturn forKey:@"status"];
+        //        return returnDictionary;
     }
     
     @catch (NSException *e) {
@@ -200,7 +202,7 @@ NSString *const CLOSED_STATUS = @"closed";
         [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
         
         //Get the device and platform information, and add to a summary string
-        float version = [[[UIDevice currentDevice] systemVersion] floatValue]; 
+        float version = [[[UIDevice currentDevice] systemVersion] floatValue];
         NSString *platform = [[UIDevice currentDevice] platformString];
         NSString *summaryString = [NSString stringWithFormat:@"iOS Version: %f, Device: %@, App Version: %@", version, platform, ARC_VERSION_NUMBER];
         [tempDictionary setObject:summaryString forKey:@"summary"];
@@ -254,7 +256,7 @@ NSString *const CLOSED_STATUS = @"closed";
             
         }
         
-        [tempDictionary setObject:finalArray forKey:@"appActions"];        
+        [tempDictionary setObject:finalArray forKey:@"appActions"];
         loginDict = tempDictionary;
         
         //Make the call to the server
@@ -272,35 +274,35 @@ NSString *const CLOSED_STATUS = @"closed";
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
         
-       NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         if (connection) {
         }
         
-//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
-//        
-//        // parse the returned JSON object
-//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-//        
-//        SBJsonParser *jsonParser = [SBJsonParser new];
-//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-//        
-//        NSString *logStatus = [response valueForKey:@"logStatus"];
-//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-//        
-//        if (![apiStatus isEqualToString:@"100"]) {
-//            //NSLog(@"Send Client Log Failed.");
-//        }
-//        
-//        
-//        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-//        NSMutableDictionary *logChecklist = [NSMutableDictionary dictionaryWithDictionary:[standardUserDefaults valueForKey:@"logChecklist"]];
-//        
-//        //If the log is b
-//        if ([logStatus isEqualToString:@"inactive"]) {
-//            
-//            [logChecklist setObject:@"off" forKey:logName];
-//            [standardUserDefaults setObject:logChecklist forKey:@"logChecklist"];
-//        }
+        //        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+        //
+        //        // parse the returned JSON object
+        //        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+        //
+        //        SBJsonParser *jsonParser = [SBJsonParser new];
+        //        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+        //
+        //        NSString *logStatus = [response valueForKey:@"logStatus"];
+        //        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        //
+        //        if (![apiStatus isEqualToString:@"100"]) {
+        //            //NSLog(@"Send Client Log Failed.");
+        //        }
+        //
+        //
+        //        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        //        NSMutableDictionary *logChecklist = [NSMutableDictionary dictionaryWithDictionary:[standardUserDefaults valueForKey:@"logChecklist"]];
+        //
+        //        //If the log is b
+        //        if ([logStatus isEqualToString:@"inactive"]) {
+        //
+        //            [logChecklist setObject:@"off" forKey:logName];
+        //            [standardUserDefaults setObject:logChecklist forKey:@"logChecklist"];
+        //        }
         
         
     }
@@ -314,7 +316,7 @@ NSString *const CLOSED_STATUS = @"closed";
 + (void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData{
     
     //TODO - Uncomment
-
+    
     return;
     
     @try {
@@ -324,7 +326,7 @@ NSString *const CLOSED_STATUS = @"closed";
         [tempDictionary setObject:summary forKey:@"summary"];
         
         [tempDictionary setObject:@"Arc Crash" forKey:@"eventName"];
-
+        
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
         [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
@@ -351,7 +353,7 @@ NSString *const CLOSED_STATUS = @"closed";
         NSMutableArray *appActions = [NSMutableArray arrayWithArray:[rSkybox getActions]];
         NSMutableArray *appTimestamps = [NSMutableArray arrayWithArray:[rSkybox getTimestamps]];
         
-  
+        
         
         for (int i = 0; i < [appActions count]; i++) {
             NSMutableDictionary *actDictionary = [NSMutableDictionary dictionary];
@@ -387,10 +389,10 @@ NSString *const CLOSED_STATUS = @"closed";
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
         //NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-       // if (connection) {
-            
-       // }
-
+        // if (connection) {
+        
+        // }
+        
         
         NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
@@ -429,9 +431,9 @@ NSString *const CLOSED_STATUS = @"closed";
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userName"];
-
+        
         [tempDictionary setObject:ARC_VERSION_NUMBER forKey:@"version"];
-                
+        
         NSDate *today = [NSDate date];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
@@ -455,11 +457,11 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-    //    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-      //  if (connection) {
-            
+        //    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        //  if (connection) {
+        
         //}
-    
+        
         NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
         // parse the returned JSON object
@@ -487,6 +489,7 @@ NSString *const CLOSED_STATUS = @"closed";
         traceSession = [NSMutableArray array];
         traceTimeStamps = [NSMutableArray array];
         
+        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"liveDebugStream"];
         isLiveDebugActive = FALSE;
     }
     @catch (NSException *e) {
@@ -587,7 +590,7 @@ NSString *const CLOSED_STATUS = @"closed";
 
 //Take input binary and Base 64 encode it
 + (NSString *)encodeBase64data:(NSData *)encodeData{
-	
+    
     @try {
         //NSData *encodeData = [stringToEncode dataUsingEncoding:NSUTF8StringEncoding]
         char encodeArray[500000];
@@ -615,7 +618,7 @@ NSString *const CLOSED_STATUS = @"closed";
 
 //Take a String and encode it in Base 64
 + (NSString *)encodeBase64:(NSString *)stringToEncode{
-	
+    
     @try {
         NSData *encodeData = [stringToEncode dataUsingEncoding:NSUTF8StringEncoding];
         char encodeArray[512];
@@ -659,6 +662,7 @@ NSString *const CLOSED_STATUS = @"closed";
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];
         
+        streamName = [NSString stringWithString: name];
         [tempDictionary setObject:name forKey:@"name"];
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
         
@@ -678,24 +682,26 @@ NSString *const CLOSED_STATUS = @"closed";
         if (connection) {
         }
         
-//        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
-//        
-//        // parse the returned JSON object
-//        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
-//        
-//        SBJsonParser *jsonParser = [SBJsonParser new];
-//        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
-//        
-//        NSString *apiStatus = [response valueForKey:@"apiStatus"];
-//        if ([apiStatus isEqualToString:@"100"]) {
-//            //NSLog(@"Send Feedback Failed.");
-//        }
+        //        NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
+        //
+        //        // parse the returned JSON object
+        //        NSString *returnString = [[NSString alloc] initWithData:returnData encoding: NSUTF8StringEncoding];
+        //
+        //        SBJsonParser *jsonParser = [SBJsonParser new];
+        //        NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
+        //
+        //        NSString *apiStatus = [response valueForKey:@"apiStatus"];
+        //        if ([apiStatus isEqualToString:@"100"]) {
+        //            //NSLog(@"Send Feedback Failed.");
+        //        }
     }
     @catch (NSException *e) {
         NSLog(@"Exception caught in rSkybox.createStream - %@ - %@", [e name], [e description]);
     }
 }
 
+// Stream name is passed in but not used.
+// Assumption is only one stream can be active at a time and its ID is held in static variable 'jjj'
 +(void)closeStream:(NSString *)name {
     @try {
         api = CloseStream;
@@ -753,9 +759,9 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *basicAuth = [rSkybox getBasicAuthHeader];
         [request setValue:basicAuth forHTTPHeaderField:@"Authorization"];
         
-//        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//        if (connection) {
-//        }
+        //        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        //        if (connection) {
+        //        }
         
         NSData *returnData = [ NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil ];
         
@@ -833,7 +839,7 @@ NSString *const CLOSED_STATUS = @"closed";
         
         NSDictionary *responseInfo;
         NSString *notificationType;
-
+        
         BOOL httpSuccess = httpStatusCode == 200 || httpStatusCode == 201 || httpStatusCode == 422;
         BOOL postNotification = YES;
         
@@ -877,7 +883,7 @@ NSString *const CLOSED_STATUS = @"closed";
         NSLog(@"%@", logName);
         
         if(api == CreateStream) {
-            streamId = NULL;
+            streamId = nil;
         } else if(api == CreatePacket) {
         }
     }
@@ -948,7 +954,7 @@ NSString *const CLOSED_STATUS = @"closed";
         else {
             NSLog(@"CreateStream API application error -- %@", @"unknown -- should NOT happen!!!");
         }
-
+        
         return responseInfo;
     }
     @catch (NSException *e) {
@@ -964,9 +970,9 @@ NSString *const CLOSED_STATUS = @"closed";
         
         NSString *apiStatus = [response valueForKey:@"apiStatus"];
         NSDictionary *responseInfo = @{@"apiStatus": apiStatus};
-
+        
         if([apiStatus isEqualToString:SUCCESS]) {
-            streamId = NULL;
+            streamId = nil;
             NSLog(@"CloseStream API successful");
         }
         else if([apiStatus isEqualToString:INVALID_STATUS]){
@@ -1030,8 +1036,22 @@ NSString *const CLOSED_STATUS = @"closed";
     }
 }
 
-@end
++(NSString *)getActiveStream {
+    @try {
+        if([streamId length] == 0) {
+            return nil;
+        } else {
+            return streamName;
+        }
+    }
+    @catch (NSException *e) {
+        NSLog(@"Exception caught in getActiveStream - %@ - %@", [e name], [e description]);
+        return @"";
+    }
+}
 
+
+@end
 
 
 

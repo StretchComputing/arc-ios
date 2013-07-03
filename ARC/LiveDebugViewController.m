@@ -28,7 +28,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamCreateComplete:) name:@"createStreamNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamCloseComplete:) name:@"closeStreamNotification" object:nil];
     
-    self.closeStreamButton.hidden = YES;
+    
+    NSString *streamName = [rSkybox getActiveStream];
+    if([streamName length] != 0) {
+        NSString *activeMessage = [NSString stringWithFormat:@"Stream %@ still Active", streamName];
+        self.streamStatusLabel.text = activeMessage;
+        
+        self.closeStreamButton.hidden = NO;
+        self.createStreamButton.hidden = YES;
+        self.streamNameText.hidden = YES;
+    } else {
+        self.closeStreamButton.hidden = YES;
+    }
+    
 }
 
 -(void)streamCreateComplete:(NSNotification *)notification{
@@ -91,7 +103,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,14 +134,21 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Stream Name Missing" message:@"Please enter a unique stream name, then click Create Stream" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
     }
-
+    
 }
 
 - (IBAction)closeStreamAction:(id)sender {
-    // TODO -- not good, need to persist stream name somewhere that allows user to come back to screen and still see stream
-    NSString *streamName = self.streamNameText.text;
-    [self.sendingActivity startAnimating];
-    [rSkybox closeStream:streamName];
+    NSString *streamName = [rSkybox getActiveStream];
+    if([streamName length] != 0) {
+        [self.sendingActivity startAnimating];
+        [rSkybox closeStream:streamName];
+    } else {
+        NSString *activeMessage = [NSString stringWithFormat:@"Stream Was Already Closed"];
+        self.streamStatusLabel.text = activeMessage;
+        self.closeStreamButton.hidden = YES;
+        self.createStreamButton.hidden = NO;
+        self.streamNameText.hidden = NO;
+    }
 }
 
 @end

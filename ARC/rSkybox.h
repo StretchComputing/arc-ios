@@ -12,7 +12,7 @@
  @catch (NSException *e) {
  [rSkybox sendClientLog:@"initManagedDocument" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
  }
-
+ 
  */
 
 #import <Foundation/Foundation.h>
@@ -62,5 +62,6 @@ typedef enum {
 +(void)createStream:(NSString *)name;
 +(void)createPacket:(NSString *)packet;
 +(void)closeStream:(NSString *)name;
++(NSString *)getActiveStream;
 
 @end
