@@ -13,10 +13,14 @@
 #import "ArcClient.h"
 #import "LoadingViewController.h"
 #import "NVUIGradientButton.h"
+#import "CheckHelpOverlay.h"
 
 @class LoadingViewController;
 
 @interface Restaurant : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
+
+@property (nonatomic, strong) CheckHelpOverlay *helpOverlay;
+
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *submitButton;
 @property (strong, nonatomic) IBOutlet UIView *backView;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;

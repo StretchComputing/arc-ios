@@ -13,11 +13,37 @@
 #import "LucidaBoldLabel.h"
 #import "NVUIGradientButton.h"
 #import "CorbelTextField.h"
+#import "InvoiceHelpOverlay.h"
+#import "LucidaBoldInputTextField.h"
 
 @interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate, UIScrollViewAccessibilityDelegate, UIGestureRecognizerDelegate>
+- (IBAction)splitMyPaymentEditChanged;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *howManySaveButton;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *howManyCancelButton;
 
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *cancelItemSplitButton;
+@property (strong, nonatomic) IBOutlet LucidaBoldInputTextField *splitDollarMyPaymentText;
+@property (strong, nonatomic) IBOutlet UIView *splitViewDollar;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *splitDollarSaveButton;
+- (IBAction)splitDollarSaveAction;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *splitDollarCancelButton;
+- (IBAction)splitDollarCancelAction;
+
+@property (nonatomic, strong) InvoiceHelpOverlay *helpOverlay;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *splitPercentageButton;
+- (IBAction)splitPercentageAction;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *splitDollarButton;
+- (IBAction)splitDollarAction;
+@property (strong, nonatomic) IBOutlet LucidaBoldLabel *splitPeopleYouPayLabel;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *cancelSplitPeople;
+@property (strong, nonatomic) IBOutlet LucidaBoldLabel *splitItemMyPaymentLabel;
+@property (strong, nonatomic) IBOutlet LucidaBoldInputTextField *howManyText;
+@property (strong, nonatomic) IBOutlet LucidaBoldLabel *howManyTitle;
 
+@property int howManyItemIndex;
+@property (nonatomic, strong) IBOutlet UIView *howManyView;
+@property (nonatomic, strong) UIView *alphaBackView;
 @property (nonatomic, strong) IBOutlet UIView *payView;
 @property int moveY;
 @property (nonatomic, strong) IBOutlet UIImageView *receiptView;
@@ -57,6 +83,8 @@
 @property double myItemizedTotal;
 
 @property (nonatomic, strong) UIAlertView *overpayAlert;
+@property double splitMyDue;
+@property double splitItemMyDue;
 
 @property (strong, nonatomic) IBOutlet UIView *splitTopLineView;
 @property (weak, nonatomic) IBOutlet CorbelBarButtonItem *splitCheckButton;
@@ -126,7 +154,9 @@
 -(void)showFullTotal;
 -(void)deselectAllItems;
 
+@property BOOL didShowPaidItems;
 
+@property BOOL isShowingAlreadyPaidAlert;
 @property (nonatomic, strong) NSMutableArray *paidItemsArray;
 //Split single Item
 @property (nonatomic, strong) IBOutlet UIView *itemSplitView;
@@ -142,6 +172,8 @@
 
 
 
+-(IBAction)saveHowManyView;
+-(IBAction)cancelHowManyView;
 
 /**** Selecting a MUTL-Amoutn Line Item
  

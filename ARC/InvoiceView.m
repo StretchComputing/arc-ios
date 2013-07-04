@@ -48,7 +48,14 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    
+
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"hasShownInvoiceHint"] length] == 0) {
+        [self showInvoiceHint];
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasShownInvoiceHint"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+  
     
     @try {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
@@ -86,6 +93,8 @@
         if (self.shouldRun) {
             self.shouldRun = NO;
             [self willAppearSetup];
+            
+
 
         }
     }
@@ -121,6 +130,81 @@
 {
     @try {
         
+        self.howManySaveButton.text = @"Save";
+        self.howManySaveButton.tintColor = dutchDarkBlueColor;
+        self.howManySaveButton.textColor = [UIColor whiteColor];
+        
+        self.howManyCancelButton.text = @"Cancel";
+        
+        self.cancelItemSplitButton.text = @"Cancel";
+        
+        self.splitDollarSaveButton.text = @"Save";
+        self.splitDollarSaveButton.tintColor = dutchDarkBlueColor;
+        self.splitDollarSaveButton.textColor = [UIColor whiteColor];
+        
+        self.splitDollarCancelButton.text = @"Cancel";
+
+        self.cancelSplitPeople.text = @"Cancel";
+
+        self.splitView.layer.cornerRadius = 3.0;
+        self.splitView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.splitView.layer.borderWidth = 1.0;
+        self.splitView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.splitView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
+        self.splitView.layer.shadowOpacity = .5f;
+        self.splitView.layer.shadowRadius = 10.0f;
+        self.splitView.clipsToBounds = YES;
+        
+        
+        self.howManyView.layer.cornerRadius = 3.0;
+        self.howManyView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.howManyView.layer.borderWidth = 1.0;
+        self.howManyView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.howManyView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
+        self.howManyView.layer.shadowOpacity = .5f;
+        self.howManyView.layer.shadowRadius = 10.0f;
+        self.howManyView.clipsToBounds = YES;
+        
+        
+        
+        self.splitViewDollar.layer.cornerRadius = 3.0;
+        self.splitViewDollar.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.splitViewDollar.layer.borderWidth = 1.0;
+        self.splitViewDollar.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.splitViewDollar.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
+        self.splitViewDollar.layer.shadowOpacity = .5f;
+        self.splitViewDollar.layer.shadowRadius = 10.0f;
+        self.splitViewDollar.clipsToBounds = YES;
+        
+        
+        self.itemSplitView.layer.cornerRadius = 3.0;
+        self.itemSplitView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.itemSplitView.layer.borderWidth = 1.0;
+        self.itemSplitView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.itemSplitView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
+        self.itemSplitView.layer.shadowOpacity = .5f;
+        self.itemSplitView.layer.shadowRadius = 10.0f;
+        self.itemSplitView.clipsToBounds = YES;
+        
+        
+        
+        self.helpOverlay = [self.storyboard instantiateViewControllerWithIdentifier:@"invoiceHelpOverlay"];
+        self.helpOverlay.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+        [self.view addSubview:self.helpOverlay.view];
+        self.helpOverlay.view.alpha = 0.0;
+        
+        
+        
+        
+        self.splitPercentageButton.text = @"÷";
+        self.splitPercentageButton.tintColor = dutchDarkBlueColor;
+        self.splitPercentageButton.textColor = [UIColor whiteColor];
+        self.splitPercentageButton.cornerRadius = 0.0;
+        self.splitDollarButton.text = @"$";
+        self.splitDollarButton.tintColor = dutchDarkBlueColor;
+        self.splitDollarButton.textColor = [UIColor whiteColor];
+        self.splitDollarButton.cornerRadius = 0.0;
+
         
         if(NSClassFromString(@"UIRefreshControl")) {
             self.isIos6 = YES;
@@ -251,6 +335,13 @@
             
             itemDictionary = [NSDictionary dictionaryWithDictionary:myDictionary];
         }
+        
+        self.alphaBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
+        self.alphaBackView.alpha = 0.5;
+        self.alphaBackView.backgroundColor = [UIColor blackColor];
+        self.alphaBackView.hidden = YES;
+        [self.view insertSubview:self.alphaBackView belowSubview:self.itemSplitView];
+        
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"InvoiceView.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -314,45 +405,78 @@
         }else{
             
             
-            if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
-                [dictionaryItem setValue:@"no" forKey:@"IsPayingFor"];
                 
-                int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
-                double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
-                
-                self.myItemizedTotal -= value;
-                
-            }else if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
-                
-                [dictionaryItem setValue:@"no" forKey:@"IsPayingFor"];
-
-                double amountPayingFor = [[dictionaryItem valueForKey:@"AmountPayingFor"] doubleValue];
-                self.myItemizedTotal -= amountPayingFor;
-                
-                
-            }else{
-                //Selecting it
-                int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
-                
-                if (num < 1) {
-                    self.payAllSelectedIndex = indexPath.row;
-                    NSString *title = [NSString stringWithFormat:@"%d %@", num, [dictionaryItem valueForKey:@"Description"]];
-                    self.payAllAlert = [[UIAlertView alloc] initWithTitle:title message:@"Pay for all?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-                    [self.payAllAlert show];
-                }else{
+                if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+                    [dictionaryItem setValue:@"no" forKey:@"IsPayingFor"];
                     
                     int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
-
                     double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
                     
-                    self.myItemizedTotal += value;
+                    self.myItemizedTotal -= value;
                     
-                    [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
+                }else if ([[dictionaryItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+                    
+                    [dictionaryItem setValue:@"no" forKey:@"IsPayingFor"];
+                    
+                    double amountPayingFor = [[dictionaryItem valueForKey:@"AmountPayingFor"] doubleValue];
+                    self.myItemizedTotal -= amountPayingFor;
+                    
+                    
+                }else{
+                    
+                    BOOL isDuplicate = NO;
+                    if ([[dictionaryItem valueForKey:@"Amount"] doubleValue] > 1) {
+                        isDuplicate = YES;
+                    }
+                    
+                    if ([[dictionaryItem valueForKey:@"isPaidFor"] isEqualToString:@"yes"]) {
+                        
+                        
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Already Paid For" message:@"This item has already been paid for, please select a different item." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                        
+                    }else if ([[dictionaryItem valueForKey:@"isPaidFor"] isEqualToString:@"maybe"] && !isDuplicate){
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Partially Paid For" message:@"This item has already been partially paid for.  If you wish to pay for part of it also, press and hold on the item." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                    }else{
+                        
+                        //Selecting it
+                        int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+                        
+                        if (num < 1) {
+                            self.payAllSelectedIndex = indexPath.row;
+                            NSString *title = [NSString stringWithFormat:@"%d %@", num, [dictionaryItem valueForKey:@"Description"]];
+                            self.payAllAlert = [[UIAlertView alloc] initWithTitle:title message:@"Pay for all?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+                            [self.payAllAlert show];
+                        }else{
+                            
+                            int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+                            double value = [[dictionaryItem valueForKey:@"Value"] doubleValue];
+                            NSString *description = [dictionaryItem valueForKey:@"Description"];
+                            
+                            if (num > 1) {
+                                
+                                self.howManyTitle.text = [NSString stringWithFormat:@"%d %@, %.2f each", num, description, value];
+                                [self showHowManyView];
+                                self.howManyItemIndex = indexPath.row;
+                                
+                            }else{
+                                
+                                self.myItemizedTotal += value;
+                                
+                                [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
+                            }
+                            
+                            
+                        }
+                        
+                        
+                    }
+                    
+               
+
                     
                 }
-                
-                
-            }
             
             
             [self.myTableView reloadData];
@@ -370,12 +494,16 @@
                 
                 
             }
+            
+            
+            
+            }
 
-            
-            
-        }
         
-                
+        
+        
+        
+        
     }
 }
 
@@ -612,7 +740,10 @@
             
             double myDue = self.myInvoice.amountDue * yourPercent / 100.0;
             
-            self.splitMyPaymentTextField.text = [NSString stringWithFormat:@"%.2f", myDue];
+            //self.splitMyPaymentTextField.text = [NSString stringWithFormat:@"%.2f", myDue];
+            
+            self.splitPeopleYouPayLabel.text = [NSString stringWithFormat:@"You pay: $%.2f", myDue];
+            self.splitMyDue = myDue;
             
         }else{
             int xValue = offset + 135;
@@ -640,7 +771,10 @@
             
             double myOwe = value * yourPercent / 100.0;
             
-            self.itemSplitMyPaymentText.text = [NSString stringWithFormat:@"%.2f", myOwe];
+            //self.itemSplitMyPaymentText.text = [NSString stringWithFormat:@"%.2f", myOwe];
+            self.splitItemMyDue = myOwe;
+            
+            self.splitItemMyPaymentLabel.text = [NSString stringWithFormat:@"You pay: $%.2f", myOwe];
             
             //your percent /100 * price of the item
             
@@ -954,9 +1088,9 @@
     
     int maxTableHeight = 0;
     if (self.view.frame.size.height > 500) {
-        maxTableHeight = 229 + self.moveY;
+        maxTableHeight = 200 + self.moveY;
     }else{
-        maxTableHeight = 141 + self.moveY;
+        maxTableHeight = 112 + self.moveY;
     }
     
     NSLog(@"Needed Height: %f",neededHeight);
@@ -1066,7 +1200,7 @@
     [self.alreadyPaidTableView reloadData];
     
     if ([self.paidItemsArray count] > 0) {
-        [self markPaidItems];
+        [self showPaidItems];
     }
     
         
@@ -1147,6 +1281,8 @@
             static NSInteger priceTag = 3;
             static NSInteger highLightTag = 4;
             static NSInteger myPayTag = 5;
+            static NSInteger alreadyPaidTag = 6;
+
 
 
             NSUInteger row = [indexPath row];
@@ -1224,6 +1360,11 @@
                     UILabel *myPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 23, 300, 25)];
                     myPayLabel.tag = myPayTag;
                     [cell.contentView addSubview:myPayLabel];
+                    
+                    UILabel *alrealdyPaidLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 30)];
+                    alrealdyPaidLabel.tag = alreadyPaidTag;
+                    [cell.contentView addSubview:alrealdyPaidLabel];
+                    
 
                 }
                                 
@@ -1235,14 +1376,17 @@
             UILabel *priceLabel = (UILabel *)[cell.contentView viewWithTag:priceTag];
             UIView *highLightView = (UIView *)[cell.contentView viewWithTag:highLightTag];
             UILabel *myPayLabel = (UILabel *)[cell.contentView viewWithTag:myPayTag];
+            UILabel *alreadyPaidLabel = (UILabel *)[cell.contentView viewWithTag:alreadyPaidTag];
+
 
 
             [cell.contentView sendSubviewToBack:highLightView];
             
             highLightView.layer.borderColor = [[UIColor blackColor] CGColor];
             highLightView.layer.borderWidth = 1.0;
+            highLightView.alpha = 1.0;
             highLightView.backgroundColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];//[UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:215.0/255.0 alpha:1.0];
-            
+            highLightView.frame = CGRectMake(0, 2, 300, 27);
             
             
             
@@ -1258,6 +1402,11 @@
             priceLabel.textAlignment = UITextAlignmentRight;
             numberLabel.textAlignment = UITextAlignmentLeft;
             myPayLabel.textAlignment = UITextAlignmentCenter;
+            
+            alreadyPaidLabel.textColor = [UIColor whiteColor];
+            alreadyPaidLabel.textAlignment = UITextAlignmentCenter;
+            alreadyPaidLabel.hidden = YES;
+            alreadyPaidLabel.backgroundColor = [UIColor clearColor];
             
             
             myPayLabel.textColor = [UIColor whiteColor];
@@ -1325,6 +1474,49 @@
                 priceLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
             }
             
+            
+            if (highLightView.hidden == YES) {
+                
+            
+                if ([[itemDictionary valueForKey:@"isPaidFor"] isEqualToString:@"yes"]) {
+                    
+                    [cell.contentView bringSubviewToFront:highLightView];
+                    alreadyPaidLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:17];
+
+                    [cell.contentView bringSubviewToFront:alreadyPaidLabel];
+
+                    alreadyPaidLabel.hidden = NO;
+                    alreadyPaidLabel.text = @"PAID";
+                    highLightView.hidden = NO;
+                    highLightView.layer.borderColor = [[UIColor blackColor] CGColor];
+                    highLightView.layer.borderWidth = 1.0;
+                    highLightView.backgroundColor = [UIColor lightGrayColor];
+                    highLightView.alpha = 0.7;
+                    
+                }else if ([[itemDictionary valueForKey:@"isPaidFor"] isEqualToString:@"maybe"]){
+                    
+                    [cell.contentView bringSubviewToFront:highLightView];
+                    alreadyPaidLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:15];
+
+                    [cell.contentView bringSubviewToFront:alreadyPaidLabel];
+                    
+                    alreadyPaidLabel.hidden = NO;
+                    alreadyPaidLabel.text = @"% Paid";
+                    highLightView.hidden = NO;
+                    highLightView.layer.borderColor = [[UIColor blackColor] CGColor];
+                    highLightView.layer.borderWidth = 1.0;
+                    highLightView.backgroundColor = [UIColor lightGrayColor];
+                    highLightView.alpha = 0.7;
+                    
+                    
+                }else{
+                    
+                }
+                
+            }
+            
+            
+            
             if ([itemDictionary valueForKey:@"IsTopLevel"] && [[itemDictionary valueForKey:@"IsTopLevel"] isEqualToString:@"yes"]) {
                 itemLabel.textColor = [UIColor darkGrayColor];
                 numberLabel.textColor = [UIColor darkGrayColor];
@@ -1365,60 +1557,88 @@
         NSDictionary *selectedItem = [self.myInvoice.items objectAtIndex:myPress.selectedCell];
         int num = [[selectedItem valueForKey:@"Amount"] intValue];
         
-        if (num == 1) {
+        
+        if ([[selectedItem valueForKey:@"isPaidFor"] isEqualToString:@"yes"]) {
+            
+            if (self.isShowingAlreadyPaidAlert) {
+                
+            }else{
+                self.isShowingAlreadyPaidAlert = YES;
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Already Paid For" message:@"This item has already been paid for, please select a different item." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+           
 
-            
-            self.itemSplitView.hidden = NO;
-            self.itemSplitIndex = myPress.selectedCell;
-            
-            
-            
-            self.itemSplitName.text = [NSString stringWithFormat:@"%@: $%.2f", [selectedItem valueForKey:@"Description"], [[selectedItem valueForKey:@"Value"] doubleValue]];
-            
-            
-            if ([[selectedItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]) {
-                self.itemSplitMyPaymentText.text = [NSString stringWithFormat:@"%.2f", [[selectedItem valueForKey:@"AmountPayingFor"] doubleValue]];
-            }
-            
-            self.itemSplitScrollView.contentOffset = CGPointMake(0.0, 0.0);
-            
-            [self.itemSplitMyPaymentText becomeFirstResponder];
-            
-            
         }else{
-            
-            //open up the rows
-            
-            NSMutableArray *newArray =  [NSMutableArray arrayWithArray:self.myInvoice.items];
-            
-            [selectedItem setValue:@"yes" forKey:@"IsTopLevel"];
-            
-            NSMutableArray *newObjectArray = [NSMutableArray array];
-            
-            for (int i = 0; i < num; i++) {
-                
-                NSMutableDictionary *newItem = [NSMutableDictionary dictionary];
-                [newItem setValue:[NSDecimalNumber numberWithInt:1] forKey:@"Amount"];
-                [newItem setValue:[selectedItem valueForKey:@"Value"] forKey:@"Value"];
-                [newItem setValue:[selectedItem valueForKey:@"Description"] forKey:@"Description"];
-                [newItem setValue:[selectedItem valueForKey:@"Id"] forKey:@"Id"];
-                [newItem setValue:@"yes" forKey:@"IsSubLevel"];
+            if (num == 1) {
                 
                 
-                [newObjectArray addObject:newItem];
+                [self showSplitViewItem];
+                self.itemSplitIndex = myPress.selectedCell;
+                
+                
+                
+                self.itemSplitName.text = [NSString stringWithFormat:@"%@: $%.2f", [selectedItem valueForKey:@"Description"], [[selectedItem valueForKey:@"Value"] doubleValue]];
+                
+                
+                if ([[selectedItem valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]) {
+                    self.itemSplitMyPaymentText.text = [NSString stringWithFormat:@"%.2f", [[selectedItem valueForKey:@"AmountPayingFor"] doubleValue]];
+                }
+                
+                self.itemSplitScrollView.contentOffset = CGPointMake(0.0, 0.0);
+                
+                [self.itemSplitMyPaymentText becomeFirstResponder];
+                
+                
+            }else{
+                
+                NSDictionary *dictionaryItem = [self.myInvoice.items objectAtIndex:myPress.selectedCell];
+                
+                int num = [[dictionaryItem valueForKey:@"Amount"] intValue];
+                double value = [[dictionaryItem valueForKey:@"Value"] doubleValue];
+                NSString *description = [dictionaryItem valueForKey:@"Description"];
+                
+                
+                self.howManyTitle.text = [NSString stringWithFormat:@"%d %@, %.2f each", num, description, value];
+                [self showHowManyView];
+                self.howManyItemIndex = myPress.selectedCell;
+                
+                
+                /*
+                 //open up the rows
+                 
+                 NSMutableArray *newArray =  [NSMutableArray arrayWithArray:self.myInvoice.items];
+                 
+                 [selectedItem setValue:@"yes" forKey:@"IsTopLevel"];
+                 
+                 NSMutableArray *newObjectArray = [NSMutableArray array];
+                 
+                 for (int i = 0; i < num; i++) {
+                 
+                 NSMutableDictionary *newItem = [NSMutableDictionary dictionary];
+                 [newItem setValue:[NSDecimalNumber numberWithInt:1] forKey:@"Amount"];
+                 [newItem setValue:[selectedItem valueForKey:@"Value"] forKey:@"Value"];
+                 [newItem setValue:[selectedItem valueForKey:@"Description"] forKey:@"Description"];
+                 [newItem setValue:[selectedItem valueForKey:@"Id"] forKey:@"Id"];
+                 [newItem setValue:@"yes" forKey:@"IsSubLevel"];
+                 
+                 
+                 [newObjectArray addObject:newItem];
+                 }
+                 
+                 NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(myPress.selectedCell + 1, [newObjectArray count])];
+                 
+                 [newArray insertObjects:newObjectArray atIndexes:indexSet];
+                 
+                 self.myInvoice.items = [NSArray arrayWithArray:newArray];
+                 
+                 [self.myTableView reloadData];
+                 [self adjustLength];
+                 */
+                
             }
-            
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(myPress.selectedCell + 1, [newObjectArray count])];
-            
-            [newArray insertObjects:newObjectArray atIndexes:indexSet];
-            
-            self.myInvoice.items = [NSArray arrayWithArray:newArray];
-            
-            [self.myTableView reloadData];
-            [self adjustLength];
-            
-            
         }
+        
         
       
     }
@@ -1639,6 +1859,7 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     @try {
+        
         if (alertView == self.overpayAlert) {
             
             if (buttonIndex == 1) {
@@ -1694,36 +1915,43 @@
                 
                 
                 
-                
-                double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
-                
-                self.myItemizedTotal += value;
-                
-                [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
-                
-                [self.myTableView reloadData];
-                
-                if (![self isAnyRowSelected]) {
-                    self.myItemizedTotal = 0.0;
+                    double value = [[dictionaryItem valueForKey:@"Value"] doubleValue] * num;
                     
+                    self.myItemizedTotal += value;
                     
-                    [self showFullTotal];
-                }else{
-                    //some are still selected
+                    [dictionaryItem setValue:@"yes" forKey:@"IsPayingFor"];
                     
-                    [self setItemizedTotalValue];
+                    [self.myTableView reloadData];
                     
-                    
-                    
+                    if (![self isAnyRowSelected]) {
+                        self.myItemizedTotal = 0.0;
+                        
+                        
+                        [self showFullTotal];
+                    }else{
+                        //some are still selected
+                        
+                        [self setItemizedTotalValue];
+                        
+                        
+                        
+                    }
                 }
                 
+              
                 
-            }
-            
+                    
             
             
         }else{
-            [self.actionSheet showInView:self.view];
+            
+            if (self.isShowingAlreadyPaidAlert) {
+                self.isShowingAlreadyPaidAlert = NO;
+                
+            }else{
+                [self.actionSheet showInView:self.view];
+
+            }
             
         }
 
@@ -1968,6 +2196,18 @@
                         
                         double myPercent = myAmount/totalAmount;
                         
+                        while (myPercent > 1) {
+                            myPercent -= 1;
+                            
+                            NSMutableDictionary *newItem = [NSMutableDictionary dictionary];
+
+                            [newItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                            [newItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
+                            [newItem setValue:[NSNumber numberWithInt:1] forKey:@"Percent"];
+                            [self.myItemArray addObject:newItem];
+                            
+                        }
+                        
                         [sendInItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
                         [sendInItem setValue:[tmpItem valueForKey:@"Id"] forKey:@"ItemId"];
                         [sendInItem setValue:[NSNumber numberWithDouble:myPercent] forKey:@"Percent"];
@@ -1978,6 +2218,8 @@
                 }
                 
             
+                
+                
                 controller.myItemsArray = [NSArray arrayWithArray:self.myItemArray];
 
 
@@ -2210,6 +2452,10 @@
             [self setUpView];
             [self willAppearSetup];
             
+            self.didShowPaidItems = NO;
+
+            [self showPaidItems];
+            
             
         } else if([status isEqualToString:@"error"]){
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];
@@ -2429,24 +2675,72 @@
     [self deselectAllItems];
     [self showFullTotal];
     
-    [UIView animateWithDuration:0.6 animations:^{
+    self.alphaBackView.hidden = NO;
+    
+    [UIView animateWithDuration:0.4 animations:^{
        
         CGRect frame = self.splitView.frame;
-        frame.origin.x = 0;
+        frame.origin.y += 300;
         self.splitView.frame = frame;
     }];
+    
+    self.splitView.clipsToBounds = NO;
+
 }
 
+- (IBAction)showSplitViewDollar {
+    
+    [self.splitDollarMyPaymentText becomeFirstResponder];
+    [self deselectAllItems];
+    [self showFullTotal];
+    
+    self.alphaBackView.hidden = NO;
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        
+        CGRect frame = self.splitViewDollar.frame;
+        if (self.isIphone5) {
+            frame.origin.y += 300;
+        }else{
+            frame.origin.y += 240;
+
+        }
+        self.splitViewDollar.frame = frame;
+    }];
+    
+    self.splitViewDollar.clipsToBounds = NO;
+    
+}
+
+- (IBAction)showSplitViewItem {
+    
+
+    self.alphaBackView.hidden = NO;
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        
+        CGRect frame = self.itemSplitView.frame;
+        frame.origin.y = 90;
+        self.itemSplitView.frame = frame;
+    }];
+    
+    self.itemSplitView.clipsToBounds = NO;
+    
+}
 
 - (IBAction)cancelSplitAction {
     
+    self.alphaBackView.hidden = YES;
+
     
-    [UIView animateWithDuration:0.6 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         
         CGRect frame = self.splitView.frame;
-        frame.origin.x = -320;
+        frame.origin.y -= 300;
         self.splitView.frame = frame;
     }];
+    self.splitView.clipsToBounds = YES;
+
     
     
     if ([self.splitMyPaymentTextField isFirstResponder]) {
@@ -2507,16 +2801,18 @@
 
 - (IBAction)splitSaveAction {
     
-    double myDouble = [self.splitMyPaymentTextField.text doubleValue];
+    double myDouble = self.splitMyDue;
     
     if (myDouble > 0) {
-        self.totalLabel.text = [NSString stringWithFormat:@"My Total:  $%@", self.splitMyPaymentTextField.text];
+        self.totalLabel.text = [NSString stringWithFormat:@"My Total:  $%.2f", myDouble];
         [self showSplitButtons];
 
     }
     
  
     [self cancelSplitAction];
+    
+    [self payBillAction];
 }
 
 
@@ -2670,7 +2966,7 @@
     
     NSDictionary *item = [self.myInvoice.items objectAtIndex:self.itemSplitIndex];
     
-    double myItemPayemnt = [self.itemSplitMyPaymentText.text doubleValue];
+    double myItemPayemnt = self.splitItemMyDue;
     double itemPrice = [[item valueForKey:@"Value"] doubleValue];
     
     
@@ -2696,8 +2992,7 @@
         [item setValue:@"maybe" forKey:@"IsPayingFor"];
         [item setValue:[NSNumber numberWithDouble:myItemPayemnt] forKey:@"AmountPayingFor"];
         
-        self.itemSplitView.hidden = YES;
-        [self.itemSplitMyPaymentText resignFirstResponder];
+        [self closeItemSplitAction];
         
         self.myItemizedTotal += myItemPayemnt;
         
@@ -2710,13 +3005,402 @@
             //some are still selected
             [self setItemizedTotalValue];
         }
+        
+        self.splitItemMyPaymentLabel.text = @"";
     }
     
     
 
 }
 - (IBAction)closeItemSplitAction {
-    self.itemSplitView.hidden = YES;
-    [self.itemSplitMyPaymentText resignFirstResponder];
+    
+    self.alphaBackView.hidden = YES;
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        
+        CGRect frame = self.itemSplitView.frame;
+        frame.origin.y -= 300;
+        self.itemSplitView.frame = frame;
+    }];
+    
+    self.itemSplitView.clipsToBounds = NO;
+    
+    
 }
+
+- (IBAction)splitPercentageAction {
+    
+    [self showSplitView];
+}
+- (IBAction)splitDollarAction {
+    
+    [self showSplitViewDollar];
+
+}
+
+
+
+-(void)showInvoiceHint{
+    
+    NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showHint) userInfo:nil repeats:NO];
+
+    
+    
+}
+
+-(void)showHint{
+    
+    NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:13 target:self selector:@selector(hideHint) userInfo:nil repeats:NO];
+
+    [UIView animateWithDuration:1.0 animations:^{
+        self.helpOverlay.view.alpha = 1.0;
+    }];
+    
+    
+   
+    
+    
+}
+
+-(void)hideHint{
+    
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        self.helpOverlay.view.alpha = 0.0;
+    }];
+}
+- (IBAction)splitDollarSaveAction {
+    double myPayment = [self.splitDollarMyPaymentText.text doubleValue];
+    self.splitDollarMyPaymentText.text = [NSString stringWithFormat:@"%.2f", myPayment];
+    
+    if (myPayment > 0) {
+        self.totalLabel.text = [NSString stringWithFormat:@"My Total:  $%.2f", myPayment];
+
+    }
+    [self splitDollarCancelAction];
+
+    [self payBillAction];
+    
+}
+- (IBAction)splitDollarCancelAction {
+    
+    self.alphaBackView.hidden = YES;
+    
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        
+        CGRect frame = self.splitViewDollar.frame;
+        if (self.isIphone5) {
+            frame.origin.y -= 300;
+        }else{
+            frame.origin.y -= 240;
+            
+        }
+        self.splitViewDollar.frame = frame;
+    }];
+    self.splitViewDollar.clipsToBounds = YES;
+    
+    
+    
+    [self.splitDollarMyPaymentText resignFirstResponder];
+}
+- (IBAction)splitMyPaymentEditChanged {
+    
+
+}
+
+-(void)showHowManyView{
+    
+    
+    [self.howManyText becomeFirstResponder];
+    self.howManyView.hidden = NO;
+    self.alphaBackView.hidden = NO;
+    
+    
+    
+    
+   
+
+    
+    
+}
+
+-(IBAction)saveHowManyView{
+    
+    
+    NSDictionary *dictionaryItem = [self.myInvoice.items objectAtIndex:self.howManyItemIndex];
+    double myAmount = [self.howManyText.text doubleValue];
+    double itemValue = [[dictionaryItem valueForKey:@"Value"] doubleValue];
+    
+    double itemAmount = [[dictionaryItem valueForKey:@"Amount"] doubleValue];
+    
+    if (myAmount > itemAmount) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Too Many" message:@"You cannot pay for more items than are on the bill." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }else{
+        
+        NSDictionary *item = [self.myInvoice.items objectAtIndex:self.howManyItemIndex];
+        
+        double myItemPayemnt = myAmount * itemValue;
+        
+        
+        if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"yes"]) {
+            
+            double value = [[item valueForKey:@"Value"] doubleValue];
+            self.myItemizedTotal -= value;
+            
+        }else if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
+            
+            double myValue = [[item valueForKey:@"AmountPayingFor"] doubleValue];
+            self.myItemizedTotal -= myValue;
+        }
+        
+        [item setValue:@"maybe" forKey:@"IsPayingFor"];
+        [item setValue:[NSNumber numberWithDouble:myItemPayemnt] forKey:@"AmountPayingFor"];
+        
+        [self closeItemSplitAction];
+        
+        self.myItemizedTotal += myItemPayemnt;
+        
+        [self.myTableView reloadData];
+        
+        if (![self isAnyRowSelected]) {
+            self.myItemizedTotal = 0.0;
+            [self showFullTotal];
+        }else{
+            //some are still selected
+            [self setItemizedTotalValue];
+        }
+        
+        
+        
+        
+        [self.howManyText resignFirstResponder];
+        self.howManyView.hidden = YES;
+        
+        self.alphaBackView.hidden = YES;
+        
+        self.howManyText.text = @"";
+        
+    }
+    
+    
+
+   
+
+}
+
+-(IBAction)cancelHowManyView{
+    self.howManyText.text = @"";
+
+    [self.howManyText resignFirstResponder];
+
+    self.howManyView.hidden = YES;
+
+    self.alphaBackView.hidden = YES;
+
+}
+
+
+//************************************************SHOWING PAID ITEMS
+
+
+
+-(void)showPaidItems{
+    
+    
+    if (!self.didShowPaidItems) {
+        
+        self.didShowPaidItems = YES;
+        
+        [self consolidatePartialPayments];
+        
+        NSMutableArray *myPaidItemsArray = [NSMutableArray arrayWithArray:self.paidItemsArray];
+        
+        NSLog(@"MyPaid Items: %@", myPaidItemsArray);
+        
+        
+        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+            
+            NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+            
+            
+            for (int j = 0; j < [myPaidItemsArray count]; j++) {
+                
+                NSDictionary *paidItem = [myPaidItemsArray objectAtIndex:j];
+                
+                
+                if ([[paidItem valueForKey:@"ItemId"] intValue] == [[item valueForKey:@"Id"] intValue]) {
+                    
+                    //Item is at least partially paid for
+                    
+                    if ([[paidItem valueForKey:@"Percent"] doubleValue] == 1.0) {
+                        
+                        double paidItemAmount = [[paidItem valueForKey:@"Amount"] doubleValue];
+                        double myItemAmount = [[item valueForKey:@"Amount"] doubleValue];
+                        
+                        if (paidItemAmount >= myItemAmount) {
+                            [item setValue:@"yes" forKey:@"isPaidFor"];
+                            
+                            [myPaidItemsArray removeObjectAtIndex:j];
+                            break;
+                        }else{
+                            [item setValue:@"maybe" forKey:@"isPaidFor"];
+                            
+                            [myPaidItemsArray removeObjectAtIndex:j];
+                            break;
+                        }
+                        
+                    }else{
+                        //[item setValue:@"maybe" forKey:@"isPaidFor"];
+                        
+                    }
+                    
+                }
+                
+                [item setValue:@"ano" forKey:@"isPaidFor"];
+                
+            }
+            
+            
+        }
+        
+        self.paidItemsArray = [NSMutableArray arrayWithArray:myPaidItemsArray];
+        
+        
+        NSLog(@"PaidItemsArray: %@", self.paidItemsArray);
+        
+        //myPaidItems array still contains payments of partial Items, go through again
+        
+        for (int i = 0; i < [self.myInvoice.items count]; i++) {
+            
+            NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+            
+            
+            if ([[item valueForKey:@"isPaidFor"] isEqualToString:@"ano"]) {
+                
+                
+                for (int j = 0; j < [myPaidItemsArray count]; j++) {
+                    
+                    NSDictionary *paidItem = [myPaidItemsArray objectAtIndex:j];
+                    
+                    
+                    if ([[paidItem valueForKey:@"ItemId"] intValue] == [[item valueForKey:@"Id"] intValue]) {
+                        
+                        //Item is at least partially paid for
+                        
+                        [item setValue:@"maybe" forKey:@"isPaidFor"];
+                        
+                        [myPaidItemsArray removeObjectAtIndex:j];
+                        break;
+                        
+                        
+                    }
+                    
+                    [item setValue:@"ano" forKey:@"isPaidFor"];
+                    
+                }
+                
+                
+            }
+            
+            
+            
+            
+        }
+        
+        
+        
+        
+        NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"isPaidFor" ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObject:sorter];
+        self.myInvoice.items = [NSMutableArray arrayWithArray:[self.myInvoice.items sortedArrayUsingDescriptors:sortDescriptors]];
+        
+        
+        
+        [self.myTableView reloadData];
+        
+        
+    }
+    
+    
+}
+
+-(void)consolidatePartialPayments{
+    
+    
+    @try {
+        
+        for (int i = 0; i < [self.paidItemsArray count]; i++) {
+            
+            NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
+            
+            if (i != [self.paidItemsArray count] - 1) {
+                
+                
+                for (int j = i+1; j < [self.paidItemsArray count]; j++) {
+                    
+                    NSDictionary *paidItemCheck = [self.paidItemsArray objectAtIndex:j];
+                    
+                    if ([[paidItem valueForKey:@"ItemId"] doubleValue] == [[paidItemCheck valueForKey:@"ItemId"] doubleValue]) {
+                        
+                        double initialPercent = [[paidItem valueForKey:@"Percent"] doubleValue];
+                        double newPercent = [[paidItemCheck valueForKey:@"Percent"] doubleValue];
+                        //NSLog(@"InitPercent: %f", initialPercent);
+                        //NSLog(@"NewPercent: %f", newPercent);
+                        
+                        initialPercent += newPercent;
+                        
+                        [paidItem setValue:[NSNumber numberWithDouble:initialPercent] forKey:@"Percent"];
+                        
+                        [self.paidItemsArray removeObjectAtIndex:j];
+                        j--;
+                    }
+                }
+            }
+        }
+        //Consolidated, but Percent might be > 1.0
+        
+        for (int i = 0; i < [self.paidItemsArray count]; i++) {
+            
+            NSDictionary *paidItem = [self.paidItemsArray objectAtIndex:i];
+            
+            if ([[paidItem valueForKey:@"Percent"] doubleValue] > 1.0) {
+                //uh oh
+                double percent = [[paidItem valueForKey:@"Percent"] doubleValue];
+                
+                
+                NSDictionary *newPaidItem = @{@"Amount": [NSNumber numberWithDouble:percent], @"ItemId":[paidItem valueForKey:@"ItemId"], @"PaidBy":[paidItem valueForKey:@"PaidBy"], @"PaidByAct":[paidItem valueForKey:@"PaidByAct"], @"Percent":[NSNumber numberWithDouble:1.0]};
+                [self.paidItemsArray addObject:newPaidItem];
+                /*
+                while (percent > 1.0) {
+                    
+                    //reduce the count by 1, and add a new separate item
+                    percent -= 1;
+                    NSDictionary *newPaidItem = @{@"Amount": [paidItem valueForKey:@"Amount"], @"ItemId":[paidItem valueForKey:@"ItemId"], @"PaidBy":[paidItem valueForKey:@"PaidBy"], @"PaidByAct":[paidItem valueForKey:@"PaidByAct"], @"Percent":[NSNumber numberWithDouble:1.0]};
+                    [self.paidItemsArray addObject:newPaidItem];
+                    
+                    
+                }
+                 */
+                //Set the new percent to the remaining fraction
+               // [paidItem setValue:[NSNumber numberWithDouble:percent] forKey:@"Amount"];
+                //[paidItem setValue:[NSNumber numberWithInt:1] forKey:@"Amount"];
+                
+                [self.paidItemsArray removeObjectAtIndex:i];
+                i--;
+
+                
+            }
+        }
+         
+        
+    }
+    @catch (NSException *exception) {
+        
+    }
+}
+
+
+
 @end

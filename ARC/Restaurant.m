@@ -120,6 +120,12 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 -(void)viewWillAppear:(BOOL)animated{
     
+
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"hasShownCheckHint"] length] == 0) {
+        [self showInvoiceHint];
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasShownCheckHint"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
@@ -388,7 +394,15 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 {
     @try {
         
-        
+        @try {
+            self.helpOverlay = [self.storyboard instantiateViewControllerWithIdentifier:@"checkHelpOverlay"];
+            self.helpOverlay.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
+            [self.view addSubview:self.helpOverlay.view];
+            self.helpOverlay.view.alpha = 0.0;
+        }
+        @catch (NSException *exception) {
+            
+        }
         
         self.closeHelpButton.text = @"Done";
      
@@ -700,6 +714,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (IBAction)checkNumberHelp {
     @try {
+        
+        self.helpOverlay.view.hidden = YES;
         
         if (self.helpShowing) {
             [self touchesBegan:nil withEvent:nil];
@@ -1095,4 +1111,38 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (IBAction)goBackAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
+
+-(void)showInvoiceHint{
+    
+    NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showHint) userInfo:nil repeats:NO];
+    
+    
+    
+}
+
+-(void)showHint{
+    
+    NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHint) userInfo:nil repeats:NO];
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        self.helpOverlay.view.alpha = 1.0;
+    }];
+    
+    
+    
+    
+    
+}
+
+-(void)hideHint{
+    
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        self.helpOverlay.view.alpha = 0.0;
+    }];
+}
+
+
 @end

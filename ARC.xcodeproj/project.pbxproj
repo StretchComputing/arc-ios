@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		9023CE0B175FA96900F15386 /* dutchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9023CE0A175FA96900F15386 /* dutchIcon.png */; };
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
+		9038AA931784653B00B5DF60 /* InvoiceHelpOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */; };
+		9038AAAE17846F8300B5DF60 /* upChalkArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9038AAAD17846F8300B5DF60 /* upChalkArrow.png */; };
+		9038AAB11784712300B5DF60 /* straightChalkArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9038AAAF1784712300B5DF60 /* straightChalkArrow.png */; };
+		9038AAB21784712300B5DF60 /* curlChalkArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9038AAB01784712300B5DF60 /* curlChalkArrow.png */; };
+		9038AAB517847E7800B5DF60 /* CheckHelpOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */; };
 		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
 		906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */; };
 		906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */; };
@@ -220,6 +225,13 @@
 		9023CE0A175FA96900F15386 /* dutchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dutchIcon.png; sourceTree = "<group>"; };
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
+		9038AA911784653B00B5DF60 /* InvoiceHelpOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceHelpOverlay.h; sourceTree = "<group>"; };
+		9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceHelpOverlay.m; sourceTree = "<group>"; };
+		9038AAAD17846F8300B5DF60 /* upChalkArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upChalkArrow.png; sourceTree = "<group>"; };
+		9038AAAF1784712300B5DF60 /* straightChalkArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = straightChalkArrow.png; sourceTree = "<group>"; };
+		9038AAB01784712300B5DF60 /* curlChalkArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = curlChalkArrow.png; sourceTree = "<group>"; };
+		9038AAB317847E7800B5DF60 /* CheckHelpOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckHelpOverlay.h; sourceTree = "<group>"; };
+		9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckHelpOverlay.m; sourceTree = "<group>"; };
 		905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CHATOKYO_0.TTF; sourceTree = "<group>"; };
 		906C80F015FD582F0012AC9D /* CorbelSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelSegmentedControl.h; sourceTree = "<group>"; };
 		906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelSegmentedControl.m; sourceTree = "<group>"; };
@@ -758,6 +770,9 @@
 				90964E1515F842A400676E0A /* CORBEL.TTF */,
 				905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */,
 				908C258F164C0C8700AB3684 /* blueCheck.png */,
+				9038AAAD17846F8300B5DF60 /* upChalkArrow.png */,
+				9038AAAF1784712300B5DF60 /* straightChalkArrow.png */,
+				9038AAB01784712300B5DF60 /* curlChalkArrow.png */,
 				908D2FCF166E8D66007B6078 /* boxChecked.png */,
 				908D2FD0166E8D66007B6078 /* boxEmpty.png */,
 				908A4C3B16978CCE00B68664 /* CardIO */,
@@ -922,6 +937,10 @@
 				9F7B4D6E1620F3FA007EC356 /* ArcUtility.m */,
 				908C0CA81703C397003E004E /* ProfileViewController.h */,
 				908C0CA91703C397003E004E /* ProfileViewController.m */,
+				9038AA911784653B00B5DF60 /* InvoiceHelpOverlay.h */,
+				9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */,
+				9038AAB317847E7800B5DF60 /* CheckHelpOverlay.h */,
+				9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */,
 			);
 			path = ARC;
 			sourceTree = "<group>";
@@ -1132,6 +1151,9 @@
 				90AAAE16175E82FC0096991D /* dutchLogo.png in Resources */,
 				9023CE0B175FA96900F15386 /* dutchIcon.png in Resources */,
 				909ABC7F1773566200E66FDA /* profileDefault.png in Resources */,
+				9038AAAE17846F8300B5DF60 /* upChalkArrow.png in Resources */,
+				9038AAB11784712300B5DF60 /* straightChalkArrow.png in Resources */,
+				9038AAB21784712300B5DF60 /* curlChalkArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1253,6 +1275,8 @@
 				909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */,
 				909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */,
 				90748A051740364300541C68 /* ISO8601DateFormatter.m in Sources */,
+				9038AA931784653B00B5DF60 /* InvoiceHelpOverlay.m in Sources */,
+				9038AAB517847E7800B5DF60 /* CheckHelpOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
