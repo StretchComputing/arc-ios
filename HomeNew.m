@@ -49,6 +49,15 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    
 }
 
 
@@ -67,7 +76,29 @@
     }
     
     
+    if (self.view.frame.size.height < 500) {
     
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
+    
+    
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
+    
+    }
+
+
+}
+
+-(void)keyboardWillShow{
+    self.searchToolBar.hidden = NO;
+    self.placeNameLabel.textColor = [UIColor whiteColor];
+    self.placeNameLabel.frame = CGRectMake(8, 215, 305, 27);
+}
+
+-(void)keyboardWillHide{
+    self.searchToolBar.hidden = YES;
+    self.placeNameLabel.textColor = [UIColor blackColor];
+    self.placeNameLabel.frame = CGRectMake(8, 280, 305, 27);
+
 }
 
 -(void)customerDeactivated{
@@ -465,7 +496,7 @@
         self.payBillButton.enabled = NO;
         self.moreInfoButton.enabled = NO;
         
-        
+       
     }
     @catch (NSException *e) {
         [rSkybox sendClientLog:@"Home.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
@@ -1496,5 +1527,9 @@
 
 }
 - (IBAction)moreInfoAction:(id)sender {
+}
+- (void)viewDidUnload {
+    [self setSearchToolBar:nil];
+    [super viewDidUnload];
 }
 @end

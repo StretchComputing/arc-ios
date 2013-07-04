@@ -32,26 +32,6 @@
     
     
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *phoneNumber = @"";
-    NSString *emailAddress = @"";
-    
-    if (![prefs valueForKey:@"arcPhoneNumber"]) {
-        [prefs setValue:@"630-215-6979" forKey:@"arcPhoneNumber"];
-    }
-    
-    if (![prefs valueForKey:@"arcMail"]) {
-        [prefs setValue:@"support@arcmobileapp.com" forKey:@"arcMail"];
-    }
-    
-    phoneNumber = [NSString stringWithFormat:@"Phone #: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"]];
-    emailAddress = [NSString stringWithFormat:@"Email: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]];
-    
-    
-    self.phoneNumberLabel.text = phoneNumber;
-    self.emailAddressLabel.text = emailAddress;
-    
     [ArcClient trackEvent:@"SUPPORT_VIEW"];
     
     
@@ -64,12 +44,15 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
 	
+    if (section == 0) {
+        return 1;
+    }
     return 2;
 }
 
@@ -77,20 +60,67 @@
 	
     @try {
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"supportCell"];
+        NSUInteger row = indexPath.row;
+        NSUInteger section = indexPath.section;
+        UITableViewCell *cell;
         
-        
-        CorbelBoldLabel *supportLabel = (CorbelBoldLabel *)[cell.contentView viewWithTag:1];
-        
-        
-        
-        
-        if (indexPath.row == 0) {
-            supportLabel.text = @"Help Videos";
+        if (section == 1) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"contactUsCell"];
         }else{
-            supportLabel.text = @"Customer Service";
-            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"supportCell"];
         }
+        
+        
+        
+        
+        if (section == 1) {
+            CorbelBoldLabel *supportLabel = (CorbelBoldLabel *)[cell.contentView viewWithTag:1];
+            CorbelBoldLabel *infoLabel = (CorbelBoldLabel *)[cell.contentView viewWithTag:2];
+            
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            NSString *phoneNumber = @"";
+            NSString *emailAddress = @"";
+            
+            if (![prefs valueForKey:@"arcPhoneNumber"]) {
+                [prefs setValue:@"630-215-6979" forKey:@"arcPhoneNumber"];
+            }
+            
+            if (![prefs valueForKey:@"arcMail"]) {
+                [prefs setValue:@"support@arcmobileapp.com" forKey:@"arcMail"];
+            }
+            
+            phoneNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"];
+            emailAddress = [[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"];
+            
+            
+            if (row == 0) {
+                
+                supportLabel.text = @"Email";
+                infoLabel.text = emailAddress;
+            }else{
+                supportLabel.text = @"Phone";
+                infoLabel.text = phoneNumber;
+            }
+
+        }else{
+            CorbelBoldLabel *supportLabel = (CorbelBoldLabel *)[cell.contentView viewWithTag:1];
+
+            if (section == 0) {
+                supportLabel.text = @"Help Videos";
+
+            }else{
+                if (row == 0) {
+                    supportLabel.text = @"Feedback";
+
+                }else{
+                    supportLabel.text = @"Audio Feedback";
+
+                }
+            }
+        }
+       
         
         
         
@@ -194,6 +224,16 @@
     
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    if (section == 0) {
+        return @"Tutorials";
+    }else if (section == 1){
+        return @"Contact Us";
+    }else{
+        return @"Feedback";
+    }
+}
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     @try {
         

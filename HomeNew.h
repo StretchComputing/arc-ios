@@ -38,6 +38,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *topImageView;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
 - (IBAction)searchCancelAction;
+@property (strong, nonatomic) IBOutlet UIToolbar *searchToolBar;
 
 @property (strong, nonatomic) IBOutlet UIButton *searchCancelButton;
 @property BOOL isDragging;
