@@ -142,15 +142,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 0) {
+    NSUInteger section = indexPath.section;
+    NSUInteger row = indexPath.row;
+    
+    if (section == 0) {
         //Help
         UIViewController *customerService = [self.storyboard instantiateViewControllerWithIdentifier:@"help"];
         [self.navigationController pushViewController:customerService animated:YES];
+        
+    }else if (section == 1){
+        if (row == 0) {
+            [self emailAction];
+        }else{
+            [self callAction];
+        }
     }else{
-        //Customer Service
-        UIViewController *customerService = [self.storyboard instantiateViewControllerWithIdentifier:@"customerService"];
-        [self.navigationController pushViewController:customerService animated:YES];
+        if (row == 0) {
+            [self emailFeedbackAction];
+        }else{
+            //Customer Service
+            UIViewController *customerService = [self.storyboard instantiateViewControllerWithIdentifier:@"customerService"];
+            [self.navigationController pushViewController:customerService animated:YES];
+        }
     }
+    
 }
 
 
@@ -223,6 +238,36 @@
     }
     
 }
+
+
+- (void)emailFeedbackAction {
+    
+    @try {
+        
+        [rSkybox addEventToSession:@"emailFeedbackToArc"];
+        
+        if ([MFMailComposeViewController canSendMail]) {
+            
+            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+            mailViewController.mailComposeDelegate = self;
+            [mailViewController setToRecipients:@[[[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]]];
+            [mailViewController setSubject:@"Dutch Feedback"];
+            
+            [self presentModalViewController:mailViewController animated:YES];
+            
+        }else {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Device." message:@"Your device cannot currently send email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"SupportViewController.email" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
