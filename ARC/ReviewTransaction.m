@@ -530,7 +530,7 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     @try {
         
-        if ([self.commentsText.text isEqualToString:@"Earn +5 pts for an in depth review:"]){
+        if ([self.commentsText.text isEqualToString:@"Additional Comments:"]){
             self.commentsText.text = @"";
         }
         
@@ -564,7 +564,7 @@
             [textView resignFirstResponder];
             
             if ([self.commentsText.text isEqualToString:@""]){
-                self.commentsText.text = @"Earn +5 pts for an in depth review:";
+                self.commentsText.text = @"Additional Comments:";
             }
             
             [UIView beginAnimations:nil context:NULL];
@@ -579,7 +579,8 @@
             return FALSE;
         }else{
             
-            if ([self.commentsText.text length] >= 500) {
+            
+            if ([self.commentsText.text length] + [text length] >= 500) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Character Limit Reached" message:@"You have reached the character limit for this field." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
                 return FALSE;
@@ -645,7 +646,7 @@
         
         NSString *commentsString = @"";
         
-        if ([self.commentsText.text isEqualToString:@"Earn +5 pts for an in depth review:"]){
+        if ([self.commentsText.text isEqualToString:@"Additional Comments:"]){
             self.commentsText.text = @"";
         }else {
             commentsString = self.commentsText.text;

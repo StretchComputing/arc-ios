@@ -67,6 +67,7 @@
     self.password.font = [UIFont fontWithName:@"LucidaGrande" size:14];
     self.password.returnKeyType = UIReturnKeyGo;
     self.password.delegate = self;
+    self.password.placeholder = @"Password";
     // [self.password addTarget:self action:@selector(signIn) forControlEvents:UIControlEventEditingDidEndOnExit];
     
     self.username.text = @"";
@@ -447,7 +448,7 @@
     
     self.errorLabel.text = @"";
     self.isSignIn = NO;
-    self.titleLabel.text = @"Create Account?";
+    self.titleLabel.text = @"Email Receipt?";
     self.backButton.hidden = YES;
     self.minCharText.hidden = NO;
     self.createAccountText.hidden = NO;

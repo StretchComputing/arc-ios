@@ -480,7 +480,8 @@
             
             
             [self.myTableView reloadData];
-            
+            [self adjustLength];
+
             if (![self isAnyRowSelected]) {
                 self.myItemizedTotal = 0.0;
                 
@@ -1080,7 +1081,19 @@
     
     NSLog(@"NUM ITEMS: %d", numItems);
     
-    float neededHeight = numItems * 30 + 15;
+   // float neededHeight = numItems * 30 + 15;
+    
+    float neededHeight = 15;
+    
+    for (int i = 0; i < numItems; i++) {
+        NSDictionary *item = [self.myInvoice.items objectAtIndex:i];
+        if ([[item valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]) {
+            neededHeight += 60;
+        }else{
+            neededHeight += 30;
+        }
+    }
+    
     
     if (neededHeight < 100) {
         neededHeight = 100;
@@ -2997,7 +3010,7 @@
         self.myItemizedTotal += myItemPayemnt;
         
         [self.myTableView reloadData];
-        
+        [self adjustLength];
         if (![self isAnyRowSelected]) {
             self.myItemizedTotal = 0.0;
             [self showFullTotal];
@@ -3163,7 +3176,8 @@
         self.myItemizedTotal += myItemPayemnt;
         
         [self.myTableView reloadData];
-        
+        [self adjustLength];
+
         if (![self isAnyRowSelected]) {
             self.myItemizedTotal = 0.0;
             [self showFullTotal];
