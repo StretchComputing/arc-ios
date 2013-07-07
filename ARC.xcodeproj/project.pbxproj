@@ -133,6 +133,11 @@
 		90A19F76162CF197007995DC /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A19F75162CF197007995DC /* ResetPasswordViewController.m */; };
 		90A65C67169B785500FC519B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A65C66169B785500FC519B /* CoreTelephony.framework */; };
 		90A7FE3417053EE3001EB837 /* ConfirmPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */; };
+		90A9A4351785CC9E0096BA41 /* facebookConnect.png in Resources */ = {isa = PBXBuildFile; fileRef = 90A9A4341785CC9E0096BA41 /* facebookConnect.png */; };
+		90A9ACFC1785D2D30096BA41 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A9ACFB1785D2D30096BA41 /* FacebookSDK.framework */; };
+		90A9ACFF1785D6BC0096BA41 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A9ACFD1785D6BC0096BA41 /* libsqlite3.0.dylib */; };
+		90A9AD001785D6BC0096BA41 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A9ACFE1785D6BC0096BA41 /* libsqlite3.dylib */; };
+		90A9AD021785D70D0096BA41 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A9AD011785D70D0096BA41 /* AdSupport.framework */; };
 		90AAADFB175D37D40096991D /* receipt.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAADFA175D37D40096991D /* receipt.png */; };
 		90AAAE16175E82FC0096991D /* dutchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAAE15175E82FC0096991D /* dutchLogo.png */; };
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
@@ -411,6 +416,11 @@
 		90A65C66169B785500FC519B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		90A7FE3217053EE3001EB837 /* ConfirmPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmPaymentViewController.h; sourceTree = "<group>"; };
 		90A7FE3317053EE3001EB837 /* ConfirmPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmPaymentViewController.m; sourceTree = "<group>"; };
+		90A9A4341785CC9E0096BA41 /* facebookConnect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookConnect.png; sourceTree = "<group>"; };
+		90A9ACFB1785D2D30096BA41 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		90A9ACFD1785D6BC0096BA41 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		90A9ACFE1785D6BC0096BA41 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		90A9AD011785D70D0096BA41 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		90AAADFA175D37D40096991D /* receipt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = receipt.png; sourceTree = "<group>"; };
 		90AAAE15175E82FC0096991D /* dutchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dutchLogo.png; sourceTree = "<group>"; };
 		90B01D03159E3CF1005FCCCF /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
@@ -563,6 +573,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90A9AD021785D70D0096BA41 /* AdSupport.framework in Frameworks */,
+				90A9ACFF1785D6BC0096BA41 /* libsqlite3.0.dylib in Frameworks */,
+				90A9AD001785D6BC0096BA41 /* libsqlite3.dylib in Frameworks */,
 				908D966E16E3A2C7002CADC1 /* CoreLocation.framework in Frameworks */,
 				908A4C4316978CF600B68664 /* AVFoundation.framework in Frameworks */,
 				90E5E5C816D70A010031B17E /* CoreAudio.framework in Frameworks */,
@@ -591,6 +604,7 @@
 				90993F38159777BC00FC1D49 /* Foundation.framework in Frameworks */,
 				90993F3A159777BC00FC1D49 /* CoreGraphics.framework in Frameworks */,
 				9FA68D0A15E0880B0048789D /* CrashReporter.framework in Frameworks */,
+				90A9ACFC1785D2D30096BA41 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +668,10 @@
 		90993F26159777BB00FC1D49 = {
 			isa = PBXGroup;
 			children = (
+				90A9AD011785D70D0096BA41 /* AdSupport.framework */,
+				90A9ACFD1785D6BC0096BA41 /* libsqlite3.0.dylib */,
+				90A9ACFE1785D6BC0096BA41 /* libsqlite3.dylib */,
+				90A9ACFB1785D2D30096BA41 /* FacebookSDK.framework */,
 				908D966D16E3A2C7002CADC1 /* CoreLocation.framework */,
 				90E5E5C716D70A010031B17E /* CoreAudio.framework */,
 				908A667E16A0648F002425A2 /* GameKit.framework */,
@@ -700,6 +718,7 @@
 				90CDE0E917028AFF00134AF2 /* menuProfileIcon.png */,
 				909ABC7E1773566200E66FDA /* profileDefault.png */,
 				90CDE0EA17028B0000134AF2 /* menuShareIcon.png */,
+				90A9A4341785CC9E0096BA41 /* facebookConnect.png */,
 				9093E50717442A9200BC18E3 /* jaggedEdge.png */,
 				9093E50817442A9200BC18E3 /* jaggedEdgeBottom.png */,
 				90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */,
@@ -1067,6 +1086,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				he,
 			);
 			mainGroup = 90993F26159777BB00FC1D49;
 			productRefGroup = 90993F32159777BC00FC1D49 /* Products */;
@@ -1154,6 +1174,7 @@
 				9038AAAE17846F8300B5DF60 /* upChalkArrow.png in Resources */,
 				9038AAB11784712300B5DF60 /* straightChalkArrow.png in Resources */,
 				9038AAB21784712300B5DF60 /* curlChalkArrow.png in Resources */,
+				90A9A4351785CC9E0096BA41 /* facebookConnect.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1363,6 +1384,7 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1375,6 +1397,11 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/CardIO\"",
 					"\"$(SRCROOT)/tesseract-ios-lib/lib\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-iphoneos\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-universal\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7s\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = ARC;
@@ -1391,6 +1418,7 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1403,6 +1431,11 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/CardIO\"",
 					"\"$(SRCROOT)/tesseract-ios-lib/lib\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-iphoneos\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-universal\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7s\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = ARC;
@@ -1446,6 +1479,7 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1458,6 +1492,11 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/CardIO\"",
 					"\"$(SRCROOT)/tesseract-ios-lib/lib\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-iphoneos\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/Debug-universal\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7\"",
+					"\"$(SRCROOT)/facebook-ios-sdk/build/facebook-ios-sdk.build/Debug-iphoneos/facebook-ios-sdk.build/Objects-normal/armv7s\"",
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = ARC;

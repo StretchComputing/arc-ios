@@ -4721,6 +4721,11 @@
                                     <action selector="signOutAction" destination="Xfe-o4-mOH" eventType="touchUpInside" id="iyS-rH-fF8"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" id="qyU-Xs-Fpj" customClass="FBLoginView">
+                                <rect key="frame" x="69" y="312" width="183" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" id="N60-29-6yf" customClass="NVUIGradientButton">
                                 <rect key="frame" x="20" y="155" width="133" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4758,6 +4763,7 @@
                     <connections>
                         <outlet property="backView" destination="r7L-7P-fVN" id="fx7-SR-niM"/>
                         <outlet property="createAccountButton" destination="nBp-bi-XJq" id="Jd3-hB-zf9"/>
+                        <outlet property="facebookLoginView" destination="qyU-Xs-Fpj" id="oFW-Uw-x7y"/>
                         <outlet property="logInButton" destination="N60-29-6yf" id="tJW-Ug-se4"/>
                         <outlet property="myTableView" destination="Ojs-dy-4ZB" id="oYP-sx-xoa"/>
                         <outlet property="newProfileText" destination="sdu-b1-FKJ" id="I7B-O4-gfj"/>

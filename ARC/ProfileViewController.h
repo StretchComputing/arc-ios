@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NVUIGradientButton.h"
 #import "CorbelTextView.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface ProfileViewController : UIViewController
 
@@ -28,5 +29,8 @@
 -(IBAction)openMenuAction;
 @property (strong, nonatomic) IBOutlet UIView *backView;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
+- (IBAction)facebookConnectAction;
+@property (strong, nonatomic) IBOutlet UIButton *facebookConnectButton;
+@property (strong, nonatomic) IBOutlet FBLoginView *facebookLoginView;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @end
