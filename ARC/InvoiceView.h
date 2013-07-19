@@ -20,6 +20,8 @@
 - (IBAction)splitMyPaymentEditChanged;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *howManySaveButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *howManyCancelButton;
+- (IBAction)splitDollarPercentAction;
+@property (strong, nonatomic) IBOutlet UIView *splitDollarPercentBackView;
 
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *cancelItemSplitButton;
 @property (strong, nonatomic) IBOutlet LucidaBoldInputTextField *splitDollarMyPaymentText;

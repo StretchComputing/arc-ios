@@ -384,7 +384,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
      //   NSLog(@"Auth Header: %@", [self authHeader]);
-    //    NSLog(@"RequestString: %@", requestString);
+       NSLog(@"RequestString: %@", requestString);
         
         
         self.serverData = [NSMutableData data];

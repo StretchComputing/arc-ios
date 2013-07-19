@@ -575,6 +575,15 @@
         self.loadingTopView.alpha = 0.2;
 
         
+        NSString *amountString = [NSString stringWithFormat:@"%.2f", self.myInvoice.basePaymentAmount];
+        NSLog(@"AmountString: %@", amountString);
+        self.myInvoice.basePaymentAmount = [amountString doubleValue];
+        
+        NSString *gratString = [NSString stringWithFormat:@"%.2f", self.myInvoice.gratuity];
+        NSLog(@"Grat: %@", gratString);
+        self.myInvoice.gratuity = [gratString doubleValue];
+        
+        NSLog(@"Grat: %f", self.myInvoice.gratuity);
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -593,6 +602,10 @@
         
         NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
         [tempDictionary setObject:grat forKey:@"Gratuity"];
+        
+        NSLog(@"Grat: %f", self.myInvoice.gratuity);
+        NSLog(@"Grat: %f", [grat doubleValue]);
+
         
         
         [ tempDictionary setObject:self.transactionNotes forKey:@"Notes"];

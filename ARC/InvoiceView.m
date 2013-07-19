@@ -130,6 +130,12 @@
 {
     @try {
         
+        self.splitDollarPercentBackView.hidden = YES;
+        self.splitDollarPercentBackView.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.splitDollarPercentBackView.layer.borderWidth = 2.0;
+        self.splitDollarPercentBackView.layer.shadowOffset = CGSizeMake(0,0);
+        self.splitDollarPercentBackView.layer.shadowRadius = 5;
+        self.splitDollarPercentBackView.layer.shadowOpacity = 0.6;
         self.howManySaveButton.text = @"Save";
         self.howManySaveButton.tintColor = dutchDarkBlueColor;
         self.howManySaveButton.textColor = [UIColor whiteColor];
@@ -349,6 +355,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    self.splitDollarPercentBackView.hidden = YES;
+
     
     if (tableView == self.myTableView) {
         
@@ -2645,7 +2654,8 @@
 
 
 - (IBAction)showBalanceAction {
-    
+    self.splitDollarPercentBackView.hidden = YES;
+
     [self.navigationController.sideMenu toggleRightSideMenu];
 }
 
@@ -2690,7 +2700,7 @@
     
     self.alphaBackView.hidden = NO;
     
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
        
         CGRect frame = self.splitView.frame;
         frame.origin.y += 300;
@@ -2709,7 +2719,7 @@
     
     self.alphaBackView.hidden = NO;
     
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         
         CGRect frame = self.splitViewDollar.frame;
         if (self.isIphone5) {
@@ -2730,7 +2740,7 @@
 
     self.alphaBackView.hidden = NO;
     
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         
         CGRect frame = self.itemSplitView.frame;
         frame.origin.y = 90;
@@ -2746,7 +2756,7 @@
     self.alphaBackView.hidden = YES;
 
     
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         
         CGRect frame = self.splitView.frame;
         frame.origin.y -= 300;
@@ -3029,7 +3039,7 @@
     
     self.alphaBackView.hidden = YES;
     
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         
         CGRect frame = self.itemSplitView.frame;
         frame.origin.y -= 300;
@@ -3043,10 +3053,14 @@
 
 - (IBAction)splitPercentageAction {
     
+    self.splitDollarPercentBackView.hidden = YES;
+
     [self showSplitView];
 }
 - (IBAction)splitDollarAction {
     
+    self.splitDollarPercentBackView.hidden = YES;
+
     [self showSplitViewDollar];
 
 }
@@ -3056,18 +3070,18 @@
 -(void)showInvoiceHint{
     
     NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showHint) userInfo:nil repeats:NO];
-
     
     
 }
 
 -(void)showHint{
     
-    NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:13 target:self selector:@selector(hideHint) userInfo:nil repeats:NO];
+   
 
     [UIView animateWithDuration:1.0 animations:^{
         self.helpOverlay.view.alpha = 1.0;
     }];
+    [self.helpOverlay startNow];
     
     
    
@@ -3100,7 +3114,7 @@
     self.alphaBackView.hidden = YES;
     
     
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         
         CGRect frame = self.splitViewDollar.frame;
         if (self.isIphone5) {
@@ -3415,6 +3429,22 @@
     }
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    self.splitDollarPercentBackView.hidden = YES;
+
+}
 
 
+- (IBAction)splitDollarPercentAction {
+    
+    if (self.splitDollarPercentBackView.hidden == YES) {
+        self.splitDollarPercentBackView.hidden = NO;
+    }else{
+        self.splitDollarPercentBackView.hidden = YES;
+    }
+}
+- (void)viewDidUnload {
+    [self setSplitDollarPercentBackView:nil];
+    [super viewDidUnload];
+}
 @end

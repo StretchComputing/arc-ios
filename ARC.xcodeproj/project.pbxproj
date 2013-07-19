@@ -14,6 +14,7 @@
 		9038AAB11784712300B5DF60 /* straightChalkArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9038AAAF1784712300B5DF60 /* straightChalkArrow.png */; };
 		9038AAB21784712300B5DF60 /* curlChalkArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9038AAB01784712300B5DF60 /* curlChalkArrow.png */; };
 		9038AAB517847E7800B5DF60 /* CheckHelpOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */; };
+		904C3F6C178C673700EEED03 /* defaultLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 904C3F6B178C673700EEED03 /* defaultLogo.png */; };
 		905E50EA15D99AC1003FF85A /* CHATOKYO_0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */; };
 		906C80F215FD582F0012AC9D /* CorbelSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */; };
 		906C80F615FD598A0012AC9D /* CorbelBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C80F515FD598A0012AC9D /* CorbelBarButtonItem.m */; };
@@ -237,6 +238,7 @@
 		9038AAB01784712300B5DF60 /* curlChalkArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = curlChalkArrow.png; sourceTree = "<group>"; };
 		9038AAB317847E7800B5DF60 /* CheckHelpOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckHelpOverlay.h; sourceTree = "<group>"; };
 		9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckHelpOverlay.m; sourceTree = "<group>"; };
+		904C3F6B178C673700EEED03 /* defaultLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultLogo.png; sourceTree = "<group>"; };
 		905E50E915D99AC1003FF85A /* CHATOKYO_0.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = CHATOKYO_0.TTF; sourceTree = "<group>"; };
 		906C80F015FD582F0012AC9D /* CorbelSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorbelSegmentedControl.h; sourceTree = "<group>"; };
 		906C80F115FD582F0012AC9D /* CorbelSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorbelSegmentedControl.m; sourceTree = "<group>"; };
@@ -709,6 +711,7 @@
 				909046BA16EA78F400517A14 /* lock.png */,
 				90CDE0D717027BC700134AF2 /* menuIcon.png */,
 				90AAAE15175E82FC0096991D /* dutchLogo.png */,
+				904C3F6B178C673700EEED03 /* defaultLogo.png */,
 				90AAADFA175D37D40096991D /* receipt.png */,
 				9023CE0A175FA96900F15386 /* dutchIcon.png */,
 				907A761017060CF200E8A15C /* divide.png */,
@@ -1175,6 +1178,7 @@
 				9038AAB11784712300B5DF60 /* straightChalkArrow.png in Resources */,
 				9038AAB21784712300B5DF60 /* curlChalkArrow.png in Resources */,
 				90A9A4351785CC9E0096BA41 /* facebookConnect.png in Resources */,
+				904C3F6C178C673700EEED03 /* defaultLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

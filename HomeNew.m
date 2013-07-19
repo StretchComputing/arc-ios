@@ -120,6 +120,8 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account Deactivated" message:@"For security purposes, your account has been remotely deactivated.  If this was done in error, please contact Arc support." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     
+    
+
     [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
@@ -160,6 +162,12 @@
             
             mainDelegate.logout = @"";
             
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *customerId = [prefs stringForKey:@"customerId"];
+            
+            
+            NSString *keyString = [NSString stringWithFormat:@"%@noPaymentKey", customerId];
+            [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:keyString];
             [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"arcUrl"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerId"];
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"customerToken"];
@@ -1279,13 +1287,21 @@
             imageLogo.layer.cornerRadius = 3.0;
             //imageLogo.layer.masksToBounds = YES;
             
-            if (index % 2 == 0) {
+            
+            //**TODO REMOVE THIS HARD CODING
+            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:index];
+            
+            if ([tmpMerchant.name isEqualToString:@"Untitled"] || [tmpMerchant.name isEqualToString:@"Isis Lab"] ) {
                 imageLogo.image = [UIImage imageNamed:@"untitledLogo.png"];
-                
-            }else{
+
+            }else if ([tmpMerchant.name isEqualToString:@"Union Sushi"] || [tmpMerchant.name isEqualToString:@"LEYE Micros Lab"] ||  [tmpMerchant.name isEqualToString:@"LEYE Micros Lab"]){
                 imageLogo.image = [UIImage imageNamed:@"junkieLogo.png"];
-                
+            }else{
+                imageLogo.image = [UIImage imageNamed:@"defaultLogo.png"];
+
             }
+
+           
             [view addSubview:imageLogo];
             
             UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 148, 146, 44)];
@@ -1297,7 +1313,6 @@
             selectButton.tag = index;
             [selectButton addTarget:self action:@selector(goToMerchant:) forControlEvents:UIControlEventTouchUpInside];
             
-            Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:index];
             tmpLabel.text = tmpMerchant.name;
             
             tmpLabel.textAlignment = UITextAlignmentCenter;

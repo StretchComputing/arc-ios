@@ -358,8 +358,16 @@ UIColor *dutchTopNavColor;
             
             if (([creditCards count] == 0) && !hasToken) {
                 //No payment sources found
-                NSLog(@"NONE FOUND");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"NoPaymentSourcesNotification" object:self userInfo:nil];
+                
+                NSString *keyString = [NSString stringWithFormat:@"%@noPaymentKey", customerId];
+              
+                
+                if ([[[NSUserDefaults standardUserDefaults] valueForKey:keyString] length] == 0) {
+                    [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:keyString];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NoPaymentSourcesNotification" object:self userInfo:nil];
+
+                }
                 
             }
             

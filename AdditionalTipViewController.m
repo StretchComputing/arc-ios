@@ -290,8 +290,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     @try {
         
+      
+        
        if ([[segue identifier] isEqualToString:@"goConfirm"]) {
-            
+           
+           
+          
  
             
             ConfirmPaymentViewController *controller = [segue destinationViewController];

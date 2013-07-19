@@ -10,5 +10,11 @@
 
 @interface InvoiceHelpOverlay : UIViewController
 @property (strong, nonatomic) IBOutlet UIView *topOpenView;
+@property (strong, nonatomic) IBOutlet UIView *stepOneView;
+@property (strong, nonatomic) IBOutlet UIView *stepTwoView;
+@property (strong, nonatomic) IBOutlet UIView *stepThreeView;
+@property int currentStep;
+@property (nonatomic, strong) NSTimer *myTimer;
 
+-(void)startNow;
 @end
