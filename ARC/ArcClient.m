@@ -98,6 +98,9 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
 
 -(void)getServer{
     @try {
+        
+    
+        
         [rSkybox addEventToSession:@"getServer"];
         api = GetServer;
         
@@ -519,7 +522,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.createReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.getPasscode" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -548,7 +551,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.createReview" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.resetPassword" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }
 
@@ -562,7 +565,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         
         NSString *createUrl = [NSString stringWithFormat:@"http://arc-servers.dagher.net.co/rest/v1/servers/%@/setserver/%@", customerId, serverNumber];
         
-        //NSLog(@"CreateUrl: %@", createUrl);
+        NSLog(@"CreateUrl: %@", createUrl);
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
         [request setHTTPMethod: @"GET"];

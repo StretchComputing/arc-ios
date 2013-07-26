@@ -610,10 +610,15 @@
         
         [ tempDictionary setObject:self.transactionNotes forKey:@"Notes"];
         
-        
-        
+        NSString *guestId = @"";
 
-        NSString *guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        if (self.isGuest) {
+            guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
+        }else{
+            guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+
+        }
+
         
         NSLog(@"GuestId: %@", guestId);
         

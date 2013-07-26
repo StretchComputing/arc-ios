@@ -310,8 +310,13 @@ UIColor *dutchTopNavColor;
     
     [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:4];
     
-    ArcClient *client = [[ArcClient alloc] init];
-    [client getServer];
+    
+    NSString *customerToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"];
+    if ([customerToken length] > 0){
+        ArcClient *client = [[ArcClient alloc] init];
+        [client getServer];
+    }
+
     
     ArcClient *pingClient = [[ArcClient alloc] init];
     [pingClient sendServerPings];

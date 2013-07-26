@@ -2447,6 +2447,8 @@
             self.paidItemsArray = [NSMutableArray array];
             @try {
                 NSArray *payments = [theInvoice valueForKey:@"Payments"];
+                NSLog(@"Payments Class: %@", [payments class]);
+                
                 for (int i = 0; i < [payments count]; i++) {
                     NSDictionary *payment = [payments objectAtIndex:i];
                     
