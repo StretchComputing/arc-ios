@@ -61,6 +61,16 @@
             //success
             
             self.serverListArray = [apiResponse valueForKey:@"Results"];
+            
+            for (int i = 0; i < [self.serverListArray count]; i++) {
+                
+                NSDictionary *server = [self.serverListArray objectAtIndex:i];
+                
+                if (![[server valueForKey:@"Type"] isEqualToString:@"ARS"] && ![[server valueForKey:@"Type"] isEqualToString:@"ASS"]) {
+                    [self.serverListArray removeObjectAtIndex:i];
+                    i--;
+                }
+            }
             [self.myTableView reloadData];
             
         } else {

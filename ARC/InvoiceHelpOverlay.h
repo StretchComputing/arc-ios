@@ -15,6 +15,8 @@
 @property (strong, nonatomic) IBOutlet UIView *stepThreeView;
 @property int currentStep;
 @property (nonatomic, strong) NSTimer *myTimer;
+@property (strong, nonatomic) IBOutlet UIView *viewTwo;
 
+@property (strong, nonatomic) IBOutlet UIView *viewOne;
 -(void)startNow;
 @end

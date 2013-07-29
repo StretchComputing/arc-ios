@@ -62,7 +62,7 @@ typedef enum {
         self.menuState = MFSideMenuStateClosed;
         self.menuWidth = 175.0f;
         self.menuWidthLeft = 260.0f;
-        self.menuWidthRight = 260.0f;
+        self.menuWidthRight = 270.0f;
 
         self.shadowRadius = 10.0f;
         self.shadowOpacity = 0.75f;
@@ -317,7 +317,7 @@ typedef enum {
         if (self.menuState == MFSideMenuStateClosed && !self.allowSwipeOpenLeft) {
             return;
         }else if (self.menuState == MFSideMenuStateRightMenuOpen){
-            return;
+           // return;
         }
         [self handleRightPan:recognizer];
     }
@@ -607,6 +607,8 @@ typedef enum {
 - (void)closeSideMenu {
     // notify that the menu state event is starting
     [self sendMenuStateEventNotification:MFSideMenuStateEventMenuWillClose];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RightMenuClose" object:self userInfo:@{}];
+
     
     CGFloat navigationControllerXPosition = ABS([self pointAdjustedForInterfaceOrientation:self.rootViewController.view.frame.origin].x);
     CGFloat duration = [self animationDurationFromStartPosition:navigationControllerXPosition toEndPosition:0];

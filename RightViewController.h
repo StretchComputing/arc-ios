@@ -17,6 +17,13 @@
 
 @interface RightViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
+@property BOOL isPayRemain;
+
+@property (nonatomic, strong) UIScrollView *myScrollView;
+@property (nonatomic, strong) LucidaBoldLabel *payPercentLabel;
+@property (nonatomic, strong) UITextView *payDollarTextView;
+@property (nonatomic, strong) NSString *expandedElement;
+@property (strong, nonatomic) IBOutlet UITableView *mainTableView;
 @property (nonatomic, strong) Invoice *myInvoice;
 @property (nonatomic, strong) InvoiceView *invoiceController;
 @property (nonatomic, strong) MFSideMenu *sideMenu;

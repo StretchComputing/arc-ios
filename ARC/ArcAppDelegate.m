@@ -312,10 +312,10 @@ UIColor *dutchTopNavColor;
     
     
     NSString *customerToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"];
-    if ([customerToken length] > 0){
+   // if ([customerToken length] > 0){
         ArcClient *client = [[ArcClient alloc] init];
         [client getServer];
-    }
+   // }
 
     
     ArcClient *pingClient = [[ArcClient alloc] init];

@@ -32,6 +32,9 @@
 @implementation InvoiceView
 
 -(void)viewWillDisappear:(BOOL)animated{
+    
+    self.navigationController.sideMenu.allowSwipeOpenRight = NO;
+
     if ([self isFirstResponder]) {
         [self resignFirstResponder];
     }
@@ -48,6 +51,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+
+    self.navigationController.sideMenu.allowSwipeOpenRight = YES;
 
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"hasShownInvoiceHint"] length] == 0) {
         [self showInvoiceHint];

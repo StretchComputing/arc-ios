@@ -11,6 +11,8 @@
 #import "rSkybox.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NumberLineButton.h"
+#import "LucidaLabel.h"
+#import "ArcAppDelegate.h"
 
 @interface RightViewController ()
 
@@ -18,9 +20,29 @@
 
 @implementation RightViewController
 
+
+int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
+
+-(void)didBeginClose:(NSNotification *)notification{
+    
+    [self.payDollarTextView resignFirstResponder];
+    self.expandedElement = @"";
+    [self.mainTableView reloadData];
+}
+
+   
+
 -(void)viewDidLoad{
     
-    [self setUpScrollView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBeginClose:) name:@"RightMenuClose" object:nil];
+    
+    self.payDollarTextView = [[UITextView alloc] init];
+    self.payPercentLabel = [[LucidaBoldLabel alloc] init];
+    self.myScrollView = [[UIScrollView alloc] init];
+    self.splitYourPaymentLabel = [[LucidaBoldLabel alloc] init];
+    self.expandedElement = @"";
+    
+   // [self setUpScrollView];
     
     self.saveSplitButton.textColor = [UIColor whiteColor];
     self.saveSplitButton.text = @"Save";
@@ -43,13 +65,14 @@
     self.payRemainingButton.text = @"Pay Remaining";
     self.payRemainingButton.textColor = [UIColor whiteColor];
     self.payRemainingButton.textShadowColor = [UIColor darkGrayColor];
-    self.payRemainingButton.tintColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+    self.payRemainingButton.tintColor = dutchGreenColor;
     
     self.alreadyPaidTable.delegate = self;
     self.alreadyPaidTable.dataSource = self;
     
     self.alreadyPaidTable.separatorColor = [UIColor blackColor];
     
+    [self.mainTableView reloadData];
     
 }
 
@@ -57,6 +80,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     @try {
         
+        if (tableView == self.mainTableView) {
+            if ([self.expandedElement isEqualToString:@""]) {
+                return MAIN_MENU_ITEMS;
+            }else if ([self.expandedElement isEqualToString:@"alreadyPaid"]){
+                return (MAIN_MENU_ITEMS + [self.paymentsArray count]);
+            }else if ([self.expandedElement isEqualToString:@"splitDollar"] || [self.expandedElement isEqualToString:@"splitPercent"]){
+                return MAIN_MENU_ITEMS + 1;
+            }
+        }
         
         return [self.paymentsArray count];
     }
@@ -66,49 +98,315 @@
     
 }
 
+-(void)payPercent{
+    
+    NSString *amount = [self.splitYourPaymentLabel.text stringByReplacingOccurrencesOfString:@"You Pay: $" withString:@""];
+    double newDue = [amount doubleValue];
+
+    if (newDue > 0) {
+        
+        double amountRemaining = self.myInvoice.amountDue - [self.myInvoice calculateAmountPaid];
+        
+        if (newDue > amountRemaining) {
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"You cannot pay more than is remaining." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+        }else{
+            self.invoiceController.splitMyDue = newDue;
+            [self.invoiceController splitSaveAction];
+            [self.sideMenu toggleRightSideMenu];
+        }
+      
+        
+        
+    }
+    
+}
+-(void)payDollar{
+    
+    [self.payDollarTextView resignFirstResponder];
+    double myDouble = [self.payDollarTextView.text doubleValue];
+    if (myDouble > 0) {
+        self.invoiceController.splitMyDue = myDouble;
+        [self.invoiceController splitSaveAction];
+        [self.sideMenu toggleRightSideMenu];
+
+
+    }
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     @try {
         
-        static NSString *alreadyPaidCell=@"alreadyPaidCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:alreadyPaidCell];
-        
-        
-        LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
-        LucidaBoldLabel *amountLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:2];
-        CorbelTextView *notesText = (CorbelTextView *)[cell.contentView viewWithTag:3];
-        
+        if (tableView == self.mainTableView){
+            
+            BOOL isHeader = NO;
+            
+            static NSString *headerCell=@"headerCell";
+            static NSString *menuCell=@"menuCell";
+            static NSString *dollarSplitCell=@"dollarSplitCell";
+            static NSString *paidCell=@"paidCell";
 
-        NSUInteger row = [indexPath row];
-        
-        NSDictionary *payment = [self.paymentsArray objectAtIndex:row];
-        
-        nameLabel.text = [payment valueForKey:@"Name"];
-        
-        double amountDouble = [[payment valueForKey:@"Amount"] doubleValue];
-        
-        amountLabel.text = [NSString stringWithFormat:@"$%.2f", amountDouble];
-        
-        if ([payment valueForKey:@"Notes"] && [[payment valueForKey:@"Notes"] length] > 0) {
-            notesText.hidden = NO;
-            notesText.text = [payment valueForKey:@"Notes"];
+            static NSString *percentSplitCell = @"percentSplitCell";
+
+            UITableViewCell *cell;
             
-            CGSize constraints = CGSizeMake(250, 900);
-            CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+            if ([self.expandedElement isEqualToString:@"splitDollar"]) {
+                
+                if (indexPath.row == 0 || indexPath.row == 4) {
+                    isHeader = YES;
+                    cell = [tableView dequeueReusableCellWithIdentifier:headerCell];
+                }else if (indexPath.row == 2){
+                    cell = [tableView dequeueReusableCellWithIdentifier:dollarSplitCell];
+                }else{
+                    cell = [tableView dequeueReusableCellWithIdentifier:menuCell];
+
+                }
+                
+                
+            }else if ([self.expandedElement isEqualToString:@"splitPercent"]){
+                
+                
+                if (indexPath.row == 0 || indexPath.row == 4) {
+                    isHeader = YES;
+                    cell = [tableView dequeueReusableCellWithIdentifier:headerCell];
+                }else if (indexPath.row == 3){
+                    cell = [tableView dequeueReusableCellWithIdentifier:percentSplitCell];
+                }else{
+                    cell = [tableView dequeueReusableCellWithIdentifier:menuCell];
+                    
+                }
+                
+                
+            }else if ([self.expandedElement isEqualToString:@"alreadyPaid"]){
+                
+                if (indexPath.row == 0 || indexPath.row == 3) {
+                    isHeader = YES;
+                    cell = [tableView dequeueReusableCellWithIdentifier:headerCell];
+                }else if (indexPath.row >= 5){
+                    cell = [tableView dequeueReusableCellWithIdentifier:paidCell];
+                }else{
+                    cell = [tableView dequeueReusableCellWithIdentifier:menuCell];
+                    
+                }
+                
+                
+            }else{
+                if (indexPath.row == 0 || indexPath.row == 3) {
+                    isHeader = YES;
+                    cell = [tableView dequeueReusableCellWithIdentifier:headerCell];
+                }else{
+                    cell = [tableView dequeueReusableCellWithIdentifier:menuCell];
+                }
+            }
             
-            CGRect frame = notesText.frame;
-            frame.size.height = totalSize.height + 15;
-            notesText.frame = frame;
+            
+            
+            NSString *nameLabelString = @"";
+           
+            if (isHeader) {
+                
+                LucidaLabel *nameLabel = (LucidaLabel *)[cell.contentView viewWithTag:1];
+
+                if (indexPath.row == 0){
+                    nameLabel.text = @"SPLIT";
+                }else{
+                    nameLabel.text = @"INVOICE";
+                }
+                
+                
+            }else{
+                LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
+
+                
+                if ([self.expandedElement isEqualToString:@"splitDollar"]) {
+                    
+                    if (indexPath.row == 1) {
+                       nameLabelString =  nameLabel.text = @"Split by $";
+                    }else if (indexPath.row == 3){
+                        nameLabelString = nameLabel.text = @"Split by %";
+                    }else if (indexPath.row == 5){
+                        nameLabelString = nameLabel.text = @"See Who Paid";
+                    }else if (indexPath.row == 2){
+                        
+                        UITextView *myTextView = (UITextView *) [cell.contentView viewWithTag:2];
+                        self.payDollarTextView = myTextView;
+                        [myTextView resignFirstResponder];
+                        [myTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.0];
+                        
+                        NVUIGradientButton *payDollarButton = (NVUIGradientButton *) [cell.contentView viewWithTag:3];
+                        payDollarButton.tintColor = dutchGreenColor;
+                        payDollarButton.text = @"Pay This Amount";
+                        [payDollarButton addTarget:self action:@selector(payDollar) forControlEvents:UIControlEventTouchUpInside];
+                    }
+                    
+                    
+                }else if ([self.expandedElement isEqualToString:@"splitPercent"]){
+                    
+                    
+                    if (indexPath.row == 1) {
+                        nameLabelString = nameLabel.text = @"Split by $";
+                    }else if (indexPath.row == 2){
+                        nameLabelString = nameLabel.text = @"Split by %";
+                    }else if (indexPath.row == 5){
+                        nameLabelString = nameLabel.text = @"See Who Paid";
+                    }else if (indexPath.row == 3){
+                        
+                        
+                        UIScrollView *theScroll = (UIScrollView *) [cell.contentView viewWithTag:2];
+                        self.numberSliderScrollView = theScroll;
+                        
+                        [self setUpScrollView];
+
+                        LucidaBoldLabel *myLabel = (LucidaBoldLabel *) [cell.contentView viewWithTag:3];
+                        self.splitYourPaymentLabel = myLabel;
+                        
+                        NVUIGradientButton *payPercentButton = (NVUIGradientButton *) [cell.contentView viewWithTag:4];
+                        payPercentButton.tintColor = dutchGreenColor;
+                        payPercentButton.text = @"Pay This Amount";
+                        [payPercentButton addTarget:self action:@selector(payPercent) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                }else if ([self.expandedElement isEqualToString:@"alreadyPaid"]){
+                    
+                    if (indexPath.row == 1) {
+                        nameLabelString = nameLabel.text = @"Split by $";
+                    }else if (indexPath.row == 2){
+                        nameLabelString = nameLabel.text = @"Split by %";
+                    }else if (indexPath.row == 4){
+                        nameLabelString = nameLabel.text = @"See Who Paid";
+                    }else{
+                        //Rows for the who paid.
+                        
+                        LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
+                        LucidaBoldLabel *amountLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:2];
+                        LucidaLabel *notesLabel = (LucidaLabel *)[cell.contentView viewWithTag:3];
+                        
+                        
+                        NSDictionary *payment = [self.paymentsArray objectAtIndex:indexPath.row - 5];
+                        
+                        nameLabel.text = [payment valueForKey:@"Name"];
+                        
+                        double amountDouble = [[payment valueForKey:@"Amount"] doubleValue];
+                        
+                        amountLabel.text = [NSString stringWithFormat:@"$%.2f", amountDouble];
+                        
+                        if ([payment valueForKey:@"Notes"] && [[payment valueForKey:@"Notes"] length] > 0) {
+                            notesLabel.hidden = NO;
+                            notesLabel.text = [payment valueForKey:@"Notes"];
+                            /*
+                            CGSize constraints = CGSizeMake(250, 900);
+                            CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                            
+                            CGRect frame = notesText.frame;
+                            frame.size.height = totalSize.height + 15;
+                            notesText.frame = frame;
+                            */
+                            
+                        }else{
+                            notesLabel.hidden = YES;
+                        }
+                        
+                        
+                      
+                    }
+                    
+                    
+                }else{
+                    if (indexPath.row == 1) {
+                        nameLabelString = nameLabel.text = @"Split by $";
+                    }else if (indexPath.row == 2){
+                        nameLabelString = nameLabel.text = @"Split by %";
+                    }else if (indexPath.row == 4){
+                        nameLabelString = nameLabel.text = @"See Who Paid";
+                    }
+                }
+                
+                
+               
+            }
+            
+           
+            double color;
+            if (isHeader) {
+                color = 31.0/255.0;
+            }else{
+                
+                if ([self.expandedElement isEqualToString:@"splitDollar"] && [nameLabelString isEqualToString:@"Split by $"]) {
+                    color = 60.0/255.0;
+                }else if ([self.expandedElement isEqualToString:@"splitPercent"] && [nameLabelString isEqualToString:@"Split by %"]) {
+                    color = 60.0/255.0;
+                } else if ([self.expandedElement isEqualToString:@"alreadyPaid"] && [nameLabelString isEqualToString:@"See Who Paid"]) {
+                    color = 60.0/255.0;
+                }else if ([self.expandedElement isEqualToString:@"splitDollar"] && indexPath.row == 2) {
+                    color = 45.0/255.0;
+                }else if ([self.expandedElement isEqualToString:@"splitPercent"] && indexPath.row == 3) {
+                    color = 45.0/255.0;
+                }else if ([self.expandedElement isEqualToString:@"alreadyPaid"] && indexPath.row >= 5) {
+                    color = 45.0/255.0;
+                }else{
+                    color = 26.0/255.0;
+
+                }
+            }
+            
+            [cell.contentView setBackgroundColor:[UIColor colorWithRed:color green:color blue:color alpha:1.0]];
+
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
             
             
         }else{
-            notesText.hidden = YES;
+            static NSString *alreadyPaidCell=@"alreadyPaidCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:alreadyPaidCell];
+            
+            
+            LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
+            LucidaBoldLabel *amountLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:2];
+            CorbelTextView *notesText = (CorbelTextView *)[cell.contentView viewWithTag:3];
+            
+            
+            NSUInteger row = [indexPath row];
+            
+            NSDictionary *payment = [self.paymentsArray objectAtIndex:row];
+            
+            nameLabel.text = [payment valueForKey:@"Name"];
+            
+            double amountDouble = [[payment valueForKey:@"Amount"] doubleValue];
+            
+            amountLabel.text = [NSString stringWithFormat:@"$%.2f", amountDouble];
+            
+            if ([payment valueForKey:@"Notes"] && [[payment valueForKey:@"Notes"] length] > 0) {
+                notesText.hidden = NO;
+                notesText.text = [payment valueForKey:@"Notes"];
+                
+                CGSize constraints = CGSizeMake(250, 900);
+                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                
+                CGRect frame = notesText.frame;
+                frame.size.height = totalSize.height + 15;
+                notesText.frame = frame;
+                
+                
+            }else{
+                notesText.hidden = YES;
+            }
+            
+           
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            return cell;
         }
-        
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return cell;
+  
 
         
         
@@ -123,6 +421,44 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     @try {
+        
+        if (tableView == self.mainTableView){
+            if ([self.expandedElement isEqualToString:@"splitDollar"]) {
+                
+                if (indexPath.row == 0 || indexPath.row == 4) {
+                    return 30;
+                }else if (indexPath.row == 2){
+                    return 176;
+                }
+                
+                
+            }else if ([self.expandedElement isEqualToString:@"splitPercent"]){
+                
+                
+                if (indexPath.row == 0 || indexPath.row == 4) {
+                    return 30;
+                }else if (indexPath.row == 3){
+                    return 190;
+                }
+                
+                
+            }else if ([self.expandedElement isEqualToString:@"alreadyPaid"]){
+                
+                if (indexPath.row == 0 || indexPath.row == 3) {
+                    return 30;
+                }else if (indexPath.row >= 5){
+                    return 63;
+                }
+                
+                
+            }else{
+                if (indexPath.row == 0 || indexPath.row == 3) {
+                    return 30;
+                }
+            }
+            
+            return 44;
+        }
         
         NSDictionary *payment = [self.paymentsArray objectAtIndex:indexPath.row];
         
@@ -158,15 +494,17 @@
     self.splitView.hidden = YES;
     [self.invoiceController showFullTotal];
     [self.invoiceController deselectAllItems];
-    [self.sideMenu toggleRightSideMenu];
+    [self.invoiceController payNow:nil];
+
     
     [self performSelector:@selector(payNow) withObject:nil afterDelay:0.4];
 }
 
 
 -(void)payNow{
-    
-    [self.invoiceController payNow:nil];
+
+    [self.sideMenu toggleRightSideMenu];
+
 }
 
 
@@ -178,7 +516,8 @@
     
     self.splitView.hidden = YES;
     
-    double newDue = [self.splitYourPaymentLabel.text doubleValue];
+    NSString *amount = [self.splitYourPaymentLabel.text stringByReplacingOccurrencesOfString:@"You Pay: $" withString:@""];
+    double newDue = [amount doubleValue];
     
     self.invoiceController.totalLabel.text = [NSString stringWithFormat:@"$%.2f", newDue];
     self.invoiceController.totalLabel.text = [@"My Total:  " stringByAppendingString:self.invoiceController.totalLabel.text];
@@ -198,6 +537,10 @@
     
     
     @try {
+        
+        for (UIView *view in [self.numberSliderScrollView subviews]) {
+            [view removeFromSuperview];
+        }
         for (int i = 0; i < 22; i++) {
             
             BOOL addButton = NO;
@@ -215,7 +558,7 @@
             
             int size;
             if (i == 2) {
-                size = 35;
+                size = 38;
             }else{
                 size = 16;
             }
@@ -224,6 +567,7 @@
             numberLabel.textAlignment = UITextAlignmentCenter;
             numberLabel.text = numberText;
             numberLabel.clipsToBounds = YES;
+            numberLabel.textColor = [UIColor whiteColor];
             numberLabel.userInteractionEnabled = YES;
             
             if (addButton) {
@@ -234,7 +578,7 @@
                 [numberLabel addSubview:numberButton];
                 
                 UIView *rightCircle = [[UIView alloc] initWithFrame:CGRectMake(0, 18, 5, 3)];
-                rightCircle.backgroundColor = [UIColor blackColor];
+                rightCircle.backgroundColor = [UIColor whiteColor];
                 rightCircle.layer.cornerRadius = 6.0;
                 [numberLabel addSubview:rightCircle];
                 
@@ -250,7 +594,8 @@
             
         }
         
-        self.numberSliderScrollView.contentSize = CGSizeMake(1080, 45);
+        self.numberSliderScrollView.contentSize = CGSizeMake(1080, 0);
+        [self.numberSliderScrollView setContentOffset:CGPointMake(0, 0)];
         self.numberSliderScrollView.backgroundColor = [UIColor clearColor];
         self.numberSliderScrollView.delegate = self;
         self.numberSliderScrollView.showsHorizontalScrollIndicator = NO;
@@ -285,11 +630,11 @@
         }
         
         
-        double amountRemaining = self.myInvoice.amountDue - [self.myInvoice calculateAmountPaid];
+        double amountRemaining = self.myInvoice.amountDue;
         
         double myDue = amountRemaining * yourPercent / 100.0;
     
-        self.splitYourPaymentLabel.text = [NSString stringWithFormat:@"%.2f", myDue];
+        self.splitYourPaymentLabel.text = [NSString stringWithFormat:@"You Pay: $%.2f", myDue];
         
         
         
@@ -408,8 +753,63 @@
 }
 
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    if (tableView == self.mainTableView) {
+        
+        self.mainTableView.scrollEnabled = NO;
+        if (indexPath.row == 1) {
+            if ([self.expandedElement isEqualToString:@"splitDollar"]) {
+                self.expandedElement = @"";
+            }else{
+                self.expandedElement = @"splitDollar";
+
+            }
+
+        }else{
+            
+            int percentIndex = 2;
+            int paidIndex = 4;
+            
+            if ([self.expandedElement isEqualToString:@"splitDollar"]) {
+                percentIndex = 3;
+                paidIndex = 5;
+
+            }
+            
+            if ([self.expandedElement isEqualToString:@"splitPercent"]) {
+                paidIndex = 5;
+
+            }
+            
+            if (indexPath.row == percentIndex){
+                if ([self.expandedElement isEqualToString:@"splitPercent"]) {
+                    self.expandedElement = @"";
+                }else{
+                    self.expandedElement = @"splitPercent";
+                    
+                }
+            }else if (indexPath.row == paidIndex){
+                if ([self.expandedElement isEqualToString:@"alreadyPaid"]) {
+                    self.expandedElement = @"";
+                }else{
+                    self.mainTableView.scrollEnabled = YES;
+
+                    self.expandedElement = @"alreadyPaid";
+                    
+                }
+            }
+            
+            
+        }
+        
+        [self.mainTableView reloadData];
+    }
+}
 
 
-
-
+- (void)viewDidUnload {
+    [self setMainTableView:nil];
+    [super viewDidUnload];
+}
 @end

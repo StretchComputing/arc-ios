@@ -34,25 +34,18 @@
 
 -(void)startNow{
     
-     self.myTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(goNextStep) userInfo:nil repeats:NO];
+     self.myTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(goNextStep) userInfo:nil repeats:NO];
 }
 
 -(void)goNextStep{
     
     [self.myTimer invalidate];
-    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(goNextStep) userInfo:nil repeats:NO];
+    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(goNextStep) userInfo:nil repeats:NO];
 
     if (self.currentStep == 1) {
         
-        self.stepOneView.hidden = YES;
-        self.stepTwoView.hidden = NO;
-        self.stepThreeView.hidden = YES;
-        
-    }else if (self.currentStep == 2){
-        
-        self.stepOneView.hidden = YES;
-        self.stepTwoView.hidden = YES;
-        self.stepThreeView.hidden = NO;
+        self.viewOne.hidden = YES;
+        self.viewTwo.hidden = NO;
         
     }else{
         [self.myTimer invalidate];
@@ -64,5 +57,10 @@
     self.currentStep++;
 
     
+}
+- (void)viewDidUnload {
+    [self setViewOne:nil];
+    [self setViewTwo:nil];
+    [super viewDidUnload];
 }
 @end
