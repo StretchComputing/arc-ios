@@ -2707,7 +2707,7 @@
     
     self.alphaBackView.hidden = NO;
     
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.0 animations:^{
        
         CGRect frame = self.splitView.frame;
         frame.origin.y += 300;
@@ -2726,7 +2726,7 @@
     
     self.alphaBackView.hidden = NO;
     
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.0 animations:^{
         
         CGRect frame = self.splitViewDollar.frame;
         if (self.isIphone5) {
@@ -2747,7 +2747,7 @@
 
     self.alphaBackView.hidden = NO;
     
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.0 animations:^{
         
         CGRect frame = self.itemSplitView.frame;
         frame.origin.y = 90;
