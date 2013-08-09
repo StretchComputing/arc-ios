@@ -41,7 +41,8 @@
 {
 
     @try {
-        
+        [rSkybox addEventToSession:@"viewCreditCardPayment"];
+
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
         self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         [self.loadingViewController stopSpin];
@@ -277,7 +278,6 @@
 - (IBAction)submit:(id)sender {
     @try {
         
-        [rSkybox addEventToSession:@"submitForCreditCardPayment"];
         
         self.errorLabel.text = @"";
         
@@ -474,7 +474,6 @@
         
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
-            [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];
             
             //success
             self.errorLabel.text = @"";
@@ -487,7 +486,6 @@
             
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
-            [rSkybox addEventToSession:@"creditCardPaymentCompleteFail"];
             
             
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];

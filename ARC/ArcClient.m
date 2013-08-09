@@ -19,9 +19,9 @@
 
 //NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
 
-NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+//NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://24.14.40.71:8700/arc-dev/rest/v1/";
-//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -85,8 +85,11 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-          // _arcUrl = [prefs valueForKey:@"arcUrl"];
+           _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
+        NSString *event = [NSString stringWithFormat:@"ArcClient URL: %@", _arcUrl];
+        [rSkybox addEventToSession:event];
+        
         NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
@@ -101,12 +104,16 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
     
         
-        [rSkybox addEventToSession:@"getServer"];
         api = GetServer;
         
         //NSString *createUrl = [NSString stringWithFormat:@"%@servers/%@", _arcUrl, [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"], nil];
         
         NSString *createUrl = [NSString stringWithFormat:@"%@servers/assign/current", _arcServersUrl];
+        
+        NSString *event = [NSString stringWithFormat:@"getServer - request url - %@", createUrl];
+        [rSkybox addEventToSession:event];
+
+        
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:createUrl]];
         
@@ -130,10 +137,15 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)createCustomer:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"createCustomer"];
+       
         api = CreateCustomer;
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"createCustomer - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createUrl = [NSString stringWithFormat:@"%@customers/create", _arcUrl];
@@ -157,12 +169,15 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)updateGuestCustomer:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"updateGuestCustomer"];
         api = UpdateGuestCustomer;
         
-        //NSString *guestId = [[NSUserDefaults standardUserDefaults] valueForKey:@"guestId"];
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"updateGuestCustomer - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createUrl = [NSString stringWithFormat:@"%@customers/update/current", _arcUrl];
@@ -186,7 +201,6 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)getCustomerToken:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"getCustomerToken"];
         api = GetCustomerToken;
         
         
@@ -203,6 +217,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"getCustomerToken - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
        // NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
@@ -226,7 +244,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)getGuestToken:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"getGuestToken"];
+
         api = GetGuestToken;
         
         
@@ -245,6 +263,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"getGuestToken - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         // NSString *getCustomerTokenUrl = [NSString stringWithFormat:@"%@customers?login=%@&password=%@", _arcUrl, login, password,nil];
@@ -270,13 +292,17 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)getMerchantList:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"getMerchantList"];
         api = GetMerchantList;
         
         pairs = [NSDictionary dictionary];
         NSMutableDictionary *loginDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"getMerchantList - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         //NSLog(@"getMerchantList requestString = %@", requestString);
         
@@ -306,7 +332,6 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)getInvoice:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"getInvoice"];
         api = GetInvoice;
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
@@ -337,6 +362,11 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [dictionary JSONRepresentation], nil];
         
+        
+        NSString *eventString = [NSString stringWithFormat:@"getInvoice - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         
@@ -351,7 +381,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setHTTPBody: requestData];
 
         
-     //   NSLog(@"Request String: %@", requestString);
+         NSLog(@"Request String: %@", requestString);
         
         
      //   NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
@@ -372,10 +402,15 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
   //  NSLog(@"Calling Create Payment at: %@", [NSDate date]);
 
     @try {
-        [rSkybox addEventToSession:@"createPayment"];
+
         api = CreatePayment;
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"createPayment - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
@@ -402,10 +437,16 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)createReview:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"createReview"];
+
         api = CreateReview;
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"createReview - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@reviews/new", _arcUrl, nil];
@@ -464,13 +505,19 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(void)sendTrackEvent:(NSMutableArray *)eventArray{
     
     @try {
-        [rSkybox addEventToSession:@"SendTrackEvents"];
         api = TrackEvent;
         
         NSDictionary *myDictionary = @{@"Analytics" : [NSArray arrayWithArray:eventArray]};
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [myDictionary JSONRepresentation], nil];
         NSLog(@"requestString: %@", requestString);
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"sendTrackEvents - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *trackEventUrl = [NSString stringWithFormat:@"%@analytics/new", _arcUrl, nil];
@@ -504,10 +551,14 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)getPasscode:(NSDictionary *)pairs{
     @try {
-        [rSkybox addEventToSession:@"getPasscode"];
         api = GetPasscode;
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"getPasscode - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/passcode", _arcUrl, nil];
@@ -531,10 +582,14 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(void)resetPassword:(NSDictionary *)pairs{
     
     @try {
-        [rSkybox addEventToSession:@"resetPassword"];
         api = ResetPassword;
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"resetPassword - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/passwordreset", _arcUrl, nil];
@@ -560,12 +615,16 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)setServer:(NSString *)serverNumber{
     @try {
-        [rSkybox addEventToSession:@"setAdminServer"];
         api = SetAdminServer;
         
         NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
         
-        NSString *createUrl = [NSString stringWithFormat:@"http://arc-servers.dagher.net.co/rest/v1/servers/%@/setserver/%@", customerId, serverNumber];
+        NSString *createUrl = [NSString stringWithFormat:@"%@servers/%@/setserver/%@", _arcServersUrl, customerId, serverNumber];
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"resetPassword - request url: %@", createUrl];
+        [rSkybox addEventToSession:eventString];
+        
         
         NSLog(@"CreateUrl: %@", createUrl);
         
@@ -586,7 +645,6 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(void)updatePushToken{
     
     @try {
-        [rSkybox addEventToSession:@"updatePushToken"];
         api = UpdatePushToken;
 
         NSMutableDictionary *pairs = [NSMutableDictionary dictionary];
@@ -607,6 +665,11 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             [pairs setValue:noMail forKey:@"NoMail"];
             
             NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+            
+            NSString *eventString = [NSString stringWithFormat:@"updatePushToken - request string: %@", requestString];
+            [rSkybox addEventToSession:eventString];
+            
+            
             NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
             
             ArcClient *tmp = [[ArcClient alloc] init];
@@ -643,7 +706,6 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(void)referFriend:(NSArray *)emailAddresses{
     
     @try {
-        [rSkybox addEventToSession:@"referFriend"];
         api = ReferFriend;
         
         NSMutableArray *emailAddressArray = [NSMutableArray array];
@@ -659,6 +721,11 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [emailAddressArray JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"referFriend - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
     
   
@@ -686,12 +753,15 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
    // NSLog(@"Calling Confirm Payment at: %@", [NSDate date]);
     
     @try {
-        [rSkybox addEventToSession:@"confirmPayment"];
         api = ConfirmPayment;
                 
         NSDictionary *params = @{@"TicketId" : self.ticketId};
                 
         NSString *requestString = [NSString stringWithFormat:@"%@", [params JSONRepresentation], nil];
+        
+        NSString *eventString = [NSString stringWithFormat:@"confirmPayment - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
                 
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@payments/confirm", _arcUrl, nil];
@@ -716,12 +786,16 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(void)confirmRegister{
     
     @try {
-        [rSkybox addEventToSession:@"confirmRegister"];
         api = ConfirmRegister;
         
         NSDictionary *params = @{@"TicketId" : self.registerTicketId};
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [params JSONRepresentation], nil];
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"confirmRegister - request string: %@", requestString];
+        [rSkybox addEventToSession:eventString];
+        
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         
         NSString *createReviewUrl = [NSString stringWithFormat:@"%@customers/register/confirm", _arcUrl, nil];
@@ -747,11 +821,14 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)sendServerPings{
     @try {
-        [rSkybox addEventToSession:@"sendServerPing"];
         api = PingServer;
         
         
         NSString *pingUrl = @"http://arc.dagher.net.co/rest/v1/tools/ping";
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"sendServerPing - request url: %@", pingUrl];
+        [rSkybox addEventToSession:eventString];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
         
@@ -772,11 +849,16 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 -(void)getListOfServers{
     @try {
-        [rSkybox addEventToSession:@"getListOfServers"];
+
         api = GetListOfServers;
         
         
-        NSString *pingUrl = @"http://arc-servers.dagher.net.co/rest/v1/servers/list";
+        NSString *pingUrl = [NSString stringWithFormat:@"%@servers/list", _arcServersUrl];
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"getListOfServers - request url: %@", pingUrl];
+        [rSkybox addEventToSession:eventString];
+        
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
         
@@ -814,6 +896,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     
     NSLog(@"Server Call: %d", api);
     NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
+    
+    
+    NSString *eventString = [NSString stringWithFormat:@"didRecieveResponse - server call: %@, http status: %d", [self apiToString], self.httpStatusCode];
+    [rSkybox addEventToSession:eventString];
+    
+    
 }
 
 
@@ -827,6 +915,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
         NSLog(@"ReturnString: %@", returnString);
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];
+        [rSkybox addEventToSession:eventString];
+        
+        
         
         SBJsonParser *jsonParser = [SBJsonParser new];
         NSDictionary *response = (NSDictionary *) [jsonParser objectWithString:returnString error:NULL];
@@ -1005,6 +1099,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         //NSLog(@"Code: %i", error.code);
         //NSLog(@"Description: %@", error.localizedDescription);
 
+        
+        NSString *eventString = [NSString stringWithFormat:@"connectionDidFailWithError - server call: %@, response error: %@", [self apiToString], [self readableErrorCode:error]];
+        [rSkybox addEventToSession:eventString];
         
         NSString *urlString = [[[connection currentRequest] URL] absoluteString];
         
@@ -1207,10 +1304,18 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 }
 
 - (int)getErrorCode:(NSDictionary *)response {
-    int errorCode = 0;
-    NSDictionary *error = [[response valueForKey:@"ErrorCodes"] objectAtIndex:0];
-    errorCode = [[error valueForKey:@"Code"] intValue];
-    return errorCode;
+    @try {
+        int errorCode = 0;
+        NSDictionary *error = [[response valueForKey:@"ErrorCodes"] objectAtIndex:0];
+        errorCode = [[error valueForKey:@"Code"] intValue];
+        return errorCode;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getErrorCode" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+
+        return 0;
+    }
+   
 }
 
 -(NSString *)readableErrorCode:(NSError *)error {

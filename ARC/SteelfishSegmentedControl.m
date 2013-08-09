@@ -7,6 +7,7 @@
 //
 
 #import "SteelfishSegmentedControl.h"
+#import "SteelfishLabel.h"
 
 @implementation SteelfishSegmentedControl
 
@@ -15,7 +16,7 @@
     
     if ((self = [super initWithCoder: decoder])) {
         
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"Steelfish" size:13]
+        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:FONT_REGULAR size:13]
                                                                forKey:UITextAttributeFont];
         [self setTitleTextAttributes:attributes forState:UIControlStateNormal];
         

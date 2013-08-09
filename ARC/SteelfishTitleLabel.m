@@ -7,6 +7,7 @@
 //
 
 #import "SteelfishTitleLabel.h"
+#import "SteelfishLabel.h"
 
 @implementation SteelfishTitleLabel
 
@@ -14,7 +15,7 @@
 -(id)initWithText:(NSString *)labelTitle{
     
     self.theTitle = labelTitle;
-    UIFont* titleFont = [UIFont fontWithName:@"SteelfishEb-Regular" size:28];
+    UIFont* titleFont = [UIFont fontWithName:FONT_BOLD size:28];
     CGSize requestedTitleSize = [labelTitle sizeWithFont:titleFont];
     CGFloat titleWidth = requestedTitleSize.width;
     
@@ -29,7 +30,7 @@
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
         self.textColor = [UIColor whiteColor];
-        self.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:28];
+        self.font = [UIFont fontWithName:FONT_BOLD size:28];
         self.textAlignment = UITextAlignmentCenter;
         self.text = self.theTitle;
     }

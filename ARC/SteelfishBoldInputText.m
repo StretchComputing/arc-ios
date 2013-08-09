@@ -7,6 +7,7 @@
 //
 
 #import "SteelfishBoldInputText.h"
+#import "SteelfishLabel.h"
 
 @implementation SteelfishBoldInputText
 
@@ -15,7 +16,7 @@
     
     if ((self = [super initWithCoder: decoder])) {
         
-        [self setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size: self.font.pointSize]];
+        [self setFont: [UIFont fontWithName:FONT_BOLD size: self.font.pointSize]];
         
         
     }

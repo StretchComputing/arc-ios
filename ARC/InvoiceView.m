@@ -135,6 +135,8 @@
 {
     @try {
         
+        [rSkybox addEventToSession:@"viewInvoiceView"];
+        
         self.splitDollarPercentBackView.hidden = YES;
         self.splitDollarPercentBackView.layer.borderColor = [[UIColor blackColor] CGColor];
         self.splitDollarPercentBackView.layer.borderWidth = 2.0;
@@ -1719,7 +1721,9 @@
 - (IBAction)payNow:(id)sender {
     @try {
         
-        [rSkybox addEventToSession:@"clickedPayButton"];
+        NSString *event = [NSString stringWithFormat:@"clickedPayButton - invoiceId: %d", self.myInvoice.invoiceId];
+        [rSkybox addEventToSession:event];
+
         
       
         if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {

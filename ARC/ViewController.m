@@ -120,6 +120,7 @@
 {
     @try {
         
+        [rSkybox addEventToSession:@"viewViewController"];
         
         self.signInButton.text = @"Sign In";
         self.signInButton.textColor = [UIColor whiteColor];
@@ -350,7 +351,6 @@
         self.loginButton.enabled = YES;
         
         
-        [rSkybox addEventToSession:@"signInComplete"];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         

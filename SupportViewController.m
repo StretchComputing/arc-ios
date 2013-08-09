@@ -21,6 +21,7 @@
 
 -(void)viewDidLoad{
     
+    [rSkybox addEventToSession:@"viewSupportViewController"];
     self.callButton.text = @"Call Us";
     self.emailButton.text = @"Send Us An Email";
    

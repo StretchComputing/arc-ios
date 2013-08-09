@@ -601,7 +601,6 @@
 - (IBAction)submitReview:(id)sender {
     @try {
         
-        [rSkybox addEventToSession:@"submitReview"];
         
         [self createReview];
     }
@@ -714,7 +713,6 @@
         
         self.submitButton.enabled = YES;
         self.skipButton.enabled = YES;
-        [rSkybox addEventToSession:@"reviewComplete"];
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
         NSString *status = [responseInfo valueForKey:@"status"];

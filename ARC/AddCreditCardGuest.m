@@ -87,7 +87,14 @@
         //SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Add Card"];
 		//self.navigationItem.backBarButtonItem = temp;
         
-        [rSkybox addEventToSession:@"viewAddCreditCardScreen"];
+        if (self.isGuest) {
+            [rSkybox addEventToSession:@"viewPaymentScreen - GUEST"];
+
+        }else{
+            NSString *event = [NSString stringWithFormat:@"viewPaymentScreen - Token: %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"]];
+            [rSkybox addEventToSession:event];
+
+        }
         
         self.creditCardNumberText.text = @"";
         self.creditCardPinText.text = @"";
@@ -786,7 +793,6 @@
         
         NSString *errorMsg= @"";
         if ([status isEqualToString:@"success"]) {
-            [rSkybox addEventToSession:@"creditCardPaymentCompleteSuccess"];
             
             //success
             // self.errorLabel.text = @"";
@@ -802,7 +808,6 @@
         
             
         } else if([status isEqualToString:@"error"]){
-            [rSkybox addEventToSession:@"creditCardPaymentCompleteFail"];
             
             
             int errorCode = [[responseInfo valueForKey:@"error"] intValue];

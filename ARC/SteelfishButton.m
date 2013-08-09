@@ -7,6 +7,7 @@
 //
 
 #import "SteelfishButton.h"
+#import "SteelfishLabel.h"
 
 @implementation SteelfishButton
 
@@ -15,7 +16,7 @@
     
     if ((self = [super initWithCoder: decoder])) {
         
-        [self.titleLabel setFont: [UIFont fontWithName: @"Steelfish" size: self.titleLabel.font.pointSize]];
+        [self.titleLabel setFont: [UIFont fontWithName:FONT_REGULAR size: self.titleLabel.font.pointSize]];
         
         [self setTitleEdgeInsets:UIEdgeInsetsMake(1.0, 0.0, 0.0, 0.0)];
         

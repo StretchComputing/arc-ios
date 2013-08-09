@@ -174,9 +174,7 @@ NSString *const CLOSED_STATUS = @"closed";
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
-    //TODO - Uncomment
-    
-    return;
+   
     
     
     @try {
@@ -323,10 +321,7 @@ NSString *const CLOSED_STATUS = @"closed";
 
 
 + (void)sendCrashDetect:(NSString *)summary theStackData:(NSData *)stackData{
-    
-    //TODO - Uncomment
-    
-    return;
+
     
     @try {
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
@@ -512,7 +507,6 @@ NSString *const CLOSED_STATUS = @"closed";
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
         
         NSDate *myDate = [NSDate date];
-        
         
         if ([traceSession count] < NUMBER_EVENTS_STORED) {
             [traceSession addObject:event];

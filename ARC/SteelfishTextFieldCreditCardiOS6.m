@@ -7,6 +7,7 @@
 //
 
 #import "SteelfishTextFieldCreditCardiOS6.h"
+#import "SteelfishLabel.h"
 
 @implementation SteelfishTextFieldCreditCardiOS6
 
@@ -16,7 +17,7 @@
     
     if ((self = [super initWithCoder: decoder])) {
         
-        [self setFont: [UIFont fontWithName: @"Steelfish" size: self.font.pointSize]];
+        [self setFont: [UIFont fontWithName:FONT_REGULAR size: self.font.pointSize]];
         
         
     }

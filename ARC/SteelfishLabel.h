@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define FONT_REGULAR @"Steelfish"
+#define FONT_BOLD @"SteelfishEb-Regular"
+
+
 @interface SteelfishLabel : UILabel
 
 @end

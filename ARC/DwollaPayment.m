@@ -467,7 +467,6 @@
 - (IBAction)submit:(id)sender {
     @try {
         
-        [rSkybox addEventToSession:@"submitForDwollaPayment"];
         
         self.errorLabel.text = @"";
         
@@ -685,7 +684,6 @@
         bool displayAlert = NO;
         self.payButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
-        [rSkybox addEventToSession:@"DwollaPaymentComplete"];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         

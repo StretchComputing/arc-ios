@@ -628,9 +628,10 @@ ofType:(NSString *)typeName
         [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"checkedNoUsers"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        NSLog(@"Inserting Customer***********");
+       // NSLog(@"Inserting Customer***********");
         
-        [rSkybox addEventToSession:@"insertCustomerWithId"];
+        NSString *event = [NSString stringWithFormat:@"insertCustomerWithId - cusomterId: %@, customerToken:%@", customerId, customerToken];
+        [rSkybox addEventToSession:event];
 
         //Only inserts if one doesn't already exist
         Customer *customer = [self getCurrentCustomer];
@@ -747,13 +748,15 @@ ofType:(NSString *)typeName
 -(Customer *)getCurrentCustomer{
     
     @try {
-        [rSkybox addEventToSession:@"getCurentCustomer"];
 
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
         NSString *customerId = [prefs valueForKey:@"customerId"];
         //NSString *customerToken = [prefs valueForKey:@"customerToken"];
+        
+        NSString *event = [NSString stringWithFormat:@"getCurentCustomer - cusomterId: %@", customerId];
+        [rSkybox addEventToSession:event];
         
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Customer"];

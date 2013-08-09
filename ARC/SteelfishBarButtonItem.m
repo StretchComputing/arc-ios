@@ -7,6 +7,7 @@
 //
 
 #import "SteelfishBarButtonItem.h"
+#import "SteelfishLabel.h"
 
 @implementation SteelfishBarButtonItem
 
@@ -15,7 +16,7 @@
     
     if (self = [self initWithTitle:title style:UIBarButtonItemStyleDone target:nil action:nil]) {
         
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"Steelfish" size:15]
+        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:FONT_REGULAR size:15]
                                                                forKey:UITextAttributeFont];
         [self setTitleTextAttributes:attributes forState:UIControlStateNormal];
         
@@ -30,7 +31,7 @@
     
     if ((self = [super initWithCoder: decoder])) {
         
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"Steelfish" size:15]
+        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:FONT_REGULAR size:15]
                                                                forKey:UITextAttributeFont];
         [self setTitleTextAttributes:attributes forState:UIControlStateNormal];
         

@@ -249,7 +249,6 @@
 -(void)pointBalanceComplete:(NSNotification *)notification{
     @try {
         
-        [rSkybox addEventToSession:@"pointBalanceComplete"];
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
         NSString *status = [responseInfo valueForKey:@"status"];

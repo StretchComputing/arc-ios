@@ -1046,7 +1046,6 @@
     
     @try {
         
-        [rSkybox addEventToSession:@"initiateRegister"];
         
         
         if ([[self creditCardStatus] isEqualToString:@"invalid"]){

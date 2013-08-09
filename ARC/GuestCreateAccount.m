@@ -32,6 +32,10 @@
 }
 -(void)viewDidLoad{
     
+    
+    [rSkybox addEventToSession:@"viewGuestCreateAccount"];
+
+    
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
     self.topLineView.layer.shadowRadius = 1;
     self.topLineView.layer.shadowOpacity = 0.2;
@@ -52,19 +56,19 @@
     self.noThanksButton.text = @"No Thanks";
     
     
-    self.username = [[SteelfishInputText alloc] initWithFrame:CGRectMake(10, 11, 290, 20)];
+    self.username = [[SteelfishInputText alloc] initWithFrame:CGRectMake(10, 6, 290, 40)];
     self.username.autocorrectionType = UITextAutocorrectionTypeNo;
     self.username.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.username.font = [UIFont fontWithName:@"Steelfish" size:18];
+    self.username.font = [UIFont fontWithName:@"Steelfish" size:20];
     self.username.returnKeyType = UIReturnKeyNext;
     self.username.keyboardType = UIKeyboardTypeEmailAddress;
     [self.username addTarget:self action:@selector(selectPassword) forControlEvents:UIControlEventEditingDidEndOnExit];
     
-    self.password = [[SteelfishInputText alloc] initWithFrame:CGRectMake(10, 11, 290, 20)];
+    self.password = [[SteelfishInputText alloc] initWithFrame:CGRectMake(10, 6, 290, 40)];
     self.password.autocorrectionType = UITextAutocorrectionTypeNo;
     self.password.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.password.secureTextEntry = YES;
-    self.password.font = [UIFont fontWithName:@"Steelfish" size:18];
+    self.password.font = [UIFont fontWithName:@"Steelfish" size:20];
     self.password.returnKeyType = UIReturnKeyGo;
     self.password.delegate = self;
     self.password.placeholder = @"Password";
@@ -406,7 +410,7 @@
         CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
         
         NSString *creditDebitString = @"Credit";    
-        
+        tmp.myInvoice = self.myInvoice;
         tmp.creditDebitString = creditDebitString;
         tmp.expiration = self.ccExpiration;
         tmp.securityCode = self.ccSecurityCode;
@@ -465,7 +469,6 @@
         self.noThanksButton.enabled = YES;
         
         
-        [rSkybox addEventToSession:@"signInComplete"];
         
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
