@@ -22,7 +22,7 @@ static NSString *basicAuthToken = @"ekokq167k46gbrmr6hvbht9lab";
 static NSString *applicationId = @"ahRzfnJza3lib3gtc3RyZXRjaGNvbXITCxILQXBwbGljYXRpb24YgPYvDA";
 
 //Maximum number of App Actions to save
-#define NUMBER_EVENTS_STORED 20
+#define NUMBER_EVENTS_STORED 40
 
 
 static NSMutableArray *traceSession;
@@ -507,6 +507,13 @@ NSString *const CLOSED_STATUS = @"closed";
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
         
         NSDate *myDate = [NSDate date];
+        
+        
+        
+        if ([traceSession count] > NUMBER_EVENTS_STORED) {
+            traceSession = [NSMutableArray array];
+            traceTimeStamps = [NSMutableArray array];
+        }
         
         if ([traceSession count] < NUMBER_EVENTS_STORED) {
             [traceSession addObject:event];

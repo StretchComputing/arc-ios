@@ -372,7 +372,7 @@ UIColor *dutchTopNavColor;
                 if ([[[NSUserDefaults standardUserDefaults] valueForKey:keyString] length] == 0) {
                     [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:keyString];
                     [[NSUserDefaults standardUserDefaults] synchronize];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NoPaymentSourcesNotification" object:self userInfo:nil];
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"NoPaymentSourcesNotification" object:self userInfo:nil];
 
                 }
                 
