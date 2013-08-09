@@ -7,8 +7,8 @@
 //
 
 #import "NoPaymentSourcesViewController.h"
-#import "CorbelTitleLabel.h"
-#import "CorbelBarButtonItem.h"
+#import "SteelfishTitleLabel.h"
+#import "SteelfishBarButtonItem.h"
 #import <QuartzCore/QuartzCore.h>
 #import "RegisterDwollaView.h"
 #import "rSkybox.h"

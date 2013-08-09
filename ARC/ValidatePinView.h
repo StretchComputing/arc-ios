@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LucidaBoldLabel.h"
-#import "CorbelTextView.h"
+#import "SteelfishBoldLabel.h"
+#import "SteelfishTextView.h"
 #import "NVUIGradientButton.h"
 
 @interface ValidatePinView : UIViewController <UITextFieldDelegate>
@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumThree;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
-@property (weak, nonatomic) IBOutlet LucidaBoldLabel *instructionsLabel;
+@property (weak, nonatomic) IBOutlet SteelfishBoldLabel *instructionsLabel;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *forgotPinButton;
 
 
@@ -31,7 +31,7 @@
 @property (strong, nonatomic) NSString *initialPin;
 @property (strong, nonatomic) NSString *confirmPin;
 
-@property (weak, nonatomic) IBOutlet CorbelTextView *descriptionText;
+@property (weak, nonatomic) IBOutlet SteelfishTextView *descriptionText;
 
 @property (nonatomic, strong) NSString *creditDebitString;
 @property (nonatomic, strong) NSString *expiration;
@@ -46,7 +46,7 @@
 @property (nonatomic, strong) UIView *navLineView;
 @property (nonatomic, strong) UIButton *navButton;
 
-@property (nonatomic, strong) LucidaBoldLabel *navLabel;
+@property (nonatomic, strong) SteelfishBoldLabel *navLabel;
 
 
 

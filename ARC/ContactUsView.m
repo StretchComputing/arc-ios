@@ -49,10 +49,10 @@
         
         [rSkybox addEventToSession:@"viewContactUsPage"];
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Contact Us"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Contact Us"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Contact Us"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Contact Us"];
 		self.navigationItem.backBarButtonItem = temp;
         
         

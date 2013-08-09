@@ -99,7 +99,7 @@
     self.startUsingButton.textColor = [UIColor whiteColor];
     
     @try {
-        self.pageControl.pageIndicatorTintColor = dutchLightBlueColor;
+        self.pageControl.pageIndicatorTintColor = dutchTopLineColor;
         self.pageControl.currentPageIndicatorTintColor = dutchDarkBlueColor;
     }
     @catch (NSException *exception) {
@@ -237,7 +237,7 @@
                 
                 self.didPushStart = YES;
                 self.loadingViewController.view.hidden = NO;
-                self.loadingViewController.displayText.text = @"Loading Arc...";
+                self.loadingViewController.displayText.text = @"Loading Dutch...";
                 
                 NSString *identifier = [ArcIdentifier getArcIdentifier];
                 

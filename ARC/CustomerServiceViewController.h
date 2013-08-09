@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreAudio/CoreAudioTypes.h>
-#import "CorbelTextView.h"
+#import "SteelfishTextView.h"
 #import "NVUIGradientButton.h"
 
 
@@ -32,7 +32,7 @@
 - (IBAction)sendAction;
 @property (strong, nonatomic) IBOutlet UILabel *recordingLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *recordingActivity;
-@property (strong, nonatomic) IBOutlet CorbelTextView *sendLabel;
+@property (strong, nonatomic) IBOutlet SteelfishTextView *sendLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *displayLabel;
 

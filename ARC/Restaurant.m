@@ -213,6 +213,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     //NSLog(@"RangeLength: %d", range.length);
     //NSLog(@"RangeLoc: %d", range.location);
     
+    
     NSUInteger newLength = [self.hiddenText.text length] + [string length] - range.length;
     
     @try {
@@ -461,21 +462,14 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         }
         
        
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Invoice #"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Invoice #"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Invoice #"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Invoice #"];
 		self.navigationItem.backBarButtonItem = temp;
         
        
-        
-        
-        self.checkNumOne.delegate = self;
-        self.checkNumTwo.delegate = self;
-        self.checkNumThree.delegate = self;
-        self.checkNumFour.delegate = self;
-        self.checkNumFive.delegate = self;
-        self.checkNumSix.delegate = self;
+  
         
        // self.hiddenText = [[UITextField alloc] init];
         self.hiddenText.keyboardType = UIKeyboardTypeNumberPad;
@@ -483,38 +477,22 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         self.hiddenText.textColor = dutchDarkBlueColor;
         self.hiddenText.text = @"";
        // [self.view addSubview:self.hiddenText];
-        
+    
 
         
-        self.checkNumOne.text = @"";
-        self.checkNumTwo.text = @"";
-        self.checkNumThree.text = @"";
-        self.checkNumFour.text = @"";
-        self.checkNumFive.text = @"";
-        self.checkNumSix.text = @"";
-
-        
-        self.checkNumOne.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
-        self.checkNumTwo.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
-        self.checkNumThree.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
-        self.checkNumFour.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
-        self.checkNumFive.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
-        self.checkNumSix.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:23];
-
+        NSLog(@"Name; %@", self.name);
         
         self.nameDisplay.text = [NSString stringWithFormat:@"%@", self.name];
         [super viewDidLoad];
         // Do any additional setup after loading the view.
         
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = self.view.bounds;
-        self.view.backgroundColor = [UIColor clearColor];
-        UIColor *myColor = [UIColor colorWithRed:114.0/255.0 green:168.0/255.0 blue:192.0/255.0 alpha:1.0];
-        gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[myColor CGColor], nil];
-        [self.view.layer insertSublayer:gradient atIndex:0];
+   
         
     }
     @catch (NSException *e) {
+        
+        NSLog(@"Exception: %@", e);
+        
         [rSkybox sendClientLog:@"Restaurant.viewDidLoad" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }

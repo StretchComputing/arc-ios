@@ -16,8 +16,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "CorbelTitleLabel.h"
-#import "CorbelBarButtonItem.h"
+#import "SteelfishTitleLabel.h"
+#import "SteelfishBarButtonItem.h"
 
 extern NSString *const ARC_VERSION_NUMBER;
 extern NSString *const SUCCESS;

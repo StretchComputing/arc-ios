@@ -106,7 +106,7 @@
     self.backView.backgroundColor = dutchTopNavColor;
     
     
-    //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit Server"];
+    //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Edit Server"];
     //self.navigationItem.titleView = navLabel;
     
     self.toolbar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];

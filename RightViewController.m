@@ -7,11 +7,11 @@
 //
 
 #import "RightViewController.h"
-#import "CorbelTextView.h"
+#import "SteelfishTextView.h"
 #import "rSkybox.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NumberLineButton.h"
-#import "LucidaLabel.h"
+#import "SteelfishLabel.h"
 #import "ArcAppDelegate.h"
 
 @interface RightViewController ()
@@ -37,9 +37,9 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBeginClose:) name:@"RightMenuClose" object:nil];
     
     self.payDollarTextView = [[UITextView alloc] init];
-    self.payPercentLabel = [[LucidaBoldLabel alloc] init];
+    self.payPercentLabel = [[SteelfishBoldLabel alloc] init];
     self.myScrollView = [[UIScrollView alloc] init];
-    self.splitYourPaymentLabel = [[LucidaBoldLabel alloc] init];
+    self.splitYourPaymentLabel = [[SteelfishBoldLabel alloc] init];
     self.expandedElement = @"";
     
    // [self setUpScrollView];
@@ -90,6 +90,9 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             }
         }
         
+        if ([self.paymentsArray count] == 0) {
+            return 1;
+        }
         return [self.paymentsArray count];
     }
     @catch (NSException *e) {
@@ -208,7 +211,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
            
             if (isHeader) {
                 
-                LucidaLabel *nameLabel = (LucidaLabel *)[cell.contentView viewWithTag:1];
+                SteelfishLabel *nameLabel = (SteelfishLabel *)[cell.contentView viewWithTag:1];
 
                 if (indexPath.row == 0){
                     nameLabel.text = @"SPLIT";
@@ -218,7 +221,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                 
                 
             }else{
-                LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
+                SteelfishBoldLabel *nameLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
 
                 
                 if ([self.expandedElement isEqualToString:@"splitDollar"]) {
@@ -260,7 +263,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                         
                         [self setUpScrollView];
 
-                        LucidaBoldLabel *myLabel = (LucidaBoldLabel *) [cell.contentView viewWithTag:3];
+                        SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *) [cell.contentView viewWithTag:3];
                         self.splitYourPaymentLabel = myLabel;
                         
                         NVUIGradientButton *payPercentButton = (NVUIGradientButton *) [cell.contentView viewWithTag:4];
@@ -285,34 +288,44 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                     }else{
                         //Rows for the who paid.
                         
-                        LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
-                        LucidaBoldLabel *amountLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:2];
-                        LucidaLabel *notesLabel = (LucidaLabel *)[cell.contentView viewWithTag:3];
+                        SteelfishBoldLabel *nameLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+                        SteelfishBoldLabel *amountLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
+                        SteelfishLabel *notesLabel = (SteelfishLabel *)[cell.contentView viewWithTag:3];
                         
                         
-                        NSDictionary *payment = [self.paymentsArray objectAtIndex:indexPath.row - 5];
-                        
-                        nameLabel.text = [payment valueForKey:@"Name"];
-                        
-                        double amountDouble = [[payment valueForKey:@"Amount"] doubleValue];
-                        
-                        amountLabel.text = [NSString stringWithFormat:@"$%.2f", amountDouble];
-                        
-                        if ([payment valueForKey:@"Notes"] && [[payment valueForKey:@"Notes"] length] > 0) {
-                            notesLabel.hidden = NO;
-                            notesLabel.text = [payment valueForKey:@"Notes"];
-                            /*
-                            CGSize constraints = CGSizeMake(250, 900);
-                            CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                        if ([self.paymentsArray count] == 0) {
                             
-                            CGRect frame = notesText.frame;
-                            frame.size.height = totalSize.height + 15;
-                            notesText.frame = frame;
-                            */
+                            nameLabel.text = @"No payments yet.";
+                            amountLabel.text = @"";
+                            notesLabel.text = @"";
                             
                         }else{
-                            notesLabel.hidden = YES;
+                            NSDictionary *payment = [self.paymentsArray objectAtIndex:indexPath.row - 5];
+                            
+                            nameLabel.text = [payment valueForKey:@"Name"];
+                            
+                            double amountDouble = [[payment valueForKey:@"Amount"] doubleValue];
+                            
+                            amountLabel.text = [NSString stringWithFormat:@"$%.2f", amountDouble];
+                            
+                            if ([payment valueForKey:@"Notes"] && [[payment valueForKey:@"Notes"] length] > 0) {
+                                notesLabel.hidden = NO;
+                                notesLabel.text = [payment valueForKey:@"Notes"];
+                                /*
+                                 CGSize constraints = CGSizeMake(250, 900);
+                                 CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
+                                 
+                                 CGRect frame = notesText.frame;
+                                 frame.size.height = totalSize.height + 15;
+                                 notesText.frame = frame;
+                                 */
+                                
+                            }else{
+                                notesLabel.hidden = YES;
+                            }
                         }
+                        
+                        
                         
                         
                       
@@ -369,9 +382,9 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:alreadyPaidCell];
             
             
-            LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
-            LucidaBoldLabel *amountLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:2];
-            CorbelTextView *notesText = (CorbelTextView *)[cell.contentView viewWithTag:3];
+            SteelfishBoldLabel *nameLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+            SteelfishBoldLabel *amountLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
+            SteelfishTextView *notesText = (SteelfishTextView *)[cell.contentView viewWithTag:3];
             
             
             NSUInteger row = [indexPath row];
@@ -389,7 +402,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                 notesText.text = [payment valueForKey:@"Notes"];
                 
                 CGSize constraints = CGSizeMake(250, 900);
-                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
                 
                 CGRect frame = notesText.frame;
                 frame.size.height = totalSize.height + 15;
@@ -460,13 +473,16 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             return 44;
         }
         
+        if ([self.paymentsArray count] == 0) {
+            return 33;
+        }
         NSDictionary *payment = [self.paymentsArray objectAtIndex:indexPath.row];
         
         if ([payment valueForKey:@"Notes"]) {
             if ([[payment valueForKey:@"Notes"] length] > 0) {
                 
                 CGSize constraints = CGSizeMake(250, 900);
-                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
                 
                 return 25 + totalSize.height + 15;
                 
@@ -563,7 +579,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                 size = 16;
             }
             
-            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 45, 5, 45, 45) andSize:size];
+            SteelfishBoldLabel *numberLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(i * 45, 5, 45, 45) andSize:size];
             numberLabel.textAlignment = UITextAlignmentCenter;
             numberLabel.text = numberText;
             numberLabel.clipsToBounds = YES;
@@ -615,7 +631,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
     @try {
         int xValue = offset + 90;
         
-        LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/45];
+        SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/45];
         
         double yourPercent;
         
@@ -734,16 +750,16 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
         for (int i = 0; i < [[self.numberSliderScrollView subviews] count]; i++) {
             
             if (i != index) {
-                if ([LucidaBoldLabel class] == [[[self.numberSliderScrollView subviews] objectAtIndex:i] class]) {
-                    LucidaBoldLabel *otherLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:i];
-                    [otherLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:16]];
+                if ([SteelfishBoldLabel class] == [[[self.numberSliderScrollView subviews] objectAtIndex:i] class]) {
+                    SteelfishBoldLabel *otherLabel = (SteelfishBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:i];
+                    [otherLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:16]];
                     
                 }
             }
         }
         
-        LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
-        [myLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:35]];
+        SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
+        [myLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:35]];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"RightMenu.scrollViewDidScroll" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];

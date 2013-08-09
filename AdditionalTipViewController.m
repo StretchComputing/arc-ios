@@ -25,9 +25,13 @@
         self.transactionNotesText.text = @"Transaction Notes (*optional):";
     }
 }
+
+
 -(void)viewDidLoad{
     
     @try {
+        
+        self.tipTextField.delegate = self;
         self.transactionNotesText.delegate = self;
         
         self.tipTextField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -316,6 +320,7 @@
        }else if ([[segue identifier] isEqualToString:@"goEnterCard"]){
            
            AddCreditCardGuest *controller = [segue destinationViewController];
+
            controller.myInvoice = self.myInvoice;
            if (self.transactionNotesText.text == nil || [self.transactionNotesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
                self.transactionNotesText.text = @"";

@@ -1,9 +1,17 @@
+
+
+
+
+
+
+
 #import <UIKit/UIKit.h>
 #import "CardIO.h"
 #import "NVUIGradientButton.h"
 #import "LoadingViewController.h"
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 #import "Invoice.h"
+#import "SteelfishTextFieldCreditCardiOS6.h"
 
 @class LoadingViewController;
 
@@ -27,10 +35,10 @@
 @property BOOL isExpirationMonth;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationMonthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationYearLabel;
-@property (weak, nonatomic) IBOutlet UITextField *creditCardSecurityCodeText;
-@property (weak, nonatomic) IBOutlet UITextField *creditCardPinText;
-@property (weak, nonatomic) IBOutlet UITextField *creditCardNumberText;
-@property (weak, nonatomic) IBOutlet UITextField *expirationText;
+@property (weak, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *creditCardSecurityCodeText;
+@property (weak, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *creditCardPinText;
+@property (weak, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *creditCardNumberText;
+@property (weak, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *expirationText;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *addCardButton;
 
 @property (nonatomic, strong) UIView *loadingTopView;
@@ -39,7 +47,7 @@
 @property (nonatomic, strong) NSString *transactionNotes;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *creditDebitSegment;
 @property (nonatomic, strong) Invoice *myInvoice;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *totalPaymentLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *totalPaymentLabel;
 @property (nonatomic, strong) NSString *totalPayment;
 - (IBAction)editBegin:(id)sender;
 - (IBAction)editEnd:(id)sender;

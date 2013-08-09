@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 #import "NVUIGradientButton.h"
 #import "Invoice.h"
 #import "LoadingViewController.h"
@@ -35,8 +35,8 @@
 @property (nonatomic, strong) NSString *ccExpiration;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 - (IBAction)goBack;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *titleLabel;
-@property (strong, nonatomic) IBOutlet CorbelBoldLabel *minCharText;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *titleLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *minCharText;
 
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *createAccountText;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *createAccountText;
 @end

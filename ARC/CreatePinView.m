@@ -8,7 +8,7 @@
 
 #import "CreatePinView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CorbelTitleLabel.h"
+#import "SteelfishTitleLabel.h"
 #import "ArcAppDelegate.h"
 #import "RegisterViewNew.h"
 #import "SettingsView.h"
@@ -65,7 +65,7 @@
     [self.hiddenText becomeFirstResponder];
 
     if (self.isEditPin) {
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Edit PIN"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Edit PIN"];
         self.navigationItem.titleView = navLabel;
         [self.navigationController.navigationItem setHidesBackButton:NO];
         [self.navigationItem setHidesBackButton:NO];
@@ -91,7 +91,7 @@
     self.topLineView.backgroundColor = dutchTopLineColor;
     self.backView.backgroundColor = dutchTopNavColor;
     
-    CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Card Protection"];
+    SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Credit Card Protection"];
     self.navigationItem.titleView = navLabel;
     [self.navigationController.navigationItem setHidesBackButton:YES];
     [self.navigationItem setHidesBackButton:YES];
@@ -237,6 +237,9 @@
         
         ReviewTransaction *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"review"];
         tmp.isFromGuest = YES;
+        
+
+        tmp.myInvoice = self.myInvoice;
 
         [self.navigationController pushViewController:tmp animated:YES];
     }else{
@@ -375,7 +378,8 @@
     
     ReviewTransaction *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"review"];
     tmp.isFromGuest = YES;
-    
+    tmp.myInvoice = self.myInvoice;
+
     [self.navigationController pushViewController:tmp animated:YES];
     
     

@@ -16,7 +16,7 @@
 #import "NSString+CharArray.h"
 #import "CreatePinView.h"
 #import "PrivacyTermsViewController.h"
-#import "CorbelBarButtonItem.h"
+#import "SteelfishBarButtonItem.h"
 #import <Social/Social.h>
 
 @interface RegisterViewNew ()
@@ -146,7 +146,7 @@
         self.pageNumber = 1;
         [rSkybox addEventToSession:@"viewRegisterScreen"];
     
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Back"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Back"];
 		self.navigationItem.backBarButtonItem = temp;
         
         
@@ -187,7 +187,7 @@
         [self.myTableViewThree reloadData];
 
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Create Account"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Create Account"];
         self.navigationItem.titleView = navLabel;
                 
         if (self.view.frame.size.height > 500) {
@@ -297,7 +297,7 @@
         self.errorLabel.text = @"";
         self.regTitleLabel.text = @"Payment";
         
-        self.registerButton = [[CorbelBarButtonItem alloc] initWithTitleText:@"Submit"];
+        self.registerButton = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Submit"];
         [self.registerButton setTarget:self];
         [self.registerButton setAction:@selector(registerNow:)];
         
@@ -337,7 +337,7 @@
                 [self hideDoneButton];
                 self.pageNumber = 2;
                 self.errorLabel.text = @"";
-                CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Create Profile"];
+                SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Create Profile"];
                 self.navigationItem.titleView = navLabel;
                 [self.firstNameText becomeFirstResponder];
                 [self.loginButton setTitle:@"Cancel"];
@@ -367,10 +367,10 @@
                 [self hideDoneButton];
                 self.pageNumber = 3;
                 self.errorLabel.text = @"";
-                CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Add A Card"];
+                SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Add A Card"];
                 self.navigationItem.titleView = navLabel;
                 
-                self.registerButton = [[CorbelBarButtonItem alloc] initWithTitleText:@"Submit"];
+                self.registerButton = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Submit"];
                 [self.registerButton setTarget:self];
                 [self.registerButton setAction:@selector(registerNow:)];
                 
@@ -460,14 +460,14 @@
             
             
             if (row == 0) {
-                self.emailText = (UITextField *)[cell.contentView viewWithTag:1];
+                self.emailText = (SteelfishInputText *)[cell.contentView viewWithTag:1];
                 self.emailText.placeholder = @"Email Address";
                 self.emailText.delegate = self;
                 
                 //[self.emailText addTarget:self action:@selector(editBegin:) forControlEvents:UIControlEventEditingDidBegin];
             }else if (row == 1){
                 
-                self.passwordText = (UITextField *)[cell.contentView viewWithTag:1];
+                self.passwordText = (SteelfishInputText *)[cell.contentView viewWithTag:1];
                 self.passwordText.placeholder = @"Choose A Password";
                 //[self.passwordText addTarget:self action:@selector(editBeginPassword) forControlEvents:UIControlEventEditingDidBegin];
                 self.passwordText.delegate = self;
@@ -499,11 +499,11 @@
             
             if (row == 0) {
                 
-                self.firstNameText = (UITextField *)[cell.contentView viewWithTag:1];
+                self.firstNameText = (SteelfishInputText *)[cell.contentView viewWithTag:1];
                 self.firstNameText.placeholder = @"First Name";
                 self.firstNameText.delegate = self;
             }else if (row == 1){
-                self.lastNameText = (UITextField *)[cell.contentView viewWithTag:1];
+                self.lastNameText = (SteelfishInputText *)[cell.contentView viewWithTag:1];
                 self.lastNameText.placeholder = @"Last Name";
                 self.lastNameText.delegate = self;
                 
@@ -529,7 +529,7 @@
             
             
             if (row == 0) {
-                self.creditCardNumberText = (UITextField *)[cell.contentView viewWithTag:1];
+                self.creditCardNumberText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:1];
                 self.creditCardNumberText.placeholder = @"1234 5678 9102 3456";
                 self.creditCardNumberText.delegate = self;
                 
@@ -537,14 +537,14 @@
                 [self.creditCardNumberText addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
                 
             }else if (row == 1){
-                self.expirationText = (UITextField *)[cell.contentView viewWithTag:1];
+                self.expirationText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:1];
                 self.expirationText.placeholder = @"MM/YY";
                 self.expirationText.delegate = self;
                 
                 [self.expirationText addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
                 
                 
-                self.creditCardSecurityCodeText = (UITextField *)[cell.contentView viewWithTag:2];
+                self.creditCardSecurityCodeText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:2];
                 self.creditCardSecurityCodeText.placeholder = @"CVV";
                 self.creditCardSecurityCodeText.delegate = self;
                 

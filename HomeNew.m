@@ -18,7 +18,7 @@
 #import "SMContactsSelector.h"
 #import "iCarousel.h"
 #import "MFSideMenu.h"
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 #import "LeftViewController.h"
 #import "RightViewController.h"
 
@@ -91,13 +91,13 @@
 -(void)keyboardWillShow{
     self.searchToolBar.hidden = NO;
     self.placeNameLabel.textColor = [UIColor whiteColor];
-    self.placeNameLabel.frame = CGRectMake(8, 215, 305, 27);
+    self.placeNameLabel.frame = CGRectMake(8, 202, 305, 43);
 }
 
 -(void)keyboardWillHide{
     self.searchToolBar.hidden = YES;
     self.placeNameLabel.textColor = [UIColor blackColor];
-    self.placeNameLabel.frame = CGRectMake(8, 280, 305, 27);
+    self.placeNameLabel.frame = CGRectMake(8, 271, 305, 43);
 
 }
 
@@ -140,10 +140,10 @@
     
     @try {
         
-        //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Home"];
+        //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Home"];
         // self.navigationItem.titleView = navLabel;
         
-        //CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Home"];
+        //SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Home"];
 		//self.navigationItem.backBarButtonItem = temp;
         
         
@@ -398,7 +398,7 @@
        // [self.navigationController.navigationBar addSubview:tmpButton2];
         
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Arc"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Arc"];
         navLabel.frame = CGRectMake(0, 0, 100, 44);
         //[self.navigationController.navigationBar addSubview:navLabel];
         
@@ -1294,7 +1294,7 @@
             if ([tmpMerchant.name isEqualToString:@"Untitled"] || [tmpMerchant.name isEqualToString:@"Isis Lab"] ) {
                 imageLogo.image = [UIImage imageNamed:@"untitledLogo.png"];
 
-            }else if ([tmpMerchant.name isEqualToString:@"Union Sushi"] || [tmpMerchant.name isEqualToString:@"LEYE Micros Lab"] ||  [tmpMerchant.name isEqualToString:@"LEYE Micros Lab"]){
+            }else if ([tmpMerchant.name isEqualToString:@"Union Sushi"] || [tmpMerchant.name isEqualToString:@"Arc Micros Lab"] ||  [tmpMerchant.name isEqualToString:@"LEYE Micros Lab"] || [tmpMerchant.name isEqualToString:@"Union Sushi + Barbeque Bar"]){
                 imageLogo.image = [UIImage imageNamed:@"junkieLogo.png"];
             }else{
                 imageLogo.image = [UIImage imageNamed:@"defaultLogo.png"];
@@ -1305,7 +1305,7 @@
             [view addSubview:imageLogo];
             
             UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 148, 146, 44)];
-            tmpLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:19];
+            tmpLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:19];
             tmpLabel.backgroundColor = [UIColor clearColor];
             
             UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1525,7 +1525,7 @@
     backAlphaView.alpha = 0.7;
     [self.enterCheckNumberView addSubview:backAlphaView];
     
-    LucidaBoldLabel *tmp = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(5, 0, 320, 35) andSize:18];
+    SteelfishBoldLabel *tmp = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(5, 0, 320, 35) andSize:18];
     tmp.textColor = [UIColor whiteColor];
     tmp.backgroundColor = [UIColor clearColor];
     tmp.text = @"Please enter your check number:";

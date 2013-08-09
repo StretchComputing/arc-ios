@@ -7,7 +7,7 @@
 //
 
 #import "CustomerServiceViewController.h"
-#import "CorbelTitleLabel.h"
+#import "SteelfishTitleLabel.h"
 #import <QuartzCore/QuartzCore.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "rSkybox.h"
@@ -34,7 +34,7 @@
     [ArcClient trackEvent:@"CUSTOMER_SERVICE_VIEW"];
 
     
-    //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Feedback"];
+    //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Feedback"];
     //self.navigationItem.titleView = navLabel;
     
     

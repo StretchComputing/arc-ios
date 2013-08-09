@@ -23,7 +23,13 @@
 
 @implementation ProfileViewController
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 -(void)viewWillAppear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signInComplete:) name:@"signInNotificationGuest" object:nil];
+
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
         self.isLoggedIn = YES;
     }
@@ -76,6 +82,11 @@
     self.topLineView.backgroundColor = dutchTopLineColor;
     self.backView.backgroundColor = dutchTopNavColor;
     
+    
+    self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
+    self.loadingViewController.view.frame = CGRectMake(0, 30, 320, self.view.frame.size.height + 100);
+    self.loadingViewController.view.hidden = YES;
+    [self.view addSubview:self.loadingViewController.view];
   
 }
 
@@ -93,6 +104,9 @@
     
     if (![guestId isEqualToString:@""] && (guestId != nil) && ![guestToken isEqualToString:@""] && (guestToken != nil)) {
         
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        mainDelegate.logout = @"true";
+        [self.navigationController popToRootViewControllerAnimated:NO];
         
     }else{
         //Get the Guest Token, then push to InitHelpPage        
@@ -105,14 +119,15 @@
         
         loginDict = tempDictionary;
         ArcClient *client = [[ArcClient alloc] init];
+        
+        self.loadingViewController.view.hidden = NO;
+        self.loadingViewController.displayText.text = @"Logging Out";
         [client getGuestToken:loginDict];
         
     }
     
     
-    ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
-    mainDelegate.logout = @"true";
-    [self.navigationController popToRootViewControllerAnimated:NO];
+   
 }
 - (IBAction)logInAction{
     
@@ -276,5 +291,62 @@
     }
      */
 }
+
+
+
+-(void)signInComplete:(NSNotification *)notification{
+    @try {
+        
+        
+        self.loadingViewController.view.hidden = YES;
+        NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
+        
+        // NSLog(@"Response Info: %@", responseInfo);
+        
+        NSString *status = [responseInfo valueForKey:@"status"];
+        
+        
+        NSString *errorMsg = @"";
+        if ([status isEqualToString:@"success"]) {
+            //success
+            
+            ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+            mainDelegate.logout = @"true";
+            [self.navigationController popToRootViewControllerAnimated:NO];
+           
+            
+            //Do the next thing (go home?)
+        } else if([status isEqualToString:@"error"]){
+            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+            if(errorCode == INCORRECT_LOGIN_INFO) {
+                errorMsg = @"Invalid Email and/or Password";
+            } else {
+                // TODO -- programming error client/server coordination -- rskybox call
+                errorMsg = ARC_ERROR_MSG;
+            }
+        } else {
+            // must be failure -- user notification handled by ArcClient
+            errorMsg = ARC_ERROR_MSG;
+        }
+        
+        if([errorMsg length] > 0) {
+            //self.errorLabel.text = errorMsg;
+            
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading Error" message:@"We experienced an error loading your guest account, please try again!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"InitialHelpPageVC.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        
+        
+    }
+    
+}
+
+
+
 
 @end

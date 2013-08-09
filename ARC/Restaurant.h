@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
-#import "CorbelBarButtonItem.h"
-#import "CorbelTextView.h"
+#import "SteelfishBarButtonItem.h"
+#import "SteelfishTextView.h"
 #import "ArcClient.h"
 #import "LoadingViewController.h"
 #import "NVUIGradientButton.h"
 #import "CheckHelpOverlay.h"
+#import "SteelfishBoldInputText.h"
 
 @class LoadingViewController;
 
@@ -34,7 +35,7 @@
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) ArcClient *getInvoiceArcClient;
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
-@property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
+@property (strong, nonatomic) IBOutlet SteelfishTextView *overlayTextView;
 
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 
@@ -78,7 +79,7 @@
 @property (strong, nonatomic) Invoice *myInvoice;
 - (IBAction)closeHelp;
 
-@property (nonatomic, strong) IBOutlet UITextField *hiddenText;
+@property (nonatomic, strong) IBOutlet SteelfishBoldInputText *hiddenText;
 
 //-(IBAction)showCamera;
 @end

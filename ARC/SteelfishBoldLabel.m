@@ -1,23 +1,26 @@
 //
-//  LucidaBoldLabel.m
+//  SteelfishBoldLabel.m
 //  ARC
 //
-//  Created by Nick Wroblewski on 9/6/12.
+//  Created by Nick Wroblewski on 8/8/13.
 //
 //
 
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 
-@implementation LucidaBoldLabel
+@implementation SteelfishBoldLabel
+
 
 - (id)initWithCoder:(NSCoder *)decoder {
     
     if ((self = [super initWithCoder: decoder])) {
         
-        [self setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size: self.font.pointSize+1]];
+        [self setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size: self.font.pointSize+4]];
     }
     return self;
 }
+
+
 
 - (id)initWithFrame:(CGRect)frame andSize:(int)size
 {
@@ -26,11 +29,14 @@
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
         self.textColor = [UIColor blackColor];
-        [self setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:size]];
+        [self setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:size+4]];
         self.textAlignment = UITextAlignmentCenter;
     }
     return self;
 }
+
+
+
 
 
 @end

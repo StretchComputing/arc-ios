@@ -77,10 +77,10 @@
         
         [self showDoneButton];
 
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Credit Card"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Credit Card"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Credit Card"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Credit Card"];
 		self.navigationItem.backBarButtonItem = temp;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
@@ -517,7 +517,7 @@
                 editCardOption = YES;
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
                // editCardOption = YES;
-                errorMsg = @"Arc Error, Try Again.";
+                errorMsg = @"Payment failed, please try again.";
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
                 displayAlert = YES;

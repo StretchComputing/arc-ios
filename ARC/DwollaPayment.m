@@ -69,10 +69,10 @@
 
         [rSkybox addEventToSession:@"viewDwollaPaymentScreen"];
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Dwolla"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Dwolla"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Dwolla"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Dwolla"];
 		self.navigationItem.backBarButtonItem = temp;
         
         

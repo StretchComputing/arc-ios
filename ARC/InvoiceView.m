@@ -299,10 +299,10 @@
       
         
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Invoice"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Invoice"];
         self.navigationItem.titleView = navLabel;
   
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Invoice"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Invoice"];
 		self.navigationItem.backBarButtonItem = temp;
         
         self.myTableView.delegate = self;
@@ -622,7 +622,7 @@
                 size = 16;
             }
             
-            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 45, 5, 45, 45) andSize:size];
+            SteelfishBoldLabel *numberLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(i * 45, 5, 45, 45) andSize:size];
             numberLabel.textAlignment = UITextAlignmentCenter;
             numberLabel.text = numberText;
             numberLabel.clipsToBounds = YES;
@@ -675,7 +675,7 @@
                 size = 16;
             }
             
-            LucidaBoldLabel *numberLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(i * 45, 5, 45, 45) andSize:size];
+            SteelfishBoldLabel *numberLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(i * 45, 5, 45, 45) andSize:size];
             numberLabel.textAlignment = UITextAlignmentCenter;
             numberLabel.text = numberText;
             numberLabel.clipsToBounds = YES;
@@ -736,7 +736,7 @@
             
             int xValue = offset + 135;
             
-            LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/45];
+            SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:xValue/45];
             
             double yourPercent;
             
@@ -763,7 +763,7 @@
         }else{
             int xValue = offset + 135;
             
-            LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[self.itemSplitScrollView subviews] objectAtIndex:xValue/45];
+            SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[self.itemSplitScrollView subviews] objectAtIndex:xValue/45];
             
             double yourPercent;
             
@@ -950,16 +950,16 @@
             for (int i = 0; i < [[scrollView subviews] count]; i++) {
                 
                 if (i != index) {
-                    if ([LucidaBoldLabel class] == [[[scrollView subviews] objectAtIndex:i] class]) {
-                        LucidaBoldLabel *otherLabel = (LucidaBoldLabel *)[[scrollView subviews] objectAtIndex:i];
-                        [otherLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:16]];
+                    if ([SteelfishBoldLabel class] == [[[scrollView subviews] objectAtIndex:i] class]) {
+                        SteelfishBoldLabel *otherLabel = (SteelfishBoldLabel *)[[scrollView subviews] objectAtIndex:i];
+                        [otherLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:16]];
                         
                     }
                 }
             }
             
-            LucidaBoldLabel *myLabel = (LucidaBoldLabel *)[[scrollView subviews] objectAtIndex:index];
-            [myLabel setFont: [UIFont fontWithName: @"LucidaGrande-Bold" size:35]];
+            SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[scrollView subviews] objectAtIndex:index];
+            [myLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:35]];
         }
   
     }
@@ -1260,9 +1260,9 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:alreadyPaidCell];
     
             
-            LucidaBoldLabel *nameLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:1];
-            LucidaBoldLabel *amountLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:2];
-            CorbelTextView *notesText = (CorbelTextView *)[cell.contentView viewWithTag:3];
+            SteelfishBoldLabel *nameLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+            SteelfishBoldLabel *amountLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
+            SteelfishTextView *notesText = (SteelfishTextView *)[cell.contentView viewWithTag:3];
             
             NSUInteger row = [indexPath row];
             
@@ -1279,7 +1279,7 @@
                 notesText.text = [payment valueForKey:@"Notes"];
                 
                 CGSize constraints = CGSizeMake(200, 900);
-                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
                 
                 CGRect frame = notesText.frame;
                 frame.size.height = totalSize.height + 15;
@@ -1296,6 +1296,8 @@
 
             
         }else{
+            
+            int fontSize = 16;
             
             BOOL isSubLevel = NO;
             //BOOL isTopLevel = NO;
@@ -1339,15 +1341,15 @@
                     
                     
                     
-                    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(67, 8, 158, 20)];
+                    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(67, 6, 158, 20)];
                     itemLabel.tag = itemTag;
                     [cell.contentView addSubview:itemLabel];
                     
-                    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 7, 75, 20)];
+                    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 6, 75, 20)];
                     priceLabel.tag = priceTag;
                     [cell.contentView addSubview:priceLabel];
                     
-                    UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 7, 32, 20)];
+                    UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 6, 32, 20)];
                     numberLabel.tag = numberTag;
                     [cell.contentView addSubview:numberLabel];
                     
@@ -1368,15 +1370,15 @@
                     
                     
                     
-                    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 8, 188, 20)];
+                    UILabel *itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 6, 188, 20)];
                     itemLabel.tag = itemTag;
                     [cell.contentView addSubview:itemLabel];
                     
-                    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 7, 75, 20)];
+                    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 5, 75, 20)];
                     priceLabel.tag = priceTag;
                     [cell.contentView addSubview:priceLabel];
                     
-                    UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 7, 32, 20)];
+                    UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 5, 32, 20)];
                     numberLabel.tag = numberTag;
                     [cell.contentView addSubview:numberLabel];
                     
@@ -1437,7 +1439,7 @@
             
             
             myPayLabel.textColor = [UIColor whiteColor];
-            myPayLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:13];
+            myPayLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize-1];
             myPayLabel.hidden = YES;
             
             
@@ -1463,9 +1465,9 @@
                 numberLabel.textColor = [UIColor whiteColor];
                 priceLabel.textColor = [UIColor whiteColor];
                 
-                itemLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:14];
-                numberLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
-                priceLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
+                itemLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
+                numberLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
+                priceLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
 
             }else if ([[itemDictionary valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
                 
@@ -1479,9 +1481,9 @@
                 numberLabel.textColor = [UIColor whiteColor];
                 priceLabel.textColor = [UIColor whiteColor];
                 
-                itemLabel.font = [UIFont fontWithName:@"Corbel-Bold" size:14];
-                numberLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
-                priceLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:14];
+                itemLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
+                numberLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
+                priceLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
                 
                 myPayLabel.hidden = NO;
                 myPayLabel.text = [NSString stringWithFormat:@"You Pay: %.2f", [[itemDictionary valueForKey:@"AmountPayingFor"] doubleValue]];
@@ -1496,9 +1498,9 @@
                 numberLabel.textColor = [UIColor blackColor];
                 priceLabel.textColor = [UIColor blackColor];
                 
-                itemLabel.font = [UIFont fontWithName:@"Corbel" size:14];
-                numberLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
-                priceLabel.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+                itemLabel.font = [UIFont fontWithName:@"Steelfish" size:fontSize];
+                numberLabel.font = [UIFont fontWithName:@"Steelfish" size:fontSize];
+                priceLabel.font = [UIFont fontWithName:@"Steelfish" size:fontSize];
             }
             
             
@@ -1508,7 +1510,7 @@
                 if ([[itemDictionary valueForKey:@"isPaidFor"] isEqualToString:@"yes"]) {
                     
                     [cell.contentView bringSubviewToFront:highLightView];
-                    alreadyPaidLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:17];
+                    alreadyPaidLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize+3];
 
                     [cell.contentView bringSubviewToFront:alreadyPaidLabel];
 
@@ -1523,7 +1525,7 @@
                 }else if ([[itemDictionary valueForKey:@"isPaidFor"] isEqualToString:@"maybe"]){
                     
                     [cell.contentView bringSubviewToFront:highLightView];
-                    alreadyPaidLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:15];
+                    alreadyPaidLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize+1];
 
                     [cell.contentView bringSubviewToFront:alreadyPaidLabel];
                     
@@ -1687,7 +1689,7 @@
                 if ([[payment valueForKey:@"Notes"] length] > 0) {
                     
                     CGSize constraints = CGSizeMake(200, 900);
-                    CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"LucidaGrande" size:14] constrainedToSize:constraints];
+                    CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
                     
                     return 25 + totalSize.height + 15;
                     
@@ -2182,6 +2184,7 @@
             double myTotal = [[self.totalLabel.text substringFromIndex:12] doubleValue];
             [self.myInvoice setBasePaymentAmount:myTotal];
             AdditionalTipViewController *controller = [segue destinationViewController];
+            
             controller.myInvoice = self.myInvoice;
             
             controller.creditCardSample = self.creditCardSample;

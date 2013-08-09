@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
-#import "CorbelBarButtonItem.h"
-#import "CorbelBoldLabel.h"
-#import "LucidaBoldLabel.h"
+#import "SteelfishBarButtonItem.h"
+#import "SteelfishBoldLabel.h"
 #import "NVUIGradientButton.h"
-#import "CorbelTextField.h"
+#import "SteelfishInputText.h"
 #import "InvoiceHelpOverlay.h"
-#import "LucidaBoldInputTextField.h"
+#import "SteelfishBoldInputText.h"
 
 @interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate, UIScrollViewAccessibilityDelegate, UIGestureRecognizerDelegate>
 - (IBAction)splitMyPaymentEditChanged;
@@ -24,7 +23,7 @@
 @property (strong, nonatomic) IBOutlet UIView *splitDollarPercentBackView;
 
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *cancelItemSplitButton;
-@property (strong, nonatomic) IBOutlet LucidaBoldInputTextField *splitDollarMyPaymentText;
+@property (strong, nonatomic) IBOutlet SteelfishBoldInputText *splitDollarMyPaymentText;
 @property (strong, nonatomic) IBOutlet UIView *splitViewDollar;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *splitDollarSaveButton;
 - (IBAction)splitDollarSaveAction;
@@ -37,11 +36,11 @@
 - (IBAction)splitPercentageAction;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *splitDollarButton;
 - (IBAction)splitDollarAction;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *splitPeopleYouPayLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *splitPeopleYouPayLabel;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *cancelSplitPeople;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *splitItemMyPaymentLabel;
-@property (strong, nonatomic) IBOutlet LucidaBoldInputTextField *howManyText;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *howManyTitle;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *splitItemMyPaymentLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldInputText *howManyText;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *howManyTitle;
 
 @property int howManyItemIndex;
 @property (nonatomic, strong) IBOutlet UIView *howManyView;
@@ -76,8 +75,8 @@
 @property (strong, nonatomic) Invoice *myInvoice;
 @property (weak, nonatomic) IBOutlet UIView *bottomHalfView;
 - (IBAction)splitCheckAction:(id)sender;
-@property (weak, nonatomic) IBOutlet CorbelBoldLabel *alreadyPaidNameLabel;
-@property (weak, nonatomic) IBOutlet LucidaBoldLabel *alreadyPaidLabel;
+@property (weak, nonatomic) IBOutlet SteelfishBoldLabel *alreadyPaidNameLabel;
+@property (weak, nonatomic) IBOutlet SteelfishBoldLabel *alreadyPaidLabel;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *splitCancelButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *splitFullButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *splitSaveButton;
@@ -89,8 +88,8 @@
 @property double splitItemMyDue;
 
 @property (strong, nonatomic) IBOutlet UIView *splitTopLineView;
-@property (weak, nonatomic) IBOutlet CorbelBarButtonItem *splitCheckButton;
-//@property (weak, nonatomic) IBOutlet CorbelBarButtonItem *payBillButton;
+@property (weak, nonatomic) IBOutlet SteelfishBarButtonItem *splitCheckButton;
+//@property (weak, nonatomic) IBOutlet SteelfishBarButtonItem *payBillButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UILabel *dividerLabel;
@@ -99,7 +98,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *taxLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gratLabel;
 - (IBAction)splitMyPaymentDidBegin:(id)sender;
-@property (strong, nonatomic) IBOutlet CorbelTextField *splitMyPaymentTextField;
+@property (strong, nonatomic) IBOutlet SteelfishInputText *splitMyPaymentTextField;
 @property BOOL isEditingMyPayment;
 @property (nonatomic, strong) NSString *paymentsAccepted;
 
@@ -137,7 +136,7 @@
 //AlreadyPaid
 @property (nonatomic, strong) IBOutlet UIView *alreadyPaid;
 @property (nonatomic, strong) IBOutlet UITableView *alreadyPaidTableView;
-@property (nonatomic, strong) IBOutlet LucidaBoldLabel *alreadyPaidViewLabel;
+@property (nonatomic, strong) IBOutlet SteelfishBoldLabel *alreadyPaidViewLabel;
 -(IBAction)cancelAlreadyPaid;
 - (IBAction)showSplitView;
 
@@ -163,12 +162,12 @@
 //Split single Item
 @property (nonatomic, strong) IBOutlet UIView *itemSplitView;
 @property (nonatomic, strong) IBOutlet UILabel *itemSplitItemItemTotal;
-@property (strong, nonatomic) IBOutlet CorbelTextField *itemSplitMyPaymentText;
+@property (strong, nonatomic) IBOutlet SteelfishInputText *itemSplitMyPaymentText;
 - (IBAction)closeItemSplitAction;
 
 - (IBAction)itemSplitSaveAction;
 @property (strong, nonatomic) IBOutlet UIScrollView *itemSplitScrollView;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *itemSplitName;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *itemSplitName;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *itemSplitSaveButton;
 @property int itemSplitIndex;
 

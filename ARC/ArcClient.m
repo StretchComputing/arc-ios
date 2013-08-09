@@ -66,7 +66,7 @@ int const MAX_RETRIES_EXCEEDED = 1000;
 
 static NSMutableDictionary *latencyStartTimes = nil;
 
-NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
+NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 @implementation ArcClient
 
@@ -414,6 +414,8 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        
+        NSLog(@"Request String: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetReview"];
@@ -1706,7 +1708,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
             if ([response valueForKey:@"Results"]) {
                 //complete successfully
                    [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
-                [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+                [ArcClient endAndReportLatency:ConfirmPayment logMessage:@"CreatePayment API completed" successful:successful];
 
             }else{
                 
@@ -1718,7 +1720,7 @@ NSString *const ARC_ERROR_MSG = @"Arc Error, try again later";
                     successful = FALSE;
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
-                    [ArcClient endAndReportLatency:CreatePayment logMessage:@"CreatePayment API completed" successful:successful];
+                    [ArcClient endAndReportLatency:ConfirmPayment logMessage:@"CreatePayment API completed" successful:successful];
 
                 }else{
                     

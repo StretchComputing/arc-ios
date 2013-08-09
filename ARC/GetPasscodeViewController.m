@@ -60,10 +60,10 @@
     UIBarButtonItem *tmp = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     self.navigationItem.leftBarButtonItem = tmp;
     
-    CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Password Reset"];
+    SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Password Reset"];
     self.navigationItem.titleView = navLabel;
     
-    CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Reset"];
+    SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Reset"];
     self.navigationItem.backBarButtonItem = temp;
     
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
@@ -103,7 +103,7 @@
                        
            
         } else {
-            errorMsg = @"Arc error, please try again.";
+            errorMsg = @"Merchants error, please try again.";
         }
         
         if([errorMsg length] > 0) {

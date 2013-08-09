@@ -8,7 +8,7 @@
 
 #import "SupportViewController.h"
 #import "MFSideMenu.h"
-#import "CorbelBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 #import "rSkybox.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
@@ -74,8 +74,8 @@
         
         
         if (section == 1) {
-            CorbelBoldLabel *supportLabel = (CorbelBoldLabel *)[cell.contentView viewWithTag:1];
-            CorbelBoldLabel *infoLabel = (CorbelBoldLabel *)[cell.contentView viewWithTag:2];
+            SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
+            SteelfishBoldLabel *infoLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:2];
             
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -105,7 +105,7 @@
             }
 
         }else{
-            CorbelBoldLabel *supportLabel = (CorbelBoldLabel *)[cell.contentView viewWithTag:1];
+            SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
 
             if (section == 0) {
                 supportLabel.text = @"Help Videos";

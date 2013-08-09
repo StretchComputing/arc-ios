@@ -54,7 +54,7 @@
     self.topLineView.backgroundColor = dutchTopLineColor;
     self.backView.backgroundColor = dutchTopNavColor;
     
-    CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Password Reset"];
+    SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Password Reset"];
     self.navigationItem.titleView = navLabel;
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -104,12 +104,12 @@
             if(errorCode == INCORRECT_PASSCODE) {
                 errorMsg = @"Incorrect passcode. Please try again.";
             } else {
-                errorMsg = @"Arc error, please try again.";
+                errorMsg = @"Request failed, please try again.";
             }
         }
         
         if([errorMsg length] > 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Arc Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }

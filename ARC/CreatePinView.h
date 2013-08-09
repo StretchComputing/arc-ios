@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LucidaBoldLabel.h"
-#import "CorbelTextView.h"
+#import "SteelfishBoldLabel.h"
+#import "SteelfishTextView.h"
 #import "LoadingViewController.h"
 #import "NVUIGradientButton.h"
+#import "Invoice.h"
 
 @class LoadingViewController;
 
 @interface CreatePinView : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, strong) Invoice *myInvoice;
 @property BOOL isLoggedInUser;
 @property BOOL fromCreateGuest;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
@@ -26,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumThree;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumTwo;
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
-@property (weak, nonatomic) IBOutlet LucidaBoldLabel *instructionsLabel;
+@property (weak, nonatomic) IBOutlet SteelfishBoldLabel *instructionsLabel;
 @property BOOL isDuplicate;
 @property BOOL isFirstPin;
 
@@ -35,7 +37,7 @@
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *skipButton;
 
 - (IBAction)skipAction;
-@property (weak, nonatomic) IBOutlet CorbelTextView *descriptionText;
+@property (weak, nonatomic) IBOutlet SteelfishTextView *descriptionText;
 @property BOOL isInsideApp;
 @property (nonatomic, strong) NSString *creditDebitString;
 @property (nonatomic, strong) NSString *expiration;

@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 
 @interface PrivacyTermsViewController : UIViewController
 
@@ -16,7 +16,7 @@
 @property (nonatomic, weak) IBOutlet UIWebView *webview;
 @property BOOL isPrivacy;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *topLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *topLabel;
 
 
 @property (strong, nonatomic) IBOutlet UIView *backView;

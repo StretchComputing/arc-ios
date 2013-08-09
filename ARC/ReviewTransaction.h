@@ -7,11 +7,10 @@
 // change
 
 #import <UIKit/UIKit.h>
-#import "LucidaLabel.h"
-#import "CorbelBoldLabel.h"
+#import "SteelfishLabel.h"
+#import "SteelfishBoldLabel.h"
 #import <Accounts/Accounts.h>
 #import "Invoice.h"
-#import "LucidaBoldLabel.h"
 #import "LoadingViewController.h"
 #import "NVUIGradientButton.h"
 
@@ -25,7 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
 @property BOOL shouldShowLoading;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
-@property (nonatomic, strong) IBOutlet LucidaBoldLabel *paymentPointsLabel;
+@property (nonatomic, strong) IBOutlet SteelfishBoldLabel *paymentPointsLabel;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *skipButton;
 
 //@property (nonatomic, weak) IBOutlet UIBarButtonItem *submitButton;
@@ -64,12 +63,12 @@
 @property (weak, nonatomic) IBOutlet UISlider *moodSlider;
 @property (weak, nonatomic) IBOutlet UISlider *valueSlider;
 @property (weak, nonatomic) IBOutlet UIButton *postFacebookButton;
-@property (weak, nonatomic) IBOutlet LucidaLabel *postFacebookPoints;
+@property (weak, nonatomic) IBOutlet SteelfishLabel *postFacebookPoints;
 
 @property (weak, nonatomic) IBOutlet UIButton *postTwitterButton;
-@property (weak, nonatomic) IBOutlet LucidaLabel *postTwitterPoints;
+@property (weak, nonatomic) IBOutlet SteelfishLabel *postTwitterPoints;
 
-@property (weak, nonatomic) IBOutlet CorbelBoldLabel *shareLabel;
+@property (weak, nonatomic) IBOutlet SteelfishBoldLabel *shareLabel;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *earnMoreLabel;
@@ -125,7 +124,7 @@
 
 //Favorite Item Picker
 @property (nonatomic, strong) IBOutlet NVUIGradientButton *selectFavoriteButton;
-@property (nonatomic, strong) IBOutlet CorbelBoldLabel *selectedItemTextField;
+@property (nonatomic, strong) IBOutlet SteelfishBoldLabel *selectedItemTextField;
 @property (nonatomic, strong) NSString *selectedItemId;
 @property (nonatomic, strong) NSString *selectedItemName;
 @property (nonatomic, strong) IBOutlet UIView *favoriteItemBackview;

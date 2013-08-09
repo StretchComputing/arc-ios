@@ -14,9 +14,11 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-extern UIColor *dutchLightBlueColor;
 extern UIColor *dutchDarkBlueColor;
 extern UIColor *dutchGreenColor;
+extern UIColor *dutchRedColor;
+extern UIColor *dutchOrangeColor;
+
 extern UIColor *dutchTopLineColor;
 extern UIColor *dutchTopNavColor;
 

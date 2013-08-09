@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CardIO.h"
 #import "NVUIGradientButton.h"
+#import "SteelfishTextFieldCreditCardiOS6.h"
 #import "LoadingViewController.h"
 
 extern NSString *const VISA;
@@ -39,9 +40,9 @@ extern NSString *const AMERICAN_EXPRESS;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationMonthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationYearLabel;
 @property (weak, nonatomic) IBOutlet UITextField *creditCardSecurityCodeText;
-@property (weak, nonatomic) IBOutlet UITextField *creditCardPinText;
-@property (weak, nonatomic) IBOutlet UITextField *creditCardNumberText;
-@property (weak, nonatomic) IBOutlet UITextField *expirationText;
+@property (weak, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *creditCardPinText;
+@property (weak, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *creditCardNumberText;
+@property (weak, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *expirationText;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *addCardButton;
 
 @property (nonatomic, strong) UIView *hideKeyboardView;

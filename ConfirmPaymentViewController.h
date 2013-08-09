@@ -10,7 +10,7 @@
 #import "Invoice.h"
 #import "NVUIGradientButton.h"
 #import "LoadingViewController.h"
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 
 @class LoadingViewController;
 
@@ -37,12 +37,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *checkNumOne;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *confirmButton;
 - (IBAction)confirmAction;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *paymentLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *paymentLabel;
 - (IBAction)goBackAction;
 @property (strong, nonatomic) IBOutlet UIView *backView;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
 
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *myTotalLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *myTotalLabel;
 @property double mySplitPercent;
 @property (nonatomic, strong) NSArray *myItemsArray;
 @property (nonatomic, strong) NSTimer *myTimer;

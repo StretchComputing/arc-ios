@@ -1,20 +1,21 @@
 //
-//  CorbelBarButtonItem.m
+//  SteelfishBarButtonItem.m
 //  ARC
 //
-//  Created by Nick Wroblewski on 9/9/12.
+//  Created by Nick Wroblewski on 8/8/13.
 //
 //
 
-#import "CorbelBarButtonItem.h"
+#import "SteelfishBarButtonItem.h"
 
-@implementation CorbelBarButtonItem
+@implementation SteelfishBarButtonItem
+
 
 -(id)initWithTitleText:(NSString *)title{
     
     if (self = [self initWithTitle:title style:UIBarButtonItemStyleDone target:nil action:nil]) {
         
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"LucidaGrande" size:15]
+        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"Steelfish" size:15]
                                                                forKey:UITextAttributeFont];
         [self setTitleTextAttributes:attributes forState:UIControlStateNormal];
         
@@ -24,11 +25,12 @@
     
     return self;
 }
+
 - (id)initWithCoder:(NSCoder *)decoder {
     
     if ((self = [super initWithCoder: decoder])) {
         
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"LucidaGrande" size:15]
+        NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"Steelfish" size:15]
                                                                forKey:UITextAttributeFont];
         [self setTitleTextAttributes:attributes forState:UIControlStateNormal];
         
@@ -39,6 +41,8 @@
     self.width = 100;
     return self;
 }
+
+
 
 
 @end

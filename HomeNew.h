@@ -1,8 +1,8 @@
 #import <UIKit/UIKit.h>
 #import "SMContactsSelector.h"
-#import "CorbelTextView.h"
+#import "SteelfishTextView.h"
 #import "iCarousel.h"
-#import "CorbelBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 #import "NVUIGradientButton.h"
 
 @interface HomeNew : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate, iCarouselDataSource, iCarouselDelegate, UISearchBarDelegate>
@@ -19,7 +19,7 @@
 - (IBAction)searchAction;
 
 @property (nonatomic, strong) IBOutlet UIView *hintOverlayView;
-@property (strong, nonatomic) IBOutlet CorbelTextView *overlayTextView;
+@property (strong, nonatomic) IBOutlet SteelfishTextView *overlayTextView;
 - (IBAction)valueChanged;
 -(IBAction)textFieldDidChange;
 @property int retryCount;
@@ -46,8 +46,8 @@
 @property BOOL shouldCallStop;
 @property BOOL isIos6;
 @property (nonatomic, weak) IBOutlet UIButton *refreshListButton;
-@property (strong, nonatomic) IBOutlet CorbelBoldLabel *placeNameLabel;
-@property (strong, nonatomic) IBOutlet CorbelBoldLabel *placeAddressLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *placeNameLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *placeAddressLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *activityView;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;

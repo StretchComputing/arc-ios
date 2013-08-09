@@ -44,11 +44,8 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>CHATOKYO_0.TTF</string>
-		<string>CORBELB.TTF</string>
-		<string>CORBEL.TTF</string>
-		<string>Lucida Grande Bold.ttf</string>
-		<string>Lucida Grande.ttf</string>
+		<string>steelfish eb.ttf</string>
+		<string>steelfish rg.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>ArcMainStoryboardiPhone4</string>

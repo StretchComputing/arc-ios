@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "NVUIGradientButton.h"
-#import "CorbelTextView.h"
+#import "SteelfishTextView.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "LoadingViewController.h"
+
+@class LoadingViewController;
 
 @interface ProfileViewController : UIViewController
 
+@property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *signOutButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *createAccountButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *logInButton;
@@ -24,7 +28,7 @@
 @property (strong, nonatomic)  UITextField *passwordTextField;
 - (IBAction)endText;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *viewChangeServerButton;
-@property (strong, nonatomic, getter = getProfileText) IBOutlet CorbelTextView *newProfileText;
+@property (strong, nonatomic, getter = getProfileText) IBOutlet SteelfishTextView *newProfileText;
 @property BOOL isLoggedIn;
 -(IBAction)openMenuAction;
 @property (strong, nonatomic) IBOutlet UIView *backView;

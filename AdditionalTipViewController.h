@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Invoice.h"
-#import "LucidaBoldLabel.h"
-#import "CorbelTextView.h"
+#import "SteelfishBoldLabel.h"
+#import "SteelfishTextView.h"
 #import "NVUIGradientButton.h"
 
-@interface AdditionalTipViewController : UIViewController <UITextViewDelegate>
+@interface AdditionalTipViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) Invoice *myInvoice;
 
@@ -24,10 +24,10 @@
 @property (nonatomic, strong) NSArray *myItemsArray;
 @property double mySplitPercent;
 
-@property (nonatomic, strong) IBOutlet LucidaBoldLabel *myTotalLabel;
+@property (nonatomic, strong) IBOutlet SteelfishBoldLabel *myTotalLabel;
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *tipSelectSegment;
-@property (strong, nonatomic) IBOutlet CorbelTextView *transactionNotesText;
+@property (strong, nonatomic) IBOutlet SteelfishTextView *transactionNotesText;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *continueButton;
 @property (strong, nonatomic) IBOutlet UITextField *tipTextField;
 - (IBAction)continueAction:(id)sender;

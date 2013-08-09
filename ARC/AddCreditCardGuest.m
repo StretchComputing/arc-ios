@@ -81,10 +81,10 @@
         }
         
         
-        //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Add Card"];
+        //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Add Card"];
         //self.navigationItem.titleView = navLabel;
         
-        //CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Add Card"];
+        //SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Add Card"];
 		//self.navigationItem.backBarButtonItem = temp;
         
         [rSkybox addEventToSession:@"viewAddCreditCardScreen"];
@@ -154,7 +154,7 @@
         [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationController.navigationBar addSubview:tmpButton];
         
-        LucidaBoldLabel *tmpLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
+        SteelfishBoldLabel *tmpLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:23];
         tmpLabel.text = @"Payment Info";
         tmpLabel.textAlignment = UITextAlignmentCenter;
         [self.navigationController.navigationBar addSubview:tmpLabel];
@@ -711,6 +711,9 @@
         NSString *creditDebitString = @"Credit";
         
         tmp.creditDebitString = creditDebitString;
+        
+
+        tmp.myInvoice = self.myInvoice;
         tmp.expiration = self.expirationText.text;
         tmp.securityCode = self.creditCardSecurityCodeText.text;
         tmp.cardNumber = [self.creditCardNumberText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -829,7 +832,7 @@
                 editCardOption = YES;
             }  else if (errorCode == UNKOWN_ISIS_ERROR){
                 //editCardOption = YES;
-                errorMsg = @"Arc Error, Try Again.";
+                errorMsg = @"Payment failed, please try again.";
             }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
                 errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
                 displayAlert = YES;

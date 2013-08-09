@@ -15,6 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
 #import <Social/Social.h>
+#import "SteelfishBarButtonItem.h"
 
 @interface SettingsView ()
 
@@ -144,10 +145,10 @@
 
         }
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Profile"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Profile"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Profile"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Profile"];
 		self.navigationItem.backBarButtonItem = temp;
         
         [rSkybox addEventToSession:@"viewSettingsPage"];

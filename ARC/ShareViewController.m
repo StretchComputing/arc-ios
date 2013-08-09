@@ -8,7 +8,7 @@
 
 #import "ShareViewController.h"
 #import "rSkybox.h"
-#import "CorbelBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 #import "MFSideMenu.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ArcClient.h"
@@ -87,7 +87,7 @@
         if (indexPath.section == 0) {
             
             cell = [tableView dequeueReusableCellWithIdentifier:@"shareTopCell"];
-            CorbelBoldLabel *supportLabel = (CorbelBoldLabel *)[cell.contentView viewWithTag:1];
+            SteelfishBoldLabel *supportLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:1];
 
             if (indexPath.row == 0) {
                 supportLabel.text = @"Invite Friends";

@@ -11,7 +11,7 @@
 #import "rSkybox.h"
 #import "ArcClient.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 
 @interface HelpView ()
 
@@ -49,10 +49,10 @@
     @try {
         [rSkybox addEventToSession:@"viewHelpPage"];
         
-        //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Help"];
+        //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Help"];
        // self.navigationItem.titleView = navLabel;
         
-        //CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Help"];
+        //SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Help"];
 		//self.navigationItem.backBarButtonItem = temp;
         
         
@@ -85,7 +85,7 @@
         [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationController.navigationBar addSubview:tmpButton];
         
-        LucidaBoldLabel *tmpLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
+        SteelfishBoldLabel *tmpLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:23];
         tmpLabel.text = @"Help";
         tmpLabel.textAlignment = UITextAlignmentCenter;
         [self.navigationController.navigationBar addSubview:tmpLabel];

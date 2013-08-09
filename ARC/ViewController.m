@@ -12,8 +12,8 @@
 #import "ArcClient.h"
 #import <QuartzCore/QuartzCore.h>
 #import "rSkybox.h"
-#import "LucidaBoldLabel.h"
-#import "CorbelTextField.h"
+#import "SteelfishBoldLabel.h"
+#import "SteelfishInputText.h"
 #import "NVUIGradientButton.h"
 #import "MFSideMenu.h"
 #import "HomeNavigationController.h"
@@ -146,10 +146,10 @@
         
         NSLog(@"Height: %f", self.loadingViewController.view.frame.size.height);
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Sign In"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Sign In"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Sign In"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Sign In"];
 		self.navigationItem.backBarButtonItem = temp;
         
 
@@ -158,19 +158,19 @@
         self.myTableView.delegate = self;
         self.myTableView.dataSource = self;
         
-        self.username = [[CorbelTextField alloc] initWithFrame:CGRectMake(10, 11, 290, 20)];
+        self.username = [[SteelfishInputText alloc] initWithFrame:CGRectMake(5, 7, 290, 24)];
         self.username.autocorrectionType = UITextAutocorrectionTypeNo;
         self.username.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        self.username.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+        self.username.font = [UIFont fontWithName:@"Steelfish" size:20];
         self.username.returnKeyType = UIReturnKeyNext;
         self.username.keyboardType = UIKeyboardTypeEmailAddress;
         [self.username addTarget:self action:@selector(selectPassword) forControlEvents:UIControlEventEditingDidEndOnExit];
         
-        self.password = [[CorbelTextField alloc] initWithFrame:CGRectMake(10, 11, 290, 20)];
+        self.password = [[SteelfishInputText alloc] initWithFrame:CGRectMake(5, 7, 290, 24)];
         self.password.autocorrectionType = UITextAutocorrectionTypeNo;
         self.password.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.password.secureTextEntry = YES;
-        self.password.font = [UIFont fontWithName:@"LucidaGrande" size:14];
+        self.password.font = [UIFont fontWithName:@"Steelfish" size:20];
         self.password.returnKeyType = UIReturnKeyGo;
         self.password.delegate = self;
        // [self.password addTarget:self action:@selector(signIn) forControlEvents:UIControlEventEditingDidEndOnExit];
@@ -246,14 +246,14 @@
             frame.size.height = 22;
             frame.size.width = 80;
             
-            LucidaBoldLabel *fieldLabel = [[LucidaBoldLabel alloc] initWithFrame:frame];
+            SteelfishBoldLabel *fieldLabel = [[SteelfishBoldLabel alloc] initWithFrame:frame];
             fieldLabel.tag = fieldTag;
             [cell.contentView addSubview:fieldLabel];
             
             
         }
         
-        LucidaBoldLabel *fieldLabel = (LucidaBoldLabel *)[cell.contentView viewWithTag:fieldTag];
+        SteelfishBoldLabel *fieldLabel = (SteelfishBoldLabel *)[cell.contentView viewWithTag:fieldTag];
         
         fieldLabel.textColor = [UIColor blackColor];
         fieldLabel.backgroundColor = [UIColor clearColor];
@@ -263,7 +263,7 @@
         if (section == 0) {
             
             fieldLabel.frame = CGRectMake(10, 8, 80, 22);
-            fieldLabel.font = [UIFont fontWithName:@"LucidaGrande-Bold" size:15];
+            fieldLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:15];
             fieldLabel.textAlignment = UITextAlignmentLeft;
             
             if (row == 0) {

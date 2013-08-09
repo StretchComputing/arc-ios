@@ -20,8 +20,8 @@
 #import <FacebookSDK/FBSessionTokenCachingStrategy.h>
 
 
-UIColor *dutchLightBlueColor;
-UIColor *dutchDarkBlueColor;
+UIColor *dutchRedColor;
+UIColor *dutchOrangeColor;UIColor *dutchDarkBlueColor;
 UIColor *dutchGreenColor;
 UIColor *dutchTopLineColor;
 UIColor *dutchTopNavColor;
@@ -130,9 +130,11 @@ UIColor *dutchTopNavColor;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    dutchLightBlueColor = [UIColor colorWithRed:11.0/255.0 green:132.0/255.0 blue:255.0/255.0 alpha:1.0];
-    dutchDarkBlueColor = [UIColor colorWithRed:0.0/255.0 green:48.0/255.0 blue:170.0/255.0 alpha:1.0];
-    dutchGreenColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+    dutchDarkBlueColor = [UIColor colorWithRed:14.0/255.0 green:71.0/255.0 blue:136.0/255.0 alpha:1.0];
+    dutchGreenColor = [UIColor colorWithRed:19.0/255.0 green:151.0/255.0 blue:76.0/215.0 alpha:1];
+    dutchOrangeColor = [UIColor colorWithRed:233.0/255.0 green:117.0/255.0 blue:8.0/255.0 alpha:1.0];
+    dutchRedColor = [UIColor colorWithRed:232.0/255.0 green:45.0/255.0 blue:7.0/255.0 alpha:1.0];
+
     dutchTopLineColor = [UIColor colorWithRed:171.0/255.0 green:171.0/255.0 blue:171.0/255.0 alpha:1.0];
     dutchTopNavColor = [UIColor colorWithRed:228.0/255.0 green:228.0/255.0 blue:228.0/255.0 alpha:1.0];
 

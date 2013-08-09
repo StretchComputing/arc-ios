@@ -1,14 +1,14 @@
 //
-//  CorbelTextFieldCreditCardiOS6.m
+//  SteelfishTextFieldCreditCardiOS6.m
 //  ARC
 //
-//  Created by Nick Wroblewski on 12/21/12.
+//  Created by Nick Wroblewski on 8/8/13.
 //
 //
 
-#import "CorbelTextFieldCreditCardiOS6.h"
+#import "SteelfishTextFieldCreditCardiOS6.h"
 
-@implementation CorbelTextFieldCreditCardiOS6
+@implementation SteelfishTextFieldCreditCardiOS6
 
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -16,7 +16,7 @@
     
     if ((self = [super initWithCoder: decoder])) {
         
-        [self setFont: [UIFont fontWithName: @"LucidaGrande" size: self.font.pointSize]];
+        [self setFont: [UIFont fontWithName: @"Steelfish" size: self.font.pointSize]];
         
         
     }
@@ -27,10 +27,10 @@
 -(void)deleteBackward{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"backspaceNotification" object:self userInfo:nil];
-
+    
     [super deleteBackward];
     
-
+    
 }
 
 

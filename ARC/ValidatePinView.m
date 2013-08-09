@@ -8,7 +8,7 @@
 
 #import "ValidatePinView.h"
 #import "ArcAppDelegate.h"
-#import "CorbelTitleLabel.h"
+#import "SteelfishTitleLabel.h"
 #import <QuartzCore/QuartzCore.h>
 #import "EditCreditCard.h"
 #import "FBEncryptorAES.h"
@@ -40,7 +40,7 @@
     self.confirmPin = @"";
     
     
-   // CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Card Security"];
+   // SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Card Security"];
     //self.navigationItem.titleView = navLabel;
     
     self.isFirstPin = YES;
@@ -99,7 +99,7 @@
     [self.navButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationController.navigationBar addSubview:self.navButton];
     
-    self.navLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
+    self.navLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:23];
     self.navLabel.text = @"Card Security";
     self.navLabel.textAlignment = UITextAlignmentCenter;
     [self.navigationController.navigationBar addSubview:self.navLabel];

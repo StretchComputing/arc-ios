@@ -1,19 +1,20 @@
 //
-//  CorbelTitleLabel.m
+//  SteelfishTitleLabel.m
 //  ARC
 //
-//  Created by Nick Wroblewski on 9/12/12.
+//  Created by Nick Wroblewski on 8/8/13.
 //
 //
 
-#import "CorbelTitleLabel.h"
+#import "SteelfishTitleLabel.h"
 
-@implementation CorbelTitleLabel
+@implementation SteelfishTitleLabel
+
 
 -(id)initWithText:(NSString *)labelTitle{
     
     self.theTitle = labelTitle;
-    UIFont* titleFont = [UIFont fontWithName:@"Corbel-Bold" size:26];
+    UIFont* titleFont = [UIFont fontWithName:@"SteelfishEb-Regular" size:28];
     CGSize requestedTitleSize = [labelTitle sizeWithFont:titleFont];
     CGFloat titleWidth = requestedTitleSize.width;
     
@@ -28,7 +29,7 @@
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
         self.textColor = [UIColor whiteColor];
-        self.font = [UIFont fontWithName:@"Corbel-Bold" size:26];
+        self.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:28];
         self.textAlignment = UITextAlignmentCenter;
         self.text = self.theTitle;
     }

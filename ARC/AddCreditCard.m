@@ -73,10 +73,10 @@ NSString *const AMERICAN_EXPRESS = @"A";
         }
        
         
-        //CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Add Card"];
+        //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Add Card"];
         //self.navigationItem.titleView = navLabel;
         
-        //CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Add Card"];
+        //SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Add Card"];
 		//self.navigationItem.backBarButtonItem = temp;
         
         [rSkybox addEventToSession:@"viewAddCreditCardScreen"];
@@ -153,7 +153,7 @@ NSString *const AMERICAN_EXPRESS = @"A";
         [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationController.navigationBar addSubview:tmpButton];
         
-        LucidaBoldLabel *tmpLabel = [[LucidaBoldLabel alloc] initWithFrame:CGRectMake(0, 2, 320, 46) andSize:20];
+        SteelfishBoldLabel *tmpLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:23];
         tmpLabel.text = @"Add A Card";
         tmpLabel.textAlignment = UITextAlignmentCenter;
         [self.navigationController.navigationBar addSubview:tmpLabel];

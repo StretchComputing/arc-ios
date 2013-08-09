@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MFSideMenu.h"
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 
 @interface LeftViewController : UIViewController
 
@@ -20,8 +20,8 @@
 -(IBAction)supportSelected;
 -(IBAction)shareSelected;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *profileLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *profileLabel;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
 
-@property (strong, nonatomic) IBOutlet LucidaBoldLabel *profileSubLabel;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *profileSubLabel;
 @end

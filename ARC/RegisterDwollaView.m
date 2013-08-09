@@ -26,7 +26,7 @@
         
         [rSkybox addEventToSession:@"viewRegisterDwollaScreen"];
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Dwolla Confirm"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Dwolla Confirm"];
         self.navigationItem.titleView = navLabel;
         
         

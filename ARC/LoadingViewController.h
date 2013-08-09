@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CorbelBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 
 @interface LoadingViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIView *backAlphaView;
 @property (strong, nonatomic) IBOutlet UIView *mainBackView;
-@property (strong, nonatomic) IBOutlet CorbelBoldLabel *displayText;
+@property (strong, nonatomic) IBOutlet SteelfishBoldLabel *displayText;
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 
 

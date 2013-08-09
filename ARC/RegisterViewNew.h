@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CorbelBarButtonItem.h"
+#import "SteelfishBarButtonItem.h"
 #import "CardIO.h"
 #import <Accounts/Accounts.h>
 #import "LoadingViewController.h"
 #import "NVUIGradientButton.h"
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
+#import "SteelfishInputText.h"
+#import "SteelfishTextFieldCreditCardiOS6.h"
 
 @class LoadingViewController;
 
@@ -25,12 +27,12 @@
 @property (nonatomic, strong) IBOutlet NVUIGradientButton *nextButton;
 @property (nonatomic, strong, getter = getRegButton) IBOutlet NVUIGradientButton *newRegisterButton;
 
-@property (nonatomic, strong) IBOutlet LucidaBoldLabel *regTitleLabel;
+@property (nonatomic, strong) IBOutlet SteelfishBoldLabel *regTitleLabel;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (nonatomic, strong) ACAccountStore *store;
 @property (nonatomic, strong) UIButton *keyboardSubmitButton;
 @property (nonatomic, strong) UIView *hideKeyboardView;
-@property (nonatomic, strong) CorbelBarButtonItem *registerButton;
+@property (nonatomic, strong) SteelfishBarButtonItem *registerButton;
 @property BOOL isIos6;
 @property BOOL isDelete;
 @property (nonatomic, strong) IBOutlet UIButton *facebookButton;
@@ -68,13 +70,13 @@
 @property BOOL shouldIgnoreValueChanged;
 @property BOOL shouldIgnoreValueChangedExpiration;
 
-@property (weak, nonatomic)  UITextField *emailText;
-@property (weak, nonatomic)  UITextField *passwordText;
-@property (weak, nonatomic)  UITextField *firstNameText;
-@property (weak, nonatomic)  UITextField *lastNameText;
-@property (weak, nonatomic)  UITextField *creditCardSecurityCodeText;
-@property (weak, nonatomic)  UITextField *creditCardNumberText;
-@property (nonatomic, strong) UITextField *expirationText;
+@property (weak, nonatomic)  SteelfishInputText *emailText;
+@property (weak, nonatomic)  SteelfishInputText *passwordText;
+@property (weak, nonatomic)  SteelfishInputText *firstNameText;
+@property (weak, nonatomic)  SteelfishInputText *lastNameText;
+@property (weak, nonatomic)  SteelfishTextFieldCreditCardiOS6 *creditCardSecurityCodeText;
+@property (weak, nonatomic)  SteelfishTextFieldCreditCardiOS6 *creditCardNumberText;
+@property (nonatomic, strong) SteelfishTextFieldCreditCardiOS6 *expirationText;
 
 
 -(IBAction)scanCard;

@@ -157,6 +157,9 @@
 -(void)viewDidLoad{
     @try {
         
+        
+        NSLog(@"Items: %@", self.myInvoice.items);
+        
         self.selectedStars = 0.0;
         self.selectFavoriteButton.text = @"Click to Select";
         
@@ -201,7 +204,7 @@
         
         UILabel *selectLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 320, 40)];
         selectLabel.textAlignment = UITextAlignmentCenter;
-        [selectLabel setFont: [UIFont fontWithName: @"Corbel-Bold" size: 27]];
+        [selectLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size: 27]];
         selectLabel.textColor = [UIColor whiteColor];
         selectLabel.backgroundColor = [UIColor clearColor];
         selectLabel.text = @"Select Your Favorite Item:";
@@ -238,10 +241,10 @@
             self.postFacebookPoints.hidden = YES;
         }
         
-        CorbelTitleLabel *navLabel = [[CorbelTitleLabel alloc] initWithText:@"Review"];
+        SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Review"];
         self.navigationItem.titleView = navLabel;
         
-        CorbelBarButtonItem *temp = [[CorbelBarButtonItem alloc] initWithTitleText:@"Review"];
+        SteelfishBarButtonItem *temp = [[SteelfishBarButtonItem alloc] initWithTitleText:@"Review"];
 		self.navigationItem.backBarButtonItem = temp;
         
         self.earnMoreLabel.text = [NSString stringWithFormat:@"Please give %@ some feedback:", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];

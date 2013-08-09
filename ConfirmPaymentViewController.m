@@ -50,7 +50,7 @@
     self.confirmButton.text = @"Confirm Payment";
     self.confirmButton.textColor = [UIColor whiteColor];
     self.confirmButton.textShadowColor = [UIColor darkGrayColor];
-    self.confirmButton.tintColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+    self.confirmButton.tintColor = dutchGreenColor;
     
     self.myTotalLabel.text = [NSString stringWithFormat:@"My Total: $%.2f", self.myInvoice.basePaymentAmount + self.myInvoice.gratuity];
     

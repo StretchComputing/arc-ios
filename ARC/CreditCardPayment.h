@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DwollaAPI.h"
 #import "Invoice.h"
-#import "LucidaBoldLabel.h"
+#import "SteelfishBoldLabel.h"
 #import "LoadingViewController.h"
 
 @class LoadingViewController;
@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSTimer *myTimer;
 @property (nonatomic, strong) NSString *ticketId;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *payButton;
-@property (nonatomic, strong) IBOutlet LucidaBoldLabel *totalPaymentText;
+@property (nonatomic, strong) IBOutlet SteelfishBoldLabel *totalPaymentText;
 
 - (IBAction)touchBoxesAction;
 
