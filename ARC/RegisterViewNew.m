@@ -1016,7 +1016,7 @@
                 errorMsg = @"Email Address already used.";
             }else if (errorCode == NETWORK_ERROR){
                 
-                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                errorMsg = @"Dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                 
             }else {
                 errorMsg = ARC_ERROR_MSG;
@@ -1036,6 +1036,11 @@
         }
     }
     @catch (NSException *e) {
+        
+        [self.loadingViewController stopSpin];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:@"We encountered an error processing your request, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        
         [rSkybox sendClientLog:@"RegisterView.registerComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     

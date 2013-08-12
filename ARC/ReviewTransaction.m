@@ -851,7 +851,7 @@
         };
     
         //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
-        NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+        NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Dutch!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
     
         NSNumber *avgRating = [self getAverageRating];
         if([avgRating doubleValue] > 0) {
@@ -1131,7 +1131,7 @@
                     ACAccount *facebookAccount = [accounts objectAtIndex:0];
                     
                     //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
-                    NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+                    NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Dutch!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
                     NSNumber *avgRating = [self getAverageRating];
                     if([avgRating doubleValue] > 0) {
                         post = [post stringByAppendingFormat:@" I gave the restaurant an average rating of %0.1f out of 5.", [avgRating doubleValue]];
@@ -1228,7 +1228,7 @@
                     ACAccount *facebookAccount = [accounts objectAtIndex:0];
                     
                     //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
-                    NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+                    NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Dutch!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
                     
                     
                     

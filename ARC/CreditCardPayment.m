@@ -429,7 +429,7 @@
 -(void)showHighVolumeOverlay{
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.loadingViewController.displayText.text = @"Arc is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.text = @"Dutch is experiencing high volume, or a weak internet connection, please be patient...";
         self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
         
         self.loadingViewController.displayText.numberOfLines = 3;
@@ -537,11 +537,11 @@
                 displayAlert = YES;
             }else if (errorCode == NETWORK_ERROR){
                 networkError = YES;
-                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                errorMsg = @"Dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                 
             }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
                 networkError = YES;
-                errorMsg = @"Arc experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+                errorMsg = @"Dutch experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
                 
             }
             else {
@@ -574,11 +574,18 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
             [alert show];
         }else if (duplicateTransaction){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"Arc has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"Dutch has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }
     @catch (NSException *e) {
+        
+        [self.loadingViewController stopSpin];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:@"We encountered an error processing your request, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        
+        
         [rSkybox sendClientLog:@"CreditCardPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     

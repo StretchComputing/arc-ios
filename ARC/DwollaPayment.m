@@ -27,7 +27,7 @@
 -(void)showHighVolumeOverlay{
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.loadingViewController.displayText.text = @"Arc is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.text = @"Dutch is experiencing high volume, or a weak internet connection, please be patient...";
         self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
         
         self.loadingViewController.displayText.numberOfLines = 3;
@@ -753,6 +753,12 @@
         }
     }
     @catch (NSException *e) {
+        
+        [self.loadingViewController stopSpin];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:@"We encountered an error processing your request, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        
         [rSkybox sendClientLog:@"DwollaPayment.paymentComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
 }

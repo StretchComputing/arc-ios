@@ -1443,6 +1443,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         return responseInfo;
     }
     @catch (NSException *e) {
+        
+        NSString *status = @"error";
+        NSDictionary *responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:9999]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+        
+        
         [rSkybox sendClientLog:@"ArcClient.createCustomerResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @{};
     }
@@ -1746,6 +1752,13 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     return [NSDictionary dictionary];
 }
 @catch (NSException *e) {
+    
+    NSString *status = @"error";
+    NSDictionary *responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:9999]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"invoiceNotification" object:self userInfo:responseInfo];
+
+    
+    
     [rSkybox sendClientLog:@"ArcClient.getInvoiceResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     return @{};
     
@@ -1790,6 +1803,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         return responseInfo;
     }
     @catch (NSException *e) {
+        
+        NSString *status = @"error";
+        NSDictionary *responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:9999]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
+        
+        
         [rSkybox sendClientLog:@"ArcClient.createPaymentResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @{};
 
@@ -1850,6 +1869,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         return responseInfo;
     }
     @catch (NSException *e) {
+        
+        NSString *status = @"error";
+        NSDictionary *responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:9999]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"createPaymentNotification" object:self userInfo:responseInfo];
+        
+        
         [rSkybox sendClientLog:@"ArcClient.confirmPaymentResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @{};
         
@@ -1928,6 +1953,11 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         return responseInfo;
     }
     @catch (NSException *e) {
+        NSString *status = @"error";
+        NSDictionary *responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:9999]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"registerNotification" object:self userInfo:responseInfo];
+        
+        
         [rSkybox sendClientLog:@"ArcClient.confirmRegisterResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @{};
         

@@ -33,7 +33,7 @@
                 ACAccount *facebookAccount = [accounts objectAtIndex:0];
                 
     
-                NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Arc Mobile.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
+                NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with Dutch!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
              
                 
                 

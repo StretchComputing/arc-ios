@@ -72,7 +72,7 @@
 -(void)viewDidLoad{
     
     
-    self.viewChangeServerButton.text = @"View/Change Arc Server";
+    self.viewChangeServerButton.text = @"View/Change Dutch Server";
  
     
     

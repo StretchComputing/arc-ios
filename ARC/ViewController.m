@@ -295,7 +295,7 @@
             fieldLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];
             fieldLabel.textAlignment = UITextAlignmentCenter;
             
-            fieldLabel.text = @"How Arc Works";
+            fieldLabel.text = @"How Dutch Works";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         

@@ -566,14 +566,11 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
         self.submitButton.enabled = YES;
         self.keyboardSubmitButton.enabled = YES;
-        
-        
-       // NSException *testException = [NSException exceptionWithName:@"NEWEXCEPTION" reason:@"DSDFSD" userInfo:nil];
-       // @throw testException;
+     
 
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         
-        NSLog(@"ResponseInfo: %@", responseInfo);
+       // NSLog(@"ResponseInfo: %@", responseInfo);
         
         NSString *status = [responseInfo valueForKey:@"status"];
         
@@ -646,7 +643,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 errorMsg = @"Invoice being access by your server.  Try again in a few minutes.";
             } else if (errorCode == NETWORK_ERROR){
                 displayAlert = YES;
-                errorMsg = @"Arc is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                errorMsg = @"Dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                 
             } else {
                 errorMsg = ARC_ERROR_MSG;
@@ -668,6 +665,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         }
     }
     @catch (NSException *e) {
+        [self.loadingViewController stopSpin];
+        self.errorLabel.text = ARC_ERROR_MSG;
+        
         [rSkybox sendClientLog:@"Restaurant.invoiceComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
     }
     
