@@ -12,10 +12,12 @@
 #import "SteelfishTextView.h"
 #import "NVUIGradientButton.h"
 
-@interface AdditionalTipViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate>
+@interface AdditionalTipViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate, UIActionSheetDelegate>
+
+@property (nonatomic, strong) UIActionSheet *actionSheet;
 
 @property (strong, nonatomic) Invoice *myInvoice;
-
+@property (nonatomic, strong) NSArray *creditCards;
 @property (nonatomic, strong) NSString *creditCardNumber;
 @property (nonatomic, strong) NSString *creditCardSecurityCode;
 @property (nonatomic, strong) NSString *creditCardExpiration;

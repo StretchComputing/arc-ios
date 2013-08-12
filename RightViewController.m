@@ -27,6 +27,9 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
     
     [self.payDollarTextView resignFirstResponder];
     self.expandedElement = @"";
+    self.payDollarTextView.text = @"";
+    [self.numberSliderScrollView setContentOffset:CGPointMake(0, 0)];
+    self.splitYourPaymentLabel.text = @"You Pay: $0.00";
     [self.mainTableView reloadData];
 }
 
@@ -229,7 +232,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                     if (indexPath.row == 1) {
                        nameLabelString =  nameLabel.text = @"Split by $";
                     }else if (indexPath.row == 3){
-                        nameLabelString = nameLabel.text = @"Split by %";
+                        nameLabelString = nameLabel.text = @"Split by # People";
                     }else if (indexPath.row == 5){
                         nameLabelString = nameLabel.text = @"See Who Paid";
                     }else if (indexPath.row == 2){

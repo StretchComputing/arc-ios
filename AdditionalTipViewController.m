@@ -12,6 +12,7 @@
 #import "rSkybox.h"
 #import "ConfirmPaymentViewController.h"
 #import "AddCreditCardGuest.h"
+#import "ArcUtility.h"
 
 @interface AdditionalTipViewController ()
 
@@ -125,6 +126,167 @@
         self.tipTextField.text = @"";
     }
     
+    
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
+        
+        BOOL haveCards;
+        BOOL haveDwolla;
+        BOOL showSheet = YES;
+        
+        if([self.myInvoice calculateAmountPaid] > 0) {
+            //[ArcClient trackEvent:@"PAY_REMAINING"];
+        }
+        
+        
+        
+        ArcAppDelegate *mainDelegate = (ArcAppDelegate *)[[UIApplication sharedApplication] delegate];
+        self.creditCards = [NSArray arrayWithArray:[mainDelegate getAllCreditCardsForCurrentCustomer]];
+        
+        if ([self.creditCards count] == 0) {
+            haveCards = NO;
+        }else{
+            haveCards = YES;
+        }
+        
+        NSString *token;
+        
+        @try {
+           // token = [DwollaAPI getAccessToken];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        
+        if ([token length] > 0) {
+            haveDwolla = YES;
+        }else{
+            haveDwolla = NO;
+        }
+        
+        if (haveCards) {
+            
+            NSMutableArray *tmpCards = [NSMutableArray arrayWithArray:self.creditCards];
+            BOOL didRemove = NO;
+            for (int i = 0; i < [tmpCards count]; i++) {
+                
+                CreditCard *tmp = [tmpCards objectAtIndex:i];
+                
+                if ([self.myInvoice.paymentsAccepted rangeOfString:tmp.cardType].location == NSNotFound) {
+                    [tmpCards removeObjectAtIndex:i];
+                    i--;
+                    didRemove = YES;
+                }
+                
+            }
+            self.creditCards = [NSArray arrayWithArray:tmpCards];
+            
+            
+            
+            if ([self.creditCards count] > 0) {
+                
+                
+                if ([self.creditCards count] == 1) {
+                    CreditCard *selectedCard = [self.creditCards objectAtIndex:0];
+                    
+                    self.creditCardNumber = selectedCard.number;
+                    self.creditCardSecurityCode = selectedCard.securityCode;
+                    self.creditCardExpiration = selectedCard.expiration;
+                    self.creditCardSample = selectedCard.sample;
+                    
+                    [self performSegueWithIdentifier:@"goConfirm" sender:self];
+                    return;
+                }else{
+                    
+                    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+                    
+                    int x = 0;
+                    if (haveDwolla) {
+                        x++;
+                        [self.actionSheet addButtonWithTitle:@"Dwolla"];
+                    }
+                    
+                    for (int i = 0; i < [self.creditCards count]; i++) {
+                        CreditCard *tmpCard = (CreditCard *)[self.creditCards objectAtIndex:i];
+                        
+                        if ([tmpCard.sample rangeOfString:@"Credit Card"].location == NSNotFound && [tmpCard.sample rangeOfString:@"Debit Card"].location == NSNotFound) {
+                            
+                            [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@", tmpCard.sample]];
+                            
+                        }else{
+                            [self.actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@  %@", [ArcUtility getCardNameForType:tmpCard.cardType], [tmpCard.sample substringFromIndex:[tmpCard.sample length] - 8] ]];
+                            
+                        }
+                        
+                        
+                        
+                        
+                    }
+                    [self.actionSheet addButtonWithTitle:@"Cancel"];
+                    self.actionSheet.cancelButtonIndex = [self.creditCards count] + x;
+                }
+                
+                
+            }else {
+                
+                if (haveDwolla) {
+                    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Payment Method" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Dwolla", nil];
+                }else{
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Cards Accepted" message:@"None of your credit cards on file are accepted by this merchant, to continue please add a new form of payment." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alert show];
+                    
+                    didRemove = NO;
+                    showSheet = NO;
+                    [self noPaymentSources];
+                    
+                    
+                }
+                
+            }
+            
+            
+            self.actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+            
+            if (didRemove) {
+                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not All Cards Accepted" message:@"One or more of your saved credit cards are not accepted by this merchant.  You will not see these cards in the list of payment choices" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                //[alert show];
+                
+                //[self showTextOverlay];
+                [self.actionSheet showInView:self.view];
+                
+            }else{
+                
+                if (showSheet) {
+                    [self.actionSheet showInView:self.view];
+                    
+                }
+                
+            }
+            
+        }else{
+            [self noPaymentSources];
+        }
+        
+        
+    }else{
+        
+        //Guest
+        
+        
+        self.creditCardNumber = @"";
+        self.creditCardSecurityCode = @"";
+        self.creditCardExpiration = @"";
+        self.creditCardSample = @"";
+        
+        [self performSegueWithIdentifier:@"goEnterCard" sender:self];
+        
+    }
+
+    
+    
+    
+    /*
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] > 0) {
         
         if ([self.creditCardSample length] > 0) {
@@ -142,7 +304,99 @@
 
     }
   
+     */
     
+}
+
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    
+    @try {
+        
+        BOOL haveDwolla = NO;
+        NSString *token;
+        
+        @try {
+            //token = [DwollaAPI getAccessToken];
+        }
+        @catch (NSException *exception) {
+            
+        }
+        
+        int x = 0;
+        if ([token length] > 0) {
+            x++;
+            //haveDwolla = YES;
+        }
+        
+        
+        if (buttonIndex == 0) {
+            //Dwolla
+            
+            if (haveDwolla) {
+                if ((token == nil) || [token isEqualToString:@""]) {
+                    
+                    [self performSegueWithIdentifier:@"confirmDwolla" sender:self];
+                    
+                    
+                }else{
+                    [rSkybox addEventToSession:@"selectedDwollaForPayment"];
+                    
+                    [self performSegueWithIdentifier:@"goPayDwolla" sender:self];
+                    
+                }
+            }else{
+                //Grab top CC
+                
+                CreditCard *selectedCard = [self.creditCards objectAtIndex:0];
+                
+                self.creditCardNumber = selectedCard.number;
+                self.creditCardSecurityCode = selectedCard.securityCode;
+                self.creditCardExpiration = selectedCard.expiration;
+                self.creditCardSample = selectedCard.sample;
+                
+                [self performSegueWithIdentifier:@"goConfirm" sender:self];
+            }
+            
+            
+            
+            
+        }else {
+            [rSkybox addEventToSession:@"selectedCreditCardForPayment"];
+            
+            
+            if ([self.creditCards count] > 0) {
+                if (buttonIndex == [self.creditCards count] + x) {
+                    //Cancel
+                }else{
+                    CreditCard *selectedCard = [self.creditCards objectAtIndex:buttonIndex - x];
+                    
+                    self.creditCardNumber = selectedCard.number;
+                    self.creditCardSecurityCode = selectedCard.securityCode;
+                    self.creditCardExpiration = selectedCard.expiration;
+                    self.creditCardSample = selectedCard.sample;
+                    
+                    [self performSegueWithIdentifier:@"goConfirm" sender:self];
+                    
+                }
+            }
+            
+        }
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"AdditionalTip.actionSheet" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+    
+}
+
+
+
+
+-(void)noPaymentSources{
+    [self performSegueWithIdentifier:@"goEnterCard" sender:self];
+
 }
 
 - (IBAction)goBackAction {

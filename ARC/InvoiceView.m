@@ -1724,10 +1724,13 @@
         NSString *event = [NSString stringWithFormat:@"clickedPayButton - invoiceId: %d", self.myInvoice.invoiceId];
         [rSkybox addEventToSession:event];
 
+        [self performSegueWithIdentifier:@"goPayCreditCard" sender:nil];
+        /*
         
       
         if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"] length] > 0) {
             
+         
             BOOL haveCards;
             BOOL haveDwolla;
             BOOL showSheet = YES;
@@ -1881,6 +1884,8 @@
             [self performSegueWithIdentifier:@"goPayCreditCard" sender:self];
                         
         }
+         
+         */
         
     }
     @catch (NSException *e) {

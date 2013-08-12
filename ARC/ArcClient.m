@@ -19,9 +19,9 @@
 
 //NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
 
-//NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://24.14.40.71:8700/arc-dev/rest/v1/";
-NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -77,7 +77,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 - (id)init {
     if (self = [super init]) {
         
-        self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10)];
+        self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10), @(11)];
         self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(6)];
         self.retryTimesInvoice = @[@(2),@(2),@(2),@(3),@(4),@(5)];
 
@@ -85,7 +85,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           _arcUrl = [prefs valueForKey:@"arcUrl"];
+          // _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         NSString *event = [NSString stringWithFormat:@"ArcClient URL: %@", _arcUrl];
         [rSkybox addEventToSession:event];
@@ -1696,7 +1696,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
                         
                     self.numberGetInvoiceTries++;
                     
-                    if (self.numberGetInvoiceTries < 5) {
+                    if (self.numberGetInvoiceTries < [self.retryTimesInvoice count] - 1) {
                         
                         int retryTime = [[self.retryTimesInvoice objectAtIndex:self.numberGetInvoiceTries] intValue];
                         
@@ -1836,7 +1836,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
             }else{
                 
-                if (self.numberConfirmPaymentTries > 10) {
+                if (self.numberConfirmPaymentTries > [self.retryTimes count] - 1 ) {
                     
                     NSString *status = @"error";
                     int errorCode = MAX_RETRIES_EXCEEDED;
@@ -1920,7 +1920,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             }else{
                 
                 
-                if (self.numberRegisterTries > 5) {
+                if (self.numberRegisterTries > [self.retryTimesRegister count] - 1) {
                     
                     NSString *status = @"error";
                     int errorCode = MAX_RETRIES_EXCEEDED;

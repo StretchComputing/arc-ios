@@ -948,10 +948,10 @@
         self.loadingViewController.mainBackView.frame = frame;
         
         CGRect frame2 = self.loadingViewController.displayText.frame;
-        frame2.origin.y -= 20;
+        frame2.origin.y -= 15;
         frame2.size.height += 20;
         frame2.origin.x = 10;
-        frame2.size.width = 300;
+        frame2.size.width = 290;
         self.loadingViewController.displayText.frame = frame2;
         
     }];
