@@ -555,6 +555,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 -(void)invoiceComplete:(NSNotification *)notification{
     @try {
         
+        
+        
         ArcClient *pingClient = [[ArcClient alloc] init];
         [pingClient sendServerPings];
         
@@ -564,7 +566,10 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
         self.submitButton.enabled = YES;
         self.keyboardSubmitButton.enabled = YES;
-
+        
+        
+       // NSException *testException = [NSException exceptionWithName:@"NEWEXCEPTION" reason:@"DSDFSD" userInfo:nil];
+       // @throw testException;
 
         NSDictionary *responseInfo = [notification valueForKey:@"userInfo"];
         

@@ -679,6 +679,7 @@
 -(void)paymentComplete:(NSNotification *)notification{
     @try {
         
+        
         [self.loadingViewController stopSpin];
 
         bool displayAlert = NO;

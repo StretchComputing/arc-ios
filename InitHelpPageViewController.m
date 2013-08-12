@@ -264,7 +264,7 @@
             //Call is still loading
             self.didPushStart = YES;
             self.loadingViewController.view.hidden = NO;
-            self.loadingViewController.displayText.text = @"Loading Arc...";
+            self.loadingViewController.displayText.text = @"Loading Dutch...";
         }
     }
     

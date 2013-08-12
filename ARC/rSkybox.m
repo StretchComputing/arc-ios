@@ -239,9 +239,12 @@ NSString *const CLOSED_STATUS = @"closed";
         
         
         for (int i = 0; i < [appActions count]; i++) {
+            
+            NSString *appAction = [appActions objectAtIndex:i];
+           
             NSMutableDictionary *actDictionary = [NSMutableDictionary dictionary];
             
-            [actDictionary setObject:[appActions objectAtIndex:i] forKey:@"description"];
+            [actDictionary setObject:appAction forKey:@"description"];
             
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
@@ -261,6 +264,9 @@ NSString *const CLOSED_STATUS = @"closed";
         
         //Make the call to the server
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];
+        
+        
+        NSLog(@"Request String: %@", requestString);
         
         NSString *tmpUrl = [baseUrl stringByAppendingFormat:@"/applications/%@/clientLogs", applicationId];
         

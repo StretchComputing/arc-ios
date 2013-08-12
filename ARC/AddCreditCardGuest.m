@@ -17,7 +17,7 @@
 #import "CreatePinView.h"
 #import "ArcUtility.h"
 #import "GuestCreateAccount.h"
-
+#import "MFSideMenu.h"
 @interface AddCreditCardGuest ()
 
 -(void)showDoneButton;
@@ -676,6 +676,9 @@
         
         self.myTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(createPaymentTimer) userInfo:nil repeats:NO];
         
+        
+        self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
+
         [client createPayment:loginDict];
         
     }
@@ -761,6 +764,9 @@
     
     
     @try {
+        
+        self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+
         
         self.creditCardNumberText.enabled = YES;
         self.creditCardSecurityCodeText.enabled = YES;

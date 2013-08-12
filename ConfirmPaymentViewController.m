@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ReviewTransaction.h"
 #import "InvoiceView.h"
+#import "MFSideMenu.h"
 
 @interface ConfirmPaymentViewController ()
 
@@ -264,6 +265,8 @@
             
             self.myTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(createPaymentTimer) userInfo:nil repeats:NO];
             
+            self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
+
             [client createPayment:loginDict];
             
         }else{
@@ -351,7 +354,8 @@
 -(void)paymentComplete:(NSNotification *)notification{
     
     @try {
-        
+        self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+
         [self.myTimer invalidate];
         
         //[self hideHighVolumeOverlay];
@@ -422,7 +426,7 @@
                 errorMsg = @"Invoice being access by your server.  Please try again in a few minutes.";
                 displayAlert = YES;
             }else if (errorCode == CARD_ALREADY_PROCESSED){
-                errorMsg = @"his credit card has already been used to make a payment on this invoice. To make an additional payment, either use a different credit card or have your server void your initial payment.";
+                errorMsg = @"this credit card has already been used to make a payment on this invoice. To make an additional payment, either use a different credit card or have your server void your initial payment.";
                 displayAlert = YES;
             }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
                 errorMsg = @"Invalid Authorization, please try again.";

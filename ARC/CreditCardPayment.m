@@ -16,6 +16,7 @@
 #import "Invoice.h"
 #import "ArcUtility.h"
 #import "EditCreditCard.h"
+#import "MFSideMenu.h"
 
 @interface CreditCardPayment ()
 
@@ -386,6 +387,8 @@
             
             self.myTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(createPaymentTimer) userInfo:nil repeats:NO];
             
+            self.navigationController.sideMenu.allowSwipeOpenLeft = NO;
+
             [client createPayment:loginDict];
 
         }else{
@@ -452,6 +455,8 @@
 -(void)paymentComplete:(NSNotification *)notification{
     
     @try {
+        self.navigationController.sideMenu.allowSwipeOpenLeft = YES;
+
         
         [self.myTimer invalidate];
         
