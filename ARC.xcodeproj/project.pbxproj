@@ -138,6 +138,10 @@
 		90A9AD021785D70D0096BA41 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A9AD011785D70D0096BA41 /* AdSupport.framework */; };
 		90AAADFB175D37D40096991D /* receipt.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAADFA175D37D40096991D /* receipt.png */; };
 		90AAAE16175E82FC0096991D /* dutchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAAE15175E82FC0096991D /* dutchLogo.png */; };
+		90AE448C17BA6A3D00258A06 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90AE448A17BA6A3D00258A06 /* OpenSans-Bold.ttf */; };
+		90AE448D17BA6A3D00258A06 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90AE448B17BA6A3D00258A06 /* OpenSans-Regular.ttf */; };
+		90AE449017BA707A00258A06 /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90AE448E17BA707A00258A06 /* DroidSans-Bold.ttf */; };
+		90AE449117BA707A00258A06 /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90AE448F17BA707A00258A06 /* DroidSans.ttf */; };
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
 		90B01D07159E3E61005FCCCF /* fullStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D06159E3E61005FCCCF /* fullStar.png */; };
 		90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D09159E3E92005FCCCF /* ReviewTransaction.m */; };
@@ -416,6 +420,10 @@
 		90A9AD011785D70D0096BA41 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		90AAADFA175D37D40096991D /* receipt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = receipt.png; sourceTree = "<group>"; };
 		90AAAE15175E82FC0096991D /* dutchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dutchLogo.png; sourceTree = "<group>"; };
+		90AE448A17BA6A3D00258A06 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		90AE448B17BA6A3D00258A06 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		90AE448E17BA707A00258A06 /* DroidSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DroidSans-Bold.ttf"; sourceTree = "<group>"; };
+		90AE448F17BA707A00258A06 /* DroidSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DroidSans.ttf; sourceTree = "<group>"; };
 		90B01D03159E3CF1005FCCCF /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		90B01D06159E3E61005FCCCF /* fullStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullStar.png; sourceTree = "<group>"; };
 		90B01D08159E3E92005FCCCF /* ReviewTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTransaction.h; sourceTree = "<group>"; };
@@ -713,6 +721,8 @@
 				90CDE0EA17028B0000134AF2 /* menuShareIcon.png */,
 				90A9A4341785CC9E0096BA41 /* facebookConnect.png */,
 				9093E50717442A9200BC18E3 /* jaggedEdge.png */,
+				90AE448E17BA707A00258A06 /* DroidSans-Bold.ttf */,
+				90AE448F17BA707A00258A06 /* DroidSans.ttf */,
 				9093E50817442A9200BC18E3 /* jaggedEdgeBottom.png */,
 				90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */,
 				908CED8317024213006CC48A /* MFSideMenu.h */,
@@ -943,6 +953,8 @@
 				908C0CA91703C397003E004E /* ProfileViewController.m */,
 				9038AA911784653B00B5DF60 /* InvoiceHelpOverlay.h */,
 				9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */,
+				90AE448A17BA6A3D00258A06 /* OpenSans-Bold.ttf */,
+				90AE448B17BA6A3D00258A06 /* OpenSans-Regular.ttf */,
 				9038AAB317847E7800B5DF60 /* CheckHelpOverlay.h */,
 				9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */,
 			);
@@ -1160,6 +1172,10 @@
 				909CF09817B3D986004300D0 /* steelfish rg.ttf in Resources */,
 				909CF0B817B3EC44004300D0 /* invoiceMore.png in Resources */,
 				9045231717B4914400796871 /* spinner.png in Resources */,
+				90AE448C17BA6A3D00258A06 /* OpenSans-Bold.ttf in Resources */,
+				90AE448D17BA6A3D00258A06 /* OpenSans-Regular.ttf in Resources */,
+				90AE449017BA707A00258A06 /* DroidSans-Bold.ttf in Resources */,
+				90AE449117BA707A00258A06 /* DroidSans.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

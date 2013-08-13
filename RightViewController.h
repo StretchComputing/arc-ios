@@ -12,6 +12,7 @@
 #import "MFSideMenu.h"
 #import "InvoiceView.h"
 #import "Invoice.h"
+#import "SteelfishLabel.h"
 
 @class InvoiceView, Invoice;
 
@@ -34,6 +35,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *alreadyPaidTable;
 @property (strong, nonatomic) IBOutlet SteelfishBoldLabel *totalRemainingLabel;
 @property (strong, nonatomic) IBOutlet SteelfishBoldLabel *noPaymentsLabel;
+@property (nonatomic, strong) IBOutlet SteelfishBoldLabel *topInvoiceLabel;
 
 @property (nonatomic, strong) IBOutlet UIView *topLineView;
 @property (strong, nonatomic) IBOutlet SteelfishBoldLabel *seeWhoPaidLabel;

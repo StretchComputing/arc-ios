@@ -203,15 +203,16 @@
             NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
             [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
             
-            NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
-            
-            [ tempDictionary setObject:amount forKey:@"Amount"];
+            //NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
+            NSString *amountString = [NSString stringWithFormat:@"%.2f", [self.myInvoice basePaymentAmount]];
+
+            [ tempDictionary setObject:amountString forKey:@"Amount"];
             
             [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
             [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
             
-            NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
-            [tempDictionary setObject:grat forKey:@"Gratuity"];
+            NSString *gratuityString = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
+            [tempDictionary setObject:gratuityString forKey:@"Gratuity"];
             
           
             [ tempDictionary setObject:self.transactionNotes forKey:@"Notes"];

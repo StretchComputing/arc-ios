@@ -582,9 +582,9 @@
         self.loadingTopView.alpha = 0.2;
 
         
-        NSString *amountString = [NSString stringWithFormat:@"%.2f", self.myInvoice.basePaymentAmount];
-        NSLog(@"AmountString: %@", amountString);
-        self.myInvoice.basePaymentAmount = [amountString doubleValue];
+       // NSString *amountString = [NSString stringWithFormat:@"%.2f", self.myInvoice.basePaymentAmount];
+       // NSLog(@"AmountString: %@", amountString);
+       // self.myInvoice.basePaymentAmount = [amountString doubleValue];
         
         NSString *gratString = [NSString stringWithFormat:@"%.2f", self.myInvoice.gratuity];
         NSLog(@"Grat: %@", gratString);
@@ -598,20 +598,22 @@
         NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
         [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
         
-        NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
+        //double amountDouble = [NSString stringWithFormat:@"%.2f"]
+       // NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
         
-        [ tempDictionary setObject:amount forKey:@"Amount"];
+        NSString *amountString = [NSString stringWithFormat:@"%.2f", [self.myInvoice basePaymentAmount]];
+        [ tempDictionary setObject:amountString forKey:@"Amount"];
         
         [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];
         
         NSString *ccNumber = [self.creditCardNumberText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         [ tempDictionary setObject:ccNumber forKey:@"FundSourceAccount"];
         
-        NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
-        [tempDictionary setObject:grat forKey:@"Gratuity"];
+        //NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
+        NSString *gratuityString = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
+        [tempDictionary setObject:gratuityString forKey:@"Gratuity"];
         
-        NSLog(@"Grat: %f", self.myInvoice.gratuity);
-        NSLog(@"Grat: %f", [grat doubleValue]);
+    
 
         
         

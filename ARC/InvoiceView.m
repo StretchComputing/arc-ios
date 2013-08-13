@@ -22,6 +22,7 @@
 #import "NumberLineButton.h"
 #import "RightViewController.h"
 #import "MyGestureRecognizer.h"
+#import "SteelfishLabel.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -954,14 +955,14 @@
                 if (i != index) {
                     if ([SteelfishBoldLabel class] == [[[scrollView subviews] objectAtIndex:i] class]) {
                         SteelfishBoldLabel *otherLabel = (SteelfishBoldLabel *)[[scrollView subviews] objectAtIndex:i];
-                        [otherLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:16]];
+                        [otherLabel setFont: [UIFont fontWithName: FONT_BOLD size:16]];
                         
                     }
                 }
             }
             
             SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[scrollView subviews] objectAtIndex:index];
-            [myLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:35]];
+            [myLabel setFont: [UIFont fontWithName: FONT_BOLD size:35]];
         }
   
     }
@@ -990,6 +991,7 @@
    
     right.invoiceController = self;
     right.myInvoice = self.myInvoice;
+    right.topInvoiceLabel.text = [NSString stringWithFormat:@"Check #: %@", self.myInvoice.number];
     double amountPaid = [self.myInvoice calculateAmountPaid];
 
     double amountDue = self.myInvoice.amountDue;
@@ -1281,7 +1283,7 @@
                 notesText.text = [payment valueForKey:@"Notes"];
                 
                 CGSize constraints = CGSizeMake(200, 900);
-                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
+                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:FONT_REGULAR size:14] constrainedToSize:constraints];
                 
                 CGRect frame = notesText.frame;
                 frame.size.height = totalSize.height + 15;
@@ -1441,7 +1443,7 @@
             
             
             myPayLabel.textColor = [UIColor whiteColor];
-            myPayLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize-1];
+            myPayLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize-1];
             myPayLabel.hidden = YES;
             
             
@@ -1467,9 +1469,9 @@
                 numberLabel.textColor = [UIColor whiteColor];
                 priceLabel.textColor = [UIColor whiteColor];
                 
-                itemLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
-                numberLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
-                priceLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
+                itemLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize];
+                numberLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize];
+                priceLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize];
 
             }else if ([[itemDictionary valueForKey:@"IsPayingFor"] isEqualToString:@"maybe"]){
                 
@@ -1483,9 +1485,9 @@
                 numberLabel.textColor = [UIColor whiteColor];
                 priceLabel.textColor = [UIColor whiteColor];
                 
-                itemLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
-                numberLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
-                priceLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize];
+                itemLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize];
+                numberLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize];
+                priceLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize];
                 
                 myPayLabel.hidden = NO;
                 myPayLabel.text = [NSString stringWithFormat:@"You Pay: %.2f", [[itemDictionary valueForKey:@"AmountPayingFor"] doubleValue]];
@@ -1500,9 +1502,9 @@
                 numberLabel.textColor = [UIColor blackColor];
                 priceLabel.textColor = [UIColor blackColor];
                 
-                itemLabel.font = [UIFont fontWithName:@"Steelfish" size:fontSize];
-                numberLabel.font = [UIFont fontWithName:@"Steelfish" size:fontSize];
-                priceLabel.font = [UIFont fontWithName:@"Steelfish" size:fontSize];
+                itemLabel.font = [UIFont fontWithName:FONT_REGULAR size:fontSize];
+                numberLabel.font = [UIFont fontWithName:FONT_REGULAR size:fontSize];
+                priceLabel.font = [UIFont fontWithName:FONT_REGULAR size:fontSize];
             }
             
             
@@ -1512,7 +1514,7 @@
                 if ([[itemDictionary valueForKey:@"isPaidFor"] isEqualToString:@"yes"]) {
                     
                     [cell.contentView bringSubviewToFront:highLightView];
-                    alreadyPaidLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize+3];
+                    alreadyPaidLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize+3];
 
                     [cell.contentView bringSubviewToFront:alreadyPaidLabel];
 
@@ -1527,7 +1529,7 @@
                 }else if ([[itemDictionary valueForKey:@"isPaidFor"] isEqualToString:@"maybe"]){
                     
                     [cell.contentView bringSubviewToFront:highLightView];
-                    alreadyPaidLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:fontSize+1];
+                    alreadyPaidLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize+1];
 
                     [cell.contentView bringSubviewToFront:alreadyPaidLabel];
                     
@@ -1691,7 +1693,7 @@
                 if ([[payment valueForKey:@"Notes"] length] > 0) {
                     
                     CGSize constraints = CGSizeMake(200, 900);
-                    CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
+                    CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:FONT_REGULAR size:14] constrainedToSize:constraints];
                     
                     return 25 + totalSize.height + 15;
                     
@@ -3014,7 +3016,7 @@
     
     if (myItemPayemnt > itemPrice) {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Overpayment" message:@"You cannot pay for more than the cost of this item." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Over Payment" message:@"You cannot pay for more than the cost of this item." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         
     }else{

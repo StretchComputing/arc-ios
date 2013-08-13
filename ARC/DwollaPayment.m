@@ -603,16 +603,16 @@
         NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
         [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
         
-        NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
-        [ tempDictionary setObject:amount forKey:@"Amount"];
+        NSString *amountString = [NSString stringWithFormat:@"%.2f", [self.myInvoice basePaymentAmount]];
+        [ tempDictionary setObject:amountString forKey:@"Amount"];
         
         [ tempDictionary setObject:dwollaToken forKey:@"AuthenticationToken"];
         // bypass funding source - force server to use default which means the money comes from the user's Dwolla account
         //[ tempDictionary setObject:self.selectedFundingSourceId forKey:@"FundSourceAccount"];
         [ tempDictionary setObject:@"" forKey:@"FundSourceAccount"];
         
-        NSNumber *grat = [NSNumber numberWithDouble:[self.myInvoice gratuity]];
-        [ tempDictionary setObject:grat forKey:@"Gratuity"];
+        NSString *gratuityString = [NSString stringWithFormat:@"%.2f", [self.myInvoice gratuity]];
+        [ tempDictionary setObject:gratuityString forKey:@"Gratuity"];
         
         if (![self.notesText.text isEqualToString:@""] && ![self.notesText.text isEqualToString:@"Transaction Notes (*optional):"]) {
             [ tempDictionary setObject:self.notesText.text forKey:@"Notes"];

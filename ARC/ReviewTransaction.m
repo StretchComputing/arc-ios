@@ -16,6 +16,8 @@
 #import "Invoice.h"
 #import "MFSideMenu.h"
 #import "HomeNew.h"
+#import "SteelfishLabel.h"
+
 //#import "Merchant.h"
 
 @interface ReviewTransaction ()
@@ -204,7 +206,7 @@
         
         UILabel *selectLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 320, 40)];
         selectLabel.textAlignment = UITextAlignmentCenter;
-        [selectLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size: 27]];
+        [selectLabel setFont: [UIFont fontWithName:FONT_BOLD size: 27]];
         selectLabel.textColor = [UIColor whiteColor];
         selectLabel.backgroundColor = [UIColor clearColor];
         selectLabel.text = @"Select Your Favorite Item:";

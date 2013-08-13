@@ -221,53 +221,73 @@
 
 -(void)startUsingAction{
     
-    [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didAgreeTerms"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"guestToken"] length] > 0) {
+    if (self.didFailToken) {
         
-        UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
-        home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentModalViewController:home animated:YES];
+        NSString *identifier = [ArcIdentifier getArcIdentifier];
+        
+        self.loadingViewController.view.hidden = NO;
+        self.loadingViewController.displayText.text = @"Starting dutch...";
+        
+        NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+        NSDictionary *loginDict = [[NSDictionary alloc] init];
+        [ tempDictionary setObject:identifier forKey:@"userName"];
+        [ tempDictionary setObject:identifier forKey:@"password"];
+        
+        loginDict = tempDictionary;
+        ArcClient *client = [[ArcClient alloc] init];
+        [client getGuestToken:loginDict];
+        
         
     }else{
-        if (self.doesHaveGuestToken || self.guestTokenError) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"didAgreeTerms"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"guestToken"] length] > 0) {
             
-            if (self.guestTokenError) {
+            UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
+            home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self presentModalViewController:home animated:YES];
+            
+        }else{
+            if (self.doesHaveGuestToken || self.guestTokenError) {
                 
+                if (self.guestTokenError) {
+                    
+                    self.didPushStart = YES;
+                    self.loadingViewController.view.hidden = NO;
+                    self.loadingViewController.displayText.text = @"Loading Dutch...";
+                    
+                    NSString *identifier = [ArcIdentifier getArcIdentifier];
+                    
+                    
+                    NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+                    NSDictionary *loginDict = [[NSDictionary alloc] init];
+                    [ tempDictionary setObject:identifier forKey:@"userName"];
+                    [ tempDictionary setObject:identifier forKey:@"password"];
+                    
+                    loginDict = tempDictionary;
+                    ArcClient *client = [[ArcClient alloc] init];
+                    [client getGuestToken:loginDict];
+                    
+                    
+                    
+                }else{
+                    UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
+                    home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                    [self presentModalViewController:home animated:YES];
+                }
+                
+            }else{
+                
+                //Call is still loading
                 self.didPushStart = YES;
                 self.loadingViewController.view.hidden = NO;
                 self.loadingViewController.displayText.text = @"Loading Dutch...";
-                
-                NSString *identifier = [ArcIdentifier getArcIdentifier];
-                
-                
-                NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
-                NSDictionary *loginDict = [[NSDictionary alloc] init];
-                [ tempDictionary setObject:identifier forKey:@"userName"];
-                [ tempDictionary setObject:identifier forKey:@"password"];
-                
-                loginDict = tempDictionary;
-                ArcClient *client = [[ArcClient alloc] init];
-                [client getGuestToken:loginDict];
-                
-                
-                
-            }else{
-                UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
-                home.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                [self presentModalViewController:home animated:YES];
             }
-            
-        }else{
-            
-            //Call is still loading
-            self.didPushStart = YES;
-            self.loadingViewController.view.hidden = NO;
-            self.loadingViewController.displayText.text = @"Loading Dutch...";
         }
+
     }
-    
+       
 }
 
 
@@ -285,9 +305,8 @@
         
         NSString *errorMsg = @"";
         if ([status isEqualToString:@"success"]) {
-            //success
-            
-            
+            //success            
+            self.didFailToken = NO;
             if (self.didPushStart) {
                 
                 UIViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"HomePage"];
@@ -325,6 +344,8 @@
         }
         
         if([errorMsg length] > 0) {
+            
+            self.didFailToken = YES;
             //self.errorLabel.text = errorMsg;
             
             self.guestTokenError = YES;

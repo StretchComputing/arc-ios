@@ -59,7 +59,7 @@
     self.username = [[SteelfishInputText alloc] initWithFrame:CGRectMake(10, 6, 290, 40)];
     self.username.autocorrectionType = UITextAutocorrectionTypeNo;
     self.username.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.username.font = [UIFont fontWithName:@"Steelfish" size:20];
+    self.username.font = [UIFont fontWithName:FONT_REGULAR size:20];
     self.username.returnKeyType = UIReturnKeyNext;
     self.username.keyboardType = UIKeyboardTypeEmailAddress;
     [self.username addTarget:self action:@selector(selectPassword) forControlEvents:UIControlEventEditingDidEndOnExit];
@@ -68,7 +68,7 @@
     self.password.autocorrectionType = UITextAutocorrectionTypeNo;
     self.password.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.password.secureTextEntry = YES;
-    self.password.font = [UIFont fontWithName:@"Steelfish" size:20];
+    self.password.font = [UIFont fontWithName:FONT_REGULAR size:20];
     self.password.returnKeyType = UIReturnKeyGo;
     self.password.delegate = self;
     self.password.placeholder = @"Password";
@@ -227,7 +227,7 @@
         if (section == 0) {
             
             fieldLabel.frame = CGRectMake(10, 8, 80, 22);
-            fieldLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:15];
+            fieldLabel.font = [UIFont fontWithName:FONT_BOLD size:15];
             fieldLabel.textAlignment = UITextAlignmentLeft;
             
             if (row == 0) {

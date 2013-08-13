@@ -14,7 +14,7 @@
     
     if ((self = [super initWithCoder: decoder])) {
         
-        [self setFont: [UIFont fontWithName:@"Steelfish" size: self.font.pointSize+4]];
+        [self setFont: [UIFont fontWithName:FONT_REGULAR size: self.font.pointSize+4]];
     }
     return self;
 }

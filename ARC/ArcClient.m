@@ -408,8 +408,26 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         
         
-        NSString *eventString = [NSString stringWithFormat:@"createPayment - request string: %@", requestString];
-        [rSkybox addEventToSession:eventString];
+        @try {
+            NSString *eventString = [NSString stringWithFormat:@"createPayment - request string: %@", requestString];
+            
+            int location = [eventString rangeOfString:@"FundSourceAccount"].location;
+            int secondQuote = [eventString rangeOfString:@"\"" options:NSCaseInsensitiveSearch range:NSMakeRange(location + 20, 30)].location;
+            
+            int totalCcLength = secondQuote - (location + 20);
+            NSString *stringValue = [NSString stringWithFormat:@"CC length: %d", totalCcLength];
+            eventString = [eventString stringByReplacingCharactersInRange:NSMakeRange(location + 20, 16) withString:stringValue];
+            
+            //NSLog(@"EventString: %@", eventString);
+            
+            [rSkybox addEventToSession:eventString];
+        }
+        @catch (NSException *exception) {
+            NSString *eventString = [NSString stringWithFormat:@"Exception trying to eliminate CC from requeststring: %@", exception];
+            [rSkybox addEventToSession:eventString];
+
+        }
+       
         
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];

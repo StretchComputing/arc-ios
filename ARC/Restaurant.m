@@ -412,6 +412,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         self.closeHelpButton.cornerRadius = 3.0;
         
         self.submitButton.text = @"Submit";
+
         self.submitButton.textColor = [UIColor whiteColor];
         self.submitButton.textShadowColor = [UIColor darkGrayColor];
         self.submitButton.tintColor = dutchDarkBlueColor;

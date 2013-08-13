@@ -13,6 +13,7 @@
 #import "NumberLineButton.h"
 #import "SteelfishLabel.h"
 #import "ArcAppDelegate.h"
+#import "SteelfishLabel.h"
 
 @interface RightViewController ()
 
@@ -314,14 +315,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                             if ([payment valueForKey:@"Notes"] && [[payment valueForKey:@"Notes"] length] > 0) {
                                 notesLabel.hidden = NO;
                                 notesLabel.text = [payment valueForKey:@"Notes"];
-                                /*
-                                 CGSize constraints = CGSizeMake(250, 900);
-                                 CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
-                                 
-                                 CGRect frame = notesText.frame;
-                                 frame.size.height = totalSize.height + 15;
-                                 notesText.frame = frame;
-                                 */
+                             
                                 
                             }else{
                                 notesLabel.hidden = YES;
@@ -405,7 +399,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                 notesText.text = [payment valueForKey:@"Notes"];
                 
                 CGSize constraints = CGSizeMake(250, 900);
-                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
+                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:FONT_REGULAR size:14] constrainedToSize:constraints];
                 
                 CGRect frame = notesText.frame;
                 frame.size.height = totalSize.height + 15;
@@ -485,7 +479,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             if ([[payment valueForKey:@"Notes"] length] > 0) {
                 
                 CGSize constraints = CGSizeMake(250, 900);
-                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:@"Steelfish" size:14] constrainedToSize:constraints];
+                CGSize totalSize = [[payment valueForKey:@"Notes"] sizeWithFont:[UIFont fontWithName:FONT_REGULAR size:14] constrainedToSize:constraints];
                 
                 return 25 + totalSize.height + 15;
                 
@@ -755,14 +749,14 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             if (i != index) {
                 if ([SteelfishBoldLabel class] == [[[self.numberSliderScrollView subviews] objectAtIndex:i] class]) {
                     SteelfishBoldLabel *otherLabel = (SteelfishBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:i];
-                    [otherLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:16]];
+                    [otherLabel setFont: [UIFont fontWithName:FONT_BOLD size:16]];
                     
                 }
             }
         }
         
         SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
-        [myLabel setFont: [UIFont fontWithName: @"SteelfishEb-Regular" size:35]];
+        [myLabel setFont: [UIFont fontWithName:FONT_BOLD size:35]];
     }
     @catch (NSException *exception) {
         [rSkybox sendClientLog:@"RightMenu.scrollViewDidScroll" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];

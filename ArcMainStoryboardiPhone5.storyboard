@@ -4399,7 +4399,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Where are you dining today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zeK-GH-Ck2" customClass="SteelfishLabel">
                                         <rect key="frame" x="0.0" y="16" width="320" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.60429972627737227" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -5633,14 +5633,48 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.015686274509803921" green="0.015686274509803921" blue="0.019607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="dwi-9I-L57">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <view hidden="YES" contentMode="scaleToFill" id="YH0-7l-11G">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.12" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" id="gyf-u5-Hf9">
+                                            <rect key="frame" x="0.0" y="33" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <color key="backgroundColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" id="QiV-Vd-8Ll">
+                                            <rect key="frame" x="0.0" y="35" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <color key="backgroundColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" id="hEB-TM-hUV">
+                                            <rect key="frame" x="0.0" y="34" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <color key="backgroundColor" red="0.015686274510000001" green="0.015686274510000001" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="czC-do-Dbj" customClass="SteelfishBoldLabel">
+                                            <rect key="frame" x="18" y="1" width="237" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="HV0-Z2-8Fz">
-                                    <rect key="frame" x="0.0" y="525" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="560" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="headerCell" rowHeight="30" id="bmp-Ct-4hX">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="57" width="320" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
@@ -5669,7 +5703,7 @@
                                         <color key="backgroundColor" red="0.86274509799999999" green="0.0" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuCell" rowHeight="44" id="YJh-Tq-coY">
-                                        <rect key="frame" x="0.0" y="52" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="87" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -5698,7 +5732,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paidCell" rowHeight="63" id="ghD-Ir-XGd">
-                                        <rect key="frame" x="0.0" y="96" width="320" height="63"/>
+                                        <rect key="frame" x="0.0" y="131" width="320" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
@@ -5741,7 +5775,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="percentSplitCell" rowHeight="190" id="kqJ-u7-yzX">
-                                        <rect key="frame" x="0.0" y="159" width="320" height="190"/>
+                                        <rect key="frame" x="0.0" y="194" width="320" height="190"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="189"/>
@@ -5776,7 +5810,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="dollarSplitCell" rowHeight="176" id="cSb-GT-yZ8">
-                                        <rect key="frame" x="0.0" y="349" width="320" height="176"/>
+                                        <rect key="frame" x="0.0" y="384" width="320" height="176"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
@@ -5827,6 +5861,7 @@
                     <connections>
                         <outlet property="mainTableView" destination="yHo-PM-NE7" id="qmR-vc-cHE"/>
                         <outlet property="payRemainingButton" destination="QtC-iF-d2m" id="N0P-I9-Ybt"/>
+                        <outlet property="topInvoiceLabel" destination="czC-do-Dbj" id="e2i-sU-hrO"/>
                         <outlet property="totalRemainingLabel" destination="zke-gt-EmK" id="ZWB-jf-3BW"/>
                     </connections>
                 </viewController>

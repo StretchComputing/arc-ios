@@ -44,6 +44,10 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>DroidSans.ttf</string>
+		<string>DroidSans-Bold.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
 		<string>steelfish eb.ttf</string>
 		<string>steelfish rg.ttf</string>
 	</array>

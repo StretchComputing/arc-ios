@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 
-#define FONT_REGULAR @"Steelfish"
-#define FONT_BOLD @"SteelfishEb-Regular"
+#define FONT_REGULAR @"DroidSans"
+#define FONT_BOLD @"DroidSans-Bold"
 
 
 @interface SteelfishLabel : UILabel

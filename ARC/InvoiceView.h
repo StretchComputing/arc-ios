@@ -14,6 +14,7 @@
 #import "SteelfishInputText.h"
 #import "InvoiceHelpOverlay.h"
 #import "SteelfishBoldInputText.h"
+#import "SteelfishLabel.h"
 
 @interface InvoiceView : UIViewController <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextFieldDelegate, UIScrollViewAccessibilityDelegate, UIGestureRecognizerDelegate>
 - (IBAction)splitMyPaymentEditChanged;

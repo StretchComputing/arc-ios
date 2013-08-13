@@ -21,6 +21,7 @@
 #import "SteelfishBoldLabel.h"
 #import "LeftViewController.h"
 #import "RightViewController.h"
+#import "SteelfishLabel.h"
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -278,6 +279,7 @@
     self.searchBar.delegate = self;
     self.matchingMerchants = [NSMutableArray array];
     self.payBillButton.text = @"Pay Bill!";
+
     self.payBillButton.textColor = [UIColor whiteColor];
     self.payBillButton.textShadowColor = [UIColor darkGrayColor];
     self.payBillButton.cornerRadius = 3.0;
@@ -647,6 +649,8 @@
                 Merchant *tmpMerchant = [[Merchant alloc] init];
                 NSDictionary *theMerchant = [merchants objectAtIndex:i];
                 
+                
+                
                 tmpMerchant.name = [theMerchant valueForKey:@"Name"];
                 
                 tmpMerchant.merchantId = [[theMerchant valueForKey:@"Id"] intValue];
@@ -675,17 +679,15 @@
                 }
                  */
             
+                NSString *status = [theMerchant valueForKey:@"Status"];
                 
+                if ([status length] > 0 && [status isEqualToString:@"A"]) {
+                    [self.allMerchants addObject:tmpMerchant];
+                    [self.matchingMerchants addObject:tmpMerchant];
+                }
                 
-                [self.allMerchants addObject:tmpMerchant];
-                //[self.allMerchants addObject:tmpMerchant];
-                //[self.allMerchants addObject:tmpMerchant];
-                //[self.allMerchants addObject:tmpMerchant];
-                
-                [self.matchingMerchants addObject:tmpMerchant];
-                //[self.matchingMerchants addObject:tmpMerchant];
-                //[self.matchingMerchants addObject:tmpMerchant];
-                //[self.matchingMerchants addObject:tmpMerchant];
+             
+               
                 
             }
             
@@ -1305,7 +1307,7 @@
             [view addSubview:imageLogo];
             
             UILabel *tmpLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 148, 146, 44)];
-            tmpLabel.font = [UIFont fontWithName:@"SteelfishEb-Regular" size:19];
+            tmpLabel.font = [UIFont fontWithName:FONT_BOLD size:19];
             tmpLabel.backgroundColor = [UIColor clearColor];
             
             UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeCustom];

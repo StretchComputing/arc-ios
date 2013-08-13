@@ -20,6 +20,7 @@
 @property BOOL doesHaveGuestToken;
 @property BOOL didPushStart;
 @property BOOL guestTokenError;
+@property BOOL didFailToken;
 @property (strong, nonatomic) IBOutlet UIScrollView *myScrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *helpImage1;
 @property (strong, nonatomic) IBOutlet UIImageView *helpImage2;
