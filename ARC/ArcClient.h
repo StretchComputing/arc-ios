@@ -152,5 +152,8 @@ typedef enum {
 -(void)updateGuestCustomer:(NSDictionary *)pairs;
 
 -(void)getListOfServers;
+
+-(NSString *)getLocalEndpoint;
+-(NSString *)getRemoteEndpoint;
 @end
 

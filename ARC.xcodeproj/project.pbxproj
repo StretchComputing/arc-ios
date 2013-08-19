@@ -114,8 +114,6 @@
 		909A500E172470C000D70811 /* AddCreditCardGuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A500D172470C000D70811 /* AddCreditCardGuest.m */; };
 		909A50111724CBC400D70811 /* GuestCreateAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A50101724CBC400D70811 /* GuestCreateAccount.m */; };
 		909ABC7F1773566200E66FDA /* profileDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 909ABC7E1773566200E66FDA /* profileDefault.png */; };
-		909CF09717B3D986004300D0 /* steelfish eb.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 909CF09517B3D986004300D0 /* steelfish eb.ttf */; };
-		909CF09817B3D986004300D0 /* steelfish rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 909CF09617B3D986004300D0 /* steelfish rg.ttf */; };
 		909CF09B17B3DA18004300D0 /* SteelfishLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 909CF09A17B3DA18004300D0 /* SteelfishLabel.m */; };
 		909CF09E17B3DA28004300D0 /* SteelfishBoldLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 909CF09D17B3DA28004300D0 /* SteelfishBoldLabel.m */; };
 		909CF0A117B3DA46004300D0 /* SteelfishBoldInputText.m in Sources */ = {isa = PBXBuildFile; fileRef = 909CF0A017B3DA46004300D0 /* SteelfishBoldInputText.m */; };
@@ -138,10 +136,6 @@
 		90A9AD021785D70D0096BA41 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A9AD011785D70D0096BA41 /* AdSupport.framework */; };
 		90AAADFB175D37D40096991D /* receipt.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAADFA175D37D40096991D /* receipt.png */; };
 		90AAAE16175E82FC0096991D /* dutchLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 90AAAE15175E82FC0096991D /* dutchLogo.png */; };
-		90AE448C17BA6A3D00258A06 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90AE448A17BA6A3D00258A06 /* OpenSans-Bold.ttf */; };
-		90AE448D17BA6A3D00258A06 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90AE448B17BA6A3D00258A06 /* OpenSans-Regular.ttf */; };
-		90AE449017BA707A00258A06 /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90AE448E17BA707A00258A06 /* DroidSans-Bold.ttf */; };
-		90AE449117BA707A00258A06 /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90AE448F17BA707A00258A06 /* DroidSans.ttf */; };
 		90B01D04159E3CF1005FCCCF /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D03159E3CF1005FCCCF /* emptyStar.png */; };
 		90B01D07159E3E61005FCCCF /* fullStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 90B01D06159E3E61005FCCCF /* fullStar.png */; };
 		90B01D0A159E3E92005FCCCF /* ReviewTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B01D09159E3E92005FCCCF /* ReviewTransaction.m */; };
@@ -179,6 +173,8 @@
 		90E5E5C616D706740031B17E /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E5E5C516D706740031B17E /* CustomerServiceViewController.m */; };
 		90E5E5C816D70A010031B17E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E5E5C716D70A010031B17E /* CoreAudio.framework */; };
 		90E5E5CB16D710520031B17E /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E5E5CA16D710520031B17E /* LoadingViewController.m */; };
+		90F0782E17C25B0E00B7ABE7 /* Lato-Bol.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90F0782C17C25B0E00B7ABE7 /* Lato-Bol.ttf */; };
+		90F0782F17C25B0E00B7ABE7 /* Lato-Lig.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90F0782D17C25B0E00B7ABE7 /* Lato-Lig.ttf */; };
 		90FBDA5C159A5FDF0051609A /* receiptBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 90FBDA5B159A5FDF0051609A /* receiptBack.png */; };
 		90FBDA5F159A63CB0051609A /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDA5E159A63CB0051609A /* SettingsView.m */; };
 		90FBDA62159A63D50051609A /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FBDA61159A63D50051609A /* HelpView.m */; };
@@ -383,8 +379,6 @@
 		909A500F1724CBC400D70811 /* GuestCreateAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestCreateAccount.h; sourceTree = "<group>"; };
 		909A50101724CBC400D70811 /* GuestCreateAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestCreateAccount.m; sourceTree = "<group>"; };
 		909ABC7E1773566200E66FDA /* profileDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileDefault.png; sourceTree = "<group>"; };
-		909CF09517B3D986004300D0 /* steelfish eb.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "steelfish eb.ttf"; sourceTree = "<group>"; };
-		909CF09617B3D986004300D0 /* steelfish rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "steelfish rg.ttf"; sourceTree = "<group>"; };
 		909CF09917B3DA17004300D0 /* SteelfishLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SteelfishLabel.h; sourceTree = "<group>"; };
 		909CF09A17B3DA18004300D0 /* SteelfishLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SteelfishLabel.m; sourceTree = "<group>"; };
 		909CF09C17B3DA28004300D0 /* SteelfishBoldLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SteelfishBoldLabel.h; sourceTree = "<group>"; };
@@ -420,10 +414,6 @@
 		90A9AD011785D70D0096BA41 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		90AAADFA175D37D40096991D /* receipt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = receipt.png; sourceTree = "<group>"; };
 		90AAAE15175E82FC0096991D /* dutchLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dutchLogo.png; sourceTree = "<group>"; };
-		90AE448A17BA6A3D00258A06 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		90AE448B17BA6A3D00258A06 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
-		90AE448E17BA707A00258A06 /* DroidSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DroidSans-Bold.ttf"; sourceTree = "<group>"; };
-		90AE448F17BA707A00258A06 /* DroidSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DroidSans.ttf; sourceTree = "<group>"; };
 		90B01D03159E3CF1005FCCCF /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		90B01D06159E3E61005FCCCF /* fullStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullStar.png; sourceTree = "<group>"; };
 		90B01D08159E3E92005FCCCF /* ReviewTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTransaction.h; sourceTree = "<group>"; };
@@ -478,6 +468,8 @@
 		90E5E5C716D70A010031B17E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		90E5E5C916D710520031B17E /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
 		90E5E5CA16D710520031B17E /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
+		90F0782C17C25B0E00B7ABE7 /* Lato-Bol.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bol.ttf"; sourceTree = "<group>"; };
+		90F0782D17C25B0E00B7ABE7 /* Lato-Lig.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Lig.ttf"; sourceTree = "<group>"; };
 		90FBDA5B159A5FDF0051609A /* receiptBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = receiptBack.png; sourceTree = "<group>"; };
 		90FBDA5D159A63CB0051609A /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
 		90FBDA5E159A63CB0051609A /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
@@ -721,8 +713,6 @@
 				90CDE0EA17028B0000134AF2 /* menuShareIcon.png */,
 				90A9A4341785CC9E0096BA41 /* facebookConnect.png */,
 				9093E50717442A9200BC18E3 /* jaggedEdge.png */,
-				90AE448E17BA707A00258A06 /* DroidSans-Bold.ttf */,
-				90AE448F17BA707A00258A06 /* DroidSans.ttf */,
 				9093E50817442A9200BC18E3 /* jaggedEdgeBottom.png */,
 				90CDE0EB17028B0000134AF2 /* menuHomeIcon.png */,
 				908CED8317024213006CC48A /* MFSideMenu.h */,
@@ -791,8 +781,6 @@
 				9038AAAF1784712300B5DF60 /* straightChalkArrow.png */,
 				9038AAB01784712300B5DF60 /* curlChalkArrow.png */,
 				908D2FCF166E8D66007B6078 /* boxChecked.png */,
-				909CF09517B3D986004300D0 /* steelfish eb.ttf */,
-				909CF09617B3D986004300D0 /* steelfish rg.ttf */,
 				908D2FD0166E8D66007B6078 /* boxEmpty.png */,
 				909CF0B717B3EC44004300D0 /* invoiceMore.png */,
 				908A4C3B16978CCE00B68664 /* CardIO */,
@@ -848,6 +836,8 @@
 				90B01D1615A1308E005FCCCF /* FBEncryptorAES.m */,
 				90B01D1715A1308E005FCCCF /* NSData+Base64.h */,
 				90B01D1815A1308E005FCCCF /* NSData+Base64.m */,
+				90F0782C17C25B0E00B7ABE7 /* Lato-Bol.ttf */,
+				90F0782D17C25B0E00B7ABE7 /* Lato-Lig.ttf */,
 				90FBDBED159CDD2E0051609A /* DwollaAPI */,
 				90FBDC0E159CDD980051609A /* Classes */,
 				90C9736815A8CC4B00667FF8 /* ArcData.xcdatamodeld */,
@@ -953,8 +943,6 @@
 				908C0CA91703C397003E004E /* ProfileViewController.m */,
 				9038AA911784653B00B5DF60 /* InvoiceHelpOverlay.h */,
 				9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */,
-				90AE448A17BA6A3D00258A06 /* OpenSans-Bold.ttf */,
-				90AE448B17BA6A3D00258A06 /* OpenSans-Regular.ttf */,
 				9038AAB317847E7800B5DF60 /* CheckHelpOverlay.h */,
 				9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */,
 			);
@@ -1168,14 +1156,10 @@
 				9038AAB21784712300B5DF60 /* curlChalkArrow.png in Resources */,
 				90A9A4351785CC9E0096BA41 /* facebookConnect.png in Resources */,
 				904C3F6C178C673700EEED03 /* defaultLogo.png in Resources */,
-				909CF09717B3D986004300D0 /* steelfish eb.ttf in Resources */,
-				909CF09817B3D986004300D0 /* steelfish rg.ttf in Resources */,
 				909CF0B817B3EC44004300D0 /* invoiceMore.png in Resources */,
 				9045231717B4914400796871 /* spinner.png in Resources */,
-				90AE448C17BA6A3D00258A06 /* OpenSans-Bold.ttf in Resources */,
-				90AE448D17BA6A3D00258A06 /* OpenSans-Regular.ttf in Resources */,
-				90AE449017BA707A00258A06 /* DroidSans-Bold.ttf in Resources */,
-				90AE449117BA707A00258A06 /* DroidSans.ttf in Resources */,
+				90F0782E17C25B0E00B7ABE7 /* Lato-Bol.ttf in Resources */,
+				90F0782F17C25B0E00B7ABE7 /* Lato-Lig.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

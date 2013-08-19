@@ -508,7 +508,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
       
         self.errorLabel.text = @"";
         
-        if ([self.hiddenText.text length] < 2) {
+        if ([self.hiddenText.text length] < 1) {
             
             self.errorLabel.text = @"*Please enter the full check number";
         }else{

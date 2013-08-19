@@ -161,7 +161,7 @@
         [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationController.navigationBar addSubview:tmpButton];
         
-        SteelfishBoldLabel *tmpLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:23];
+        SteelfishBoldLabel *tmpLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:20];
         tmpLabel.text = @"Payment Info";
         tmpLabel.textAlignment = UITextAlignmentCenter;
         [self.navigationController.navigationBar addSubview:tmpLabel];
@@ -193,7 +193,7 @@
         
         
         
-        self.addCardButton.tintColor = [UIColor colorWithRed:17.0/255.0 green:196.0/255.0 blue:29.0/215.0 alpha:1];
+        self.addCardButton.tintColor = dutchGreenColor;
         self.addCardButton.textColor = [UIColor whiteColor];
         
         

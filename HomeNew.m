@@ -141,6 +141,9 @@
     
     @try {
         
+        NSException *e = [NSException exceptionWithName:@"Test" reason:@"TEst" userInfo:nil];
+        @throw e;
+        
         //SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Home"];
         // self.navigationItem.titleView = navLabel;
         
@@ -1492,6 +1495,7 @@
     self.topImageView = nil;
 }
 - (IBAction)payBillAction {
+    
     
     [self performSegueWithIdentifier:@"goRestaurant" sender:self];
     /*

@@ -13,6 +13,7 @@
 #import "UIDevice-Hardware.h"
 #import "Encoder.h"
 #import "ArcAppDelegate.h"
+#import "ArcClient.h"
 
 static NSString *basicAuthUserName = @"token";
 static NSString *baseUrl = @"https://rskybox-stretchcom.appspot.com/rest/v1";
@@ -173,7 +174,7 @@ NSString *const CLOSED_STATUS = @"closed";
 }
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
-        
+    
     
     @try {
         NSString *logPrefix = @"iOS";
@@ -258,12 +259,19 @@ NSString *const CLOSED_STATUS = @"closed";
         }
         
         [tempDictionary setObject:finalArray forKey:@"appActions"];
+        
+        //endpoints
+        ArcClient *tmp = [[ArcClient alloc] init];
+        
+        [tempDictionary setValue:[tmp getRemoteEndpoint] forKey:@"remoteEndpoint"];
+        [tempDictionary setValue:[tmp getLocalEndpoint] forKey:@"localEndpoint"];
+
+            
         loginDict = tempDictionary;
         
         //Make the call to the server
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];
-        
-                
+                        
         NSString *tmpUrl = [baseUrl stringByAppendingFormat:@"/applications/%@/clientLogs", applicationId];
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
