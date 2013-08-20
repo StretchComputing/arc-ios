@@ -980,10 +980,10 @@
     self.bottomHalfView.backgroundColor = [UIColor clearColor];
 
     
-    self.subLabel.text = [NSString stringWithFormat:@"$%.2f", [self.myInvoice subtotal]];
-    self.taxLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.tax];
-    self.gratLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.serviceCharge];
-    self.discLabel.text = [NSString stringWithFormat:@"- $%.2f", self.myInvoice.discount];
+    self.subLabel.text = [NSString stringWithFormat:@"%.2f", [self.myInvoice subtotal]];
+    self.taxLabel.text = [NSString stringWithFormat:@"%.2f", self.myInvoice.tax];
+    self.gratLabel.text = [NSString stringWithFormat:@"%.2f", self.myInvoice.serviceCharge];
+    self.discLabel.text = [NSString stringWithFormat:@"- %.2f", self.myInvoice.discount];
     
     
     //**Set up balance screen
@@ -1013,9 +1013,9 @@
         right.seeWhoPaidLabel.hidden = YES;
     }
     
-    right.totalDueLabel.text = [NSString stringWithFormat:@"$%.2f", self.myInvoice.amountDue];
-    right.totalRemainingLabel.text = [NSString stringWithFormat:@"$%.2f", newDue];
-    right.alreadyPaidLabel.text = [NSString stringWithFormat:@"$%.2f", amountPaid];
+    right.totalDueLabel.text = [NSString stringWithFormat:@"%.2f", self.myInvoice.amountDue];
+    right.totalRemainingLabel.text = [NSString stringWithFormat:@"%.2f", newDue];
+    right.alreadyPaidLabel.text = [NSString stringWithFormat:@"%.2f", amountPaid];
     
     
     
@@ -1034,7 +1034,7 @@
             self.alreadyPaidNameLabel.hidden = YES;
             self.moveY +=20;
         }else{
-            self.alreadyPaidLabel.text = [NSString stringWithFormat:@"- $%.2f", alreadyPaid];
+            self.alreadyPaidLabel.text = [NSString stringWithFormat:@"- %.2f", alreadyPaid];
         }
         
         
@@ -1087,7 +1087,7 @@
     
     
     double myDue = self.myInvoice.amountDue - amountPaid;
-    self.amountLabel.text = [NSString stringWithFormat:@"$%.2f", myDue];
+    self.amountLabel.text = [NSString stringWithFormat:@"%.2f", myDue];
 
 }
 
