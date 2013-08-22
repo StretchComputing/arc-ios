@@ -93,7 +93,7 @@
     [super viewDidLoad];
 	
     self.myScrollView.delegate = self;
-    self.startUsingButton.text = @"Start Using Dutch!";
+    self.startUsingButton.text = @"Start using dutch!";
     
     self.startUsingButton.tintColor =  dutchDarkBlueColor;
     self.startUsingButton.textColor = [UIColor whiteColor];
@@ -255,7 +255,7 @@
                     
                     self.didPushStart = YES;
                     self.loadingViewController.view.hidden = NO;
-                    self.loadingViewController.displayText.text = @"Loading Dutch...";
+                    self.loadingViewController.displayText.text = @"Loading dutch...";
                     
                     NSString *identifier = [ArcIdentifier getArcIdentifier];
                     
@@ -282,7 +282,7 @@
                 //Call is still loading
                 self.didPushStart = YES;
                 self.loadingViewController.view.hidden = NO;
-                self.loadingViewController.displayText.text = @"Loading Dutch...";
+                self.loadingViewController.displayText.text = @"Loading dutch...";
             }
         }
 

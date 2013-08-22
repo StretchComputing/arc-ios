@@ -26,14 +26,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AW4-IZ-rRh" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="117" y="28" width="94" height="27"/>
+                                        <rect key="frame" x="122" y="28" width="94" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" id="HcP-DT-ChK">
-                                        <rect key="frame" x="80" y="32" width="20" height="20"/>
+                                        <rect key="frame" x="85" y="32" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -811,7 +811,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Confirm Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3GZ-Hv-Jzw" customClass="SteelfishBoldLabel">
                                         <rect key="frame" x="40" y="6" width="241" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5K3-G3-rxL">
@@ -970,9 +970,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Additional Tip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2H2-BT-FK4" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="75" y="6" width="170" height="32"/>
+                                        <rect key="frame" x="52" y="6" width="216" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1367,7 +1367,7 @@
                                             <action selector="defaultTipSegmentControlValueChanged" destination="XBG-hI-VBH" eventType="valueChanged" id="mb6-zt-Oju"/>
                                         </connections>
                                     </segmentedControl>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Set your standard 'default' tip.  You will still be able to change your tip amount with each purchase" id="R5U-Mj-ewg" customClass="SteelfishTextView">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Set your standard 'default' tip.  You will still be able to change your tip amount with each purchase" id="R5U-Mj-ewg" customClass="SteelfishTextView">
                                         <rect key="frame" x="8" y="68" width="306" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1991,7 +1991,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="No Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4JF-Gc-fkT" customClass="SteelfishBoldLabel">
                                         <rect key="frame" x="40" y="6" width="241" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -2040,7 +2040,7 @@
                                     <action selector="skipReview:" destination="CSm-3p-pEO" eventType="touchUpInside" id="yGJ-hn-ZMm"/>
                                 </connections>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Dutch has detected that you have no valid forms of payment entered.  To continue using ARC, please add a form of payment:" id="qnn-Nv-xNH" customClass="SteelfishTextView">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="dutch has detected that you have no valid forms of payment entered.  To continue using ARC, please add a form of payment:" id="qnn-Nv-xNH" customClass="SteelfishTextView">
                                 <rect key="frame" x="13" y="64" width="295" height="104"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2225,7 +2225,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Create Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UEk-qF-vcY" customClass="SteelfishBoldLabel">
                                         <rect key="frame" x="75" y="0.0" width="170" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -2798,14 +2798,14 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to Dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Ud-dR-FnK" customClass="SteelfishBoldLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Ud-dR-FnK" customClass="SteelfishBoldLabel">
                                         <rect key="frame" x="2" y="11" width="256" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Swipe to the left to learn a little bit more, or just start using Dutch!  Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="61t-ss-ebd" customClass="SteelfishBoldLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Swipe to the left to learn a little bit more, or just start using dutch!  Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="61t-ss-ebd" customClass="SteelfishBoldLabel">
                                         <rect key="frame" x="2" y="20" width="256" height="99"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -3232,188 +3232,6 @@
             </objects>
             <point key="canvasLocation" x="-512" y="-1340"/>
         </scene>
-        <!--Additional Tip View Controller-->
-        <scene sceneID="Qoo-Kj-Fmv">
-            <objects>
-                <viewController id="RXX-DP-rfz" customClass="AdditionalTipViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="93Z-ch-td5">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" id="gqC-cu-yCH">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="571"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Additional Tip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F0Q-qP-Qt8" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="75" y="2" width="170" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i3u-cp-DgH">
-                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="backarrow.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="goBackAction" destination="RXX-DP-rfz" eventType="touchUpInside" id="FxD-Kf-A1C"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cyi-bP-A4C">
-                                        <rect key="frame" x="278" y="2" width="39" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="balance.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="goBackAction" destination="tsN-4l-rgJ" eventType="touchUpInside" id="p7u-BW-wfZ"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="newBackground.png" id="pvD-iO-pKg">
-                                <rect key="frame" x="0.0" y="46" width="320" height="508"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" id="nsg-1f-Qc7">
-                                <rect key="frame" x="0.0" y="46" width="320" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="My Total:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="LRg-iV-ucz" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="27" y="50" width="108" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="upO-4w-d4o" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="154" y="50" width="108" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="i43-ST-daM" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="135" y="100" width="29" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tip:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="bLR-zC-tTc" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="27" y="95" width="108" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="right" minimumFontSize="17" id="2Eq-kw-BO3" customClass="SteelfishBoldInputText">
-                                <rect key="frame" x="165" y="100" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.97408188870000001" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                <connections>
-                                    <action selector="endText" destination="RXX-DP-rfz" eventType="editingDidEndOnExit" id="PR5-dA-Ppx"/>
-                                    <action selector="tipTextEditBegin" destination="RXX-DP-rfz" eventType="editingDidBegin" id="u8o-oa-Nu1"/>
-                                    <action selector="tipTextEditChanged" destination="RXX-DP-rfz" eventType="editingChanged" id="b5A-fR-N3K"/>
-                                </connections>
-                            </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="xnz-yd-CF9">
-                                <rect key="frame" x="20" y="144" width="286" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="18%"/>
-                                    <segment title="20%"/>
-                                    <segment title="22%"/>
-                                </segments>
-                                <connections>
-                                    <action selector="segmentValueChanged:" destination="RXX-DP-rfz" eventType="valueChanged" id="lw3-z3-oIS"/>
-                                </connections>
-                            </segmentedControl>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Transaction Notes (*optional):" id="JUX-Xc-h2U" customClass="SteelfishTextView">
-                                <rect key="frame" x="20" y="186" width="286" height="50"/>
-                                <autoresizingMask key="autoresizingMask" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                <connections>
-                                    <outlet property="delegate" destination="hyn-k9-9Hu" id="9Sa-e8-0X9"/>
-                                </connections>
-                            </textView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="ejp-Ow-sXv" customClass="SteelfishInputText">
-                                <rect key="frame" x="53" y="293" width="35" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
-                            </textField>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="yHL-hY-Zq5" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="16" y="336" width="286" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="Vgq-qn-VEo" customClass="SteelfishInputText">
-                                <rect key="frame" x="111" y="293" width="35" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="vco-Wy-uuK" customClass="SteelfishInputText">
-                                <rect key="frame" x="226" y="293" width="35" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="12" id="Dji-AD-QhC" customClass="SteelfishInputText">
-                                <rect key="frame" x="167" y="293" width="35" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" secureTextEntry="YES"/>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter your credit card PIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ngm-9q-f0M" customClass="SteelfishBoldLabel">
-                                <rect key="frame" x="9" y="244" width="303" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="38J-yy-fgG"/>
-                    <connections>
-                        <outlet property="backView" destination="gqC-cu-yCH" id="pNO-1s-4Xt"/>
-                        <outlet property="myTotalLabel" destination="upO-4w-d4o" id="2J4-ax-80D"/>
-                        <outlet property="tipSelectSegment" destination="xnz-yd-CF9" id="WJE-G5-jAV"/>
-                        <outlet property="tipTextField" destination="2Eq-kw-BO3" id="VvD-0a-he3"/>
-                        <outlet property="topLineView" destination="nsg-1f-Qc7" id="IX1-pg-X3I"/>
-                        <outlet property="transactionNotesText" destination="JUX-Xc-h2U" id="qIg-4N-oac"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hXY-rK-gGU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3966" y="-687"/>
-        </scene>
         <!--Live Debug View Controller-->
         <scene sceneID="QvT-pc-Slu">
             <objects>
@@ -3755,7 +3573,7 @@
                                     <outlet property="delegate" destination="mAt-PF-huE" id="cDV-WE-jQc"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter an email and password to allow Dutch to securely encrypt and save your payment info, and send you email receipts." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" id="bcQ-ec-hqU" customClass="SteelfishLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter an email and password to allow dutch to securely encrypt and save your payment info, and send you email receipts." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" id="bcQ-ec-hqU" customClass="SteelfishLabel">
                                 <rect key="frame" x="2" y="134" width="314" height="91"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
@@ -3851,7 +3669,7 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mercadito" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="blF-0A-VyZ" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="52" y="6" width="216" height="32"/>
+                                        <rect key="frame" x="39" y="6" width="243" height="32"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -4193,9 +4011,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text=" $258.34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="jgD-pF-qkI" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="0.0" y="-4" width="320" height="43"/>
+                                        <rect key="frame" x="0.0" y="-2" width="320" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -5067,7 +4885,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="How much would you like to pay?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fgo-Xn-Mls" customClass="SteelfishLabel">
-                                                    <rect key="frame" x="0.0" y="20" width="270" height="21"/>
+                                                    <rect key="frame" x="0.0" y="9" width="270" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -5075,14 +4893,14 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lIt-qV-gHq" customClass="SteelfishBoldLabel">
-                                                    <rect key="frame" x="82" y="67" width="21" height="21"/>
+                                                    <rect key="frame" x="82" y="43" width="21" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" id="bbp-Mz-1UD" customClass="SteelfishBoldInputText">
-                                                    <rect key="frame" x="102" y="62" width="86" height="30"/>
+                                                    <rect key="frame" x="102" y="38" width="86" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.21732436129999999" alpha="0.59999999999999998" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -5090,7 +4908,7 @@
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                 </textField>
                                                 <view tag="3" contentMode="scaleToFill" id="slZ-Bt-Nic" customClass="NVUIGradientButton">
-                                                    <rect key="frame" x="51" y="122" width="160" height="40"/>
+                                                    <rect key="frame" x="51" y="79" width="160" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -5334,7 +5152,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Support" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Od-FR-Mvf" customClass="SteelfishBoldLabel">
                                         <rect key="frame" x="75" y="6" width="170" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -5828,9 +5646,9 @@
         <image name="dutchIcon.png" width="120" height="120"/>
         <image name="emptyStar.png" width="100" height="95"/>
         <image name="facebookconnect.jpg" width="80" height="80"/>
-        <image name="helpImage1.png" width="900" height="800"/>
-        <image name="helpImage2.png" width="1100" height="800"/>
-        <image name="helpImage3.png" width="1000" height="800"/>
+        <image name="helpImage1.png" width="700" height="1023"/>
+        <image name="helpImage2.png" width="700" height="1023"/>
+        <image name="helpImage3.png" width="700" height="1023"/>
         <image name="invoiceMore.png" width="100" height="100"/>
         <image name="locationPin.png" width="16" height="16"/>
         <image name="lock.png" width="48" height="48"/>
@@ -5854,17 +5672,800 @@
         <image name="untitledLogo.png" width="300" height="175"/>
         <image name="upChalkArrow.png" width="100" height="100"/>
     </resources>
+    <classes>
+        <class className="AddCreditCard" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddCreditCard.h"/>
+            <relationships>
+                <relationship kind="action" name="addCard"/>
+                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="scanCard"/>
+                <relationship kind="action" name="valueChanged:"/>
+                <relationship kind="outlet" name="addCardButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardNumberText" candidateClass="SteelfishTextFieldCreditCardiOS6"/>
+                <relationship kind="outlet" name="creditCardPinText" candidateClass="SteelfishTextFieldCreditCardiOS6"/>
+                <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="expirationText" candidateClass="SteelfishTextFieldCreditCardiOS6"/>
+            </relationships>
+        </class>
+        <class className="AddCreditCardGuest" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddCreditCardGuest.h"/>
+            <relationships>
+                <relationship kind="action" name="addCard"/>
+                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="scanCard"/>
+                <relationship kind="action" name="valueChanged:"/>
+                <relationship kind="outlet" name="addCardButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardNumberText" candidateClass="SteelfishTextFieldCreditCardiOS6"/>
+                <relationship kind="outlet" name="creditCardPinText" candidateClass="SteelfishTextFieldCreditCardiOS6"/>
+                <relationship kind="outlet" name="creditCardSecurityCodeText" candidateClass="SteelfishTextFieldCreditCardiOS6"/>
+                <relationship kind="outlet" name="creditDebitSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="expirationText" candidateClass="SteelfishTextFieldCreditCardiOS6"/>
+                <relationship kind="outlet" name="totalPaymentLabel" candidateClass="SteelfishBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="AdditionalTipViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdditionalTipViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="continueAction:"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="action" name="segmentValueChanged:"/>
+                <relationship kind="action" name="tipTextEditBegin"/>
+                <relationship kind="action" name="tipTextEditChanged"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="continueButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="myTotalLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="tipSelectSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tipTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="transactionNotesText" candidateClass="SteelfishTextView"/>
+            </relationships>
+        </class>
+        <class className="CheckHelpOverlay" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckHelpOverlay.h"/>
+            <relationships>
+                <relationship kind="action" name="helpClicked"/>
+            </relationships>
+        </class>
+        <class className="ConfirmPaymentViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConfirmPaymentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="confirmAction"/>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="confirmButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myTotalLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="paymentLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="CreatePinView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreatePinView.h"/>
+            <relationships>
+                <relationship kind="action" name="skipAction"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionText" candidateClass="SteelfishTextView"/>
+                <relationship kind="outlet" name="instructionsLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="skipButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="CreditCardPayment" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreditCardPayment.h"/>
+            <relationships>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="action" name="touchBoxesAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="overlayTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="totalPaymentText" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="touchBoxesButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="CustomerServiceViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CustomerServiceViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="action" name="liveDebug"/>
+                <relationship kind="action" name="recordAction"/>
+                <relationship kind="action" name="sendAction"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="displayLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="recordButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="recordingActivity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="recordingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="sendLabel" candidateClass="SteelfishTextView"/>
+                <relationship kind="outlet" name="sendingActivity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="DwollaPayment" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DwollaPayment.h"/>
+            <relationships>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="action" name="touchBoxesAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dwollaBalanceActivity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="dwollaBalanceText" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notesText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="totalPaymentText" candidateClass="SteelfishBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="EditCreditCard" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditCreditCard.h"/>
+            <relationships>
+                <relationship kind="action" name="changeExpiration:" candidateClass="UIButton"/>
+                <relationship kind="action" name="deleteCardAction"/>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="editPin"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="saveCardAction"/>
+                <relationship kind="action" name="valueChanged:"/>
+                <relationship kind="outlet" name="cardNameText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="cardNumberTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="cardTypesSegmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="creditCardExpirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="creditCardExpirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="editPinButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="expirationMonthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expirationText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="expirationYearLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="saveChangesButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="securityCodeTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="EditServerController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditServerController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel"/>
+                <relationship kind="action" name="goBackOne"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="FBLoginView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FBLoginView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="GetPasscodeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GetPasscodeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="action" name="submitAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="backAction" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="emailText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="GuestCreateAccount" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GuestCreateAccount.h"/>
+            <relationships>
+                <relationship kind="action" name="goBack"/>
+                <relationship kind="action" name="noThanksAction"/>
+                <relationship kind="action" name="registerAction"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="createAccountText" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="minCharText" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="noThanksButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="registerButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="HelpView" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HelpView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="contactUs"/>
+            </relationships>
+        </class>
+        <class className="HomeNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeNavigationController.h"/>
+        </class>
+        <class className="HomeNew" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeNew.h"/>
+            <relationships>
+                <relationship kind="action" name="checkNumberDown"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="inviteFriend"/>
+                <relationship kind="action" name="menuAction"/>
+                <relationship kind="action" name="menuBackAction"/>
+                <relationship kind="action" name="moreInfoAction:"/>
+                <relationship kind="action" name="payBillAction"/>
+                <relationship kind="action" name="refreshList"/>
+                <relationship kind="action" name="refreshMerchants:"/>
+                <relationship kind="action" name="reloadCarousel"/>
+                <relationship kind="action" name="searchAction"/>
+                <relationship kind="action" name="searchCancelAction"/>
+                <relationship kind="action" name="searchEditDidBegin"/>
+                <relationship kind="action" name="textFieldDidChange"/>
+                <relationship kind="action" name="valueChanged"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="activityView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="arcSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="borderLine1" candidateClass="UIView"/>
+                <relationship kind="outlet" name="borderLine2" candidateClass="UIView"/>
+                <relationship kind="outlet" name="carousel" candidateClass="iCarousel"/>
+                <relationship kind="outlet" name="checkImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="checkNumberView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hintOverlayView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="menuButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="moreInfoButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="navItem" candidateClass="UINavigationItem"/>
+                <relationship kind="outlet" name="orientationBarItem" candidateClass="UIBarItem"/>
+                <relationship kind="outlet" name="overlayTextView" candidateClass="SteelfishTextView"/>
+                <relationship kind="outlet" name="payBillButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="placeAddressLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="placeNameLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="radiusSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="refreshListButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="restaurantSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="roundView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="searchButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchCancelButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="searchToolBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="sloganLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="spacingSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="tiltSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="topImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="wholeCheckNumberView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="wrapBarItem" candidateClass="UIBarItem"/>
+            </relationships>
+        </class>
+        <class className="InitHelpPageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitHelpPageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="startUsingAction"/>
+                <relationship kind="outlet" name="bottomLine" candidateClass="UIView"/>
+                <relationship kind="outlet" name="helpImage1" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="helpImage2" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="helpImage3" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="helpView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="myScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="startUsingButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLine" candidateClass="UIView"/>
+                <relationship kind="outlet" name="vertLine1" candidateClass="UIView"/>
+                <relationship kind="outlet" name="vertLine2" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="InitialController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="mottoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="topView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="InvoiceHelpOverlay" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceHelpOverlay.h"/>
+            <relationships>
+                <relationship kind="outlet" name="stepOneView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="stepThreeView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="stepTwoView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="topOpenView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewOne" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewTwo" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="InvoiceView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoiceView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelAlreadyPaid"/>
+                <relationship kind="action" name="cancelHowManyView"/>
+                <relationship kind="action" name="cancelSplitAction"/>
+                <relationship kind="action" name="closeItemSplitAction"/>
+                <relationship kind="action" name="editBegin:"/>
+                <relationship kind="action" name="editEnd:"/>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="action" name="itemSplitSaveAction"/>
+                <relationship kind="action" name="payBillAction"/>
+                <relationship kind="action" name="payFullSplitAction"/>
+                <relationship kind="action" name="payNow:"/>
+                <relationship kind="action" name="refreshInvoice"/>
+                <relationship kind="action" name="saveHowManyView"/>
+                <relationship kind="action" name="segmentSelect"/>
+                <relationship kind="action" name="showBalanceAction"/>
+                <relationship kind="action" name="showSplitView"/>
+                <relationship kind="action" name="splitCheckAction:"/>
+                <relationship kind="action" name="splitDollarAction"/>
+                <relationship kind="action" name="splitDollarCancelAction"/>
+                <relationship kind="action" name="splitDollarPercentAction"/>
+                <relationship kind="action" name="splitDollarSaveAction"/>
+                <relationship kind="action" name="splitMyPaymentDidBegin:"/>
+                <relationship kind="action" name="splitMyPaymentEditChanged"/>
+                <relationship kind="action" name="splitPercentageAction"/>
+                <relationship kind="action" name="splitSaveAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="alreadyPaid" candidateClass="UIView"/>
+                <relationship kind="outlet" name="alreadyPaidLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="alreadyPaidNameLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="alreadyPaidTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="alreadyPaidViewLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="amountNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="bottomHalfView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="cancelItemSplitButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="cancelSplitPeople" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="discLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="discNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dividerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="gratLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="gratNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="howManyCancelButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="howManySaveButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="howManyText" candidateClass="SteelfishBoldInputText"/>
+                <relationship kind="outlet" name="howManyTitle" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="howManyView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="itemSplitItemItemTotal" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemSplitMyPaymentText" candidateClass="SteelfishInputText"/>
+                <relationship kind="outlet" name="itemSplitName" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="itemSplitSaveButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="itemSplitScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="itemSplitView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="numberSliderScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="overlayTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="payBillButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="payView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="receiptView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="splitCancelButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitCheckButton" candidateClass="SteelfishBarButtonItem"/>
+                <relationship kind="outlet" name="splitDollarButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitDollarCancelButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitDollarMyPaymentText" candidateClass="SteelfishBoldInputText"/>
+                <relationship kind="outlet" name="splitDollarPercentBackView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="splitDollarSaveButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitFullButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitItemMyPaymentLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="splitMyPaymentTextField" candidateClass="SteelfishInputText"/>
+                <relationship kind="outlet" name="splitPeopleYouPayLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="splitPercentageButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitSaveButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitTopLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="splitView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="splitViewDollar" candidateClass="UIView"/>
+                <relationship kind="outlet" name="subLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="subtotalBackView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="taxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tipSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LeftViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LeftViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="billingSelected"/>
+                <relationship kind="action" name="homeSelected"/>
+                <relationship kind="action" name="profileSelected"/>
+                <relationship kind="action" name="shareSelected"/>
+                <relationship kind="action" name="supportSelected"/>
+                <relationship kind="outlet" name="profileImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="profileLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="profileSubLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="LiveDebugViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LiveDebugViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="closeStreamAction:"/>
+                <relationship kind="action" name="createStreamAction:"/>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="outlet" name="closeStreamButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="createStreamButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="sendingActivity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="streamNameText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="streamStatusLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LoadingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backAlphaView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="displayText" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="iconImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="mainBackView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="NVUIGradientButton" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NVUIGradientButton.h"/>
+        </class>
+        <class className="NoPaymentSourcesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoPaymentSourcesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel"/>
+                <relationship kind="action" name="creditCard"/>
+                <relationship kind="action" name="dwolla"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="cancelButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="creditCardButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="dwollaButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="PrivacyTermsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivacyTermsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="doneReading"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="topLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="webview" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="ProfileViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="createAction"/>
+                <relationship kind="action" name="endText"/>
+                <relationship kind="action" name="facebookConnectAction"/>
+                <relationship kind="action" name="logInAction"/>
+                <relationship kind="action" name="openMenuAction"/>
+                <relationship kind="action" name="signOutAction"/>
+                <relationship kind="action" name="viewChangeServerAction"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="createAccountButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="facebookConnectButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="facebookLoginView" candidateClass="FBLoginView"/>
+                <relationship kind="outlet" name="logInButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="newProfileText" candidateClass="SteelfishTextView"/>
+                <relationship kind="outlet" name="signOutButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewChangeServerButton" candidateClass="NVUIGradientButton"/>
+            </relationships>
+        </class>
+        <class className="RegisterDwollaView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterDwollaView.h"/>
+        </class>
+        <class className="RegisterNavigation" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterNavigation.h"/>
+        </class>
+        <class className="RegisterViewNew" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewNew.h"/>
+            <relationships>
+                <relationship kind="action" name="goNext"/>
+                <relationship kind="action" name="goTo3"/>
+                <relationship kind="action" name="login:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="scanCard"/>
+                <relationship kind="action" name="signUpFacebookAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="facebookButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="facebookSignupButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="myTableViewThree" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="myTableViewTwo" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="newRegisterButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="regTitleLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="ResetPasswordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ResetPasswordViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="action" name="submitAction"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="backAction" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="confirmText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passcodeText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="Restaurant" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Restaurant.h"/>
+            <relationships>
+                <relationship kind="action" name="checkNumberHelp"/>
+                <relationship kind="action" name="closeHelp"/>
+                <relationship kind="action" name="goBackAction"/>
+                <relationship kind="action" name="submit:"/>
+                <relationship kind="action" name="takeCheckPicture"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="checkHelpImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="checkNumFive" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumSix" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="closeHelpButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="helpBackView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="hiddenText" candidateClass="SteelfishBoldInputText"/>
+                <relationship kind="outlet" name="hintOverlayView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="leftTopLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="logoImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="nameDisplay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notFoundHelpView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="overlayTextView" candidateClass="SteelfishTextView"/>
+                <relationship kind="outlet" name="popAction" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="rightTopLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="ReviewTransaction" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ReviewTransaction.h"/>
+            <relationships>
+                <relationship kind="action" name="postFacebook"/>
+                <relationship kind="action" name="postTwitter"/>
+                <relationship kind="action" name="selectFavoriteItem"/>
+                <relationship kind="action" name="skipReview:"/>
+                <relationship kind="action" name="sliderValueChanged:" candidateClass="UISlider"/>
+                <relationship kind="action" name="starClicked:"/>
+                <relationship kind="action" name="starFiveAction"/>
+                <relationship kind="action" name="starFourAction"/>
+                <relationship kind="action" name="starOneAction"/>
+                <relationship kind="action" name="starThreeAction"/>
+                <relationship kind="action" name="starTwoAction"/>
+                <relationship kind="action" name="submitReview:"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="atmosphere1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="atmosphere5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="commentsText" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="drinks1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinks5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="drinksSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="earnMoreLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="favoriteItemBackview" candidateClass="UIView"/>
+                <relationship kind="outlet" name="food1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="food5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="foodSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="moodSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="paymentPointsLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="postFacebookButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postFacebookPoints" candidateClass="SteelfishLabel"/>
+                <relationship kind="outlet" name="postTwitterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postTwitterPoints" candidateClass="SteelfishLabel"/>
+                <relationship kind="outlet" name="selectFavoriteButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="selectedItemTextField" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="service1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="service5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="serviceSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="shareLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="skipButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="starFiveButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="starFourButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="starOneButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="starThreeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="starTwoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="submitButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="value1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="value5" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="valueSlider" candidateClass="UISlider"/>
+            </relationships>
+        </class>
+        <class className="RightViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RightViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelSplitAction"/>
+                <relationship kind="action" name="payRemainingAction"/>
+                <relationship kind="action" name="saveSplitAction"/>
+                <relationship kind="action" name="splitRemainingAction"/>
+                <relationship kind="outlet" name="alreadyPaidLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="alreadyPaidTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="learnToSplitButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="mainTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="noPaymentsLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="numberSliderScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="payRemainingButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="saveSplitButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="seeWhoPaidLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="splitRemainingButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="splitTopLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="splitView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="splitYourPaymentLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="topInvoiceLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="totalDueLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="totalRemainingLabel" candidateClass="SteelfishBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="ShareViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShareViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="openMenuAction"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="SteelfishBarButtonItem" superclassName="UIBarButtonItem">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SteelfishBarButtonItem.h"/>
+        </class>
+        <class className="SteelfishBoldInputText" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SteelfishBoldInputText.h"/>
+        </class>
+        <class className="SteelfishBoldLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SteelfishBoldLabel.h"/>
+        </class>
+        <class className="SteelfishButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SteelfishButton.h"/>
+        </class>
+        <class className="SteelfishInputText" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SteelfishInputText.h"/>
+        </class>
+        <class className="SteelfishLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SteelfishLabel.h"/>
+        </class>
+        <class className="SteelfishTextFieldCreditCardiOS6" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SteelfishTextFieldCreditCardiOS6.h"/>
+        </class>
+        <class className="SteelfishTextView" superclassName="UITextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SteelfishTextView.h"/>
+        </class>
+        <class className="SupportViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SupportViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="callAction"/>
+                <relationship kind="action" name="emailAction"/>
+                <relationship kind="action" name="openMenuAction"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="callButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="emailAddressLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="emailButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="phoneNumberLabel" candidateClass="SteelfishBoldLabel"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="ValidatePinView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ValidatePinView.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel"/>
+                <relationship kind="action" name="deleteCardAction"/>
+                <relationship kind="outlet" name="checkNumFour" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumOne" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumThree" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="checkNumTwo" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="deleteCardButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="descriptionText" candidateClass="SteelfishTextView"/>
+                <relationship kind="outlet" name="forgotPinButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="instructionsLabel" candidateClass="SteelfishBoldLabel"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backAction"/>
+                <relationship kind="action" name="forgotPassword"/>
+                <relationship kind="action" name="signIn"/>
+                <relationship kind="outlet" name="activity" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="registerButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="signInButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="ViewCreditCards" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewCreditCards.h"/>
+            <relationships>
+                <relationship kind="action" name="defaultTipClearAction"/>
+                <relationship kind="action" name="defaultTipEditBegin"/>
+                <relationship kind="action" name="defaultTipEditChanged"/>
+                <relationship kind="action" name="defaultTipSegmentControlValueChanged"/>
+                <relationship kind="action" name="openMenuAction"/>
+                <relationship kind="outlet" name="backView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="defaultTipClearButton" candidateClass="NVUIGradientButton"/>
+                <relationship kind="outlet" name="defaultTipSegmentControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="defaultTipText" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="defaultTipView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="topLineView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="iCarousel" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/iCarousel.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dataSource"/>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4wm-dJ-IiR"/>
+        <segue reference="L6b-sc-kgN"/>
         <segue reference="eAj-gy-Yqb"/>
-        <segue reference="daO-sk-AFV"/>
+        <segue reference="RNy-6v-Ue6"/>
         <segue reference="C7C-NV-eEl"/>
-        <segue reference="8Ap-ny-8Aq"/>
+        <segue reference="4wm-dJ-IiR"/>
         <segue reference="hxV-NI-Cfh"/>
     </inferredMetricsTieBreakers>
 </document>

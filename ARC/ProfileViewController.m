@@ -72,7 +72,7 @@
 -(void)viewDidLoad{
     
     
-    self.viewChangeServerButton.text = @"View/Change Dutch Server";
+    self.viewChangeServerButton.text = @"View/Change dutch Server";
  
     
     

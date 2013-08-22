@@ -1016,7 +1016,7 @@
                 errorMsg = @"Email Address already used.";
             }else if (errorCode == NETWORK_ERROR){
                 
-                errorMsg = @"Dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                errorMsg = @"dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                 
             }else {
                 errorMsg = ARC_ERROR_MSG;

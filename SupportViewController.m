@@ -252,7 +252,7 @@
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.mailComposeDelegate = self;
             [mailViewController setToRecipients:@[[[NSUserDefaults standardUserDefaults] valueForKey:@"arcMail"]]];
-            [mailViewController setSubject:@"Dutch Feedback"];
+            [mailViewController setSubject:@"dutch Feedback"];
             
             [self presentModalViewController:mailViewController animated:YES];
             

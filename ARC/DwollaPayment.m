@@ -27,7 +27,7 @@
 -(void)showHighVolumeOverlay{
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.loadingViewController.displayText.text = @"Dutch is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.text = @"dutch is experiencing high volume, or a weak internet connection, please be patient...";
         self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
         
         self.loadingViewController.displayText.numberOfLines = 3;

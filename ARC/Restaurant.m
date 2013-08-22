@@ -644,7 +644,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 errorMsg = @"Invoice being access by your server.  Try again in a few minutes.";
             } else if (errorCode == NETWORK_ERROR){
                 displayAlert = YES;
-                errorMsg = @"Dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                errorMsg = @"dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                 
             } else {
                 errorMsg = ARC_ERROR_MSG;

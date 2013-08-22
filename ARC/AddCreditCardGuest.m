@@ -863,12 +863,12 @@
             }else if (errorCode == NETWORK_ERROR){
                 
                 networkError = YES;
-                errorMsg = @"Dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                errorMsg = @"dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
                 
             }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
                 
                 networkError = YES;
-                errorMsg = @"Dutch experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+                errorMsg = @"dutch experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
                 
             }
             else {
@@ -905,7 +905,7 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
             [alert show];
         }else if (duplicateTransaction){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"Dutch has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dutch has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
     }
@@ -938,7 +938,7 @@
 -(void)showHighVolumeOverlay{
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.loadingViewController.displayText.text = @"Dutch is experiencing high volume, or a weak internet connection, please be patient...";
+        self.loadingViewController.displayText.text = @"dutch is experiencing high volume, or a weak internet connection, please be patient...";
         self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
         
         self.loadingViewController.displayText.numberOfLines = 3;

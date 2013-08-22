@@ -75,7 +75,7 @@
             
         } else {
             // must be failure -- user notification handled by ArcClient
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Getting Servers" message:@"Dutch could not get the list of serveres at this time, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error Getting Servers" message:@"dutch could not get the list of serveres at this time, please try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
         }
         

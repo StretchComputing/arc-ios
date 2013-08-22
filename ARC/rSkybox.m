@@ -339,7 +339,7 @@ NSString *const CLOSED_STATUS = @"closed";
         
         [tempDictionary setObject:summary forKey:@"summary"];
         
-        [tempDictionary setObject:@"Dutch Crash" forKey:@"eventName"];
+        [tempDictionary setObject:@"dutch Crash" forKey:@"eventName"];
         
         
         [tempDictionary setObject:[rSkybox getUserId] forKey:@"userId"];
