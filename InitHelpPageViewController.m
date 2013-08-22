@@ -34,7 +34,7 @@
             self.helpView.frame = frame;
         }];
         
-        [self performSelector:@selector(doneHelp) withObject:nil afterDelay:3.5];
+        [self performSelector:@selector(doneHelp) withObject:nil afterDelay:5.5];
         
     }
     

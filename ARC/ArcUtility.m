@@ -111,4 +111,14 @@
     }
 }
 
++(NSString *)roundDoubleUp:(double)myDouble{
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setMaximumFractionDigits:2];
+    [formatter setRoundingMode: NSNumberFormatterRoundUp];
+    NSString *numberString = [formatter stringFromNumber:[NSNumber numberWithDouble:myDouble]];
+    return numberString;
+    
+}
 @end

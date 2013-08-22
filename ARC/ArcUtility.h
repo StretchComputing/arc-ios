@@ -16,6 +16,7 @@
 +(NSString *)getCardTypeForNumber:(NSString *)cardNumber;
 
 +(NSString *)getCardNameForType:(NSString *)cardType;
++(NSString *)roundDoubleUp:(double)myDouble;
 
 
 @end

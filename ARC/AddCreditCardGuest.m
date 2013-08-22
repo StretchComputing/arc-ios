@@ -598,10 +598,12 @@
         NSNumber *invoiceAmount = [NSNumber numberWithDouble:[self.myInvoice amountDue]];
         [ tempDictionary setObject:invoiceAmount forKey:@"InvoiceAmount"];
         
-        //double amountDouble = [NSString stringWithFormat:@"%.2f"]
+        //double amountDouble = [NSString stringWithFormat:@"%.2f"];
        // NSNumber *amount = [NSNumber numberWithDouble:[self.myInvoice basePaymentAmount]];
         
+    
         NSString *amountString = [NSString stringWithFormat:@"%.2f", [self.myInvoice basePaymentAmount]];
+        
         [ tempDictionary setObject:amountString forKey:@"Amount"];
         
         [ tempDictionary setObject:@"" forKey:@"AuthenticationToken"];

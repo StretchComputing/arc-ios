@@ -102,7 +102,7 @@
     @try {
         double amountPaid = 0.0;
         double paymentAmount = 0.0;
-        for (int i = 0; i < [self.payments count]; i++) {
+        for (int i = 0; i < [self.payments count]; i++) {      
             NSDictionary *paymentDictionary = [self.payments objectAtIndex:i];
             paymentAmount = [[paymentDictionary valueForKey:@"Amount"] doubleValue];
             paymentAmount = [[NSString stringWithFormat:@"%.2f", paymentAmount] doubleValue];

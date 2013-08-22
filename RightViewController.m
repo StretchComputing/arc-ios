@@ -14,6 +14,7 @@
 #import "SteelfishLabel.h"
 #import "ArcAppDelegate.h"
 #import "SteelfishLabel.h"
+#import "ArcUtility.h"
 
 @interface RightViewController ()
 
@@ -646,7 +647,8 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
         double amountRemaining = self.myInvoice.amountDue;
         
         double myDue = amountRemaining * yourPercent / 100.0;
-    
+        myDue = [ArcUtility roundUpToNearestPenny:myDue];
+        
         self.splitYourPaymentLabel.text = [NSString stringWithFormat:@"You Pay: $%.2f", myDue];
         
         

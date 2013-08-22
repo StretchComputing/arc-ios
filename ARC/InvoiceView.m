@@ -542,16 +542,18 @@
     
 
     
-    double myTax = self.myInvoice.tax * myPercent;
-    double myServiceCharge = self.myInvoice.serviceCharge * myPercent;
-    double myDiscount = self.myInvoice.discount * myPercent;
+    double myTax = [ArcUtility roundUpToNearestPenny:(self.myInvoice.tax * myPercent)];
+    double myServiceCharge = [ArcUtility roundUpToNearestPenny:(self.myInvoice.serviceCharge * myPercent)];
+    double myDiscount = [ArcUtility roundDownToNearestPenny:(self.myInvoice.discount * myPercent)];
     
 
 
     double myTotal = self.myItemizedTotal + myTax + myServiceCharge - myDiscount;
-
+    //myTotal = [ArcUtility roundUpToNearestPenny:myTotal];
     
+
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", myTotal];
+
     self.totalLabel.text = [@"My Total:  " stringByAppendingString:self.totalLabel.text];
     
     

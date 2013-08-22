@@ -310,7 +310,7 @@ UIColor *dutchTopNavColor;
     //[FBAppCall handleDidBecomeActive];
 
     
-    [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:4];
+    [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:6];
     
     
     NSString *customerToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"];

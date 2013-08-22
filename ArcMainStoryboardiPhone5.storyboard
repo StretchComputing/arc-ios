@@ -1488,10 +1488,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BjT-Ys-SJc">
-                                        <rect key="frame" x="281" y="3" width="39" height="40"/>
+                                        <rect key="frame" x="277" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <state key="normal" image="invoiceMore.png">
+                                        <state key="normal" image="menuIcon.png">
                                             <color key="titleColor" red="0.0" green="0.18823529411764706" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -4102,21 +4102,21 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to dutch!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Ud-dR-FnK" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="2" y="11" width="256" height="26"/>
+                                        <rect key="frame" x="2" y="10" width="256" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Swipe to the left to learn a little bit more, or just start using dutch!  Enjoy!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="61t-ss-ebd" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="2" y="20" width="256" height="99"/>
+                                        <rect key="frame" x="2" y="26" width="256" height="99"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="sywlSwipeARrow.png" id="eZL-Wx-Ali">
-                                        <rect key="frame" x="20" y="110" width="221" height="23"/>
+                                        <rect key="frame" x="20" y="120" width="221" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -5882,7 +5882,6 @@
         <image name="helpImage1.png" width="700" height="1023"/>
         <image name="helpImage2.png" width="700" height="1023"/>
         <image name="helpImage3.png" width="700" height="1023"/>
-        <image name="invoiceMore.png" width="100" height="100"/>
         <image name="locationPin.png" width="16" height="16"/>
         <image name="lock.png" width="48" height="48"/>
         <image name="menuBillingIcon.png" width="70" height="70"/>
