@@ -232,7 +232,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                 if ([self.expandedElement isEqualToString:@"splitDollar"]) {
                     
                     if (indexPath.row == 1) {
-                       nameLabelString =  nameLabel.text = @"Split by $";
+                       nameLabelString =  nameLabel.text = @"Split by Dollar Amount";
                     }else if (indexPath.row == 3){
                         nameLabelString = nameLabel.text = @"Split by # People";
                     }else if (indexPath.row == 5){
@@ -255,9 +255,9 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                     
                     
                     if (indexPath.row == 1) {
-                        nameLabelString = nameLabel.text = @"Split by $";
+                        nameLabelString = nameLabel.text = @"Split by Dollar Amount";
                     }else if (indexPath.row == 2){
-                        nameLabelString = nameLabel.text = @"Split by %";
+                        nameLabelString = nameLabel.text = @"Split # People";
                     }else if (indexPath.row == 5){
                         nameLabelString = nameLabel.text = @"See Who Paid";
                     }else if (indexPath.row == 3){
@@ -285,9 +285,9 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                 }else if ([self.expandedElement isEqualToString:@"alreadyPaid"]){
                     
                     if (indexPath.row == 1) {
-                        nameLabelString = nameLabel.text = @"Split by $";
+                        nameLabelString = nameLabel.text = @"Split by Dollar Amount";
                     }else if (indexPath.row == 2){
-                        nameLabelString = nameLabel.text = @"Split by %";
+                        nameLabelString = nameLabel.text = @"Split # People";
                     }else if (indexPath.row == 4){
                         nameLabelString = nameLabel.text = @"See Who Paid";
                     }else{
@@ -332,9 +332,9 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                     
                 }else{
                     if (indexPath.row == 1) {
-                        nameLabelString = nameLabel.text = @"Split by $";
+                        nameLabelString = nameLabel.text = @"Split by Dollar Amount";
                     }else if (indexPath.row == 2){
-                        nameLabelString = nameLabel.text = @"Split by %";
+                        nameLabelString = nameLabel.text = @"Split # People";
                     }else if (indexPath.row == 4){
                         nameLabelString = nameLabel.text = @"See Who Paid";
                     }
@@ -350,9 +350,9 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                 color = 31.0/255.0;
             }else{
                 
-                if ([self.expandedElement isEqualToString:@"splitDollar"] && [nameLabelString isEqualToString:@"Split by $"]) {
+                if ([self.expandedElement isEqualToString:@"splitDollar"] && [nameLabelString isEqualToString:@"Split by Dollar Amount"]) {
                     color = 60.0/255.0;
-                }else if ([self.expandedElement isEqualToString:@"splitPercent"] && [nameLabelString isEqualToString:@"Split by %"]) {
+                }else if ([self.expandedElement isEqualToString:@"splitPercent"] && [nameLabelString isEqualToString:@"Split # People"]) {
                     color = 60.0/255.0;
                 } else if ([self.expandedElement isEqualToString:@"alreadyPaid"] && [nameLabelString isEqualToString:@"See Who Paid"]) {
                     color = 60.0/255.0;
