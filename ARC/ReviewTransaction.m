@@ -915,7 +915,7 @@
             }
         
             [fbController setInitialText:tweet];
-            [fbController addURL:[NSURL URLWithString:@"http://arcmobileapp.com"]];
+            [fbController addURL:[NSURL URLWithString:@"http://godutch.io"]];
             [fbController setCompletionHandler:completionHandler];
             [self presentViewController:fbController animated:YES completion:nil];
        // }
@@ -1146,9 +1146,9 @@
                     
                     NSDictionary *parameters;
                     if (facebookId) {
-                        parameters = @{@"message": post, @"place":facebookId, @"link":@"www.arcmobileapp.com"};
+                        parameters = @{@"message": post, @"place":facebookId, @"link":@"www.godutch.io"};
                     }else{
-                        parameters = @{@"message": post, @"link":@"www.arcmobileapp.com"};
+                        parameters = @{@"message": post, @"link":@"www.godutch.io"};
 
                     }
                     

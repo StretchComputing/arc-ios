@@ -163,7 +163,7 @@
     
     
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
-    self.loadingViewController.view.frame = CGRectMake(0, 30, 320, self.view.frame.size.height + 100);
+    self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height + 100);
     self.loadingViewController.view.hidden = YES;
     [self.view addSubview:self.loadingViewController.view];
 }

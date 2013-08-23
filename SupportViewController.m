@@ -89,7 +89,7 @@
             }
             
             if (![prefs valueForKey:@"arcMail"]) {
-                [prefs setValue:@"support@arcmobileapp.com" forKey:@"arcMail"];
+                [prefs setValue:@"support@godutch.io" forKey:@"arcMail"];
             }
             
             phoneNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"arcPhoneNumber"];

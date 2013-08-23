@@ -89,7 +89,14 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             if ([self.expandedElement isEqualToString:@""]) {
                 return MAIN_MENU_ITEMS;
             }else if ([self.expandedElement isEqualToString:@"alreadyPaid"]){
-                return (MAIN_MENU_ITEMS + [self.paymentsArray count]);
+                
+                if ([self.paymentsArray count] == 0) {
+                    return (MAIN_MENU_ITEMS + 1);
+
+                }else{
+                    return (MAIN_MENU_ITEMS + [self.paymentsArray count]);
+
+                }
             }else if ([self.expandedElement isEqualToString:@"splitDollar"] || [self.expandedElement isEqualToString:@"splitPercent"]){
                 return MAIN_MENU_ITEMS + 1;
             }

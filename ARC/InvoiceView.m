@@ -1013,6 +1013,7 @@
         right.alreadyPaidTable.hidden = YES;
         right.noPaymentsLabel.hidden = NO;
         right.seeWhoPaidLabel.hidden = YES;
+        right.paymentsArray = [NSMutableArray array];
     }
     
     right.totalDueLabel.text = [NSString stringWithFormat:@"%.2f", self.myInvoice.amountDue];
