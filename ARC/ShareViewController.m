@@ -23,21 +23,13 @@
 
 @implementation ShareViewController
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
+}
 -(void)viewWillAppear:(BOOL)animated{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
-        self.facebookSwitch.on = YES;
-    }else{
-        self.facebookSwitch.on = NO;
-    }
-    
-    if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
-        self.twitterSwitch.on = YES;
-    }else{
-        self.twitterSwitch.on = NO;
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referFriendComplete:) name:@"referFriendNotification" object:nil];
 
 }
 
@@ -104,10 +96,31 @@
                 logoImage.image = [UIImage imageNamed:@"facebookconnect.jpg"];
                 self.facebookSwitch = onOffSwitch;
                 [self.facebookSwitch addTarget:self action:@selector(facebookValueChanged) forControlEvents:UIControlEventValueChanged];
+                
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                
+                if ([[prefs valueForKey:@"autoPostFacebook"] isEqualToString:@"yes"]) {
+                    self.facebookSwitch.on = YES;
+                }else{
+                    self.facebookSwitch.on = NO;
+                }
+                
+            
+                
+                
             }else{
                 logoImage.image = [UIImage imageNamed:@"twittetrconnect.png"];
                 self.twitterSwitch = onOffSwitch;
                 [self.twitterSwitch addTarget:self action:@selector(twitterValueChanged) forControlEvents:UIControlEventValueChanged];
+                
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                
+                
+                if ([[prefs valueForKey:@"autoPostTwitter"] isEqualToString:@"yes"]) {
+                    self.twitterSwitch.on = YES;
+                }else{
+                    self.twitterSwitch.on = NO;
+                }
             }
             
         }
@@ -166,6 +179,8 @@
                                 [ArcClient trackEvent:@"FACEBOOK_AUTO_ON"];
                                 
                                 [prefs setValue:@"yes" forKey:@"autoPostFacebook"];
+                                [prefs synchronize];
+
                                 
                                 
                             } else {
@@ -198,10 +213,11 @@
                     [ArcClient trackEvent:@"FACEBOOK_AUTO_OFF"];
                     
                     [prefs setValue:@"no" forKey:@"autoPostFacebook"];
+                    [prefs synchronize];
+
                 }
                 
                 
-                [prefs synchronize];
                 
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"dutch only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -248,6 +264,8 @@
                         [ArcClient trackEvent:@"TWITTER_AUTO_ON"];
                         
                         [prefs setValue:@"yes" forKey:@"autoPostTwitter"];
+                        [prefs synchronize];
+
                         
                     }else{
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sign In Required" message:@"Please log into your Twitter account in your iPhone's settings to use this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -259,10 +277,11 @@
                     [ArcClient trackEvent:@"TWITTER_AUTO_OFF"];
                     
                     [prefs setValue:@"no" forKey:@"autoPostTwitter"];
+                    [prefs synchronize];
+
                 }
                 
                 
-                [prefs synchronize];
                 
             }else{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iOS 6 Required!" message:@"dutch only supports auto posting to facebook and twitter with iOS 6.  Please upgrade your device to access this feature!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];

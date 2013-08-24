@@ -2420,7 +2420,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="right" minimumFontSize="17" id="Rgb-mS-sgA" customClass="SteelfishInputText">
-                                        <rect key="frame" x="122" y="8" width="92" height="30"/>
+                                        <rect key="frame" x="122" y="8" width="62" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -2438,14 +2438,14 @@
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="DCT-xw-gbB" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="212" y="9" width="32" height="30"/>
+                                        <rect key="frame" x="184" y="9" width="32" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </label>
                                     <view contentMode="scaleToFill" id="dJh-o1-i4q" customClass="NVUIGradientButton">
-                                        <rect key="frame" x="248" y="3" width="66" height="35"/>
+                                        <rect key="frame" x="241" y="3" width="73" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <connections>
@@ -2537,7 +2537,7 @@
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Card Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FDi-rL-8SL" customClass="SteelfishBoldLabel">
                                     <rect key="frame" x="15" y="0.0" width="130" height="31"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" white="0.28675296532846717" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -5882,11 +5882,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4wm-dJ-IiR"/>
-        <segue reference="C7C-NV-eEl"/>
         <segue reference="6Kq-i4-E2s"/>
+        <segue reference="C7C-NV-eEl"/>
+        <segue reference="4wm-dJ-IiR"/>
         <segue reference="hxV-NI-Cfh"/>
-        <segue reference="8Ap-ny-8Aq"/>
+        <segue reference="L6b-sc-kgN"/>
         <segue reference="eAj-gy-Yqb"/>
     </inferredMetricsTieBreakers>
 </document>

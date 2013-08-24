@@ -129,6 +129,8 @@
         self.editPinButton.text = @"Edit PIN";
         
         self.saveChangesButton.text = @"Save Changes";
+        self.saveChangesButton.tintColor = dutchDarkBlueColor;
+        self.saveChangesButton.textColor = [UIColor whiteColor];
         
         self.deleteButton.text = @"Delete Card";
         self.deleteButton.textColor = [UIColor whiteColor];
