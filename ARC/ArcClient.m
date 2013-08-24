@@ -88,7 +88,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
            _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         
-        NSLog(@"***** Arc URL = %@ *****", _arcUrl);
+       // NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
 }
@@ -391,7 +391,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setHTTPBody: requestData];
 
         
-         NSLog(@"Request String: %@", requestString);
+         //NSLog(@"Request String: %@", requestString);
         
         
      //   NSLog(@"getInvoiceUrl: %@", getInvoiceUrl);
@@ -454,7 +454,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
      //   NSLog(@"Auth Header: %@", [self authHeader]);
-       NSLog(@"RequestString: %@", requestString);
+    //   NSLog(@"RequestString: %@", requestString);
         
         
         self.serverData = [NSMutableData data];
@@ -492,7 +492,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [rSkybox addEventToSession:eventString];
         
         
-        NSLog(@"Request String: %@", requestString);
+       // NSLog(@"Request String: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetReview"];
@@ -546,7 +546,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSDictionary *myDictionary = @{@"Analytics" : [NSArray arrayWithArray:eventArray]};
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [myDictionary JSONRepresentation], nil];
-        NSLog(@"requestString: %@", requestString);
+       // NSLog(@"requestString: %@", requestString);
         
         
      
@@ -956,8 +956,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
     self.httpStatusCode = [httpResponse statusCode];
     
-    NSLog(@"Server Call: %d", api);
-    NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
+   // NSLog(@"Server Call: %d", api);
+   // NSLog(@"HTTP Status Code: %d", self.httpStatusCode);
     
     
     NSString *eventString = [NSString stringWithFormat:@"didRecieveResponse - server call: %@, http status: %d", [self apiToString], self.httpStatusCode];
@@ -976,7 +976,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        NSLog(@"ReturnString: %@", returnString);
+      //  NSLog(@"ReturnString: %@", returnString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];
@@ -2366,7 +2366,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     @try{
         
         
-        NSLog(@"Response: %@", response);
+     //   NSLog(@"Response: %@", response);
         
         if ([[response valueForKey:@"Success"] boolValue]) {
             
