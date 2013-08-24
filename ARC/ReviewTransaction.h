@@ -20,7 +20,7 @@
 - (IBAction)submitReview:(id)sender;
 - (IBAction)skipReview:(id)sender;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *submitButton;
-
+@property (nonatomic, strong) NSString *isSkip;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
 @property BOOL shouldShowLoading;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
@@ -50,6 +50,7 @@
 @property int pointsEarned;
 @property (nonatomic, strong) NSArray *accounts;
 @property (nonatomic, strong) ACAccountStore *store;
+@property (nonatomic, strong) ACAccount *fbAccount;
 
 @property (nonatomic, strong) NSNumber *foodInt;
 @property (nonatomic, strong) NSNumber *drinksInt;

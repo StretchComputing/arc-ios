@@ -118,6 +118,18 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
     NSString *amount = [self.splitYourPaymentLabel.text stringByReplacingOccurrencesOfString:@"You Pay: $" withString:@""];
     double newDue = [amount doubleValue];
 
+    
+
+    if (newDue > 0) {
+        self.invoiceController.splitMyDue = newDue;
+        [self.invoiceController splitSaveAction];
+        [self.sideMenu toggleRightSideMenu];
+        
+        
+    }
+    
+    
+    /*
     if (newDue > 0) {
         
         double amountRemaining = self.myInvoice.amountDue - [self.myInvoice calculateAmountPaid];
@@ -136,7 +148,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
         
         
     }
-    
+    */
 }
 -(void)payDollar{
     
@@ -764,11 +776,15 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             }
         }
         
-        SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
-        [myLabel setFont: [UIFont fontWithName:FONT_BOLD size:35]];
+        if (index < [[self.numberSliderScrollView subviews] count]) {
+            SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[self.numberSliderScrollView subviews] objectAtIndex:index];
+            [myLabel setFont: [UIFont fontWithName:FONT_BOLD size:35]];
+        }
+       
     }
     @catch (NSException *exception) {
-        [rSkybox sendClientLog:@"RightMenu.scrollViewDidScroll" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
+        NSLog(@"RSKYBOX");
+        //[rSkybox sendClientLog:@"RightMenu.scrollViewDidScroll" logMessage:@"Exception Caught" logLevel:@"error" exception:exception];
     }
     
     

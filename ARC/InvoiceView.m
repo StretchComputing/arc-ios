@@ -963,8 +963,11 @@
                 }
             }
             
-            SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[scrollView subviews] objectAtIndex:index];
-            [myLabel setFont: [UIFont fontWithName: FONT_BOLD size:35]];
+            if (index < [[scrollView subviews] count]) {
+                SteelfishBoldLabel *myLabel = (SteelfishBoldLabel *)[[scrollView subviews] objectAtIndex:index];
+                [myLabel setFont: [UIFont fontWithName: FONT_BOLD size:35]];
+            }
+           
         }
   
     }

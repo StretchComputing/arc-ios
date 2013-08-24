@@ -177,11 +177,7 @@ NSString *const CLOSED_STATUS = @"closed";
     
     
     @try {
-        NSString *logPrefix = @"iOS";
-#if DEBUG==1
-        logPrefix = [@"Dev." stringByAppendingString:logPrefix];
-#endif
-        logName = [logPrefix stringByAppendingString:logName];
+
         
         NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *loginDict = [[NSDictionary alloc] init];

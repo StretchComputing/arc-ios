@@ -1112,7 +1112,7 @@
 
 
 -(void)autoPostFacebook{
-    
+    self.isSkip = @"no";
     //change
     @try {
         self.store = [[ACAccountStore alloc] init];
@@ -1130,7 +1130,7 @@
                     //NSLog(@"Granted");
                     
                     NSArray *accounts = [self.store accountsWithAccountType:accType];
-                    ACAccount *facebookAccount = [accounts objectAtIndex:0];
+                    self.fbAccount = [accounts objectAtIndex:0];
                     
                     //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
                     NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with dutch!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
@@ -1160,7 +1160,7 @@
                                               URL:feedURL
                                               parameters:parameters];
                     
-                    feedRequest.account = facebookAccount;
+                    feedRequest.account = self.fbAccount;
                     
                     [feedRequest performRequestWithHandler:^(NSData *responseData,
                                                              NSHTTPURLResponse *urlResponse, NSError *error)
@@ -1174,6 +1174,10 @@
                          NSLog(@"Output: %@", output);
                          NSLog(@"Error: %@", error);
                          NSLog(@"Output: %@", dataString);
+                         
+                         if ([urlResponse statusCode] == 400) {
+                             [self attemptRenewCredentials];
+                         }
                          
                          
                          
@@ -1210,6 +1214,7 @@
 
 -(void)autoPostFacebookSkip{
     
+    self.isSkip = @"yes";
     //change
     @try {
         self.store = [[ACAccountStore alloc] init];
@@ -1227,7 +1232,7 @@
                     //NSLog(@"Granted");
                     
                     NSArray *accounts = [self.store accountsWithAccountType:accType];
-                    ACAccount *facebookAccount = [accounts objectAtIndex:0];
+                    self.fbAccount = [accounts objectAtIndex:0];
                     
                     //NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with %@.", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantFacebookHandler"], [[NSUserDefaults standardUserDefaults] valueForKey:@"arcFacebookHandler"]];
                     NSString *post = [NSString stringWithFormat:@"I just made a purchase at %@ with dutch!", [[NSUserDefaults standardUserDefaults] valueForKey:@"merchantName"]];
@@ -1254,7 +1259,7 @@
                                               URL:feedURL
                                               parameters:parameters];
                     
-                    feedRequest.account = facebookAccount;
+                    feedRequest.account = self.fbAccount;
                     
                     [feedRequest performRequestWithHandler:^(NSData *responseData,
                                                              NSHTTPURLResponse *urlResponse, NSError *error)
@@ -1270,7 +1275,9 @@
                          NSLog(@"Output: %@", dataString);
                          
                          
-                         
+                         if ([urlResponse statusCode] == 400) {
+                             [self attemptRenewCredentials];
+                         }
                      }];
                     
                     
@@ -1297,6 +1304,57 @@
     }
     
 }
+
+
+
+-(void)attemptRenewCredentials{
+    
+    [self.store renewCredentialsForAccount:(ACAccount *)self.fbAccount completion:^(ACAccountCredentialRenewResult renewResult, NSError *error){
+        
+        if(!error)
+            
+        {
+            
+            switch (renewResult) {
+                    
+                case ACAccountCredentialRenewResultRenewed:
+                    
+                    if ([self.isSkip isEqualToString:@"yes"]) {
+                        [self autoPostFacebookSkip];
+                    }else{
+                        [self autoPostFacebook];
+                    }
+                    
+                    break;
+                    
+                case ACAccountCredentialRenewResultRejected:
+                
+                    
+                    break;
+                    
+                case ACAccountCredentialRenewResultFailed:
+                    
+
+                    break;
+                    
+                default:
+                    
+                    break;
+                    
+            }
+            
+            
+            
+        }
+        
+        else{
+            //handle error gracefully
+            NSLog(@"error from renew credentials%@",error);
+        }
+    }];
+}
+
+
 
 
 -(void)noPaymentSources{
