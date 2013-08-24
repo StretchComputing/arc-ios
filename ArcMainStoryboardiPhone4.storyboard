@@ -4200,7 +4200,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Already Paid" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="L5W-M0-uzB" customClass="SteelfishBoldLabel">
-                                        <rect key="frame" x="10" y="105" width="95" height="21"/>
+                                        <rect key="frame" x="10" y="105" width="123" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -6439,11 +6439,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="C7C-NV-eEl"/>
-        <segue reference="RNy-6v-Ue6"/>
-        <segue reference="eAj-gy-Yqb"/>
-        <segue reference="L6b-sc-kgN"/>
         <segue reference="4wm-dJ-IiR"/>
-        <segue reference="hxV-NI-Cfh"/>
+        <segue reference="C7C-NV-eEl"/>
+        <segue reference="3CC-ej-fUE"/>
+        <segue reference="RNy-6v-Ue6"/>
+        <segue reference="L6b-sc-kgN"/>
+        <segue reference="eAj-gy-Yqb"/>
     </inferredMetricsTieBreakers>
 </document>

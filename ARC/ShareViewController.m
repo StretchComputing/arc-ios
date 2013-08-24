@@ -149,7 +149,7 @@
             
             if (self.facebookSwitch.on) {
                 self.facebookSwitch.on = NO;
-                self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users can link to social networks. Please go to the Profile section to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
+                self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users can add credit cards. Select 'Go Profile' to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
                 [self.logInAlert show];
             }
            
@@ -247,7 +247,7 @@
             
             if (self.twitterSwitch.on) {
                 self.twitterSwitch.on = NO;
-                self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users can link to social networks. Please go to the Profile section to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
+                self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users can add credit cards. Select 'Go Profile' to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
                 [self.logInAlert show];
             }
             
