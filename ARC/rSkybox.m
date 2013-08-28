@@ -940,7 +940,7 @@ NSString *const CLOSED_STATUS = @"closed";
         if([apiStatus isEqualToString:SUCCESS]) {
             isLiveDebugActive = TRUE;
             streamId = [response valueForKey:@"id"];
-            BOOL created = [[response valueForKey:@"created"] boolValue];
+           // BOOL created = [[response valueForKey:@"created"] boolValue];
             NSLog(@"CreateStream API successfully created");
         }
         else if([apiStatus isEqualToString:NAME_ALREADY_IN_USE]){

@@ -3098,6 +3098,10 @@
     
     NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showHint) userInfo:nil repeats:NO];
     
+    if (myTimer) {
+        
+    }
+    
     
 }
 

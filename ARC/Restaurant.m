@@ -1101,7 +1101,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 -(void)showInvoiceHint{
     
     NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showHint) userInfo:nil repeats:NO];
-    
+    if (myTimer) {
+        
+    }
     
     
 }
@@ -1109,7 +1111,9 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 -(void)showHint{
     
     NSTimer *myTimer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideHint) userInfo:nil repeats:NO];
-    
+    if (myTimer) {
+        
+    }
     [UIView animateWithDuration:1.0 animations:^{
         self.helpOverlay.view.alpha = 1.0;
     }];

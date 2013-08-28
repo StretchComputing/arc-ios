@@ -51,6 +51,8 @@
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>ArcMainStoryboardiPhone4</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>ArcMainStoryboardIpad</string>
 	<key>UIPrerenderedIcon</key>
 	<false/>
 	<key>UIStatusBarStyle</key>

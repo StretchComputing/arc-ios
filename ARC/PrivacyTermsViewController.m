@@ -20,17 +20,17 @@
     
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0  blue:125.0/255.0 alpha:1.0];
 
-    NSString *documentPath;
+    NSString *urlString;
     
     if (self.isPrivacy) {
         self.topLabel.text = @"Privacy";
-        documentPath = [[NSBundle mainBundle] pathForResource:@"privacy" ofType:@"pdf"];
+        urlString = @"http://arc.dagher.mobi/html/docs/privacy.html";
     }else{
         self.topLabel.text = @"Terms of Use";
-        documentPath = [[NSBundle mainBundle] pathForResource:@"terms" ofType:@"pdf"];
+        urlString = @"http://arc.dagher.mobi/html/docs/terms.html";
     }
     
-    NSURL *targetURL = [NSURL fileURLWithPath:documentPath];
+    NSURL *targetURL = [NSURL URLWithString:urlString];
     
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:targetURL];
 	

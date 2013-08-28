@@ -178,8 +178,5 @@
 
 
 
-- (void)viewDidUnload {
-    [self setLoadingView:nil];
-    [super viewDidUnload];
-}
+
 @end
