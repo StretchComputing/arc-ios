@@ -22,7 +22,7 @@ extern UIColor *dutchOrangeColor;
 extern UIColor *dutchTopLineColor;
 extern UIColor *dutchTopNavColor;
 
-
+extern BOOL isIpad;
 
 
 
@@ -104,5 +104,6 @@ extern UIColor *dutchTopNavColor;
 
 -(void)doPaymentCheck;
 -(void)showNewVersionAlert;
+
 
 @end

@@ -26,6 +26,8 @@ UIColor *dutchGreenColor;
 UIColor *dutchTopLineColor;
 UIColor *dutchTopNavColor;
 
+BOOL isIpad;
+
 
 @implementation ArcAppDelegate
 
@@ -129,6 +131,13 @@ UIColor *dutchTopNavColor;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+    {
+        isIpad = YES;
+    }else{
+        isIpad = NO;
+    }
+    
     
     dutchDarkBlueColor = [UIColor colorWithRed:14.0/255.0 green:71.0/255.0 blue:136.0/255.0 alpha:1.0];
     dutchGreenColor = [UIColor colorWithRed:19.0/255.0 green:151.0/255.0 blue:76.0/215.0 alpha:1];
@@ -313,7 +322,7 @@ UIColor *dutchTopNavColor;
     [self performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:6];
     
     
-    NSString *customerToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"];
+   // NSString *customerToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerToken"];
    // if ([customerToken length] > 0){
         ArcClient *client = [[ArcClient alloc] init];
         [client getServer];
