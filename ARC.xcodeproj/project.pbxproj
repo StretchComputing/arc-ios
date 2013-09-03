@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9033272215F10ACD0084761D /* MyGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9033272115F10ACD0084761D /* MyGestureRecognizer.m */; };
+		9034226717D624F200346954 /* rokaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9034226617D624F200346954 /* rokaLogo.png */; };
 		9038AA931784653B00B5DF60 /* InvoiceHelpOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */; };
 		9038AAB517847E7800B5DF60 /* CheckHelpOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */; };
 		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
@@ -227,6 +228,7 @@
 /* Begin PBXFileReference section */
 		9033272015F10ACD0084761D /* MyGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGestureRecognizer.h; sourceTree = "<group>"; };
 		9033272115F10ACD0084761D /* MyGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGestureRecognizer.m; sourceTree = "<group>"; };
+		9034226617D624F200346954 /* rokaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rokaLogo.png; sourceTree = "<group>"; };
 		9038AA911784653B00B5DF60 /* InvoiceHelpOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceHelpOverlay.h; sourceTree = "<group>"; };
 		9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceHelpOverlay.m; sourceTree = "<group>"; };
 		9038AAB317847E7800B5DF60 /* CheckHelpOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckHelpOverlay.h; sourceTree = "<group>"; };
@@ -903,6 +905,7 @@
 		90AD3FEA17CE63090053239E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9034226617D624F200346954 /* rokaLogo.png */,
 				90AD3FEB17CE63090053239E /* addCard.png */,
 				90AD3FEC17CE63090053239E /* addCard@2x.png */,
 				90AD3FED17CE63090053239E /* arcLogo.png */,
@@ -1172,6 +1175,7 @@
 				90AD406817CE63090053239E /* untitledLogo.png in Resources */,
 				90AD406917CE63090053239E /* untitledReceipt.png in Resources */,
 				90AD406A17CE63090053239E /* upChalkArrow.png in Resources */,
+				9034226717D624F200346954 /* rokaLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1401,7 +1405,7 @@
 				PRODUCT_NAME = ARC;
 				PROVISIONING_PROFILE = "55C5611D-7A5B-4D44-BA03-B9CE824884A0";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "55C5611D-7A5B-4D44-BA03-B9CE824884A0";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1434,7 +1438,7 @@
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = ARC;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1498,7 +1502,7 @@
 				PRODUCT_NAME = ARC;
 				PROVISIONING_PROFILE = "E6089399-000F-4FFC-8419-2D57611ACDFE";
 				"PROVISIONING_PROFILE[sdk=*]" = "E6089399-000F-4FFC-8419-2D57611ACDFE";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = AdHoc;

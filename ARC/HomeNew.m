@@ -329,7 +329,11 @@
     if (self.view.frame.size.height < 500) {
         y = 80;
     }
-    self.carousel.frame = CGRectMake(0, y, 320, 200);
+    
+    if (!isIpad) {
+        self.carousel.frame = CGRectMake(0, y, 320, 200);
+    }
+    
     self.carousel.clipsToBounds = YES;
     
     
@@ -668,6 +672,7 @@
                 
                 
                 //For Test Videos:
+                
                 /*
                 if (i == 0) {
                     tmpMerchant.name = @"Untitled";
@@ -1290,10 +1295,49 @@
             imageLogo.layer.cornerRadius = 3.0;
             //imageLogo.layer.masksToBounds = YES;
             
-            
-            //**TODO REMOVE THIS HARD CODING
             Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:index];
             
+            if (tmpMerchant.merchantId == 12) {
+                imageLogo.image = [UIImage imageNamed:@"untitledLogo"];
+            }else if (tmpMerchant.merchantId == 13){
+                imageLogo.image = [UIImage imageNamed:@"junkieLogo"];
+            }else if (tmpMerchant.merchantId == 14){
+                //imageLogo.image = [UIImage imageNamed:@"rokaLogo"];
+            }else if (tmpMerchant.merchantId == 15){
+                //imageLogo.image = [UIImage imageNamed:@"rockitLogo"];
+            }else{
+                imageLogo.image = [UIImage imageNamed:@"defaultLogo"];
+
+                ArcClient *tmp = [[ArcClient alloc] init];
+                NSString *serverUrl = [tmp getCurrentUrl];
+                
+                NSString *logoImageUrl = [NSString stringWithFormat:@"%@Images/App/Logos/%d.jpg", serverUrl, tmpMerchant.merchantId];
+                logoImageUrl = [logoImageUrl stringByReplacingOccurrencesOfString:@"/rest/v1" withString:@""];
+                NSLog(@"URL: %@", logoImageUrl);
+                
+                dispatch_async(dispatch_get_global_queue(0,0), ^{
+                    
+                    NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:logoImageUrl]];
+                    
+                    if ( data == nil ){
+                        return;
+                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        UIImage *logoImage = [UIImage imageWithData:data];
+                        
+                        if (logoImage) {
+                            imageLogo.image = logoImage;
+                            //self.logoImageView.contentMode = UIViewContentModeScaleAspectFit;
+                        }
+                    });
+                });
+            }
+        
+            
+            //**TODO REMOVE THIS HARD CODING
+            
+            /*
             if ([tmpMerchant.name isEqualToString:@"Untitled"] || [tmpMerchant.name isEqualToString:@"Isis Lab"] ) {
                 imageLogo.image = [UIImage imageNamed:@"untitledLogo.png"];
 
@@ -1303,7 +1347,17 @@
                 imageLogo.image = [UIImage imageNamed:@"defaultLogo.png"];
 
             }
-
+             */
+             
+            
+            
+          
+             
+            
+            
+            
+            
+            
            
             [view addSubview:imageLogo];
             
@@ -1422,7 +1476,10 @@
 - (IBAction)searchAction {
     
     int newy = 51;
-    if (self.searchBar.frame.origin.y == 51) {
+    if (isIpad) {
+        newy = 75;
+    }
+    if (self.searchBar.frame.origin.y == newy) {
         newy = 7;
         [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:NO] afterDelay:0.0];
 

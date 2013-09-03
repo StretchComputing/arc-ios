@@ -7,6 +7,7 @@
 
 #import "NVUIGradientButton.h"
 #import "SteelfishLabel.h"
+#import "ArcAppDelegate.h"
 
 #ifdef __has_feature
 	#define OBJC_ARC_ENABLED __has_feature(objc_arc)
@@ -79,7 +80,12 @@
 	_titleLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
 	_titleLabel.numberOfLines = 0;
 	//_titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    _titleLabel.font = [UIFont fontWithName:FONT_BOLD size:17];
+    
+    int fontSize = 17;
+    if (isIpad) {
+        fontSize = 25;
+    }
+    _titleLabel.font = [UIFont fontWithName:FONT_BOLD size:fontSize];
 	_titleLabel.minimumFontSize = 12.0;
 	_titleLabel.shadowOffset = CGSizeMake(0, -1);
 	

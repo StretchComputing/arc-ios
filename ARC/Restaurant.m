@@ -421,6 +421,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         self.submitButton.cornerRadius = 3.0;
         
         self.helpBackView.hidden = YES;
+        self.closeHelpButton.hidden = YES;
 
         [self loadLogoImage];
         [self loadHelpImage];
@@ -641,7 +642,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             } else if(errorCode == INVOICE_CLOSED) {
                 errorMsg = @"Invoice closed.";
             }else if (errorCode == CHECK_IS_LOCKED){
-                errorMsg = @"Invoice being access by your server.  Try again in a few minutes.";
+                errorMsg = @"Invoice being accessed by your waiter.  Try again in a few minutes.";
             } else if (errorCode == NETWORK_ERROR){
                 displayAlert = YES;
                 errorMsg = @"dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
@@ -710,6 +711,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             self.helpShowing = YES;
             
             self.helpBackView.hidden = NO;
+            self.closeHelpButton.hidden = NO;
+
             [self.checkNumOne resignFirstResponder];
             [self.checkNumTwo resignFirstResponder];
             [self.checkNumThree resignFirstResponder];
@@ -741,6 +744,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             
             self.helpShowing = NO;
             self.helpBackView.hidden = YES;
+            self.closeHelpButton.hidden = YES;
+
             
             self.checkNumOne.enabled = YES;
             self.checkNumTwo.enabled = YES;
@@ -822,6 +827,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             
             self.helpShowing = NO;
             self.helpBackView.hidden = YES;
+            self.closeHelpButton.hidden = YES;
+
             
             self.checkNumOne.enabled = YES;
             self.checkNumTwo.enabled = YES;

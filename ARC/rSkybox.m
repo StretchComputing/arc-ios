@@ -175,6 +175,7 @@ NSString *const CLOSED_STATUS = @"closed";
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
+    return;
     
     @try {
 
