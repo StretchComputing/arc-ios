@@ -1302,9 +1302,7 @@
             }else if (tmpMerchant.merchantId == 13){
                 imageLogo.image = [UIImage imageNamed:@"junkieLogo"];
             }else if (tmpMerchant.merchantId == 14){
-                //imageLogo.image = [UIImage imageNamed:@"rokaLogo"];
-            }else if (tmpMerchant.merchantId == 15){
-                //imageLogo.image = [UIImage imageNamed:@"rockitLogo"];
+                imageLogo.image = [UIImage imageNamed:@"rokaLogo"];
             }else{
                 imageLogo.image = [UIImage imageNamed:@"defaultLogo"];
 
