@@ -1295,6 +1295,7 @@
             imageLogo.layer.cornerRadius = 3.0;
             //imageLogo.layer.masksToBounds = YES;
             
+            //no more hard code
             Merchant *tmpMerchant = [self.matchingMerchants objectAtIndex:index];
             
             if (tmpMerchant.merchantId == 12) {

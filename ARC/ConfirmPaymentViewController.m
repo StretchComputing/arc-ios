@@ -364,6 +364,9 @@
         BOOL editCardOption = NO;
         BOOL duplicateTransaction = NO;
         BOOL displayAlert = NO;
+        BOOL possibleError = NO;
+        BOOL networkError = NO;
+        
         self.confirmButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
         
@@ -388,76 +391,110 @@
             
             [self performSegueWithIdentifier:@"reviewCreditCardTransaction" sender:self];
         } else if([status isEqualToString:@"error"]){
-            
-            
-            int errorCode = [[responseInfo valueForKey:@"error"] intValue];
-            if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
-                errorMsg = @"Credit card not approved.";
-                editCardOption = YES;
-            } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
-                // TODO need explanation from Jim to put proper error msg
-                errorMsg = @"Failed to validate credit card";
-                editCardOption = YES;
-            } else if (errorCode == FIELD_FORMAT_ERROR){
-                errorMsg = @"Invalid Credit Card Field Format";
-                editCardOption = YES;
-            }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
-                // TODO need explanation from Jim to put proper error msg
-                errorMsg = @"Invalid credit/debit card number";
-                editCardOption = YES;
-            } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
-                // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
-                errorMsg = @"Merchant does not accept credit/debit card";
-            } else if(errorCode == OVER_PAID) {
-                errorMsg = @"Over payment. Please check invoice and try again.";
-            } else if(errorCode == INVALID_AMOUNT) {
-                errorMsg = @"Invalid amount. Please re-enter payment and try again.";
-            } else if(errorCode == INVALID_EXPIRATION_DATE) {
-                errorMsg = @"Invalid expiration date.";
-                editCardOption = YES;
-            }  else if (errorCode == UNKOWN_ISIS_ERROR){
-                editCardOption = YES;
-                errorMsg = @"dutch is unable to complete your request, please try again.";
-            }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
-                errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
-                displayAlert = YES;
-            }else if(errorCode == DUPLICATE_TRANSACTION){
-                duplicateTransaction = YES;
-            }else if (errorCode == CHECK_IS_LOCKED){
-                errorMsg = @"Invoice being access by your server.  Please try again in a few minutes.";
-                displayAlert = YES;
-            }else if (errorCode == CARD_ALREADY_PROCESSED){
-                errorMsg = @"this credit card has already been used to make a payment on this invoice. To make an additional payment, either use a different credit card or have your server void your initial payment.";
-                displayAlert = YES;
-            }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
-                errorMsg = @"Invalid Authorization, please try again.";
-                displayAlert = YES;
-            }
-            else {
+                
+                
+                int errorCode = [[responseInfo valueForKey:@"error"] intValue];
+                if(errorCode == CANNOT_GET_PAYMENT_AUTHORIZATION) {
+                    //errorMsg = @"Credit card not approved.";
+                    editCardOption = YES;
+                } else if(errorCode == FAILED_TO_VALIDATE_CARD) {
+                    // TODO need explanation from Jim to put proper error msg
+                    //errorMsg = @"Failed to validate credit card";
+                    editCardOption = YES;
+                } else if (errorCode == FIELD_FORMAT_ERROR){
+                    // errorMsg = @"Invalid Credit Card Field Format";
+                    editCardOption = YES;
+                }else if(errorCode == INVALID_ACCOUNT_NUMBER) {
+                    // TODO need explanation from Jim to put proper error msg
+                    // errorMsg = @"Invalid credit/debit card number";
+                    editCardOption = YES;
+                } else if(errorCode == MERCHANT_CANNOT_ACCEPT_PAYMENT_TYPE) {
+                    // TODO put exact type of credit card not accepted in msg -- Visa, MasterCard, etc.
+                    errorMsg = @"Merchant does not accept credit/debit card";
+                } else if(errorCode == OVER_PAID) {
+                    errorMsg = @"Over payment. Please check invoice and try again.";
+                } else if(errorCode == INVALID_AMOUNT) {
+                    errorMsg = @"Invalid amount. Please re-enter payment and try again.";
+                } else if(errorCode == INVALID_EXPIRATION_DATE) {
+                    //errorMsg = @"Invalid expiration date.";
+                    editCardOption = YES;
+                }  else if (errorCode == UNKOWN_ISIS_ERROR){
+                    //editCardOption = YES;
+                    errorMsg = @"Payment failed, please try again.";
+                }else if (errorCode == PAYMENT_MAYBE_PROCESSED){
+                    errorMsg = @"This payment may have already processed.  To be sure, please wait 30 seconds and then try again.";
+                    displayAlert = YES;
+                }else if(errorCode == DUPLICATE_TRANSACTION){
+                    duplicateTransaction = YES;
+                }else if (errorCode == CHECK_IS_LOCKED){
+                    errorMsg = @"This check is currently locked.  Please try again in a few minutes.";
+                    displayAlert = YES;
+                }else if (errorCode == CARD_ALREADY_PROCESSED){
+                    errorMsg = @"This card has already been used for payment on this invoice.  A card may only be used once per invoice.  Please try again with a different card.";
+                    displayAlert = YES;
+                }else if (errorCode == NO_AUTHORIZATION_PROVIDED){
+                    errorMsg = @"Invalid Authorization, please try again.";
+                    displayAlert = YES;
+                }else if (errorCode == NETWORK_ERROR){
+                    
+                    networkError = YES;
+                    errorMsg = @"dutch is having problems connecting to the internet.  Please check your connection and try again.  Thank you!";
+                    
+                }else if (errorCode == NETWORK_ERROR_CONFIRM_PAYMENT){
+                    
+                    networkError = YES;
+                    errorMsg = @"dutch experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
+                    
+                }else if (errorCode == PAYMENT_POSSIBLE_SUCCESS){
+                    errorMsg = @"error";
+                    possibleError = YES;
+                }
+                else {
+                    errorMsg = ARC_ERROR_MSG;
+                }
+            } else {
+                // must be failure -- user notification handled by ArcClient
                 errorMsg = ARC_ERROR_MSG;
             }
-        } else {
-            // must be failure -- user notification handled by ArcClient
-            errorMsg = ARC_ERROR_MSG;
-        }
-        
-        if (displayAlert) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Warning" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
+            if (displayAlert) {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Warning" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+                
+            }else{
+                
+                if ([errorMsg length] > 0) {
+                    if (networkError) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet  Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                    }else{
+                        
+                        if (possibleError) {
+                            
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Validation Failed" message:@"We were unable to validate that your payment went through.  Please verify by reloading the invoice, or checking with your server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                            [alert show];
+                            
+                        }else{
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                            [alert show];
+                        }
+                        
+                    }
+                }
+                
+                
+                // self.errorLabel.text = errorMsg;
+                
+            }
             
-        }else{
-            self.errorLabel.text = errorMsg;
-            
-        }
-        
-        if (editCardOption) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
-            [alert show];
-        }else if (duplicateTransaction){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dutch has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alert show];
-        }
+            if (editCardOption) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
+                [alert show];
+            }else if (duplicateTransaction){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dutch has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
     }
     @catch (NSException *e) {
         

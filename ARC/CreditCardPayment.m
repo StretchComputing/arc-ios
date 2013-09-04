@@ -466,6 +466,7 @@
         BOOL duplicateTransaction = NO;
         BOOL displayAlert = NO;
         BOOL networkError = NO;
+        BOOL possibleError = NO;
         self.keyboardSubmitButton.enabled = YES;
         self.navigationItem.hidesBackButton = NO;
         
@@ -543,6 +544,9 @@
                 networkError = YES;
                 errorMsg = @"dutch experienced a problem with your internet connection while trying to confirm your payment.  Please check with your server to see if your payment was accepted.";
                 
+            }else if (errorCode == PAYMENT_POSSIBLE_SUCCESS){
+                errorMsg = @"error";
+                possibleError = YES;
             }
             else {
                 errorMsg = ARC_ERROR_MSG;
@@ -564,8 +568,17 @@
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Internet  Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                     [alert show];
                 }else{
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                    [alert show];
+                    
+                    if (possibleError) {
+                        
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Validation Failed" message:@"We were unable to validate that your payment went through.  Please verify by reloading the invoice, or checking with your server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                        
+                    }else{
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Payment Failed" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
+                    }
+                    
                 }
             }            
         }
