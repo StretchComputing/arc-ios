@@ -38,7 +38,7 @@ static NSString *streamId;
 static NSString *streamName;
 
 
-NSString* const ARC_VERSION_NUMBER = @"2.0";
+NSString* const ARC_VERSION_NUMBER = @"2.1";
 
 NSString *const SUCCESS = @"100";
 NSString *const INVALID_STATUS = @"201";
