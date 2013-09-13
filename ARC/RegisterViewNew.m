@@ -117,16 +117,16 @@
         //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
         self.nextButton.enabled = NO;
         
-        self.newRegisterButton.text = @"Register!";
+        self.newRegisterButton.text = @"Register";
         self.newRegisterButton.textColor = [UIColor whiteColor];
         self.newRegisterButton.textShadowColor = [UIColor darkGrayColor];
         self.newRegisterButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1];
         //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
         
         
-        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.2;
+      //  self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+      //  self.topLineView.layer.shadowRadius = 1;
+     //   self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
         self.backView.backgroundColor = dutchTopNavColor;
         

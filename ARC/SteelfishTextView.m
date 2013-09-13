@@ -24,4 +24,16 @@
 }
 
 
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self setFont: [UIFont fontWithName:FONT_REGULAR size: self.font.pointSize]];
+
+    }
+    return self;
+}
+
 @end

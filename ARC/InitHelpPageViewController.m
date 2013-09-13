@@ -140,16 +140,16 @@
     
     
     
-    self.topLine.layer.shadowOffset = CGSizeMake(0, 1);
-    self.topLine.layer.shadowRadius = 1;
-    self.topLine.layer.shadowOpacity = 0.2;
+  //  self.topLine.layer.shadowOffset = CGSizeMake(0, 1);
+ //   self.topLine.layer.shadowRadius = 1;
+ //   self.topLine.layer.shadowOpacity = 0.2;
     self.topLine.backgroundColor = dutchTopLineColor;
     self.view.backgroundColor = dutchTopNavColor;
     
     
-    self.bottomLine.layer.shadowOffset = CGSizeMake(0, 1);
-    self.bottomLine.layer.shadowRadius = 1;
-    self.bottomLine.layer.shadowOpacity = 0.2;
+  //  self.bottomLine.layer.shadowOffset = CGSizeMake(0, 1);
+  ////  self.bottomLine.layer.shadowRadius = 1;
+  //  self.bottomLine.layer.shadowOpacity = 0.2;
     self.bottomLine.backgroundColor = dutchTopLineColor;
 
     

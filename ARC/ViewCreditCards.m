@@ -189,9 +189,9 @@
         [self.view addSubview:self.loadingViewController.view];
         
  
-        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.2;
+     //   self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+      //  self.topLineView.layer.shadowRadius = 1;
+     //   self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
         self.backView.backgroundColor = dutchTopNavColor;
         

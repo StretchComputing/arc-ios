@@ -243,9 +243,9 @@
         self.splitMyPaymentTextField.keyboardAppearance = UIKeyboardTypeDecimalPad;
         
         
-        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.2;
+      //  self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+      //  self.topLineView.layer.shadowRadius = 1;
+     //   self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
         self.backView.backgroundColor = dutchTopNavColor;
 
@@ -1574,6 +1574,10 @@
                 lpgr.selectedCell = row;
                 [cell addGestureRecognizer:lpgr];
             }
+            
+            [cell.contentView setBackgroundColor:[UIColor clearColor]];
+            [cell setBackgroundColor:[UIColor clearColor]];
+
             return cell;
 
         }
@@ -2730,7 +2734,7 @@
     [UIView animateWithDuration:0.0 animations:^{
        
         CGRect frame = self.splitView.frame;
-        frame.origin.y += 300;
+        frame.origin.y += 320;
         self.splitView.frame = frame;
     }];
     
@@ -2750,9 +2754,9 @@
         
         CGRect frame = self.splitViewDollar.frame;
         if (self.isIphone5) {
-            frame.origin.y += 300;
+            frame.origin.y += 320;
         }else{
-            frame.origin.y += 240;
+            frame.origin.y += 260;
 
         }
         self.splitViewDollar.frame = frame;
@@ -2786,7 +2790,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         
         CGRect frame = self.splitView.frame;
-        frame.origin.y -= 300;
+        frame.origin.y -= 320;
         self.splitView.frame = frame;
     }];
     self.splitView.clipsToBounds = YES;
@@ -3069,7 +3073,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         
         CGRect frame = self.itemSplitView.frame;
-        frame.origin.y -= 300;
+        frame.origin.y -= 320;
         self.itemSplitView.frame = frame;
     }];
     
@@ -3149,9 +3153,9 @@
         
         CGRect frame = self.splitViewDollar.frame;
         if (self.isIphone5) {
-            frame.origin.y -= 300;
+            frame.origin.y -= 320;
         }else{
-            frame.origin.y -= 240;
+            frame.origin.y -= 260;
             
         }
         self.splitViewDollar.frame = frame;

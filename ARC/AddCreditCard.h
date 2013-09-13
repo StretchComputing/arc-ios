@@ -20,7 +20,7 @@ extern NSString *const AMERICAN_EXPRESS;
 
 @class LoadingViewController;
 
-@interface AddCreditCard : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
+@interface AddCreditCard : UIViewController <UIPickerViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property BOOL selectCardIo;
@@ -45,9 +45,14 @@ extern NSString *const AMERICAN_EXPRESS;
 @property (weak, nonatomic) IBOutlet SteelfishTextFieldCreditCardiOS6 *expirationText;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *addCardButton;
 
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+
 @property (nonatomic, strong) UIView *hideKeyboardView;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *creditDebitSegment;
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
+@property (strong, nonatomic) IBOutlet UIView *bottomView;
 
 - (IBAction)editBegin:(id)sender;
 - (IBAction)editEnd:(id)sender;
@@ -58,6 +63,7 @@ extern NSString *const AMERICAN_EXPRESS;
 -(IBAction)valueChanged:(id)sender;
 
 -(IBAction)scanCard;
+-(IBAction)goBackOne;
 
 
 @end

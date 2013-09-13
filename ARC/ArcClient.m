@@ -19,9 +19,9 @@
 
 //NSString *_arcUrl = @"http://dtnetwork.asuscomm.com:8700/arc-dev/rest/v1/";
 
-//NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
+NSString *_arcUrl = @"http://dev.dagher.mobi/rest/v1/";       //DEV - Cloud
 //NSString *_arcUrl = @"http://24.14.40.71:8700/arc-dev/rest/v1/";
-NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
+//NSString *_arcUrl = @"https://arc.dagher.mobi/rest/v1/";           // CLOUD
 //NSString *_arcUrl = @"http://dtnetwork.dyndns.org:8700/arc-dev/rest/v1/";  // Jim's Place
 
 //NSString *_arcServersUrl = @"http://arc-servers.dagher.mobi/rest/v1/"; // Servers API: CLOUD I
@@ -86,7 +86,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           _arcUrl = [prefs valueForKey:@"arcUrl"];
+           //_arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         
        // NSLog(@"***** Arc URL = %@ *****", _arcUrl);
@@ -977,7 +977,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-       // NSLog(@"ReturnString: %@", returnString);
+        NSLog(@"ReturnString: %@", returnString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];

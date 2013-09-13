@@ -19,8 +19,11 @@
 
 @implementation HelpView
 
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
+    //self.navigationController.navigationBarHidden = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -32,7 +35,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    self.navigationController.navigationBarHidden = NO;
+  // self.navigationController.navigationBarHidden = NO;
     [self.navigationItem setHidesBackButton:YES];
     [self.navigationController.navigationItem setHidesBackButton:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
@@ -62,41 +65,15 @@
         
         [ArcClient trackEvent:@"MAIN_HELP_VIEW"];
         
-        UIView *backView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-        backView1.backgroundColor = [UIColor blackColor];
-        [self.navigationController.navigationBar addSubview:backView1];
-        
-        
-        
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-        backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
-        backView.layer.cornerRadius = 7.0;
-        
-        [self.navigationController.navigationBar addSubview:backView];
-        
-        
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-        lineView.backgroundColor = [UIColor blackColor];
-        [self.navigationController.navigationBar addSubview:lineView];
-        
-        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tmpButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
-        tmpButton.frame = CGRectMake(7, 7, 30, 30);
-        [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationController.navigationBar addSubview:tmpButton];
-        
-        SteelfishBoldLabel *tmpLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:20];
-        tmpLabel.text = @"Help";
-        tmpLabel.textAlignment = UITextAlignmentCenter;
-        [self.navigationController.navigationBar addSubview:tmpLabel];
+
         
         
         UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
         imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
         
-        self.tableView.backgroundView = imageBackView;
+        self.myTableView.backgroundView = imageBackView;
         
-        
+        [self.myTableView reloadData];
        
         
     }
@@ -120,6 +97,57 @@
 - (IBAction)cancel:(id)sender {
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        
+        
+        UITableViewCell *cell;
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:@"helpCell"];
+            
+
+        SteelfishBoldLabel *myLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(20,9,267,26) andSize:20];
+        myLabel.textAlignment = UITextAlignmentLeft;
+        if (indexPath.row == 0) {
+            myLabel.text = @"How It Works";
+        }else{
+            myLabel.text = @"Splitting The Bill";
+        }
+        
+        [cell.contentView addSubview:myLabel];
+        
+        
+        
+        
+        
+        return cell;
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"AddCreditCard.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 44;
+}
+
+
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 2;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return @"Select A Help Video To Watch";
 }
 
 

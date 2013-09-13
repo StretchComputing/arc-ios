@@ -127,7 +127,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
     {
         json = [json stringByAppendingFormat: @", \"fundsSource\":\"%@\"", fundingID];
     }
-    json = [json stringByAppendingFormat: @"}", type];
+    json = [json stringByAppendingString: @"}"];
     
     NSData* body = [json dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -205,7 +205,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
     {
         json = [json stringByAppendingFormat: @", \"notes\":\"%@\"", notes];
     }
-    json = [json stringByAppendingFormat: @"}", type];
+    json = [json stringByAppendingString: @"}"];
     
     NSData* body = [json dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -672,7 +672,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
         acceptTerms = @"true";
     }
  
-    NSString* json = [NSString stringWithFormat:@"{\"email\":\"%@\", \"password\":\"%@\", \"pin\":\"%@\", \"firstName\":\"%@\", \"lastName\":\"%@\", \"address\":\"%@\", \"city\":\"%@\", \"state\":\"%@\", \"zip\":\"%@\", \"phone\":\"%@\", \"dateOfBirth\":\"%@\", \"acceptTerms\":\"%@\"", email, password, pin, first, last, address, city, state, zip, phone, dob, acceptTerms, key, secret];
+    NSString* json = [NSString stringWithFormat:@"{\"email\":\"%@\", \"password\":\"%@\", \"pin\":\"%@\", \"firstName\":\"%@\", \"lastName\":\"%@\", \"address\":\"%@\", \"city\":\"%@\", \"state\":\"%@\", \"zip\":\"%@\", \"phone\":\"%@\", \"dateOfBirth\":\"%@\", \"acceptTerms\":\"%@\"", email, password, pin, first, last, address, city, state, zip, phone, dob, acceptTerms];
     if (type != nil  && ![type isEqualToString:@""]) 
     {
         json = [json stringByAppendingFormat: @", \"destinationType\":\"%@\"", type];
@@ -689,7 +689,7 @@ static NSString *const dwollaAPIBaseURL = @"https://www.dwolla.com/oauth/rest";
     {
         json = [json stringByAppendingFormat: @", \"ein\":\"%@\"", ein];
     } 
-    json = [json stringByAppendingFormat: @"}", type];
+    json = [json stringByAppendingString: @"}"];
     
     NSData* body = [json dataUsingEncoding:NSUTF8StringEncoding];
     //NSLog(@"%@",json);

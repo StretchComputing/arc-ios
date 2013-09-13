@@ -174,7 +174,10 @@ NSString *const CLOSED_STATUS = @"closed";
 }
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
-        
+    
+    
+    return;
+    
     @try {
 
         
@@ -450,6 +453,13 @@ NSString *const CLOSED_STATUS = @"closed";
         NSString *dateString = [dateFormat stringFromDate:today];
         
         [tempDictionary setObject:dateString forKey:@"date"];
+        
+        ArcClient *tmp = [[ArcClient alloc] init];
+        
+        [tempDictionary setValue:[tmp getRemoteEndpoint] forKey:@"remoteEndpoint"];
+        [tempDictionary setValue:[tmp getLocalEndpoint] forKey:@"localEndpoint"];
+        
+        
         
         loginDict = tempDictionary;
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDict JSONRepresentation], nil];

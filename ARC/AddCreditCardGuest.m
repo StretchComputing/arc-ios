@@ -53,8 +53,8 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.navigationBar.clipsToBounds = YES;
+    //self.navigationController.navigationBarHidden = NO;
+   // self.navigationController.navigationBar.clipsToBounds = YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paymentComplete:) name:@"createPaymentNotification" object:nil];
 
@@ -129,62 +129,20 @@
         
         self.title = @"";
         
-        
-        UIView *backView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-        backView1.backgroundColor = [UIColor blackColor];
-        [self.navigationController.navigationBar addSubview:backView1];
-        
-        
-        
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-        backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
-        backView.backgroundColor = dutchTopNavColor;
-        
-        [self.navigationController.navigationBar addSubview:backView];
-        
-        
-        
-        
-        
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-        lineView.layer.shadowOffset = CGSizeMake(0, 1);
-        lineView.layer.shadowRadius = 1;
-        lineView.layer.shadowOpacity = 0.2;
-        lineView.backgroundColor = dutchTopLineColor;
 
-        
-        [self.navigationController.navigationBar addSubview:lineView];
-        
-        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tmpButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
-        tmpButton.frame = CGRectMake(0, 0, 44, 44);
-        [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationController.navigationBar addSubview:tmpButton];
-        
-        SteelfishBoldLabel *tmpLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:20];
-        tmpLabel.text = @"Payment Info";
-        tmpLabel.textAlignment = UITextAlignmentCenter;
-        [self.navigationController.navigationBar addSubview:tmpLabel];
         
         
         self.loadingTopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 45)];
         self.loadingTopView.backgroundColor = [UIColor blackColor];
         self.loadingTopView.alpha = 0.2;
         self.loadingTopView.hidden = YES;
-        [self.navigationController.navigationBar addSubview:self.loadingTopView];
+       // [self.navigationController.navigationBar addSubview:self.loadingTopView];
         
-        UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
-        imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
+   
         
-        self.tableView.backgroundView = imageBackView;
-        
-        
-        if (self.view.frame.size.height < 480) {
-            self.addCardButton = [[NVUIGradientButton alloc] initWithFrame:CGRectMake(252, 6, 66, 33)];
-            [self.addCardButton addTarget:self action:@selector(addCard) forControlEvents:UIControlEventTouchUpInside];
-            
+        if (self.view.frame.size.height < 500) {
+           
             self.addCardButton.text = @"Pay";
-            [self.navigationController.navigationBar addSubview:self.addCardButton];
             
         }else{
             self.addCardButton.text = @"Confirm Payment";
@@ -195,6 +153,18 @@
         
         self.addCardButton.tintColor = dutchGreenColor;
         self.addCardButton.textColor = [UIColor whiteColor];
+        
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
+        
+        
+        if (!isIos7) {
+            CGRect frame = self.myTableView.frame;
+            frame.origin.y += 30;
+            self.myTableView.frame = frame;
+        }
+        
+        [self.myTableView reloadData];
         
         
     }
@@ -239,7 +209,7 @@
         [UIView setAnimationDuration:0.3];
         
         
-        [self.tableView setContentOffset:myPoint animated:YES];
+      //  [self.tableView setContentOffset:myPoint animated:YES];
         
         
         [UIView commitAnimations];
@@ -261,7 +231,7 @@
         if (self.isIphone5) {
             viewHeight = 503;
         }
-        self.tableView.frame = CGRectMake(0, 64, 320, viewHeight);
+      //  self.tableView.frame = CGRectMake(0, 64, 320, viewHeight);
         
         
         [UIView commitAnimations];
@@ -326,7 +296,7 @@
         if (self.isIphone5) {
             viewHeight = 287;
         }
-        self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
+      //  self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
         
         
         [UIView commitAnimations];
@@ -512,7 +482,7 @@
         if (self.isIphone5) {
             viewHeight = 503;
         }
-        self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
+       // self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
         
         
         [UIView commitAnimations];
@@ -954,21 +924,21 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         self.loadingViewController.displayText.text = @"dutch is experiencing high volume, or a weak internet connection, please be patient...";
-        self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
+        self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:14];
         
         self.loadingViewController.displayText.numberOfLines = 3;
         CGRect frame = self.loadingViewController.mainBackView.frame;
         frame.origin.y -= 20;
-        frame.size.height += 20;
+        frame.size.height += 40;
         frame.origin.x = 10;
         frame.size.width = 300;
         self.loadingViewController.mainBackView.frame = frame;
         
         CGRect frame2 = self.loadingViewController.displayText.frame;
-        frame2.origin.y -= 15;
-        frame2.size.height += 20;
+        frame2.origin.y -= 20;
+        frame2.size.height += 40;
         frame2.origin.x = 10;
-        frame2.size.width = 290;
+        frame2.size.width = 300;
         self.loadingViewController.displayText.frame = frame2;
         
     }];
@@ -1372,9 +1342,75 @@
     
 }
 
-- (void)viewDidUnload {
-    [self setAddCardButton:nil];
-    [self setTotalPaymentLabel:nil];
-    [super viewDidUnload];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        
+        
+        
+        UITableViewCell *cell;
+        
+        
+        if (indexPath.row == 0) {
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"numberCell"];
+            
+            SteelfishTextFieldCreditCardiOS6 *numberText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:1];
+            self.creditCardNumberText = numberText;
+            self.creditCardNumberText.placeholder = @"1234 5678 9102 3456";
+            self.creditCardNumberText.delegate = self;
+            [self.creditCardNumberText setClearButtonMode:UITextFieldViewModeWhileEditing];
+            
+            [self.creditCardNumberText addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
+            
+        }else if (indexPath.row == 1){
+            cell = [tableView dequeueReusableCellWithIdentifier:@"expCell"];
+            
+            SteelfishTextFieldCreditCardiOS6 *expText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:1];
+            self.expirationText = expText;
+            self.expirationText.placeholder = @"MM/YY";
+            
+            SteelfishTextFieldCreditCardiOS6 *pinText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:2];
+            self.creditCardSecurityCodeText = pinText;
+            self.creditCardSecurityCodeText.placeholder = @"CVV";
+            
+            self.creditCardSecurityCodeText.delegate = self;
+            self.expirationText.delegate = self;
+            
+            [self.creditCardSecurityCodeText setClearButtonMode:UITextFieldViewModeWhileEditing];
+            [self.expirationText setClearButtonMode:UITextFieldViewModeWhileEditing];
+            
+            [self.creditCardSecurityCodeText addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
+            [self.expirationText addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"AddCreditCardGuest.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 44;
+}
+
+
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 2;
+}
+
 @end

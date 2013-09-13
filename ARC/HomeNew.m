@@ -68,6 +68,22 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     
+    
+    if (!self.sideMenu) {
+        LeftViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
+        RightViewController *rightSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rightSide"];
+        
+        
+        
+        self.sideMenu = [MFSideMenu menuWithNavigationController:self.navigationController
+                                             leftSideMenuController:leftSideMenuViewController
+                                            rightSideMenuController:rightSideMenuViewController];
+        
+        self.sideMenu.allowSwipeOpenLeft = YES;
+        leftSideMenuViewController.sideMenu = self.sideMenu;
+        rightSideMenuViewController.sideMenu = self.sideMenu;
+    }
+    
     self.retryCount = 0;
     
     if (!self.isGettingMerchantList) {
@@ -92,13 +108,23 @@
 -(void)keyboardWillShow{
     self.searchToolBar.hidden = NO;
     self.placeNameLabel.textColor = [UIColor whiteColor];
-    self.placeNameLabel.frame = CGRectMake(8, 202, 305, 43);
+    
+    int y = 202;
+    if (isIos7) {
+        y = 222;
+    }
+    self.placeNameLabel.frame = CGRectMake(8, y, 305, 43);
 }
 
 -(void)keyboardWillHide{
     self.searchToolBar.hidden = YES;
     self.placeNameLabel.textColor = [UIColor blackColor];
-    self.placeNameLabel.frame = CGRectMake(8, 271, 305, 43);
+    
+    int y = 271;
+    if (isIos7) {
+        y = 291;
+    }
+    self.placeNameLabel.frame = CGRectMake(8, y, 305, 43);
 
 }
 
@@ -278,6 +304,15 @@
 }
 - (void)viewDidLoad
 {
+    
+    if (isIos7) {
+        self.searchBar.hidden = YES;
+        
+        CGRect frame = self.searchBar.frame;
+        frame.origin.x = 0;
+        frame.size.width = 320;
+        self.searchBar.frame = frame;
+    }
     self.searchBar.delegate = self;
     self.matchingMerchants = [NSMutableArray array];
     self.payBillButton.text = @"Pay Bill!";
@@ -299,18 +334,7 @@
    // self.moreInfoButton.textShadowColor = [UIColor darkGrayColor];
     //self.moreInfoButton.tintColor = [UIColor colorWithRed:215.0/255.0 green:215.0/255.0 blue:225.0/215.0 alpha:1];
 
-    LeftViewController *leftSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"leftSide"];
-    RightViewController *rightSideMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"rightSide"];
-    
-    
-    
-    MFSideMenu *menu = [MFSideMenu menuWithNavigationController:self.navigationController
-                      leftSideMenuController:leftSideMenuViewController
-                     rightSideMenuController:rightSideMenuViewController];
-    
-    menu.allowSwipeOpenLeft = YES;
-    leftSideMenuViewController.sideMenu = menu;
-    rightSideMenuViewController.sideMenu = menu;
+   
     
     
     //Carousel
@@ -331,15 +355,19 @@
     }
     
     if (!isIpad) {
+        
+        if (isIos7) {
+            y+=20;
+        }
         self.carousel.frame = CGRectMake(0, y, 320, 200);
     }
     
     self.carousel.clipsToBounds = YES;
     
     
-    self.borderLine1.layer.shadowOffset = CGSizeMake(0, 1);
-    self.borderLine1.layer.shadowRadius = 1;
-    self.borderLine1.layer.shadowOpacity = 0.2;
+    //self.borderLine1.layer.shadowOffset = CGSizeMake(0, 1);
+    //self.borderLine1.layer.shadowRadius = 1;
+    //self.borderLine1.layer.shadowOpacity = 0.2;
     
     //self.borderLine2.layer.shadowOffset = CGSizeMake(0, -1);
     //self.borderLine2.layer.shadowRadius = 1;
@@ -380,7 +408,7 @@
         gearImage.contentMode = UIViewContentModeScaleAspectFit;
         [tmpButton addSubview:gearImage];
         tmpButton.frame = CGRectMake(263, 0, 53, 44);
-        [tmpButton addTarget:self action:@selector(fakeSelection) forControlEvents:UIControlEventTouchUpInside];
+       // [tmpButton addTarget:self action:@selector(fakeSelection) forControlEvents:UIControlEventTouchUpInside];
         // [tmpButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
         //[self.navigationController.navigationBar addSubview:tmpButton];
         
@@ -1474,11 +1502,18 @@
 }
 - (IBAction)searchAction {
     
+    self.searchBar.hidden = NO;
+    
+    
     int newy = 51;
+    
+    if (isIos7) {
+        newy = 71;
+    }
     if (isIpad) {
         newy = 75;
     }
-    if (self.searchBar.frame.origin.y == newy) {
+    if (self.searchBar.frame.origin.y != 7) {
         newy = 7;
         [self performSelector:@selector(becomeResp:) withObject:[NSNumber numberWithBool:NO] afterDelay:0.0];
 

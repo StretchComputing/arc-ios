@@ -130,9 +130,9 @@
         //self.signInButton.highlightedTintColor = [UIColor colorWithRed:(CGFloat)190/255 green:0 blue:0 alpha:1];
         
         
-        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.2;
+       // self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+      //  self.topLineView.layer.shadowRadius = 1;
+      //  self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
         self.backView.backgroundColor = dutchTopNavColor;
 
@@ -142,11 +142,10 @@
         
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
-        self.loadingViewController.view.frame = CGRectMake(0, 44, 320, self.view.frame.size.height);
+        self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height);
         [self.loadingViewController stopSpin];
         [self.view addSubview:self.loadingViewController.view];
         
-        NSLog(@"Height: %f", self.loadingViewController.view.frame.size.height);
         
         SteelfishTitleLabel *navLabel = [[SteelfishTitleLabel alloc] initWithText:@"Sign In"];
         self.navigationItem.titleView = navLabel;
@@ -318,7 +317,10 @@
     self.errorLabel.text = @"";
     
     if ([self.username.text isEqualToString:@""] || [self.password.text isEqualToString:@""]) {
-        self.errorLabel.text = @"*Please enter your email and password.";
+       // self.errorLabel.text = @"*Please enter your email and password.";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter your email and password." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
     }else{
         @try {
             NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
@@ -401,7 +403,9 @@
         }
         
         if([errorMsg length] > 0) {
-            self.errorLabel.text = errorMsg;
+            //self.errorLabel.text = errorMsg;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
         }
     
     }

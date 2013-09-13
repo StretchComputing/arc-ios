@@ -87,9 +87,9 @@
     
     
     self.navLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-    self.navLineView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.navLineView.layer.shadowRadius = 1;
-    self.navLineView.layer.shadowOpacity = 0.2;
+   // self.navLineView.layer.shadowOffset = CGSizeMake(0, 1);
+   // self.navLineView.layer.shadowRadius = 1;
+  //  self.navLineView.layer.shadowOpacity = 0.2;
     self.navLineView.backgroundColor = dutchTopLineColor;
     [self.navigationController.navigationBar addSubview:self.navLineView];
     

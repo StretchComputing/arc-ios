@@ -21,7 +21,6 @@
 
 - (NSMutableArray *)castToMutableArray;
 
-- (NSMutableArray *)createList;
 
 @end
 
@@ -266,7 +265,7 @@
         {
             arrayLetters = [[NSArray englishAlphabet] createList];
             cancelItem.title = @"Cancel";
-            doneItem.title = @"Done";
+            doneItem.title = @"Save";
             alertTitle = @"Select";
         }
         
@@ -482,7 +481,7 @@
             //        temp = [temp removeNullValues];
             //        temp = [temp removeDuplicateObjects];
             dataArray = nil;
-            dataArray = [NSArray arrayWithArray:temp];
+            dataArray = [NSMutableArray arrayWithArray:temp];
             
             //        NSSortDescriptor *sortDescriptor;
             //        sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name"

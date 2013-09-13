@@ -27,7 +27,7 @@
 
 -(void)editPin{
     
-    self.navigationController.navigationBarHidden = YES;
+    //self.navigationController.navigationBarHidden = YES;
     CreatePinView *tmp = [self.storyboard instantiateViewControllerWithIdentifier:@"createPin"];
     
     tmp.isEditPin = YES;
@@ -53,7 +53,7 @@
         [self.navigationController.navigationItem setHidesBackButton:YES];
         [self.navigationItem setHidesBackButton:YES];
         
-        self.navigationController.navigationBarHidden = NO;
+       // self.navigationController.navigationBarHidden = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backspaceHit) name:@"backspaceNotification" object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(customerDeactivated) name:@"customerDeactivatedNotification" object:nil];
@@ -177,42 +177,12 @@
             self.isIphone5 = NO;
         }
         
-        UIView *backView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-        backView1.backgroundColor = [UIColor blackColor];
-        [self.navigationController.navigationBar addSubview:backView1];
         
         
+        self.topLineView.backgroundColor = dutchTopLineColor;
+        self.backView.backgroundColor = dutchTopNavColor;
         
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-        backView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
-        backView.backgroundColor = dutchTopNavColor;
-        [self.navigationController.navigationBar addSubview:backView];
-        
-        
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
-        lineView.layer.shadowOffset = CGSizeMake(0, 1);
-        lineView.layer.shadowRadius = 1;
-        lineView.layer.shadowOpacity = 0.2;
-        lineView.backgroundColor = dutchTopLineColor;
-        
-        [self.navigationController.navigationBar addSubview:lineView];
-        
-        UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tmpButton setImage:[UIImage imageNamed:@"backarrow.png"] forState:UIControlStateNormal];
-        tmpButton.frame = CGRectMake(0, 0, 44, 44);
-        [tmpButton addTarget:self action:@selector(goBackOne) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationController.navigationBar addSubview:tmpButton];
-        
-        SteelfishBoldLabel *tmpLabel = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(0, 6, 320, 32) andSize:20];
-        tmpLabel.text = @"Edit Card";
-        tmpLabel.textAlignment = UITextAlignmentCenter;
-        [self.navigationController.navigationBar addSubview:tmpLabel];
-        
-        
-        UIImageView *imageBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 560)];
-        imageBackView.image = [UIImage imageNamed:@"newBackground.png"];
-        
-        self.tableView.backgroundView = imageBackView;
+        [self.myTableView reloadData];
         
     }
     @catch (NSException *e) {
@@ -367,7 +337,7 @@
         [UIView setAnimationDuration:0.3];
         
         
-        [self.tableView setContentOffset:myPoint animated:YES];
+      //  [self.tableView setContentOffset:myPoint animated:YES];
         
         
         [UIView commitAnimations];
@@ -389,7 +359,7 @@
         if (self.isIphone5) {
             viewHeight = 503;
         }
-        self.tableView.frame = CGRectMake(0, 64, 320, viewHeight);
+     //   self.tableView.frame = CGRectMake(0, 64, 320, viewHeight);
         
         
         [UIView commitAnimations];
@@ -426,22 +396,25 @@
         if (self.isIphone5) {
             keyHeight = 245;
         }
+        
+        keyHeight = self.view.frame.size.height - 216 - 45;
         self.hideKeyboardView = [[UIView alloc] initWithFrame:CGRectMake(235, keyHeight, 85, 45)];
-        self.hideKeyboardView .backgroundColor = [UIColor clearColor];
+        self.hideKeyboardView .backgroundColor = [UIColor whiteColor];
         self.hideKeyboardView.layer.masksToBounds = YES;
-        self.hideKeyboardView.layer.cornerRadius = 3.0;
+        self.hideKeyboardView.layer.borderColor = [dutchTopLineColor CGColor];
+        self.hideKeyboardView.layer.borderWidth = 1.0;
         
         UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 85, 45)];
         tmpView.backgroundColor = [UIColor blackColor];
         tmpView.alpha = 0.6;
-        [self.hideKeyboardView addSubview:tmpView];
+        //[self.hideKeyboardView addSubview:tmpView];
         
         UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
         tmpButton.frame = CGRectMake(8, 5, 69, 35);
         [tmpButton setTitle:@"Done" forState:UIControlStateNormal];
         [tmpButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-        [tmpButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [tmpButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
+        [tmpButton setTitleColor:dutchDarkBlueColor forState:UIControlStateNormal];
+       // [tmpButton setBackgroundImage:[UIImage imageNamed:@"rowButton.png"] forState:UIControlStateNormal];
         [tmpButton addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventTouchUpInside];
         
         [self.hideKeyboardView addSubview:tmpButton];
@@ -454,7 +427,7 @@
         if (self.isIphone5) {
             viewHeight = 287;
         }
-        self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
+       // self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
         
         
         [UIView commitAnimations];
@@ -640,7 +613,7 @@
         if (self.isIphone5) {
             viewHeight = 503;
         }
-        self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
+       // self.tableView.frame = CGRectMake(0, 0, 320, viewHeight);
         
         
         [UIView commitAnimations];
@@ -1027,9 +1000,75 @@
 }
 
 
-- (void)viewDidUnload {
-    [self setCardNameText:nil];
-    [super viewDidUnload];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    @try {
+        
+        
+        
+        UITableViewCell *cell;
+        
+        
+        if (indexPath.row == 0) {
+            
+            cell = [tableView dequeueReusableCellWithIdentifier:@"numberCell"];
+            
+            SteelfishTextFieldCreditCardiOS6 *numberText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:1];
+            self.cardNumberTextField = numberText;
+            self.cardNumberTextField.placeholder = @"1234 5678 9102 3456";
+            self.cardNumberTextField.delegate = self;
+            [self.cardNumberTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
+            
+            [self.cardNumberTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
+            
+        }else if (indexPath.row == 1){
+            cell = [tableView dequeueReusableCellWithIdentifier:@"expCell"];
+            
+            SteelfishTextFieldCreditCardiOS6 *expText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:1];
+            self.expirationText = expText;
+            self.expirationText.placeholder = @"MM/YY";
+            
+            SteelfishTextFieldCreditCardiOS6 *pinText = (SteelfishTextFieldCreditCardiOS6 *)[cell.contentView viewWithTag:2];
+            self.securityCodeTextField = pinText;
+            self.securityCodeTextField.placeholder = @"CVV";
+            
+            self.securityCodeTextField.delegate = self;
+            self.expirationText.delegate = self;
+            
+            [self.securityCodeTextField setClearButtonMode:UITextFieldViewModeWhileEditing];
+            [self.expirationText setClearButtonMode:UITextFieldViewModeWhileEditing];
+            
+            [self.securityCodeTextField addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
+            [self.expirationText addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventEditingChanged];
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+        
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"EditCreditCard.tableView" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 44;
+}
+
+
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 2;
 }
 
 @end

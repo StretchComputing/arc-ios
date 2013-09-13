@@ -27,6 +27,7 @@ UIColor *dutchTopLineColor;
 UIColor *dutchTopNavColor;
 
 BOOL isIpad;
+BOOL isIos7;
 
 
 @implementation ArcAppDelegate
@@ -138,6 +139,12 @@ BOOL isIpad;
         isIpad = NO;
     }
     
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0) {
+        isIos7 = YES;
+    }else{
+        isIos7 = NO;
+    }
+    
     
     dutchDarkBlueColor = [UIColor colorWithRed:14.0/255.0 green:71.0/255.0 blue:136.0/255.0 alpha:1.0];
     dutchGreenColor = [UIColor colorWithRed:19.0/255.0 green:151.0/255.0 blue:76.0/215.0 alpha:1];
@@ -232,6 +239,8 @@ BOOL isIpad;
     
     // Override point for customization after application launch.
     [self initManagedDocument];
+    
+    
     
     
     return YES;

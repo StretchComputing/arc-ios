@@ -64,7 +64,7 @@ typedef enum {
         self.menuWidthLeft = 260.0f;
         self.menuWidthRight = 270.0f;
 
-        self.shadowRadius = 10.0f;
+        self.shadowRadius = 2.0f;
         self.shadowOpacity = 0.75f;
         self.shadowColor = [UIColor blackColor];
         

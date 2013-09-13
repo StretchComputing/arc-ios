@@ -23,6 +23,7 @@ extern UIColor *dutchTopLineColor;
 extern UIColor *dutchTopNavColor;
 
 extern BOOL isIpad;
+extern BOOL isIos7;
 
 
 

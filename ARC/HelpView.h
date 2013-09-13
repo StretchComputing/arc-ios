@@ -11,11 +11,15 @@
 
 @class CustomMoviePlayerViewController;
 
-@interface HelpView : UITableViewController{
+@interface HelpView : UIViewController <UITableViewDelegate, UITableViewDataSource>{
     
     CustomMoviePlayerViewController *moviePlayer;
 }
 - (IBAction)cancel:(id)sender;
 -(IBAction)contactUs;
+
+-(IBAction)goBack;
+
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
 @end

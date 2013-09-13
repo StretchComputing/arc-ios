@@ -43,12 +43,12 @@
         self.continueButton.textShadowColor = [UIColor darkGrayColor];
         self.continueButton.tintColor = dutchDarkBlueColor;
         
-        self.tipSelectSegment.tintColor = [UIColor grayColor];
+        self.tipSelectSegment.tintColor = dutchDarkBlueColor;
         
         
-        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.2;
+       // self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+       // self.topLineView.layer.shadowRadius = 1;
+       // self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
         self.backView.backgroundColor = dutchTopNavColor;
         
@@ -280,7 +280,7 @@
         self.creditCardSample = @"";
         
         [self performSegueWithIdentifier:@"goEnterCard" sender:self];
-        
+       
     }
 
     

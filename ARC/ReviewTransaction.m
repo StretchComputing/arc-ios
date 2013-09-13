@@ -168,9 +168,9 @@
         self.commentsText.layer.borderWidth = 1.0;
         self.commentsText.layer.borderColor = [dutchTopLineColor CGColor];
         
-        self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.topLineView.layer.shadowRadius = 1;
-        self.topLineView.layer.shadowOpacity = 0.2;
+       // self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+      //  self.topLineView.layer.shadowRadius = 1;
+      //  self.topLineView.layer.shadowOpacity = 0.2;
         self.topLineView.backgroundColor = dutchTopLineColor;
         self.backView.backgroundColor = dutchTopNavColor;
         
@@ -198,11 +198,20 @@
         self.favoriteItemBackAlphaView.alpha = 0.75;
         [self.favoriteItemBackview addSubview:self.favoriteItemBackAlphaView];
         
+        
+        if (isIos7) {
+            UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, 320, 216)];
+            lightView.backgroundColor = [UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:1.0];
+            [self.favoriteItemBackview addSubview:lightView];
+        }
+        
         self.favoriteItemPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 140, 320, 216)];
         self.favoriteItemPickerView.delegate = self;
         self.favoriteItemPickerView.dataSource = self;
         self.favoriteItemPickerView.showsSelectionIndicator = YES;
         [self.favoriteItemBackview addSubview:self.favoriteItemPickerView];
+        
+        
         
         UILabel *selectLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 320, 40)];
         selectLabel.textAlignment = UITextAlignmentCenter;

@@ -266,6 +266,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                         NVUIGradientButton *payDollarButton = (NVUIGradientButton *) [cell.contentView viewWithTag:3];
                         payDollarButton.tintColor = dutchGreenColor;
                         payDollarButton.text = @"Pay This Amount";
+                        payDollarButton.textColor = [UIColor whiteColor];
                         [payDollarButton addTarget:self action:@selector(payDollar) forControlEvents:UIControlEventTouchUpInside];
                     }
                     
@@ -293,6 +294,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                         NVUIGradientButton *payPercentButton = (NVUIGradientButton *) [cell.contentView viewWithTag:4];
                         payPercentButton.tintColor = dutchGreenColor;
                         payPercentButton.text = @"Pay This Amount";
+                        payPercentButton.textColor = [UIColor whiteColor];
                         [payPercentButton addTarget:self action:@selector(payPercent) forControlEvents:UIControlEventTouchUpInside];
                         
                         
@@ -364,31 +366,35 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             }
             
            
+            [cell.contentView setBackgroundColor:[UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0]];
+
             double color;
             if (isHeader) {
                 color = 31.0/255.0;
             }else{
                 
                 if ([self.expandedElement isEqualToString:@"splitDollar"] && [nameLabelString isEqualToString:@"Split by Dollar Amount"]) {
-                    color = 60.0/255.0;
+                    [cell.contentView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+
                 }else if ([self.expandedElement isEqualToString:@"splitPercent"] && [nameLabelString isEqualToString:@"Split by # People"]) {
-                    color = 60.0/255.0;
+                    [cell.contentView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+
                 } else if ([self.expandedElement isEqualToString:@"alreadyPaid"] && [nameLabelString isEqualToString:@"See Who Paid"]) {
-                    color = 60.0/255.0;
+                    [cell.contentView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+
                 }else if ([self.expandedElement isEqualToString:@"splitDollar"] && indexPath.row == 2) {
-                    color = 45.0/255.0;
+                    [cell.contentView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
                 }else if ([self.expandedElement isEqualToString:@"splitPercent"] && indexPath.row == 3) {
-                    color = 45.0/255.0;
+                    [cell.contentView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
                 }else if ([self.expandedElement isEqualToString:@"alreadyPaid"] && indexPath.row >= 5) {
-                    color = 45.0/255.0;
+                    [cell.contentView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
                 }else{
                     color = 26.0/255.0;
 
                 }
             }
             
-            [cell.contentView setBackgroundColor:[UIColor colorWithRed:color green:color blue:color alpha:1.0]];
-
+           // [cell.contentView setBackgroundColor:[UIColor clearColor]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             return cell;
@@ -600,7 +606,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
             numberLabel.textAlignment = UITextAlignmentCenter;
             numberLabel.text = numberText;
             numberLabel.clipsToBounds = YES;
-            numberLabel.textColor = [UIColor whiteColor];
+            numberLabel.textColor = dutchDarkBlueColor;
             numberLabel.userInteractionEnabled = YES;
             
             if (addButton) {
@@ -611,7 +617,7 @@ int const MAIN_MENU_ITEMS = 5;  //How many maine menu items (+ headers)
                 [numberLabel addSubview:numberButton];
                 
                 UIView *rightCircle = [[UIView alloc] initWithFrame:CGRectMake(0, 18, 5, 3)];
-                rightCircle.backgroundColor = [UIColor whiteColor];
+                rightCircle.backgroundColor = dutchDarkBlueColor;
                 rightCircle.layer.cornerRadius = 6.0;
                 [numberLabel addSubview:rightCircle];
                 

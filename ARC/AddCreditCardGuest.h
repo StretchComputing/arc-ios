@@ -12,10 +12,12 @@
 #import "SteelfishBoldLabel.h"
 #import "Invoice.h"
 #import "SteelfishTextFieldCreditCardiOS6.h"
+#import "SteelfishTextView.h"
 
 @class LoadingViewController;
 
-@interface AddCreditCardGuest : UITableViewController <UIPickerViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate>
+@interface AddCreditCardGuest : UIViewController <UIPickerViewDelegate, UITextFieldDelegate, CardIOPaymentViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+
 
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property BOOL selectCardIo;
@@ -24,7 +26,14 @@
 @property BOOL isIos6;
 @property BOOL shouldIgnoreValueChanged;
 @property BOOL shouldIgnoreValueChangedExpiration;
+@property (nonatomic, strong) IBOutlet UITableView *myTableView;
 
+@property (strong, nonatomic) IBOutlet UIView *bottomView;
+
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
+@property (strong, nonatomic) IBOutlet UIView *backView;
+
+@property (nonatomic, strong) IBOutlet SteelfishTextView *secureTextView;
 @property BOOL isGuest;
 @property (nonatomic, strong) NSString *expirationMonth;
 @property (nonatomic, strong) NSString *expirationYear;
@@ -60,6 +69,7 @@
 -(IBAction)valueChanged:(id)sender;
 
 -(IBAction)scanCard;
+-(IBAction)goBackOne;
 
 
 @end

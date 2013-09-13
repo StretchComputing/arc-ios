@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "NVUIGradientButton.h"
 #import "LoadingViewController.h"
+#import "SteelfishTextFieldCreditCardiOS6.h"
 
 @class LoadingViewController;
 
-@interface EditCreditCard : UITableViewController <UITextFieldDelegate>
+@interface EditCreditCard : UIViewController <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) IBOutlet UITableView *myTableView;
 @property BOOL pinDidChange;
 @property BOOL isFromPayment;
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
@@ -34,6 +36,9 @@
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property BOOL isExpirationMonth;
 @property BOOL isIphone5;
+
+@property (strong, nonatomic) IBOutlet UIView *topLineView;
+@property (strong, nonatomic) IBOutlet UIView *backView;
 
 @property (strong, nonatomic) IBOutlet UITextField *cardNameText;
 @property (weak, nonatomic) IBOutlet UILabel *creditCardExpirationMonthLabel;

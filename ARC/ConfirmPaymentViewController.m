@@ -39,9 +39,9 @@
 
     self.incorrectPinCount = 0;
    
-    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.2;
+   // self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+   // self.topLineView.layer.shadowRadius = 1;
+   // self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
     self.backView.backgroundColor = dutchTopNavColor;
     
@@ -50,6 +50,7 @@
     
     NSString *ccSample = [self.creditCardSample stringByReplacingOccurrencesOfString:@"Credit Card" withString:@""];
     self.paymentLabel.text = [NSString stringWithFormat:@"Payment:  %@", ccSample];
+    
     
     self.confirmButton.text = @"Confirm Payment";
     self.confirmButton.textColor = [UIColor whiteColor];
@@ -329,19 +330,19 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         self.loadingViewController.displayText.text = @"dutch is experiencing high volume, or a weak internet connection, please be patient...";
-        self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:16];
+        self.loadingViewController.displayText.font = [UIFont fontWithName:[self.loadingViewController.displayText.font fontName] size:14];
         
         self.loadingViewController.displayText.numberOfLines = 3;
         CGRect frame = self.loadingViewController.mainBackView.frame;
         frame.origin.y -= 20;
-        frame.size.height += 20;
+        frame.size.height += 40;
         frame.origin.x = 10;
         frame.size.width = 300;
         self.loadingViewController.mainBackView.frame = frame;
         
         CGRect frame2 = self.loadingViewController.displayText.frame;
         frame2.origin.y -= 20;
-        frame2.size.height += 20;
+        frame2.size.height += 40;
         frame2.origin.x = 10;
         frame2.size.width = 300;
         self.loadingViewController.displayText.frame = frame2;

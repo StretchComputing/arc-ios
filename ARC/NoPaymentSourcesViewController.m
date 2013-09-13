@@ -57,9 +57,9 @@
     self.cancelButton.textColor = [UIColor whiteColor];
     self.cancelButton.tintColor = [UIColor colorWithRed:21.0/255.0 green:80.0/255.0 blue:125.0/255.0 alpha:1.0];
    
-    self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.topLineView.layer.shadowRadius = 1;
-    self.topLineView.layer.shadowOpacity = 0.2;
+ //   self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
+  //  self.topLineView.layer.shadowRadius = 1;
+  //  self.topLineView.layer.shadowOpacity = 0.2;
     self.topLineView.backgroundColor = dutchTopLineColor;
     self.backView.backgroundColor = dutchTopNavColor;
 

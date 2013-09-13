@@ -4,9 +4,12 @@
 #import "iCarousel.h"
 #import "SteelfishBoldLabel.h"
 #import "NVUIGradientButton.h"
+#import "MFSideMenu.h"
 
 @interface HomeNew : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, SMContactsSelectorDelegate, iCarouselDataSource, iCarouselDelegate, UISearchBarDelegate>
 
+
+@property (nonatomic, strong) MFSideMenu *sideMenu;
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 @property BOOL successReview;
 @property BOOL skipReview;
