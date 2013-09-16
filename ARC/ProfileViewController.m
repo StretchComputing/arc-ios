@@ -169,6 +169,7 @@
             if (indexPath.row == 0) {
                 textField.placeholder = @"Email Address";
                 self.emailTextField = textField;
+                [self.emailTextField setEnabled:NO];
                 [self.emailTextField addTarget:self action:@selector(endText) forControlEvents:UIControlEventEditingDidEndOnExit];
                 
                 if (self.isLoggedIn) {
@@ -180,6 +181,7 @@
                 textField.placeholder = @"Password";
                 self.passwordTextField = textField;
                 [self.passwordTextField setSecureTextEntry:YES];
+                self.passwordTextField.enabled = NO;
                 [self.passwordTextField addTarget:self action:@selector(endText) forControlEvents:UIControlEventEditingDidEndOnExit];
                 
                 if (self.isLoggedIn) {
@@ -192,7 +194,7 @@
           
             
       
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     @catch (NSException *e) {

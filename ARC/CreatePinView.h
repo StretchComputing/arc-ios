@@ -11,6 +11,7 @@
 #import "SteelfishTextView.h"
 #import "LoadingViewController.h"
 #import "NVUIGradientButton.h"
+#import "SteelfishLabel.h"
 #import "Invoice.h"
 
 @class LoadingViewController;
@@ -37,7 +38,7 @@
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *skipButton;
 
 - (IBAction)skipAction;
-@property (weak, nonatomic) IBOutlet SteelfishTextView *descriptionText;
+@property (weak, nonatomic) IBOutlet SteelfishLabel *descriptionText;
 @property BOOL isInsideApp;
 @property (nonatomic, strong) NSString *creditDebitString;
 @property (nonatomic, strong) NSString *expiration;

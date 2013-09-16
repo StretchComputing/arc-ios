@@ -11,6 +11,7 @@
 #import <CoreAudio/CoreAudioTypes.h>
 #import "SteelfishTextView.h"
 #import "NVUIGradientButton.h"
+#import "SteelfishLabel.h"
 
 
 @interface CustomerServiceViewController : UIViewController <AVAudioRecorderDelegate, AVAudioPlayerDelegate> 
@@ -32,7 +33,7 @@
 - (IBAction)sendAction;
 @property (strong, nonatomic) IBOutlet UILabel *recordingLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *recordingActivity;
-@property (strong, nonatomic) IBOutlet SteelfishTextView *sendLabel;
+@property (strong, nonatomic) IBOutlet SteelfishLabel *sendLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *displayLabel;
 

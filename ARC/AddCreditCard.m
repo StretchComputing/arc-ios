@@ -123,8 +123,12 @@ NSString *const AMERICAN_EXPRESS = @"A";
         
         
         if (!isIos7) {
+            int x = 20;
+            if (self.isIphone5) {
+                x = 30;
+            }
             CGRect frame = self.bottomView.frame;
-            frame.origin.y -= 30;
+            frame.origin.y -= x;
             self.bottomView.frame = frame;
         }
         [self.myTableView reloadData];

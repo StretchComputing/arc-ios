@@ -158,10 +158,16 @@
         self.backView.backgroundColor = dutchTopNavColor;
         
         
-        if (!isIos7) {
+        if (!isIos7 && !self.isIphone5) {
             CGRect frame = self.myTableView.frame;
             frame.origin.y += 30;
             self.myTableView.frame = frame;
+        }
+        
+        if (!isIos7 && self.isIphone5) {
+            CGRect frame = self.bottomView.frame;
+            frame.origin.y -= 30;
+            self.bottomView.frame = frame;
         }
         
         [self.myTableView reloadData];
@@ -887,7 +893,7 @@
         }
         
         if (editCardOption) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Would you like to view/edit the card you tried to make this payment with?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:@"View/Edit", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Credit Card" message:@"Your payment may have failed due to invalid credit card information.  Please verify your information and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [alert show];
         }else if (duplicateTransaction){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Transaction" message:@"dutch has recorded a similar transaction that happened recently.  To avoid a duplicate transaction, please wait 30 seconds and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];

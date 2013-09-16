@@ -414,7 +414,7 @@
 -(void)createPaymentTimer{
     
     /*
-     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"Arc is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"High Volume" message:@"dutch is experiencing high volume, or a weak internet connecition, please be patient..." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
      [alert show];
      
      */

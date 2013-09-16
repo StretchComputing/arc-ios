@@ -84,7 +84,7 @@
             if (indexPath.row == 0) {
                 supportLabel.text = @"Invite Friends";
             }else{
-                supportLabel.text = @"Rate Arc!";
+                supportLabel.text = @"Rate dutch!";
             }
 
         }else{

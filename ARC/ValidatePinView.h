@@ -10,6 +10,7 @@
 #import "SteelfishBoldLabel.h"
 #import "SteelfishTextView.h"
 #import "NVUIGradientButton.h"
+#import "SteelfishLabel.h"
 
 @interface ValidatePinView : UIViewController <UITextFieldDelegate>
 
@@ -31,7 +32,7 @@
 @property (strong, nonatomic) NSString *initialPin;
 @property (strong, nonatomic) NSString *confirmPin;
 
-@property (weak, nonatomic) IBOutlet SteelfishTextView *descriptionText;
+@property (weak, nonatomic) IBOutlet SteelfishLabel *descriptionText;
 
 @property (nonatomic, strong) NSString *creditDebitString;
 @property (nonatomic, strong) NSString *expiration;

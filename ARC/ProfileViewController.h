@@ -11,6 +11,7 @@
 #import "SteelfishTextView.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "LoadingViewController.h"
+#import "SteelfishLabel.h"
 
 @class LoadingViewController;
 
@@ -28,7 +29,7 @@
 @property (strong, nonatomic)  UITextField *passwordTextField;
 - (IBAction)endText;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *viewChangeServerButton;
-@property (strong, nonatomic, getter = getProfileText) IBOutlet SteelfishTextView *newProfileText;
+@property (strong, nonatomic, getter = getProfileText) IBOutlet SteelfishLabel *newProfileText;
 @property BOOL isLoggedIn;
 -(IBAction)openMenuAction;
 @property (strong, nonatomic) IBOutlet UIView *backView;

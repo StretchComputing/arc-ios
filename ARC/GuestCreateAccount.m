@@ -101,7 +101,9 @@
     @try {
         if (self.isSignIn) {
             if ([self.username.text isEqualToString:@""] || [self.password.text isEqualToString:@""]) {
-                self.errorLabel.text = @"*Please enter your email and password.";
+                //self.errorLabel.text = @"*Please enter your email and password.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter your email and password to register." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
             }else{
                 NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
                 NSDictionary *loginDict = [[NSDictionary alloc] init];
@@ -122,9 +124,13 @@
             
         }else{
             if (![self validateEmail:self.username.text]) {
-                self.errorLabel.text = @"Please enter a valid email address.";
+                //self.errorLabel.text = @"Please enter a valid email address.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter a valid email address." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
             }else if ([self.password.text length] < 5){
-                self.errorLabel.text = @"Password must be at least 5 characters.";
+                //self.errorLabel.text = @"Password must be at least 5 characters.";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Password must be at least 5 characters." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
             }else{
                 
                 //Create new user, or Update User?
@@ -238,7 +244,7 @@
             }else if (row == 1){
                 fieldLabel.text = @"Password";
                 if (self.view.frame.size.height < 500) {
-                    self.password.placeholder = @"Password (minimum 5 characters)";
+                    self.password.placeholder = @"Password (min. 5 characters)";
 
                 }else{
                     
@@ -390,7 +396,10 @@
             [alert show];
         }else{
             if([errorMsg length] > 0) {
-                self.errorLabel.text = errorMsg;
+               // self.errorLabel.text = errorMsg;
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
             }
         }
         
@@ -515,7 +524,11 @@
         }
         
         if([errorMsg length] > 0) {
-            self.errorLabel.text = errorMsg;
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            
+            //self.errorLabel.text = errorMsg;
         }
         
     }
