@@ -78,7 +78,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 - (id)init {
     if (self = [super init]) {
         
-        self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10), @(11)];
+        self.retryTimes = @[@(6),@(2),@(2),@(3),@(4),@(5),@(6),@(7),@(8),@(9),@(10),@(11), @(15), @(15)];
         self.retryTimesRegister = @[@(3),@(3),@(2),@(3),@(4),@(6)];
         self.retryTimesInvoice = @[@(2),@(2),@(2),@(3),@(4),@(5)];
 
@@ -977,7 +977,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-        NSLog(@"ReturnString: %@", returnString);
+       //NSLog(@"ReturnString: %@", returnString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];
@@ -1244,7 +1244,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
                 //try again
                 postNotification = NO;
                 
-                if (self.numberConfirmPaymentTries > 10) {
+                if (self.numberConfirmPaymentTries > [self.retryTimes count] - 1 ) {
                     
                     NSString *status = @"error";
                     int errorCode = NETWORK_ERROR_CONFIRM_PAYMENT;
@@ -1283,7 +1283,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             if(error.code == -1003){
                 //try again
                 postNotification = NO;
-                if (self.numberRegisterTries > 5) {
+                if (self.numberRegisterTries > [self.retryTimesRegister count] - 1 ) {
                     
                     NSString *status = @"error";
                     int errorCode = NETWORK_ERROR;
