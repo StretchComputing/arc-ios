@@ -11,6 +11,9 @@
 		9034226717D624F200346954 /* rokaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9034226617D624F200346954 /* rokaLogo.png */; };
 		9038AA931784653B00B5DF60 /* InvoiceHelpOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */; };
 		9038AAB517847E7800B5DF60 /* CheckHelpOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */; };
+		903CCD96180C30750032B0FC /* serverImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 903CCD95180C30750032B0FC /* serverImage.png */; };
+		903CCD99180C3FFE0032B0FC /* PaymentHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */; };
+		903CCD9C180C40120032B0FC /* PaymentHistoryDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 903CCD9B180C40120032B0FC /* PaymentHistoryDetail.m */; };
 		906D1074160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */; };
 		906D108A160FC87100561C31 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D1089160FC87100561C31 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		906D108D160FE03600561C31 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906D108C160FE03600561C31 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -237,6 +240,11 @@
 		9038AA921784653B00B5DF60 /* InvoiceHelpOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceHelpOverlay.m; sourceTree = "<group>"; };
 		9038AAB317847E7800B5DF60 /* CheckHelpOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckHelpOverlay.h; sourceTree = "<group>"; };
 		9038AAB417847E7800B5DF60 /* CheckHelpOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckHelpOverlay.m; sourceTree = "<group>"; };
+		903CCD95180C30750032B0FC /* serverImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = serverImage.png; sourceTree = "<group>"; };
+		903CCD97180C3FFE0032B0FC /* PaymentHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentHistoryViewController.h; sourceTree = "<group>"; };
+		903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentHistoryViewController.m; sourceTree = "<group>"; };
+		903CCD9A180C40120032B0FC /* PaymentHistoryDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentHistoryDetail.h; sourceTree = "<group>"; };
+		903CCD9B180C40120032B0FC /* PaymentHistoryDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentHistoryDetail.m; sourceTree = "<group>"; };
 		906D1073160E0E7F00561C31 /* ArcMainStoryboardiPhone5.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArcMainStoryboardiPhone5.storyboard; sourceTree = "<group>"; };
 		906D1089160FC87100561C31 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		906D108C160FE03600561C31 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -739,6 +747,10 @@
 				9F45D81E15D33F3300682F19 /* Encoder.h */,
 				90B50D8D17E257F8000958E3 /* LeftNavigationController.h */,
 				90B50D8E17E257F8000958E3 /* LeftNavigationController.m */,
+				903CCD97180C3FFE0032B0FC /* PaymentHistoryViewController.h */,
+				903CCD98180C3FFE0032B0FC /* PaymentHistoryViewController.m */,
+				903CCD9A180C40120032B0FC /* PaymentHistoryDetail.h */,
+				903CCD9B180C40120032B0FC /* PaymentHistoryDetail.m */,
 				90C2E6DC17E269B40090E201 /* LeftTestViewController.h */,
 				90C2E6DD17E269B40090E201 /* LeftTestViewController.m */,
 				90AD3FE717CE622B0053239E /* SupportViewController.h */,
@@ -919,6 +931,7 @@
 		90AD3FEA17CE63090053239E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				903CCD95180C30750032B0FC /* serverImage.png */,
 				90A0FE1317E3730100D27931 /* SpotlightSmall.png */,
 				90A0FE2017E3740400D27931 /* Default-568h@2x.png */,
 				90A0FE1C17E373C700D27931 /* Default.png */,
@@ -1126,6 +1139,7 @@
 				908CB605170D0493007DA244 /* ArcMainStoryboardiPhone4.storyboard in Resources */,
 				90F0782E17C25B0E00B7ABE7 /* Lato-Bol.ttf in Resources */,
 				90F0782F17C25B0E00B7ABE7 /* Lato-Lig.ttf in Resources */,
+				903CCD96180C30750032B0FC /* serverImage.png in Resources */,
 				90AD3FBF17CE5E130053239E /* ArcMainStoryboardIpad.storyboard in Resources */,
 				90AD402B17CE63090053239E /* addCard.png in Resources */,
 				90AD402C17CE63090053239E /* addCard@2x.png in Resources */,
@@ -1231,6 +1245,7 @@
 				90FBDC30159CDDB60051609A /* NSURL+Base.m in Sources */,
 				90FBDC31159CDDB60051609A /* NSObject+SBJson.m in Sources */,
 				90FBDC32159CDDB60051609A /* SBJsonParser.m in Sources */,
+				903CCD99180C3FFE0032B0FC /* PaymentHistoryViewController.m in Sources */,
 				90FBDC33159CDDB60051609A /* SBJsonStreamParser.m in Sources */,
 				90FBDC34159CDDB60051609A /* SBJsonStreamParserAccumulator.m in Sources */,
 				90FBDC35159CDDB60051609A /* SBJsonStreamParserAdapter.m in Sources */,
@@ -1301,6 +1316,7 @@
 				909CF0B017B3DBEA004300D0 /* SteelfishTextView.m in Sources */,
 				909CF0B317B3DC0D004300D0 /* SteelfishTitleLabel.m in Sources */,
 				909CF0B617B3DC50004300D0 /* SteelfishTextFieldCreditCardiOS6.m in Sources */,
+				903CCD9C180C40120032B0FC /* PaymentHistoryDetail.m in Sources */,
 				90AD3FC217CE5F410053239E /* NVUIGradientButton.m in Sources */,
 				90AD3FDB17CE61140053239E /* AdditionalTipViewController.m in Sources */,
 				90AD3FDC17CE61140053239E /* ArcIdentifier.m in Sources */,

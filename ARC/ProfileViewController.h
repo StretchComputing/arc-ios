@@ -17,6 +17,9 @@
 
 @interface ProfileViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet NVUIGradientButton *viewPaymentHistoryButton;
+-(IBAction)viewPaymentHistory;
+
 @property (nonatomic, strong) LoadingViewController *loadingViewController;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *signOutButton;
 @property (strong, nonatomic) IBOutlet NVUIGradientButton *createAccountButton;
@@ -28,7 +31,7 @@
 - (IBAction)viewChangeServerAction;
 @property (strong, nonatomic)  UITextField *passwordTextField;
 - (IBAction)endText;
-@property (strong, nonatomic) IBOutlet NVUIGradientButton *viewChangeServerButton;
+@property (strong, nonatomic) IBOutlet UIButton *viewChangeServerButton;
 @property (strong, nonatomic, getter = getProfileText) IBOutlet SteelfishLabel *newProfileText;
 @property BOOL isLoggedIn;
 -(IBAction)openMenuAction;

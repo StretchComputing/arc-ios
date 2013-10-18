@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MFSideMenu.h"
 #import "SteelfishBoldLabel.h"
+#import "SteelfishLabel.h"
 
 @interface LeftViewController : UIViewController
 
@@ -22,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet SteelfishBoldLabel *profileLabel;
 @property (strong, nonatomic) IBOutlet UIView *topLineView;
+@property (strong, nonatomic) IBOutlet SteelfishLabel *versionLabel;
 
 @property (strong, nonatomic) IBOutlet SteelfishBoldLabel *profileSubLabel;
 @end

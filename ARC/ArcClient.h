@@ -59,7 +59,9 @@ typedef enum {
     PingServer = 16,
     GetGuestToken = 17,
     UpdateGuestCustomer = 18,
-    GetListOfServers = 19
+    GetListOfServers = 19,
+    GetListOfPayments = 20,
+    SendEmailReceipt = 21
 
 
 
@@ -153,6 +155,8 @@ typedef enum {
 -(void)updateGuestCustomer:(NSDictionary *)pairs;
 
 -(void)getListOfServers;
+-(void)getListOfPayments;
+-(void)sendEmailReceipt:(NSDictionary *)pairs;
 
 -(NSString *)getLocalEndpoint;
 -(NSString *)getRemoteEndpoint;

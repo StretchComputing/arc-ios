@@ -1,3 +1,4 @@
+
 //
 //  ArcClient.m
 //  ARC
@@ -86,10 +87,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-           _arcUrl = [prefs valueForKey:@"arcUrl"];
+        //   _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         
-       // NSLog(@"***** Arc URL = %@ *****", _arcUrl);
+        NSLog(@"***** Arc URL = %@ *****", _arcUrl);
     }
     return self;
 }
@@ -139,6 +140,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
        
         api = CreateCustomer;
         
+        NSMutableDictionary *newDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
+        [newDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        pairs = newDictionary;
+        
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         
       
@@ -172,6 +177,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 -(void)updateGuestCustomer:(NSDictionary *)pairs{
     @try {
         api = UpdateGuestCustomer;
+        
+        
+        NSMutableDictionary *newDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
+        [newDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        pairs = newDictionary;
+        
         
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
@@ -220,6 +231,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [loginDictionary setValue:activate forKey:@"Activate"];
 
         
+        [loginDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        
+        
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
         
       
@@ -263,6 +277,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [loginDictionary setValue:password forKey:@"Password"];
         [loginDictionary setValue:@"Forgetmenot00" forKey:@"GuestKey"];
         [loginDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"IsGuest"];
+        
+        [loginDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        
+        
         // the phone always sets activate to true. The website never does. Only the phone can reactivate a user.
         NSNumber *activate = [NSNumber numberWithBool:YES];
         [loginDictionary setValue:activate forKey:@"Activate"];
@@ -285,7 +303,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setHTTPBody: requestData];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        //NSLog(@"Params: %@", requestString);
+        NSLog(@"URL: %@", getCustomerTokenUrl);
+        NSLog(@"Params: %@", requestString);
         
         self.serverData = [NSMutableData data];
         [rSkybox startThreshold:@"GetGuestToken"];
@@ -304,16 +323,18 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         pairs = [NSDictionary dictionary];
         NSMutableDictionary *loginDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
         
+        [loginDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        
         NSString *requestString = [NSString stringWithFormat:@"%@", [loginDictionary JSONRepresentation], nil];
         
        
-        
+        NSLog(@"RequestString: %@", requestString);
         
         NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
         //NSLog(@"getMerchantList requestString = %@", requestString);
         
         NSString *getMerchantListUrl = [NSString stringWithFormat:@"%@merchants/list", _arcUrl, nil];
-        //NSLog(@"GertMerchantList URL = %@", getMerchantListUrl);
+        NSLog(@"GertMerchantList URL = %@", getMerchantListUrl);
         
         NSString *eventString = [NSString stringWithFormat:@"getMerchantList - URL: %@, request string: %@", getMerchantListUrl,requestString];
         [rSkybox addEventToSession:eventString];
@@ -367,7 +388,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             
         }
         
-       
+        [dictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [dictionary JSONRepresentation], nil];
         
@@ -416,6 +437,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
         api = CreatePayment;
         
+        NSMutableDictionary *newDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
+        [newDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        pairs = newDictionary;
+        
+        
+        
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         
         
@@ -455,7 +482,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
         
      //   NSLog(@"Auth Header: %@", [self authHeader]);
-      //  NSLog(@"RequestString: %@", requestString);
+        NSLog(@"RequestString: %@", requestString);
         
         
         self.serverData = [NSMutableData data];
@@ -472,6 +499,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     @try {
 
         api = CreateReview;
+        
+        
+        NSMutableDictionary *newDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
+        [newDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        pairs = newDictionary;
+        
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         
@@ -544,7 +577,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     @try {
         api = TrackEvent;
         
-        NSDictionary *myDictionary = @{@"Analytics" : [NSArray arrayWithArray:eventArray]};
+        NSDictionary *myDictionary = @{@"Analytics" : [NSArray arrayWithArray:eventArray], @"AppInfo":[self getAppInfoDictionary]};
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [myDictionary JSONRepresentation], nil];
        // NSLog(@"requestString: %@", requestString);
@@ -593,6 +626,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     @try {
         api = GetPasscode;
         
+        NSMutableDictionary *newDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
+        [newDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        pairs = newDictionary;
+        
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         
        
@@ -627,6 +664,10 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     
     @try {
         api = ResetPassword;
+        
+        NSMutableDictionary *newDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
+        [newDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        pairs = newDictionary;
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
         
@@ -711,6 +752,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
                         
             NSNumber *noMail = [NSNumber numberWithBool:YES];
             [pairs setValue:noMail forKey:@"NoMail"];
+            
+            [pairs setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
             
             NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
             
@@ -810,8 +853,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     
     @try {
         api = ConfirmPayment;
-                
-        NSDictionary *params = @{@"TicketId" : self.ticketId};
+        
+        NSDictionary *params = @{@"TicketId" : self.ticketId, @"AppInfo":[self getAppInfoDictionary]};
                 
         NSString *requestString = [NSString stringWithFormat:@"%@", [params JSONRepresentation], nil];
         
@@ -847,7 +890,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     @try {
         api = ConfirmRegister;
         
-        NSDictionary *params = @{@"TicketId" : self.registerTicketId};
+        NSDictionary *params = @{@"TicketId" : self.registerTicketId, @"AppInfo":[self getAppInfoDictionary]};
         
         NSString *requestString = [NSString stringWithFormat:@"%@", [params JSONRepresentation], nil];
         
@@ -941,6 +984,90 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
 
 
+-(void)getListOfPayments{
+    @try {
+        
+        api = GetListOfPayments;
+        
+        
+        NSString *pingUrl = [NSString stringWithFormat:@"%@payments/list", _arcUrl];
+        
+        NSString *customerId = [[NSUserDefaults standardUserDefaults] valueForKey:@"customerId"];
+
+        
+        NSDictionary *pairs = @{@"AppInfo": [self getAppInfoDictionary], @"CustomerId":customerId};
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"getListOfServers - request url: %@", pingUrl];
+        [rSkybox addEventToSession:eventString];
+        
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
+        
+        [request setHTTPMethod: @"SEARCH"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        [request setHTTPBody: requestData];
+
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"getListOfPayments"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getListOfPayments" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
+
+
+
+-(void)sendEmailReceipt:(NSDictionary *)pairs{
+    @try {
+        
+        api = SendEmailReceipt;
+        
+        
+        NSString *pingUrl = [NSString stringWithFormat:@"%@payments/sendreceipt", _arcUrl];
+        
+        NSMutableDictionary *newDictionary = [NSMutableDictionary dictionaryWithDictionary:pairs];
+        [newDictionary setValue:[self getAppInfoDictionary] forKey:@"AppInfo"];
+        pairs = newDictionary;
+        
+        
+        NSString *requestString = [NSString stringWithFormat:@"%@", [pairs JSONRepresentation], nil];
+        
+        NSData *requestData = [NSData dataWithBytes: [requestString UTF8String] length: [requestString length]];
+        
+        
+        
+        
+        NSString *eventString = [NSString stringWithFormat:@"getListOfServers - request url: %@", pingUrl];
+        [rSkybox addEventToSession:eventString];
+        
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:pingUrl]];
+        
+        [request setHTTPMethod: @"SEARCH"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[self authHeader] forHTTPHeaderField:@"Authorization"];
+        [request setHTTPBody: requestData];
+        
+        
+        self.serverData = [NSMutableData data];
+        [rSkybox startThreshold:@"sendEmailReceipt"];
+        self.urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately: YES];
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.sendEmailReceipt" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+    }
+}
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)mdata {
     @try {
@@ -977,7 +1104,8 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         NSData *returnData = [NSData dataWithData:self.serverData];
         NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
-       //NSLog(@"ReturnString: %@", returnString);
+       // NSLog(@"API: %d", api);
+       NSLog(@"ReturnString: %@", returnString);
         
         
         NSString *eventString = [NSString stringWithFormat:@"connectionDidFinishLoading - server call: %@, response string: %@", [self apiToString], returnString];
@@ -1128,6 +1256,18 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
                 responseInfo = [self getServerListResponse:response];
             }
+        }else if (api == GetListOfPayments){
+            if (response && httpSuccess) {
+                notificationType = @"paymentHistoryNotification";
+                
+                responseInfo = [self getPaymentListResponse:response];
+            }
+        }else if (api == SendEmailReceipt){
+            if (response && httpSuccess) {
+                notificationType = @"sendEmailReceiptNotification";
+                
+                responseInfo = [self sendEmailReceiptResponse:response];
+            }
         }
         
         if(!httpSuccess) {
@@ -1158,7 +1298,9 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
     @try {
         [rSkybox endThreshold:@"ErrorEncountered" logMessage:@"NA" maxValue:0.00];
         
-        //NSLog(@"Error: %@", error);
+        NSLog(@"API: %d", api);
+        
+        NSLog(@"Error: %@", error);
         //NSLog(@"Code: %i", error.code);
         //NSLog(@"Description: %@", error.localizedDescription);
 
@@ -1320,7 +1462,12 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
 
         }else if (api == GetListOfServers){
             notificationType = @"getServerListNotification";
+        }else if (api == GetListOfPayments){
+            notificationType = @"paymentHistoryNotification";
+        }else if (api == SendEmailReceipt){
+            notificationType = @"sendEmailReceiptNotification";
         }
+        
         
         if (postNotification == YES) {
             [[NSNotificationCenter defaultCenter] postNotificationName:notificationType object:self userInfo:responseInfo];
@@ -1469,6 +1616,14 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
             
         case GetListOfServers:
             result = @"GetListOfServers";
+            break;
+            
+        case GetListOfPayments:
+            result = @"GetListOfPayments";
+            break;
+            
+        case SendEmailReceipt:
+            result = @"SendEmailReceipt";
             break;
  
         default:
@@ -1674,11 +1829,60 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         return responseInfo;
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"ArcClient.getMerchantListResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ArcClient.getServerListResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         return @{};
         
     }
 }
+
+-(NSDictionary *) sendEmailReceiptResponse:(NSDictionary *)response {
+    @try {
+        //
+        // NSLog(@"Response: %@", response);
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.sendEmailReceiptResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
+    }
+}
+
+-(NSDictionary *) getPaymentListResponse:(NSDictionary *)response {
+    @try {
+        //
+        // NSLog(@"Response: %@", response);
+        
+        BOOL success = [[response valueForKey:@"Success"] boolValue];
+        
+        NSDictionary *responseInfo;
+        if (success){
+            responseInfo = @{@"status": @"success", @"apiResponse": response};
+        } else {
+            NSString *status = @"error";
+            int errorCode = [self getErrorCode:response];
+            responseInfo = @{@"status": status, @"error": [NSNumber numberWithInt:errorCode]};
+        }
+        return responseInfo;
+    }
+    @catch (NSException *e) {
+        [rSkybox sendClientLog:@"ArcClient.getPaymentListResponse" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        return @{};
+        
+    }
+}
+
 
 
 -(void)recallGetInvoice{
@@ -2644,5 +2848,11 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         return @"ERROR";
     }
    
+}
+
+-(NSDictionary *)getAppInfoDictionary{
+    
+    NSString *version = ARC_VERSION_NUMBER;
+    return @{@"App": @"DUTCH", @"OS":@"IOS", @"Version":version};
 }
 @end

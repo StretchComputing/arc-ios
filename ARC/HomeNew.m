@@ -577,6 +577,12 @@
         
         if ([self.matchingMerchants count] > 0) {
             self.errorLabel.text = @"";
+            self.payBillButton.enabled = YES;
+
+        }else{
+            self.placeAddressLabel.text = @"";
+            self.placeNameLabel.text = @"";
+            self.payBillButton.enabled = NO;
         }
         
         NSLog(@"Count: %d", [self.matchingMerchants count]);
@@ -1191,7 +1197,12 @@
     self.searchCancelButton.hidden = YES;
     [self.searchTextField resignFirstResponder];
     
+
     self.matchingMerchants = [NSMutableArray arrayWithArray:self.allMerchants];
+    
+    //self.placeAddressLabel.text = @"";
+   // self.placeNameLabel.text = @"";
+    self.payBillButton.enabled = YES;
     
     [self.carousel reloadData];
 }
@@ -1585,51 +1596,11 @@
 }
 - (IBAction)payBillAction {
     
-    
-    [self performSegueWithIdentifier:@"goRestaurant" sender:self];
-    /*
-    self.topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90, 106, 140, 140)];
-    self.topImageView.image = [UIImage imageNamed:@"untitledLogo.png"];
-    [self.view addSubview:self.topImageView];
-    
-    [UIView animateWithDuration:1.0 animations:^{
+    if ([self.matchingMerchants count] > 0) {
+        [self performSegueWithIdentifier:@"goRestaurant" sender:self];
+
+    }
         
-        self.topImageView.frame = CGRectMake(0, 46, 320, 130);
-    }];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        self.menuButton.alpha = 0.0;
-        self.backButton.alpha = 1.0;
-        self.carousel.alpha = 0.0;
-        [self.view bringSubviewToFront:self.backButton];
-        
-    }];
-    
-    self.placeAddressLabel.hidden = YES;
-    self.placeNameLabel.hidden = YES;
-    self.payBillButton.hidden = YES;
-    self.moreInfoButton.hidden = YES;
-    self.searchButton.hidden = YES;
-    
-    self.enterCheckNumberView = [[UIView alloc] initWithFrame:CGRectMake(0, 175, 320, 35)];
-    self.enterCheckNumberView.backgroundColor = [UIColor clearColor];
-    
-    UIView *backAlphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 35)];
-    backAlphaView.backgroundColor = [UIColor blackColor];
-    backAlphaView.alpha = 0.7;
-    [self.enterCheckNumberView addSubview:backAlphaView];
-    
-    SteelfishBoldLabel *tmp = [[SteelfishBoldLabel alloc] initWithFrame:CGRectMake(5, 0, 320, 35) andSize:18];
-    tmp.textColor = [UIColor whiteColor];
-    tmp.backgroundColor = [UIColor clearColor];
-    tmp.text = @"Please enter your check number:";
-    [self.enterCheckNumberView addSubview:tmp];
-    
-    [self performSelector:@selector(addAlert) withObject:nil afterDelay:0.9];
-    
-    */
-    
 }
 
 -(void)addAlert{

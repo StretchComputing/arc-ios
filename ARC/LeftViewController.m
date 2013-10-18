@@ -10,6 +10,8 @@
 #import "HomeNavigationController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HomeNew.h"
+#import "rSkybox.h"
+#import "ArcClient.h"
 
 @interface LeftViewController ()
 
@@ -27,6 +29,8 @@
 }
 
 -(void)viewDidLoad{
+    
+    self.versionLabel.text = [NSString stringWithFormat:@"version %@", ARC_VERSION_NUMBER];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBeginOpen:) name:@"LeftMenuDidBeginOpen" object:nil];
     
     self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
@@ -67,6 +71,8 @@
     
 }
 -(IBAction)supportSelected{
+    
+
     
     [self goToScreenWithIdentifier:@"supportVC"];
 

@@ -38,7 +38,7 @@ static NSString *streamId;
 static NSString *streamName;
 
 
-NSString* const ARC_VERSION_NUMBER = @"2.1";
+NSString* const ARC_VERSION_NUMBER = @"2.2";
 
 NSString *const SUCCESS = @"100";
 NSString *const INVALID_STATUS = @"201";
@@ -175,7 +175,7 @@ NSString *const CLOSED_STATUS = @"closed";
 
 +(void)sendClientLog:(NSString *)logName logMessage:(NSString *)logMessage logLevel:(NSString *)logLevel exception:(NSException *)exception{
     
-        
+    
     @try {
 
         
@@ -569,7 +569,7 @@ NSString *const CLOSED_STATUS = @"closed";
         [mainDelegate saveUserInfo];
     }
     @catch (NSException *e) {
-        NSLog(@"Exception caught in rSkybox.addEventToSession - %@ - %@", [e name], [e description]);
+        //NSLog(@"Exception caught in rSkybox.addEventToSession - %@ - %@", [e name], [e description]);
     }
 }
 

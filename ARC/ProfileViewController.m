@@ -39,6 +39,7 @@
     
     if (self.isLoggedIn) {
         
+        self.viewPaymentHistoryButton.hidden = NO;
         self.newProfileText.hidden = YES;
         self.logInButton.hidden = YES;
         self.facebookLoginView.hidden = YES;
@@ -49,7 +50,8 @@
         self.signOutButton.hidden = NO;
         
     }else{
-        
+        self.viewPaymentHistoryButton.hidden = YES;
+
         self.newProfileText.hidden = NO;
         self.logInButton.hidden = NO;
         self.facebookLoginView.hidden = NO;
@@ -72,9 +74,7 @@
 -(void)viewDidLoad{
     
     
-    self.viewChangeServerButton.text = @"View/Change dutch Server";
- 
-    
+    self.viewPaymentHistoryButton.text = @"View Payment History";
     
    // self.topLineView.layer.shadowOffset = CGSizeMake(0, 1);
   //  self.topLineView.layer.shadowRadius = 1;
@@ -82,6 +82,8 @@
     self.topLineView.backgroundColor = dutchTopLineColor;
     self.backView.backgroundColor = dutchTopNavColor;
     
+    self.signOutButton.tintColor = [UIColor redColor];
+    self.signOutButton.textColor = [UIColor whiteColor];
     
     self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
     self.loadingViewController.view.frame = CGRectMake(0, 0, 320, self.view.frame.size.height + 100);
@@ -341,7 +343,7 @@
         
     }
     @catch (NSException *e) {
-        [rSkybox sendClientLog:@"InitialHelpPageVC.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
+        [rSkybox sendClientLog:@"ProfileViewController.signInComplete" logMessage:@"Exception Caught" logLevel:@"error" exception:e];
         
         
     }
@@ -349,6 +351,11 @@
 }
 
 
+-(void)viewPaymentHistory{
+    
+    [self performSegueWithIdentifier:@"goHistory" sender:self];
+    
+}
 
 
 @end
