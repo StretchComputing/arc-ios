@@ -1906,7 +1906,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="GuI-aC-7go">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="63.999999999999943" width="320" height="416.00000000000006"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="1wX-e5-cGr">
@@ -4101,7 +4101,7 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="To reset your password, enter your email address then click Submit:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="myH-5P-ulj" customClass="SteelfishLabel">
                                 <rect key="frame" x="3" y="77" width="314" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -4214,7 +4214,7 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please enter the passcode that has been emailed to you, and choose a new password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="465-3i-PIy" customClass="SteelfishLabel">
                                 <rect key="frame" x="3" y="63" width="314" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -5848,29 +5848,95 @@
         <image name="Default.png" width="320" height="480"/>
         <image name="Divider.png" width="554" height="17"/>
         <image name="Divider2.png" width="554" height="17"/>
+        <image name="Divider2.png" width="554" height="17"/>
         <image name="addCard.png" width="40" height="40"/>
         <image name="arcLogo.png" width="667" height="250"/>
+        <image name="arcLogo.png" width="667" height="250"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
+        <image name="backarrow.png" width="88" height="88"/>
         <image name="backarrow.png" width="88" height="88"/>
         <image name="balance.png" width="178" height="178"/>
         <image name="blueArrow.png" width="200" height="200"/>
         <image name="blueCheck.png" width="150" height="138"/>
         <image name="camera.png" width="128" height="128"/>
+        <image name="camera.png" width="128" height="128"/>
+        <image name="camera.png" width="128" height="128"/>
+        <image name="dutchIcon.png" width="120" height="120"/>
+        <image name="dutchIcon.png" width="120" height="120"/>
+        <image name="dutchIcon.png" width="120" height="120"/>
+        <image name="dutchIcon.png" width="120" height="120"/>
+        <image name="dutchIcon.png" width="120" height="120"/>
         <image name="dutchIcon.png" width="120" height="120"/>
         <image name="emptyStar.png" width="100" height="95"/>
+        <image name="emptyStar.png" width="100" height="95"/>
+        <image name="emptyStar.png" width="100" height="95"/>
+        <image name="emptyStar.png" width="100" height="95"/>
+        <image name="emptyStar.png" width="100" height="95"/>
+        <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="helpImage1.png" width="700" height="1023"/>
         <image name="helpImage2.png" width="700" height="1023"/>
         <image name="helpImage3.png" width="700" height="1023"/>
         <image name="locationPin.png" width="16" height="16"/>
         <image name="lock.png" width="48" height="48"/>
+        <image name="lock.png" width="48" height="48"/>
+        <image name="lock.png" width="48" height="48"/>
         <image name="menuBillingIcon.png" width="70" height="70"/>
         <image name="menuHelpIcon.png" width="70" height="70"/>
         <image name="menuHomeIcon.png" width="70" height="70"/>
         <image name="menuIcon.png" width="88" height="88"/>
+        <image name="menuIcon.png" width="88" height="88"/>
+        <image name="menuIcon.png" width="88" height="88"/>
+        <image name="menuIcon.png" width="88" height="88"/>
+        <image name="menuIcon.png" width="88" height="88"/>
+        <image name="menuIcon.png" width="88" height="88"/>
         <image name="menuShareIcon.png" width="70" height="70"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
+        <image name="newBackground.png" width="640" height="1200"/>
         <image name="newBackground.png" width="640" height="1200"/>
         <image name="pageNew1.png" width="16" height="16"/>
         <image name="profileDefault.png" width="225" height="224"/>
+        <image name="qmark.png" width="100" height="100"/>
+        <image name="qmark.png" width="100" height="100"/>
         <image name="qmark.png" width="100" height="100"/>
         <image name="receipt.png" width="600" height="620"/>
         <image name="rowButton.png" width="320" height="100"/>
@@ -5882,6 +5948,7 @@
         <image name="test" width="16" height="16"/>
         <image name="twittetrconnect.png" width="80" height="80"/>
         <image name="untitledLogo.png" width="300" height="175"/>
+        <image name="upChalkArrow.png" width="100" height="100"/>
         <image name="upChalkArrow.png" width="100" height="100"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
