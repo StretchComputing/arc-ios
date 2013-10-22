@@ -181,6 +181,8 @@
 -(void)viewDidLoad{
     @try {
         
+        self.paymentHistoryButton.text = @"View Payment History";
+
         self.defaultTipClearButton.text = @"Clear";
         
         self.loadingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loadingView"];
@@ -451,6 +453,18 @@
    
     
 }
+- (IBAction)paymentHistoryAction {
+    
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"customerEmail"] length] > 0) {
+        [self performSegueWithIdentifier:@"goHistory" sender:self];
+
+    }else{
+        self.logInAlert = [[UIAlertView alloc] initWithTitle:@"Not Signed In." message:@"Only signed in users view their payment history. Select 'Go Profile' to log in or create an account." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Go Profile", nil];
+        [self.logInAlert show];
+    }
+
+}
+
 - (IBAction)defaultTipSegmentControlValueChanged {
     
     

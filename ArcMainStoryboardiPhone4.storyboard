@@ -1102,7 +1102,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ko3-qv-5hA">
-                                <rect key="frame" x="0.0" y="66" width="320" height="292"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="236"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1218,6 +1218,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" id="nXu-lM-RfH" customClass="NVUIGradientButton">
+                                <rect key="frame" x="35" y="308" width="250" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="paymentHistoryAction" destination="XBG-hI-VBH" eventType="touchUpInside" id="WaV-gg-qyO"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -1231,14 +1239,16 @@
                         <outlet property="defaultTipText" destination="xdK-bM-ZPU" id="0Iz-Ui-nfm"/>
                         <outlet property="defaultTipView" destination="tOh-t6-4MJ" id="fgj-be-O1o"/>
                         <outlet property="myTableView" destination="ko3-qv-5hA" id="dJV-35-QTU"/>
+                        <outlet property="paymentHistoryButton" destination="nXu-lM-RfH" id="WpS-G7-6qg"/>
                         <outlet property="topLineView" destination="pjR-Ge-phY" id="8kF-uZ-Msa"/>
                         <segue destination="M9E-su-ve6" kind="push" identifier="addCard" id="jH0-ao-quY"/>
                         <segue destination="Psf-Bm-6Sk" kind="custom" identifier="editCard" customClass="PushSegueNoAnimation" id="OAH-0h-3vd"/>
+                        <segue destination="YUr-bb-sId" kind="push" identifier="goHistory" id="K3O-AU-5RK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmq-av-e95" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-471" y="1779"/>
+            <point key="canvasLocation" x="-455" y="1099"/>
         </scene>
         <!--Create Pin View-->
         <scene sceneID="eQF-Ro-5hn">
@@ -1906,7 +1916,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="GuI-aC-7go">
-                                <rect key="frame" x="0.0" y="63.999999999999943" width="320" height="416.00000000000006"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="1wX-e5-cGr">
@@ -4495,14 +4505,6 @@
                                     <action selector="logInAction" destination="S06-K6-C0F" eventType="touchUpInside" id="fgq-fR-ECk"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" id="cao-h1-gve" customClass="NVUIGradientButton">
-                                <rect key="frame" x="35" y="262" width="250" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="viewPaymentHistory" destination="S06-K6-C0F" eventType="touchUpInside" id="7bd-Uq-Pvp"/>
-                                </connections>
-                            </view>
                             <view contentMode="scaleToFill" id="jd1-GP-D2L" customClass="NVUIGradientButton">
                                 <rect key="frame" x="175" y="175" width="133" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -4536,8 +4538,6 @@
                         <outlet property="signOutButton" destination="myD-vW-wfK" id="ZIJ-aR-NiQ"/>
                         <outlet property="topLineView" destination="Dch-LF-iF2" id="x8b-kE-KQ3"/>
                         <outlet property="viewChangeServerButton" destination="FWP-Yx-hGA" id="WKd-Ex-XvP"/>
-                        <outlet property="viewPaymentHistoryButton" destination="cao-h1-gve" id="o15-Rj-8FU"/>
-                        <segue destination="YUr-bb-sId" kind="push" identifier="goHistory" id="mcg-lj-pRs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UVd-jt-bMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5490,7 +5490,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNK-p9-UX6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1089" y="-526"/>
+            <point key="canvasLocation" x="1469" y="-262"/>
         </scene>
         <!--Help View-->
         <scene sceneID="ypT-j7-yX1">
@@ -5610,16 +5610,16 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vXS-rL-sNu" customClass="SteelfishBoldLabel">
-                                                            <rect key="frame" x="9" y="6" width="181" height="30"/>
+                                                            <rect key="frame" x="9" y="6" width="198" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cDb-MV-zoD" customClass="SteelfishBoldLabel">
-                                                            <rect key="frame" x="209" y="-2" width="104" height="50"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$999.99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cDb-MV-zoD" customClass="SteelfishBoldLabel">
+                                                            <rect key="frame" x="215" y="3" width="98" height="37"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                             <color key="textColor" red="0.0" green="0.53804347829999999" blue="4.4127374239999998e-05" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -5630,7 +5630,7 @@
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gjb-CI-ccM" customClass="SteelfishLabel">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gjb-CI-ccM" customClass="SteelfishLabel">
                                                             <rect key="frame" x="209" y="38" width="104" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -5665,7 +5665,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nbc-CL-DE0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="634" y="-718"/>
+            <point key="canvasLocation" x="66" y="967"/>
         </scene>
         <!--Payment History Detail-->
         <scene sceneID="Cqg-Tl-CZL">
@@ -5841,102 +5841,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NtT-p4-fWW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="992" y="-720"/>
+            <point key="canvasLocation" x="424" y="965"/>
         </scene>
     </scenes>
     <resources>
         <image name="Default.png" width="320" height="480"/>
         <image name="Divider.png" width="554" height="17"/>
         <image name="Divider2.png" width="554" height="17"/>
-        <image name="Divider2.png" width="554" height="17"/>
         <image name="addCard.png" width="40" height="40"/>
         <image name="arcLogo.png" width="667" height="250"/>
-        <image name="arcLogo.png" width="667" height="250"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
-        <image name="backarrow.png" width="88" height="88"/>
         <image name="backarrow.png" width="88" height="88"/>
         <image name="balance.png" width="178" height="178"/>
         <image name="blueArrow.png" width="200" height="200"/>
         <image name="blueCheck.png" width="150" height="138"/>
         <image name="camera.png" width="128" height="128"/>
-        <image name="camera.png" width="128" height="128"/>
-        <image name="camera.png" width="128" height="128"/>
-        <image name="dutchIcon.png" width="120" height="120"/>
-        <image name="dutchIcon.png" width="120" height="120"/>
-        <image name="dutchIcon.png" width="120" height="120"/>
-        <image name="dutchIcon.png" width="120" height="120"/>
-        <image name="dutchIcon.png" width="120" height="120"/>
         <image name="dutchIcon.png" width="120" height="120"/>
         <image name="emptyStar.png" width="100" height="95"/>
-        <image name="emptyStar.png" width="100" height="95"/>
-        <image name="emptyStar.png" width="100" height="95"/>
-        <image name="emptyStar.png" width="100" height="95"/>
-        <image name="emptyStar.png" width="100" height="95"/>
-        <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="facebookconnect.jpg" width="80" height="80"/>
         <image name="helpImage1.png" width="700" height="1023"/>
         <image name="helpImage2.png" width="700" height="1023"/>
         <image name="helpImage3.png" width="700" height="1023"/>
         <image name="locationPin.png" width="16" height="16"/>
         <image name="lock.png" width="48" height="48"/>
-        <image name="lock.png" width="48" height="48"/>
-        <image name="lock.png" width="48" height="48"/>
         <image name="menuBillingIcon.png" width="70" height="70"/>
         <image name="menuHelpIcon.png" width="70" height="70"/>
         <image name="menuHomeIcon.png" width="70" height="70"/>
         <image name="menuIcon.png" width="88" height="88"/>
-        <image name="menuIcon.png" width="88" height="88"/>
-        <image name="menuIcon.png" width="88" height="88"/>
-        <image name="menuIcon.png" width="88" height="88"/>
-        <image name="menuIcon.png" width="88" height="88"/>
-        <image name="menuIcon.png" width="88" height="88"/>
         <image name="menuShareIcon.png" width="70" height="70"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
-        <image name="newBackground.png" width="640" height="1200"/>
         <image name="newBackground.png" width="640" height="1200"/>
         <image name="pageNew1.png" width="16" height="16"/>
         <image name="profileDefault.png" width="225" height="224"/>
-        <image name="qmark.png" width="100" height="100"/>
-        <image name="qmark.png" width="100" height="100"/>
         <image name="qmark.png" width="100" height="100"/>
         <image name="receipt.png" width="600" height="620"/>
         <image name="rowButton.png" width="320" height="100"/>
@@ -5948,7 +5882,6 @@
         <image name="test" width="16" height="16"/>
         <image name="twittetrconnect.png" width="80" height="80"/>
         <image name="untitledLogo.png" width="300" height="175"/>
-        <image name="upChalkArrow.png" width="100" height="100"/>
         <image name="upChalkArrow.png" width="100" height="100"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

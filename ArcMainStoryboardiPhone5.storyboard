@@ -2225,11 +2225,19 @@
                                         <rect key="frame" x="0.0" y="66" width="320" height="505"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <view contentMode="scaleToFill" id="o3T-oP-bD8" customClass="NVUIGradientButton">
+                                        <rect key="frame" x="35" y="392" width="250" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="paymentHistoryAction" destination="XBG-hI-VBH" eventType="touchUpInside" id="XWq-5S-8x3"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.96712477190000001" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ko3-qv-5hA">
-                                <rect key="frame" x="0.0" y="66" width="320" height="388"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="315"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -2358,9 +2366,11 @@
                         <outlet property="defaultTipText" destination="Rgb-mS-sgA" id="JJ4-0l-GT9"/>
                         <outlet property="defaultTipView" destination="wrh-Cj-SEz" id="hfn-gL-Un0"/>
                         <outlet property="myTableView" destination="ko3-qv-5hA" id="dJV-35-QTU"/>
+                        <outlet property="paymentHistoryButton" destination="o3T-oP-bD8" id="6Nm-Kj-MxJ"/>
                         <outlet property="topLineView" destination="pjR-Ge-phY" id="8kF-uZ-Msa"/>
                         <segue destination="zEo-0y-6d9" kind="push" identifier="addCard" id="gfn-Po-yvc"/>
                         <segue destination="uYF-3g-4m2" kind="custom" identifier="editCard" customClass="PushSegueNoAnimation" id="vse-D7-mXH"/>
+                        <segue destination="GpG-iN-bfy" kind="push" identifier="goHistory" id="56R-rQ-sDZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmq-av-e95" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3586,7 +3596,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="uEF-EW-43x">
-                                <rect key="frame" x="0.0" y="617" width="320" height="91.000000000000057"/>
+                                <rect key="frame" x="0.0" y="617" width="320" height="90.999999999999972"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -4070,14 +4080,6 @@
                                     <action selector="signOutAction" destination="Xfe-o4-mOH" eventType="touchUpInside" id="iyS-rH-fF8"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" id="Mkf-Lk-rRU" customClass="NVUIGradientButton">
-                                <rect key="frame" x="35" y="323" width="250" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="viewPaymentHistory" destination="Xfe-o4-mOH" eventType="touchUpInside" id="98K-RX-C3c"/>
-                                </connections>
-                            </view>
                             <view contentMode="scaleToFill" id="N60-29-6yf" customClass="NVUIGradientButton">
                                 <rect key="frame" x="20" y="175" width="133" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -4119,8 +4121,6 @@
                         <outlet property="signOutButton" destination="5fe-Gm-QTn" id="Frj-YC-3UO"/>
                         <outlet property="topLineView" destination="lhB-8X-c1g" id="DcU-Bi-Z8R"/>
                         <outlet property="viewChangeServerButton" destination="oXF-ol-Kfz" id="lQD-6O-O0s"/>
-                        <outlet property="viewPaymentHistoryButton" destination="Mkf-Lk-rRU" id="Zou-1T-wLc"/>
-                        <segue destination="GpG-iN-bfy" kind="push" identifier="goHistory" id="4Pw-yJ-gf5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDP-0X-0kb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4175,16 +4175,16 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gay-z1-SKW" customClass="SteelfishBoldLabel">
-                                                            <rect key="frame" x="9" y="6" width="181" height="30"/>
+                                                            <rect key="frame" x="9" y="6" width="209" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rnV-JT-1Qn" customClass="SteelfishBoldLabel">
-                                                            <rect key="frame" x="209" y="-2" width="104" height="50"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rnV-JT-1Qn" customClass="SteelfishBoldLabel">
+                                                            <rect key="frame" x="209" y="-1" width="104" height="43"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                             <color key="textColor" red="0.0" green="0.53804347829999999" blue="4.4127374239999998e-05" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -4195,7 +4195,7 @@
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bph-dq-wVC" customClass="SteelfishLabel">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bph-dq-wVC" customClass="SteelfishLabel">
                                                             <rect key="frame" x="209" y="38" width="104" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -4230,7 +4230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C47-bE-5tO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="634" y="-718"/>
+            <point key="canvasLocation" x="188" y="1094"/>
         </scene>
         <!--Payment History Detail-->
         <scene sceneID="VDE-gt-IDa">
@@ -4406,7 +4406,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kXR-zJ-WbR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="992" y="-720"/>
+            <point key="canvasLocation" x="546" y="1092"/>
         </scene>
         <!--Support View Controller-->
         <scene sceneID="w25-Jm-n1J">

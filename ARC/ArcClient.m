@@ -87,7 +87,7 @@ NSString *const ARC_ERROR_MSG = @"Request failed, please try again.";
         
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         if ([prefs valueForKey:@"arcUrl"] && ([[prefs valueForKey:@"arcUrl"] length] > 0)) {
-        //   _arcUrl = [prefs valueForKey:@"arcUrl"];
+           _arcUrl = [prefs valueForKey:@"arcUrl"];
         }
         
         NSLog(@"***** Arc URL = %@ *****", _arcUrl);

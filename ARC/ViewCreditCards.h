@@ -38,8 +38,10 @@
 - (IBAction)defaultTipClearAction;
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *defaultTipSegmentControl;
+- (IBAction)paymentHistoryAction;
 
 - (IBAction)defaultTipSegmentControlValueChanged;
+@property (strong, nonatomic) IBOutlet NVUIGradientButton *paymentHistoryButton;
 
 @property (nonatomic, strong) IBOutlet UIView *defaultTipView;
 @property BOOL duplicateCard;
